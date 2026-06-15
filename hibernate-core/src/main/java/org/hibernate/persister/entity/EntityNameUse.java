@@ -5,6 +5,8 @@
 package org.hibernate.persister.entity;
 
 import org.hibernate.Incubating;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Describes the kind of entity name use.
@@ -27,6 +29,7 @@ public final class EntityNameUse {
 		this.requiresRestriction = requiresRestriction;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static EntityNameUse get(UseKind kind) {
 		switch ( kind ) {
 			case PROJECTION:
@@ -41,14 +44,17 @@ public final class EntityNameUse {
 		throw new IllegalArgumentException( "Unknown kind: " + kind );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public UseKind getKind() {
 		return kind;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean requiresRestriction() {
 		return requiresRestriction != Boolean.FALSE;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityNameUse stronger(EntityNameUse other) {
 		if ( other == null || kind.isStrongerThan( other.kind ) ) {
 			return this;
@@ -59,6 +65,7 @@ public final class EntityNameUse {
 		return other.kind.isStrongerThan( kind ) ? other : get( other.kind );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityNameUse weaker(EntityNameUse other) {
 		if ( other == null || kind.isWeakerThan( other.kind ) ) {
 			return this;
@@ -88,18 +95,22 @@ public final class EntityNameUse {
 		 */
 		FILTER;
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean isStrongerThan(UseKind other) {
 			return ordinal() > other.ordinal();
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public UseKind stronger(UseKind other) {
 			return other == null || isStrongerThan( other ) ? this : other;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean isWeakerThan(UseKind other) {
 			return ordinal() < other.ordinal();
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public UseKind weaker(UseKind other) {
 			return other == null || isWeakerThan( other ) ? this : other;
 		}

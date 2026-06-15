@@ -10,6 +10,8 @@ import org.hibernate.sql.ast.tree.from.TableGroup;
 import org.hibernate.sql.ast.tree.from.TableGroupJoin;
 
 import java.util.Collection;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Strategy for dealing with locking via a SQL `FOR UPDATE (OF)`
 /// clause.
@@ -39,24 +41,30 @@ import java.util.Collection;
 public interface LockingClauseStrategy {
 	/// Register the given [root][TableGroup]
 	/// @return Whether the [root][TableGroup] ought to be locked
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean registerRoot(TableGroup root);
 
 	/// Register the given [join][TableGroupJoin]
 	/// @return Whether the [join][TableGroupJoin] ought to be locked
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean registerJoin(TableGroupJoin join);
 
 	/// Are any outer joins encountered during registration
 	/// of [roots][#registerRoot] and [joins][#registerJoin]
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean containsOuterJoins();
 
 	/// Are any joins encountered during registration
 	/// of [roots][#registerRoot] and [joins][#registerJoin]
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean containsJoins();
 
 	/// For cases where a locking clause is to be used,
 	/// render that locking clause.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void render(SqlAppender sqlAppender);
 
 	// All [NavigablePath]s to be locked.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Collection<NavigablePath> getPathsToLock();
 }

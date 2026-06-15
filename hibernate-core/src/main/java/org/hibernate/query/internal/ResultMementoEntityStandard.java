@@ -23,6 +23,8 @@ import org.hibernate.query.results.internal.complete.CompleteResultBuilderEntity
 import org.hibernate.sql.results.graph.Fetchable;
 
 import static org.hibernate.query.QueryLogging.QUERY_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// ResultMementoEntity implementation from Hibernate's historical result-set mapping support.
 ///
@@ -56,16 +58,19 @@ public class ResultMementoEntityStandard implements ResultMementoEntity, FetchMe
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigablePath getNavigablePath() {
 		return navigablePath;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getResultJavaType() {
 		return entityDescriptor.getJavaType().getJavaTypeClass();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public ResultBuilderEntityValued resolve(
 			Consumer<String> querySpaceConsumer,
 			ResultSetMappingResolutionContext context) {
@@ -92,11 +97,13 @@ public class ResultMementoEntityStandard implements ResultMementoEntity, FetchMe
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <R> boolean canBeTreatedAsResultSetMapping(Class<R> resultType, SessionFactory sessionFactory) {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <R> ResultSetMapping<R> toJpaMapping(SessionFactory sessionFactory) {
 		throw new UnsupportedOperationException( "Unsupported" );
 	}

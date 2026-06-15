@@ -21,6 +21,8 @@ import org.hibernate.mapping.SimpleValue;
 import org.hibernate.models.spi.TypeDetails;
 
 import java.util.UUID;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Handles interpretation of old {@code hbm.xml}-style generator strategy names.
@@ -39,6 +41,7 @@ public class GeneratorStrategies {
 	 * @param type           the Java type of the generated identifier
 	 * @return a {@code hbml.xml}-equivalent string identifying the strategy
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String generatorStrategy(GenerationType generationType, String name, TypeDetails type) {
 		switch ( generationType ) {
 			case IDENTITY:
@@ -70,6 +73,7 @@ public class GeneratorStrategies {
 	/**
 	 * Interpret an "old" generator strategy name as a {@link Generator} class.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Class<? extends Generator> generatorClass(String strategy, SimpleValue idValue) {
 		if ( "native".equals(strategy) ) {
 			strategy =
@@ -113,6 +117,7 @@ public class GeneratorStrategies {
 		return clazz;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Class<? extends Generator> mapLegacyNamedGenerator(String strategy, Dialect dialect) {
 		if ( "native".equals(strategy) ) {
 			strategy = dialect.getNativeIdentifierGeneratorStrategy();
@@ -146,10 +151,12 @@ public class GeneratorStrategies {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static Class<? extends Generator> mapLegacyNamedGenerator(String strategy, MetadataBuildingContext buildingContext) {
 		return mapLegacyNamedGenerator( strategy, buildingContext.getMetadataCollector().getDatabase().getDialect() );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static Class<? extends Generator> mapLegacyNamedGenerator(String strategy, SimpleValue idValue) {
 		return mapLegacyNamedGenerator( strategy, idValue.getMetadata().getDatabase().getDialect() );
 	}

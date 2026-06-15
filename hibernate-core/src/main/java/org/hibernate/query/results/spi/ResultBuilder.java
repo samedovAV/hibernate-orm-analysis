@@ -11,6 +11,8 @@ import org.hibernate.sql.results.graph.Fetchable;
 import org.hibernate.sql.results.jdbc.spi.JdbcValuesMetadata;
 
 import java.util.function.BiConsumer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Responsible for building a single {@link DomainResult}.
@@ -33,6 +35,7 @@ public interface ResultBuilder extends GraphNodeBuilder {
 	 * @param resultPosition The position in the domain results for the result to be built
 	 * @param domainResultCreationState Access to useful stuff
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	DomainResult<?> buildResult(
 			JdbcValuesMetadata jdbcResultsMetadata,
 			int resultPosition,
@@ -43,10 +46,13 @@ public interface ResultBuilder extends GraphNodeBuilder {
 	 *
 	 * @see DomainResult#getResultJavaType()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Class<?> getJavaType();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ResultBuilder cacheKeyInstance();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void visitFetchBuilders(BiConsumer<Fetchable, FetchBuilder> consumer) {
 	}
 }

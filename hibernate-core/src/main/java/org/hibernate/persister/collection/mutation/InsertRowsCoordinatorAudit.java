@@ -18,6 +18,8 @@ import org.hibernate.engine.spi.CollectionKey;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.persister.collection.mutation.CollectionAuditSupport.AuditCollectionChange;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * InsertRowsCoordinator for audited collections.
@@ -52,11 +54,13 @@ public class InsertRowsCoordinatorAudit implements InsertRowsCoordinator, Collec
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionMutationTarget getMutationTarget() {
 		return mutationTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void insertRows(
 			PersistentCollection<?> collection,
 			Object id,
@@ -77,6 +81,7 @@ public class InsertRowsCoordinatorAudit implements InsertRowsCoordinator, Collec
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Object resolveSnapshot(
 			PersistentCollection<?> collection,
 			Object id,
@@ -101,6 +106,7 @@ public class InsertRowsCoordinatorAudit implements InsertRowsCoordinator, Collec
 	 * collection state, then writes ADD/DEL audit rows.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void writeCollectionAuditRows(
 			PersistentCollection<?> collection,
 			Object id,
@@ -141,6 +147,7 @@ public class InsertRowsCoordinatorAudit implements InsertRowsCoordinator, Collec
 	 * For each DEL entry in the diff, update the corresponding previous
 	 * audit row's REVEND to mark it as superseded.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void updateElementTransactionEnd(
 			PersistentCollection<?> collection,
 			Object ownerId,
@@ -176,6 +183,7 @@ public class InsertRowsCoordinatorAudit implements InsertRowsCoordinator, Collec
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private CollectionAuditSupport getAuditMutationSupport() {
 		if ( auditMutationSupport == null ) {
 			auditMutationSupport = new CollectionAuditSupport(

@@ -23,6 +23,8 @@ import org.hibernate.type.descriptor.jdbc.internal.JdbcLiteralFormatterTemporal;
 import org.hibernate.type.spi.TypeConfiguration;
 
 import jakarta.persistence.TemporalType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Descriptor for {@link SqlTypes#TIMESTAMP_UTC TIMESTAMP_UTC} handling.
@@ -36,26 +38,31 @@ public class TimestampUtcAsInstantJdbcType implements JdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getJdbcTypeCode() {
 		return Types.TIMESTAMP_WITH_TIMEZONE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getDefaultSqlTypeCode() {
 		return SqlTypes.TIMESTAMP_UTC;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getFriendlyName() {
 		return "TIMESTAMP_UTC";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "TimestampUtcDescriptor";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<?> getRecommendedJavaType(
 			Integer length,
 			Integer scale,
@@ -64,19 +71,23 @@ public class TimestampUtcAsInstantJdbcType implements JdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getPreferredJavaTypeClass(WrapperOptions options) {
 		return Instant.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> JdbcLiteralFormatter<T> getJdbcLiteralFormatter(JavaType<T> javaType) {
 		return new JdbcLiteralFormatterTemporal<>( javaType, TemporalType.TIMESTAMP );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> ValueBinder<X> getBinder(final JavaType<X> javaType) {
 		return new BasicBinder<>( javaType, this ) {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBind(
 					PreparedStatement st,
 					X value,
@@ -95,6 +106,7 @@ public class TimestampUtcAsInstantJdbcType implements JdbcType {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBind(
 					CallableStatement st,
 					X value,
@@ -116,9 +128,11 @@ public class TimestampUtcAsInstantJdbcType implements JdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> ValueExtractor<X> getExtractor(final JavaType<X> javaType) {
 		return new BasicExtractor<>( javaType, this ) {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(ResultSet rs, int position, WrapperOptions wrapperOptions) throws SQLException {
 				try {
 					// supported by some databases (not required by JDBC)
@@ -132,6 +146,7 @@ public class TimestampUtcAsInstantJdbcType implements JdbcType {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(CallableStatement statement, int position, WrapperOptions wrapperOptions) throws SQLException {
 				try {
 					// supported by some databases (not required by JDBC)
@@ -145,6 +160,7 @@ public class TimestampUtcAsInstantJdbcType implements JdbcType {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(CallableStatement statement, String name, WrapperOptions wrapperOptions) throws SQLException {
 				try {
 					// supported by some databases (not required by JDBC)

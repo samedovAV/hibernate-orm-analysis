@@ -15,6 +15,8 @@ import org.hibernate.sql.results.graph.InitializerParent;
 import org.hibernate.sql.results.graph.InitializerProducer;
 import org.hibernate.sql.results.graph.entity.AbstractDiscriminatedEntityResultGraphNode;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class DiscriminatedEntityResult<T> extends AbstractDiscriminatedEntityResultGraphNode implements DomainResult<T>,
 		InitializerProducer<DiscriminatedEntityResult<T>> {
@@ -33,11 +35,13 @@ public class DiscriminatedEntityResult<T> extends AbstractDiscriminatedEntityRes
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getResultVariable() {
 		return resultVariable;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResultAssembler<T> createResultAssembler(
 			InitializerParent<?> parent,
 			AssemblerCreationState creationState) {
@@ -49,6 +53,7 @@ public class DiscriminatedEntityResult<T> extends AbstractDiscriminatedEntityRes
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Initializer<?> createInitializer(
 			DiscriminatedEntityResult<T> resultGraphNode,
 			InitializerParent<?> parent,
@@ -57,6 +62,7 @@ public class DiscriminatedEntityResult<T> extends AbstractDiscriminatedEntityRes
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Initializer<?> createInitializer(InitializerParent<?> parent, AssemblerCreationState creationState) {
 		return new DiscriminatedEntityInitializer(
 				parent,

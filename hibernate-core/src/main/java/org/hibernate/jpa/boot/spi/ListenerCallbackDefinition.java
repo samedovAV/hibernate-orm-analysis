@@ -10,6 +10,8 @@ import org.hibernate.jpa.event.spi.CallbackType;
 import org.hibernate.resource.beans.spi.ManagedBeanRegistry;
 
 import java.lang.reflect.Method;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Boot model representation of a Jakarta Persistence style callback defined as a separate listener class.
 ///
@@ -30,6 +32,7 @@ public class ListenerCallbackDefinition implements CallbackDefinition {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Callback<Object> createCallback(ManagedBeanRegistry beanRegistry) {
 		return new ListenerCallback( beanRegistry.getBean( listenerClass ), callbackMethod, callbackType );
 	}

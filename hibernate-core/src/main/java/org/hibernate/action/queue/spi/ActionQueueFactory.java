@@ -10,6 +10,8 @@ import org.hibernate.service.Service;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Factory for ActionQueue instances.
 ///
@@ -18,12 +20,15 @@ import java.io.ObjectInputStream;
 @Incubating
 public interface ActionQueueFactory extends Service {
 	/// Reports which [queue][ActionQueue] type was configured to be used.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	QueueType getConfiguredQueueType();
 
 	/// Build an ActionQueue instance for the given Session.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ActionQueue buildActionQueue(SessionImplementor session);
 
 	/// Support for deserializing the ActionQueue as part of Session deserialization.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ActionQueue deserialize(
 			ObjectInputStream ois,
 			SessionImplementor session) throws IOException, ClassNotFoundException;

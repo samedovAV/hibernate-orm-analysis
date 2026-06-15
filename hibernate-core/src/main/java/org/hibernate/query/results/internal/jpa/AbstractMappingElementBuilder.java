@@ -6,6 +6,8 @@ package org.hibernate.query.results.internal.jpa;
 
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -27,11 +29,13 @@ public abstract class AbstractMappingElementBuilder<T> implements MappingElement
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getAlias() {
 		return alias;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<T> getJavaType() {
 		return javaType.getJavaTypeClass();
 	}

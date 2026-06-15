@@ -24,6 +24,8 @@ import static java.lang.reflect.Array.getLength;
 import static java.lang.reflect.Array.newInstance;
 import static java.lang.reflect.Array.set;
 import static java.util.Collections.addAll;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A dummy collection wrapper for an array. Lazy initialization is
@@ -69,6 +71,7 @@ public class PersistentArrayHolder<E> extends AbstractPersistentCollection<E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Serializable getSnapshot(CollectionPersister persister) throws HibernateException {
 //		final int length = (array==null) ? tempList.size() : Array.getLength( array );
 		final int length = getLength( array );
@@ -87,11 +90,13 @@ public class PersistentArrayHolder<E> extends AbstractPersistentCollection<E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isSnapshotEmpty(Serializable snapshot) {
 		return getLength( snapshot ) == 0;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Collection<E> getOrphans(Serializable snapshot, String entityName) throws HibernateException {
 		//noinspection unchecked
 		final E[] sn = (E[]) snapshot;
@@ -110,6 +115,7 @@ public class PersistentArrayHolder<E> extends AbstractPersistentCollection<E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void initializeEmptyCollection(CollectionPersister persister) {
 		assert array == null;
 		array = newInstance( persister.getElementClass(), 0 );
@@ -118,6 +124,7 @@ public class PersistentArrayHolder<E> extends AbstractPersistentCollection<E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void injectLoadedState(PluralAttributeMapping attributeMapping, List loadingState) {
 		assert isInitializing();
 		if ( loadingState == null ) {
@@ -133,16 +140,19 @@ public class PersistentArrayHolder<E> extends AbstractPersistentCollection<E> {
 	}
 
 	@SuppressWarnings("unused")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getArray() {
 		return array;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isWrapper(Object collection) {
 		return array==collection;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean equalsSnapshot(CollectionPersister persister) throws HibernateException {
 		final var elementType = persister.getElementType();
 		final var snapshot = getSnapshot();
@@ -163,6 +173,7 @@ public class PersistentArrayHolder<E> extends AbstractPersistentCollection<E> {
 	 *
 	 * @return The iterator
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Iterator<?> elements() {
 		final int length = getLength( array );
 		final List<Object> list = new ArrayList<>( length );
@@ -173,27 +184,32 @@ public class PersistentArrayHolder<E> extends AbstractPersistentCollection<E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean empty() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Iterator<?> entries(CollectionPersister persister) {
 		return elements();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean endRead() {
 		setInitialized();
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isDirectlyAccessible() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void initializeFromCache(CollectionPersister persister, Object disassembled, Object owner)
 			throws HibernateException {
 		final var cached = (Serializable[]) disassembled;
@@ -204,6 +220,7 @@ public class PersistentArrayHolder<E> extends AbstractPersistentCollection<E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public Object disassemble(CollectionPersister persister) throws HibernateException {
 		final int length = getLength( array );
 		final var result = new Serializable[length];
@@ -214,11 +231,13 @@ public class PersistentArrayHolder<E> extends AbstractPersistentCollection<E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getValue() {
 		return array;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Iterator<?> getDeletes(CollectionPersister persister, boolean indexIsFormula) throws HibernateException {
 		final List<Integer> deletes = new ArrayList<>();
 		final var sn = getSnapshot();
@@ -243,6 +262,7 @@ public class PersistentArrayHolder<E> extends AbstractPersistentCollection<E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean hasDeletes(CollectionPersister persister) throws HibernateException {
 		final var snapshot = getSnapshot();
 		final int length = getLength( snapshot );
@@ -259,6 +279,7 @@ public class PersistentArrayHolder<E> extends AbstractPersistentCollection<E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean needsInserting(Object entry, int i, Type elemType) throws HibernateException {
 		final var snapshot = getSnapshot();
 		return get( array, i ) != null
@@ -266,6 +287,7 @@ public class PersistentArrayHolder<E> extends AbstractPersistentCollection<E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean needsUpdating(Object entry, int i, Type elemType) throws HibernateException {
 		final var snapshot = getSnapshot();
 		return i < getLength( snapshot )
@@ -275,22 +297,26 @@ public class PersistentArrayHolder<E> extends AbstractPersistentCollection<E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getIndex(Object entry, int i, CollectionPersister persister) {
 		return i;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getElement(Object entry) {
 		return entry;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getSnapshotElement(Object entry, int i) {
 		final var snapshot = getSnapshot();
 		return get( snapshot, i );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean entryExists(Object entry, int i) {
 		return entry != null;
 	}

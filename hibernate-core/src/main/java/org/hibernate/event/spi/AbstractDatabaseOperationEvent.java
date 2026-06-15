@@ -6,6 +6,8 @@ package org.hibernate.event.spi;
 
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.persister.entity.EntityPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base for events which denote database operations.
@@ -44,6 +46,7 @@ public abstract class AbstractDatabaseOperationEvent extends AbstractEvent {
 	/**
 	 * Retrieves the entity involved in the database operation.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getEntity() {
 		return entity;
 	}
@@ -51,6 +54,7 @@ public abstract class AbstractDatabaseOperationEvent extends AbstractEvent {
 	/**
 	 * The id to be used in the database operation.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getId() {
 		return id;
 	}
@@ -58,6 +62,7 @@ public abstract class AbstractDatabaseOperationEvent extends AbstractEvent {
 	/**
 	 * The persister for the entity.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityPersister getPersister() {
 		return persister;
 	}

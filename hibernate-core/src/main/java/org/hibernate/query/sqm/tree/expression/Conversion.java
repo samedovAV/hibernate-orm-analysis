@@ -16,6 +16,8 @@ import org.hibernate.sql.ast.tree.expression.Expression;
 import org.hibernate.sql.results.graph.DomainResult;
 import org.hibernate.sql.results.graph.DomainResultCreationState;
 import org.hibernate.sql.results.graph.basic.BasicResult;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A conversion of a duration to a given temporal unit,
@@ -40,20 +42,24 @@ public class Conversion
 		this.type = type;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TemporalUnit getUnit() {
 		return unit;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Duration getDuration() {
 		return duration;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker walker) {
 		walker.visitConversion(this);
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResult createDomainResult(
 			String resultVariable,
 			DomainResultCreationState creationState) {
@@ -70,6 +76,7 @@ public class Conversion
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applySqlSelections(DomainResultCreationState creationState) {
 		final SqlAstCreationState sqlAstCreationState = creationState.getSqlAstCreationState();
 		final SqlExpressionResolver sqlExpressionResolver = sqlAstCreationState.getSqlExpressionResolver();
@@ -83,6 +90,7 @@ public class Conversion
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MappingModelExpressible getExpressionType() {
 		return type;
 	}

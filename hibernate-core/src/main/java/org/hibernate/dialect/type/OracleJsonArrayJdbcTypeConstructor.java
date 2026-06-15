@@ -12,6 +12,8 @@ import org.hibernate.type.descriptor.jdbc.JdbcType;
 import org.hibernate.type.descriptor.jdbc.JdbcTypeConstructor;
 import org.hibernate.type.descriptor.jdbc.OracleJsonArrayBlobJdbcType;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Factory for {@link OracleJsonArrayJdbcType} and {@link OracleJsonArrayBlobJdbcType}.
@@ -28,6 +30,7 @@ public class OracleJsonArrayJdbcTypeConstructor implements JdbcTypeConstructor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcType resolveType(
 			TypeConfiguration typeConfiguration,
 			Dialect dialect,
@@ -37,6 +40,7 @@ public class OracleJsonArrayJdbcTypeConstructor implements JdbcTypeConstructor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcType resolveType(
 			TypeConfiguration typeConfiguration,
 			Dialect dialect,
@@ -46,6 +50,7 @@ public class OracleJsonArrayJdbcTypeConstructor implements JdbcTypeConstructor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getDefaultSqlTypeCode() {
 		return SqlTypes.JSON_ARRAY;
 	}

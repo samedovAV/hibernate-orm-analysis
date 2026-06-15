@@ -22,6 +22,8 @@ import java.util.Locale;
 import static org.jboss.logging.Logger.Level.ERROR;
 import static org.jboss.logging.Logger.Level.INFO;
 import static org.jboss.logging.Logger.Level.WARN;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -39,23 +41,28 @@ public interface QueryLogging extends BasicLogger {
 	Logger QUERY_LOGGER = Logger.getLogger( LOGGER_NAME );
 	QueryLogging QUERY_MESSAGE_LOGGER = Logger.getMessageLogger( MethodHandles.lookup(), QueryLogging.class, LOGGER_NAME, Locale.ROOT );
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static String subLoggerName(String subName) {
 		return LOGGER_NAME + '.' + subName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static Logger subLogger(String subName) {
 		return Logger.getLogger( subLoggerName( subName ) );
 	}
 
 	@LogMessage(level = ERROR)
 	@Message(value = "Error in named query: %s", id = 90003001)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void namedQueryError(String queryName, @Cause HibernateException e);
 
 	@LogMessage(level = INFO)
 	@Message(value = "Ignoring unrecognized query hint [%s]", id = 90003003)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void ignoringUnrecognizedQueryHint(String hintName);
 
 	@LogMessage(level = WARN)
 	@Message(value = "firstResult/maxResults specified with collection fetch; applying in memory", id = 90003004)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void firstOrMaxResultsSpecifiedWithCollectionFetch();
 }

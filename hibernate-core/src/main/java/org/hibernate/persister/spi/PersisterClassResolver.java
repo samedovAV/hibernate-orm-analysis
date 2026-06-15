@@ -9,6 +9,8 @@ import org.hibernate.mapping.PersistentClass;
 import org.hibernate.persister.collection.CollectionPersister;
 import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.service.Service;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Given an entity or collection mapping, resolve the appropriate persister class to use.
@@ -31,6 +33,7 @@ public interface PersisterClassResolver extends Service {
 	 *
 	 * @return The entity persister class to use
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Class<? extends EntityPersister> getEntityPersisterClass(PersistentClass metadata);
 
 	/**
@@ -41,5 +44,6 @@ public interface PersisterClassResolver extends Service {
 	 *
 	 * @return The collection persister class to use
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Class<? extends CollectionPersister> getCollectionPersisterClass(Collection metadata);
 }

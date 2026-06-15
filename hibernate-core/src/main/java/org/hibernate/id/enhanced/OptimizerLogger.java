@@ -21,6 +21,8 @@ import static org.jboss.logging.Logger.Level.DEBUG;
 import static org.jboss.logging.Logger.Level.INFO;
 import static org.jboss.logging.Logger.Level.TRACE;
 import static org.jboss.logging.Logger.Level.WARN;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Logging related to Optimizer operations in identifier generation
@@ -44,29 +46,36 @@ public interface OptimizerLogger extends BasicLogger {
 
 	@LogMessage(level = TRACE)
 	@Message(value = "Creating hilo optimizer with [incrementSize=%s, returnClass=%s]", id = 90401)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void creatingHiLoOptimizer(int incrementSize, String returnClassName);
 
 	@LogMessage(level = TRACE)
 	@Message(value = "Creating hilo optimizer (legacy) with [incrementSize=%s, returnClass=%s]", id = 90402)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void creatingLegacyHiLoOptimizer(int incrementSize, String returnClassName);
 
 	@LogMessage(level = TRACE)
 	@Message(value = "Creating pooled optimizer with [incrementSize=%s, returnClass=%s]", id = 90403)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void creatingPooledOptimizer(int incrementSize, String returnClassName);
 
 	@LogMessage(level = DEBUG)
 	@Message(value = "Creating pooled optimizer (lo) with [incrementSize=%s, returnClass=%s]", id = 90404)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void creatingPooledLoOptimizer(int incrementSize, String returnClassName);
 
 	@LogMessage(level = INFO)
 	@Message(value = "Pooled optimizer source reported [%s] as the initial value; use of 1 or greater highly recommended", id = 90405)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void pooledOptimizerReportedInitialValue(long value);
 
 	@LogMessage(level = WARN)
 	@Message(value = "Unable to interpret specified optimizer [%s], falling back to noop optimizer", id = 90406)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void unableToLocateCustomOptimizerClass(String type);
 
 	@LogMessage(level = WARN)
 	@Message(value = "Unable to instantiate specified optimizer [%s], falling back to noop optimizer", id = 90407)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void unableToInstantiateOptimizer(String type);
 }

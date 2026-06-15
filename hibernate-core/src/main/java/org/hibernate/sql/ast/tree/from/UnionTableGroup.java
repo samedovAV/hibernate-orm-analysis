@@ -10,6 +10,8 @@ import java.util.function.Consumer;
 
 import org.hibernate.persister.entity.UnionSubclassEntityPersister;
 import org.hibernate.spi.NavigablePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Andrea Boriero
@@ -28,20 +30,24 @@ public class UnionTableGroup extends AbstractTableGroup {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applyAffectedTableNames(Consumer<String> nameCollector) {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public UnionTableReference getPrimaryTableReference() {
 		return tableReference;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<TableReferenceJoin> getTableReferenceJoins() {
 		return Collections.emptyList();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public TableReference getTableReference(
 			NavigablePath navigablePath,
 			String tableExpression,

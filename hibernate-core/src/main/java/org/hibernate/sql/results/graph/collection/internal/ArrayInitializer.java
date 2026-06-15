@@ -26,6 +26,8 @@ import jakarta.annotation.Nullable;
 
 import static java.lang.reflect.Array.get;
 import static org.hibernate.internal.log.LoggingHelper.toLoggableString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Chris Cranford
@@ -65,6 +67,7 @@ public class ArrayInitializer extends AbstractImmediateCollectionInitializer<Abs
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void forEachSubInitializer(BiConsumer<Initializer<?>, RowProcessingState> consumer, InitializerData data) {
 		super.forEachSubInitializer( consumer, data );
 		final var initializer = elementAssembler.getInitializer();
@@ -74,11 +77,13 @@ public class ArrayInitializer extends AbstractImmediateCollectionInitializer<Abs
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nullable PersistentArrayHolder<?> getCollectionInstance(ImmediateCollectionInitializerData data) {
 		return (PersistentArrayHolder<?>) super.getCollectionInstance( data );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void readCollectionRow(ImmediateCollectionInitializerData data, List<Object> loadingState) {
 		final var rowProcessingState = data.getRowProcessingState();
 		final Integer indexValue = listIndexAssembler.assemble( rowProcessingState );
@@ -105,6 +110,7 @@ public class ArrayInitializer extends AbstractImmediateCollectionInitializer<Abs
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void initializeInstanceFromParent(Object parentInstance, ImmediateCollectionInitializerData data) {
 		final var array = (Object[]) getInitializedPart().getValue( parentInstance );
 		assert array != null;
@@ -118,6 +124,7 @@ public class ArrayInitializer extends AbstractImmediateCollectionInitializer<Abs
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void initializeSubInstancesFromParent(ImmediateCollectionInitializerData data) {
 		final var initializer = elementAssembler.getInitializer();
 		if ( initializer != null ) {
@@ -130,6 +137,7 @@ public class ArrayInitializer extends AbstractImmediateCollectionInitializer<Abs
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void resolveInstanceSubInitializers(ImmediateCollectionInitializerData data) {
 		final var initializer = elementAssembler.getInitializer();
 		if ( initializer != null ) {
@@ -148,16 +156,19 @@ public class ArrayInitializer extends AbstractImmediateCollectionInitializer<Abs
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResultAssembler<?> getIndexAssembler() {
 		return listIndexAssembler;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResultAssembler<?> getElementAssembler() {
 		return elementAssembler;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "ArrayInitializer{" + toLoggableString( getNavigablePath() ) + ")";
 	}

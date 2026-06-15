@@ -9,6 +9,8 @@ import java.util.function.BiConsumer;
 
 import org.hibernate.sql.model.MutationOperation;
 import org.hibernate.sql.model.MutationTarget;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -32,21 +34,25 @@ public abstract class AbstractRestrictedTableMutation<O extends MutationOperatio
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<ColumnValueBinding> getKeyBindings() {
 		return keyRestrictionBindings;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void forEachKeyBinding(BiConsumer<Integer, ColumnValueBinding> consumer) {
 		forEachThing( keyRestrictionBindings, consumer );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<ColumnValueBinding> getOptimisticLockBindings() {
 		return optLockRestrictionBindings;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void forEachOptimisticLockBinding(BiConsumer<Integer, ColumnValueBinding> consumer) {
 		forEachThing( optLockRestrictionBindings, consumer );
 	}

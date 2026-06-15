@@ -34,12 +34,15 @@ import java.util.Map;
 
 import static org.hibernate.internal.util.StringHelper.nullIfEmpty;
 import static org.hibernate.property.access.spi.BuiltInPropertyAccessStrategies.EMBEDDED;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
  * @author Gail Badner
  */
 public class Helper {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static InheritanceType interpretInheritanceType(JaxbHbmEntityBaseDefinition entityElement) {
 		if ( entityElement instanceof JaxbHbmDiscriminatorSubclassEntityType ) {
 			return InheritanceType.DISCRIMINATED;
@@ -62,6 +65,7 @@ public class Helper {
 	 *
 	 * @return The {@link CustomSql} representation
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static CustomSql buildCustomSql(JaxbHbmCustomSqlDmlType customSqlElement) {
 		if ( customSqlElement == null ) {
 			return null;
@@ -74,6 +78,7 @@ public class Helper {
 		return new CustomSql( customSqlElement.getValue(), customSqlElement.isCallable(), checkStyle );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Caching createCaching(JaxbHbmCacheType cacheElement) {
 		return cacheElement == null
 				? new Caching()
@@ -86,6 +91,7 @@ public class Helper {
 				);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Caching createNaturalIdCaching(JaxbHbmNaturalIdCacheType cacheElement) {
 		return cacheElement == null
 				? new Caching()
@@ -97,14 +103,17 @@ public class Helper {
 				);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String getPropertyAccessorName(String access, boolean isEmbedded, String defaultAccess) {
 		return getValue( access, isEmbedded ? EMBEDDED.getExternalName() : defaultAccess );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <T> T getValue(T value, T defaultValue){
 		return value == null ? defaultValue : value;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static Map<String, String> extractParameters(List<JaxbHbmConfigParameterType> xmlParamElements) {
 		if ( xmlParamElements == null || xmlParamElements.isEmpty() ) {
 			return Collections.emptyMap();
@@ -116,12 +125,14 @@ public class Helper {
 		return params;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static ToolingHintContext collectToolingHints(
 			ToolingHintContext baseline,
 			ToolingHintContainer toolingHintContainer) {
 		return collectToolingHints( baseline, toolingHintContainer, false );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static ToolingHintContext collectToolingHints(
 			ToolingHintContext baseline,
 			ToolingHintContainer toolingHintContainer,
@@ -159,6 +170,7 @@ public class Helper {
 		return localToolingHints;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static TableSpecificationSource createTableSource(
 			MappingDocument mappingDocument,
 			TableInformationContainer entityElement,
@@ -167,9 +179,11 @@ public class Helper {
 	}
 
 	public interface InLineViewNameInferrer {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		String inferInLineViewName();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static TableSpecificationSource createTableSource(
 			MappingDocument mappingDocument,
 			TableInformationContainer tableInformationContainer,
@@ -202,6 +216,7 @@ public class Helper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static SizeSource interpretSizeSource(Integer length, Integer scale, Integer precision) {
 		if ( length != null || precision != null || scale != null ) {
 			return new SizeSourceImpl( length, scale, precision );
@@ -209,6 +224,7 @@ public class Helper {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static SizeSource interpretSizeSource(Integer length, String scale, String precision) {
 		return interpretSizeSource(
 				length,
@@ -217,6 +233,7 @@ public class Helper {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static Class reflectedPropertyClass(
 			MetadataBuildingContext buildingContext,
 			String attributeOwnerClassName,
@@ -229,6 +246,7 @@ public class Helper {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static Class reflectedPropertyClass(
 			MetadataBuildingContext buildingContext,
 			Class attributeOwnerClass,

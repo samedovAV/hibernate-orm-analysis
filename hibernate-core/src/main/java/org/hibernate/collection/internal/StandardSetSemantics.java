@@ -14,6 +14,8 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.internal.util.collections.CollectionHelper;
 import org.hibernate.metamodel.CollectionClassification;
 import org.hibernate.persister.collection.CollectionPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -28,11 +30,13 @@ public class StandardSetSemantics<E> extends AbstractSetSemantics<Set<E>,E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionClassification getCollectionClassification() {
 		return CollectionClassification.SET;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Set<E> instantiateRaw(
 			int anticipatedSize,
 			CollectionPersister collectionDescriptor) {
@@ -40,6 +44,7 @@ public class StandardSetSemantics<E> extends AbstractSetSemantics<Set<E>,E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> Set<X> instantiateWithElements(
 			int anticipatedSize,
 			CollectionPersister collectionDescriptor,
@@ -50,6 +55,7 @@ public class StandardSetSemantics<E> extends AbstractSetSemantics<Set<E>,E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistentSet<E> instantiateWrapper(
 			Object key,
 			CollectionPersister collectionDescriptor,
@@ -58,6 +64,7 @@ public class StandardSetSemantics<E> extends AbstractSetSemantics<Set<E>,E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistentSet<E> wrap(
 			Set<E> rawCollection,
 			CollectionPersister collectionDescriptor,

@@ -19,6 +19,8 @@ import org.hibernate.jdbc.AbstractReturningWork;
 import org.hibernate.jdbc.AbstractWork;
 
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -55,6 +57,7 @@ public class TemporaryTableHelper {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Boolean execute(Connection connection) {
 			final var jdbcServices = sessionFactory.getJdbcServices();
 			try {
@@ -109,6 +112,7 @@ public class TemporaryTableHelper {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void execute(Connection connection) {
 			final var jdbcServices = sessionFactory.getJdbcServices();
 			try {
@@ -137,6 +141,7 @@ public class TemporaryTableHelper {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Clean
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void cleanTemporaryTableRows(
 			TemporaryTable temporaryTable,
 			TemporaryTableExporter exporter,
@@ -176,15 +181,18 @@ public class TemporaryTableHelper {
 	 */
 	private static final SqlExceptionHelper.WarningHandler WARNING_HANDLER =
 			new SqlExceptionHelper.WarningHandlerLoggingSupport() {
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				public boolean doProcess() {
 					return CORE_LOGGER.isDebugEnabled();
 				}
 
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				public void prepare(SQLWarning warning) {
 					CORE_LOGGER.warningsCreatingTempTable( warning );
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected void logWarning(String description, String message) {
 					CORE_LOGGER.debug( description );
 					CORE_LOGGER.debug( message );
@@ -192,6 +200,7 @@ public class TemporaryTableHelper {
 			};
 
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static void logStatement(String sql, JdbcServices jdbcServices) {
 		jdbcServices.getSqlStatementLogger()
 				.logStatement( sql, FormatStyle.BASIC.getFormatter() );

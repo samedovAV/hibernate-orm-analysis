@@ -14,6 +14,8 @@ import org.hibernate.type.descriptor.java.BasicJavaType;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
 import org.hibernate.type.spi.TypeConfiguration;
 import org.hibernate.type.spi.TypeConfigurationAware;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Convenience {@link UserType} implementation which mimics the legacy <code>@Type</code>
@@ -37,16 +39,19 @@ public class UserTypeLegacyBridge
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TypeConfiguration getTypeConfiguration() {
 		return typeConfiguration;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setTypeConfiguration(TypeConfiguration typeConfiguration) {
 		this.typeConfiguration = typeConfiguration;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setParameterValues(Properties parameters) {
 		if ( hbmStyleTypeName == null ) {
 			hbmStyleTypeName = parameters.getProperty( TYPE_NAME_PARAM_KEY );
@@ -58,6 +63,7 @@ public class UserTypeLegacyBridge
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void resolve(BiConsumer<BasicJavaType<Object>, JdbcType> resolutionConsumer) {
 		assert typeConfiguration != null;
 

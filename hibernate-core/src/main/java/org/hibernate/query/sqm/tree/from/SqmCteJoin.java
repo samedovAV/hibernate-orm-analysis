@@ -26,6 +26,8 @@ import java.util.Objects;
 
 import static org.hibernate.internal.util.NullnessUtil.castNonNull;
 import static org.hibernate.query.sqm.spi.SqmCreationHelper.buildRootNavigablePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -69,11 +71,13 @@ public class SqmCteJoin<T> extends AbstractSqmJoin<T, T> implements SqmSingularV
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isImplicitlySelectable() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmCteJoin<T> copy(SqmCopyContext context) {
 		final var existing = context.getCopy( this );
 		if ( existing != null ) {
@@ -95,28 +99,33 @@ public class SqmCteJoin<T> extends AbstractSqmJoin<T, T> implements SqmSingularV
 		return path;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmRoot<?> getRoot() {
 		return (SqmRoot<?>) castNonNull( super.getLhs() );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmRoot<?> findRoot() {
 		return getRoot();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmCteStatement<T> getCte() {
 		return cte;
 	}
 
 	@Nullable
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmFrom<?,T> getLhs() {
 		// A cte-join has no LHS
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> X accept(SemanticQueryWalker<X> walker) {
 		return walker.visitQualifiedCteJoin( this );
 	}
@@ -126,53 +135,62 @@ public class SqmCteJoin<T> extends AbstractSqmJoin<T, T> implements SqmSingularV
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmCorrelatedCteJoin<T> createCorrelation() {
 		return new SqmCorrelatedCteJoin<>( this );
 	}
 
 	@Nullable
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistentAttribute<? super T, ?> getAttribute() {
 		return null;
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends T> SqmTreatedJoin<T, T, S> treatAs(@Nonnull Class<S> treatJavaType, @Nullable String alias) {
 		throw new UnsupportedOperationException( "CTE joins can not be treated" );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends T> SqmTreatedJoin<T, T, S> treatAs(@Nonnull EntityDomainType<S> treatTarget, @Nullable String alias) {
 		throw new UnsupportedOperationException( "CTE joins can not be treated" );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends T> SqmTreatedJoin<T, T, S> treatAs(@Nonnull Class<S> treatJavaType, @Nullable String alias, boolean fetched) {
 		throw new UnsupportedOperationException( "CTE joins can not be treated" );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends T> SqmTreatedJoin<T, T, S> treatAs(@Nonnull EntityDomainType<S> treatTarget, @Nullable String alias, boolean fetched) {
 		throw new UnsupportedOperationException( "CTE joins can not be treated" );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmFrom<?, T> getParent() {
 		return getCorrelationParent();
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JoinType getJoinType() {
 		return getSqmJoinType().getCorrespondingJpaJoinType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean deepEquals(SqmFrom<?, ?> object) {
 		return super.deepEquals( object )
 			&& Objects.equals( cte.getCteTable().getCteName(),
@@ -180,6 +198,7 @@ public class SqmCteJoin<T> extends AbstractSqmJoin<T, T> implements SqmSingularV
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isDeepCompatible(SqmFrom<?, ?> object) {
 		return super.isDeepCompatible( object )
 			&& Objects.equals( cte.getCteTable().getCteName(),

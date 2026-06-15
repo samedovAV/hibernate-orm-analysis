@@ -8,6 +8,8 @@ import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.boot.jaxb.Origin;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Common contract between Entity and MappedSuperclass sources.  The
@@ -21,6 +23,7 @@ public interface IdentifiableTypeSource extends AttributeSourceContainer {
 	 *
 	 * @return The origin of this source.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Origin getOrigin();
 
 	/**
@@ -28,6 +31,7 @@ public interface IdentifiableTypeSource extends AttributeSourceContainer {
 	 *
 	 * @return The hierarchy this belongs to.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityHierarchySource getHierarchy();
 
 	/**
@@ -35,6 +39,7 @@ public interface IdentifiableTypeSource extends AttributeSourceContainer {
 	 *
 	 * @return The local binding context
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	LocalMetadataBuildingContext getLocalMetadataBuildingContext();
 
 	/**
@@ -42,8 +47,10 @@ public interface IdentifiableTypeSource extends AttributeSourceContainer {
 	 *
 	 * @return The name of this type.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getTypeName();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	IdentifiableTypeSource getSuperType();
 
 	/**
@@ -51,6 +58,7 @@ public interface IdentifiableTypeSource extends AttributeSourceContainer {
 	 *
 	 * @return Subtype sources
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Collection<IdentifiableTypeSource> getSubTypes();
 
 	/**
@@ -58,5 +66,6 @@ public interface IdentifiableTypeSource extends AttributeSourceContainer {
 	 *
 	 * @return JPA lifecycle callback sources
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<JpaCallbackSource> getJpaCallbackClasses();
 }

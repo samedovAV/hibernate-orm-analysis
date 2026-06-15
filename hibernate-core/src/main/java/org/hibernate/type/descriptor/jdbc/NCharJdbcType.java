@@ -8,6 +8,8 @@ import java.sql.Types;
 
 import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.descriptor.jdbc.spi.JdbcTypeRegistry;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Descriptor for {@link Types#NCHAR NCHAR} handling.
@@ -21,16 +23,19 @@ public class NCharJdbcType extends NVarcharJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "NCharTypeDescriptor";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getJdbcTypeCode() {
 		return Types.NCHAR;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcType resolveIndicatedType(
 			JdbcTypeIndicators indicators,
 			JavaType<?> domainJtd) {

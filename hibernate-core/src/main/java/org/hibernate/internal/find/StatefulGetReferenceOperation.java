@@ -13,6 +13,8 @@ import org.hibernate.persister.entity.EntityPersister;
 
 import static org.hibernate.engine.spi.NaturalIdResolutions.INVALID_NATURAL_ID_REFERENCE;
 import static org.hibernate.internal.find.Helper.coerceId;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// GetReferenceOperation implementation for a [stateful session][org.hibernate.Session].
 ///
@@ -34,6 +36,7 @@ public class StatefulGetReferenceOperation<T> implements GetReferenceOperation<T
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public T performGetReference(Object key) {
 		loadAccessContext.checkOpenOrWaitingForAutoClose();
 		loadAccessContext.pulseTransactionCoordinator();
@@ -46,6 +49,7 @@ public class StatefulGetReferenceOperation<T> implements GetReferenceOperation<T
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private T getReferenceByNaturalId(Object key) {
 		final var normalizedKey = Helper.coerceNaturalId( entityDescriptor, key );
 
@@ -66,6 +70,7 @@ public class StatefulGetReferenceOperation<T> implements GetReferenceOperation<T
 		return getReferenceById( loadedResolution );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private T getReferenceById(Object key) {
 		final Object normalizedId = coerceId( entityDescriptor, key, loadAccessContext.getSession().getFactory() );
 		final var concreteType = entityDescriptor.resolveConcreteProxyTypeForId( normalizedId, loadAccessContext.getSession() );

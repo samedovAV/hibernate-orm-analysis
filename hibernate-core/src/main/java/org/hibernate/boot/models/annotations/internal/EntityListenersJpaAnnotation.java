@@ -10,6 +10,8 @@ import java.util.Map;
 import org.hibernate.models.spi.ModelsContext;
 
 import jakarta.persistence.EntityListeners;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -37,15 +39,18 @@ public class EntityListenersJpaAnnotation implements EntityListeners {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return EntityListeners.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public java.lang.Class<?>[] value() {
 		return value;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void value(java.lang.Class<?>[] value) {
 		this.value = value;
 	}

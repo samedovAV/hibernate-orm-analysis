@@ -19,6 +19,8 @@ import org.hibernate.query.sqm.tree.SqmCopyContext;
 import org.hibernate.query.sqm.tree.SqmRenderContext;
 import org.hibernate.query.sqm.tree.from.SqmTreatedAttributeJoin;
 import org.hibernate.spi.NavigablePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -76,6 +78,7 @@ public class SqmTreatedMapJoin<L, K, V, S extends V> extends SqmMapJoin<L, K, S>
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmTreatedMapJoin<L, K, V, S> copy(SqmCopyContext context) {
 		final var existing = context.getCopy( this );
 		if ( existing != null ) {
@@ -96,39 +99,46 @@ public class SqmTreatedMapJoin<L, K, V, S extends V> extends SqmMapJoin<L, K, S>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmMapJoin<L,K,V> getWrappedPath() {
 		return wrappedPath;
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TreatableDomainType<S> getTreatTarget() {
 		return treatTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nonnull SqmBindableType<S> getNodeType() {
 		return treatTarget;
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmMapPersistentAttribute<L, K, S> getModel() {
 		return (SqmMapPersistentAttribute<L, K, S>) super.getReferencedPathSource();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmTreatableDomainType<S> getReferencedPathSource() {
 		return treatTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPathSource<S> getResolvedModel() {
 		return treatTarget;
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S1 extends S> SqmTreatedMapJoin<L, K, S, S1> treatAs(@Nonnull EntityDomainType<S1> treatTarget, @Nullable String alias, boolean fetch) {
 		//noinspection unchecked
 		return (SqmTreatedMapJoin<L, K, S, S1>) wrappedPath.treatAs( treatTarget, alias, fetch );
@@ -136,6 +146,7 @@ public class SqmTreatedMapJoin<L, K, V, S extends V> extends SqmMapJoin<L, K, S>
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S1 extends S> SqmTreatedMapJoin<L, K, S, S1> treatAs(@Nonnull Class<S1> treatJavaType, @Nullable String alias, boolean fetch) {
 		//noinspection unchecked
 		return (SqmTreatedMapJoin<L, K, S, S1>) wrappedPath.treatAs( treatJavaType, alias, fetch );
@@ -143,29 +154,34 @@ public class SqmTreatedMapJoin<L, K, V, S extends V> extends SqmMapJoin<L, K, S>
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmTreatedMapJoin<L, K, V, S> on(@Nullable JpaExpression<Boolean> restriction) {
 		return (SqmTreatedMapJoin<L, K, V, S>) super.on( restriction );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmTreatedMapJoin<L, K, V, S> on(@Nonnull Expression<Boolean> restriction) {
 		return (SqmTreatedMapJoin<L, K, V, S>) super.on( restriction );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmTreatedMapJoin<L, K, V, S> on(@Nullable JpaPredicate... restrictions) {
 		return (SqmTreatedMapJoin<L, K, V, S>) super.on( restrictions );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmTreatedMapJoin<L, K, V, S> on(@Nonnull BooleanExpression... restrictions) {
 		return (SqmTreatedMapJoin<L, K, V, S>) super.on( restrictions );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void appendHqlString(StringBuilder hql, SqmRenderContext context) {
 		hql.append( "treat(" );
 		wrappedPath.appendHqlString( hql, context );

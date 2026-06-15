@@ -14,6 +14,8 @@ import org.hibernate.stat.spi.StatisticsImplementor;
 import static org.hibernate.cache.spi.SecondLevelCacheLogger.L2CACHE_LOGGER;
 import static org.hibernate.event.monitor.spi.EventMonitor.CacheActionDescription.TIMESTAMP_INVALIDATE;
 import static org.hibernate.event.monitor.spi.EventMonitor.CacheActionDescription.TIMESTAMP_PRE_INVALIDATE;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard implementation of TimestampsCache
@@ -29,11 +31,13 @@ public class TimestampsCacheEnabledImpl implements TimestampsCache {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TimestampsRegion getRegion() {
 		return timestampsRegion;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void preInvalidate(
 			String[] spaces,
 			SharedSessionContractImplementor session) {
@@ -77,6 +81,7 @@ public class TimestampsCacheEnabledImpl implements TimestampsCache {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void invalidate(
 			String[] spaces,
 			SharedSessionContractImplementor session) {
@@ -117,6 +122,7 @@ public class TimestampsCacheEnabledImpl implements TimestampsCache {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isUpToDate(
 			String[] spaces,
 			Long timestamp,
@@ -130,6 +136,7 @@ public class TimestampsCacheEnabledImpl implements TimestampsCache {
 		return true;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean isSpaceOutOfDate(
 			String space,
 			Long timestamp,
@@ -154,6 +161,7 @@ public class TimestampsCacheEnabledImpl implements TimestampsCache {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isUpToDate(
 			Collection<String> spaces,
 			Long timestamp,
@@ -167,6 +175,7 @@ public class TimestampsCacheEnabledImpl implements TimestampsCache {
 		return true;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Long getLastUpdateTimestampForSpace(String space, SharedSessionContractImplementor session) {
 		boolean found = false;
 		final var eventMonitor = session.getEventMonitor();

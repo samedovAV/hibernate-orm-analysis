@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.engine.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Navigation methods for extra state objects attached to {@link EntityEntry}.
@@ -16,6 +19,7 @@ public interface EntityEntryExtraState {
 	 * <p>
 	 * Implementations must delegate to the next state or add it as next state if last in line.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addExtraState(EntityEntryExtraState extraState);
 
 	/**
@@ -23,6 +27,7 @@ public interface EntityEntryExtraState {
 	 * <p>
 	 * Implementations must return self if they match or delegate discovery to the next state in line.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T extends EntityEntryExtraState> T getExtraState(Class<T> extraStateType);
 
 	//a remove method is ugly to define and has not real use case that we found: left out

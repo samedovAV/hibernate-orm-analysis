@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.hibernate.dialect.Dialect;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for resolving the schema of a {@link Connection}.
@@ -29,5 +31,6 @@ public interface SchemaNameResolver {
 	 *
 	 * @return The name of the schema; may be null.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String resolveSchemaName(Connection connection, Dialect dialect) throws SQLException;
 }

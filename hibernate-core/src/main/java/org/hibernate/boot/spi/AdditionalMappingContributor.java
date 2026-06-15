@@ -7,6 +7,8 @@ package org.hibernate.boot.spi;
 import org.hibernate.Incubating;
 import org.hibernate.boot.ResourceStreamLocator;
 import org.hibernate.service.JavaServiceLoadable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract allowing pluggable contributions of additional mapping objects.
@@ -23,6 +25,7 @@ public interface AdditionalMappingContributor {
 	 *
 	 * @see org.hibernate.mapping.Contributable
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String getContributorName() {
 		return null;
 	}
@@ -35,6 +38,7 @@ public interface AdditionalMappingContributor {
 	 * @param resourceStreamLocator Delegate for locating XML resources via class-path lookup.
 	 * @param buildingContext Access to useful contextual references.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void contribute(
 			AdditionalMappingContributions contributions,
 			InFlightMetadataCollector metadata,

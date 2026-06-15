@@ -9,11 +9,14 @@ import org.hibernate.boot.models.JpaAnnotations;
 import org.hibernate.boot.models.annotations.internal.JoinTableJpaAnnotation;
 import org.hibernate.boot.models.xml.spi.XmlDocumentContext;
 import org.hibernate.models.spi.MutableAnnotationTarget;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
  */
 public class TableProcessing {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static JoinTableJpaAnnotation transformJoinTable(
 			JaxbJoinTableImpl jaxbJoinTable,
 			MutableAnnotationTarget target,

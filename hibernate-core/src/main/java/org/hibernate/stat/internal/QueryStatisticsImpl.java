@@ -11,6 +11,8 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import org.hibernate.query.Query;
 import org.hibernate.stat.QueryStatistics;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Query statistics (HQL and SQL)
@@ -49,6 +51,7 @@ public class QueryStatisticsImpl implements QueryStatistics {
 	/**
 	 * queries executed to the DB
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getExecutionCount() {
 		return executionCount.sum();
 	}
@@ -56,14 +59,17 @@ public class QueryStatisticsImpl implements QueryStatistics {
 	/**
 	 * Queries retrieved successfully from the cache
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getCacheHitCount() {
 		return cacheHitCount.sum();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getCachePutCount() {
 		return cachePutCount.sum();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getCacheMissCount() {
 		return cacheMissCount.sum();
 	}
@@ -77,6 +83,7 @@ public class QueryStatisticsImpl implements QueryStatistics {
 	 *         and scroll queries do not effect this total as their number of returned rows
 	 *         is not known at execution time.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getExecutionRowCount() {
 		return executionRowCount.sum();
 	}
@@ -84,6 +91,7 @@ public class QueryStatisticsImpl implements QueryStatistics {
 	/**
 	 * average time in ms taken by the execution of this query onto the DB
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getExecutionAvgTime() {
 		return (long) getExecutionAvgTimeAsDouble();
 	}
@@ -91,6 +99,7 @@ public class QueryStatisticsImpl implements QueryStatistics {
 	/**
 	 * average time in ms as double taken by the execution of this query onto the DB
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public double getExecutionAvgTimeAsDouble() {
 		// We write lock here to be sure that we always calculate the average time
 		// with all updates from the executed applied: executionCount and totalExecutionTime
@@ -112,6 +121,7 @@ public class QueryStatisticsImpl implements QueryStatistics {
 	/**
 	 * max time in ms taken by the execution of this query onto the DB
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getExecutionMaxTime() {
 		return executionMaxTime.get();
 	}
@@ -119,6 +129,7 @@ public class QueryStatisticsImpl implements QueryStatistics {
 	/**
 	 * min time in ms taken by the execution of this query onto the DB
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getExecutionMinTime() {
 		return executionMinTime.get();
 	}
@@ -126,6 +137,7 @@ public class QueryStatisticsImpl implements QueryStatistics {
 	/**
 	 * total time in ms taken by the execution of this query onto the DB
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getExecutionTotalTime() {
 		return totalExecutionTime.get();
 	}
@@ -133,6 +145,7 @@ public class QueryStatisticsImpl implements QueryStatistics {
 	/**
 	 * Query plan successfully fetched from the cache
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getPlanCacheHitCount() {
 		return planCacheHitCount.sum();
 	}
@@ -140,6 +153,7 @@ public class QueryStatisticsImpl implements QueryStatistics {
 	/**
 	 * Query plan not fetched from the cache
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getPlanCacheMissCount() {
 		return planCacheMissCount.sum();
 	}
@@ -147,6 +161,7 @@ public class QueryStatisticsImpl implements QueryStatistics {
 	/**
 	 * Query plan overall compiled total
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getPlanCompilationTotalMicroseconds() {
 		return planCompilationTotalMicroseconds.get();
 	}
@@ -157,6 +172,7 @@ public class QueryStatisticsImpl implements QueryStatistics {
 	 * @param rows rows count returned
 	 * @param time time taken
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void executed(long rows, long time) {
 		// read lock is enough, concurrent updates are supported by the underlying type AtomicLong
 		// this only guards executed(long, long) to be called, when another thread is executing getExecutionAvgTime()
@@ -179,31 +195,38 @@ public class QueryStatisticsImpl implements QueryStatistics {
 	 *
 	 * @param microseconds time taken
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void compiled(long microseconds) {
 		planCacheMissCount.increment();
 		planCompilationTotalMicroseconds.addAndGet( microseconds );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void incrementCacheHitCount() {
 		cacheHitCount.increment();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void incrementCacheMissCount() {
 		cacheMissCount.increment();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void incrementCachePutCount() {
 		cachePutCount.increment();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void incrementPlanCacheHitCount() {
 		planCacheHitCount.increment();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void incrementPlanCacheMissCount() {
 		planCacheMissCount.increment();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "QueryStatistics"
 			+ "[query=" + query

@@ -9,6 +9,8 @@ import jakarta.persistence.Statement;
 import jakarta.persistence.TypedQuery;
 import org.hibernate.Incubating;
 import org.hibernate.procedure.spi.NamedCallableQueryMemento;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for {@linkplain org.hibernate.query.spi.QueryImplementor query implementations}
@@ -29,5 +31,6 @@ public interface NameableQuery {
 	 * @see NamedObjectRepository#registerNamedMutation(String, Statement)
 	 * @see NamedObjectRepository#registerCallableQueryMemento(String, NamedCallableQueryMemento)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NamedQueryMemento<?> toMemento(String name);
 }

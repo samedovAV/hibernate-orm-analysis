@@ -20,6 +20,8 @@ import org.hibernate.sql.ast.tree.expression.JsonValueEmptyBehavior;
 import org.hibernate.sql.ast.tree.expression.JsonValueErrorBehavior;
 import org.hibernate.sql.ast.tree.expression.Literal;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * PostgreSQL json_value function.
@@ -34,6 +36,7 @@ public class PostgreSQLJsonValueFunction extends JsonValueFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void render(
 			SqlAppender sqlAppender,
 			JsonValueArguments arguments,
@@ -71,6 +74,7 @@ public class PostgreSQLJsonValueFunction extends JsonValueFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void renderReturningClause(SqlAppender sqlAppender, JsonValueArguments arguments, SqlAstTranslator<?> walker) {
 		// See #render for an explanation of this behavior
 		if ( supportsStandard && isString( arguments.returningType() ) ) {
@@ -81,10 +85,12 @@ public class PostgreSQLJsonValueFunction extends JsonValueFunction {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private boolean isString(@Nullable CastTarget castTarget) {
 		return castTarget == null || castTarget.getJdbcMapping().getJdbcType().isString();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static void appendJsonValue(SqlAppender sqlAppender, Expression jsonDocument, SqlAstNode jsonPath, boolean isJsonType, @Nullable CastTarget castTarget, @Nullable JsonPathPassingClause passingClause, SqlAstTranslator<?> walker) {
 		if ( castTarget != null ) {
 			sqlAppender.appendSql( "cast(" );

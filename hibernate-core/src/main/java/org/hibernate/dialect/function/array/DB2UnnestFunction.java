@@ -30,6 +30,8 @@ import org.hibernate.type.descriptor.WrapperOptions;
 import org.hibernate.type.descriptor.jdbc.JdbcLiteralFormatter;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * DB2 unnest function.
@@ -48,6 +50,7 @@ public class DB2UnnestFunction extends UnnestFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected <T> SelfRenderingSqmSetReturningFunction<T> generateSqmSetReturningFunctionExpression(List<? extends SqmTypedNode<?>> arguments, QueryEngine queryEngine) {
 		return new SelfRenderingSqmSetReturningFunction<>(
 				this,
@@ -59,6 +62,7 @@ public class DB2UnnestFunction extends UnnestFunction {
 				getName()
 		) {
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public TableGroup convertToSqlAst(NavigablePath navigablePath, String identifierVariable, boolean lateral, boolean canUseInnerJoins, boolean withOrdinality, SqmToSqlAstConverter walker) {
 				walker.registerQueryTransformer( new DB2JsonTableFunction.SeriesQueryTransformer( maximumArraySize ) );
 				return super.convertToSqlAst( navigablePath, identifierVariable, lateral, canUseInnerJoins, withOrdinality, walker );
@@ -67,6 +71,7 @@ public class DB2UnnestFunction extends UnnestFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderJsonTable(
 			SqlAppender sqlAppender,
 			Expression array,

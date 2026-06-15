@@ -16,6 +16,8 @@ import org.hibernate.query.named.internal.NativeMutationMementoImpl;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Boot-time model of a named native mutation query.
 ///
@@ -38,26 +40,31 @@ public class NamedNativeMutationDefinitionImpl<T>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSqlQueryString() {
 		return sqlString;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getResultSetMappingName() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getStatementString() {
 		return sqlString;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Set<String> getQuerySpaces() {
 		return querySpaces;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NamedNativeQueryMemento<T> resolve(SessionFactoryImplementor factory) {
 		return new NativeMutationMementoImpl<>(
 				name,
@@ -75,6 +82,7 @@ public class NamedNativeMutationDefinitionImpl<T>
 	///
 	/// @param annotation The annotation.
 	/// @param target Where the annotation was found.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static NamedNativeMutationDefinitionImpl<?> from(jakarta.persistence.NamedNativeStatement annotation, AnnotationTarget target) {
 		return new NamedNativeMutationDefinitionImpl<>(
 				annotation.name(),

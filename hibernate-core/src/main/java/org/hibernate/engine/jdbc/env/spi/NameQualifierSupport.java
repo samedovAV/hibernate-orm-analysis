@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.engine.jdbc.env.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Enumerated values representing the level of support for catalog and schema.
@@ -27,10 +30,12 @@ public enum NameQualifierSupport {
 	 */
 	NONE;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsCatalogs() {
 		return this == CATALOG || this == BOTH;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsSchemas() {
 		return this == SCHEMA || this == BOTH;
 	}

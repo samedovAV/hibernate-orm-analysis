@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.sql.SQLException;
 
 import org.hibernate.JDBCException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An object that interprets JDBC {@link SQLException}s and converts
@@ -31,5 +33,6 @@ public interface SQLExceptionConverter extends Serializable {
 	 * @see org.hibernate.exception.SQLGrammarException
 	 * @see org.hibernate.exception.LockAcquisitionException
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JDBCException convert(SQLException sqlException, String message, String sql);
 }

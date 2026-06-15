@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.source.spi;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for a container of {@link RelationalValueSource} references.  Multiple types of things operate as sources
@@ -29,6 +31,7 @@ public interface RelationalValueSourceContainer extends ColumnBindingDefaults {
 	 *
 	 * @return The contained {@link RelationalValueSource} references.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<RelationalValueSource> getRelationalValueSources();
 
 }

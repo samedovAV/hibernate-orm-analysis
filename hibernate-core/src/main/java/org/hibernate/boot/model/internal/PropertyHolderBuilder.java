@@ -14,6 +14,8 @@ import org.hibernate.mapping.Join;
 import org.hibernate.mapping.PersistentClass;
 import org.hibernate.models.spi.ClassDetails;
 import org.hibernate.models.spi.MemberDetails;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * This factory is here to build a PropertyHolder and prevent .mapping interface adding
@@ -24,6 +26,7 @@ public final class PropertyHolderBuilder {
 	private PropertyHolderBuilder() {
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static PropertyHolder buildPropertyHolder(
 			ClassDetails clazzToProcess,
 			PersistentClass persistentClass,
@@ -47,6 +50,7 @@ public final class PropertyHolderBuilder {
 	 *
 	 * @return PropertyHolder
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static PropertyHolder buildPropertyHolder(
 			Component component,
 			String path,
@@ -60,6 +64,7 @@ public final class PropertyHolderBuilder {
 	/**
 	 * build a property holder on top of a collection
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static CollectionPropertyHolder buildPropertyHolder(
 			Collection collection,
 			String path,
@@ -81,6 +86,7 @@ public final class PropertyHolderBuilder {
 	 * May only be called during the second pass phase.
 	 * (The join must have already been set.)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static PropertyHolder buildPropertyHolder(
 			PersistentClass persistentClass,
 			Map<String, Join> joins,

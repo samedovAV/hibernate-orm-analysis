@@ -13,6 +13,8 @@ import org.hibernate.jpa.HibernateHints;
 import org.hibernate.jpa.SpecHints;
 
 import static java.util.Collections.unmodifiableSet;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Collects all available hints for use the Jakarta Persistence hint system
@@ -22,10 +24,12 @@ import static java.util.Collections.unmodifiableSet;
 public class HintsCollector {
 	private static final Set<String> HINTS = buildHintsSet();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Set<String> getDefinedHints() {
 		return HINTS;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Set<String> buildHintsSet() {
 		final HashSet<String> hints = new HashSet<>();
 		applyHints( hints, HibernateHints.class );
@@ -33,6 +37,7 @@ public class HintsCollector {
 		return unmodifiableSet( hints );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static void applyHints(HashSet<String> hints, Class<?> hintsClass) {
 		for ( final Field field : hintsClass.getDeclaredFields() ) {
 			if ( field.getName().startsWith( "HINT_" )

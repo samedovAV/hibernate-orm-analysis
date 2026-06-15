@@ -7,6 +7,8 @@ package org.hibernate.engine.spi;
 import org.hibernate.persister.entity.EntityPersister;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An {@link EntityKey} for a temporal (historical) snapshot of an entity,
@@ -36,16 +38,19 @@ public final class TemporalEntityKey extends EntityKey {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getChangesetId() {
 		return changesetId;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isTemporal() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String toString() {
 		return super.toString() + "@" + changesetId;
 	}

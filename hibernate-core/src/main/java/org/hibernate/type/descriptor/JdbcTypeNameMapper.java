@@ -14,6 +14,8 @@ import org.hibernate.type.SqlTypes;
 
 import static java.util.Collections.unmodifiableMap;
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * (Badly named) helper for dealing with standard JDBC types as defined by {@link java.sql.Types}
@@ -26,6 +28,7 @@ public final class JdbcTypeNameMapper {
 	private static final Map<Integer, String> SQL_TYPE_MAP = buildJdbcTypeMap( SqlTypes.class );
 	private static final Map<String, Integer> SQL_TYPE_NAME_MAP = buildJdbcTypeNameMap( SqlTypes.class );
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static Map<Integer, String> buildJdbcTypeMap(Class<?> typesClass) {
 		final HashMap<Integer, String> map = new HashMap<>();
 		for ( Field field : typesClass.getFields() ) {
@@ -43,6 +46,7 @@ public final class JdbcTypeNameMapper {
 		return unmodifiableMap( map );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static Map<String, Integer> buildJdbcTypeNameMap(Class<?> typesClass) {
 		final HashMap<String, Integer> map = new HashMap<>();
 		for ( Field field : typesClass.getFields() ) {
@@ -67,6 +71,7 @@ public final class JdbcTypeNameMapper {
 	 *
 	 * @return {@code true} to indicate the type code is a standard type code; {@code false} otherwise.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static boolean isStandardTypeCode(int typeCode) {
 		return isStandardTypeCode( Integer.valueOf( typeCode ) );
 	}
@@ -76,6 +81,7 @@ public final class JdbcTypeNameMapper {
 	 *
 	 * @see #isStandardTypeCode(int)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isStandardTypeCode(Integer typeCode) {
 		return JDBC_TYPE_MAP.containsKey( typeCode );
 	}
@@ -91,6 +97,7 @@ public final class JdbcTypeNameMapper {
 	 *
 	 * @return The type name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String getTypeName(Integer typeCode) {
 		final String name = SQL_TYPE_MAP.get( typeCode );
 		return name == null ? "UNKNOWN(" + typeCode + ")" : name;
@@ -104,6 +111,7 @@ public final class JdbcTypeNameMapper {
 	 *
 	 * @return The type code.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Integer getTypeCode(String typeName) {
 		return SQL_TYPE_NAME_MAP.get( typeName );
 	}

@@ -10,6 +10,8 @@ import org.hibernate.event.spi.EntityCopyObserverFactory;
 import org.hibernate.event.spi.EventSource;
 
 import static org.hibernate.pretty.MessageHelper.infoString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gail Badner
@@ -26,6 +28,7 @@ public final class EntityCopyNotAllowedObserver implements EntityCopyObserver {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void entityCopyDetected(
 			Object managedEntity,
 			Object mergeEntity1,
@@ -40,6 +43,7 @@ public final class EntityCopyNotAllowedObserver implements EntityCopyObserver {
 				+ "; " + managedOrDetachedEntityString( managedEntity, mergeEntity2 ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String managedOrDetachedEntityString(Object managedEntity, Object entity ) {
 		return new StringBuilder()
 				.append( entity == managedEntity ? "Managed" : "Detached" )
@@ -49,11 +53,13 @@ public final class EntityCopyNotAllowedObserver implements EntityCopyObserver {
 				.toString();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void clear() {
 		// Nothing to do
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void topLevelMergeComplete(EventSource session) {
 		// Nothing to do
 	}

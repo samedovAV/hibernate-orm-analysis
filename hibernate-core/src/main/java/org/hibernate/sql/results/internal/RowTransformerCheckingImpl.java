@@ -6,6 +6,8 @@ package org.hibernate.sql.results.internal;
 
 import org.hibernate.query.QueryTypeMismatchException;
 import org.hibernate.sql.results.spi.RowTransformer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Verifies that the first object in each row is
@@ -26,6 +28,7 @@ public class RowTransformerCheckingImpl<R> implements RowTransformer<R> {
 
 	@Override
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public R transformRow(Object[] row) {
 		final Object result = row[0];
 		if ( result == null || type.isInstance( result ) ) {
@@ -38,6 +41,7 @@ public class RowTransformerCheckingImpl<R> implements RowTransformer<R> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int determineNumberOfResultElements(int rawElementCount) {
 		return 1;
 	}

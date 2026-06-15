@@ -17,12 +17,15 @@ import org.hibernate.mapping.Property;
 import java.lang.annotation.Annotation;
 
 import static org.hibernate.internal.util.GenericsHelper.typeArguments;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gavin King
  * @since 7.3
  */
 public class Binders {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <A extends Annotation> void callTypeBinder(
 			Annotation annotation, Class<A> annotationType,
 			Component embeddable,
@@ -39,6 +42,7 @@ public class Binders {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <A extends Annotation> void callTypeBinder(
 			Annotation annotation, Class<A> annotationType,
 			PersistentClass entity,
@@ -55,6 +59,7 @@ public class Binders {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <A extends Annotation> void callPropertyBinder(
 			Annotation annotation, Class<A> annotationType,
 			PersistentClass entity, Property property,
@@ -71,6 +76,7 @@ public class Binders {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static <A extends Annotation> TypeBinder<A> typeBinder(Class<A> annotationType)
 			throws Exception {
 		final var binderType =
@@ -82,6 +88,7 @@ public class Binders {
 		return castBinderType.getDeclaredConstructor().newInstance();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static <A extends Annotation> AttributeBinder<A> propertyBinder(Class<A> annotationType)
 					throws Exception {
 		final var binderType =
@@ -93,6 +100,7 @@ public class Binders {
 		return castBinderType.getDeclaredConstructor().newInstance();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void checkImplementedTypeArgument(
 			Class<? extends Annotation> annotationType,
 			Class<?> binderType, Class<?> implementedType) {

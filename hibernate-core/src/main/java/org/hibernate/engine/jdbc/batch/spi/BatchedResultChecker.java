@@ -8,6 +8,8 @@ import java.sql.SQLException;
 
 import org.hibernate.Incubating;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Checks the result for one row in a JDBC batch.
 ///
@@ -37,6 +39,7 @@ public interface BatchedResultChecker {
 	/// a stale-state failure
 	///
 	/// @throws SQLException if result checking needs to report a JDBC failure
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean checkResult(
 			int affectedRowCount,
 			int batchPosition,

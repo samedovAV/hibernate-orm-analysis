@@ -16,12 +16,15 @@ import org.hibernate.models.spi.ClassDetails;
 import org.hibernate.models.spi.ClassDetailsRegistry;
 import org.hibernate.models.spi.RegistryPrimer;
 import org.hibernate.models.spi.ModelsContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
  * @author Steve Ebersole
  */
 public class ModelsHelper {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void preFillRegistries(RegistryPrimer.Contributions contributions, ModelsContext buildingContext) {
 		OrmAnnotationHelper.forEachOrmAnnotation( contributions::registerAnnotation );
 
@@ -43,6 +46,7 @@ public class ModelsHelper {
 		buildingContext.getAnnotationDescriptorRegistry().getDescriptor( TenantId.class );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void registerPrimitive(Class<?> theClass, ModelsContext buildingContext) {
 		buildingContext.getClassDetailsRegistry()
 				.as( MutableClassDetailsRegistry.class )
@@ -50,6 +54,7 @@ public class ModelsHelper {
 
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static ClassDetails resolveClassDetails(
 			String className,
 			ClassDetailsRegistry classDetailsRegistry,

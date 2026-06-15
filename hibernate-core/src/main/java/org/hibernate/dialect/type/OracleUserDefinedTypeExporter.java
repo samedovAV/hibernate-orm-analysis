@@ -27,6 +27,8 @@ import static org.hibernate.type.SqlTypes.TIMESTAMP_UTC;
 import static org.hibernate.type.SqlTypes.TIMESTAMP_WITH_TIMEZONE;
 import static org.hibernate.type.SqlTypes.UUID;
 import static org.hibernate.type.SqlTypes.VARBINARY;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -39,6 +41,7 @@ public class OracleUserDefinedTypeExporter extends StandardUserDefinedTypeExport
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getSqlCreateStrings(
 			UserDefinedArrayType userDefinedType,
 			Metadata metadata,
@@ -321,6 +324,7 @@ public class OracleUserDefinedTypeExporter extends StandardUserDefinedTypeExport
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getSqlDropStrings(UserDefinedArrayType userDefinedType, Metadata metadata, SqlStringGenerationContext context) {
 		final QualifiedName typeName = new QualifiedNameParser.NameParts(
 				Identifier.toIdentifier( userDefinedType.getCatalog(), userDefinedType.isCatalogQuoted() ),
@@ -360,6 +364,7 @@ public class OracleUserDefinedTypeExporter extends StandardUserDefinedTypeExport
 		};
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String buildDropTypeSqlString(String arrayTypeName) {
 		if ( dialect.supportsIfExistsBeforeTypeName() ) {
 			return "drop type if exists " + arrayTypeName + " force";
@@ -369,6 +374,7 @@ public class OracleUserDefinedTypeExporter extends StandardUserDefinedTypeExport
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String buildDropFunctionSqlString(String functionTypeName) {
 		if ( supportsIfExistsBeforeFunctionName() ) {
 			return "drop function if exists " + functionTypeName;
@@ -378,10 +384,12 @@ public class OracleUserDefinedTypeExporter extends StandardUserDefinedTypeExport
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean supportsIfExistsBeforeFunctionName() {
 		return dialect.getVersion().isSameOrAfter( 23 );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String determineValueExpression(String expression, int elementSqlTypeCode, Integer elementDdlTypeCode, String elementType) {
 		switch ( elementSqlTypeCode ) {
 			case DATE:
@@ -412,6 +420,7 @@ public class OracleUserDefinedTypeExporter extends StandardUserDefinedTypeExport
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String determineJsonElementType(Integer elementSqlTypeCode, Integer elementDdlTypeCode, String elementType) {
 		switch ( elementSqlTypeCode ) {
 			case BINARY:
@@ -437,6 +446,7 @@ public class OracleUserDefinedTypeExporter extends StandardUserDefinedTypeExport
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected String createOrReplaceConcatFunction(String arrayTypeName) {
 		// Since Oracle has no builtin concat function for varrays and doesn't support varargs,
 		// we have to create a function with a fixed amount of arguments with default that fits "most" cases.
@@ -444,6 +454,7 @@ public class OracleUserDefinedTypeExporter extends StandardUserDefinedTypeExport
 		return createOrReplaceConcatFunction( arrayTypeName, 5 );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected String createOrReplaceConcatFunction(String arrayTypeName, int maxConcatParams) {
 		final var sb = new StringBuilder();
 		sb.append( "create or replace function " ).append( arrayTypeName ).append( "_concat(" );
@@ -469,6 +480,7 @@ public class OracleUserDefinedTypeExporter extends StandardUserDefinedTypeExport
 		return sb.append( "); return res; end;" ).toString();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getRawTypeName(String typeName) {
 		//trim off the length/precision/scale
 		final int paren = typeName.indexOf( '(' );

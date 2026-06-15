@@ -23,6 +23,8 @@ import org.hibernate.type.spi.TypeConfiguration;
 import static org.hibernate.query.sqm.produce.function.FunctionParameterType.IMPLICIT_XML;
 import static org.hibernate.query.sqm.produce.function.FunctionParameterType.STRING;
 import static org.hibernate.query.sqm.produce.function.FunctionParameterType.XML;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard xmlexists function.
@@ -44,11 +46,13 @@ public class XmlExistsFunction extends AbstractSqmSelfRenderingFunctionDescripto
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isPredicate() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,

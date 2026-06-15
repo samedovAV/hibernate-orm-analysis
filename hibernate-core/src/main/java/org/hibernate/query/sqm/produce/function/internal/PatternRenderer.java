@@ -23,6 +23,8 @@ import static java.util.Collections.emptyList;
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
 import static org.hibernate.internal.util.collections.ArrayHelper.EMPTY_STRING_ARRAY;
 import static org.hibernate.query.sqm.function.AbstractSqmSelfRenderingFunctionDescriptor.filterClauseSupported;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Delegate for handling function "templates".
@@ -126,6 +128,7 @@ public class PatternRenderer {
 		this.argumentRenderingModes = argumentRenderingModes;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static int parameterIndex(String pattern, String index) {
 		if ( index.isEmpty() ) {
 			throw new IllegalArgumentException( "Missing parameter index in pattern: '" + pattern + "'" );
@@ -141,10 +144,12 @@ public class PatternRenderer {
 		return paramNumber;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasVarargs() {
 		return varargParam >= 0;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getParamCount() {
 		return maxParamIndex;
 	}
@@ -156,6 +161,7 @@ public class PatternRenderer {
 	 * @param args The arguments to inject into the template
 	 */
 	@SuppressWarnings("unused")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> args,
@@ -163,6 +169,7 @@ public class PatternRenderer {
 		render( sqlAppender, args, null, emptyList(), translator );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> args,
@@ -171,6 +178,7 @@ public class PatternRenderer {
 		render( sqlAppender, args, filter, emptyList(), null, null, translator );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> args,
@@ -180,6 +188,7 @@ public class PatternRenderer {
 		render( sqlAppender, args, filter, withinGroup, null, null, translator );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> args,
@@ -190,6 +199,7 @@ public class PatternRenderer {
 		render( sqlAppender, args, filter, emptyList(), respectNulls, fromFirst, translator );
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> args,
@@ -284,6 +294,7 @@ public class PatternRenderer {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private SqlAstNodeRenderingMode getArgumentRenderingMode(int index) {
 		return index < argumentRenderingModes.length
 				? argumentRenderingModes[index]

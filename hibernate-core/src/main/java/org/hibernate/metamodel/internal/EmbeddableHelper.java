@@ -3,8 +3,12 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.metamodel.internal;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 public class EmbeddableHelper {
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public static int[] determineMappingIndex(String[] sortedNames, String[] names) {
 		final int[] index = new int[sortedNames.length];
 		int i = 0;
@@ -23,6 +27,7 @@ public class EmbeddableHelper {
 		return index;
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public static boolean resolveIndex(String[] sortedComponentNames, String[] componentNames, int[] index) {
 		boolean hasGaps = false;
 		for ( int i = 0; i < componentNames.length; i++ ) {

@@ -7,6 +7,8 @@ package org.hibernate.boot.registry.classloading.internal;
 import java.util.Map;
 
 import org.hibernate.cfg.AvailableSettings;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Defines when the lookup in the current thread context {@link ClassLoader} should be
@@ -41,6 +43,7 @@ public enum TcclLookupPrecedence {
 	 * @throws IllegalArgumentException If there is a setting defined for
 	 * precedence, but it is not a legal value
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static TcclLookupPrecedence from(Map<?,?> settings) {
 		return from( settings, null );
 	}
@@ -52,6 +55,7 @@ public enum TcclLookupPrecedence {
 	 * @throws IllegalArgumentException If there is a setting defined for
 	 * precedence, but it is not a legal value
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static TcclLookupPrecedence from(Map<?,?> settings, TcclLookupPrecedence defaultValue) {
 		final String explicitSetting = (String) settings.get( AvailableSettings.TC_CLASSLOADER );
 		if ( explicitSetting == null ) {

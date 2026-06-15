@@ -18,6 +18,8 @@ import org.hibernate.bytecode.spi.BytecodeProvider;
 import org.hibernate.bytecode.spi.ClassTransformer;
 
 import jakarta.persistence.spi.TransformerException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -38,6 +40,7 @@ public class EnhancingClassTransformerImpl implements ClassTransformer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public byte[] transform(
 			ClassLoader loader,
 			String className,
@@ -63,10 +66,12 @@ public class EnhancingClassTransformerImpl implements ClassTransformer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void discoverTypes(ClassLoader loader, String className) {
 		getEnhancer( loader ).discoverTypes( className, null );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Enhancer getEnhancer(ClassLoader loader) {
 		Entry enhancerEntry = getEnhancerEntry( entryReference, loader );
 		if ( enhancerEntry == null ) {
@@ -85,6 +90,7 @@ public class EnhancingClassTransformerImpl implements ClassTransformer {
 		return enhancerEntry.enhancer;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Entry getEnhancerEntry(WeakReference<Entry> weakReference, ClassLoader loader) {
 		if ( weakReference == null ) {
 			return null;
@@ -96,6 +102,7 @@ public class EnhancingClassTransformerImpl implements ClassTransformer {
 		return entry;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Enhancer createEnhancer(ClassLoader loader) {
 		return bytecodeProvider.getEnhancer( new EnhancementContextWrapper( enhancementContext, loader ) );
 	}

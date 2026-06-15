@@ -19,6 +19,8 @@ import org.hibernate.boot.model.source.spi.EmbeddableMapping;
 import org.hibernate.boot.model.source.spi.EmbeddedAttributeMapping;
 import org.hibernate.boot.model.source.spi.NaturalIdMutability;
 import org.hibernate.boot.model.source.spi.ToolingHintContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The source information for a singular attribute whose type is composite
@@ -45,16 +47,19 @@ class SingularAttributeSourceEmbeddedImpl extends AbstractSingularAttributeSourc
 				new EmbeddedAttributeMapping() {
 					private final EmbeddableMapping embeddableMapping = new EmbeddableMapping() {
 						@Override
+						@Prove(complexity = Complexity.O_N, n = "", count = {})
 						public String getClazz() {
 							return jaxbComponentElement.getClazz();
 						}
 
 						@Override
+						@Prove(complexity = Complexity.O_N, n = "", count = {})
 						public List<JaxbHbmTuplizerType> getTuplizer() {
 							return jaxbComponentElement.getTuplizer();
 						}
 
 						@Override
+						@Prove(complexity = Complexity.O_N, n = "", count = {})
 						public String getParent() {
 							return jaxbComponentElement.getParent() == null
 									? null
@@ -63,26 +68,31 @@ class SingularAttributeSourceEmbeddedImpl extends AbstractSingularAttributeSourc
 					};
 
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public List<JaxbHbmToolingHintType> getToolingHints() {
 						return jaxbComponentElement.getToolingHints();
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public String getName() {
 						return jaxbComponentElement.getName();
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public String getAccess() {
 						return jaxbComponentElement.getAccess();
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public boolean isUnique() {
 						return jaxbComponentElement.isUnique();
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public EmbeddableMapping getEmbeddableMapping() {
 						return embeddableMapping;
 					}
@@ -112,16 +122,19 @@ class SingularAttributeSourceEmbeddedImpl extends AbstractSingularAttributeSourc
 				new EmbeddedAttributeMapping() {
 					private final EmbeddableMapping embeddableMapping = new EmbeddableMapping() {
 						@Override
+						@Prove(complexity = Complexity.O_N, n = "", count = {})
 						public String getClazz() {
 							return attributeJaxbMapping.getClazz();
 						}
 
 						@Override
+						@Prove(complexity = Complexity.O_N, n = "", count = {})
 						public List<JaxbHbmTuplizerType> getTuplizer() {
 							return attributeJaxbMapping.getTuplizer();
 						}
 
 						@Override
+						@Prove(complexity = Complexity.O_N, n = "", count = {})
 						public String getParent() {
 							return attributeJaxbMapping.getParent() == null
 									? null
@@ -130,26 +143,31 @@ class SingularAttributeSourceEmbeddedImpl extends AbstractSingularAttributeSourc
 					};
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public List<JaxbHbmToolingHintType> getToolingHints() {
 						return Collections.emptyList();
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public String getName() {
 						return attributeJaxbMapping.getName();
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public String getAccess() {
 						return attributeJaxbMapping.getAccess();
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public boolean isUnique() {
 						return false;
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public EmbeddableMapping getEmbeddableMapping() {
 						return embeddableMapping;
 					}
@@ -179,42 +197,50 @@ class SingularAttributeSourceEmbeddedImpl extends AbstractSingularAttributeSourc
 				new EmbeddedAttributeMapping() {
 					private final EmbeddableMapping embeddableMapping = new EmbeddableMapping() {
 						@Override
+						@Prove(complexity = Complexity.O_1, n = "", count = {})
 						public String getClazz() {
 							return null;
 						}
 
 						@Override
+						@Prove(complexity = Complexity.O_1, n = "", count = {})
 						public List<JaxbHbmTuplizerType> getTuplizer() {
 							return Collections.emptyList();
 						}
 
 						@Override
+						@Prove(complexity = Complexity.O_1, n = "", count = {})
 						public String getParent() {
 							return null;
 						}
 					};
 
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public boolean isUnique() {
 						return jaxbDynamicEmbeddedMapping.isUnique();
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public String getName() {
 						return jaxbDynamicEmbeddedMapping.getName();
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public String getAccess() {
 						return jaxbDynamicEmbeddedMapping.getAccess();
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public EmbeddableMapping getEmbeddableMapping() {
 						return embeddableMapping;
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public List<JaxbHbmToolingHintType> getToolingHints() {
 						return null;
 					}
@@ -233,46 +259,55 @@ class SingularAttributeSourceEmbeddedImpl extends AbstractSingularAttributeSourc
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public XmlElementMetadata getSourceType() {
 		return XmlElementMetadata.COMPONENT;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getXmlNodeName() {
 		return xmlNodeName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Boolean isInsertable() {
 		return insert;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Boolean isUpdatable() {
 		return update;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isBytecodeLazy() {
 		return lazy;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AttributePath getAttributePath() {
 		return getEmbeddableSource().getAttributePathBase();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AttributeRole getAttributeRole() {
 		return getEmbeddableSource().getAttributeRoleBase();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isIncludedInOptimisticLocking() {
 		return optimisticLock;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public ToolingHintContext getToolingHintContext() {
 		return getEmbeddableSource().getToolingHintContext();
 	}

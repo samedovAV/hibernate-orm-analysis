@@ -10,6 +10,8 @@ import java.util.Map;
 import org.hibernate.models.spi.ModelsContext;
 
 import jakarta.persistence.Access;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -38,15 +40,18 @@ public class AccessJpaAnnotation implements Access {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return Access.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.AccessType value() {
 		return value;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void value(jakarta.persistence.AccessType value) {
 		this.value = value;
 	}

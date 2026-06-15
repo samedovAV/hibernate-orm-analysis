@@ -12,6 +12,8 @@ import jakarta.persistence.FindOption;
 import jakarta.persistence.PessimisticLockScope;
 import jakarta.persistence.Timeout;
 import org.hibernate.graph.GraphSemantic;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Loads multiple instances of a given entity type at once, by
@@ -49,6 +51,7 @@ public interface MultiIdentifierLoadAccess<T> {
 	 * @param lockMode The lock mode to apply
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default MultiIdentifierLoadAccess<T> with(LockMode lockMode) {
 		return with( lockMode, PessimisticLockScope.NORMAL );
 	}
@@ -61,6 +64,7 @@ public interface MultiIdentifierLoadAccess<T> {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MultiIdentifierLoadAccess<T> with(LockMode lockMode, PessimisticLockScope lockScope);
 
 	/**
@@ -71,6 +75,7 @@ public interface MultiIdentifierLoadAccess<T> {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MultiIdentifierLoadAccess<T> with(Timeout timeout);
 
 	/**
@@ -86,6 +91,7 @@ public interface MultiIdentifierLoadAccess<T> {
 	 * and/or {@linkplain #with(Timeout)} instead.
 	 */
 	@Deprecated(since = "7.0", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MultiIdentifierLoadAccess<T> with(LockOptions lockOptions);
 
 	/**
@@ -95,6 +101,7 @@ public interface MultiIdentifierLoadAccess<T> {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MultiIdentifierLoadAccess<T> with(CacheMode cacheMode);
 
 	/**
@@ -104,6 +111,7 @@ public interface MultiIdentifierLoadAccess<T> {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MultiIdentifierLoadAccess<T> withReadOnly(boolean readOnly);
 
 	/**
@@ -113,6 +121,7 @@ public interface MultiIdentifierLoadAccess<T> {
 	 *
 	 * @since 6.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default MultiIdentifierLoadAccess<T> withFetchGraph(EntityGraph<T> graph) {
 		return with( graph, GraphSemantic.FETCH );
 	}
@@ -124,6 +133,7 @@ public interface MultiIdentifierLoadAccess<T> {
 	 *
 	 * @since 6.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default MultiIdentifierLoadAccess<T> withLoadGraph(EntityGraph<T> graph) {
 		return with( graph, GraphSemantic.LOAD );
 	}
@@ -132,6 +142,7 @@ public interface MultiIdentifierLoadAccess<T> {
 	 * @deprecated use {@link #withLoadGraph}
 	 */
 	@Deprecated(since = "6.3")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default MultiIdentifierLoadAccess<T> with(EntityGraph<T> graph) {
 		return with( graph, GraphSemantic.LOAD );
 	}
@@ -141,6 +152,7 @@ public interface MultiIdentifierLoadAccess<T> {
 	 * {@linkplain jakarta.persistence.EntityGraph entity graph},
 	 * and how it should be {@linkplain GraphSemantic interpreted}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MultiIdentifierLoadAccess<T> with(EntityGraph<T> graph, GraphSemantic semantic);
 
 	/**
@@ -153,6 +165,7 @@ public interface MultiIdentifierLoadAccess<T> {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MultiIdentifierLoadAccess<T> enableFetchProfile(String profileName);
 
 	/**
@@ -165,6 +178,7 @@ public interface MultiIdentifierLoadAccess<T> {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MultiIdentifierLoadAccess<T> disableFetchProfile(String profileName);
 
 	/**
@@ -199,6 +213,7 @@ public interface MultiIdentifierLoadAccess<T> {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MultiIdentifierLoadAccess<T> withBatchSize(int batchSize);
 
 	/**
@@ -213,6 +228,7 @@ public interface MultiIdentifierLoadAccess<T> {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MultiIdentifierLoadAccess<T> enableSessionCheck(boolean enabled);
 
 	/**
@@ -229,6 +245,7 @@ public interface MultiIdentifierLoadAccess<T> {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MultiIdentifierLoadAccess<T> enableReturnOfDeletedEntities(boolean enabled);
 
 	/**
@@ -246,6 +263,7 @@ public interface MultiIdentifierLoadAccess<T> {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MultiIdentifierLoadAccess<T> enableOrderedReturn(boolean enabled);
 
 	/**
@@ -260,6 +278,7 @@ public interface MultiIdentifierLoadAccess<T> {
 	 * @param ids The ids to load
 	 * @return The persistent entities.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<K> List<T> multiLoad(K... ids);
 
 	/**
@@ -274,5 +293,6 @@ public interface MultiIdentifierLoadAccess<T> {
 	 *
 	 * @return The persistent entities.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<K> List<T> multiLoad(List<K> ids);
 }

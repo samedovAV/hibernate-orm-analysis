@@ -5,6 +5,8 @@
 package org.hibernate.event.spi;
 
 import org.hibernate.persister.entity.EntityPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Andrea Boriero
@@ -18,6 +20,7 @@ interface PostActionEventListener {
 	 *
 	 * @return {@code true} if after transaction callbacks should be added.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean requiresPostCommitHandling(EntityPersister persister) {
 		return false;
 	}

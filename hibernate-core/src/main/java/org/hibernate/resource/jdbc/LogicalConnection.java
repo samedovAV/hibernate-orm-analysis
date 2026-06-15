@@ -5,6 +5,8 @@
 package org.hibernate.resource.jdbc;
 
 import java.sql.Connection;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents a continuous logical connection to the database to the database via JDBC.
@@ -23,6 +25,7 @@ public interface LogicalConnection {
 	 * @return {@code true} if still open, since {@link #close} has not yet been called;
 	 *         {@code false} if not open, since {@link #close} was called.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isOpen();
 
 	/**
@@ -32,6 +35,7 @@ public interface LogicalConnection {
 	 *
 	 * @apiNote The return type accommodates legacy functionality for user-supplied connections.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Connection close();
 
 	/**
@@ -42,6 +46,7 @@ public interface LogicalConnection {
 	 * @return {@code true} if currently holding a JDBC {@code Connection};
 	 *         {@code false} if not.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isPhysicallyConnected();
 
 	/**
@@ -51,6 +56,7 @@ public interface LogicalConnection {
 	 *
 	 * @throws org.hibernate.ResourceClosedException if the {@code LogicalConnection} is closed
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ResourceRegistry getResourceRegistry();
 
 }

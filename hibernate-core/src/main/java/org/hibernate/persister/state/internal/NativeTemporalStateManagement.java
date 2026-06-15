@@ -11,6 +11,8 @@ import org.hibernate.metamodel.mapping.PluralAttributeMapping;
 import org.hibernate.metamodel.mapping.internal.MappingModelCreationProcess;
 import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.temporal.TemporalTableStrategy;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * State management for temporal entities and collections with
@@ -27,6 +29,7 @@ public final class NativeTemporalStateManagement extends AbstractStateManagement
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public AuxiliaryMapping createAuxiliaryMapping(
 			EntityPersister persister,
 			RootClass rootClass,
@@ -35,6 +38,7 @@ public final class NativeTemporalStateManagement extends AbstractStateManagement
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public AuxiliaryMapping createAuxiliaryMapping(
 			PluralAttributeMapping pluralAttributeMapping,
 			Collection bootDescriptor,

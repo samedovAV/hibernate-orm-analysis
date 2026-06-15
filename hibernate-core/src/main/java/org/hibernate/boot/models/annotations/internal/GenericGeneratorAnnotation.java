@@ -16,6 +16,8 @@ import org.hibernate.models.spi.ModelsContext;
 import jakarta.annotation.Generated;
 
 import static org.hibernate.boot.models.internal.OrmAnnotationHelper.extractJdkValue;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -54,43 +56,52 @@ public class GenericGeneratorAnnotation implements GenericGenerator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return GenericGenerator.class;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String name() {
 		return name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void name(String value) {
 		this.name = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Generator> type() {
 		return type;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void type(Class<? extends Generator> value) {
 		this.type = value;
 	}
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String strategy() {
 		return strategy;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void strategy(String value) {
 		this.strategy = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Parameter[] parameters() {
 		return parameters;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void parameters(Parameter[] value) {
 		this.parameters = value;
 	}

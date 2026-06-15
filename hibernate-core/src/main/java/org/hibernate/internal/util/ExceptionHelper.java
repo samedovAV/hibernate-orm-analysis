@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.internal.util;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 
 public final class ExceptionHelper {
@@ -15,16 +18,19 @@ public final class ExceptionHelper {
 	 *
 	 * @param throwable The {@code Throwable} to throw.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void rethrow(Throwable throwable) {
 		sneakyThrow( throwable );
 	}
 
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static <T extends Throwable> void sneakyThrow(Throwable e)
 			throws T {
 		throw (T) e;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static Throwable getRootCause(Throwable error) {
 		var next = error;
 		while ( true ) {

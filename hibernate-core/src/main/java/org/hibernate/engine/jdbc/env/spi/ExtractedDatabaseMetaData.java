@@ -10,6 +10,8 @@ import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.tool.schema.extract.spi.SequenceInformation;
 
 import static java.util.Collections.emptyList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Information extracted from {@link java.sql.DatabaseMetaData} regarding what the JDBC driver reports as
@@ -24,16 +26,19 @@ public interface ExtractedDatabaseMetaData {
 	 *
 	 * @return The JDBC environment
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcEnvironment getJdbcEnvironment();
 
 	/**
 	 * The name of the database, according to the JDBC driver.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getDatabaseProductName();
 
 	/**
 	 * The version of the database, according to the JDBC driver.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getDatabaseProductVersion();
 
 	/**
@@ -43,6 +48,7 @@ public interface ExtractedDatabaseMetaData {
 	 * {@code true} indicates the driver reported true or that
 	 * the driver could not be asked.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean supportsSchemas();
 
 	/**
@@ -52,6 +58,7 @@ public interface ExtractedDatabaseMetaData {
 	 * {@code true} indicates the driver reported true or that
 	 * the driver could not be asked.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean supportsCatalogs();
 
 	/**
@@ -61,6 +68,7 @@ public interface ExtractedDatabaseMetaData {
 	 *
 	 * @see AvailableSettings#DEFAULT_SCHEMA
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getConnectionCatalogName();
 
 	/**
@@ -68,6 +76,7 @@ public interface ExtractedDatabaseMetaData {
 	 *
 	 * @return The schema name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getConnectionSchemaName();
 
 	/**
@@ -78,6 +87,7 @@ public interface ExtractedDatabaseMetaData {
 	 *
 	 * @see AvailableSettings#CALLABLE_NAMED_PARAMS_ENABLED
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean supportsNamedParameters();
 
 	/**
@@ -90,6 +100,7 @@ public interface ExtractedDatabaseMetaData {
 	 * @see java.sql.DatabaseMetaData#supportsRefCursors()
 	 * @see org.hibernate.dialect.Dialect#supportsRefCursors
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean supportsRefCursors();
 
 	/**
@@ -100,6 +111,7 @@ public interface ExtractedDatabaseMetaData {
 	 * @see java.sql.DatabaseMetaData#supportsResultSetType
 	 * @see AvailableSettings#USE_SCROLLABLE_RESULTSET
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean supportsScrollableResults();
 
 	/**
@@ -110,6 +122,7 @@ public interface ExtractedDatabaseMetaData {
 	 * @see java.sql.DatabaseMetaData#supportsGetGeneratedKeys
 	 * @see AvailableSettings#USE_GET_GENERATED_KEYS
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean supportsGetGeneratedKeys();
 
 	/**
@@ -120,6 +133,7 @@ public interface ExtractedDatabaseMetaData {
 	 * @see java.sql.DatabaseMetaData#supportsBatchUpdates
 	 * @see org.hibernate.dialect.Dialect#supportsBatchUpdates
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean supportsBatchUpdates();
 
 	/**
@@ -129,6 +143,7 @@ public interface ExtractedDatabaseMetaData {
 	 *
 	 * @see java.sql.DatabaseMetaData#dataDefinitionIgnoredInTransactions
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean supportsDataDefinitionInTransaction();
 
 	/**
@@ -140,6 +155,7 @@ public interface ExtractedDatabaseMetaData {
 	 *
 	 * @see java.sql.DatabaseMetaData#dataDefinitionCausesTransactionCommit()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean doesDataDefinitionCauseTransactionCommit();
 
 	/**
@@ -150,6 +166,7 @@ public interface ExtractedDatabaseMetaData {
 	 *
 	 * @see java.sql.DatabaseMetaData#getSQLStateType()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SQLStateType getSqlStateType();
 
 	/**
@@ -157,6 +174,7 @@ public interface ExtractedDatabaseMetaData {
 	 *
 	 * @see java.sql.DatabaseMetaData#getURL()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getUrl();
 
 	/**
@@ -164,6 +182,7 @@ public interface ExtractedDatabaseMetaData {
 	 *
 	 * @see java.sql.DatabaseMetaData#getDriverName()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getDriver();
 
 	/**
@@ -171,6 +190,7 @@ public interface ExtractedDatabaseMetaData {
 	 *
 	 * @see java.sql.Connection#getTransactionIsolation()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getTransactionIsolation();
 
 	/**
@@ -178,11 +198,13 @@ public interface ExtractedDatabaseMetaData {
 	 *
 	 * @see java.sql.DatabaseMetaData#getDefaultTransactionIsolation()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getDefaultTransactionIsolation();
 
 	/**
 	 * Retrieve the default JDBC {@linkplain java.sql.Statement#getFetchSize fetch size}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getDefaultFetchSize();
 
 	/**
@@ -190,6 +212,7 @@ public interface ExtractedDatabaseMetaData {
 	 *
 	 * @return {@code SequenceInformation} objects.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default List<SequenceInformation> getSequenceInformationList() {
 		return emptyList();
 	}

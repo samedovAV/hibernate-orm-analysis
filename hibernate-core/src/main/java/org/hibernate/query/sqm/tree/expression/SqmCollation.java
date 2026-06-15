@@ -12,6 +12,8 @@ import org.hibernate.query.sqm.tree.SqmCopyContext;
 import org.hibernate.query.sqm.tree.SqmRenderContext;
 
 import static org.hibernate.internal.util.NullnessUtil.castNonNull;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -22,6 +24,7 @@ public class SqmCollation extends SqmLiteral<String> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmCollation copy(SqmCopyContext context) {
 		final SqmCollation existing = context.getCopy( this );
 		if ( existing != null ) {
@@ -36,21 +39,25 @@ public class SqmCollation extends SqmLiteral<String> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nonnull String getLiteralValue() {
 		return castNonNull( super.getLiteralValue() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nonnull SqmBindableType<String> getNodeType() {
 		return castNonNull( super.getNodeType() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <R> R accept(SemanticQueryWalker<R> walker) {
 		return walker.visitCollation( this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void appendHqlString(StringBuilder hql, SqmRenderContext context) {
 		hql.append( getLiteralValue() );
 	}

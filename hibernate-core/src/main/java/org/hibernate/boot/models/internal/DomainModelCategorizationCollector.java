@@ -21,6 +21,8 @@ import java.util.Set;
 import static org.hibernate.boot.model.internal.EmbeddableBinder.isEmbeddable;
 import static org.hibernate.boot.model.internal.EntityBinder.isEntity;
 import static org.hibernate.boot.model.internal.EntityBinder.isMappedSuperclass;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * In-flight holder for various things as we process metadata sources
@@ -42,22 +44,27 @@ public class DomainModelCategorizationCollector {
 		this.modelsContext = modelsContext;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public GlobalRegistrationsImpl getGlobalRegistrations() {
 		return globalRegistrations;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Set<ClassDetails> getRootEntities() {
 		return rootEntities;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, ClassDetails> getMappedSuperclasses() {
 		return mappedSuperclasses;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, ClassDetails> getEmbeddables() {
 		return embeddables;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void apply(JaxbEntityMappingsImpl jaxbRoot, XmlDocumentContext xmlDocumentContext) {
 		globalRegistrations.collectJavaTypeRegistrations( jaxbRoot.getJavaTypeRegistrations() );
 		globalRegistrations.collectJdbcTypeRegistrations( jaxbRoot.getJdbcTypeRegistrations() );
@@ -91,6 +98,7 @@ public class DomainModelCategorizationCollector {
 		// todo (7.0) : named graphs?
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void apply(ClassDetails classDetails) {
 		globalRegistrations.collectJavaTypeRegistrations( classDetails );
 		globalRegistrations.collectJdbcTypeRegistrations( classDetails );
@@ -132,15 +140,18 @@ public class DomainModelCategorizationCollector {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isConverter(ClassDetails classDetails) {
 		return classDetails.getClassName() != null && classDetails.isImplementor( AttributeConverter.class )
 			|| classDetails.hasDirectAnnotationUsage( Converter.class );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isLifecycleEventHandler(ClassDetails classDetails) {
 		return classDetails.hasDirectAnnotationUsage( EntityListener.class );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static boolean isRootEntity(ClassDetails classInfo) {
 		// perform a series of opt-out checks against the super-type hierarchy
 

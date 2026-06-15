@@ -17,6 +17,8 @@ import org.hibernate.sql.exec.spi.JdbcParameterBindings;
 import org.hibernate.type.descriptor.java.JavaType;
 
 import static java.util.Collections.emptyMap;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Executable JDBC command
@@ -48,31 +50,37 @@ public class AbstractJdbcOperationQuery implements JdbcOperationQuery {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSqlString() {
 		return sql;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<JdbcParameterBinder> getParameterBinders() {
 		return parameterBinders;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Set<String> getAffectedTableNames() {
 		return affectedTableNames;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean dependsOnParameterBindings() {
 		return !appliedParameters.isEmpty();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<JdbcParameter, JdbcParameterBinding> getAppliedParameters() {
 		return appliedParameters;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isCompatibleWith(JdbcParameterBindings jdbcParameterBindings, QueryOptions queryOptions) {
 		if ( !appliedParameters.isEmpty() ) {
 			if ( jdbcParameterBindings == null ) {
@@ -90,6 +98,7 @@ public class AbstractJdbcOperationQuery implements JdbcOperationQuery {
 		return true;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <T> boolean equal(JdbcParameterBinding appliedBinding, JdbcParameterBinding binding, JavaType<T> type) {
 		return type.isInstance( appliedBinding.getBindValue() )
 			&& type.areEqual( type.cast( binding.getBindValue() ), type.cast( appliedBinding.getBindValue() ) );

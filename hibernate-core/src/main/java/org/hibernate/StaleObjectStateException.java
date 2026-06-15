@@ -5,6 +5,8 @@
 package org.hibernate;
 
 import static org.hibernate.pretty.MessageHelper.infoString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A specialized {@link StaleStateException} that carries information about
@@ -51,14 +53,17 @@ public class StaleObjectStateException extends StaleStateException {
 		this.identifier = identifier;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getEntityName() {
 		return entityName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getIdentifier() {
 		return identifier;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getMessage() {
 		return super.getMessage() + " for entity " + infoString( entityName, identifier );
 	}

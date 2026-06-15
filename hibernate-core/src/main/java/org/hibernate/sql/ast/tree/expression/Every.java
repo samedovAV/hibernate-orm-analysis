@@ -14,6 +14,8 @@ import org.hibernate.sql.ast.tree.select.SelectStatement;
 import org.hibernate.sql.results.graph.DomainResult;
 import org.hibernate.sql.results.graph.DomainResultCreationState;
 import org.hibernate.sql.results.graph.basic.BasicResult;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gavin King
@@ -28,21 +30,25 @@ public class Every implements Expression, DomainResultProducer {
 		this.type = type;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SelectStatement getSubquery() {
 		return subquery;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MappingModelExpressible getExpressionType() {
 		return type;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker walker) {
 		walker.visitEvery( this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResult createDomainResult(
 			String resultVariable,
 			DomainResultCreationState creationState) {
@@ -60,6 +66,7 @@ public class Every implements Expression, DomainResultProducer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applySqlSelections(DomainResultCreationState creationState) {
 		final SqlAstCreationState sqlAstCreationState = creationState.getSqlAstCreationState();
 		final SqlExpressionResolver sqlExpressionResolver = sqlAstCreationState.getSqlExpressionResolver();

@@ -7,6 +7,8 @@ package org.hibernate.event.spi;
 import java.util.IdentityHashMap;
 
 import org.hibernate.event.internal.DefaultDeleteEventListener;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link DeleteEvent} represents a {@linkplain org.hibernate.Session#remove delete operation}
@@ -19,8 +21,10 @@ import org.hibernate.event.internal.DefaultDeleteEventListener;
  */
 public interface DeleteContext {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean add(Object entity);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static DeleteContext create() {
 		// use extension to avoid creating
 		// a useless wrapper object
@@ -31,6 +35,7 @@ public interface DeleteContext {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public boolean add(Object entity) {
 				return put(entity,entity)==null;
 			}

@@ -6,6 +6,8 @@ package org.hibernate.property.access.spi;
 
 import org.hibernate.metamodel.RepresentationMode;
 import org.hibernate.service.Service;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for resolving the {@link PropertyAccessStrategy} to use.
@@ -24,6 +26,7 @@ public interface PropertyAccessStrategyResolver extends Service {
 	 *
 	 * @return The resolved PropertyAccessStrategy
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PropertyAccessStrategy resolvePropertyAccessStrategy(
 			Class<?> containerClass,
 			String explicitAccessStrategyName,

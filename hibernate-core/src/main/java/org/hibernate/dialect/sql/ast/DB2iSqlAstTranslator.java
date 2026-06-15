@@ -15,6 +15,8 @@ import org.hibernate.sql.exec.spi.JdbcOperation;
 import java.util.List;
 
 import static org.hibernate.dialect.DB2iDialect.DB2_LUW_VERSION;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A SQL AST translator for DB2i.
@@ -31,11 +33,13 @@ public class DB2iSqlAstTranslator<T extends JdbcOperation> extends DB2SqlAstTran
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderComparison(Expression lhs, ComparisonOperator operator, Expression rhs) {
 		renderComparisonStandard( lhs, operator, rhs );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void renderExpressionsAsValuesSubquery(int tupleSize, List<Expression> listExpressions) {
 		// DB2 for i supports type-inference in this special VALUES expression, but not if it's wrapped as SELECT
 		appendSql( "values" );
@@ -50,6 +54,7 @@ public class DB2iSqlAstTranslator<T extends JdbcOperation> extends DB2SqlAstTran
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DatabaseVersion getDB2Version() {
 		return DB2_LUW_VERSION;
 	}

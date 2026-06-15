@@ -15,6 +15,8 @@ import org.hibernate.sql.Update;
 import java.sql.SQLException;
 
 import static org.hibernate.pretty.MessageHelper.infoString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Common implementation of {@link PessimisticReadUpdateLockingStrategy}
@@ -50,6 +52,7 @@ public abstract class AbstractPessimisticUpdateLockingStrategy implements Lockin
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void lock(Object id, Object version, Object object, int timeout, SharedSessionContractImplementor session) {
 		try {
 			doLock( id, version, session );
@@ -59,6 +62,7 @@ public abstract class AbstractPessimisticUpdateLockingStrategy implements Lockin
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void doLock(Object id, Object version, SharedSessionContractImplementor session) {
 		try {
 			final var factory = session.getFactory();
@@ -104,6 +108,7 @@ public abstract class AbstractPessimisticUpdateLockingStrategy implements Lockin
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String generateLockString() {
 		final var factory = lockable.getFactory();
 		final var update = new Update( factory );
@@ -117,6 +122,7 @@ public abstract class AbstractPessimisticUpdateLockingStrategy implements Lockin
 		return update.toStatementString();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected LockMode getLockMode() {
 		return lockMode;
 	}

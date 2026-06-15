@@ -11,6 +11,8 @@ import org.hibernate.tool.schema.extract.spi.DatabaseInformation;
 import org.hibernate.tool.schema.spi.ContributableMatcher;
 import org.hibernate.tool.schema.spi.ExecutionOptions;
 import org.hibernate.tool.schema.spi.SchemaFilter;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Andrea Boriero
@@ -27,6 +29,7 @@ public class IndividuallySchemaValidatorImpl extends AbstractSchemaValidator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void validateTables(
 			Metadata metadata,
 			DatabaseInformation databaseInformation,

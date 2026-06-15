@@ -11,6 +11,8 @@ import jakarta.persistence.Statement;
 
 import java.util.List;
 import java.util.Set;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Extension to the JPA {@linkplain StatementReference} contract.
 /// Provides some simple default implementations for methods which
@@ -25,6 +27,7 @@ public interface JpaStatementReference<T> extends JpaReference, StatementReferen
 	/// {@inheritDoc}
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default List<Class<?>> getParameterTypes() {
 		return null;
 	}
@@ -32,6 +35,7 @@ public interface JpaStatementReference<T> extends JpaReference, StatementReferen
 	/// {@inheritDoc}
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default List<String> getParameterNames() {
 		return null;
 	}
@@ -39,6 +43,7 @@ public interface JpaStatementReference<T> extends JpaReference, StatementReferen
 	/// {@inheritDoc}
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default List<Object> getArguments() {
 		return null;
 	}
@@ -46,6 +51,7 @@ public interface JpaStatementReference<T> extends JpaReference, StatementReferen
 	/// {@inheritDoc}
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Set<Statement.Option> getOptions() {
 		return Set.of();
 	}

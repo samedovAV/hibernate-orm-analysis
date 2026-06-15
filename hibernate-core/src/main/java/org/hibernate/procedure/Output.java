@@ -5,6 +5,8 @@
 package org.hibernate.procedure;
 
 import jakarta.persistence.sql.ResultSetMapping;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Common contract for individual outputs which can be either [results][ResultSetOutput]
 /// or [update counts][UpdateCountOutput].
@@ -21,12 +23,14 @@ public interface Output {
 	/// @see #asResultSetOutput(Class)
 	/// @see #asResultSetOutput(ResultSetMapping)
 	/// @see #asUpdateCountOutput
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isResultSet();
 
 	/// Treat this output as a [ResultSetOutput], using the mapping defined
 	/// when the query was created, if one.
 	///
 	/// @throws IllegalOutputTypeException if the output is a [UpdateCountOutput].
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ResultSetOutput<?> asResultSetOutput();
 
 	/// Treat this output as a [ResultSetOutput], with the specified `resultType`.
@@ -38,6 +42,7 @@ public interface Output {
 	///
 	/// @throws IllegalOutputTypeException if the output is a [UpdateCountOutput].
 	/// @throws org.hibernate.TypeMismatchException if the given `resultType` does not match expectation.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> ResultSetOutput<X> asResultSetOutput(Class<X> resultType);
 
 	/// Treat this output as a [ResultSetOutput], with the specified `resultSetMapping.
@@ -46,9 +51,11 @@ public interface Output {
 	/// @param <X> The java type of the mapping.
 	///
 	/// @throws IllegalOutputTypeException if the output is a [UpdateCountOutput].
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> ResultSetOutput<X> asResultSetOutput(ResultSetMapping<X> resultSetMapping);
 
 	/// Treat this output as a [UpdateCountOutput].
 	/// @throws IllegalOutputTypeException if the output is a [UpdateCountOutput].
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	UpdateCountOutput asUpdateCountOutput();
 }

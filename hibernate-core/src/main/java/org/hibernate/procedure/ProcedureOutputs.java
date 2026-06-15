@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.procedure;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 ///
 /// Represents the outputs of executing a JDBC [statement][java.sql.CallableStatement].
@@ -22,6 +25,7 @@ public interface ProcedureOutputs extends AutoCloseable{
 	/// @return The output value.
 	///
 	/// @see ProcedureCall#registerParameter(String, Class, jakarta.persistence.ParameterMode)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T getOutputParameterValue(ProcedureParameter<T> parameter);
 
 	/// Retrieve the value of an OUTPUT parameter by the name under which the parameter was registered.
@@ -37,6 +41,7 @@ public interface ProcedureOutputs extends AutoCloseable{
 	/// @throws NoSuchParameterException If no parameter with that name exists
 	///
 	/// @see ProcedureCall#registerParameter(String, Class, jakarta.persistence.ParameterMode)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getOutputParameterValue(String name);
 
 	/// Retrieve the value of an OUTPUT parameter by the name position under which the parameter was registered.
@@ -52,22 +57,27 @@ public interface ProcedureOutputs extends AutoCloseable{
 	/// @throws NoSuchParameterException If no parameter with that position exists
 	///
 	/// @see ProcedureCall#registerParameter(int, Class, jakarta.persistence.ParameterMode)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getOutputParameterValue(int position);
 
 	/// Retrieve the current Output object.
 	///
 	/// @return The current Output object.  Can be `null`
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Output getCurrent();
 
 	/// Go to the next Output object (if any), returning an indication of whether there is another.
 	///
 	/// @return `true` if the next call to [#getCurrent()] will return a non-`null` value.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean goToNext();
 
 	/// Eagerly release any held resources.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void release();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void close() throws Exception {
 		release();
 	}

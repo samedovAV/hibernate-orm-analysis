@@ -7,6 +7,8 @@ package org.hibernate.internal.util.beans;
 import java.lang.reflect.Method;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Describes a single property of a JavaBean.
@@ -26,6 +28,7 @@ public final class PropertyDescriptor {
 	/**
 	 * Gets the programmatic name of this property.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return name;
 	}
@@ -35,6 +38,7 @@ public final class PropertyDescriptor {
 	 *
 	 * @return The getter method, or null if the property is write-only.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable Method getReadMethod() {
 		return readMethod;
 	}
@@ -44,6 +48,7 @@ public final class PropertyDescriptor {
 	 *
 	 * @return The setter method, or null if the property is read-only.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable Method getWriteMethod() {
 		return writeMethod;
 	}

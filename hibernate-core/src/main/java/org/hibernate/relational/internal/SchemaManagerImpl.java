@@ -31,6 +31,8 @@ import static org.hibernate.cfg.SchemaToolingSettings.JAKARTA_HBM2DDL_DATABASE_A
 import static org.hibernate.cfg.SchemaToolingSettings.JAKARTA_HBM2DDL_LOAD_SCRIPT_SOURCE;
 import static org.hibernate.cfg.SchemaToolingSettings.JAKARTA_HBM2DDL_SCRIPTS_ACTION;
 import static org.hibernate.cfg.SchemaToolingSettings.HBM2DDL_FILTER_PROVIDER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Implementation of {@link SchemaManager}, backed by a {@link SessionFactoryImplementor}
@@ -61,15 +63,18 @@ public class SchemaManagerImpl implements SchemaManager {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SchemaManager forSchema(String schemaName) {
 		return new SchemaManagerImpl( sessionFactory, metadata, schemaName, catalogName );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SchemaManager forCatalog(String catalogName) {
 		return new SchemaManagerImpl( sessionFactory, metadata, schemaName, catalogName );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void addSchemaAndCatalog(Map<String, Object> properties) {
 		if ( schemaName != null ) {
 			properties.put( DEFAULT_SCHEMA, schemaName );
@@ -80,6 +85,7 @@ public class SchemaManagerImpl implements SchemaManager {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void exportMappedObjects(boolean createSchemas) {
 		Map<String, Object> properties = new HashMap<>( sessionFactory.getProperties() );
 		properties.put( JAKARTA_HBM2DDL_DATABASE_ACTION, Action.CREATE_ONLY );
@@ -95,6 +101,7 @@ public class SchemaManagerImpl implements SchemaManager {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void dropMappedObjects(boolean dropSchemas) {
 		Map<String, Object> properties = new HashMap<>( sessionFactory.getProperties() );
 		properties.put( JAKARTA_HBM2DDL_DATABASE_ACTION, Action.DROP );
@@ -110,6 +117,7 @@ public class SchemaManagerImpl implements SchemaManager {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void validateMappedObjects() {
 		Map<String, Object> properties = new HashMap<>( sessionFactory.getProperties() );
 		properties.put( JAKARTA_HBM2DDL_DATABASE_ACTION, Action.VALIDATE );
@@ -125,6 +133,7 @@ public class SchemaManagerImpl implements SchemaManager {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void truncateMappedObjects() {
 		Map<String, Object> properties = new HashMap<>( sessionFactory.getProperties() );
 		properties.put( JAKARTA_HBM2DDL_DATABASE_ACTION, Action.TRUNCATE );
@@ -139,6 +148,7 @@ public class SchemaManagerImpl implements SchemaManager {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void truncateTable(String tableName) {
 		Map<String, Object> properties = new HashMap<>( sessionFactory.getProperties().size() );
 		for ( Map.Entry<String, Object> entry : sessionFactory.getProperties().entrySet() ) {
@@ -163,29 +173,35 @@ public class SchemaManagerImpl implements SchemaManager {
 		properties.remove( HBM2DDL_IMPORT_FILES );
 		properties.put( HBM2DDL_FILTER_PROVIDER, new SchemaFilterProvider() {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public SchemaFilter getCreateFilter() {
 				throw new UnsupportedOperationException();
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public SchemaFilter getDropFilter() {
 				throw new UnsupportedOperationException();
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public SchemaFilter getTruncatorFilter() {
 				return new SchemaFilter() {
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public boolean includeNamespace(Namespace namespace) {
 						return true;
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public boolean includeTable(Table table) {
 						return table.getName().equals( tableName );
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public boolean includeSequence(Sequence sequence) {
 						return false;
 					}
@@ -193,11 +209,13 @@ public class SchemaManagerImpl implements SchemaManager {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public SchemaFilter getMigrateFilter() {
 				throw new UnsupportedOperationException();
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public SchemaFilter getValidateFilter() {
 				throw new UnsupportedOperationException();
 			}
@@ -212,6 +230,7 @@ public class SchemaManagerImpl implements SchemaManager {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void populate() {
 		Map<String, Object> properties = new HashMap<>( sessionFactory.getProperties() );
 		properties.put( JAKARTA_HBM2DDL_DATABASE_ACTION, Action.POPULATE );
@@ -226,6 +245,7 @@ public class SchemaManagerImpl implements SchemaManager {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void resynchronizeGenerators() {
 		Map<String, Object> properties = new HashMap<>( sessionFactory.getProperties() );
 		properties.put( JAKARTA_HBM2DDL_DATABASE_ACTION, Action.SYNCHRONIZE );
@@ -240,16 +260,19 @@ public class SchemaManagerImpl implements SchemaManager {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void create(boolean createSchemas) {
 		exportMappedObjects( createSchemas );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void drop(boolean dropSchemas) {
 		dropMappedObjects( dropSchemas );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void validate() throws SchemaValidationException {
 		try {
 			validateMappedObjects();
@@ -260,6 +283,7 @@ public class SchemaManagerImpl implements SchemaManager {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void truncate() {
 		truncateMappedObjects();
 	}

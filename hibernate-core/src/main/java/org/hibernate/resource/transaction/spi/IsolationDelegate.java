@@ -8,6 +8,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.jdbc.WorkExecutorVisitable;
 
 import java.util.concurrent.Callable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for performing work in a manner that isolates it from any current transaction.
@@ -25,6 +27,7 @@ public interface IsolationDelegate {
 	 *
 	 * @throws HibernateException Indicates a problem performing the work.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T delegateWork(WorkExecutorVisitable<T> work, boolean transacted) throws HibernateException;
 
 	/**
@@ -37,5 +40,6 @@ public interface IsolationDelegate {
 	 *
 	 * @throws HibernateException Indicates a problem performing the work.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T delegateCallable(Callable<T> callable, boolean transacted) throws HibernateException;
 }

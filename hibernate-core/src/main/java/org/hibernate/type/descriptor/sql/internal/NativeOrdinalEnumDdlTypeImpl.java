@@ -13,6 +13,8 @@ import org.hibernate.type.descriptor.sql.DdlType;
 import org.hibernate.type.descriptor.sql.spi.DdlTypeRegistry;
 
 import static org.hibernate.type.SqlTypes.ORDINAL_ENUM;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link DdlType} representing a SQL {@code enum} type that
@@ -31,11 +33,13 @@ public class NativeOrdinalEnumDdlTypeImpl implements DdlType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getSqlTypeCode() {
 		return ORDINAL_ENUM;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getTypeName(Size columnSize, Type type, DdlTypeRegistry ddlTypeRegistry) {
 		return type == null
 				? "int"
@@ -46,11 +50,13 @@ public class NativeOrdinalEnumDdlTypeImpl implements DdlType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getRawTypeNames() {
 		return ENUM_KEYWORD;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getCastTypeName(Size columnSize, SqlExpressible type, DdlTypeRegistry ddlTypeRegistry) {
 		return "int";
 	}

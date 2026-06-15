@@ -19,6 +19,8 @@ import java.lang.reflect.Method;
 import static org.hibernate.internal.util.ReflectHelper.getterMethodOrNull;
 import static org.hibernate.property.access.internal.AccessStrategyHelper.fieldOrNull;
 import static org.hibernate.property.access.internal.AccessStrategyHelper.getAccessType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link PropertyAccess} based on mix of getter method or field.
@@ -65,25 +67,30 @@ public class PropertyAccessGetterImpl implements PropertyAccess {
 
 	// --- //
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Getter fieldGetter(Class<?> containerJavaType, String propertyName, Field field) {
 		return new GetterFieldImpl( containerJavaType, propertyName, field );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Getter propertyGetter(Class<?> containerJavaType, String propertyName, Method method) {
 		return new GetterMethodImpl( containerJavaType, propertyName, method );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PropertyAccessStrategy getPropertyAccessStrategy() {
 		return strategy;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Getter getGetter() {
 		return getter;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable Setter getSetter() {
 		return null;
 	}

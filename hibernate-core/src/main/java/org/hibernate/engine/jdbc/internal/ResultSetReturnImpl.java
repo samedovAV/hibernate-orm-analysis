@@ -18,6 +18,8 @@ import org.hibernate.engine.jdbc.spi.SqlStatementLogger;
 import org.hibernate.event.monitor.spi.EventMonitor;
 import org.hibernate.resource.jdbc.spi.JdbcEventHandler;
 import org.hibernate.resource.jdbc.spi.JdbcSessionContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard implementation of the {@link ResultSetReturn} contract
@@ -44,6 +46,7 @@ public class ResultSetReturnImpl implements ResultSetReturn {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ResultSet extract(PreparedStatement statement, String sql) {
 		// IMPL NOTE: SQL logged by caller
 		final long executeStartNanos = beginSlowQueryLogging();
@@ -69,27 +72,33 @@ public class ResultSetReturnImpl implements ResultSetReturn {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private EventMonitor getEventManager() {
 		return jdbcCoordinator.getJdbcSessionOwner().getEventMonitor();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private JdbcEventHandler getEventHandler() {
 		return jdbcCoordinator.getJdbcSessionOwner().getJdbcSessionContext().getEventHandler();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private JdbcSessionContext context() {
 		return jdbcCoordinator.getJdbcSessionOwner().getJdbcSessionContext();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void jdbcExecuteStatementEnd() {
 		getEventHandler().jdbcExecuteStatementEnd();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void jdbcExecuteStatementStart() {
 		getEventHandler().jdbcExecuteStatementStart();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ResultSet extract(Statement statement, String sql) {
 		sqlStatementLogger.logStatement( sql );
 		statementObserver.performingSql( sql, -1 );
@@ -117,6 +126,7 @@ public class ResultSetReturnImpl implements ResultSetReturn {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public ResultSet execute(PreparedStatement statement, String sql) {
 		// sql logged by StatementPreparerImpl
 		long executeStartNanos = beginSlowQueryLogging();
@@ -148,6 +158,7 @@ public class ResultSetReturnImpl implements ResultSetReturn {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public ResultSet execute(Statement statement, String sql) {
 		sqlStatementLogger.logStatement( sql );
 		statementObserver.performingSql( sql, -1 );
@@ -180,6 +191,7 @@ public class ResultSetReturnImpl implements ResultSetReturn {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int executeUpdate(PreparedStatement statement, String sql) {
 		assert statement != null;
 		final long executeStartNanos = beginSlowQueryLogging();
@@ -201,6 +213,7 @@ public class ResultSetReturnImpl implements ResultSetReturn {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int executeUpdate(Statement statement, String sql) {
 		sqlStatementLogger.logStatement( sql );
 		statementObserver.performingSql( sql, -1 );
@@ -222,14 +235,17 @@ public class ResultSetReturnImpl implements ResultSetReturn {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void endSlowQueryLogging(String sql, long executeStartNanos) {
 		sqlStatementLogger.logSlowQuery(sql, executeStartNanos, context() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private long beginSlowQueryLogging() {
 		return sqlStatementLogger.getLogSlowQuery() > 0 ? System.nanoTime() : 0;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void postExtract(ResultSet resultSet, Statement statement) {
 		if ( resultSet != null ) {
 			jdbcCoordinator.getLogicalConnection().getResourceRegistry()

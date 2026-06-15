@@ -16,6 +16,8 @@ import org.hibernate.mapping.PersistentClass;
 
 import static org.hibernate.internal.util.StringHelper.qualify;
 import static org.hibernate.mapping.MetadataSource.ANNOTATIONS;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gavin King
@@ -38,6 +40,7 @@ public class FetchSecondPass implements SecondPass {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void doSecondPass(Map<String, PersistentClass> persistentClasses) throws MappingException {
 		final String profileName = fetch.profile();
 		final var profile = buildingContext.getMetadataCollector().getFetchProfile( profileName );

@@ -10,6 +10,8 @@ import jakarta.persistence.sql.MappingElement;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.internal.ResultSetMappingResolutionContext;
 import org.hibernate.query.results.spi.ResultBuilder;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -22,10 +24,12 @@ public interface ResultMementoInstantiation extends ResultMemento {
 			this.argumentMemento = argumentMemento;
 		}
 
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public ResultBuilder resolve(Consumer<String> querySpaceConsumer, ResultSetMappingResolutionContext context) {
 			return argumentMemento.resolve( querySpaceConsumer, context );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public MappingElement<?> toJpaMapping(SessionFactory sessionFactory) {
 			return argumentMemento.toJpaMappingElement( sessionFactory );
 		}

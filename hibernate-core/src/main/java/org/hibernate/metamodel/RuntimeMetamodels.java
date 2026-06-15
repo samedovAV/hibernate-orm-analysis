@@ -6,6 +6,8 @@ package org.hibernate.metamodel;
 
 import org.hibernate.Incubating;
 import org.hibernate.metamodel.model.domain.JpaMetamodel;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Entry point providing access to the runtime metamodels:
@@ -24,11 +26,13 @@ public interface RuntimeMetamodels {
 	/**
 	 * Access to the JPA / domain metamodel.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaMetamodel getJpaMetamodel();
 
 	/**
 	 * Access to the relational mapping model.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MappingMetamodel getMappingMetamodel();
 
 }

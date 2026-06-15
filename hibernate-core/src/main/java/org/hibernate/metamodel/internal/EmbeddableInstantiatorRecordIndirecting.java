@@ -8,6 +8,8 @@ import org.hibernate.InstantiationException;
 import org.hibernate.metamodel.spi.ValueAccess;
 
 import static org.hibernate.internal.util.ReflectHelper.getRecordComponentNames;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Support for instantiating embeddables as record representation
@@ -21,6 +23,7 @@ public class EmbeddableInstantiatorRecordIndirecting extends EmbeddableInstantia
 		this.index = index;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static EmbeddableInstantiatorRecordIndirecting of(Class<?> javaType, String[] propertyNames) {
 		final var componentNames = getRecordComponentNames( javaType );
 		final var index = new int[componentNames.length];
@@ -30,6 +33,7 @@ public class EmbeddableInstantiatorRecordIndirecting extends EmbeddableInstantia
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object instantiate(ValueAccess valuesAccess) {
 		if ( constructor == null ) {
 			throw new InstantiationException( "Unable to locate constructor for embeddable", getMappedPojoClass() );
@@ -57,6 +61,7 @@ public class EmbeddableInstantiatorRecordIndirecting extends EmbeddableInstantia
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public Object instantiate(ValueAccess valuesAccess) {
 			if ( constructor == null ) {
 				throw new InstantiationException( "Unable to locate constructor for embeddable", getMappedPojoClass() );

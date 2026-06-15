@@ -8,6 +8,8 @@ import org.hibernate.cache.cfg.spi.CollectionDataCachingConfig;
 import org.hibernate.cache.spi.CacheKeysFactory;
 import org.hibernate.cache.spi.DomainDataRegion;
 import org.hibernate.cache.spi.access.AccessType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard support for {@link org.hibernate.cache.spi.access.CollectionDataAccess}
@@ -25,6 +27,7 @@ public class CollectionReadOnlyAccess extends AbstractCollectionDataAccess {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AccessType getAccessType() {
 		return AccessType.READ_ONLY;
 	}

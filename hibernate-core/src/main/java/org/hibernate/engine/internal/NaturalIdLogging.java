@@ -19,6 +19,8 @@ import java.util.Locale;
 
 import static org.jboss.logging.Logger.Level.DEBUG;
 import static org.jboss.logging.Logger.Level.TRACE;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Logging related to natural-id operations
@@ -43,29 +45,36 @@ public interface NaturalIdLogging extends BasicLogger {
 
 	@LogMessage(level = TRACE)
 	@Message(value = "Caching natural id resolution from load [%s] : %s -> %s", id = 90001)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void cachingNaturalIdResolutionFromLoad(String entityName, Object naturalId, Object id);
 
 	@LogMessage(level = TRACE)
 	@Message(value = "Locally caching natural id resolution [%s] : %s -> %s", id = 90002)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void locallyCachingNaturalIdResolution(String entityName, Object naturalId, Object id);
 
 	@LogMessage(level = TRACE)
 	@Message(value = "Removing locally cached natural id resolution [%s] : %s -> %s", id = 90003)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void removingLocallyCachedNaturalIdResolution(String entityName, Object naturalId, Object id);
 
 	@LogMessage(level = TRACE)
 	@Message(value = "Resolved natural key [%s] -> primary key [%s] resolution in session cache for [%s]", id = 90004)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void resolvedNaturalIdInSessionCache(Object naturalId, Object pk, String entityName);
 
 	@LogMessage(level = TRACE)
 	@Message(value = "Found natural key [%s] -> primary key [%s] xref in second-level cache for [%s]", id = 90005)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void foundNaturalIdInSecondLevelCache(Object naturalId, Object pk, String entityName);
 
 	@LogMessage(level = TRACE)
 	@Message(value = "Retrieving primary key of %s from database for natural id: %s", id = 90006)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void retrievingIdForNaturalId(String entityName, Object naturalId);
 
 	@LogMessage(level = DEBUG)
 	@Message(value = "Cached natural id resolution linked to missing entry in persistence context: %s", id = 90007)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void cachedResolutionMissingInContext(String info);
 }

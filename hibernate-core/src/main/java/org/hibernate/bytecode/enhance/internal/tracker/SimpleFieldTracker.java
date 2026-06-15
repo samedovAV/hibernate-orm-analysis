@@ -7,6 +7,8 @@ package org.hibernate.bytecode.enhance.internal.tracker;
 import java.util.Arrays;
 
 import org.hibernate.internal.util.collections.ArrayHelper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * small low memory class to keep track of changed fields
@@ -26,6 +28,7 @@ public final class SimpleFieldTracker implements DirtyTracker {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void add(String name) {
 		if ( suspended ) {
 			return;
@@ -37,6 +40,7 @@ public final class SimpleFieldTracker implements DirtyTracker {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean contains(String name) {
 		for ( String existing : names ) {
 			if ( existing.equals( name ) ) {
@@ -47,6 +51,7 @@ public final class SimpleFieldTracker implements DirtyTracker {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void clear() {
 		if ( !isEmpty() ) {
 			names = ArrayHelper.EMPTY_STRING_ARRAY;
@@ -54,16 +59,19 @@ public final class SimpleFieldTracker implements DirtyTracker {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isEmpty() {
 		return names.length == 0;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] get() {
 		return names;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void suspend(boolean suspend) {
 		this.suspended = suspend;
 	}

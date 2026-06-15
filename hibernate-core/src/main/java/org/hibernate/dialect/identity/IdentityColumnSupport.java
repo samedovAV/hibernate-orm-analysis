@@ -8,6 +8,8 @@ import org.hibernate.MappingException;
 import org.hibernate.dialect.Dialect;
 import org.hibernate.id.insert.GetGeneratedKeysDelegate;
 import org.hibernate.persister.entity.EntityPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A set of operations providing support for identity columns
@@ -23,6 +25,7 @@ public interface IdentityColumnSupport {
 	 *
 	 * @return True if IDENTITY columns are supported; false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean supportsIdentityColumns();
 
 	/**
@@ -32,6 +35,7 @@ public interface IdentityColumnSupport {
 	 * @return True if the dialect supports selecting the just
 	 * generated IDENTITY in the insert statement.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean supportsInsertSelectIdentity();
 
 	/**
@@ -40,6 +44,7 @@ public interface IdentityColumnSupport {
 	 *
 	 * @return boolean
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean hasDataTypeInIdentityColumn();
 
 	/**
@@ -55,6 +60,7 @@ public interface IdentityColumnSupport {
 	 * @return The insert command with any necessary identity select
 	 * clause attached.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String appendIdentitySelectToInsert(String identityColumnName, String insertString);
 
 	/**
@@ -69,6 +75,7 @@ public interface IdentityColumnSupport {
 	 *
 	 * @throws MappingException If IDENTITY generation is not supported.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getIdentitySelectString(String table, String column, int type) throws MappingException;
 
 
@@ -82,6 +89,7 @@ public interface IdentityColumnSupport {
 	 *
 	 * @throws MappingException If IDENTITY generation is not supported.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getIdentityColumnString(int type) throws MappingException;
 
 
@@ -91,6 +99,7 @@ public interface IdentityColumnSupport {
 	 *
 	 * @return The appropriate keyword.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getIdentityInsertString();
 
 	/**
@@ -98,6 +107,7 @@ public interface IdentityColumnSupport {
 	 *
 	 * @return {@code true} if the dialect does not support inserts that specify no column values.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean hasIdentityInsertKeyword() {
 		return getIdentityInsertString() != null;
 	}
@@ -110,5 +120,6 @@ public interface IdentityColumnSupport {
 	 *
 	 * @return the dialect-specific {@link GetGeneratedKeysDelegate}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	GetGeneratedKeysDelegate buildGetGeneratedKeysDelegate(EntityPersister persister);
 }

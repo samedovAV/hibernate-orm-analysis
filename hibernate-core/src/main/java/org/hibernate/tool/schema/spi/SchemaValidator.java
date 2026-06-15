@@ -6,6 +6,8 @@ package org.hibernate.tool.schema.spi;
 
 import org.hibernate.Incubating;
 import org.hibernate.boot.Metadata;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Service delegate for handling schema validations
@@ -19,5 +21,6 @@ public interface SchemaValidator {
 	 * @param options Options for executing the validation
 	 * @param contributableInclusionFilter Filter for Contributable instances to use
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void doValidation(Metadata metadata, ExecutionOptions options, ContributableMatcher contributableInclusionFilter);
 }

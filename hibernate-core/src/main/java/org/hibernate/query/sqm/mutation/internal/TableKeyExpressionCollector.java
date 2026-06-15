@@ -11,6 +11,8 @@ import org.hibernate.metamodel.mapping.EntityMappingType;
 import org.hibernate.sql.ast.tree.expression.ColumnReference;
 import org.hibernate.sql.ast.tree.expression.Expression;
 import org.hibernate.sql.ast.tree.expression.SqlTuple;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -25,6 +27,7 @@ public class TableKeyExpressionCollector {
 		this.entityMappingType = entityMappingType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void apply(ColumnReference columnReference) {
 		if ( firstColumnExpression == null ) {
 			firstColumnExpression = columnReference;
@@ -39,6 +42,7 @@ public class TableKeyExpressionCollector {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression buildKeyExpression() {
 		if ( collectedColumnExpressions == null ) {
 			return firstColumnExpression;

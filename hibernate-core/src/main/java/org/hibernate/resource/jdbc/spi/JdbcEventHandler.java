@@ -12,6 +12,8 @@ import org.hibernate.engine.spi.SessionEventListenerManager;
 import org.hibernate.stat.spi.StatisticsImplementor;
 
 import org.jboss.logging.Logger;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Acts as an observer for various events regarding JDBC interactions and doing one or more of -<ol>
@@ -48,12 +50,14 @@ public class JdbcEventHandler {
 
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jdbcConnectionAcquisitionStart() {
 		// NOTE : Connection acquisition and release events are propagated to
 		// SessionEventListenerManager via the JdbcConnectionAccess contracts
 		// which is the more proper place, so here we do nothing
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jdbcConnectionAcquisitionEnd(Connection connection) {
 		// NOTE : Connection acquisition and release events are propagated to
 		// SessionEventListenerManager via the JdbcConnectionAccess contracts
@@ -64,18 +68,21 @@ public class JdbcEventHandler {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jdbcConnectionReleaseStart() {
 		// NOTE : Connection acquisition and release events are propagated to
 		// SessionEventListenerManager via the JdbcConnectionAccess contracts
 		// which is the more proper place, so here we do nothing
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jdbcConnectionReleaseEnd() {
 		// NOTE : Connection acquisition and release events are propagated to
 		// SessionEventListenerManager via the JdbcConnectionAccess contracts
 		// which is the more proper place, so here we do nothing
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void jdbcPrepareStatementStart() {
 		if ( sessionListener != null ) {
 			sessionListener.jdbcPrepareStatementStart();
@@ -86,6 +93,7 @@ public class JdbcEventHandler {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void jdbcPrepareStatementEnd() {
 		if ( sessionListener != null ) {
 			sessionListener.jdbcPrepareStatementEnd();
@@ -96,30 +104,35 @@ public class JdbcEventHandler {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void jdbcExecuteStatementStart() {
 		if ( sessionListener != null ) {
 			sessionListener.jdbcExecuteStatementStart();
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void jdbcExecuteStatementEnd() {
 		if ( sessionListener != null ) {
 			sessionListener.jdbcExecuteStatementEnd();
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void jdbcExecuteBatchStart() {
 		if ( sessionListener != null ) {
 			sessionListener.jdbcExecuteBatchStart();
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void jdbcExecuteBatchEnd() {
 		if ( sessionListener != null ) {
 			sessionListener.jdbcExecuteBatchEnd();
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jdbcReleaseRegistryResourcesStart() {
 		if ( jdbcCoordinatorSupplier != null ) {
 			final JdbcCoordinator jdbcCoordinator = jdbcCoordinatorSupplier.get();
@@ -129,6 +142,7 @@ public class JdbcEventHandler {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jdbcReleaseRegistryResourcesEnd() {
 	}
 

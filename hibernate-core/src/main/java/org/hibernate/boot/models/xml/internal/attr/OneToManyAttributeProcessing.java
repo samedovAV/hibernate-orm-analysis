@@ -26,11 +26,14 @@ import static org.hibernate.boot.models.xml.internal.attr.CommonAttributeProcess
 import static org.hibernate.boot.models.xml.internal.attr.CommonAttributeProcessing.applyFetching;
 import static org.hibernate.boot.models.xml.internal.attr.CommonAttributeProcessing.applyOptimisticLock;
 import static org.hibernate.internal.util.NullnessHelper.coalesce;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
  */
 public class OneToManyAttributeProcessing {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static MutableMemberDetails processOneToManyAttribute(
 			JaxbOneToManyImpl jaxbOneToMany,
 			MutableClassDetails declarer,
@@ -83,6 +86,7 @@ public class OneToManyAttributeProcessing {
 		return memberDetails;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static OneToManyJpaAnnotation applyOneToMany(
 			JaxbOneToManyImpl jaxbOneToMany,
 			MutableMemberDetails memberDetails,
@@ -111,6 +115,7 @@ public class OneToManyAttributeProcessing {
 		return oneToManyAnn;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void applyTargetEntity(
 			JaxbOneToManyImpl jaxbOneToMany,
 			OneToManyJpaAnnotation oneToManyAnn,

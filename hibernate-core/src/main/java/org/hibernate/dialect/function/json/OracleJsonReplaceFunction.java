@@ -12,6 +12,8 @@ import org.hibernate.sql.ast.spi.SqlAppender;
 import org.hibernate.sql.ast.tree.SqlAstNode;
 import org.hibernate.sql.ast.tree.expression.Expression;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Oracle json_replace function.
@@ -23,6 +25,7 @@ public class OracleJsonReplaceFunction extends AbstractJsonReplaceFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> arguments,

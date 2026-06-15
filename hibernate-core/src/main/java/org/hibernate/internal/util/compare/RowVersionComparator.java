@@ -5,6 +5,8 @@
 package org.hibernate.internal.util.compare;
 
 import java.util.Comparator;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gail Badner
@@ -17,6 +19,7 @@ public final class RowVersionComparator implements Comparator<byte[]> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public int compare(byte[] o1, byte[] o2) {
 		final int lengthToCheck = Math.min( o1.length, o2.length );
 

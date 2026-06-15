@@ -31,6 +31,8 @@ import static java.lang.reflect.Array.getLength;
 import static java.lang.reflect.Array.newInstance;
 import static java.lang.reflect.Array.set;
 import static org.hibernate.collection.spi.InitializerProducerBuilder.createArrayInitializerProducer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * CollectionSemantics implementation for arrays
@@ -48,16 +50,19 @@ public class StandardArraySemantics<E> implements CollectionSemantics<E[], E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionClassification getCollectionClassification() {
 		return CollectionClassification.ARRAY;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<Object[]> getCollectionJavaType() {
 		return Object[].class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public E[] instantiateRaw(
 			int anticipatedSize,
 			CollectionPersister collectionDescriptor) {
@@ -69,6 +74,7 @@ public class StandardArraySemantics<E> implements CollectionSemantics<E[], E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <X> Object instantiateWithElements(
 			int anticipatedSize,
 			CollectionPersister collectionDescriptor,
@@ -86,11 +92,13 @@ public class StandardArraySemantics<E> implements CollectionSemantics<E[], E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int collectionSize(Object rawCollection) {
 		return rawCollection != null && rawCollection.getClass().isArray() ? getLength( rawCollection ) : 0;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object copy(
 			Object rawCollection,
 			CollectionPersister collectionDescriptor) {
@@ -106,6 +114,7 @@ public class StandardArraySemantics<E> implements CollectionSemantics<E[], E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Set<?> copyPart(
 			Object rawCollection,
 			CollectionPersister collectionDescriptor,
@@ -129,6 +138,7 @@ public class StandardArraySemantics<E> implements CollectionSemantics<E[], E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistentCollection<E> instantiateWrapper(
 			Object key,
 			CollectionPersister collectionDescriptor,
@@ -137,6 +147,7 @@ public class StandardArraySemantics<E> implements CollectionSemantics<E[], E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistentCollection<E> wrap(
 			E[] rawCollection,
 			CollectionPersister collectionDescriptor,
@@ -145,11 +156,13 @@ public class StandardArraySemantics<E> implements CollectionSemantics<E[], E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Iterator<E> getElementIterator(E[] rawCollection) {
 		return Arrays.stream( rawCollection ).iterator();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void visitElements(E[] array, Consumer<? super E> action) {
 		if ( array != null ) {
 			for ( E element : array ) {
@@ -159,6 +172,7 @@ public class StandardArraySemantics<E> implements CollectionSemantics<E[], E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionInitializerProducer createInitializerProducer(
 			NavigablePath navigablePath,
 			PluralAttributeMapping attributeMapping,

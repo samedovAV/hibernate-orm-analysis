@@ -15,6 +15,8 @@ import org.hibernate.sql.ast.tree.from.FromClause;
 import org.hibernate.sql.ast.tree.from.NamedTableReference;
 import org.hibernate.sql.ast.tree.predicate.Predicate;
 import org.hibernate.sql.model.MutationTarget;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -66,11 +68,13 @@ public class UpdateStatement extends AbstractUpdateOrDeleteStatement {
 		this.assignments = assignments;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<Assignment> getAssignments() {
 		return assignments;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker walker) {
 		walker.visitUpdateStatement( this );
 	}

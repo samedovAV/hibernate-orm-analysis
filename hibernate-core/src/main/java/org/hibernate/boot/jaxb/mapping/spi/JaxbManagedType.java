@@ -6,6 +6,8 @@ package org.hibernate.boot.jaxb.mapping.spi;
 
 import jakarta.persistence.AccessType;
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Common interface for JAXB bindings representing entities, mapped-superclasses and embeddables (JPA collective
@@ -16,21 +18,30 @@ import jakarta.annotation.Nullable;
  */
 public interface JaxbManagedType {
 
-	@Nullable String getDescription();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	String getDescription();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setDescription(@Nullable String value);
 
-	@Nullable String getClazz();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	String getClazz();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setClazz(@Nullable String className);
 
-	@Nullable Boolean isMetadataComplete();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	Boolean isMetadataComplete();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setMetadataComplete(@Nullable Boolean isMetadataComplete);
 
-	@Nullable AccessType getAccess();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	AccessType getAccess();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setAccess(@Nullable AccessType value);
 
-	@Nullable JaxbAttributesContainer getAttributes();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	JaxbAttributesContainer getAttributes();
 }

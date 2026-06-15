@@ -13,6 +13,8 @@ import org.hibernate.models.spi.ModelsContext;
 
 import static org.hibernate.boot.models.DialectOverrideAnnotations.DIALECT_OVERRIDE_JOIN_FORMULAS;
 import static org.hibernate.boot.models.internal.OrmAnnotationHelper.extractJdkValue;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -47,16 +49,19 @@ public class OverriddenJoinFormulasAnnotation
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DialectOverride.JoinFormula[] value() {
 		return value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void value(DialectOverride.JoinFormula[] value) {
 		this.value = value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return DialectOverride.JoinFormulas.class;
 	}

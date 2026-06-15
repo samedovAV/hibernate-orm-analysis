@@ -31,6 +31,8 @@ import java.util.List;
 import java.util.Set;
 
 import static java.util.Collections.emptyList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Implementation of MultiIdentifierLoadAccess.
 ///
@@ -63,6 +65,7 @@ class MultiIdentifierLoadAccessImpl<T> implements MultiIdentifierLoadAccess<T>, 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MultiIdentifierLoadAccess<T> with(LockMode lockMode, PessimisticLockScope lockScope) {
 		if ( lockOptions == null ) {
 			lockOptions = new LockOptions();
@@ -73,6 +76,7 @@ class MultiIdentifierLoadAccessImpl<T> implements MultiIdentifierLoadAccess<T>, 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MultiIdentifierLoadAccess<T> with(Timeout timeout) {
 		if ( lockOptions == null ) {
 			lockOptions = new LockOptions();
@@ -82,29 +86,34 @@ class MultiIdentifierLoadAccessImpl<T> implements MultiIdentifierLoadAccess<T>, 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LockOptions getLockOptions() {
 		return lockOptions;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final MultiIdentifierLoadAccess<T> with(LockOptions lockOptions) {
 		this.lockOptions = lockOptions;
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MultiIdentifierLoadAccess<T> with(CacheMode cacheMode) {
 		this.cacheMode = cacheMode;
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MultiIdentifierLoadAccess<T> withReadOnly(boolean readOnly) {
 		this.readOnly = readOnly;
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MultiIdentifierLoadAccess<T> with(EntityGraph<T> graph, GraphSemantic semantic) {
 		this.rootGraph = (RootGraphImplementor<T>) graph;
 		this.graphSemantic = semantic;
@@ -112,55 +121,65 @@ class MultiIdentifierLoadAccessImpl<T> implements MultiIdentifierLoadAccess<T>, 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Integer getBatchSize() {
 		return batchSize.batchSize();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MultiIdentifierLoadAccess<T> withBatchSize(int batchSize) {
 		this.batchSize = batchSize < 1 ? null : new BatchSize( batchSize );
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FindMultipleOption.SessionCheckMode getSessionCheckMode() {
 		return sessionCheckMode;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isSecondLevelCacheCheckingEnabled() {
 		return cacheMode == CacheMode.NORMAL || cacheMode == CacheMode.GET;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MultiIdentifierLoadAccess<T> enableSessionCheck(boolean enabled) {
 		this.sessionCheckMode = enabled ? FindMultipleOption.SessionCheckMode.ENABLED : FindMultipleOption.SessionCheckMode.DISABLED;
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FindMultipleOption.RemovalsMode getRemovalsMode() {
 		return removalsMode;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MultiIdentifierLoadAccess<T> enableReturnOfDeletedEntities(boolean enabled) {
 		this.removalsMode = enabled ? FindMultipleOption.RemovalsMode.INCLUDE : FindMultipleOption.RemovalsMode.REPLACE;
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FindMultipleOption.OrderingMode getOrderingMode() {
 		return orderingMode;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MultiIdentifierLoadAccess<T> enableOrderedReturn(boolean enabled) {
 		this.orderingMode = enabled ? FindMultipleOption.OrderingMode.ORDERED : FindMultipleOption.OrderingMode.UNORDERED;
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Boolean getReadOnly(SessionImplementor session) {
 		return readOnly != null
 				? readOnly
@@ -169,10 +188,12 @@ class MultiIdentifierLoadAccessImpl<T> implements MultiIdentifierLoadAccess<T>, 
 
 	@Override
 	@SuppressWarnings( "unchecked" )
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <K> List<T> multiLoad(K... ids) {
 		return buildOperation().performFind( List.of( ids ), graphSemantic, rootGraph );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private StatefulFindMultipleByKeyOperation<T> buildOperation() {
 		return new StatefulFindMultipleByKeyOperation<T>(
 				entityPersister,
@@ -194,6 +215,7 @@ class MultiIdentifierLoadAccessImpl<T> implements MultiIdentifierLoadAccess<T>, 
 
 	@Override
 	@SuppressWarnings( "unchecked" )
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <K> List<T> multiLoad(List<K> ids) {
 		return ids.isEmpty()
 				? emptyList()
@@ -201,6 +223,7 @@ class MultiIdentifierLoadAccessImpl<T> implements MultiIdentifierLoadAccess<T>, 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MultiIdentifierLoadAccess<T> enableFetchProfile(String profileName) {
 		if ( !session.getFactory().containsFetchProfileDefinition( profileName ) ) {
 			throw new UnknownProfileException( profileName );
@@ -216,6 +239,7 @@ class MultiIdentifierLoadAccessImpl<T> implements MultiIdentifierLoadAccess<T>, 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MultiIdentifierLoadAccess<T> disableFetchProfile(String profileName) {
 		if ( disabledFetchProfiles == null ) {
 			disabledFetchProfiles = new HashSet<>();

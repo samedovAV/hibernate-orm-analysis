@@ -11,6 +11,8 @@ import org.hibernate.temporal.internal.ChangesetCoordinatorImpl;
 import org.hibernate.temporal.spi.ChangesetCoordinator;
 
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A service that acts as a source of changeset identifiers.
@@ -22,11 +24,13 @@ public class ChangesetCoordinatorInitiator implements StandardServiceInitiator<C
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<ChangesetCoordinator> getServiceInitiated() {
 		return ChangesetCoordinator.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ChangesetCoordinator initiateService(@Nonnull Map<String, Object> configurationValues, @Nonnull ServiceRegistryImplementor registry) {
 		return new ChangesetCoordinatorImpl(registry);
 	}

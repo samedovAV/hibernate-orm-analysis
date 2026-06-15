@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.hibernate.dialect.Dialect;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Convenience base class for {@link AuxiliaryDatabaseObject}s.
@@ -48,20 +50,24 @@ public abstract class AbstractAuxiliaryDatabaseObject
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getExportIdentifier() {
 		return exportIdentifier;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addDialectScope(String dialectName) {
 		dialectScopes.add( dialectName );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Set<String> getDialectScopes() {
 		return dialectScopes;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean appliesToDialect(Dialect dialect) {
 		// empty means no scoping
 		final var scopes = getDialectScopes();
@@ -70,6 +76,7 @@ public abstract class AbstractAuxiliaryDatabaseObject
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean beforeTablesOnCreation() {
 		return beforeTables;
 	}

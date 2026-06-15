@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import org.hibernate.query.spi.Limit;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -20,21 +22,25 @@ public class NoopLimitHandler extends AbstractLimitHandler {
 	public static final NoopLimitHandler INSTANCE = new NoopLimitHandler();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String processSql(String sql, Limit limit) {
 		return sql;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int bindLimitParametersAtStartOfQuery(Limit limit, PreparedStatement statement, int index) {
 		return 0;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int bindLimitParametersAtEndOfQuery(Limit limit, PreparedStatement statement, int index) {
 		return 0;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void setMaxRows(Limit limit, PreparedStatement statement) throws SQLException {
 		if ( hasMaxRows( limit ) ) {
 			final Integer firstRow = limit.getFirstRow();
@@ -47,6 +53,7 @@ public class NoopLimitHandler extends AbstractLimitHandler {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean processSqlMutatesState() {
 		return false;
 	}

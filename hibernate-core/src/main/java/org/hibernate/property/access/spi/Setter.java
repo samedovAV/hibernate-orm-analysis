@@ -8,6 +8,8 @@ import java.lang.reflect.Method;
 
 import jakarta.annotation.Nullable;
 import org.hibernate.Remove;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The contract for setting the value of a persistent attribute on its container/owner.
@@ -18,15 +20,18 @@ import org.hibernate.Remove;
 @Remove // Remove/replace with a different SPI that is based on Hibernate Models
 public interface Setter {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void set(Object target, @Nullable Object value);
 
 	/**
 	 * Optional operation (may return {@code null})
 	 */
-	@Nullable String getMethodName();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	String getMethodName();
 
 	/**
 	 * Optional operation (may return {@code null})
 	 */
-	@Nullable Method getMethod();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	Method getMethod();
 }

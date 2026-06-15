@@ -16,6 +16,8 @@ import org.hibernate.sql.exec.spi.JdbcCallParameterRegistration;
 import org.hibernate.sql.exec.spi.JdbcOperationQueryCall;
 
 import jakarta.persistence.ParameterMode;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard implementation of {@link org.hibernate.procedure.spi.CallableStatementSupport}.
@@ -42,6 +44,7 @@ public class StandardCallableStatementSupport extends AbstractStandardCallableSt
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcOperationQueryCall interpretCall(ProcedureCallImplementor procedureCall) {
 		final String procedureName = procedureCall.getProcedureName();
 		final FunctionReturnImplementor<?> functionReturn = procedureCall.getFunctionReturn();
@@ -103,6 +106,7 @@ public class StandardCallableStatementSupport extends AbstractStandardCallableSt
 		return builder.buildJdbcCall();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void appendNameParameter(
 			StringBuilder buffer,
 			ProcedureParameterImplementor<?> parameter,
@@ -110,6 +114,7 @@ public class StandardCallableStatementSupport extends AbstractStandardCallableSt
 		buffer.append( '?' );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void verifyRefCursorSupport(Dialect dialect) {
 		if ( ! supportsRefCursors ) {
 			throw new QueryException( "Dialect [" + dialect.getClass().getName() + "] not known to support REF_CURSOR parameters" );

@@ -33,6 +33,8 @@ import jakarta.persistence.criteria.Expression;
 import static java.util.Arrays.asList;
 import static org.hibernate.query.sqm.produce.function.FunctionParameterType.INTEGER;
 import static org.hibernate.query.sqm.produce.function.FunctionParameterType.STRING;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Emulates the ANSI SQL-standard {@code overlay()} function using {@code insert()}
@@ -61,6 +63,7 @@ public class InsertSubstringOverlayEmulation
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected <T> SelfRenderingSqmFunction<T> generateSqmFunctionExpression(
 			List<? extends SqmTypedNode<?>> arguments,
 			ReturnableType<T> impliedResultType,
@@ -142,6 +145,7 @@ public class InsertSubstringOverlayEmulation
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getArgumentListSignature() {
 		return "(STRING string placing STRING replacement from INTEGER start[ for INTEGER length])";
 	}

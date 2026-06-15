@@ -16,6 +16,8 @@ import java.sql.Connection;
 import java.time.Instant;
 import java.util.TimeZone;
 import java.util.function.UnaryOperator;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Allows creation of a child {@link Session} which shares some options with
@@ -76,14 +78,17 @@ public interface SharedSessionBuilder extends SessionBuilder, CommonSharedBuilde
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Session open();
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder connection();
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder interceptor();
 
 	/**
@@ -92,6 +97,7 @@ public interface SharedSessionBuilder extends SessionBuilder, CommonSharedBuilde
 	 * @return {@code this}, for method chaining
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder connectionHandlingMode();
 
 	/**
@@ -100,6 +106,7 @@ public interface SharedSessionBuilder extends SessionBuilder, CommonSharedBuilde
 	 * @return {@code this}, for method chaining
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder autoJoinTransactions();
 
 	/**
@@ -108,6 +115,7 @@ public interface SharedSessionBuilder extends SessionBuilder, CommonSharedBuilde
 	 * @return {@code this}, for method chaining
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder flushMode();
 
 	/**
@@ -116,119 +124,148 @@ public interface SharedSessionBuilder extends SessionBuilder, CommonSharedBuilde
 	 * @return {@code this}, for method chaining
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder autoClose();
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder asOf(@Nullable Instant instant);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder atChangeset(@Nullable Object changesetId);
 
 	@Override
 	@Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder statementInspector(@Nonnull StatementInspector statementInspector);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder statementInspector(@Nullable UnaryOperator<String> operator);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder statementInspector();
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder noStatementInspector();
 
 	@Override
 	@Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder connectionHandlingMode(PhysicalConnectionHandlingMode mode);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder connectionHandling(@Nonnull ConnectionAcquisitionMode acquisitionMode, @Nonnull ConnectionReleaseMode releaseMode);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder autoClear(boolean autoClear);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder flushMode(@Nonnull FlushMode flushMode);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder tenantIdentifier(Object tenantIdentifier);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder readOnly(boolean readOnly);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder jdbcBatchSize(int batchSize);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder initialCacheMode(@Nonnull CacheMode cacheMode);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder cacheStoreMode(@Nullable CacheStoreMode cacheStoreMode);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder cacheRetrieveMode(@Nullable CacheRetrieveMode cacheRetrieveMode);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder eventListeners(@Nonnull SessionEventListener... listeners);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder clearEventListeners();
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder jdbcTimeZone(@Nullable TimeZone timeZone);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder interceptor(@Nullable Interceptor interceptor);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder noInterceptor();
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder noSessionInterceptorCreation();
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder connection(@Nonnull Connection connection);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder autoJoinTransactions(boolean autoJoinTransactions);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder autoClose(boolean autoClose);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder identifierRollback(boolean identifierRollback);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder defaultBatchFetchSize(int defaultBatchFetchSize);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder subselectFetchEnabled(boolean subselectFetchEnabled);
 }

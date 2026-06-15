@@ -17,6 +17,8 @@ import org.hibernate.query.sqm.tree.cte.SqmCteTable;
 import org.hibernate.sql.ast.spi.FromClauseAccess;
 import org.hibernate.sql.ast.tree.cte.CteColumn;
 import org.hibernate.type.BasicType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The table group producer for a CTE tuple type.
@@ -53,6 +55,7 @@ public class CteTupleTableGroupProducer extends AnonymousTupleTableGroupProducer
 		this.cyclePathModelPart = createModelPart( this, cteStatement.getCyclePathAttributeName(), stringType );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static AnonymousTupleBasicValuedModelPart createModelPart(
 			MappingType declaringType,
 			String attributeName,
@@ -70,6 +73,7 @@ public class CteTupleTableGroupProducer extends AnonymousTupleTableGroupProducer
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<CteColumn> determineCteColumns() {
 		final List<CteColumn> columns = new ArrayList<>( getModelParts().size() + 3 );
 		forEachSelectable(
@@ -86,6 +90,7 @@ public class CteTupleTableGroupProducer extends AnonymousTupleTableGroupProducer
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public ModelPart findSubPart(String name, EntityMappingType treatTargetType) {
 		final ModelPart subPart = super.findSubPart( name, treatTargetType );
 		if ( subPart != null ) {

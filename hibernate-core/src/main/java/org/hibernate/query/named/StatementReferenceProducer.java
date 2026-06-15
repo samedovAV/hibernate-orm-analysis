@@ -3,10 +3,14 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.query.named;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * @author Steve Ebersole
  */
 public interface StatementReferenceProducer {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NamedMutationMemento<?> toMutationMemento(String name);
 }

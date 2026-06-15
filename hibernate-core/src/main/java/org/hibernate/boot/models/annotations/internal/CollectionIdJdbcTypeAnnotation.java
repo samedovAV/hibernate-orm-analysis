@@ -10,6 +10,8 @@ import java.util.Map;
 import org.hibernate.annotations.CollectionIdJdbcType;
 import org.hibernate.models.spi.ModelsContext;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -37,15 +39,18 @@ public class CollectionIdJdbcTypeAnnotation implements CollectionIdJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return CollectionIdJdbcType.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends JdbcType> value() {
 		return value;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void value(Class<? extends JdbcType> value) {
 		this.value = value;
 	}

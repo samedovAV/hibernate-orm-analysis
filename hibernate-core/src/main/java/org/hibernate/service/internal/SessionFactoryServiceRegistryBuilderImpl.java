@@ -18,6 +18,8 @@ import org.hibernate.service.spi.SessionFactoryServiceRegistry;
 import org.hibernate.service.spi.SessionFactoryServiceRegistryBuilder;
 
 import static org.hibernate.service.internal.StandardSessionFactoryServiceInitiators.buildStandardServiceInitiatorList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -45,6 +47,7 @@ public class SessionFactoryServiceRegistryBuilderImpl implements SessionFactoryS
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SessionFactoryServiceRegistryBuilder addInitiator(@Nonnull SessionFactoryServiceInitiator<?> initiator) {
 		initiators.add( initiator );
 		return this;
@@ -60,12 +63,14 @@ public class SessionFactoryServiceRegistryBuilderImpl implements SessionFactoryS
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <R extends Service> SessionFactoryServiceRegistryBuilder addService(@Nonnull final Class<R> serviceRole, final R service) {
 		providedServices.add( new ProvidedService<>( serviceRole, service ) );
 		return this;
 	}
 
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SessionFactoryServiceRegistry buildSessionFactoryServiceRegistry(
 			SessionFactoryImplementor sessionFactory,
 			SessionFactoryOptions options) {

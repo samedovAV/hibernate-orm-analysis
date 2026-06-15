@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.internal.util;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Utility class for handling primitive types.
@@ -11,6 +14,7 @@ package org.hibernate.internal.util;
  */
 public class PrimitiveHelper {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Class<?> boxedType(Class<?> type) {
 		if ( !type.isPrimitive() ) {
 			return type;

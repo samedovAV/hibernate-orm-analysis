@@ -8,6 +8,8 @@ import java.util.Map;
 
 import org.hibernate.metamodel.CollectionClassification;
 import org.hibernate.models.spi.ClassDetails;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Registration for a {@linkplain org.hibernate.usertype.UserCollectionType}
@@ -31,14 +33,17 @@ public class CollectionTypeRegistration {
 		this.parameterMap = parameterMap;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionClassification getClassification() {
 		return classification;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ClassDetails getUserTypeClass() {
 		return userTypeClass;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, String> getParameterMap() {
 		return parameterMap;
 	}

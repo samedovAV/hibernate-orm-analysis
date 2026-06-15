@@ -13,6 +13,8 @@ import org.hibernate.engine.spi.EntityEntry;
 import org.hibernate.event.spi.PostLoadEvent;
 import org.hibernate.event.spi.PostLoadEventListener;
 import org.hibernate.internal.OptimisticLockHelper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Performs needed {@link EntityEntry#getLockMode()}-related processing.
@@ -22,6 +24,7 @@ import org.hibernate.internal.OptimisticLockHelper;
  */
 public class DefaultPostLoadEventListener implements PostLoadEventListener {
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void onPostLoad(PostLoadEvent event) {
 		final Object entity = event.getEntity();
 		event.getSession().runEntityLifecycleCallback(

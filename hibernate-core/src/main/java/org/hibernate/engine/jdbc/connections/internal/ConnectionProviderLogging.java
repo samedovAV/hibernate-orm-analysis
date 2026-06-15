@@ -16,6 +16,8 @@ import java.util.Locale;
 
 import static org.jboss.logging.Logger.Level.INFO;
 import static org.jboss.logging.Logger.Level.WARN;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Subsystem logging related to ConnectionProvider
@@ -35,16 +37,19 @@ interface ConnectionProviderLogging {
 	@LogMessage(level = WARN)
 	@Message(id = 102001,
 			value = "Configuration settings with for connection provider '%s' are set, but the connection provider is not on the classpath; these properties will be ignored")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void providerClassNotFound(String c3p0ProviderClassName);
 
 	@LogMessage(level = INFO)
 	@Message(id = 102002,
 			value = "Instantiating explicit connection provider: %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void instantiatingExplicitConnectionProvider(String providerClassName);
 
 	@LogMessage(level = WARN)
 	@Message(id = 102003,
 			value = "No appropriate connection provider encountered; client must supply connections")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void noAppropriateConnectionProvider();
 
 }

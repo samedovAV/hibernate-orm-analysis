@@ -12,6 +12,8 @@ import org.hibernate.sql.results.graph.DomainResultAssembler;
 import org.hibernate.sql.results.graph.Initializer;
 import org.hibernate.sql.results.jdbc.spi.RowProcessingState;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A QueryResultAssembler implementation representing handling for dynamic-
@@ -33,11 +35,13 @@ public class DynamicInstantiationAssemblerListImpl implements DomainResultAssemb
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<List<?>> getAssembledJavaType() {
 		return listJavaType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public List<?> assemble(
 			RowProcessingState rowProcessingState) {
 		final ArrayList<Object> result = new ArrayList<>();
@@ -48,6 +52,7 @@ public class DynamicInstantiationAssemblerListImpl implements DomainResultAssemb
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void resolveState(RowProcessingState rowProcessingState) {
 		for ( var argumentReader : argumentReaders ) {
 			argumentReader.resolveState( rowProcessingState );
@@ -55,6 +60,7 @@ public class DynamicInstantiationAssemblerListImpl implements DomainResultAssemb
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public <X> void forEachResultAssembler(BiConsumer<Initializer<?>, X> consumer, X arg) {
 		for ( var argumentReader : argumentReaders ) {
 			argumentReader.forEachResultAssembler( consumer, arg );

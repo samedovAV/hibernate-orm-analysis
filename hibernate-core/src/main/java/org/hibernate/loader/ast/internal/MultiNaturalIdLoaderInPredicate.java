@@ -11,6 +11,8 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.loader.ast.spi.MultiNaturalIdLoadOptions;
 import org.hibernate.loader.ast.spi.SqlInPredicateMultiKeyLoader;
 import org.hibernate.metamodel.mapping.EntityMappingType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * MultiNaturalIdLoader implementation using SQL IN predicate to specify the ids
@@ -22,6 +24,7 @@ public class MultiNaturalIdLoaderInPredicate<E> extends AbstractMultiNaturalIdLo
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<E> loadEntitiesWithUnresolvedIds(
 			Object[] naturalIds,
 			MultiNaturalIdLoadOptions loadOptions,
@@ -31,6 +34,7 @@ public class MultiNaturalIdLoaderInPredicate<E> extends AbstractMultiNaturalIdLo
 				.multiLoad( naturalIds, session );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private MultiNaturalIdLoadingBatcher getBatcher(
 			Object[] naturalIds,
 			MultiNaturalIdLoadOptions loadOptions,
@@ -49,6 +53,7 @@ public class MultiNaturalIdLoaderInPredicate<E> extends AbstractMultiNaturalIdLo
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private int getMaxBatchSize(
 			Object[] naturalIds,
 			MultiNaturalIdLoadOptions loadOptions,

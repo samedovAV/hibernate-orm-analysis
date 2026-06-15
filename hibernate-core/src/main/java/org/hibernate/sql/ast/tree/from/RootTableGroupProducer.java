@@ -12,6 +12,8 @@ import org.hibernate.sql.ast.spi.SqlAliasBase;
 import org.hibernate.sql.ast.spi.SqlAliasBaseGenerator;
 import org.hibernate.sql.ast.spi.SqlAstCreationState;
 import org.hibernate.sql.ast.tree.predicate.Predicate;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for things that can produce the {@link TableGroup} that is a root of a
@@ -30,6 +32,7 @@ public interface RootTableGroupProducer extends TableGroupProducer {
 	 * @param additionalPredicateCollectorAccess Collector for additional predicates associated with this producer
 	 * @param creationState The creation state
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TableGroup createRootTableGroup(
 			boolean canUseInnerJoins,
 			NavigablePath navigablePath,

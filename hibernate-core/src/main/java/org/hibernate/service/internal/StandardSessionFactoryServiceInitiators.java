@@ -12,6 +12,8 @@ import org.hibernate.engine.query.spi.NativeQueryInterpreterInitiator;
 import org.hibernate.engine.spi.CacheInitiator;
 import org.hibernate.service.spi.SessionFactoryServiceInitiator;
 import org.hibernate.stat.internal.StatisticsInitiator;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Central definition of the standard set of initiators defined by Hibernate for the
@@ -21,6 +23,7 @@ import org.hibernate.stat.internal.StatisticsInitiator;
  */
 public final class StandardSessionFactoryServiceInitiators {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static List<SessionFactoryServiceInitiator<?>> buildStandardServiceInitiatorList() {
 		// List must be mutable because SessionFactoryServiceRegistryBuilderImpl mutates it
 		final List<SessionFactoryServiceInitiator<?>> serviceInitiators = new ArrayList<>();

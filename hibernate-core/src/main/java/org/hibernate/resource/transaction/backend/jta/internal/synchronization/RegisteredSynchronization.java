@@ -8,6 +8,8 @@ import jakarta.transaction.Synchronization;
 
 
 import static org.hibernate.resource.transaction.backend.jta.internal.JtaLogging.JTA_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The JTA {@link jakarta.transaction.Synchronization} Hibernate registers when needed for JTA callbacks.
@@ -27,12 +29,14 @@ public class RegisteredSynchronization implements Synchronization {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void beforeCompletion() {
 		JTA_LOGGER.registeredSynchronizationBeforeCompletion();
 		synchronizationCallbackCoordinator.beforeCompletion();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void afterCompletion(int status) {
 		JTA_LOGGER.registeredSynchronizationAfterCompletion( status );
 		synchronizationCallbackCoordinator.afterCompletion( status );

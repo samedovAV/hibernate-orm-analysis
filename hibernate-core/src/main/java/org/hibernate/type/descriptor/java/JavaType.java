@@ -25,6 +25,8 @@ import org.hibernate.type.descriptor.jdbc.JdbcTypeIndicators;
 import org.hibernate.type.spi.TypeConfiguration;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Descriptor for the Java side of a value mapping. A {@code JavaType} is always
@@ -72,6 +74,7 @@ public interface JavaType<T> extends Serializable {
 	 *
 	 * @see #getJavaTypeClass
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Type getJavaType() {
 		// default on this side since #getJavaTypeClass is the currently implemented method
 		return getJavaTypeClass();
@@ -82,6 +85,7 @@ public interface JavaType<T> extends Serializable {
 	 *
 	 * @see #getJavaType
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Class<T> getJavaTypeClass() {
 		return ReflectHelper.getClass( getJavaType() );
 	}
@@ -89,6 +93,7 @@ public interface JavaType<T> extends Serializable {
 	/**
 	 * Get the name of the Java type.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default String getTypeName() {
 		return getJavaType().getTypeName();
 	}
@@ -105,6 +110,7 @@ public interface JavaType<T> extends Serializable {
 	 * handles proxies in a semantically correct way, by checking the entity instance
 	 * underlying the proxy object.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default boolean isInstance(Object value) {
 		return getJavaTypeClass().isInstance( value );
 	}
@@ -121,6 +127,7 @@ public interface JavaType<T> extends Serializable {
 	 * almost certainly unnecessary, and might even indeed be harmful, since
 	 * {@code Class.cast()} is an intrinsic.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default T cast(Object value) {
 		return getJavaTypeClass().cast( value );
 	}
@@ -128,10 +135,12 @@ public interface JavaType<T> extends Serializable {
 	/**
 	 * Retrieve the {@linkplain MutabilityPlan mutability plan} for this Java type.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default MutabilityPlan<T> getMutabilityPlan() {
 		return ImmutableMutabilityPlan.instance();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default T getReplacement(T original, T target, SharedSessionContractImplementor session) {
 		final var mutabilityPlan = getMutabilityPlan();
 		return !mutabilityPlan.isMutable()
@@ -145,6 +154,7 @@ public interface JavaType<T> extends Serializable {
 	 *
 	 * @return The default value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default T getDefaultValue() {
 		return null;
 	}
@@ -158,6 +168,7 @@ public interface JavaType<T> extends Serializable {
 	 *
 	 * @return The recommended SQL type descriptor
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcType getRecommendedJdbcType(JdbcTypeIndicators context);
 
 	/**
@@ -167,6 +178,7 @@ public interface JavaType<T> extends Serializable {
 	 *
 	 * @return {@link Size#DEFAULT_LENGTH} unless overridden
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default long getDefaultSqlLength(Dialect dialect, JdbcType jdbcType) {
 		return Size.DEFAULT_LENGTH;
 	}
@@ -178,6 +190,7 @@ public interface JavaType<T> extends Serializable {
 	 *
 	 * @return {@link Size#LONG_LENGTH} unless overridden
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default long getLongSqlLength() {
 		return Size.LONG_LENGTH;
 	}
@@ -189,6 +202,7 @@ public interface JavaType<T> extends Serializable {
 	 *
 	 * @return {@link Size#DEFAULT_PRECISION} unless overridden
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int getDefaultSqlPrecision(Dialect dialect, JdbcType jdbcType) {
 		return Size.DEFAULT_PRECISION;
 	}
@@ -200,6 +214,7 @@ public interface JavaType<T> extends Serializable {
 	 *
 	 * @return {@link Size#DEFAULT_SCALE} unless overridden
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int getDefaultSqlScale(Dialect dialect, JdbcType jdbcType) {
 		return Size.DEFAULT_SCALE;
 	}
@@ -207,6 +222,7 @@ public interface JavaType<T> extends Serializable {
 	/**
 	 * Retrieve the natural comparator for this type.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Comparator<T> getComparator() {
 		//noinspection unchecked
 		return Comparable.class.isAssignableFrom( getJavaTypeClass() )
@@ -221,6 +237,7 @@ public interface JavaType<T> extends Serializable {
 	 *
 	 * @return The extracted hash code.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int extractHashCode(T value) {
 		if ( value == null ) {
 			throw new IllegalArgumentException( "Value to extract hashCode from cannot be null" );
@@ -236,6 +253,7 @@ public interface JavaType<T> extends Serializable {
 	 *
 	 * @return True if the two are considered equal; false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean areEqual(T one, T another) {
 		return Objects.deepEquals( one, another );
 	}
@@ -246,6 +264,7 @@ public interface JavaType<T> extends Serializable {
 	 * for objects of this java type.
 	 * This is useful to avoid mega-morphic callsites.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean useObjectEqualsHashCode() {
 		return false;
 	}
@@ -257,14 +276,17 @@ public interface JavaType<T> extends Serializable {
 	 *
 	 * @return The loggable representation
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String extractLoggableRepresentation(@Nullable T value) {
 		return value == null ? "null" : toString( value );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default String toString(T value) {
 		return value.toString();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	T fromString(CharSequence string);
 
 	/**
@@ -273,6 +295,7 @@ public interface JavaType<T> extends Serializable {
 	 * with the difference that the aim of this method is encoding to the appender.
 	 * @since 6.2
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void appendEncodedString(SqlAppender sb, T value) {
 		sb.append( toString( value ) );
 	}
@@ -283,10 +306,12 @@ public interface JavaType<T> extends Serializable {
 	 * with the difference that the aim of this method is decoding from a range within an existing char sequence.
 	 * @since 6.2
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default T fromEncodedString(CharSequence charSequence, int start, int end) {
 		return fromString( CharSequenceHelper.subSequence( charSequence, start, end ) );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default T fromEncodedString(CharSequence charSequence) {
 		return fromEncodedString( charSequence, 0, charSequence.length()  );
 	}
@@ -307,6 +332,7 @@ public interface JavaType<T> extends Serializable {
 	 *
 	 * @return The unwrapped value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> X unwrap(T value, Class<X> type, WrapperOptions options);
 
 	/**
@@ -320,12 +346,14 @@ public interface JavaType<T> extends Serializable {
 	 *
 	 * @return The wrapped value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> T wrap(X value, WrapperOptions options);
 
 	/**
 	 * Determines if this Java type is wider than the given Java type,
 	 * that is, if the given type can be safely widened to this type.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isWider(JavaType<?> javaType) {
 		return false;
 	}
@@ -357,6 +385,7 @@ public interface JavaType<T> extends Serializable {
 	 * @throws CoercionException if coercion fails
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Object coerce(Object value) {
 		return value;
 	}
@@ -368,6 +397,7 @@ public interface JavaType<T> extends Serializable {
 	 * @since 6.1
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default JavaType<T> createJavaType(ParameterizedType parameterizedType, TypeConfiguration typeConfiguration) {
 		return this;
 	}
@@ -377,6 +407,7 @@ public interface JavaType<T> extends Serializable {
 	 *
 	 * @return true if it is an instance of {@link  TemporalJavaType}; false otherwise
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isTemporalType() {
 		return false;
 	}
@@ -393,6 +424,7 @@ public interface JavaType<T> extends Serializable {
 	 * @since 6.2
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String getCheckCondition(String columnName, JdbcType jdbcType, BasicValueConverter<T, ?> converter, Dialect dialect) {
 		return null;
 	}

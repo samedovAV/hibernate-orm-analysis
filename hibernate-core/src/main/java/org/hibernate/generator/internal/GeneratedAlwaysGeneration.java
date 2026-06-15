@@ -13,6 +13,8 @@ import org.hibernate.generator.OnExecutionGenerator;
 import java.util.EnumSet;
 
 import static org.hibernate.generator.EventTypeSets.ALL;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * For {@link GeneratedColumn}.
@@ -29,26 +31,31 @@ public class GeneratedAlwaysGeneration implements OnExecutionGenerator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EnumSet<EventType> getEventTypes() {
 		return ALL;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getGeneratedType() {
 		return generatedType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean writePropertyValue() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean referenceColumnsInSql(Dialect dialect) {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getReferencedColumnValues(Dialect dialect) {
 		return null;
 	}

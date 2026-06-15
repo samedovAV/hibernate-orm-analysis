@@ -17,6 +17,8 @@ import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.stat.internal.StatsHelper;
 
 import static org.hibernate.cache.spi.entry.CacheEntryHelper.buildStructuredCacheEntry;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Second-level cache bookkeeping for graph-based entity updates.
 ///
@@ -38,27 +40,33 @@ public class UpdateCacheHandling {
 			this.previousVersion = previousVersion;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Object cacheKey() {
 			return cacheKey;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public SoftLock lock() {
 			return lock;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Object previousVersion() {
 			return previousVersion;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Object cacheEntry() {
 			return cacheEntry;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Object nextVersion() {
 			return nextVersion;
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static CacheUpdate lockItem(
 			EntityUpdateAction action,
 			Object previousVersion,
@@ -78,6 +86,7 @@ public class UpdateCacheHandling {
 		return new CacheUpdate( cacheKey, cache.lockItem( session, cacheKey, previousVersion ), previousVersion );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void updateItem(
 			EntityUpdateAction action,
 			CacheUpdate cacheUpdate,
@@ -113,6 +122,7 @@ public class UpdateCacheHandling {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void afterTransactionCompletion(
 			boolean success,
 			EntityUpdateAction action,
@@ -132,6 +142,7 @@ public class UpdateCacheHandling {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static boolean isCacheInvalidationRequired(
 			EntityPersister persister,
 			SharedSessionContractImplementor session) {
@@ -140,6 +151,7 @@ public class UpdateCacheHandling {
 			|| session.getCacheMode() == CacheMode.IGNORE;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean updateCache(
 			EntityUpdateAction action,
 			CacheUpdate cacheUpdate,
@@ -174,6 +186,7 @@ public class UpdateCacheHandling {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean cacheUpdateRequired(
 			boolean success,
 			EntityPersister persister,
@@ -185,6 +198,7 @@ public class UpdateCacheHandling {
 			&& session.getCacheMode().isPutEnabled();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void cacheAfterUpdate(
 			EntityUpdateAction action,
 			CacheUpdate cacheUpdate,

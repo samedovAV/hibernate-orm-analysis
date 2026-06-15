@@ -10,6 +10,8 @@ import org.hibernate.sql.results.graph.DomainResultAssembler;
 import org.hibernate.sql.results.graph.Initializer;
 import org.hibernate.sql.results.internal.InitializersList;
 import org.hibernate.sql.results.jdbc.spi.JdbcValuesMappingResolution;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class JdbcValuesMappingResolutionImpl implements JdbcValuesMappingResolution {
 
@@ -39,6 +41,7 @@ public class JdbcValuesMappingResolutionImpl implements JdbcValuesMappingResolut
 		this.initializersList = initializersList;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static Initializer<?>[] getResultInitializers(DomainResultAssembler<?>[] resultAssemblers) {
 		final LinkedHashSet<Initializer<?>> initializers = new LinkedHashSet<>( resultAssemblers.length );
 		for ( var resultAssembler : resultAssemblers ) {
@@ -48,26 +51,31 @@ public class JdbcValuesMappingResolutionImpl implements JdbcValuesMappingResolut
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResultAssembler<?>[] getDomainResultAssemblers() {
 		return domainResultAssemblers;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasCollectionInitializers() {
 		return hasCollectionInitializers;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Initializer<?>[] getResultInitializers() {
 		return resultInitializers;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Initializer<?>[] getInitializers() {
 		return initializersList.getInitializers();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Initializer<?>[] getSortedForResolveInstance() {
 		return initializersList.getSortedForResolveInstance();
 	}

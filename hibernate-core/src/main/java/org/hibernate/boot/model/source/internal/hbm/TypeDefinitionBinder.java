@@ -10,6 +10,8 @@ import org.hibernate.boot.model.TypeDefinition;
 
 import static org.hibernate.boot.BootLogging.BOOT_LOGGER;
 import static org.hibernate.boot.model.source.internal.hbm.ConfigParameterHelper.extractConfigParameters;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -22,6 +24,7 @@ public class TypeDefinitionBinder {
 	 * @param context Access to information relative to the mapping document containing this binding
 	 * @param typeDefinitionBinding The {@code <typedef/>} binding
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void processTypeDefinition(
 			HbmLocalMetadataBuildingContext context,
 			JaxbHbmTypeDefinitionType typeDefinitionBinding) {

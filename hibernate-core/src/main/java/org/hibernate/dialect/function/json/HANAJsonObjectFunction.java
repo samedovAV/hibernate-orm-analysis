@@ -15,6 +15,8 @@ import org.hibernate.sql.ast.tree.SqlAstNode;
 import org.hibernate.sql.ast.tree.expression.Expression;
 import org.hibernate.sql.ast.tree.expression.JsonNullBehavior;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * SAP HANA json_object function.
@@ -26,6 +28,7 @@ public class HANAJsonObjectFunction extends JsonObjectFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,
@@ -59,6 +62,7 @@ public class HANAJsonObjectFunction extends JsonObjectFunction {
 		sqlAppender.appendSql( ')' );
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private static void replaceJsonArgumentsEscaping(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,
@@ -115,6 +119,7 @@ public class HANAJsonObjectFunction extends JsonObjectFunction {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private List<String> getJsonArgumentFields(
 			List<? extends SqlAstNode> sqlAstArguments,
 			int argumentsCount,
@@ -128,6 +133,7 @@ public class HANAJsonObjectFunction extends JsonObjectFunction {
 		return jsonArgumentIndexes;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static String valueExtractionPattern(String attributeName) {
 		// (?<!\\) ensures the next character is not preceded by a backslash
 		// (?<=\"" + attributeName + "\":\") ensures the match is preceded by `"attributeName":"`

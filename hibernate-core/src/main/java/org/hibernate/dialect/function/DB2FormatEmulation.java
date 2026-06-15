@@ -14,6 +14,8 @@ import org.hibernate.sql.ast.tree.expression.Expression;
 import org.hibernate.type.spi.TypeConfiguration;
 
 import jakarta.persistence.TemporalType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * DB2's varchar_format() can't handle quoted literal strings in
@@ -35,6 +37,7 @@ public class DB2FormatEmulation extends FormatFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> arguments,

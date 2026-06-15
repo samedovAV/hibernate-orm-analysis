@@ -13,6 +13,8 @@ import org.hibernate.sql.ast.tree.expression.ColumnReference;
 import org.hibernate.sql.ast.tree.expression.Expression;
 import org.hibernate.sql.results.jdbc.spi.JdbcValuesMetadata;
 import org.hibernate.type.descriptor.ValueExtractor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * SqlSelection implementation used in follow-on locking.
@@ -32,41 +34,49 @@ public class SqlSelectionImpl implements SqlSelection, SqlExpressionAccess {
 	// SqlExpressionAccess
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression getSqlExpression() {
 		return columnReference;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public ValueExtractor getJdbcValueExtractor() {
 		return columnReference.getJdbcMapping().getJdbcValueExtractor();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getValuesArrayPosition() {
 		return valuesArrayPosition;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression getExpression() {
 		return columnReference;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcMappingContainer getExpressionType() {
 		return columnReference.getExpressionType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isVirtual() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker sqlAstWalker) {
 		sqlAstWalker.visitSqlSelection( this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqlSelection resolve(JdbcValuesMetadata jdbcResultsMetadata, SessionFactoryImplementor sessionFactory) {
 		return null;
 	}

@@ -7,6 +7,8 @@ package org.hibernate.persister.entity.mutation;
 import org.hibernate.engine.jdbc.mutation.group.PreparedStatementDetails;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.persister.entity.EntityPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Merge coordinator for
@@ -24,6 +26,7 @@ public class MergeCoordinatorHistory extends UpdateCoordinatorHistory {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	boolean resultCheck(Object id, PreparedStatementDetails statementDetails, int affectedRowCount, int batchPosition) {
 		return affectedRowCount != 0
 			&& super.resultCheck( id, statementDetails, affectedRowCount, batchPosition );

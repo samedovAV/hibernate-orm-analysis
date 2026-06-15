@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.relational;
 
 import org.hibernate.boot.model.naming.Identifier;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -18,10 +20,12 @@ public class QualifiedTableName extends QualifiedNameImpl {
 		super( schemaName, tableName );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Identifier getTableName() {
 		return getObjectName();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QualifiedTableName quote() {
 		Identifier catalogName = getCatalogName();
 		if ( catalogName != null ) {

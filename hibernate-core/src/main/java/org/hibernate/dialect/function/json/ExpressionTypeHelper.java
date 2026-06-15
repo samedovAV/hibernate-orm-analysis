@@ -10,10 +10,13 @@ import org.hibernate.query.sqm.CastType;
 import org.hibernate.sql.ast.tree.SqlAstNode;
 import org.hibernate.sql.ast.tree.expression.Expression;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @Internal
 public class ExpressionTypeHelper {
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static boolean isBoolean(SqlAstNode node) {
 		final Expression expression = (Expression) node;
 		final JdbcMappingContainer expressionType = expression.getExpressionType();
@@ -21,6 +24,7 @@ public class ExpressionTypeHelper {
 				&& isBoolean( expressionType.getSingleJdbcMapping().getCastType() );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static boolean isNonNativeBoolean(SqlAstNode node) {
 		final Expression expression = (Expression) node;
 		final JdbcMappingContainer expressionType = expression.getExpressionType();
@@ -28,6 +32,7 @@ public class ExpressionTypeHelper {
 				&& isNonNativeBoolean( expressionType.getSingleJdbcMapping().getCastType() );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static boolean isJson(SqlAstNode node) {
 		final Expression expression = (Expression) node;
 		final JdbcMappingContainer expressionType = expression.getExpressionType();
@@ -35,6 +40,7 @@ public class ExpressionTypeHelper {
 				&& expressionType.getSingleJdbcMapping().getJdbcType().isJson();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static boolean isXml(SqlAstNode node) {
 		final Expression expression = (Expression) node;
 		final JdbcMappingContainer expressionType = expression.getExpressionType();
@@ -42,12 +48,14 @@ public class ExpressionTypeHelper {
 				&& expressionType.getSingleJdbcMapping().getJdbcType().isXml();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static JdbcType getSingleJdbcType(SqlAstNode node) {
 		final Expression expression = (Expression) node;
 		final JdbcMappingContainer expressionType = expression.getExpressionType();
 		return expressionType.getSingleJdbcMapping().getJdbcType();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isBoolean(CastType castType) {
 		switch ( castType ) {
 			case BOOLEAN:
@@ -60,6 +68,7 @@ public class ExpressionTypeHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isNonNativeBoolean(CastType castType) {
 		switch ( castType ) {
 			case TF_BOOLEAN:

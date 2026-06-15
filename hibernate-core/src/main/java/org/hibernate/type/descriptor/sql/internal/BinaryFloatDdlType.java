@@ -11,6 +11,8 @@ import org.hibernate.type.Type;
 import org.hibernate.type.descriptor.sql.spi.DdlTypeRegistry;
 
 import static java.lang.Math.log;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class BinaryFloatDdlType extends DdlTypeImpl {
 
@@ -26,6 +28,7 @@ public class BinaryFloatDdlType extends DdlTypeImpl {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getTypeName(Size columnSize, Type type, DdlTypeRegistry ddlTypeRegistry) {
 		final Long size = columnSize.getLength();
 		final Integer precision = columnSize.getPrecision();

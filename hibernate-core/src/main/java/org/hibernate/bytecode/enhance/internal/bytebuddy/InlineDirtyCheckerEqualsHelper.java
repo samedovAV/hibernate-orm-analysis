@@ -7,15 +7,19 @@ package org.hibernate.bytecode.enhance.internal.bytebuddy;
 import java.util.Objects;
 
 import org.hibernate.engine.spi.PersistentAttributeInterceptable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public final class InlineDirtyCheckerEqualsHelper {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isLoaded(PersistentAttributeInterceptable persistentAttributeInterceptable, String fieldName) {
 		final var persistentAttributeInterceptor = persistentAttributeInterceptable.$$_hibernate_getInterceptor();
 		return persistentAttributeInterceptor == null
 			|| persistentAttributeInterceptor.isAttributeLoaded( fieldName );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean areEquals(
 			PersistentAttributeInterceptable persistentAttributeInterceptable,
 			String fieldName,
@@ -25,6 +29,7 @@ public final class InlineDirtyCheckerEqualsHelper {
 			&& Objects.deepEquals( a, b );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean areEquals(
 			PersistentAttributeInterceptable persistentAttributeInterceptable,
 			String fieldName,
@@ -34,6 +39,7 @@ public final class InlineDirtyCheckerEqualsHelper {
 			&& a == b;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean areEquals(
 			PersistentAttributeInterceptable persistentAttributeInterceptable,
 			String fieldName,
@@ -43,6 +49,7 @@ public final class InlineDirtyCheckerEqualsHelper {
 			&& a == b;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean areEquals(
 			PersistentAttributeInterceptable persistentAttributeInterceptable,
 			String fieldName,
@@ -52,6 +59,7 @@ public final class InlineDirtyCheckerEqualsHelper {
 			&& a == b;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean areEquals(
 			PersistentAttributeInterceptable persistentAttributeInterceptable,
 			String fieldName,
@@ -61,6 +69,7 @@ public final class InlineDirtyCheckerEqualsHelper {
 			&& a == b;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean areEquals(
 			PersistentAttributeInterceptable persistentAttributeInterceptable,
 			String fieldName,
@@ -70,6 +79,7 @@ public final class InlineDirtyCheckerEqualsHelper {
 			&& a == b;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean areEquals(
 			PersistentAttributeInterceptable persistentAttributeInterceptable,
 			String fieldName,
@@ -79,6 +89,7 @@ public final class InlineDirtyCheckerEqualsHelper {
 			&& a == b;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean areEquals(
 			PersistentAttributeInterceptable persistentAttributeInterceptable,
 			String fieldName,
@@ -88,6 +99,7 @@ public final class InlineDirtyCheckerEqualsHelper {
 			&& a == b;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean areEquals(
 			PersistentAttributeInterceptable persistentAttributeInterceptable,
 			String fieldName,

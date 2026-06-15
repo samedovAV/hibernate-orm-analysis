@@ -13,6 +13,8 @@ import org.hibernate.models.spi.ModelsContext;
 import jakarta.persistence.SqlResultSetMapping;
 
 import static org.hibernate.boot.models.internal.OrmAnnotationHelper.extractJdkValue;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -54,45 +56,54 @@ public class SqlResultSetMappingJpaAnnotation implements SqlResultSetMapping {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return SqlResultSetMapping.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String name() {
 		return name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void name(String value) {
 		this.name = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.EntityResult[] entities() {
 		return entities;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void entities(jakarta.persistence.EntityResult[] value) {
 		this.entities = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.ConstructorResult[] classes() {
 		return classes;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void classes(jakarta.persistence.ConstructorResult[] value) {
 		this.classes = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.ColumnResult[] columns() {
 		return columns;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void columns(jakarta.persistence.ColumnResult[] value) {
 		this.columns = value;
 	}

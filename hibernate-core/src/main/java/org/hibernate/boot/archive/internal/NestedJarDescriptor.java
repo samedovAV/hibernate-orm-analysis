@@ -22,6 +22,8 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
 
 import static org.hibernate.boot.archive.internal.ArchiveHelper.buildByteBasedInputStreamAccess;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// [ArchiveDescriptor] implementation for describing non-root jar
 /// references nested within a jar.
@@ -35,11 +37,13 @@ public class NestedJarDescriptor implements ArchiveDescriptor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public URL getUrl() {
 		return archiveUrl;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void visitClassEntries(Consumer<ArchiveEntry> entryConsumer) {
 		try (final InputStream is = new BufferedInputStream( archiveUrl.openStream() );
 			final JarInputStream jarInputStream = new JarInputStream( is )) {
@@ -82,6 +86,7 @@ public class NestedJarDescriptor implements ArchiveDescriptor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nullable ArchiveEntry findEntry(String relativePath) {
 		try (final InputStream is = new BufferedInputStream( archiveUrl.openStream() );
 			final JarInputStream jarInputStream = new JarInputStream( is )) {
@@ -118,6 +123,7 @@ public class NestedJarDescriptor implements ArchiveDescriptor {
 	}
 
 	@Override @Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ArchiveDescriptor resolveJarFileReference(@Nonnull String jarFileReference) {
 		throw new UnsupportedOperationException( "Not supported." );
 	}

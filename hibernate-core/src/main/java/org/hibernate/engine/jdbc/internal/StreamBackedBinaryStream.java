@@ -11,6 +11,8 @@ import org.hibernate.engine.jdbc.LobCreator;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Implementation of {@link BinaryStream} backed by an {@link InputStream}.
@@ -29,11 +31,13 @@ public class StreamBackedBinaryStream implements BinaryStream {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public InputStream getInputStream() {
 		return stream;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public byte[] getBytes() {
 		if ( bytes == null ) {
 			try {
@@ -47,16 +51,19 @@ public class StreamBackedBinaryStream implements BinaryStream {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getLength() {
 		return length;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Blob asBlob(LobCreator lobCreator) {
 		return lobCreator.createBlob( stream, length );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void release() {
 		try {
 			stream.close();

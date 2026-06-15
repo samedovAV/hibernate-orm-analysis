@@ -8,6 +8,8 @@ import jakarta.annotation.Nonnull;
 import org.hibernate.boot.spi.SessionFactoryOptions;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.service.Service;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for builder of {@link SessionFactoryServiceRegistry} instances.
@@ -28,6 +30,7 @@ public interface SessionFactoryServiceRegistryFactory extends Service {
 	 * @return The registry
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryServiceRegistry buildServiceRegistry(
 			@Nonnull SessionFactoryImplementor sessionFactory,
 			@Nonnull SessionFactoryOptions sessionFactoryOptions);

@@ -5,6 +5,8 @@
 package org.hibernate.engine.jdbc.env.spi;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Maintains the set of ANSI SQL keywords
@@ -268,6 +270,7 @@ public final class AnsiSqlKeywords {
 	 *
 	 * @return ANSI SQL:2003 keywords
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<String> sql2003() {
 		return keywordsSql2003;
 	}

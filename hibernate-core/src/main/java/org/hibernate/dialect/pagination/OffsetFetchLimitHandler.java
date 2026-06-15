@@ -10,6 +10,8 @@ import org.hibernate.query.spi.QueryOptions;
 import org.hibernate.sql.ast.spi.ParameterMarkerStrategy;
 
 import static org.hibernate.sql.ast.internal.ParameterMarkerStrategyStandard.isStandardRenderer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link LimitHandler} for databases which support the
@@ -29,15 +31,18 @@ public class OffsetFetchLimitHandler extends AbstractLimitHandler {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String processSql(String sql, int jdbcParameterCount, @Nullable ParameterMarkerStrategy parameterMarkerStrategy, QueryOptions queryOptions) {
 		return processSql( sql, jdbcParameterCount, parameterMarkerStrategy, queryOptions.getLimit() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String processSql(String sql, Limit limit) {
 		return processSql( sql, -1, null, limit );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String processSql(String sql, int jdbcParameterCount, @Nullable ParameterMarkerStrategy parameterMarkerStrategy, @Nullable Limit limit) {
 		final boolean hasFirstRow = hasFirstRow(limit);
 		final boolean hasMaxRows = hasMaxRows(limit);
@@ -93,32 +98,39 @@ public class OffsetFetchLimitHandler extends AbstractLimitHandler {
 		return insert( offsetFetch.toString(), sql );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void begin(String sql, StringBuilder offsetFetch, boolean hasFirstRow, boolean hasMaxRows) {}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String insert(String offsetFetch, String sql) {
 		return insertBeforeForUpdate( offsetFetch, sql );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final boolean supportsLimit() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsOffset() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final boolean supportsVariableLimit() {
 		return variableLimit;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean renderOffsetRowsKeyword() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean processSqlMutatesState() {
 		return false;
 	}

@@ -9,6 +9,8 @@ import java.util.Set;
 import org.hibernate.boot.model.naming.Identifier;
 
 import static org.hibernate.internal.util.StringHelper.replace;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A simple implementation of {@link AbstractAuxiliaryDatabaseObject} in which the
@@ -29,6 +31,7 @@ public class SimpleAuxiliaryDatabaseObject extends AbstractAuxiliaryDatabaseObje
 	private final String[] createStrings;
 	private final String[] dropStrings;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static String extractName(Identifier identifier) {
 		return identifier == null ? null : identifier.getText();
 	}
@@ -119,6 +122,7 @@ public class SimpleAuxiliaryDatabaseObject extends AbstractAuxiliaryDatabaseObje
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String[] sqlCreateStrings(SqlStringGenerationContext context) {
 		final String[] copy = new String[createStrings.length];
 		for ( int i = 0, max =createStrings.length; i<max; i++ ) {
@@ -128,6 +132,7 @@ public class SimpleAuxiliaryDatabaseObject extends AbstractAuxiliaryDatabaseObje
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String[] sqlDropStrings(SqlStringGenerationContext context) {
 		final String[] copy = new String[dropStrings.length];
 		for ( int i = 0, max = dropStrings.length; i<max; i++ ) {
@@ -136,14 +141,17 @@ public class SimpleAuxiliaryDatabaseObject extends AbstractAuxiliaryDatabaseObje
 		return copy;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getCatalogName() {
 		return catalogName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getSchemaName() {
 		return schemaName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String injectCatalogAndSchema(String ddlString, SqlStringGenerationContext context) {
 		final Identifier defaultedCatalogName =
 				context.catalogWithDefault( catalogName == null ? null

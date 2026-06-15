@@ -9,6 +9,8 @@ import org.hibernate.dialect.Dialect;
 import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.hibernate.service.Service;
 import org.hibernate.sql.ast.SqlAstTranslatorFactory;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Initial look at this concept we keep talking about with merging information from {@link java.sql.DatabaseMetaData}
@@ -22,8 +24,10 @@ public interface JdbcEnvironment extends Service {
 	 *
 	 * @return The dialect.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Dialect getDialect();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqlAstTranslatorFactory getSqlAstTranslatorFactory();
 
 	/**
@@ -32,6 +36,7 @@ public interface JdbcEnvironment extends Service {
 	 *
 	 * @return The values extracted from JDBC DatabaseMetaData
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ExtractedDatabaseMetaData getExtractedDatabaseMetaData();
 
 	/**
@@ -41,6 +46,7 @@ public interface JdbcEnvironment extends Service {
 	 *
 	 * @return The current catalog.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier getCurrentCatalog();
 
 	/**
@@ -52,6 +58,7 @@ public interface JdbcEnvironment extends Service {
 	 *
 	 * @return The current schema
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier getCurrentSchema();
 
 	/**
@@ -61,6 +68,7 @@ public interface JdbcEnvironment extends Service {
 	 * @deprecated Use a provided {@link org.hibernate.boot.model.relational.SqlStringGenerationContext} instead.
 	 */
 	@Deprecated
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	QualifiedObjectNameFormatter getQualifiedObjectNameFormatter();
 
 	/**
@@ -71,6 +79,7 @@ public interface JdbcEnvironment extends Service {
 	 *
 	 * @return The identifier helper.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	IdentifierHelper getIdentifierHelper();
 
 	/**
@@ -78,6 +87,7 @@ public interface JdbcEnvironment extends Service {
 	 *
 	 * @return The NameQualifierSupport.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NameQualifierSupport getNameQualifierSupport();
 
 	/**
@@ -85,6 +95,7 @@ public interface JdbcEnvironment extends Service {
 	 *
 	 * @return This environment's helper.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqlExceptionHelper getSqlExceptionHelper();
 
 	/**
@@ -92,5 +103,6 @@ public interface JdbcEnvironment extends Service {
 	 *
 	 * @return The LobCreator builder.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	LobCreatorBuilder getLobCreatorBuilder();
 }

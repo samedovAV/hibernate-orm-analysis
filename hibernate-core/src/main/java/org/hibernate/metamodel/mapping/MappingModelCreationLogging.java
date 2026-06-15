@@ -19,6 +19,8 @@ import java.util.Locale;
 
 import static org.jboss.logging.Logger.Level.TRACE;
 import static org.jboss.logging.Logger.Level.WARN;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Logger used during mapping-model creation
@@ -41,29 +43,36 @@ public interface MappingModelCreationLogging extends BasicLogger {
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90005701, value = "Wrapping up metadata context...")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void wrappingUpMetadataContext();
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90005702, value = "Starting entity [%s]")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void startingEntity(String entityName);
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90005703, value = "Completed entity [%s]")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void completedEntity(String entityName);
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90005704, value = "Starting mapped superclass [%s]")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void startingMappedSuperclass(String name);
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90005705, value = "Completed mapped superclass [%s]")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void completedMappedSuperclass(String name);
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90005706, value = "Building old-school composite identifier [%s]")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void buildingOldSchoolCompositeIdentifier(String name);
 
 	@LogMessage(level = WARN)
 	@Message(id = 90005707, value = "Unable to locate static metamodel field: %s.%s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void unableToLocateStaticMetamodelField(String className, String fieldName);
 }

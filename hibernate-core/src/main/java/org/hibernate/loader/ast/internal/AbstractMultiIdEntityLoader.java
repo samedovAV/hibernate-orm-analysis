@@ -28,6 +28,8 @@ import static org.hibernate.internal.util.collections.CollectionHelper.arrayList
 import static org.hibernate.internal.util.collections.CollectionHelper.isEmpty;
 import static org.hibernate.loader.ast.internal.MultiKeyLoadLogging.MULTI_KEY_LOAD_LOGGER;
 import static org.hibernate.loader.internal.CacheLoadHelper.loadFromSessionCache;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base support for {@link MultiIdEntityLoader} implementations.
@@ -51,36 +53,44 @@ public abstract class AbstractMultiIdEntityLoader<T> implements MultiIdEntityLoa
 				&& !entityDescriptor.getIdentifierMapping().isVirtual();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected EntityMappingType getEntityDescriptor() {
 		return entityDescriptor;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected SessionFactoryImplementor getSessionFactory() {
 		return sessionFactory;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityIdentifierMapping getIdentifierMapping() {
 		return identifierMapping;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected JdbcServices getJdbcServices() {
 		return getSessionFactory().getJdbcServices();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected SqlAstTranslatorFactory getSqlAstTranslatorFactory() {
 		return getJdbcServices().getJdbcEnvironment().getSqlAstTranslatorFactory();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected JdbcSelectExecutor getJdbcSelectExecutor() {
 		return getJdbcServices().getJdbcSelectExecutor();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityMappingType getLoadable() {
 		return getEntityDescriptor();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final <K> List<T> load(K[] ids, MultiIdLoadOptions loadOptions, SharedSessionContractImplementor session) {
 		assert ids != null;
 		return loadOptions.getOrderingMode() == FindMultipleOption.OrderingMode.ORDERED
@@ -88,6 +98,7 @@ public abstract class AbstractMultiIdEntityLoader<T> implements MultiIdEntityLoa
 				: performUnorderedMultiLoad( ids, loadOptions, session );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private List<T> performUnorderedMultiLoad(
 			Object[] ids,
 			MultiIdLoadOptions loadOptions,
@@ -100,6 +111,7 @@ public abstract class AbstractMultiIdEntityLoader<T> implements MultiIdEntityLoa
 		return unorderedMultiLoad( ids, loadOptions, session );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private List<T> performOrderedMultiLoad(
 			Object[] ids,
 			MultiIdLoadOptions loadOptions,
@@ -112,6 +124,7 @@ public abstract class AbstractMultiIdEntityLoader<T> implements MultiIdEntityLoa
 		return orderedMultiLoad( ids, loadOptions, session );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private List<T> orderedMultiLoad(
 			Object[] ids,
 			MultiIdLoadOptions loadOptions,
@@ -160,17 +173,21 @@ public abstract class AbstractMultiIdEntityLoader<T> implements MultiIdEntityLoa
 		return (List<T>) results;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private Object coerce(JavaType<?> idType, Object id) {
 		return idCoercionEnabled ? idType.coerce( id ) : id;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static LockOptions lockOptions(MultiIdLoadOptions loadOptions) {
 		final var lockOptions = loadOptions.getLockOptions();
 		return lockOptions == null ? new LockOptions( LockMode.NONE ) : lockOptions;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract int maxBatchSize(Object[] ids, MultiIdLoadOptions loadOptions);
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void handleResults(
 			MultiIdLoadOptions loadOptions,
 			SharedSessionContractImplementor session,
@@ -196,12 +213,14 @@ public abstract class AbstractMultiIdEntityLoader<T> implements MultiIdEntityLoa
 	}
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract void loadEntitiesById(
 			List<Object> idsInBatch,
 			LockOptions lockOptions,
 			MultiIdLoadOptions loadOptions,
 			SharedSessionContractImplementor session);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean loadFromEnabledCaches(
 			MultiIdLoadOptions loadOptions,
 			SharedSessionContractImplementor session,
@@ -214,6 +233,7 @@ public abstract class AbstractMultiIdEntityLoader<T> implements MultiIdEntityLoa
 			&& isLoadFromCaches( loadOptions, entityKey, lockOptions, result, i, session );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean isLoadFromCaches(
 			MultiIdLoadOptions loadOptions,
 			EntityKey entityKey,
@@ -254,6 +274,7 @@ public abstract class AbstractMultiIdEntityLoader<T> implements MultiIdEntityLoa
 		return false;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected List<T> unorderedMultiLoad(
 			Object[] ids,
 			MultiIdLoadOptions loadOptions,
@@ -286,6 +307,7 @@ public abstract class AbstractMultiIdEntityLoader<T> implements MultiIdEntityLoa
 		return results;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract void loadEntitiesWithUnresolvedIds(
 			Object[] unresolvableIds,
 			MultiIdLoadOptions loadOptions,
@@ -293,6 +315,7 @@ public abstract class AbstractMultiIdEntityLoader<T> implements MultiIdEntityLoa
 			List<T> results,
 			SharedSessionContractImplementor session);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private <R> Object[] resolveInCachesIfEnabled(
 			Object[] ids,
 			@Nonnull MultiIdLoadOptions loadOptions,
@@ -311,6 +334,7 @@ public abstract class AbstractMultiIdEntityLoader<T> implements MultiIdEntityLoa
 				: ids;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private <R> Object[] resolveInCaches(
 			Object[] ids,
 			MultiIdLoadOptions loadOptions,
@@ -332,6 +356,7 @@ public abstract class AbstractMultiIdEntityLoader<T> implements MultiIdEntityLoa
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private <R> List<Object> unresolvedIds(
 			Object[] ids,
 			MultiIdLoadOptions loadOptions,
@@ -360,12 +385,15 @@ public abstract class AbstractMultiIdEntityLoader<T> implements MultiIdEntityLoa
 	}
 
 	// Depending on the implementation, a specific subtype of Object[] (e.g. Integer[]) may be needed.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract Object[] toIdArray(List<Object> ids);
 
 	public interface ResolutionConsumer<T> {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void consume(int position, EntityKey entityKey, T resolvedRef);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private <R> List<Object> loadFromCaches(
 			MultiIdLoadOptions loadOptions,
 			LockOptions lockOptions,
@@ -413,6 +441,7 @@ public abstract class AbstractMultiIdEntityLoader<T> implements MultiIdEntityLoa
 		return unresolvedIds;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private Object loadFromSecondLevelCache(
 			EntityKey entityKey,
 			LockOptions lockOptions,

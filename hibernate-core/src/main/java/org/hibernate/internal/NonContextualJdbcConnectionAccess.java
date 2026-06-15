@@ -15,6 +15,8 @@ import org.hibernate.context.spi.TenantCredentialsMapper;
 import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
 import org.hibernate.engine.jdbc.connections.spi.JdbcConnectionAccess;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -39,6 +41,7 @@ class NonContextualJdbcConnectionAccess implements JdbcConnectionAccess, Seriali
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Connection obtainConnection() throws SQLException {
 		final var eventMonitor = session.getEventMonitor();
 		final var connectionAcquisitionEvent = eventMonitor.beginJdbcConnectionAcquisitionEvent();
@@ -67,12 +70,14 @@ class NonContextualJdbcConnectionAccess implements JdbcConnectionAccess, Seriali
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private TenantCredentialsMapper<Object> getTenantCredentialsMapper() {
 		return session.getSessionFactory().getSessionFactoryOptions()
 				.getTenantCredentialsMapper();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void releaseConnection(Connection connection) throws SQLException {
 		final var eventMonitor = session.getEventMonitor();
 		final var connectionReleaseEvent = eventMonitor.beginJdbcConnectionReleaseEvent();
@@ -92,6 +97,7 @@ class NonContextualJdbcConnectionAccess implements JdbcConnectionAccess, Seriali
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean supportsAggressiveRelease() {
 		return connectionProvider.supportsAggressiveRelease();
 	}

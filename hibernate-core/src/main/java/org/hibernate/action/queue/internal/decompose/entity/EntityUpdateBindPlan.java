@@ -29,6 +29,8 @@ import java.sql.SQLException;
 
 import static org.hibernate.action.queue.internal.decompose.entity.BindPlanHelper.shouldBindJdbcValue;
 import static org.hibernate.generator.EventType.UPDATE;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// @author Steve Ebersole
 public class EntityUpdateBindPlan implements BindPlan, OperationResultChecker {
@@ -103,38 +105,45 @@ public class EntityUpdateBindPlan implements BindPlan, OperationResultChecker {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable Object getEntityId() {
 		return identifier;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable Object getEntityInstance() {
 		return entity;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public GeneratedValuesCollector getGeneratedValuesCollector() {
 		return generatedValuesCollector;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ValuesAnalysis getValuesAnalysis() {
 		return valuesAnalysis;
 	}
 
 	/// Get the current (new) state of the entity.
 	/// Phase 3: Used for unique constraint value extraction.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object[] getState() {
 		return state;
 	}
 
 	/// Get the previous (old) state of the entity.
 	/// Phase 3: Used for unique constraint value extraction.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object[] getPreviousState() {
 		return previousState;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void bindValues(
 			JdbcValueBindings valueBindings,
 			FlushOperation flushOperation,
@@ -150,6 +159,7 @@ public class EntityUpdateBindPlan implements BindPlan, OperationResultChecker {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void decomposeForUpdate(
 			JdbcValueBindings valueBindings,
 			FlushOperation flushOperation,
@@ -195,6 +205,7 @@ public class EntityUpdateBindPlan implements BindPlan, OperationResultChecker {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void decomposeAttributeForSet(
 			Object value,
 			AttributeMapping attribute,
@@ -226,6 +237,7 @@ public class EntityUpdateBindPlan implements BindPlan, OperationResultChecker {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean shouldBindUpdateValue(
 			AttributeMapping attribute,
 			int selectableIndex,
@@ -241,6 +253,7 @@ public class EntityUpdateBindPlan implements BindPlan, OperationResultChecker {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean shouldIncludeInUpdate(
 			AttributeMapping attribute,
 			SharedSessionContractImplementor session) {
@@ -272,6 +285,7 @@ public class EntityUpdateBindPlan implements BindPlan, OperationResultChecker {
 		return true;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void breakDownKeyJdbcValue(
 			JdbcValueBindings valueBindings,
 			SharedSessionContractImplementor session) {
@@ -304,6 +318,7 @@ public class EntityUpdateBindPlan implements BindPlan, OperationResultChecker {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void applyVersionBasedOptLocking(
 			JdbcValueBindings jdbcValueBindings,
 			SharedSessionContractImplementor session) {
@@ -330,6 +345,7 @@ public class EntityUpdateBindPlan implements BindPlan, OperationResultChecker {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void applyNonVersionOptLocking(
 			JdbcValueBindings jdbcValueBindings,
 			SharedSessionContractImplementor session) {
@@ -370,6 +386,7 @@ public class EntityUpdateBindPlan implements BindPlan, OperationResultChecker {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void decomposeAttributeForRestriction(
 			Object value,
 			JdbcValueBindings jdbcValueBindings,
@@ -395,6 +412,7 @@ public class EntityUpdateBindPlan implements BindPlan, OperationResultChecker {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void applyPartitionedSelectionRestrictions(
 			JdbcValueBindings jdbcValueBindings,
 			SharedSessionContractImplementor session) {
@@ -431,11 +449,13 @@ public class EntityUpdateBindPlan implements BindPlan, OperationResultChecker {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public OperationResultChecker getOperationResultChecker() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean checkResult(
 			FlushOperation flushOperation,
 			int affectedRowCount,
@@ -452,6 +472,7 @@ public class EntityUpdateBindPlan implements BindPlan, OperationResultChecker {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean checkResult(
 			int affectedRowCount,
 			int batchPosition,
@@ -460,6 +481,7 @@ public class EntityUpdateBindPlan implements BindPlan, OperationResultChecker {
 		return checkResult( tableDescriptor, affectedRowCount, batchPosition, sqlString, sessionFactory );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean checkResult(
 			EntityTableDescriptor tableDescriptor,
 			int affectedRowCount,

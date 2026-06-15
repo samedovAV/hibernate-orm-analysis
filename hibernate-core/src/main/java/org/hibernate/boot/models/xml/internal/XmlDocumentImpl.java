@@ -34,6 +34,8 @@ import java.util.List;
 import java.util.Map;
 
 import static org.hibernate.internal.util.collections.CollectionHelper.isEmpty;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -101,96 +103,115 @@ public class XmlDocumentImpl implements XmlDocument {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Origin getOrigin() {
 		return origin;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JaxbEntityMappingsImpl getRoot() {
 		return root;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Defaults getDefaults() {
 		return defaults;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<JaxbEntityImpl> getEntityMappings() {
 		return entityMappings;
 	}
 
 		@Override
-	public List<JaxbMappedSuperclassImpl> getMappedSuperclassMappings() {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
+		public List<JaxbMappedSuperclassImpl> getMappedSuperclassMappings() {
 		return mappedSuperclassMappings;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<JaxbEmbeddableImpl> getEmbeddableMappings() {
 		return embeddableMappings;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<JaxbConverterImpl> getConverters() {
 		return converters;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<JaxbConverterRegistrationImpl> getConverterRegistrations() {
 		return converterRegistrations;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<JaxbJavaTypeRegistrationImpl> getJavaTypeRegistrations() {
 		return javaTypeRegistrations;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<JaxbJdbcTypeRegistrationImpl> getJdbcTypeRegistrations() {
 		return jdbcTypeRegistrations;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<JaxbUserTypeRegistrationImpl> getUserTypeRegistrations() {
 		return userTypeRegistrations;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<JaxbCompositeUserTypeRegistrationImpl> getCompositeUserTypeRegistrations() {
 		return compositeUserTypeRegistrations;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<JaxbCollectionUserTypeRegistrationImpl> getCollectionUserTypeRegistrations() {
 		return collectionUserTypeRegistrations;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<JaxbEmbeddableInstantiatorRegistrationImpl> getEmbeddableInstantiatorRegistrations() {
 		return embeddableInstantiatorRegistrations;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, JaxbNamedHqlQueryImpl> getJpaNamedQueries() {
 		return jpaNamedQueries;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, JaxbNamedNativeQueryImpl> getJpaNamedNativeQueries() {
 		return jpaNamedNativeQueries;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, JaxbHbmNamedQueryType> getHibernateNamedQueries() {
 		return hibernateNamedQueries;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, JaxbHbmNamedNativeQueryType> getHibernateNamedNativeQueries() {
 		return hibernateNamedNativeQueries;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, JaxbNamedStoredProcedureQueryImpl> getNamedStoredProcedureQueries() {
 		return namedStoredProcedureQueries;
 	}
@@ -222,40 +243,48 @@ public class XmlDocumentImpl implements XmlDocument {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getPackage() {
 			return pckg;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public AccessType getAccessType() {
 			return accessType;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getAccessorStrategy() {
 			return accessorStrategy;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getCatalog() {
 			return catalog;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getSchema() {
 			return schema;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean isAutoImport() {
 			return autoImport;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean isLazinessImplied() {
 			return impliedLaziness;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static DefaultsImpl consume(JaxbEntityMappingsImpl jaxbRoot, PersistenceUnitMetadata metadata) {
 			return new DefaultsImpl(
 					jaxbRoot.getPackage(),
@@ -269,6 +298,7 @@ public class XmlDocumentImpl implements XmlDocument {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static XmlDocumentImpl consume(Binding<JaxbEntityMappingsImpl> xmlBinding, PersistenceUnitMetadata metadata) {
 		final JaxbEntityMappingsImpl jaxbRoot = xmlBinding.getRoot();
 		return new XmlDocumentImpl(
@@ -295,6 +325,7 @@ public class XmlDocumentImpl implements XmlDocument {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Map<String, JaxbNamedHqlQueryImpl> toNamedQueryMap(List<JaxbNamedHqlQueryImpl> namedQueries) {
 		if ( isEmpty( namedQueries ) ) {
 			return Collections.emptyMap();
@@ -305,6 +336,7 @@ public class XmlDocumentImpl implements XmlDocument {
 		return map;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Map<String, JaxbNamedNativeQueryImpl> toNamedNativeQueryMap(List<JaxbNamedNativeQueryImpl> namedQueries) {
 		if ( isEmpty( namedQueries ) ) {
 			return Collections.emptyMap();
@@ -315,6 +347,7 @@ public class XmlDocumentImpl implements XmlDocument {
 		return map;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Map<String,JaxbNamedStoredProcedureQueryImpl> toNamedProcedureQueryMap(List<JaxbNamedStoredProcedureQueryImpl> namedQueries) {
 		if ( isEmpty( namedQueries ) ) {
 			return Collections.emptyMap();

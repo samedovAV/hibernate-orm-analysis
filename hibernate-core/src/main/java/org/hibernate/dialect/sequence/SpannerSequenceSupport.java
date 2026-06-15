@@ -10,6 +10,8 @@ import org.hibernate.MappingException;
 import static org.hibernate.internal.util.StringHelper.isNotEmpty;
 
 import org.hibernate.dialect.SpannerDialect;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Sequence support for Spanner.
@@ -23,11 +25,13 @@ public class SpannerSequenceSupport implements SequenceSupport {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getCreateSequenceString(String sequenceName) throws MappingException {
 		return getCreateSequenceString(sequenceName, 1, 1);
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getCreateSequenceString(String sequenceName, int initialValue, int incrementSize)
 			throws MappingException {
 		if (incrementSize == 1) {
@@ -37,6 +41,7 @@ public class SpannerSequenceSupport implements SequenceSupport {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getCreateSequenceStrings(String sequenceName, int initialValue, int incrementSize, String options)
 			throws MappingException {
 		if (incrementSize == 1) {
@@ -45,6 +50,7 @@ public class SpannerSequenceSupport implements SequenceSupport {
 		throw new MappingException("Cloud Spanner does not support sequences with an increment size != 1");
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getCreateSequenceString(String sequenceName, int initialValue, String additionalOptions) {
 		final var builder = new StringBuilder("create sequence if not exists ");
 		builder.append(sequenceName).append(" options(sequence_kind=\"bit_reversed_positive\"");
@@ -59,21 +65,25 @@ public class SpannerSequenceSupport implements SequenceSupport {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getDropSequenceString(String sequenceName) {
 		return "drop sequence if exists " + sequenceName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getRestartSequenceString(String sequenceName, long startWith) {
 		return "alter sequence " + sequenceName + " set options (start_with_counter = " + startWith + ")";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSequenceNextValString(String sequenceName) {
 		return "select " + getSelectSequenceNextValString(sequenceName);
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSelectSequenceNextValString(String sequenceName) {
 		var nextValString = "get_next_sequence_value(sequence " + sequenceName + ")";
 		if ( dialect != null && dialect.useIntegerForPrimaryKey() ) {
@@ -83,6 +93,7 @@ public class SpannerSequenceSupport implements SequenceSupport {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsPooledSequences() {
 		return false;
 	}

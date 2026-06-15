@@ -18,6 +18,8 @@ import java.util.Locale;
 
 import static org.jboss.logging.Logger.Level.DEBUG;
 import static org.jboss.logging.Logger.Level.WARN;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Responsible for logging SQL {@linkplain java.sql.SQLException errors}
@@ -36,13 +38,16 @@ public interface SQLExceptionLogging extends BasicLogger {
 
 	@LogMessage(level = WARN)
 	@Message(value = "ErrorCode: %s, SQLState: %s", id = 247)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void logErrorCodes(int errorCode, String sqlState);
 
 	@LogMessage(level = DEBUG)
 	@Message(value = "Could not log SQL warnings", id = 248)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void couldNotLogWarnings(@Cause SQLException sqle);
 
 	@LogMessage(level = DEBUG)
 	@Message(value = "Could not clear SQL warnings", id = 249)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void couldNotClearWarnings(@Cause SQLException sqle);
 }

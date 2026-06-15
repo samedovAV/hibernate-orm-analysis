@@ -11,6 +11,8 @@ import org.hibernate.sql.ast.SqlTreeCreationException;
 import org.hibernate.sql.ast.tree.from.TableGroup;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Access to TableGroup indexing.  The indexing is defined in terms
@@ -24,6 +26,7 @@ public interface FromClauseAccess {
 	 * Find a TableGroup in this from clause without consulting parents by the NavigablePath it is registered under.
 	 * Returns {@code null} if no TableGroup is registered under that NavigablePath
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TableGroup findTableGroupOnCurrentFromClause(NavigablePath navigablePath);
 
 	/**
@@ -31,6 +34,7 @@ public interface FromClauseAccess {
 	 * and if not found on the current from clause level, ask the parent.  Returns
 	 * {@code null} if no TableGroup is registered under that NavigablePath
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TableGroup findTableGroup(NavigablePath navigablePath);
 
 	/**
@@ -38,6 +42,7 @@ public interface FromClauseAccess {
 	 * new TableGroup if none can be found. Returns {@code null} if no TableGroup
 	 * or parent table group is registered under that NavigablePath
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default TableGroup findTableGroupForGetOrCreate(NavigablePath navigablePath) {
 		return findTableGroup( navigablePath );
 	}
@@ -46,6 +51,7 @@ public interface FromClauseAccess {
 	 * Get a  TableGroup by the NavigablePath it is registered under.  If there is
 	 * no registration, an exception is thrown.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default TableGroup getTableGroup(NavigablePath navigablePath) throws SqlTreeCreationException {
 		final TableGroup tableGroup = findTableGroup( navigablePath );
 		if ( tableGroup == null ) {
@@ -58,6 +64,7 @@ public interface FromClauseAccess {
 	 * Register a TableGroup under the given `navigablePath`.  Logs a message
 	 * if this registration over-writes an existing one.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void registerTableGroup(NavigablePath navigablePath, TableGroup tableGroup);
 
 	/**
@@ -70,6 +77,7 @@ public interface FromClauseAccess {
 	 * @see #findTableGroup
 	 * @see #registerTableGroup
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default TableGroup resolveTableGroup(NavigablePath navigablePath, Function<NavigablePath, TableGroup> creator) {
 		TableGroup tableGroup = findTableGroupForGetOrCreate( navigablePath );
 		if ( tableGroup == null ) {
@@ -79,5 +87,6 @@ public interface FromClauseAccess {
 		return tableGroup;
 	}
 
-	@Nullable TableGroup findTableGroupByIdentificationVariable(String identificationVariable);
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	TableGroup findTableGroupByIdentificationVariable(String identificationVariable);
 }

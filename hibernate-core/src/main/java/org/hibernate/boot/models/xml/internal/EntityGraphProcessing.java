@@ -28,6 +28,8 @@ import jakarta.persistence.NamedSubgraph;
 
 import static org.hibernate.boot.models.JpaAnnotations.NAMED_ATTRIBUTE_NODE;
 import static org.hibernate.boot.models.JpaAnnotations.NAMED_SUBGRAPH;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Processing for JPA entity graphs from XML
@@ -35,6 +37,7 @@ import static org.hibernate.boot.models.JpaAnnotations.NAMED_SUBGRAPH;
  * @author Steve Ebersole
  */
 public class EntityGraphProcessing {
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void applyEntityGraphs(
 			JaxbEntityImpl jaxbEntity,
 			MutableClassDetails classDetails,
@@ -59,6 +62,7 @@ public class EntityGraphProcessing {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static NamedEntityGraph extractGraph(
 			JaxbNamedEntityGraphImpl jaxbEntityGraph,
 			ClassDetails classDetails,
@@ -104,6 +108,7 @@ public class EntityGraphProcessing {
 		return graphUsage;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static NamedAttributeNode[] extractAttributeNodes(
 			List<JaxbNamedAttributeNodeImpl> jaxbAttributeNodes,
 			ClassDetails classDetails,
@@ -130,6 +135,7 @@ public class EntityGraphProcessing {
 		return attributeNodes;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static NamedSubgraph[] extractSubgraphNodes(
 			List<JaxbNamedSubgraphImpl> jaxbSubgraphs,
 			ClassDetails classDetails,

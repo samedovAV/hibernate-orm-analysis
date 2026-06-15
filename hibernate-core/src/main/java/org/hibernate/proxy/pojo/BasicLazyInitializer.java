@@ -12,6 +12,8 @@ import org.hibernate.proxy.AbstractLazyInitializer;
 import org.hibernate.type.CompositeType;
 
 import static java.lang.System.identityHashCode;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Lazy initializer for plain Java objects.
@@ -45,10 +47,13 @@ public abstract class BasicLazyInitializer extends AbstractLazyInitializer {
 		this.overridesEquals = overridesEquals;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract Object serializableProxy();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract Object call(Object proxy, Method method, Object[] args) throws Throwable;
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected final Object invoke(Method method, Object[] args, Object proxy)
 			throws Throwable {
 		final String methodName = method.getName();
@@ -88,6 +93,7 @@ public abstract class BasicLazyInitializer extends AbstractLazyInitializer {
 		return call( proxy, method, args );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Object getReplacement() {
 		// If the target has already been loaded somewhere, just not
 		// set on the proxy, then use it to initialize the proxy so
@@ -107,11 +113,13 @@ public abstract class BasicLazyInitializer extends AbstractLazyInitializer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final Class<?> getPersistentClass() {
 		return persistentClass;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getImplementationClass() {
 		if ( !isUninitialized() ) {
 			return getImplementation().getClass();

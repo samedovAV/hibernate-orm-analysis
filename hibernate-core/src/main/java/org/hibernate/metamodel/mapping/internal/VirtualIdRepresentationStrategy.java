@@ -21,6 +21,8 @@ import org.hibernate.property.access.spi.PropertyAccess;
 import org.hibernate.type.descriptor.java.JavaType;
 
 import static org.hibernate.internal.util.ReflectHelper.isAbstractClass;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -51,26 +53,31 @@ public class VirtualIdRepresentationStrategy implements EmbeddableRepresentation
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableInstantiator getInstantiator() {
 		return instantiator;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public RepresentationMode getMode() {
 		return RepresentationMode.POJO;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ReflectionOptimizer getReflectionOptimizer() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JavaType<?> getMappedJavaType() {
 		return entityMappingType.getMappedJavaType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public PropertyAccess resolvePropertyAccess(Property bootAttributeDescriptor) {
 		return entityMappingType.getRepresentationStrategy().resolvePropertyAccess( bootAttributeDescriptor );
 	}
@@ -85,6 +92,7 @@ public class VirtualIdRepresentationStrategy implements EmbeddableRepresentation
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public Object instantiate(ValueAccess valuesAccess) {
 			final Object instantiated = entityInstantiator.instantiate();
 			if ( valuesAccess != null ) {
@@ -97,11 +105,13 @@ public class VirtualIdRepresentationStrategy implements EmbeddableRepresentation
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public boolean isInstance(Object object) {
 			return entityInstantiator.isInstance( object );
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public boolean isSameClass(Object object) {
 			return entityInstantiator.isSameClass( object );
 		}

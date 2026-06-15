@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.boot.model.source.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Contact to define if a plural attribute source is orderable or not.
@@ -15,6 +18,7 @@ public interface Orderable {
 	 *
 	 * @return {@code true} indicates to apply the {@code ORDER BY}; {@code false} means not.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isOrdered();
 
 	/**
@@ -28,5 +32,6 @@ public interface Orderable {
 	 *
 	 * @return The {@code ORDER BY} fragment used during loading this plural attribute from DB.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getOrder();
 }

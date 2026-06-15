@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.hibernate.annotations.Struct;
 import org.hibernate.models.spi.ModelsContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -46,42 +48,51 @@ public class StructAnnotation implements Struct {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return Struct.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String name() {
 		return name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void name(String value) {
 		this.name = value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String catalog() {
 		return catalog;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void catalog(String value) {
 		this.catalog = value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String schema() {
 		return schema;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void schema(String value) {
 		this.schema = value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] attributes() {
 		return attributes;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void attributes(String[] value) {
 		this.attributes = value;
 	}

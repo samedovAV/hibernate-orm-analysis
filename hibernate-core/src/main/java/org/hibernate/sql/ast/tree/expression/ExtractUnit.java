@@ -8,6 +8,8 @@ import org.hibernate.metamodel.mapping.BasicValuedMapping;
 import org.hibernate.query.common.TemporalUnit;
 import org.hibernate.sql.ast.SqlAstWalker;
 import org.hibernate.sql.ast.tree.SqlAstNode;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link TemporalUnit} passed as an argument to the
@@ -27,16 +29,19 @@ public class ExtractUnit implements Expression, SqlAstNode {
 		this.type = type;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TemporalUnit getUnit() {
 		return unit;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BasicValuedMapping getExpressionType() {
 		return type;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker sqlTreeWalker) {
 		sqlTreeWalker.visitExtractUnit( this );
 	}

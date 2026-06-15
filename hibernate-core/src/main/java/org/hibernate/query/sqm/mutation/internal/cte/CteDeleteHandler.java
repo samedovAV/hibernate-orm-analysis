@@ -36,6 +36,8 @@ import org.hibernate.sql.ast.tree.from.TableReference;
 import org.hibernate.sql.ast.tree.select.SelectStatement;
 import org.hibernate.sql.exec.spi.JdbcParameterBindings;
 import org.hibernate.sql.results.graph.basic.BasicResult;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Bulk mutation delete handler that uses CTE and VALUES lists.
@@ -57,6 +59,7 @@ public class CteDeleteHandler extends AbstractCteMutationHandler implements Dele
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void addDmlCtes(
 			CteContainer statement,
 			CteStatement idSelectCte,
@@ -147,6 +150,7 @@ public class CteDeleteHandler extends AbstractCteMutationHandler implements Dele
 		applyDmlOperations( statement, idSelectCte, factory, mutatingTableGroup );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void applyDmlOperations(
 			CteContainer statement,
 			CteStatement idSelectCte,
@@ -192,6 +196,7 @@ public class CteDeleteHandler extends AbstractCteMutationHandler implements Dele
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getCteTableName(String tableExpression) {
 		final Dialect dialect = getSessionFactory().getJdbcServices().getDialect();
 		if ( Identifier.isQuoted( tableExpression ) ) {
@@ -200,6 +205,7 @@ public class CteDeleteHandler extends AbstractCteMutationHandler implements Dele
 		return Identifier.toIdentifier( DELETE_RESULT_TABLE_NAME_PREFIX + tableExpression ).render( dialect );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getCteTableName(PluralAttributeMapping pluralAttribute) {
 		final Dialect dialect = getSessionFactory().getJdbcServices().getDialect();
 		final String hibernateEntityName = pluralAttribute.findContainingEntityMapping().getEntityName();

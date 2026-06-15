@@ -7,6 +7,8 @@ package org.hibernate.id.uuid;
 import java.net.InetAddress;
 
 import org.hibernate.internal.util.BytesHelper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -34,14 +36,17 @@ public final class Helper {
 		ADDRESS_HEX_STRING = format( ADDRESS_INT );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static byte[] getAddressBytes() {
 		return ADDRESS_BYTES;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static int getAddressInt() {
 		return ADDRESS_INT;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String getAddressHexString() {
 		return ADDRESS_HEX_STRING;
 	}
@@ -59,14 +64,17 @@ public final class Helper {
 		JVM_IDENTIFIER_HEX_STRING = format( JVM_IDENTIFIER_INT );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static byte[] getJvmIdentifierBytes() {
 		return JVM_IDENTIFIER_BYTES;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static int getJvmIdentifierInt() {
 		return JVM_IDENTIFIER_INT;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String getJvmIdentifierHexString() {
 		return JVM_IDENTIFIER_HEX_STRING;
 	}
@@ -81,6 +89,7 @@ public final class Helper {
 	 * (unless there are more than {@value Short#MAX_VALUE}
 	 * instances created in a millisecond)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static short getCountShort() {
 		synchronized ( Helper.class ) {
 			if ( counter < 0 ) {
@@ -90,6 +99,7 @@ public final class Helper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static byte[] getCountBytes() {
 		return BytesHelper.fromShort( getCountShort() );
 	}
@@ -97,6 +107,7 @@ public final class Helper {
 
 	// Helper methods ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String format(int value) {
 		final var formatted = Integer.toHexString( value );
 		final var buf = new StringBuilder( "00000000" );
@@ -104,6 +115,7 @@ public final class Helper {
 		return buf.toString();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String format(short value) {
 		final var formatted = Integer.toHexString( value );
 		final var buf = new StringBuilder( "0000" );

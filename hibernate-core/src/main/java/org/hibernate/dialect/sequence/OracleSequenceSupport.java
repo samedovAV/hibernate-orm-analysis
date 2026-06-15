@@ -7,6 +7,8 @@ package org.hibernate.dialect.sequence;
 import org.hibernate.MappingException;
 import org.hibernate.dialect.DatabaseVersion;
 import org.hibernate.dialect.Dialect;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Sequence support for {@link org.hibernate.dialect.OracleDialect}.
@@ -18,6 +20,7 @@ import org.hibernate.dialect.Dialect;
  */
 public final class OracleSequenceSupport extends NextvalSequenceSupport {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static SequenceSupport getInstance(final Dialect dialect) {
 		return new OracleSequenceSupport(dialect.getVersion());
 	}
@@ -38,21 +41,25 @@ public final class OracleSequenceSupport extends NextvalSequenceSupport {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getFromDual() {
 		return requiresFromDual ? " from dual" : "";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean sometimesNeedsStartingValue() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getDropSequenceString(String sequenceName) throws MappingException {
 		return "drop sequence " + (supportsIfExists ? "if exists " : "") + sequenceName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getRestartSequenceString(String sequenceName, long startWith) {
 		return "alter sequence " + sequenceName + " restart start with " + startWith;
 	}

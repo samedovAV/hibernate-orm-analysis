@@ -15,6 +15,8 @@ import org.hibernate.metamodel.mapping.EntityMappingType;
 import static org.hibernate.loader.ast.internal.MultiKeyLoadHelper.hasSingleId;
 import static org.hibernate.loader.ast.internal.MultiKeyLoadLogging.MULTI_KEY_LOAD_LOGGER;
 import static org.hibernate.pretty.MessageHelper.infoString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public abstract class AbstractEntityBatchLoader<T>
 		extends SingleIdEntityLoaderSupport<T>
@@ -27,6 +29,7 @@ public abstract class AbstractEntityBatchLoader<T>
 		singleIdLoader = new SingleIdEntityLoaderStandardImpl<>( entityDescriptor, influencers );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract void initializeEntities(
 			Object[] idsToInitialize,
 			Object pkValue,
@@ -35,9 +38,11 @@ public abstract class AbstractEntityBatchLoader<T>
 			Boolean readOnly,
 			SharedSessionContractImplementor session);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract Object[] resolveIdsToInitialize(Object id, SharedSessionContractImplementor session);
 
 @Override
+@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final T load(
 			Object id,
 			Object entityInstance,
@@ -53,6 +58,7 @@ public abstract class AbstractEntityBatchLoader<T>
 	}
 
 @Override
+@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public T load(
 			Object id,
 			Object entityInstance,
@@ -76,6 +82,7 @@ public abstract class AbstractEntityBatchLoader<T>
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private T load(
 			Object id,
 			Object[] ids,

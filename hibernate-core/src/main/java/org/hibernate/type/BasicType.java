@@ -21,6 +21,8 @@ import org.hibernate.type.descriptor.ValueExtractor;
 import org.hibernate.type.descriptor.converter.spi.BasicValueConverter;
 import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.descriptor.jdbc.JdbcLiteralFormatter;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Marker interface for basic types.
@@ -34,46 +36,55 @@ public interface BasicType<T>
 	 *
 	 * @return The keys under which to register this type.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String[] getRegistrationKeys();
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default Class<T> getJavaType() {
 		return BasicDomainType.super.getJavaType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default MappingType getMappedType() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default JavaType<T> getJavaTypeDescriptor() {
 		return getMappedJavaType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default JavaType<T> getExpressibleJavaType() {
 		return getJavaTypeDescriptor();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int forEachJdbcType(IndexedConsumer<JdbcMapping> action) {
 		action.accept( 0, this );
 		return 1;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default JdbcMapping getJdbcMapping() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int getJdbcTypeCount() {
 		return 1;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default JdbcMapping getJdbcMapping(int index) {
 		if ( index != 0 ) {
 			throw new IndexOutOfBoundsException( index );
@@ -82,53 +93,63 @@ public interface BasicType<T>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default JdbcMapping getSingleJdbcMapping() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default JavaType<T> getMappedJavaType() {
 		return getJavaTypeDescriptor();
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default BasicValueConverter<T, ?> getValueConverter() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default ValueExtractor<T> getJdbcValueExtractor() {
 		return getJdbcType().getExtractor( this.getMappedJavaType() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default ValueBinder<T> getJdbcValueBinder() {
 		return getJdbcType().getBinder( this.getMappedJavaType() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default JdbcLiteralFormatter<T> getJdbcLiteralFormatter() {
 		return getJdbcType().getJdbcLiteralFormatter( getMappedJavaType() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int forEachJdbcType(int offset, IndexedConsumer<JdbcMapping> action) {
 		action.accept( offset, getJdbcMapping() );
 		return getJdbcTypeCount();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default @Nullable SqmDomainType<T> getSqmType() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Object disassemble(Object value, SharedSessionContractImplementor session) {
 		return value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <X, Y> int forEachDisassembledJdbcValue(
 			Object value,
 			int offset,
@@ -150,6 +171,7 @@ public interface BasicType<T>
 	 * @since 6.2
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default String getCheckCondition(String columnName, Dialect dialect) {
 		String checkCondition = getJdbcType().getCheckCondition(
 				columnName,
@@ -169,6 +191,7 @@ public interface BasicType<T>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default int compare(Object x, Object y, SessionFactoryImplementor sessionFactory) {
 		return compare( x, y );
 	}

@@ -15,6 +15,8 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.jdbc.Expectation;
 import org.hibernate.sql.model.PreparableMutationOperation;
 import org.hibernate.sql.model.TableMapping;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Describes a particular {@link PreparedStatement} within a {@linkplain PreparedStatementGroup group}
@@ -59,11 +61,13 @@ public class PreparedStatementDetailsStandard implements PreparedStatementDetail
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableMapping getMutatingTableDetails() {
 		return mutatingTableDetails;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void releaseStatement(SharedSessionContractImplementor session) {
 		if ( statement != null ) {
 			final var jdbcCoordinator = session.getJdbcCoordinator();
@@ -75,16 +79,19 @@ public class PreparedStatementDetailsStandard implements PreparedStatementDetail
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSqlString() {
 		return sql;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PreparedStatement getStatement() {
 		return statement;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PreparedStatement resolveStatement() {
 		if ( statement == null ) {
 			toRelease = true;
@@ -104,16 +111,19 @@ public class PreparedStatementDetailsStandard implements PreparedStatementDetail
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expectation getExpectation() {
 		return expectation;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean toRelease() {
 		return toRelease;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "PreparedStatementDetails(" + sql + ")";
 	}

@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.boot.model.source.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Unifying interface for {@link ColumnSource} and {@link DerivedValueSource}.
@@ -16,6 +19,7 @@ public interface RelationalValueSource {
 	/**
 	 * @return returns the name of the table that contains this value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getContainingTableName();
 
 	/**
@@ -23,6 +27,7 @@ public interface RelationalValueSource {
 	 *
 	 * @return The nature.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Nature getNature();
 
 	enum Nature {
@@ -35,6 +40,7 @@ public interface RelationalValueSource {
 			this.specificContractClass = specificContractClass;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Class<? extends RelationalValueSource> getSpecificContractClass() {
 			return specificContractClass;
 		}

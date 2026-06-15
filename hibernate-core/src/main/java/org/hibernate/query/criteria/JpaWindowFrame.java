@@ -9,6 +9,8 @@ import org.hibernate.Incubating;
 import org.hibernate.query.common.FrameKind;
 
 import jakarta.persistence.criteria.Expression;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Common contract for a {@link JpaWindow} frame specification.
@@ -22,6 +24,7 @@ public interface JpaWindowFrame {
 	 *
 	 * @return the window frame kind
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	FrameKind getKind();
 
 	/**
@@ -29,5 +32,6 @@ public interface JpaWindowFrame {
 	 *
 	 * @return the window frame expression
 	 */
-	@Nullable Expression<?> getExpression();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	Expression<?> getExpression();
 }

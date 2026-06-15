@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.hibernate.annotations.NaturalIdCache;
 import org.hibernate.models.spi.ModelsContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -37,15 +39,18 @@ public class NaturalIdCacheAnnotation implements NaturalIdCache {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return NaturalIdCache.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String region() {
 		return region;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void region(String value) {
 		this.region = value;
 	}

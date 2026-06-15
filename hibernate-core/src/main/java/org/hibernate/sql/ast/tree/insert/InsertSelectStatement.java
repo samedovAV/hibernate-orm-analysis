@@ -16,6 +16,8 @@ import org.hibernate.sql.ast.tree.expression.ColumnReference;
 import org.hibernate.sql.ast.tree.from.NamedTableReference;
 import org.hibernate.sql.ast.tree.select.QueryPart;
 import org.hibernate.sql.model.MutationTarget;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * todo (6.2) - Would much prefer to split insert-values and
@@ -51,11 +53,13 @@ public class InsertSelectStatement extends AbstractMutationStatement implements 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<ColumnReference> getTargetColumns() {
 		return targetColumnReferences == null ? Collections.emptyList() : targetColumnReferences;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void forEachTargetColumn(BiConsumer<Integer, ColumnReference> consumer) {
 		if ( targetColumnReferences == null ) {
 			return;
@@ -66,6 +70,7 @@ public class InsertSelectStatement extends AbstractMutationStatement implements 
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addTargetColumnReference(ColumnReference reference) {
 		if ( targetColumnReferences == null ) {
 			targetColumnReferences = new ArrayList<>();
@@ -73,6 +78,7 @@ public class InsertSelectStatement extends AbstractMutationStatement implements 
 		targetColumnReferences.add( reference );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addTargetColumnReferences(ColumnReference... references) {
 		if ( targetColumnReferences == null ) {
 			targetColumnReferences = new ArrayList<>();
@@ -81,6 +87,7 @@ public class InsertSelectStatement extends AbstractMutationStatement implements 
 		Collections.addAll( this.targetColumnReferences, references );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addTargetColumnReferences(List<ColumnReference> references) {
 		if ( targetColumnReferences == null ) {
 			targetColumnReferences = new ArrayList<>();
@@ -89,31 +96,38 @@ public class InsertSelectStatement extends AbstractMutationStatement implements 
 		this.targetColumnReferences.addAll( references );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QueryPart getSourceSelectStatement() {
 		return sourceSelectStatement;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setSourceSelectStatement(QueryPart sourceSelectStatement) {
 		this.sourceSelectStatement = sourceSelectStatement;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<Values> getValuesList() {
 		return valuesList;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setValuesList(List<Values> valuesList) {
 		this.valuesList = valuesList;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ConflictClause getConflictClause() {
 		return conflictClause;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setConflictClause(ConflictClause conflictClause) {
 		this.conflictClause = conflictClause;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker walker) {
 		walker.visitInsertStatement( this );
 	}

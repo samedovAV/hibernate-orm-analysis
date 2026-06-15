@@ -12,6 +12,8 @@ import org.hibernate.metamodel.model.domain.PersistentAttribute;
 import java.util.Map;
 
 import static java.util.Collections.unmodifiableMap;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents a fetched {@linkplain jakarta.persistence.metamodel.Attribute attribute} in an
@@ -50,6 +52,7 @@ public interface AttributeNode<J> extends GraphNode<J>, jakarta.persistence.Attr
 	 * The {@link PersistentAttribute} represented by this node.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PersistentAttribute<?, J> getAttributeDescriptor();
 
 	/**
@@ -58,6 +61,7 @@ public interface AttributeNode<J> extends GraphNode<J>, jakarta.persistence.Attr
 	 * attribute mapped for eager fetching when the graph is used as a
 	 * {@linkplain org.hibernate.graph.GraphSemantic#LOAD load graph}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isRemoved();
 
 	/**
@@ -68,6 +72,7 @@ public interface AttributeNode<J> extends GraphNode<J>, jakarta.persistence.Attr
 	 * @see jakarta.persistence.AttributeNode#getSubgraphs
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Map<Class<?>, ? extends SubGraph<?>> getSubGraphs();
 
 	/**
@@ -78,6 +83,7 @@ public interface AttributeNode<J> extends GraphNode<J>, jakarta.persistence.Attr
 	 * @see jakarta.persistence.AttributeNode#getKeySubgraphs
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Map<Class<?>, ? extends SubGraph<?>> getKeySubGraphs();
 
 	/**
@@ -91,6 +97,7 @@ public interface AttributeNode<J> extends GraphNode<J>, jakarta.persistence.Attr
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Map<Class<?>, Subgraph<?>> getSubgraphs() {
 		return unmodifiableMap( getSubGraphs() );
 	}
@@ -106,6 +113,7 @@ public interface AttributeNode<J> extends GraphNode<J>, jakarta.persistence.Attr
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Map<Class<?>, Subgraph<?>> getKeySubgraphs() {
 		return unmodifiableMap( getKeySubGraphs() );
 	}

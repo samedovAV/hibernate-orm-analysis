@@ -28,6 +28,8 @@ import org.hibernate.proxy.HibernateProxy;
 
 import static org.hibernate.engine.spi.NaturalIdResolutions.INVALID_NATURAL_ID_REFERENCE;
 import static org.hibernate.internal.NaturalIdHelper.performAnyNeededCrossReferenceSynchronizations;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base support for loading by {@linkplain org.hibernate.annotations.NaturalId natural id}.
@@ -58,10 +60,12 @@ public abstract class BaseNaturalIdLoadAccessImpl<T> implements NaturalIdLoadOpt
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LockOptions getLockOptions() {
 		return lockOptions;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Object with(LockMode lockMode, PessimisticLockScope lockScope) {
 		if ( lockOptions == null ) {
 			lockOptions = new LockOptions();
@@ -71,6 +75,7 @@ public abstract class BaseNaturalIdLoadAccessImpl<T> implements NaturalIdLoadOpt
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Object with(PessimisticLockScope lockScope) {
 		if ( lockOptions == null ) {
 			lockOptions = new LockOptions();
@@ -80,6 +85,7 @@ public abstract class BaseNaturalIdLoadAccessImpl<T> implements NaturalIdLoadOpt
 	}
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Object with(Timeout timeout) {
 		if ( lockOptions == null ) {
 			lockOptions = new LockOptions();
@@ -88,12 +94,14 @@ public abstract class BaseNaturalIdLoadAccessImpl<T> implements NaturalIdLoadOpt
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object with(EntityGraph<T> graph, GraphSemantic semantic) {
 		this.rootGraph = (RootGraphImplementor<T>) graph;
 		this.graphSemantic = semantic;
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object enableFetchProfile(String profileName) {
 		if ( !context.getSession().getFactory().containsFetchProfileDefinition( profileName ) ) {
 			throw new UnknownProfileException( profileName );
@@ -108,6 +116,7 @@ public abstract class BaseNaturalIdLoadAccessImpl<T> implements NaturalIdLoadOpt
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object disableFetchProfile(String profileName) {
 		if ( disabledFetchProfiles == null ) {
 			disabledFetchProfiles = new HashSet<>();
@@ -119,15 +128,18 @@ public abstract class BaseNaturalIdLoadAccessImpl<T> implements NaturalIdLoadOpt
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isSynchronizationEnabled() {
 		return synchronizationEnabled;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BaseNaturalIdLoadAccessImpl<T> with(LockOptions lockOptions) {
 		this.lockOptions = lockOptions;
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void synchronizationEnabled(boolean synchronizationEnabled) {
 		this.synchronizationEnabled = synchronizationEnabled;
 	}
@@ -144,6 +156,7 @@ public abstract class BaseNaturalIdLoadAccessImpl<T> implements NaturalIdLoadOpt
 //				: resolvedId;
 //	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Object getCachedResolution(Object normalizedNaturalIdValue) {
 		final SessionImplementor session = context.getSession();
 
@@ -157,6 +170,7 @@ public abstract class BaseNaturalIdLoadAccessImpl<T> implements NaturalIdLoadOpt
 				.findCachedIdByNaturalId( normalizedNaturalIdValue, entityPersister() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected final T doGetReference(Object normalizedNaturalIdValue) {
 		final Object cachedResolution = getCachedResolution( normalizedNaturalIdValue );
 		if ( cachedResolution == INVALID_NATURAL_ID_REFERENCE ) {
@@ -174,6 +188,7 @@ public abstract class BaseNaturalIdLoadAccessImpl<T> implements NaturalIdLoadOpt
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected final T doLoad(Object normalizedNaturalIdValue) {
 		final Object cachedResolution = getCachedResolution( normalizedNaturalIdValue );
 		if ( cachedResolution == INVALID_NATURAL_ID_REFERENCE ) {
@@ -215,6 +230,7 @@ public abstract class BaseNaturalIdLoadAccessImpl<T> implements NaturalIdLoadOpt
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected final IdentifierLoadAccess<T> identifierLoadAccess() {
 		final IdentifierLoadAccessImpl<T> loadAccess =
 				new IdentifierLoadAccessImpl<>( context, entityPersister() );
@@ -224,14 +240,17 @@ public abstract class BaseNaturalIdLoadAccessImpl<T> implements NaturalIdLoadOpt
 		return loadAccess;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected StatefulLoadAccessContext getContext() {
 		return context;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityMappingType getEntityDescriptor() {
 		return entityDescriptor;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected EntityPersister entityPersister() {
 		return entityDescriptor.getEntityPersister();
 	}

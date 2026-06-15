@@ -7,6 +7,8 @@ package org.hibernate.action.internal;
 import org.hibernate.action.spi.BeforeTransactionCompletionProcess;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.internal.OptimisticLockHelper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link BeforeTransactionCompletionProcess} implementation to verify and
@@ -33,6 +35,7 @@ public class EntityIncrementVersionProcess implements BeforeTransactionCompletio
 	 * @param session The session on which the transaction is preparing to complete.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void doBeforeTransactionCompletion(SharedSessionContractImplementor session) {
 		final var entry = session.getPersistenceContext().getEntry( object );
 		// Don't increment the version for an entity that is not in the PersistenceContext

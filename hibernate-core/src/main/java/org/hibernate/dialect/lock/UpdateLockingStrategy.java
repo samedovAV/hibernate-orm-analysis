@@ -10,6 +10,8 @@ import org.hibernate.LockMode;
 import org.hibernate.StaleObjectStateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.persister.entity.EntityPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -40,6 +42,7 @@ public class UpdateLockingStrategy extends AbstractPessimisticUpdateLockingStrat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void lock(Object id, Object version, Object object, int timeout, SharedSessionContractImplementor session)
 			throws StaleObjectStateException, JDBCException {
 		doLock( id, version, session );

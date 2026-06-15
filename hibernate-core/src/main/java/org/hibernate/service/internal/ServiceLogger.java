@@ -24,6 +24,8 @@ import static org.jboss.logging.Logger.Level.DEBUG;
 import static org.jboss.logging.Logger.Level.INFO;
 import static org.jboss.logging.Logger.Level.TRACE;
 import static org.jboss.logging.Logger.Level.WARN;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Logging related to Hibernate Services.
@@ -44,51 +46,63 @@ public interface ServiceLogger extends BasicLogger {
 
 	@LogMessage(level = TRACE)
 	@Message(id = 10500, value = "Initializing service: %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void initializingService(String serviceRole);
 
 	@LogMessage(level = INFO)
 	@Message(id = 10369, value = "Error stopping service: %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void unableToStopService(String serviceRole, @Cause Exception e);
 
 	@LogMessage(level = WARN)
 	@Message(id = 10505, value = "Ignoring ServiceConfigurationError caught while instantiating service: %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void ignoringServiceConfigurationError(String serviceContract, @Cause ServiceConfigurationError error);
 
 	@LogMessage(level = WARN)
 	@Message(id = 10450, value = "Encountered request for service by non-primary service role [%s -> %s]")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void alternateServiceRole(String requestedRole, String targetRole);
 
 	@LogMessage(level = WARN)
 	@Message(id = 10451, value = "Child registry [%s] was already registered; this will end badly later...")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void childAlreadyRegistered(ServiceRegistryImplementor child);
 
 	@LogMessage(level = TRACE)
 	@Message(id = 10452, value = "Automatically destroying bootstrap registry after deregistration of every child ServiceRegistry")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void destroyingBootstrapRegistry();
 
 	@LogMessage(level = TRACE)
 	@Message(id = 10453, value = "Skipping destroying bootstrap registry after deregistration of every child ServiceRegistry")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void skippingBootstrapRegistryDestruction();
 
 	@LogMessage(level = DEBUG)
 	@Message( id = 10454, value = "EventListenerRegistry access via ServiceRegistry is deprecated - "
 								+ "use 'sessionFactory.getEventEngine().getListenerRegistry()' instead" )
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void eventListenerRegistryAccessDeprecated();
 
 	@LogMessage(level = DEBUG)
 	@Message(id = 10455, value = "Adding integrator: %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addingIntegrator(String name);
 
 
 	@LogMessage(level = DEBUG)
 	@Message( id = 10456, value = "Overriding existing service binding: %s" )
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void overridingExistingBinding(String name);
 
 	@LogMessage(level = TRACE)
 	@Message(id = 10457, value = "Automatically destroying ServiceRegistry after deregistration of every child ServiceRegistry")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void destroyingServiceRegistry();
 
 	@LogMessage(level = TRACE)
 	@Message(id = 10458, value = "Skipping destroying ServiceRegistry after deregistration of every child ServiceRegistry")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void skippingDestroyingServiceRegistry();
 }

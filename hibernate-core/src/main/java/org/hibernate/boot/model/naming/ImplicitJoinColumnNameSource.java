@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.naming;
 
 import org.hibernate.boot.model.source.spi.AttributePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Context for determining the implicit name of a "join column" (think
@@ -21,6 +23,7 @@ public interface ImplicitJoinColumnNameSource extends ImplicitNameSource {
 		ENTITY
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Nature getNature();
 
 	/**
@@ -30,6 +33,7 @@ public interface ImplicitJoinColumnNameSource extends ImplicitNameSource {
 	 *
 	 * @return Owning entity naming information
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityNaming getEntityNaming();
 
 	/**
@@ -39,6 +43,7 @@ public interface ImplicitJoinColumnNameSource extends ImplicitNameSource {
 	 *
 	 * @return The owning side's attribute name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	AttributePath getAttributePath();
 
 	/**
@@ -46,6 +51,7 @@ public interface ImplicitJoinColumnNameSource extends ImplicitNameSource {
 	 *
 	 * @return The referenced table name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier getReferencedTableName();
 
 	/**
@@ -53,5 +59,6 @@ public interface ImplicitJoinColumnNameSource extends ImplicitNameSource {
 	 *
 	 * @return The referenced column name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier getReferencedColumnName();
 }

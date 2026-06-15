@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.source.spi;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Additional contract describing the source of an identifier mapping whose {@linkplain #getNature() nature} is
@@ -20,6 +22,7 @@ public interface IdentifierSourceNonAggregatedComposite extends CompositeIdentif
 	 *
 	 * @return The identifier attribute source.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<SingularAttributeSource> getAttributeSourcesMakingUpIdentifier();
 
 	/**
@@ -27,5 +30,6 @@ public interface IdentifierSourceNonAggregatedComposite extends CompositeIdentif
 	 *
 	 * @return The IdClass source information, or {@code null} if none.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EmbeddableSource getIdClassSource();
 }

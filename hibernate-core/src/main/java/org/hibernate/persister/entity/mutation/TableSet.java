@@ -9,6 +9,8 @@ import java.util.BitSet;
 import org.hibernate.sql.model.TableMapping;
 
 import static java.util.Arrays.copyOf;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents a Set of TableMapping(s); table mappings are
@@ -26,6 +28,7 @@ public final class TableSet {
 	private BitSet bits;
 	private Object[] checks; //Meant for assertions only
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void add(final TableMapping tableMapping) {
 		if ( bits == null ) {
 			bits = new BitSet();
@@ -34,6 +37,7 @@ public final class TableSet {
 		bits.set( tableMapping.relativePosition() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void remove(final TableMapping tableMapping) {
 		if ( bits != null ) {
 			assert addForChecks( tableMapping );
@@ -41,16 +45,19 @@ public final class TableSet {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isEmpty() {
 		return bits == null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean contains(final TableMapping tableMapping) {
 		assert matchRead( tableMapping );
 		return bits != null && bits.get( tableMapping.relativePosition() );
 	}
 
 	//Meant for assertions only
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean matchRead(final TableMapping tableMapping) {
 		if ( bits != null ) {
 			final int index = tableMapping.relativePosition();
@@ -62,6 +69,7 @@ public final class TableSet {
 	}
 
 	//Meant for assertions only
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean addForChecks(final TableMapping tableMapping) {
 		final int position = tableMapping.relativePosition();
 		ensureCapacity( position );
@@ -76,6 +84,7 @@ public final class TableSet {
 	}
 
 	//Meant for assertions only
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void ensureCapacity(final int position) {
 		final int increments = 3; //Needs to be at least 1.
 		if ( checks == null ) {

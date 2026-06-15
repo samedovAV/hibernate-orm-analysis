@@ -13,6 +13,8 @@ import org.hibernate.sql.model.ast.builder.MutationGroupBuilder;
 import org.hibernate.sql.model.ast.builder.TableDeleteBuilder;
 import org.hibernate.sql.model.ast.builder.TableDeleteBuilderSkipped;
 import org.hibernate.sql.model.ast.builder.TableDeleteBuilderStandard;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Coordinates standard deleting of an entity.
@@ -26,6 +28,7 @@ public class DeleteCoordinatorStandard extends AbstractDeleteCoordinator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected MutationOperationGroup generateOperationGroup(
 			Object rowId,
 			Object[] loadedState,
@@ -43,6 +46,7 @@ public class DeleteCoordinatorStandard extends AbstractDeleteCoordinator {
 		return createOperationGroup( null, deleteGroupBuilder.buildMutationGroup() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void applyTableDeleteDetails(
 			MutationGroupBuilder deleteGroupBuilder,
 			Object rowId,

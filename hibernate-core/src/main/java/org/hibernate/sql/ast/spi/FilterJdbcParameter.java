@@ -15,6 +15,8 @@ import org.hibernate.sql.ast.tree.expression.JdbcParameter;
 import org.hibernate.sql.exec.spi.ExecutionContext;
 import org.hibernate.sql.exec.spi.JdbcParameterBinder;
 import org.hibernate.sql.exec.spi.JdbcParameterBindings;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Nathan Xu
@@ -29,11 +31,13 @@ class FilterJdbcParameter implements JdbcParameter, JdbcParameterBinder {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcParameterBinder getParameterBinder() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void bindParameterValue(PreparedStatement statement, int startPosition, JdbcParameterBindings jdbcParameterBindings, ExecutionContext executionContext) throws SQLException {
 		jdbcMapping.getJdbcValueBinder().bind(
 				statement,
@@ -45,16 +49,19 @@ class FilterJdbcParameter implements JdbcParameter, JdbcParameterBinder {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcMappingContainer getExpressionType() {
 		return jdbcMapping;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable Integer getParameterId() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker sqlTreeWalker) {
 		throw new IllegalStateException(  );
 	}

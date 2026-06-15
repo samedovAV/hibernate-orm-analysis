@@ -19,6 +19,8 @@ import static org.hibernate.loader.ast.internal.MultiKeyLoadHelper.hasSingleId;
 import static org.hibernate.loader.ast.internal.MultiKeyLoadHelper.trimIdBatch;
 import static org.hibernate.loader.ast.internal.MultiKeyLoadLogging.MULTI_KEY_LOAD_LOGGER;
 import static org.hibernate.pretty.MessageHelper.collectionInfoString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -49,34 +51,42 @@ public abstract class AbstractCollectionBatchLoader implements CollectionBatchLo
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getDomainBatchSize() {
 		return domainBatchSize;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PluralAttributeMapping getLoadable() {
 		return attributeMapping;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LoadQueryInfluencers getInfluencers() {
 		return influencers;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SessionFactoryImplementor getSessionFactory() {
 		return sessionFactory;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getKeyJdbcCount() {
 		return keyJdbcCount;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	abstract void initializeKeys(Object key, Object[] keysToInitialize, SharedSessionContractImplementor session);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private CollectionKey collectionKey(Object key, SharedSessionContractImplementor session) {
 		return session.generateCollectionKey( getLoadable().getCollectionDescriptor(), key );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public PersistentCollection<?> load(Object key, SharedSessionContractImplementor session) {
 		if ( MULTI_KEY_LOAD_LOGGER.isTraceEnabled() ) {
 			MULTI_KEY_LOAD_LOGGER.batchFetchingCollection(
@@ -93,8 +103,10 @@ public abstract class AbstractCollectionBatchLoader implements CollectionBatchLo
 		return session.getPersistenceContext().getCollection( collectionKey( key, session ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	abstract void finishInitializingKeys(Object[] key, SharedSessionContractImplementor session);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void finishInitializingKey(Object key, SharedSessionContractImplementor session) {
 		if ( key != null ) {
 			if ( MULTI_KEY_LOAD_LOGGER.isTraceEnabled() ) {
@@ -120,6 +132,7 @@ public abstract class AbstractCollectionBatchLoader implements CollectionBatchLo
 	}
 
 	@AllowReflection
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object[] resolveKeysToInitialize(Object keyBeingLoaded, SharedSessionContractImplementor session) {
 		final int length = getDomainBatchSize();
 		final Object[] keysToInitialize = new Object[length];

@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.engine.jdbc.internal;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 
 /**
@@ -18,5 +21,6 @@ public interface Formatter {
 	 *
 	 * @return The formatted version
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String format(String source);
 }

@@ -21,6 +21,8 @@ import org.hibernate.sql.results.graph.entity.EntityResult;
 import org.hibernate.type.descriptor.java.JavaType;
 
 import static org.hibernate.internal.util.NullnessUtil.castNonNull;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard ReturnEntity impl
@@ -44,6 +46,7 @@ public class EntityResultImpl<E> extends AbstractEntityResultGraphNode
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public NavigablePath resolveNavigablePath(Fetchable fetchable) {
 		if ( fetchable instanceof TableGroupProducer ) {
 			for ( var tableGroupJoin : tableGroup.getTableGroupJoins() ) {
@@ -60,30 +63,36 @@ public class EntityResultImpl<E> extends AbstractEntityResultGraphNode
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchableContainer getReferencedMappingType() {
 		return getReferencedMappingContainer();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityValuedModelPart getReferencedModePart() {
 		return getEntityValuedModelPart();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getResultVariable() {
 		return resultVariable;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected String getSourceAlias() {
 		return tableGroup.getSourceAlias();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JavaType<E> getResultJavaType() {
 		return (JavaType<E>) super.getResultJavaType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResultAssembler<E> createResultAssembler(
 			InitializerParent<?> parent,
 			AssemblerCreationState creationState) {
@@ -94,6 +103,7 @@ public class EntityResultImpl<E> extends AbstractEntityResultGraphNode
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Initializer<?> createInitializer(
 			EntityResultImpl<E> resultGraphNode,
 			InitializerParent<?> parent,
@@ -102,6 +112,7 @@ public class EntityResultImpl<E> extends AbstractEntityResultGraphNode
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Initializer<?> createInitializer(InitializerParent<?> parent, AssemblerCreationState creationState) {
 		return new EntityInitializerImpl(
 				this,
@@ -120,6 +131,7 @@ public class EntityResultImpl<E> extends AbstractEntityResultGraphNode
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "EntityResultImpl {" + getNavigablePath() + "}";
 	}

@@ -6,6 +6,8 @@ package org.hibernate;
 
 import jakarta.persistence.EntityAgent;
 import jakarta.persistence.EntityManager;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Observation of (almost) all JDBC [statements][java.sql.Statement] performed by Hibernate.
 ///
@@ -27,5 +29,6 @@ public interface StatementObserver extends EntityManager.CreationOption, EntityA
 	///
 	/// @param sql The SQL which is being performed.
 	/// @param batchPosition The position within a batch; `-1` if not batched.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void performingSql(String sql, int batchPosition);
 }

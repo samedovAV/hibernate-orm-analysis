@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A visitor used for executing a discrete piece of work encapsulated in a
@@ -33,6 +35,7 @@ public class WorkExecutor<T> {
 	 * @throws SQLException Thrown during execution of the underlying JDBC interaction.
 	 * @throws org.hibernate.HibernateException Generally indicates a wrapped SQLException.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable T executeWork(Work work, Connection connection) throws SQLException {
 		work.execute( connection );
 		return null;
@@ -52,6 +55,7 @@ public class WorkExecutor<T> {
 	 * @throws SQLException Thrown during execution of the underlying JDBC interaction.
 	 * @throws org.hibernate.HibernateException Generally indicates a wrapped SQLException.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public T executeReturningWork(ReturningWork<T> work, Connection connection) throws SQLException {
 		return work.execute( connection );
 	}

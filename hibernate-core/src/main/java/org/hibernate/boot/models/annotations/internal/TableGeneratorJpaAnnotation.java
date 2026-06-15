@@ -20,6 +20,8 @@ import static org.hibernate.boot.models.JpaAnnotations.TABLE_GENERATOR;
 import static org.hibernate.boot.models.internal.OrmAnnotationHelper.extractJdkValue;
 import static org.hibernate.boot.models.xml.internal.XmlAnnotationHelper.collectIndexes;
 import static org.hibernate.boot.models.xml.internal.XmlAnnotationHelper.collectUniqueConstraints;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -103,130 +105,156 @@ public class TableGeneratorJpaAnnotation implements TableGenerator, UniqueConstr
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return TableGenerator.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String name() {
 		return name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void name(String value) {
 		this.name = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String table() {
 		return table;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void table(String value) {
 		this.table = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String catalog() {
 		return catalog;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void catalog(String value) {
 		this.catalog = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String schema() {
 		return schema;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void schema(String value) {
 		this.schema = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String pkColumnName() {
 		return pkColumnName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void pkColumnName(String value) {
 		this.pkColumnName = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String valueColumnName() {
 		return valueColumnName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void valueColumnName(String value) {
 		this.valueColumnName = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String pkColumnValue() {
 		return pkColumnValue;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void pkColumnValue(String value) {
 		this.pkColumnValue = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int initialValue() {
 		return initialValue;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void initialValue(int value) {
 		this.initialValue = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int allocationSize() {
 		return allocationSize;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void allocationSize(int value) {
 		this.allocationSize = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.UniqueConstraint[] uniqueConstraints() {
 		return uniqueConstraints;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void uniqueConstraints(jakarta.persistence.UniqueConstraint[] value) {
 		this.uniqueConstraints = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.Index[] indexes() {
 		return indexes;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void indexes(jakarta.persistence.Index[] value) {
 		this.indexes = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String options() {
 		return options;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void options(String value) {
 		this.options = value;
 	}
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void apply(JaxbTableGeneratorImpl jaxbGenerator, XmlDocumentContext xmlDocumentContext) {
 		if ( StringHelper.isNotEmpty( jaxbGenerator.getName() ) ) {
 			name( jaxbGenerator.getName() );

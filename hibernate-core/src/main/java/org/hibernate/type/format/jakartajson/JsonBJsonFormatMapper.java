@@ -11,6 +11,8 @@ import jakarta.json.bind.JsonbBuilder;
 import jakarta.json.bind.JsonbException;
 
 import java.lang.reflect.Type;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -32,6 +34,7 @@ public final class JsonBJsonFormatMapper extends AbstractJsonFormatMapper {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> T fromString(CharSequence charSequence, Type type) {
 		try {
 			return jsonb.fromJson( charSequence.toString(), type );
@@ -42,6 +45,7 @@ public final class JsonBJsonFormatMapper extends AbstractJsonFormatMapper {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> String toString(T value, Type type) {
 		try {
 			return jsonb.toJson( value, type );

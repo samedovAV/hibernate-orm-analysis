@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.hibernate.proxy.ProxyConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class PassThroughInterceptor implements ProxyConfiguration.Interceptor {
 
@@ -20,6 +22,7 @@ public class PassThroughInterceptor implements ProxyConfiguration.Interceptor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object intercept(Object instance, Method method, Object[] arguments) throws Exception {
 		final String name = method.getName();
 
@@ -55,11 +58,13 @@ public class PassThroughInterceptor implements ProxyConfiguration.Interceptor {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean hasGetterSignature(Method method) {
 		return method.getParameterCount() == 0
 				&& method.getReturnType() != null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean hasSetterSignature(Method method) {
 		return method.getParameterCount() == 1
 				&& ( method.getReturnType() == null || method.getReturnType() == void.class );

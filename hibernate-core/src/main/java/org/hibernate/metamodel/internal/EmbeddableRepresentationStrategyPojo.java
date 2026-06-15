@@ -30,6 +30,8 @@ import org.hibernate.usertype.CompositeUserType;
 import static org.hibernate.internal.util.NullnessUtil.castNonNull;
 import static org.hibernate.internal.util.ReflectHelper.isAbstractClass;
 import static org.hibernate.metamodel.internal.PropertyAccessHelper.propertyAccessStrategy;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -120,6 +122,7 @@ public class EmbeddableRepresentationStrategyPojo implements EmbeddableRepresent
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Class<?> getEmbeddableClass(
 			Component bootDescriptor,
 			Map<String, Class<?>> subclassesByName,
@@ -133,6 +136,7 @@ public class EmbeddableRepresentationStrategyPojo implements EmbeddableRepresent
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static <T> JavaType<?> resolveEmbeddableJavaType(
 			Component bootDescriptor,
 			CompositeUserType<T> compositeUserType,
@@ -144,6 +148,7 @@ public class EmbeddableRepresentationStrategyPojo implements EmbeddableRepresent
 						() -> new CompositeUserTypeJavaTypeWrapper<>( compositeUserType ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static EmbeddableInstantiator determineInstantiator(
 			Component bootDescriptor,
 			Class<?> embeddableClass,
@@ -170,11 +175,13 @@ public class EmbeddableRepresentationStrategyPojo implements EmbeddableRepresent
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static ProxyFactoryFactory getProxyFactoryFactory(RuntimeModelCreationContext creationContext) {
 		return creationContext.getServiceRegistry()
 				.requireService( ProxyFactoryFactory.class );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private PropertyAccess buildPropertyAccess(
 			Property property,
 			Class<?> embeddableClass,
@@ -194,6 +201,7 @@ public class EmbeddableRepresentationStrategyPojo implements EmbeddableRepresent
 		return strategy.buildPropertyAccess( embeddableClass, property.getName(), requireSetters );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static ReflectionOptimizer buildReflectionOptimizer(
 			Component bootDescriptor,
 			boolean hasCustomAccessors,
@@ -219,6 +227,7 @@ public class EmbeddableRepresentationStrategyPojo implements EmbeddableRepresent
 
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static Map<String, Class<?>> getSubclassesByName(
 			Component bootDescriptor,
 			RuntimeModelCreationContext creationContext) {
@@ -240,37 +249,44 @@ public class EmbeddableRepresentationStrategyPojo implements EmbeddableRepresent
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<?> getEmbeddableJavaType() {
 		return embeddableJavaType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<?> getMappedJavaType() {
 		return getEmbeddableJavaType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ReflectionOptimizer getReflectionOptimizer() {
 		return reflectionOptimizer;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PropertyAccess resolvePropertyAccess(Property bootAttributeDescriptor) {
 		return propertyAccesses[ attributeNameToPositionMap.get( bootAttributeDescriptor.getName() ) ];
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public RepresentationMode getMode() {
 		return RepresentationMode.POJO;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableInstantiator getInstantiator() {
 		assert instantiator != null && instantiatorsByDiscriminator == null && instantiatorsByClass == null;
 		return instantiator;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableInstantiator getInstantiatorForDiscriminator(Object discriminatorValue) {
 		if ( instantiator != null ) {
 			assert instantiatorsByDiscriminator == null;
@@ -281,6 +297,7 @@ public class EmbeddableRepresentationStrategyPojo implements EmbeddableRepresent
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableInstantiator getInstantiatorForClass(String className) {
 		if ( instantiator != null ) {
 			assert instantiatorsByClass == null;

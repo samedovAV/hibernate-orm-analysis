@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.engine.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Specialized {@link Managed} contract for
@@ -18,6 +21,7 @@ public interface ManagedMappedSuperclass extends Managed {
 	 * @return this same instance
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default ManagedMappedSuperclass asManagedMappedSuperclass() {
 		return this;
 	}

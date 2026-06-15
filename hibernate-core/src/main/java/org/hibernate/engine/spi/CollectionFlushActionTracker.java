@@ -6,6 +6,8 @@ package org.hibernate.engine.spi;
 
 import org.hibernate.Incubating;
 import org.hibernate.collection.spi.PersistentCollection;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Read-only view of collection processing state and actions planned during the current flush.
 ///
@@ -26,6 +28,7 @@ public interface CollectionFlushActionTracker {
 	/// @param collection The collection instance
 	///
 	/// @return {@code true} if the collection was marked reachable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean wasCollectionReached(PersistentCollection<?> collection);
 
 	/// Was the collection already processed by collection reachability handling during the current flush?
@@ -33,6 +36,7 @@ public interface CollectionFlushActionTracker {
 	/// @param collection The collection instance
 	///
 	/// @return {@code true} if the collection was marked processed
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean wasCollectionProcessed(PersistentCollection<?> collection);
 
 	/// Was any logical collection action queued for the collection during the current flush?
@@ -43,6 +47,7 @@ public interface CollectionFlushActionTracker {
 	/// @param collection The collection instance
 	///
 	/// @return {@code true} if at least one logical collection action was queued
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean hasQueuedCollectionAction(PersistentCollection<?> collection);
 
 	/// Was a logical collection remove action queued for the collection during the current flush?
@@ -50,5 +55,6 @@ public interface CollectionFlushActionTracker {
 	/// @param collection The collection instance
 	///
 	/// @return {@code true} if a remove action was queued
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean hasQueuedCollectionRemove(PersistentCollection<?> collection);
 }

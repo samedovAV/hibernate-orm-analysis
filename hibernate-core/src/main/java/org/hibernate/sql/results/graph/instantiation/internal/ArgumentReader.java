@@ -12,6 +12,8 @@ import org.hibernate.sql.results.jdbc.spi.RowProcessingState;
 import org.hibernate.type.descriptor.java.JavaType;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specialized QueryResultAssembler for use as a "reader" for dynamic-
@@ -28,31 +30,37 @@ public class ArgumentReader<A> implements DomainResultAssembler<A> {
 		this.alias = alias;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getAlias() {
 		return alias;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nullable A assemble(RowProcessingState rowProcessingState) {
 		return delegateAssembler.assemble( rowProcessingState );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JavaType<A> getAssembledJavaType() {
 		return delegateAssembler.getAssembledJavaType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void resolveState(RowProcessingState rowProcessingState) {
 		delegateAssembler.resolveState( rowProcessingState );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nullable Initializer<?> getInitializer() {
 		return delegateAssembler.getInitializer();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <X> void forEachResultAssembler(BiConsumer<Initializer<?>, X> consumer, X arg) {
 		delegateAssembler.forEachResultAssembler( consumer, arg );
 	}

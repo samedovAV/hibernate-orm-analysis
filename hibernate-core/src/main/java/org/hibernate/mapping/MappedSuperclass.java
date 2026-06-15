@@ -6,6 +6,8 @@ package org.hibernate.mapping;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A mapping model object representing a {@linkplain jakarta.persistence.MappedSuperclass mapped superclass}
@@ -41,15 +43,18 @@ public class MappedSuperclass implements IdentifiableTypeClass {
 	 *
 	 * @return the super MappedSuperclass
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MappedSuperclass getSuperMappedSuperclass() {
 		return superMappedSuperclass;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasIdentifierProperty() {
 		return getIdentifierProperty() != null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isVersioned() {
 		return getVersion() != null;
 	}
@@ -60,15 +65,18 @@ public class MappedSuperclass implements IdentifiableTypeClass {
 	 *
 	 * @return the PersistentClass of the superclass
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistentClass getSuperPersistentClass() {
 		return superPersistentClass;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<Property> getDeclaredProperties() {
 		return declaredProperties;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void addDeclaredProperty(Property property) {
 		//Do not add duplicate properties
 		final String name = property.getName();
@@ -80,14 +88,17 @@ public class MappedSuperclass implements IdentifiableTypeClass {
 		declaredProperties.add( property );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getMappedClass() {
 		return mappedClass;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setMappedClass(Class<?> mappedClass) {
 		this.mappedClass = mappedClass;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Property getIdentifierProperty() {
 		//get direct identifierMapper or the one from the super mappedSuperclass
 		// or the one from the super persistentClass
@@ -103,15 +114,18 @@ public class MappedSuperclass implements IdentifiableTypeClass {
 		return propagatedIdentifierProp;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Property getDeclaredIdentifierProperty() {
 		return identifierProperty;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setDeclaredIdentifierProperty(Property prop) {
 		this.identifierProperty = prop;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Property getVersion() {
 		//get direct version or the one from the super mappedSuperclass
 		// or the one from the super persistentClass
@@ -127,15 +141,18 @@ public class MappedSuperclass implements IdentifiableTypeClass {
 		return propagatedVersion;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Property getDeclaredVersion() {
 		return version;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setDeclaredVersion(Property prop) {
 		this.version = prop;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Component getIdentifierMapper() {
 		//get direct identifierMapper or the one from the super mappedSuperclass
 		// or the one from the super persistentClass
@@ -151,10 +168,12 @@ public class MappedSuperclass implements IdentifiableTypeClass {
 		return propagatedMapper;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Component getDeclaredIdentifierMapper() {
 		return identifierMapper;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setDeclaredIdentifierMapper(Component identifierMapper) {
 		this.identifierMapper = identifierMapper;
 	}
@@ -166,6 +185,7 @@ public class MappedSuperclass implements IdentifiableTypeClass {
 	 *
 	 * @return {@code true} if a property with that name exists; {@code false} if not
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean hasProperty(String name) {
 		for ( var property : getDeclaredProperties() ) {
 			if ( property.getName().equals( name ) ) {
@@ -184,37 +204,44 @@ public class MappedSuperclass implements IdentifiableTypeClass {
 	 *
 	 * @return {@code true} if a property with that name exists; {@code false} if not
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isPropertyDefinedInHierarchy(String name) {
 		return hasProperty( name )
 			|| superMappedSuperclass != null && superMappedSuperclass.isPropertyDefinedInHierarchy( name )
 			|| superPersistentClass != null && superPersistentClass.isPropertyDefinedInHierarchy( name );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void prepareForMappingModel() {
 		declaredProperties.sort( Comparator.comparing( Property::getName ) );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Table findTable(String name) {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Table getTable(String name) {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Join findSecondaryTable(String name) {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Join getSecondaryTable(String name) {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public IdentifiableTypeClass getSuperType() {
 		return superPersistentClass != null
 				? superPersistentClass
@@ -222,11 +249,13 @@ public class MappedSuperclass implements IdentifiableTypeClass {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<IdentifiableTypeClass> getSubTypes() {
 		throw new UnsupportedOperationException( "Not implemented yet" );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Table getImplicitTable() {
 		return implicitTable;
 	}

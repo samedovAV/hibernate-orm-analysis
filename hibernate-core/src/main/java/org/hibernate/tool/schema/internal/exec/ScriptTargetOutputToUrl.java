@@ -15,6 +15,8 @@ import org.hibernate.tool.schema.spi.ScriptTargetOutput;
 
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
 import static org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile.toFileWriter;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * ScriptTargetOutput implementation for writing to supplied URL references
@@ -54,6 +56,7 @@ public class ScriptTargetOutputToUrl extends AbstractScriptTargetOutput implemen
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Writer writer() {
 		if ( writer == null ) {
 			throw new SchemaManagementException( "Illegal state : writer null - not prepared" );
@@ -62,12 +65,14 @@ public class ScriptTargetOutputToUrl extends AbstractScriptTargetOutput implemen
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void prepare() {
 		super.prepare();
 		this.writer = toWriter( url, charsetName, append );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void release() {
 		try {
 			writer().close();
@@ -78,6 +83,7 @@ public class ScriptTargetOutputToUrl extends AbstractScriptTargetOutput implemen
 	}
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Writer toWriter( URL url, String charsetName, boolean append ) {
 		CORE_LOGGER.attemptingToCreateWriter( url );
 		// Spec says only "strings corresponding to file URLs" are supported,

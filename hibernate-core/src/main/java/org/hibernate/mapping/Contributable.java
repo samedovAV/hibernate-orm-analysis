@@ -5,6 +5,8 @@
 package org.hibernate.mapping;
 
 import org.hibernate.boot.model.relational.ContributableDatabaseObject;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Parts of the mapping model which are associated with a
@@ -19,5 +21,6 @@ public interface Contributable {
 	/**
 	 * The name of the contributor which contributed this
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getContributor();
 }

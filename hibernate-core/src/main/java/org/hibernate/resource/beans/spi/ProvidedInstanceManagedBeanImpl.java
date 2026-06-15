@@ -5,6 +5,8 @@
 package org.hibernate.resource.beans.spi;
 
 import org.hibernate.internal.util.ReflectHelper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * {@link ManagedBean} implementation for cases where we have been handed an actual
@@ -23,11 +25,13 @@ public class ProvidedInstanceManagedBeanImpl<T> implements ManagedBean<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<T> getBeanClass() {
 		return ReflectHelper.getClass( instance );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public T getBeanInstance() {
 		return instance;
 	}

@@ -5,6 +5,8 @@
 package org.hibernate.boot.xsd;
 
 import javax.xml.validation.Schema;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Representation of a locally resolved XSD
@@ -24,18 +26,22 @@ public final class XsdDescriptor {
 		this.namespaceUri = namespaceUri;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getLocalResourceName() {
 		return localResourceName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getNamespaceUri() {
 		return namespaceUri;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getVersion() {
 		return version;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Schema getSchema() {
 		return schema;
 	}

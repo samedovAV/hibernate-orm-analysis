@@ -16,6 +16,8 @@ import org.hibernate.cache.spi.access.SoftLock;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.persister.entity.EntityPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard support for {@link EntityDataAccess}
@@ -43,23 +45,27 @@ public class EntityReadWriteAccess extends AbstractReadWriteAccess implements En
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AccessType getAccessType() {
 		return AccessType.READ_WRITE;
 	}
 
 	@Deprecated
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected AccessedDataClassification getAccessedDataClassification() {
 		return AccessedDataClassification.ENTITY;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Comparator<Object> getVersionComparator() {
 		return versionComparator;
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object generateCacheKey(
 			Object id,
 			EntityPersister rootEntityDescriptor,
@@ -69,15 +75,18 @@ public class EntityReadWriteAccess extends AbstractReadWriteAccess implements En
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getCacheKeyId(Object cacheKey) {
 		return keysFactory.getEntityId( cacheKey );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void put(SharedSessionContractImplementor session, Object key, Object value, Object version) {
 		getStorageAccess().putIntoCache( key, new Item( value, version, nextTimestamp() ), session );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean insert(
 			SharedSessionContractImplementor session,
 			Object key,
@@ -87,6 +96,7 @@ public class EntityReadWriteAccess extends AbstractReadWriteAccess implements En
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean afterInsert(SharedSessionContractImplementor session, Object key, Object value, Object version) {
 		try {
 			writeLock().lock();
@@ -105,6 +115,7 @@ public class EntityReadWriteAccess extends AbstractReadWriteAccess implements En
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean update(
 			SharedSessionContractImplementor session,
 			Object key,
@@ -115,6 +126,7 @@ public class EntityReadWriteAccess extends AbstractReadWriteAccess implements En
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean afterUpdate(
 			SharedSessionContractImplementor session,
 			Object key,
@@ -148,6 +160,7 @@ public class EntityReadWriteAccess extends AbstractReadWriteAccess implements En
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SoftLock lockRegion() {
 		return null;
 	}

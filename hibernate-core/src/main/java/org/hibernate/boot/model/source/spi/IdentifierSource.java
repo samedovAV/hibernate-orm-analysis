@@ -6,6 +6,8 @@ package org.hibernate.boot.model.source.spi;
 
 import org.hibernate.boot.model.IdentifierGeneratorDefinition;
 import org.hibernate.id.EntityIdentifierNature;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract describing source of identifier information for the entity.
@@ -18,6 +20,7 @@ public interface IdentifierSource extends ToolingHintContextContainer {
 	 *
 	 * @return The identifier source's nature.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityIdentifierNature getNature();
 
 	/**
@@ -30,5 +33,6 @@ public interface IdentifierSource extends ToolingHintContextContainer {
 	 *
 	 * @return The generator source.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	IdentifierGeneratorDefinition getIdentifierGeneratorDescriptor();
 }

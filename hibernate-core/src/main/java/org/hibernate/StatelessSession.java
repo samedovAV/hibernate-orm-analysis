@@ -12,6 +12,8 @@ import jakarta.persistence.FindOption;
 import org.hibernate.graph.GraphSemantic;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A command-oriented API often used for performing bulk operations against
@@ -96,6 +98,7 @@ public interface StatelessSession extends SharedSessionContract, EntityAgent {
 	 *
 	 * @param entity a new transient instance
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void insert(@Nonnull Object entity);
 
 	/**
@@ -107,6 +110,7 @@ public interface StatelessSession extends SharedSessionContract, EntityAgent {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void insertMultiple(@Nonnull List<?> entities);
 
 	/**
@@ -120,6 +124,7 @@ public interface StatelessSession extends SharedSessionContract, EntityAgent {
 	 *
 	 * @return the identifier of the instance
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object insert(@Nonnull String entityName, @Nonnull Object entity);
 
 	/**
@@ -130,6 +135,7 @@ public interface StatelessSession extends SharedSessionContract, EntityAgent {
 	 *
 	 * @param entity a detached entity instance
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void update(@Nonnull Object entity);
 
 	/**
@@ -141,6 +147,7 @@ public interface StatelessSession extends SharedSessionContract, EntityAgent {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void updateMultiple(@Nonnull List<?> entities);
 
 	/**
@@ -152,6 +159,7 @@ public interface StatelessSession extends SharedSessionContract, EntityAgent {
 	 * @param entityName The entityName for the entity to be updated
 	 * @param entity a detached entity instance
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void update(@Nonnull String entityName, @Nonnull Object entity);
 
 	/**
@@ -162,6 +170,7 @@ public interface StatelessSession extends SharedSessionContract, EntityAgent {
 	 *
 	 * @param entity a detached entity instance
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void delete(@Nonnull Object entity);
 
 	/**
@@ -173,6 +182,7 @@ public interface StatelessSession extends SharedSessionContract, EntityAgent {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void deleteMultiple(@Nonnull List<?> entities);
 
 	/**
@@ -184,6 +194,7 @@ public interface StatelessSession extends SharedSessionContract, EntityAgent {
 	 * @param entityName The entity name for the entity to be deleted
 	 * @param entity a detached entity instance
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void delete(@Nonnull String entityName, @Nonnull Object entity);
 
 	/**
@@ -207,6 +218,7 @@ public interface StatelessSession extends SharedSessionContract, EntityAgent {
 	 *
 	 * @since 6.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void upsert(@Nonnull Object entity);
 
 	/**
@@ -221,6 +233,7 @@ public interface StatelessSession extends SharedSessionContract, EntityAgent {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void upsertMultiple(@Nonnull List<?> entities);
 
 	/**
@@ -232,6 +245,7 @@ public interface StatelessSession extends SharedSessionContract, EntityAgent {
 	 *
 	 * @since 6.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void upsert(@Nonnull String entityName, @Nonnull Object entity);
 
 	/**
@@ -246,6 +260,7 @@ public interface StatelessSession extends SharedSessionContract, EntityAgent {
 	 */
 	@Nonnull
 	@Deprecated(forRemoval = true, since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object get(@Nonnull String entityName, @Nonnull Object id, @Nonnull LockMode lockMode);
 
 	/**
@@ -264,6 +279,7 @@ public interface StatelessSession extends SharedSessionContract, EntityAgent {
 	 */
 	@Nonnull
 	@Deprecated(forRemoval = true, since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T get(@Nonnull EntityGraph<T> graph, @Nonnull GraphSemantic graphSemantic, @Nonnull Object id);
 
 	/**
@@ -284,6 +300,7 @@ public interface StatelessSession extends SharedSessionContract, EntityAgent {
 	 */
 	@Nonnull
 	@Deprecated(forRemoval = true, since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T get(@Nonnull EntityGraph<T> graph, @Nonnull GraphSemantic graphSemantic, @Nonnull Object id, @Nonnull LockMode lockMode);
 
 	/**
@@ -307,6 +324,7 @@ public interface StatelessSession extends SharedSessionContract, EntityAgent {
 	 */
 	@Nonnull
 	@Deprecated(forRemoval = true, since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> List<T> getMultiple(@Nonnull EntityGraph<T> entityGraph, @Nonnull GraphSemantic graphSemantic, @Nonnull List<?> ids);
 
 	/**
@@ -314,6 +332,7 @@ public interface StatelessSession extends SharedSessionContract, EntityAgent {
 	 *
 	 * @param entity The entity to be refreshed.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void refresh(@Nonnull Object entity);
 
 	/**
@@ -322,6 +341,7 @@ public interface StatelessSession extends SharedSessionContract, EntityAgent {
 	 * @param entityName The entity name for the entity to be refreshed.
 	 * @param entity The entity to be refreshed.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void refresh(@Nonnull String entityName, @Nonnull Object entity);
 
 	/**
@@ -330,6 +350,7 @@ public interface StatelessSession extends SharedSessionContract, EntityAgent {
 	 * @param entity The entity to be refreshed.
 	 * @param lockMode The LockMode to be applied.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void refresh(@Nonnull Object entity, @Nonnull LockMode lockMode);
 
 	/**
@@ -339,6 +360,7 @@ public interface StatelessSession extends SharedSessionContract, EntityAgent {
 	 * @param entity The entity to be refreshed.
 	 * @param lockMode The LockMode to be applied.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void refresh(@Nonnull String entityName, @Nonnull Object entity, @Nonnull LockMode lockMode);
 
 	/**
@@ -360,6 +382,7 @@ public interface StatelessSession extends SharedSessionContract, EntityAgent {
 	 * @since 6.0
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T fetch(@Nonnull T association);
 
 	/**
@@ -372,5 +395,6 @@ public interface StatelessSession extends SharedSessionContract, EntityAgent {
 	 * @since 6.6
 	 */
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getIdentifier(@Nonnull Object entity);
 }

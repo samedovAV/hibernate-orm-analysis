@@ -15,6 +15,8 @@ import org.hibernate.query.sqm.SqmPathSource;
 import org.hibernate.query.sqm.NodeBuilder;
 import org.hibernate.query.sqm.tree.SqmJoinType;
 import org.hibernate.query.sqm.tree.from.SqmFrom;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base support for joins to plural attributes
@@ -60,6 +62,7 @@ public abstract class AbstractSqmPluralJoin<L,C,E>
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmPluralPersistentAttribute<L, C, E> getModel() {
 //		return (SqmPluralPersistentAttribute<L, C, E>) super.getNodeType();
 		return (SqmPluralPersistentAttribute<L, C, E>) super.getModel();
@@ -68,6 +71,7 @@ public abstract class AbstractSqmPluralJoin<L,C,E>
 	@Nonnull
 	@Override
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends E> JpaPluralJoin<L, ?, S> treat(@Nonnull Class<S> treatJavaType) {
 		return (JpaPluralJoin<L, ?, S>) treatAs( treatJavaType );
 	}

@@ -7,6 +7,8 @@ package org.hibernate.sql.results.graph.instantiation.internal;
 import org.hibernate.query.sqm.sql.BaseSqmToSqlAstConverter;
 import org.hibernate.query.sqm.sql.internal.DomainResultProducer;
 import org.hibernate.sql.results.graph.DomainResultCreationState;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -20,10 +22,12 @@ public class DynamicInstantiationArgument<T> {
 		this.alias = alias;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getAlias() {
 		return alias;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ArgumentDomainResult<T> buildArgumentDomainResult(DomainResultCreationState creationState) {
 		final var sqlExpressionResolver =
 				creationState.getSqlAstCreationState().getCurrentProcessingState()

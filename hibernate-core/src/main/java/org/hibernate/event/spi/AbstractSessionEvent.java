@@ -7,6 +7,8 @@ package org.hibernate.event.spi;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 
 import java.io.Serializable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base class for events which are generated from a {@linkplain org.hibernate.Session Session}
@@ -32,14 +34,17 @@ public abstract class AbstractSessionEvent implements Serializable {
 	 *
 	 * @return The session event source.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final EventSource getSession() {
 		return getEventSource();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final EventSource getEventSource() {
 		return source.asEventSource();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionFactoryImplementor getFactory() {
 		return source.getFactory();
 	}

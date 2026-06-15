@@ -24,6 +24,8 @@ import org.hibernate.SessionEventListener;
 import org.hibernate.engine.creation.spi.SessionBuilderImplementor;
 import org.hibernate.resource.jdbc.spi.PhysicalConnectionHandlingMode;
 import org.hibernate.resource.jdbc.spi.StatementInspector;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base class for {@link SessionBuilder} implementations that wish to implement only parts of that contract themselves
@@ -41,29 +43,34 @@ public abstract class AbstractDelegatingSessionBuilder implements SessionBuilder
 	}
 
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected SessionBuilder getThis() {
 		return this;
 	}
 
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected SessionBuilderImplementor delegate() {
 		return delegate;
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor withOption(EntityManager.CreationOption option) {
 		return delegate.withOption( option );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionImplementor openSession() {
 		return delegate.openSession();
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor interceptor(@Nullable Interceptor interceptor) {
 		delegate.interceptor( interceptor );
 		return this;
@@ -71,6 +78,7 @@ public abstract class AbstractDelegatingSessionBuilder implements SessionBuilder
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor noInterceptor() {
 		delegate.noInterceptor();
 		return this;
@@ -78,6 +86,7 @@ public abstract class AbstractDelegatingSessionBuilder implements SessionBuilder
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor noSessionInterceptorCreation() {
 		delegate.noSessionInterceptorCreation();
 		return this;
@@ -86,6 +95,7 @@ public abstract class AbstractDelegatingSessionBuilder implements SessionBuilder
 	@Override
 	@Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor statementInspector(@Nonnull StatementInspector statementInspector) {
 		delegate.statementInspector( statementInspector );
 		return this;
@@ -93,6 +103,7 @@ public abstract class AbstractDelegatingSessionBuilder implements SessionBuilder
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor statementInspector(@Nullable UnaryOperator<String> operator) {
 		delegate.statementInspector( operator );
 		return this;
@@ -100,6 +111,7 @@ public abstract class AbstractDelegatingSessionBuilder implements SessionBuilder
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor noStatementInspector() {
 		delegate.noStatementInspector();
 		return this;
@@ -107,6 +119,7 @@ public abstract class AbstractDelegatingSessionBuilder implements SessionBuilder
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor connection(@Nonnull Connection connection) {
 		delegate.connection( connection );
 		return this;
@@ -114,6 +127,7 @@ public abstract class AbstractDelegatingSessionBuilder implements SessionBuilder
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor autoJoinTransactions(boolean autoJoinTransactions) {
 		delegate.autoJoinTransactions( autoJoinTransactions );
 		return this;
@@ -121,6 +135,7 @@ public abstract class AbstractDelegatingSessionBuilder implements SessionBuilder
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor autoClose(boolean autoClose) {
 		delegate.autoClose( autoClose );
 		return this;
@@ -128,6 +143,7 @@ public abstract class AbstractDelegatingSessionBuilder implements SessionBuilder
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor tenantIdentifier(@Nullable Object tenantIdentifier) {
 		delegate.tenantIdentifier( tenantIdentifier );
 		return this;
@@ -135,6 +151,7 @@ public abstract class AbstractDelegatingSessionBuilder implements SessionBuilder
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor readOnly(boolean readOnly) {
 		delegate.readOnly( readOnly );
 		return this;
@@ -142,6 +159,7 @@ public abstract class AbstractDelegatingSessionBuilder implements SessionBuilder
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor initialCacheMode(@Nonnull CacheMode cacheMode) {
 		delegate.initialCacheMode( cacheMode );
 		return this;
@@ -149,6 +167,7 @@ public abstract class AbstractDelegatingSessionBuilder implements SessionBuilder
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor jdbcBatchSize(int batchSize) {
 		delegate.jdbcBatchSize( batchSize );
 		return this;
@@ -156,6 +175,7 @@ public abstract class AbstractDelegatingSessionBuilder implements SessionBuilder
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor cacheStoreMode(@Nullable CacheStoreMode cacheStoreMode) {
 		delegate.cacheStoreMode( cacheStoreMode );
 		return this;
@@ -163,6 +183,7 @@ public abstract class AbstractDelegatingSessionBuilder implements SessionBuilder
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor cacheRetrieveMode(@Nullable CacheRetrieveMode cacheRetrieveMode) {
 		delegate.cacheRetrieveMode( cacheRetrieveMode );
 		return this;
@@ -170,6 +191,7 @@ public abstract class AbstractDelegatingSessionBuilder implements SessionBuilder
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor eventListeners(@Nonnull SessionEventListener... listeners) {
 		delegate.eventListeners( listeners );
 		return this;
@@ -177,6 +199,7 @@ public abstract class AbstractDelegatingSessionBuilder implements SessionBuilder
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor clearEventListeners() {
 		delegate.clearEventListeners();
 		return this;
@@ -184,6 +207,7 @@ public abstract class AbstractDelegatingSessionBuilder implements SessionBuilder
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor jdbcTimeZone(@Nullable TimeZone timeZone) {
 		delegate.jdbcTimeZone(timeZone);
 		return this;
@@ -191,6 +215,7 @@ public abstract class AbstractDelegatingSessionBuilder implements SessionBuilder
 
 	@Override @Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor connectionHandlingMode(@Nonnull PhysicalConnectionHandlingMode mode) {
 		delegate.connectionHandlingMode( mode );
 		return this;
@@ -198,6 +223,7 @@ public abstract class AbstractDelegatingSessionBuilder implements SessionBuilder
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor connectionHandling(@Nonnull ConnectionAcquisitionMode acquisitionMode, @Nonnull ConnectionReleaseMode releaseMode) {
 		delegate.connectionHandling( acquisitionMode, releaseMode );
 		return this;
@@ -205,6 +231,7 @@ public abstract class AbstractDelegatingSessionBuilder implements SessionBuilder
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor autoClear(boolean autoClear) {
 		delegate.autoClear( autoClear );
 		return this;
@@ -212,6 +239,7 @@ public abstract class AbstractDelegatingSessionBuilder implements SessionBuilder
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor flushMode(@Nonnull FlushMode flushMode) {
 		delegate.flushMode( flushMode );
 		return this;
@@ -219,6 +247,7 @@ public abstract class AbstractDelegatingSessionBuilder implements SessionBuilder
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor identifierRollback(boolean identifierRollback) {
 		delegate.identifierRollback( identifierRollback );
 		return this;
@@ -226,6 +255,7 @@ public abstract class AbstractDelegatingSessionBuilder implements SessionBuilder
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor defaultBatchFetchSize(int defaultBatchFetchSize) {
 		delegate.defaultBatchFetchSize( defaultBatchFetchSize );
 		return this;
@@ -233,6 +263,7 @@ public abstract class AbstractDelegatingSessionBuilder implements SessionBuilder
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor subselectFetchEnabled(boolean subselectFetchEnabled) {
 		delegate.subselectFetchEnabled( subselectFetchEnabled );
 		return this;
@@ -240,6 +271,7 @@ public abstract class AbstractDelegatingSessionBuilder implements SessionBuilder
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor asOf(@Nullable Instant instant) {
 		delegate.asOf( instant );
 		return this;
@@ -247,6 +279,7 @@ public abstract class AbstractDelegatingSessionBuilder implements SessionBuilder
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor atChangeset(@Nullable Object changesetId) {
 		delegate.atChangeset( changesetId );
 		return this;

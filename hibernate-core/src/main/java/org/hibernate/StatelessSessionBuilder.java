@@ -16,6 +16,8 @@ import jakarta.persistence.CacheStoreMode;
 import org.hibernate.cfg.StateManagementSettings;
 import org.hibernate.engine.creation.CommonBuilder;
 import org.hibernate.resource.jdbc.spi.StatementInspector;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Allows creation of a new {@link StatelessSession} with specific options
@@ -32,69 +34,85 @@ public interface StatelessSessionBuilder extends CommonBuilder {
 	 * @see #open()
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StatelessSession openStatelessSession();
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StatelessSession open();
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StatelessSessionBuilder connection(@Nonnull Connection connection);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StatelessSessionBuilder connectionHandling(@Nonnull ConnectionAcquisitionMode acquisitionMode, @Nonnull ConnectionReleaseMode releaseMode);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StatelessSessionBuilder interceptor(@Nullable Interceptor interceptor);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StatelessSessionBuilder noInterceptor();
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StatelessSessionBuilder noSessionInterceptorCreation();
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StatelessSessionBuilder tenantIdentifier(Object tenantIdentifier);
 
 	@Incubating
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StatelessSessionBuilder readOnly(boolean readOnly);
 
 	@Incubating
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StatelessSessionBuilder jdbcBatchSize(int batchSize);
 
 	@Incubating
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StatelessSessionBuilder initialCacheMode(@Nonnull CacheMode cacheMode);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StatelessSessionBuilder cacheStoreMode(@Nullable CacheStoreMode cacheStoreMode);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StatelessSessionBuilder cacheRetrieveMode(@Nullable CacheRetrieveMode cacheRetrieveMode);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StatelessSessionBuilder statementInspector(@Nullable UnaryOperator<String> operator);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StatelessSessionBuilder noStatementInspector();
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StatelessSessionBuilder jdbcTimeZone(@Nullable TimeZone timeZone);
 
 	/**
@@ -110,6 +128,7 @@ public interface StatelessSessionBuilder extends CommonBuilder {
 	 */
 	@Deprecated(since = "7.0")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StatelessSessionBuilder statementInspector(@Nonnull StatementInspector statementInspector);
 
 	/**
@@ -119,6 +138,7 @@ public interface StatelessSessionBuilder extends CommonBuilder {
 	 * the revisions effective at the given instant.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StatelessSessionBuilder asOf(@Nullable Instant instant);
 
 	/**
@@ -132,5 +152,6 @@ public interface StatelessSessionBuilder extends CommonBuilder {
 	 * changeset id supplier.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StatelessSessionBuilder atChangeset(@Nullable Object changesetId);
 }

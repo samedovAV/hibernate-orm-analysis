@@ -21,6 +21,8 @@ import org.hibernate.sql.ast.tree.expression.Expression;
 import org.hibernate.sql.results.graph.FetchParent;
 import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Implementation of ProcessingState used on its own as the impl for
@@ -63,16 +65,19 @@ public class SqlAstProcessingStateImpl
 	// ProcessingState
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqlAstProcessingState getParentState() {
 		return parentState;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqlExpressionResolver getSqlExpressionResolver() {
 		return expressionResolver;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqlAstCreationState getSqlAstCreationState() {
 		return creationState;
 	}
@@ -82,6 +87,7 @@ public class SqlAstProcessingStateImpl
 	// SqlExpressionResolver
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression resolveSqlExpression(
 			ColumnReferenceKey key,
 			Function<SqlAstProcessingState,Expression> creator) {
@@ -100,6 +106,7 @@ public class SqlAstProcessingStateImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqlSelection resolveSqlSelection(
 			Expression expression,
 			JavaType<?> javaType,
@@ -108,12 +115,14 @@ public class SqlAstProcessingStateImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void next() {
 		// nothing to do
 		int i = 1;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<SqlSelection> getSelections(int position) {
 		throw new UnsupportedOperationException();
 	}

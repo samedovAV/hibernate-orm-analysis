@@ -7,6 +7,8 @@ package org.hibernate.sql.ast.tree.predicate;
 import org.hibernate.metamodel.mapping.JdbcMappingContainer;
 import org.hibernate.sql.ast.SqlAstWalker;
 import org.hibernate.sql.ast.tree.expression.Expression;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -50,23 +52,28 @@ public class LikePredicate extends AbstractPredicate {
 		this.isCaseSensitive = isCaseSensitive;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression getMatchExpression() {
 		return matchExpression;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression getPattern() {
 		return pattern;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression getEscapeCharacter() {
 		return escapeCharacter;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCaseSensitive() {
 		return isCaseSensitive;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker sqlTreeWalker) {
 		sqlTreeWalker.visitLikePredicate( this );
 	}

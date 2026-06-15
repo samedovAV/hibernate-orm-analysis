@@ -5,6 +5,8 @@
 package org.hibernate.tool.schema.extract.spi;
 
 import org.hibernate.boot.model.naming.Identifier;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Provides access to information about existing primary key for a table
@@ -17,6 +19,7 @@ public interface PrimaryKeyInformation {
 	 *
 	 * @return The PK identifier.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier getPrimaryKeyIdentifier();
 
 	/**
@@ -24,5 +27,6 @@ public interface PrimaryKeyInformation {
 	 *
 	 * @return The columns
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Iterable<ColumnInformation> getColumns();
 }

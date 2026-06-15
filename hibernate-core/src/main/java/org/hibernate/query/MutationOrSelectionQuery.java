@@ -36,6 +36,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Unifies {@link StatementOrTypedQuery} with {@link Query}, allowing backward
@@ -86,8 +88,10 @@ public interface MutationOrSelectionQuery
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Casts
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isSelectionQuery();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isMutationQuery();
 
 	/**
@@ -96,6 +100,7 @@ public interface MutationOrSelectionQuery
 	 * @throws IllegalSelectQueryException If the query is not a select query.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<?> asSelectionQuery();
 
 	/**
@@ -105,6 +110,7 @@ public interface MutationOrSelectionQuery
 	 * @throws IllegalArgumentException If the given {@code type} is not compatible with the query's defined result type.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R> SelectionQuery<R> asSelectionQuery(Class<R> type);
 
 	/**
@@ -114,6 +120,7 @@ public interface MutationOrSelectionQuery
 	 * @throws IllegalArgumentException If the given graph result type is not compatible with the {@code Query} type parameter.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> SelectionQuery<X> asSelectionQuery(EntityGraph<X> entityGraph);
 
 	/**
@@ -129,6 +136,7 @@ public interface MutationOrSelectionQuery
 	 * @see #asSelectionQuery(Class)
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> SelectionQuery<X> asSelectionQuery(EntityGraph<X> entityGraph, GraphSemantic graphSemantic);
 
 	/**
@@ -137,6 +145,7 @@ public interface MutationOrSelectionQuery
 	 * @throws IllegalMutationQueryException If the query is not a mutation query.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery asMutationQuery();
 
 	/**
@@ -146,6 +155,7 @@ public interface MutationOrSelectionQuery
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R> SelectionQuery<R> ofType(@Nonnull Class<R> resultType);
 
 	/**
@@ -154,6 +164,7 @@ public interface MutationOrSelectionQuery
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R> SelectionQuery<R> withEntityGraph(@Nonnull EntityGraph<R> graph);
 
 	/**
@@ -162,6 +173,7 @@ public interface MutationOrSelectionQuery
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R> SelectionQuery<R> withResultSetMapping(@Nonnull ResultSetMapping<R> mapping);
 
 	/**
@@ -169,6 +181,7 @@ public interface MutationOrSelectionQuery
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery asStatement();
 
 
@@ -177,35 +190,43 @@ public interface MutationOrSelectionQuery
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setQueryFlushMode(@Nonnull QueryFlushMode queryFlushMode);
 
 	@Override
 	@Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setQueryPlanCacheable(boolean queryPlanCacheable);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery addQueryHint(@Nonnull String hint);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setTimeout(int timeout);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setTimeout(@Nullable Integer timeout);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setTimeout(@Nullable Timeout timeout);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setComment(@Nullable String comment);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setHint(@Nonnull String hintName, @Nullable Object value);
 
 
@@ -216,12 +237,14 @@ public interface MutationOrSelectionQuery
 	@Deprecated
 	@SuppressWarnings("deprecation")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setFlushMode(@Nonnull FlushModeType flushMode);
 
 	@Override
 	@Deprecated(forRemoval = true)
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setEntityGraph(@Nonnull EntityGraph<? super Object> graph, @Nonnull GraphSemantic semantic);
 
 
@@ -231,158 +254,185 @@ public interface MutationOrSelectionQuery
 	@Override
 	@Deprecated(forRemoval = true)
 	@SuppressWarnings("removal")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int executeUpdate();
 
 	@Override
 	@Deprecated(forRemoval = true)
 	@SuppressWarnings({"unchecked", "rawtypes", "removal"})
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List getResultList();
 
 	@Override
 	@Deprecated(forRemoval = true)
 	@SuppressWarnings("removal")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getSingleResult();
 
 	@Override
 	@Deprecated(forRemoval = true)
 	@SuppressWarnings("removal")
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getSingleResultOrNull();
 
 	@Override
 	@Deprecated(forRemoval = true)
 	@SuppressWarnings({"unchecked", "rawtypes", "removal"})
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Stream getResultStream();
 
 	@Override
 	@Deprecated(forRemoval = true)
 	@SuppressWarnings({"unchecked", "rawtypes", "removal"})
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List list();
 
 	@Override
 	@Deprecated(forRemoval = true)
 	@SuppressWarnings({"unchecked", "rawtypes", "removal"})
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ScrollableResults scroll();
 
 	@Override
 	@Deprecated(forRemoval = true)
 	@SuppressWarnings({"unchecked", "rawtypes", "removal"})
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ScrollableResults scroll(@Nonnull ScrollMode scrollMode);
 
 	@Override
 	@Deprecated(forRemoval = true)
 	@SuppressWarnings({"unchecked", "rawtypes", "removal"})
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Stream stream();
 
 	@Override
 	@Deprecated(forRemoval = true)
 	@SuppressWarnings("removal")
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object uniqueResult();
 
 	@Override
 	@Deprecated(forRemoval = true)
 	@SuppressWarnings({"unchecked", "rawtypes", "removal"})
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Optional uniqueResultOptional();
 
 	@Override
 	@Deprecated(forRemoval = true)
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setFetchSize(int fetchSize);
 
 	@Override
 	@Deprecated(forRemoval = true)
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setReadOnly(boolean readOnly);
 
 	@Override
 	@Deprecated(forRemoval = true)
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setMaxResults(int maxResults);
 
 	@Override
 	@Deprecated(forRemoval = true)
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setFirstResult(int startPosition);
 
 	@Override
 	@Deprecated(forRemoval = true)
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setCacheMode(@Nonnull CacheMode cacheMode);
 
 	@Override
 	@Deprecated(forRemoval = true)
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setCacheStoreMode(@Nonnull CacheStoreMode cacheStoreMode);
 
 	@Override
 	@Deprecated(forRemoval = true)
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setCacheRetrieveMode(@Nonnull CacheRetrieveMode cacheRetrieveMode);
 
 	@Override
 	@Deprecated(forRemoval = true)
 	@SuppressWarnings("removal")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setCacheRegion(@Nullable String cacheRegion);
 
 	@Override
 	@Deprecated(forRemoval = true)
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setLockMode(@Nonnull LockModeType lockMode);
 
 	@Override
 	@Deprecated(forRemoval = true)
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setHibernateLockMode(@Nonnull LockMode lockMode);
 
 	@Override
 	@Deprecated(forRemoval = true)
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setFollowOnStrategy(@Nonnull Locking.FollowOn followOnStrategy);
 
 	@Override
 	@Deprecated(forRemoval = true)
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setCacheable(boolean cacheable);
 
 	@Override
 	@Deprecated(forRemoval = true)
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery enableFetchProfile(@Nonnull String profileName);
 
 	@Override
 	@Deprecated(forRemoval = true)
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery disableFetchProfile(@Nonnull String profileName);
 
 	@Override
 	@Deprecated(forRemoval = true)
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setResultListTransformer(@Nonnull ResultListTransformer<Object> transformer);
 
 	@Override
 	@Deprecated(forRemoval = true)
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> Query<X> setTupleTransformer(@Nonnull TupleTransformer<X> transformer);
 
 
@@ -391,173 +441,214 @@ public interface MutationOrSelectionQuery
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationOrSelectionQuery setParameter(@Nonnull String name, @Nullable P value, @Nonnull Class<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationOrSelectionQuery setParameter(@Nonnull String name, @Nullable P value, @Nonnull Type<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setParameter(@Nonnull String name, @Nullable Object value);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setParameter(int position, @Nullable Object value);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setParameters(@Nonnull Object... arguments);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationOrSelectionQuery setParameter(int position, @Nullable P value, @Nonnull Class<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationOrSelectionQuery setParameter(int position, @Nullable P value, @Nonnull Type<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationOrSelectionQuery setConvertedParameter(@Nonnull String name, @Nullable P value, @Nonnull Class<? extends AttributeConverter<P, ?>> converter);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationOrSelectionQuery setConvertedParameter(int position, @Nullable P value, @Nonnull Class<? extends AttributeConverter<P, ?>> converter);
 
 	@Override
 	@Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setParameter(@Nonnull String name, @Nullable Instant value, @Nonnull TemporalType temporalType);
 
 	@Override
 	@Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setParameter(@Nonnull String name, @Nullable Calendar value, @Nonnull TemporalType temporalType);
 
 	@Override
 	@Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setParameter(@Nonnull String name, @Nullable Date value, @Nonnull TemporalType temporalType);
 
 	@Override
 	@Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setParameter(int position, @Nullable Instant value, @Nonnull TemporalType temporalType);
 
 	@Override
 	@Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setParameter(int position, @Nullable Date value, @Nonnull TemporalType temporalType);
 
 	@Override
 	@Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setParameter(int position, @Nullable Calendar value, @Nonnull TemporalType temporalType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationOrSelectionQuery setParameter(@Nonnull QueryParameter<P> parameter, @Nullable P value);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationOrSelectionQuery setParameter(@Nonnull QueryParameter<P> parameter, @Nullable P value, @Nonnull Class<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationOrSelectionQuery setParameter(@Nonnull QueryParameter<P> parameter, @Nullable P val, @Nonnull Type<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationOrSelectionQuery setParameter(@Nonnull Parameter<P> param, @Nullable P value);
 
 	@Override
 	@Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setParameter(@Nonnull Parameter<Calendar> param, @Nullable Calendar value, @Nonnull TemporalType temporalType);
 
 	@Override
 	@Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setParameter(@Nonnull Parameter<Date> param, @Nullable Date value, @Nonnull TemporalType temporalType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setParameterList(@Nonnull String name, @SuppressWarnings("rawtypes") @Nonnull Collection values);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationOrSelectionQuery setParameterList(@Nonnull String name, @Nonnull Collection<? extends P> values, @Nonnull Class<P> javaType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationOrSelectionQuery setParameterList(@Nonnull String name, @Nonnull Collection<? extends P> values, @Nonnull Type<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setParameterList(@Nonnull String name, @Nonnull Object[] values);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationOrSelectionQuery setParameterList(@Nonnull String name, @Nonnull P[] values, @Nonnull Class<P> javaType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationOrSelectionQuery setParameterList(@Nonnull String name, @Nonnull P[] values, @Nonnull Type<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setParameterList(int position, @SuppressWarnings("rawtypes") @Nonnull Collection values);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationOrSelectionQuery setParameterList(int position, @Nonnull Collection<? extends P> values, @Nonnull Class<P> javaType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationOrSelectionQuery setParameterList(int position, @Nonnull Collection<? extends P> values, @Nonnull Type<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setParameterList(int position, @Nonnull Object[] values);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationOrSelectionQuery setParameterList(int position, @Nonnull P[] values, @Nonnull Class<P> javaType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationOrSelectionQuery setParameterList(int position, @Nonnull P[] values, @Nonnull Type<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationOrSelectionQuery setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull Collection<? extends P> values);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationOrSelectionQuery setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull Collection<? extends P> values, @Nonnull Class<P> javaType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationOrSelectionQuery setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull Collection<? extends P> values, @Nonnull Type<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationOrSelectionQuery setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull P[] values);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationOrSelectionQuery setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull P[] values, @Nonnull Class<P> javaType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationOrSelectionQuery setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull P[] values, @Nonnull Type<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setProperties(@Nonnull Object bean);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery setProperties(@SuppressWarnings("rawtypes") @Nonnull Map bean);
 }

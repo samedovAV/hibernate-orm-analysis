@@ -15,6 +15,8 @@ import org.hibernate.query.sqm.tree.domain.SqmPath;
 import org.hibernate.spi.NavigablePath;
 
 import static org.hibernate.internal.util.NullnessUtil.castNonNull;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 public class AnyDiscriminatorSqmPath<T> extends AbstractSqmPath<T> implements DiscriminatorSqmPath<T> {
@@ -28,6 +30,7 @@ public class AnyDiscriminatorSqmPath<T> extends AbstractSqmPath<T> implements Di
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public AnyDiscriminatorSqmPath<T> copy(SqmCopyContext context) {
 		final var existing = context.getCopy( this );
 		if ( existing != null ) {
@@ -41,16 +44,19 @@ public class AnyDiscriminatorSqmPath<T> extends AbstractSqmPath<T> implements Di
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> X accept(SemanticQueryWalker<X> walker) {
 		return walker.visitAnyDiscriminatorTypeExpression( this ) ;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nonnull SqmPath<?> getLhs() {
 		return castNonNull( super.getLhs() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nonnull AnyDiscriminatorSqmPathSource<T> getExpressible() {
 //		return (AnyDiscriminatorSqmPathSource<T>) getNodeType();
 		return (AnyDiscriminatorSqmPathSource<T>) getReferencedPathSource();

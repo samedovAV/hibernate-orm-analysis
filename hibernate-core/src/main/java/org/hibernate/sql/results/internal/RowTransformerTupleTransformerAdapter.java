@@ -6,6 +6,8 @@ package org.hibernate.sql.results.internal;
 
 import org.hibernate.query.TupleTransformer;
 import org.hibernate.sql.results.spi.RowTransformer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An adapter for treating a {@link TupleTransformer} as a {@link RowTransformer}
@@ -22,6 +24,7 @@ public class RowTransformerTupleTransformerAdapter<T> implements RowTransformer<
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public T transformRow(Object[] row) {
 		assert aliases == null || row.length == aliases.length;
 		return tupleTransformer.transformTuple( row, aliases );

@@ -24,6 +24,8 @@ import jakarta.annotation.Nullable;
 import static org.hibernate.internal.util.StringHelper.nullIfEmpty;
 import static org.hibernate.internal.util.StringHelper.replace;
 import static org.hibernate.sql.Template.TEMPLATE;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Models a reference to a Column in a SQL AST
@@ -134,44 +136,54 @@ public class ColumnReference implements Expression, Assignable {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ColumnReference getColumnReference() {
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable String getQualifier() {
 		return qualifier;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getColumnExpression() {
 		return columnExpression;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable String getReadExpression() {
 		return readExpression;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nullable String getSelectableName() {
 		return selectablePath == null ? null : selectablePath.getSelectableName();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable SelectablePath getSelectablePath() {
 		return selectablePath;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isColumnExpressionFormula() {
 		return isFormula;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getExpressionText() {
 		final StringBuilder sb = new StringBuilder();
 		appendReadExpression( new StringBuilderSqlAppender( sb ) );
 		return sb.toString();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void appendReadExpression(SqlAppender appender) {
 		appendReadExpression( appender, qualifier );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void appendReadExpression(@Nullable String qualifier, Consumer<String> appender) {
 		if ( isFormula ) {
 			appender.accept( renderColumnExpression( columnExpressionTemplate, qualifier ) );
@@ -190,20 +202,24 @@ public class ColumnReference implements Expression, Assignable {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static String renderColumnExpression(String template, @Nullable String qualifier) {
 		return qualifier == null
 				? replace( template, TEMPLATE + '.', "" )
 				: replace( template, TEMPLATE, qualifier );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void appendReadExpression(SqlAppender appender, @Nullable String qualifier) {
 		appendReadExpression( qualifier, appender::appendSql );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void appendColumnForWrite(SqlAppender appender) {
 		appendColumnForWrite( appender, qualifier );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void appendColumnForWrite(SqlAppender appender, @Nullable String qualifier) {
 		if ( qualifier != null ) {
 			appender.append( qualifier );
@@ -212,21 +228,25 @@ public class ColumnReference implements Expression, Assignable {
 		appender.append( columnExpression );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcMapping getJdbcMapping() {
 		return jdbcMapping;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcMapping getExpressionType() {
 		return jdbcMapping;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker interpreter) {
 		interpreter.visitColumnReference( this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return String.format(
 				Locale.ROOT,
@@ -237,6 +257,7 @@ public class ColumnReference implements Expression, Assignable {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean equals(Object o) {
 		if ( this == o ) {
 			return true;
@@ -254,6 +275,7 @@ public class ColumnReference implements Expression, Assignable {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int hashCode() {
 		int result = qualifier != null ? qualifier.hashCode() : 0;
 		result = 31 * result + ( columnExpression != null ? columnExpression.hashCode() : 0 );
@@ -264,11 +286,13 @@ public class ColumnReference implements Expression, Assignable {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void visitColumnReferences(Consumer<ColumnReference> columnReferenceConsumer) {
 		columnReferenceConsumer.accept( this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<ColumnReference> getColumnReferences() {
 		return Collections.singletonList( this );
 	}

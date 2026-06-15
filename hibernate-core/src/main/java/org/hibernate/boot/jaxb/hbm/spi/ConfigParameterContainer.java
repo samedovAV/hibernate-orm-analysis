@@ -5,10 +5,13 @@
 package org.hibernate.boot.jaxb.hbm.spi;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
  */
 public interface ConfigParameterContainer {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<JaxbHbmConfigParameterType> getConfigParameters();
 }

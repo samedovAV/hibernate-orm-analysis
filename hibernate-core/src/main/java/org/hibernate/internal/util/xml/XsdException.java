@@ -5,6 +5,8 @@
 package org.hibernate.internal.util.xml;
 
 import org.hibernate.HibernateException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Indicates an issue finding or loading an XSD schema.
@@ -24,6 +26,7 @@ public class XsdException extends HibernateException {
 		this.xsdName = xsdName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getXsdName() {
 		return xsdName;
 	}

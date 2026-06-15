@@ -10,6 +10,8 @@ import org.hibernate.type.descriptor.java.JavaType;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -29,25 +31,30 @@ public abstract class DiscriminatorConverter<O,R> implements BasicValueConverter
 		this.relationalJavaType = relationalJavaType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getDiscriminatorName() {
 		return discriminatorName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<O> getDomainJavaType() {
 		return domainJavaType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<R> getRelationalJavaType() {
 		return relationalJavaType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DiscriminatorValueDetails getDetailsForRelationalForm(R relationalForm) {
 		return getDetailsForDiscriminatorValue( relationalForm );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public O toDomainValue(R relationalForm) {
 		assert relationalForm == null || relationalJavaType.isInstance( relationalForm );
 		final var matchingValueDetails = getDetailsForRelationalForm( relationalForm );
@@ -64,6 +71,7 @@ public abstract class DiscriminatorConverter<O,R> implements BasicValueConverter
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public R toRelationalValue(O domainForm) {
 		final String entityName = getEntityName( domainForm );
 		if ( entityName == null ) {
@@ -77,21 +85,27 @@ public abstract class DiscriminatorConverter<O,R> implements BasicValueConverter
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract String getEntityName(O domainForm);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public abstract DiscriminatorValueDetails getDetailsForDiscriminatorValue(Object relationalValue);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public abstract DiscriminatorValueDetails getDetailsForEntityName(String entityName);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "DiscriminatorConverter(" + discriminatorName + ")";
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public abstract void forEachValueDetail(Consumer<DiscriminatorValueDetails> consumer);
 
 	/**
 	 * Find and return the first DiscriminatorValueDetails which matches the given {@code handler}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public abstract <X> X fromValueDetails(Function<DiscriminatorValueDetails,X> handler);
 }

@@ -13,6 +13,8 @@ import static java.util.Collections.unmodifiableList;
 import static org.hibernate.query.KeyedPage.KeyInterpretation.KEY_OF_FIRST_ON_NEXT_PAGE;
 import static org.hibernate.query.KeyedPage.KeyInterpretation.KEY_OF_LAST_ON_PREVIOUS_PAGE;
 import static org.hibernate.query.KeyedPage.KeyInterpretation.NO_KEY;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Support for pagination based on a unique key of the result
@@ -88,6 +90,7 @@ public class KeyedPage<R> {
 	 * objects must define a total ordering of the query result set, and
 	 * thus forms a unique key on the result set.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<Order<? super R>> getKeyDefinition() {
 		return keyDefinition;
 	}
@@ -96,6 +99,7 @@ public class KeyedPage<R> {
 	 * A specification of this page in terms of page size and an
 	 * (approximate) page number.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Page getPage() {
 		return page;
 	}
@@ -111,6 +115,7 @@ public class KeyedPage<R> {
 	 *
 	 * @return the key, or null if an offset should be used
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<Comparable<?>> getKey() {
 		return key;
 	}
@@ -120,6 +125,7 @@ public class KeyedPage<R> {
 	 * interpreted as the last result on the previous page, or
 	 * as the first result on the next page.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public KeyInterpretation getKeyInterpretation() {
 		return keyInterpretation;
 	}
@@ -133,6 +139,7 @@ public class KeyedPage<R> {
 	 * @return a {@link KeyedPage} representing the next page of results
 	 */
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public KeyedPage<R> nextPage(List<Comparable<?>> keyOfLastResultOnThisPage) {
 		return new KeyedPage<>( keyDefinition, page.next(), keyOfLastResultOnThisPage, KEY_OF_LAST_ON_PREVIOUS_PAGE );
 	}
@@ -146,6 +153,7 @@ public class KeyedPage<R> {
 	 * @return a {@link KeyedPage} representing the next page of results
 	 */
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public KeyedPage<R> previousPage(List<Comparable<?>> keyOfFirstResultOnThisPage) {
 		if ( page.isFirst() ) {
 			return null;
@@ -164,6 +172,7 @@ public class KeyedPage<R> {
 	 *         given key
 	 */
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public KeyedPage<R> withKey(List<Comparable<?>> key, KeyInterpretation interpretation) {
 		return new KeyedPage<>( keyDefinition, page, key, interpretation );
 	}

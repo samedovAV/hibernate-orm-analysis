@@ -17,6 +17,8 @@ import org.hibernate.boot.model.source.spi.SingularAttributeNature;
 import org.hibernate.boot.model.source.spi.SingularAttributeSourceEmbedded;
 import org.hibernate.boot.model.source.spi.ToolingHintContext;
 import org.hibernate.boot.jaxb.mapping.GenerationTiming;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Common base class for {@code <component/>} and {@code <composite-id/>} mappings.
@@ -57,16 +59,19 @@ public abstract class AbstractSingularAttributeSourceEmbeddedImpl
 							);
 
 							@Override
+							@Prove(complexity = Complexity.O_1, n = "", count = {})
 							public AttributeRole getAttributeRoleBase() {
 								return role;
 							}
 
 							@Override
+							@Prove(complexity = Complexity.O_1, n = "", count = {})
 							public AttributePath getAttributePathBase() {
 								return path;
 							}
 
 							@Override
+							@Prove(complexity = Complexity.O_1, n = "", count = {})
 							public ToolingHintContext getToolingHintContextBaselineForEmbeddable() {
 								return toolingHintContext;
 							}
@@ -94,47 +99,56 @@ public abstract class AbstractSingularAttributeSourceEmbeddedImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableSource getEmbeddableSource() {
 		return embeddableSource;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getName() {
 		return jaxbEmbeddedAttributeMapping.getName();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isSingular() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isVirtualAttribute() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SingularAttributeNature getSingularAttributeNature() {
 		return SingularAttributeNature.COMPOSITE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernateTypeSource getTypeInformation() {
 		// <component/> does not support type information.
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getPropertyAccessorName() {
 		return jaxbEmbeddedAttributeMapping.getAccess();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NaturalIdMutability getNaturalIdMutability() {
 		return naturalIdMutability;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public GenerationTiming getGenerationTiming() {
 		// todo : is this correct here?
 		return null;

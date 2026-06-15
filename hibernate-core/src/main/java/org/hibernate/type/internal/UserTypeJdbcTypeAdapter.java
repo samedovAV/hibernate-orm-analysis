@@ -22,6 +22,8 @@ import org.hibernate.type.descriptor.jdbc.JdbcType;
 import org.hibernate.type.spi.TypeConfiguration;
 import org.hibernate.usertype.EnhancedUserType;
 import org.hibernate.usertype.UserType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Adapts {@link UserType} to the {@link JdbcType} contract
@@ -44,16 +46,19 @@ public class UserTypeJdbcTypeAdapter<J> implements JdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getFriendlyName() {
 		return "UserTypeSqlTypeAdapter(" + userType + ")";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getJdbcTypeCode() {
 		return userType.getSqlType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isComparable() {
 		final Boolean comparable = userType.isComparable();
 		return comparable == null ? JdbcType.super.isComparable() : comparable;
@@ -61,6 +66,7 @@ public class UserTypeJdbcTypeAdapter<J> implements JdbcType {
 
 	@Override
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> ValueBinder<X> getBinder(JavaType<X> javaType) {
 		assert javaType.getJavaTypeClass() == null
 			|| this.javaType.getJavaTypeClass().isAssignableFrom( javaType.getJavaTypeClass() );
@@ -69,6 +75,7 @@ public class UserTypeJdbcTypeAdapter<J> implements JdbcType {
 
 	@Override
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> ValueExtractor<X> getExtractor(JavaType<X> javaType) {
 		assert javaType.getJavaTypeClass() == null
 				|| javaType.getJavaTypeClass().isAssignableFrom( this.javaType.getJavaTypeClass() );
@@ -76,6 +83,7 @@ public class UserTypeJdbcTypeAdapter<J> implements JdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<?> getRecommendedJavaType(
 			Integer length,
 			Integer scale,
@@ -84,6 +92,7 @@ public class UserTypeJdbcTypeAdapter<J> implements JdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> JdbcLiteralFormatter<T> getJdbcLiteralFormatter(JavaType<T> javaType) {
 		if ( !( userType instanceof EnhancedUserType<?> ) ) {
 			throw new HibernateException( "Could not create JdbcLiteralFormatter because UserType class '"
@@ -102,6 +111,7 @@ public class UserTypeJdbcTypeAdapter<J> implements JdbcType {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public J extract(ResultSet rs, int paramIndex, WrapperOptions options) throws SQLException {
 			final J extracted = userType.nullSafeGet( rs, paramIndex, options );
 			logExtracted( paramIndex, extracted );
@@ -109,6 +119,7 @@ public class UserTypeJdbcTypeAdapter<J> implements JdbcType {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public J extract(CallableStatement statement, int paramIndex, WrapperOptions options) throws SQLException {
 			if ( userType instanceof ProcedureParameterExtractionAware ) {
 				//noinspection unchecked
@@ -122,6 +133,7 @@ public class UserTypeJdbcTypeAdapter<J> implements JdbcType {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public J extract(CallableStatement statement, String paramName, WrapperOptions options) throws SQLException {
 			if ( userType instanceof ProcedureParameterExtractionAware ) {
 				//noinspection unchecked
@@ -134,6 +146,7 @@ public class UserTypeJdbcTypeAdapter<J> implements JdbcType {
 			throw new UnsupportedOperationException( "UserType does not support reading CallableStatement parameter values: " + userType );
 		}
 
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		private void logExtracted(int paramIndex, J extracted) {
 			if ( JdbcExtractingLogging.LOGGER.isTraceEnabled() ) {
 				if ( extracted == null ) {
@@ -145,6 +158,7 @@ public class UserTypeJdbcTypeAdapter<J> implements JdbcType {
 			}
 		}
 
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		private void logExtracted(String paramName, J extracted) {
 			if ( JdbcExtractingLogging.LOGGER.isTraceEnabled() ) {
 				if ( extracted == null ) {
@@ -165,6 +179,7 @@ public class UserTypeJdbcTypeAdapter<J> implements JdbcType {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void bind(PreparedStatement st, J value, int index, WrapperOptions options) throws SQLException {
 			if ( JdbcBindingLogging.LOGGER.isTraceEnabled() ) {
 				if ( value == null ) {
@@ -178,6 +193,7 @@ public class UserTypeJdbcTypeAdapter<J> implements JdbcType {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void bind(CallableStatement st, J value, String name, WrapperOptions options) {
 			throw new UnsupportedOperationException( "Using UserType for CallableStatement parameter binding not supported" );
 		}

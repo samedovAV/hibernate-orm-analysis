@@ -5,6 +5,8 @@
 package org.hibernate.sql.exec.spi;
 
 import org.hibernate.sql.results.jdbc.spi.JdbcValuesMappingProducer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An anonymous call block (sometimes called an anonymous procedure) to be executed
@@ -20,5 +22,6 @@ public interface JdbcOperationQueryAnonBlock extends JdbcOperationQuery {
 	 * define multiple such mappings which are (unclearly) intended to describe the mapping
 	 * for each ResultSet (in order) returned from the call.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcValuesMappingProducer getJdbcValuesMappingProducer();
 }

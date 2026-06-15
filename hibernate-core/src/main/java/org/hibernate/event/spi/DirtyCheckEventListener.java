@@ -5,6 +5,8 @@
 package org.hibernate.event.spi;
 
 import org.hibernate.HibernateException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Defines the contract for handling of session dirty-check events.
@@ -17,6 +19,7 @@ public interface DirtyCheckEventListener {
 	 *
 	 * @param event The dirty-check event to be handled.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void onDirtyCheck(DirtyCheckEvent event) throws HibernateException;
 
 }

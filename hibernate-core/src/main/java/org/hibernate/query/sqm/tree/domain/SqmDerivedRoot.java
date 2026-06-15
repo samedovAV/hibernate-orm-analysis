@@ -18,6 +18,8 @@ import org.hibernate.query.sqm.tree.SqmCopyContext;
 import org.hibernate.query.sqm.tree.from.SqmRoot;
 import org.hibernate.query.sqm.tree.select.SqmSubQuery;
 import org.hibernate.spi.NavigablePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -55,6 +57,7 @@ public class SqmDerivedRoot<T> extends SqmRoot<T> implements JpaDerivedRoot<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmDerivedRoot<T> copy(SqmCopyContext context) {
 		final var existing = context.getCopy( this );
 		if ( existing != null ) {
@@ -75,11 +78,13 @@ public class SqmDerivedRoot<T> extends SqmRoot<T> implements JpaDerivedRoot<T> {
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmSubQuery<T> getQueryPart() {
 		return subQuery;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> X accept(SemanticQueryWalker<X> walker) {
 		return walker.visitRootDerived( this );
 	}
@@ -89,40 +94,47 @@ public class SqmDerivedRoot<T> extends SqmRoot<T> implements JpaDerivedRoot<T> {
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmEntityDomainType<T> getModel() {
 		// Or should we throw an exception instead?
 		throw new UnsupportedOperationException( "Derived root does not have an entity type. Use getReferencedPathSource() instead." );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getEntityName() {
 		throw new UnsupportedOperationException( "Derived root does not have an entity type. Use getReferencedPathSource() instead." );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPathSource<T> getResolvedModel() {
 		return getReferencedPathSource();
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmCorrelatedRoot<T> createCorrelation() {
 		return new SqmCorrelatedDerivedRoot<>( this );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends T> SqmTreatedFrom<T, T, S> treatAs(@Nonnull EntityDomainType<S> treatTarget, @Nullable String alias, boolean fetch) {
 		throw new UnsupportedOperationException( "Derived roots can not be treated" );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean deepEquals(SqmFrom<?, ?> object) {
 		return super.deepEquals( object )
 			&& subQuery.equals( ((SqmDerivedRoot<?>) object).subQuery );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isDeepCompatible(SqmFrom<?, ?> object) {
 		return super.isDeepCompatible( object )
 			&& subQuery.isCompatible( ((SqmDerivedRoot<?>) object).subQuery );

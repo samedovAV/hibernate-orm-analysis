@@ -14,6 +14,8 @@ import org.hibernate.type.descriptor.ValueBinder;
 import org.hibernate.type.descriptor.ValueExtractor;
 import org.hibernate.type.descriptor.WrapperOptions;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Descriptor for {@link Types#TINYINT TINYINT} handling, when the {@link Types#SMALLINT SMALLINT} DDL type code is used.
@@ -28,24 +30,29 @@ public class TinyIntAsSmallIntJdbcType extends TinyIntJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getDdlTypeCode() {
 		return Types.SMALLINT;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getPreferredJavaTypeClass(WrapperOptions options) {
 		return Short.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> ValueBinder<X> getBinder(final JavaType<X> javaType) {
 		return new BasicBinder<>( javaType, this ) {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBind(PreparedStatement st, X value, int index, WrapperOptions options) throws SQLException {
 				st.setShort( index, javaType.unwrap( value, Short.class, options ) );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBind(CallableStatement st, X value, String name, WrapperOptions options)
 					throws SQLException {
 				st.setShort( name, javaType.unwrap( value, Short.class, options ) );
@@ -54,19 +61,23 @@ public class TinyIntAsSmallIntJdbcType extends TinyIntJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> ValueExtractor<X> getExtractor(final JavaType<X> javaType) {
 		return new BasicExtractor<>( javaType, this ) {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(ResultSet rs, int paramIndex, WrapperOptions options) throws SQLException {
 				return javaType.wrap( rs.getShort( paramIndex ), options );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(CallableStatement statement, int index, WrapperOptions options) throws SQLException {
 				return javaType.wrap( statement.getShort( index ), options );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(CallableStatement statement, String name, WrapperOptions options) throws SQLException {
 				return javaType.wrap( statement.getShort( name ), options );
 			}

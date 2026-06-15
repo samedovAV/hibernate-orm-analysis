@@ -10,6 +10,8 @@ import org.hibernate.cache.spi.access.CollectionDataAccess;
 import org.hibernate.collection.spi.PersistentCollection;
 import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.persister.collection.CollectionPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Post-execution callback for collection update actions.
 ///
@@ -49,6 +51,7 @@ public class PostCollectionUpdateHandling implements PostExecutionCallback {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handle(SessionImplementor session) {
 		// Update CollectionEntry state
 		if (collection != null) {

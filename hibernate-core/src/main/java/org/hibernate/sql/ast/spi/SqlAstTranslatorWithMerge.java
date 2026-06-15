@@ -14,6 +14,8 @@ import org.hibernate.sql.exec.spi.JdbcOperation;
 import org.hibernate.sql.model.ast.ColumnValueBinding;
 import org.hibernate.sql.model.internal.OptionalTableUpdate;
 import org.hibernate.sql.model.jdbc.MergeOperation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base for translators which support a full insert-or-update-or-delete (MERGE) command.
@@ -35,6 +37,7 @@ public abstract class SqlAstTranslatorWithMerge<T extends JdbcOperation> extends
 	 * The OptionalTableUpdate is {@linkplain #renderMergeStatement translated}
 	 * and wrapped as a MutationOperation
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MergeOperation createMergeOperation(OptionalTableUpdate optionalTableUpdate) {
 		renderMergeStatement( optionalTableUpdate );
 		return new MergeOperation(
@@ -46,6 +49,7 @@ public abstract class SqlAstTranslatorWithMerge<T extends JdbcOperation> extends
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Expectation expectation(OptionalTableUpdate optionalTableUpdate) {
 		return optionalTableUpdate.getValueBindings().stream()
 					.anyMatch( ColumnValueBinding::isAttributeUpdatable )
@@ -58,6 +62,7 @@ public abstract class SqlAstTranslatorWithMerge<T extends JdbcOperation> extends
 	 * Renders the OptionalTableUpdate as a MERGE query.
 	 *
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderMergeStatement(OptionalTableUpdate optionalTableUpdate) {
 		//
 		// merge into <target-table> as t
@@ -105,21 +110,25 @@ public abstract class SqlAstTranslatorWithMerge<T extends JdbcOperation> extends
 		renderMergeUpdate( optionalTableUpdate );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderMergeInto(OptionalTableUpdate optionalTableUpdate) {
 		appendSql( "merge into " );
 		renderMergeTarget( optionalTableUpdate );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void renderMergeTarget(OptionalTableUpdate optionalTableUpdate) {
 		appendSql( optionalTableUpdate.getMutatingTable().getTableName() );
 		appendSql( " " );
 		renderMergeTargetAlias();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderMergeTargetAlias() {
 		appendSql( "as t" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderMergeUsing(OptionalTableUpdate optionalTableUpdate) {
 		appendSql( "using (" );
 		renderMergeUsingQuery( optionalTableUpdate );
@@ -128,10 +137,12 @@ public abstract class SqlAstTranslatorWithMerge<T extends JdbcOperation> extends
 		renderMergeSourceAlias();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderMergeSourceAlias() {
 		appendSql( "as s" );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void renderMergeUsingQuery(OptionalTableUpdate optionalTableUpdate) {
 		final List<ColumnValueBinding> valueBindings = optionalTableUpdate.getValueBindings();
 		final List<ColumnValueBinding> keyBindings = optionalTableUpdate.getKeyBindings();
@@ -156,12 +167,14 @@ public abstract class SqlAstTranslatorWithMerge<T extends JdbcOperation> extends
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderMergeUsingQuerySelection(ColumnValueBinding selectionBinding) {
 		renderColumnWrite( selectionBinding );
 		appendSql( " " );
 		appendSql( selectionBinding.getColumnReference().getColumnExpression() );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void renderMergeOn(OptionalTableUpdate optionalTableUpdate) {
 		appendSql( "on (" );
 
@@ -180,6 +193,7 @@ public abstract class SqlAstTranslatorWithMerge<T extends JdbcOperation> extends
 		appendSql( ")" );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void renderMergeInsert(OptionalTableUpdate optionalTableUpdate) {
 		final List<ColumnValueBinding> valueBindings = optionalTableUpdate.getValueBindings();
 		final List<ColumnValueBinding> keyBindings = optionalTableUpdate.getKeyBindings();
@@ -211,6 +225,7 @@ public abstract class SqlAstTranslatorWithMerge<T extends JdbcOperation> extends
 		appendSql( ")" );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void renderMergeDelete(OptionalTableUpdate optionalTableUpdate) {
 		final List<ColumnValueBinding> valueBindings = optionalTableUpdate.getValueBindings();
 		final List<ColumnValueBinding> optimisticLockBindings = optionalTableUpdate.getOptimisticLockBindings();
@@ -225,6 +240,7 @@ public abstract class SqlAstTranslatorWithMerge<T extends JdbcOperation> extends
 		appendSql( " then delete" );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void renderMergeUpdate(OptionalTableUpdate optionalTableUpdate) {
 		final List<ColumnValueBinding> valueBindings = optionalTableUpdate.getValueBindings();
 		final List<ColumnValueBinding> optimisticLockBindings = optionalTableUpdate.getOptimisticLockBindings();
@@ -250,6 +266,7 @@ public abstract class SqlAstTranslatorWithMerge<T extends JdbcOperation> extends
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void renderWhenMatched(List<ColumnValueBinding> optimisticLockBindings) {
 		appendSql( "when matched" );
 		for (int i = 0; i < optimisticLockBindings.size(); i++) {

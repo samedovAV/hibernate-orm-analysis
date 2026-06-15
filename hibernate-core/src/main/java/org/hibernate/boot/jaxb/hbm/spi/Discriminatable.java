@@ -3,10 +3,14 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.boot.jaxb.hbm.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * @author Steve Ebersole
  */
 public interface Discriminatable {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getDiscriminatorValue();
 }

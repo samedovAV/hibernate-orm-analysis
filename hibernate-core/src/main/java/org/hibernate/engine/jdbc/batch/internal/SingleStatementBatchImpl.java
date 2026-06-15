@@ -23,6 +23,8 @@ import static java.util.Objects.requireNonNull;
 import static org.hibernate.engine.jdbc.JdbcLogging.JDBC_LOGGER;
 import static org.hibernate.engine.jdbc.batch.JdbcBatchLogging.BATCH_MESSAGE_LOGGER;
 import static org.hibernate.sql.model.ModelMutationLogging.MODEL_MUTATION_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Batch implementation for a single JDBC statement shape.
@@ -70,16 +72,19 @@ public class SingleStatementBatchImpl implements SingleStatementBatch {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BatchKey getKey() {
 		return key;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addObserver(BatchObserver observer) {
 		observers.add( observer );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void addToBatch(StatementBinder statementBinder, BatchedResultChecker resultChecker) {
 		final int currentBatchPosition = batchPosition;
 		if ( BATCH_MESSAGE_LOGGER.isTraceEnabled() ) {
@@ -121,6 +126,7 @@ public class SingleStatementBatchImpl implements SingleStatementBatch {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private PreparedStatement resolveStatement() throws SQLException {
 		if ( statement == null ) {
 			statement = jdbcCoordinator.getMutationStatementPreparer()
@@ -130,12 +136,14 @@ public class SingleStatementBatchImpl implements SingleStatementBatch {
 		return statement;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void notifyObserversExplicitExecution() {
 		for ( var observer : observers ) {
 			observer.batchExplicitlyExecuted();
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void notifyObserversImplicitExecution() {
 		for ( var observer : observers ) {
 			observer.batchImplicitlyExecuted();
@@ -143,6 +151,7 @@ public class SingleStatementBatchImpl implements SingleStatementBatch {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void execute() {
 		notifyObserversExplicitExecution();
 		try {
@@ -160,6 +169,7 @@ public class SingleStatementBatchImpl implements SingleStatementBatch {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void performExecution() {
 		if ( BATCH_MESSAGE_LOGGER.isTraceEnabled() ) {
 			BATCH_MESSAGE_LOGGER.executeBatch(
@@ -205,6 +215,7 @@ public class SingleStatementBatchImpl implements SingleStatementBatch {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void checkRowCounts(int[] rowCounts) {
 		final int numberOfRowCounts = rowCounts.length;
 		if ( batchPosition != 0 && numberOfRowCounts != batchPosition ) {
@@ -234,6 +245,7 @@ public class SingleStatementBatchImpl implements SingleStatementBatch {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void mapStaleStateException(StaleStateException staleStateException, int batchPosition) {
 		final BatchedResultChecker resultChecker = resultCheckers[batchPosition];
 		if ( resultChecker == null ) {
@@ -254,12 +266,14 @@ public class SingleStatementBatchImpl implements SingleStatementBatch {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void clearResultCheckers(int batchCount) {
 		for ( int i = 0; i < batchCount; i++ ) {
 			resultCheckers[i] = null;
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void releaseStatements() {
 		if ( statement == null ) {
 			return;
@@ -283,6 +297,7 @@ public class SingleStatementBatchImpl implements SingleStatementBatch {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void abortBatch(Exception cause) {
 		try {
 			jdbcCoordinator.abortBatch();
@@ -293,12 +308,14 @@ public class SingleStatementBatchImpl implements SingleStatementBatch {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void release() {
 		releaseStatements();
 		observers.clear();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "SingleStatementBatchImpl(" + getKey().toLoggableString() + ")";
 	}

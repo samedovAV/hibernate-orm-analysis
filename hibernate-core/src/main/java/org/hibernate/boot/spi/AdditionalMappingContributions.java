@@ -13,6 +13,8 @@ import org.hibernate.boot.model.relational.AuxiliaryDatabaseObject;
 import org.hibernate.boot.model.relational.Sequence;
 import org.hibernate.mapping.Table;
 import org.hibernate.models.spi.ClassDetails;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Collector for contributions from {@linkplain AdditionalMappingContributor contributors}
@@ -26,16 +28,19 @@ public interface AdditionalMappingContributions {
 	/**
 	 * Contribute a presumably annotated entity class.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void contributeEntity(Class<?> entityType);
 
 	/**
 	 * Contribute a ClassDetails representing a "managed class" (entity, embeddable, converter, etc)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void contributeManagedClass(ClassDetails classDetails);
 
 	/**
 	 * Contribute mappings from the InputStream containing an XML mapping document.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void contributeBinding(InputStream xmlStream);
 
 	/**
@@ -46,27 +51,33 @@ public interface AdditionalMappingContributions {
 	 * bindings instead.
 	 */
 	@Deprecated
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void contributeBinding(JaxbHbmHibernateMapping hbmJaxbBinding);
 
 	/**
 	 * Contribute mappings in the form of (extended) {@code orm.xml} JAXB bindings
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void contributeBinding(JaxbEntityMappingsImpl mappingJaxbBinding);
 
 	/**
 	 * Contribute a materialized Table
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void contributeTable(Table table);
 
 	/**
 	 * Contribute a materialized Sequence
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void contributeSequence(Sequence sequence);
 
 	/**
 	 * Contribute a materialized AuxiliaryDatabaseObject
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void contributeAuxiliaryDatabaseObject(AuxiliaryDatabaseObject auxiliaryDatabaseObject);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EffectiveMappingDefaults getEffectiveMappingDefaults();
 }

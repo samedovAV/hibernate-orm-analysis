@@ -14,6 +14,8 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import static java.util.concurrent.Executors.newSingleThreadScheduledExecutor;
 import static org.hibernate.internal.log.ConnectionInfoLogger.CONNECTION_INFO_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 class PoolState implements Runnable {
 
@@ -30,6 +32,7 @@ class PoolState implements Runnable {
 		this.validationInterval = validationInterval;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void startIfNeeded() {
 		if ( active ) {
 			return;
@@ -60,16 +63,19 @@ class PoolState implements Runnable {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void run() {
 		if ( active ) {
 			pool.validate();
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PooledConnections getPool() {
 		return pool;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void stop() {
 		statelock.writeLock().lock();
 		try {
@@ -94,6 +100,7 @@ class PoolState implements Runnable {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Connection getConnection() {
 		startIfNeeded();
 		statelock.readLock().lock();
@@ -105,6 +112,7 @@ class PoolState implements Runnable {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void closeConnection(Connection conn) {
 		if ( conn == null ) {
 			return;
@@ -119,6 +127,7 @@ class PoolState implements Runnable {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	void validateConnections(ConnectionValidator validator) {
 		if ( !active ) {
 			return;

@@ -12,6 +12,8 @@ import jakarta.persistence.Timeout;
 import org.hibernate.graph.GraphSemantic;
 
 import java.util.Optional;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Loads an entity by its natural identifier. This simplified API is
@@ -43,6 +45,7 @@ public interface SimpleNaturalIdLoadAccess<T> {
 	 * @param lockMode The lock mode to apply
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default SimpleNaturalIdLoadAccess<T> with(LockMode lockMode) {
 		return with( lockMode, PessimisticLockScope.NORMAL );
 	}
@@ -55,6 +58,7 @@ public interface SimpleNaturalIdLoadAccess<T> {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SimpleNaturalIdLoadAccess<T> with(LockMode lockMode, PessimisticLockScope lockScope);
 
 	/**
@@ -65,6 +69,7 @@ public interface SimpleNaturalIdLoadAccess<T> {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SimpleNaturalIdLoadAccess<T> with(Timeout timeout);
 
 	/**
@@ -80,6 +85,7 @@ public interface SimpleNaturalIdLoadAccess<T> {
 	 * and/or {@linkplain #with(Timeout)} instead.
 	 */
 	@Deprecated(since = "7.0", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SimpleNaturalIdLoadAccess<T> with(LockOptions lockOptions);
 
 	/**
@@ -89,6 +95,7 @@ public interface SimpleNaturalIdLoadAccess<T> {
 	 *
 	 * @since 6.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SimpleNaturalIdLoadAccess<T> withFetchGraph(EntityGraph<T> graph) {
 		return with( graph, GraphSemantic.FETCH );
 	}
@@ -100,6 +107,7 @@ public interface SimpleNaturalIdLoadAccess<T> {
 	 *
 	 * @since 6.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SimpleNaturalIdLoadAccess<T> withLoadGraph(EntityGraph<T> graph) {
 		return with( graph, GraphSemantic.LOAD );
 	}
@@ -111,6 +119,7 @@ public interface SimpleNaturalIdLoadAccess<T> {
 	 *
 	 * @since 6.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SimpleNaturalIdLoadAccess<T> with(EntityGraph<T> graph, GraphSemantic semantic);
 
 	/**
@@ -123,6 +132,7 @@ public interface SimpleNaturalIdLoadAccess<T> {
 	 *
 	 * @since 6.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SimpleNaturalIdLoadAccess<T> enableFetchProfile(String profileName);
 
 	/**
@@ -135,6 +145,7 @@ public interface SimpleNaturalIdLoadAccess<T> {
 	 *
 	 * @since 6.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SimpleNaturalIdLoadAccess<T> disableFetchProfile(String profileName);
 
 	/**
@@ -151,6 +162,7 @@ public interface SimpleNaturalIdLoadAccess<T> {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SimpleNaturalIdLoadAccess<T> setSynchronizationEnabled(boolean enabled);
 
 	/**
@@ -173,6 +185,7 @@ public interface SimpleNaturalIdLoadAccess<T> {
 	 * with {@linkplain KeyType#NATURAL} as an option.
 	 */
 	@Deprecated
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	T getReference(Object naturalIdValue);
 
 	/**
@@ -192,6 +205,7 @@ public interface SimpleNaturalIdLoadAccess<T> {
 	 * with {@linkplain KeyType#NATURAL} as an option.
 	 */
 	@Deprecated
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	T load(Object naturalIdValue);
 
 	/**
@@ -202,5 +216,6 @@ public interface SimpleNaturalIdLoadAccess<T> {
 	 *
 	 * @return The persistent instance, if any, as an {@link Optional}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Optional<T> loadOptional(Object naturalIdValue);
 }

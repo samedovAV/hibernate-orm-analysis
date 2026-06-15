@@ -15,6 +15,8 @@ import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.graph.internal.parse.GraphParsing;
 import org.hibernate.graph.spi.GraphImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Parser for string representations of {@linkplain RootGraph entity graphs}.
@@ -59,6 +61,7 @@ public final class GraphParser {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static <T> RootGraph<T> parse(
 			final Class<T> rootEntityClass,
 			final CharSequence graphText,
@@ -91,6 +94,7 @@ public final class GraphParser {
 	 * @since 7.0
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static <T> RootGraph<T> parse(
 			final String rootEntityName,
 			final CharSequence graphText,
@@ -121,6 +125,7 @@ public final class GraphParser {
 	 * @since 7.0
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static <T> RootGraph<T> parse(
 				final CharSequence graphText,
 				final SessionFactory sessionFactory) {
@@ -148,6 +153,7 @@ public final class GraphParser {
 	 *
 	 * @throws InvalidGraphException if the textual representation is invalid.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static <T> RootGraph<T> parse(
 			final Class<T> rootType,
 			final CharSequence graphText,
@@ -176,6 +182,7 @@ public final class GraphParser {
 	 *
 	 * @throws InvalidGraphException if the textual representation is invalid.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static <T> void parseInto(
 			final Graph<T> graph,
 			final CharSequence graphText,
@@ -196,6 +203,7 @@ public final class GraphParser {
 	 *
 	 * @throws InvalidGraphException if the textual representation is invalid.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static <T> void parseInto(
 			final EntityGraph<?> graph,
 			final CharSequence graphText,
@@ -216,6 +224,7 @@ public final class GraphParser {
 	 *
 	 * @throws InvalidGraphException if the textual representation is invalid.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void parseInto(
 			final Subgraph<?> graph,
 			final CharSequence graphText,
@@ -236,6 +245,7 @@ public final class GraphParser {
 	 *
 	 * @throws InvalidGraphException if the textual representation is invalid.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void parseInto(
 			final Graph<?> graph,
 			final CharSequence graphText,
@@ -256,6 +266,7 @@ public final class GraphParser {
 	 *
 	 * @throws InvalidGraphException if the textual representation is invalid.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void parseInto(
 			final EntityGraph<?> graph,
 			final CharSequence graphText,
@@ -276,6 +287,7 @@ public final class GraphParser {
 	 *
 	 * @throws InvalidGraphException if the textual representation is invalid.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void parseInto(
 			final Subgraph<?> graph,
 			final CharSequence graphText,
@@ -298,6 +310,7 @@ public final class GraphParser {
 	 *
 	 * @throws InvalidGraphException if the textual representation is invalid.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static void parseInto(
 			GraphImplementor<?> graph,
 			final CharSequence graphText,

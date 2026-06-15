@@ -11,6 +11,8 @@ import java.net.URL;
 
 import org.hibernate.HibernateException;
 import org.hibernate.cfg.Environment;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A simple class to centralize logic needed to locate config files on the system.
@@ -32,6 +34,7 @@ public final class ConfigHelper {
 	 *
 	 * @return An appropriate URL or null.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static URL locateConfig(final String path) {
 		try {
 			return new URL( path );
@@ -50,6 +53,7 @@ public final class ConfigHelper {
 	 *
 	 * @return An appropriate URL or null.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static URL findAsResource(final String path) {
 		URL url = null;
 
@@ -87,6 +91,7 @@ public final class ConfigHelper {
 	 *
 	 * @throws HibernateException Unable to open stream to that resource.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static InputStream getConfigStream(final String path) throws HibernateException {
 		final URL url = locateConfig( path );
 		if ( url == null ) {
@@ -103,6 +108,7 @@ public final class ConfigHelper {
 	private ConfigHelper() {
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static InputStream getResourceAsStream(String resource) {
 		final String stripped = resource.startsWith( "/" )
 				? resource.substring( 1 )
@@ -126,6 +132,7 @@ public final class ConfigHelper {
 	}
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static InputStream getUserResourceAsStream(String resource) {
 		boolean hasLeadingSlash = resource.startsWith( "/" );
 		final String stripped = hasLeadingSlash ? resource.substring( 1 ) : resource;

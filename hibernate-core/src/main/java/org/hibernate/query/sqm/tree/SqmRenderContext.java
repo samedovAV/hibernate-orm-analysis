@@ -7,6 +7,8 @@ package org.hibernate.query.sqm.tree;
 import org.hibernate.query.sqm.internal.SimpleSqmRenderContext;
 import org.hibernate.query.sqm.tree.expression.JpaCriteriaParameter;
 import org.hibernate.query.sqm.tree.from.SqmFrom;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Context used while rendering SQM nodes to HQL.
@@ -22,10 +24,13 @@ public interface SqmRenderContext {
 	 * @param from The from element
 	 * @return The resolved alias
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String resolveAlias(SqmFrom<?, ?> from);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String resolveParameterName(JpaCriteriaParameter<?> parameter);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static SqmRenderContext simpleContext() {
 		return new SimpleSqmRenderContext();
 	}

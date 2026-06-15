@@ -10,6 +10,8 @@ import org.hibernate.mapping.Component;
 import org.hibernate.mapping.PersistentClass;
 
 import java.lang.annotation.Annotation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Allows a user-written annotation to drive some customized model binding.
@@ -59,6 +61,7 @@ public interface TypeBinder<A extends Annotation> {
 	 *                   {@link org.hibernate.annotations.TypeBinderType}
 	 * @param persistentClass the entity class
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void bind(A annotation, MetadataBuildingContext buildingContext, PersistentClass persistentClass);
 	/**
 	 * Perform some custom configuration of the model relating to the given annotated
@@ -68,5 +71,6 @@ public interface TypeBinder<A extends Annotation> {
 	 *                   {@link org.hibernate.annotations.TypeBinderType}
 	 * @param embeddableClass the embeddable class
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void bind(A annotation, MetadataBuildingContext buildingContext, Component embeddableClass);
 }

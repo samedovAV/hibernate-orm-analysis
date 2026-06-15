@@ -33,6 +33,8 @@ import org.hibernate.sql.results.graph.embeddable.EmbeddableResultGraphNode;
 import org.hibernate.sql.results.graph.embeddable.EmbeddableValuedFetchable;
 
 import static org.hibernate.internal.util.NullnessUtil.castNonNull;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -121,37 +123,44 @@ public class EmbeddableFetchImpl extends AbstractFetchParent
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchTiming getTiming() {
 		return fetchTiming;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasTableGroup() {
 		return hasTableGroup;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchParent getFetchParent() {
 		return fetchParent;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableMappingType getFetchContainer() {
 		return this.fetchContainer;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableValuedModelPart getReferencedMappingContainer() {
 		return getFetchContainer().getEmbeddedValueMapping();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Fetchable getFetchedMapping() {
 		return getReferencedMappingContainer();
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public NavigablePath resolveNavigablePath(Fetchable fetchable) {
 		if ( fetchable instanceof TableGroupProducer ) {
 			for ( var tableGroupJoin : tableGroup.getTableGroupJoins() ) {
@@ -168,11 +177,13 @@ public class EmbeddableFetchImpl extends AbstractFetchParent
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableMappingType getReferencedMappingType() {
 		return getFetchContainer();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResultAssembler<?> createAssembler(
 			InitializerParent<?> parent,
 			AssemblerCreationState creationState) {
@@ -182,6 +193,7 @@ public class EmbeddableFetchImpl extends AbstractFetchParent
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Initializer<?> createInitializer(
 			EmbeddableFetchImpl resultGraphNode,
 			InitializerParent<?> parent,
@@ -190,11 +202,13 @@ public class EmbeddableFetchImpl extends AbstractFetchParent
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableInitializer<?> createInitializer(InitializerParent<?> parent, AssemblerCreationState creationState) {
 		return new EmbeddableInitializerImpl( this, discriminatorFetch, nullIndicatorResult, parent, creationState, true );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean appliesTo(GraphImplementor<?> graphImplementor, JpaMetamodel metamodel) {
 		// We use managedType here since this fetch could correspond
 		// to an entity type if the embeddable is an @IdClass
@@ -203,16 +217,19 @@ public class EmbeddableFetchImpl extends AbstractFetchParent
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchParent asFetchParent() {
 		return this;
 	}
 
 	// Used by Hibernate Reactive
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected BasicFetch<?> getDiscriminatorFetch() {
 		return discriminatorFetch;
 	}
 
 	// Used by Hibernate Reactive
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected @Nullable DomainResult<Boolean> getNullIndicatorResult() {
 		return nullIndicatorResult;
 	}

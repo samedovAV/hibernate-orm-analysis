@@ -9,6 +9,8 @@ import org.hibernate.ObjectNotFoundException;
 import org.hibernate.proxy.EntityNotFoundDelegate;
 
 import java.io.Serializable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class JpaEntityNotFoundDelegate implements EntityNotFoundDelegate, Serializable {
 	/**
@@ -16,6 +18,7 @@ public class JpaEntityNotFoundDelegate implements EntityNotFoundDelegate, Serial
 	 */
 	public static final JpaEntityNotFoundDelegate INSTANCE = new JpaEntityNotFoundDelegate();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleEntityNotFound(String entityName, Object identifier) {
 		final var exception = new ObjectNotFoundException( entityName, identifier );
 		throw new EntityNotFoundException( exception.getMessage(), exception );

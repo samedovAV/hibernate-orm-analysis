@@ -11,6 +11,8 @@ import org.hibernate.dialect.DB2Dialect;
 import org.hibernate.mapping.Table;
 
 import static java.util.Collections.emptySet;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gavin King
@@ -22,21 +24,25 @@ public class DB2TemporalTableSupport extends DefaultTemporalTableSupport {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getTemporalColumnPrecision() {
 		return 12; // required!
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsNativeTemporalTables() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsTemporalTablePartitioning() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getExtraTemporalTableDeclarations(
 			TemporalTableStrategy strategy,
 			String rowStartColumn, String rowEndColumn,
@@ -55,6 +61,7 @@ public class DB2TemporalTableSupport extends DefaultTemporalTableSupport {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getTemporalTableOptions(
 			TemporalTableStrategy strategy,
 			String rowEndColumnName,
@@ -69,6 +76,7 @@ public class DB2TemporalTableSupport extends DefaultTemporalTableSupport {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addTemporalTableAuxiliaryObjects(
 			TemporalTableStrategy strategy,
 			Table table, Database database,
@@ -94,6 +102,7 @@ public class DB2TemporalTableSupport extends DefaultTemporalTableSupport {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TemporalTableStrategy getDefaultTemporalTableStrategy() {
 		return TemporalTableStrategy.NATIVE;
 	}

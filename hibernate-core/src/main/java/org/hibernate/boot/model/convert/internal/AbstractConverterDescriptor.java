@@ -18,6 +18,8 @@ import java.lang.reflect.Type;
 
 import static org.hibernate.internal.util.GenericsHelper.erasedType;
 import static org.hibernate.internal.util.GenericsHelper.typeArguments;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -40,6 +42,7 @@ abstract class AbstractConverterDescriptor<X,Y> implements ConverterDescriptor<X
 		autoApplicableDescriptor = resolveAutoApplicableDescriptor( converterClass, forceAutoApply );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private AutoApplicableConverterDescriptor resolveAutoApplicableDescriptor(
 			Class<? extends AttributeConverter<?,?>> converterClass,
 			Boolean forceAutoApply) {
@@ -48,6 +51,7 @@ abstract class AbstractConverterDescriptor<X,Y> implements ConverterDescriptor<X
 				: AutoApplicableConverterDescriptorBypassedImpl.INSTANCE;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isAutoApply(Class<? extends AttributeConverter<?, ?>> converterClass, Boolean forceAutoApply) {
 		if ( forceAutoApply != null ) {
 			// if the caller explicitly specified whether to auto-apply, honor that
@@ -61,26 +65,31 @@ abstract class AbstractConverterDescriptor<X,Y> implements ConverterDescriptor<X
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends AttributeConverter<X,Y>> getAttributeConverterClass() {
 		return converterClass;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Type getDomainValueResolvedType() {
 		return domainType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Type getRelationalValueResolvedType() {
 		return jdbcType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AutoApplicableConverterDescriptor getAutoApplyDescriptor() {
 		return autoApplicableDescriptor;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JpaAttributeConverter<X,Y> createJpaAttributeConverter(JpaAttributeConverterCreationContext context) {
 		return new AttributeConverterBean<>(
 				createManagedBean( context ),
@@ -92,15 +101,18 @@ abstract class AbstractConverterDescriptor<X,Y> implements ConverterDescriptor<X
 	}
 
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Class<Y> getRelationalClass() {
 		return (Class<Y>) erasedType( getRelationalValueResolvedType() );
 	}
 
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Class<X> getDomainClass() {
 		return (Class<X>) erasedType( getDomainValueResolvedType() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract ManagedBean<? extends AttributeConverter<X,Y>>
 	createManagedBean(JpaAttributeConverterCreationContext context);
 }

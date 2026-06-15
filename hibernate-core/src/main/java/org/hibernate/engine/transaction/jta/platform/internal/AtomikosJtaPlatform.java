@@ -9,6 +9,8 @@ import jakarta.transaction.UserTransaction;
 
 import org.hibernate.boot.registry.classloading.spi.ClassLoaderService;
 import org.hibernate.engine.transaction.jta.platform.spi.JtaPlatformException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Vlad Mihalcea
@@ -17,6 +19,7 @@ public class AtomikosJtaPlatform extends AbstractJtaPlatform {
 	public static final String TM_CLASS_NAME = "com.atomikos.icatch.jta.UserTransactionManager";
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected TransactionManager locateTransactionManager() {
 		try {
 			return (TransactionManager) serviceRegistry()
@@ -30,6 +33,7 @@ public class AtomikosJtaPlatform extends AbstractJtaPlatform {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected UserTransaction locateUserTransaction() {
 		return (UserTransaction) jndiService().locate( "java:comp/UserTransaction" );
 	}

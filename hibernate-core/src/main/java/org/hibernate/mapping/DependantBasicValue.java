@@ -5,6 +5,8 @@
 package org.hibernate.mapping;
 
 import org.hibernate.boot.spi.MetadataBuildingContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -35,11 +37,13 @@ public class DependantBasicValue extends BasicValue {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DependantBasicValue copy() {
 		return new DependantBasicValue( this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Resolution<?> buildResolution() {
 		return referencedValue.resolve();
 	}

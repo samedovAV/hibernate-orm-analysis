@@ -17,6 +17,8 @@ import org.hibernate.sql.model.ast.ColumnValueParameter;
 import org.hibernate.sql.model.ast.CustomSqlMutation;
 import org.hibernate.sql.model.ast.MutatingTableReference;
 import org.hibernate.sql.model.jdbc.JdbcInsertMutation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Insertion defined using custom sql-insert
@@ -36,31 +38,37 @@ public class TableInsertCustomSql extends AbstractTableInsert implements CustomS
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCustomSql() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getCustomSql() {
 		return getMutatingTable().getTableMapping().getInsertDetails().getCustomSql();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isCallable() {
 		return getMutatingTable().getTableMapping().getInsertDetails().isCallable();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<ColumnReference> getReturningColumns() {
 		return Collections.emptyList();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void forEachReturningColumn(BiConsumer<Integer, ColumnReference> consumer) {
 		// nothing to do
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker walker) {
 		walker.visitCustomTableInsert( this );
 	}

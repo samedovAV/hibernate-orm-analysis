@@ -9,20 +9,26 @@ import jakarta.annotation.Nullable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base contract for any SQM AST node caching.
  */
 public interface SqmCacheable {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isCompatible(Object object);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int cacheHashCode();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static boolean areCompatible(@Nullable SqmCacheable e1, @Nullable SqmCacheable e2) {
 		return e1 == null ? e2 == null : e2 != null && e1.isCompatible( e2 );
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	static boolean areCompatible(@Nullable Collection<? extends SqmCacheable> collection1, @Nullable Collection<? extends SqmCacheable> collection2) {
 		if ( collection1 == null ) {
 			return collection2 == null;
@@ -43,6 +49,7 @@ public interface SqmCacheable {
 		return false;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static boolean areCompatible(@Nullable List<? extends SqmCacheable> collection1, @Nullable List<? extends SqmCacheable> collection2) {
 		if ( collection1 == null ) {
 			return collection2 == null;
@@ -61,6 +68,7 @@ public interface SqmCacheable {
 		return false;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static <K> boolean areCompatible(@Nullable Map<K, ? extends SqmCacheable> collection1, @Nullable Map<K, ? extends SqmCacheable> collection2) {
 		if ( collection1 == null ) {
 			return collection2 == null;
@@ -80,10 +88,12 @@ public interface SqmCacheable {
 		return false;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static int cacheHashCode(@Nullable SqmCacheable e1) {
 		return e1 == null ? 0 : e1.cacheHashCode();
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	static int cacheHashCode(@Nullable Collection<? extends SqmCacheable> collection) {
 		if ( collection == null ) {
 			return 0;
@@ -95,6 +105,7 @@ public interface SqmCacheable {
 		return result;
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	static int cacheHashCode(@Nullable Map<?, ? extends SqmCacheable> map) {
 		if ( map == null ) {
 			return 0;

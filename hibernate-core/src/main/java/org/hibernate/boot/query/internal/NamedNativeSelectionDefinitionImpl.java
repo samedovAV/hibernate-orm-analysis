@@ -31,6 +31,8 @@ import static org.hibernate.boot.query.internal.Helper.extractHints;
 import static org.hibernate.internal.util.StringHelper.nullIfEmpty;
 import static org.hibernate.internal.util.collections.ArrayHelper.isEmpty;
 import static org.hibernate.internal.util.collections.CollectionHelper.setOf;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Boot-time model of a named native selection query.
 ///
@@ -93,38 +95,45 @@ public class NamedNativeSelectionDefinitionImpl<R> extends AbstractNamedSelectio
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSqlQueryString() {
 		return sqlString;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getQueryString() {
 		return getSqlQueryString();
 	}
 
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<R> getResultType() {
 		return resultType;
 	}
 
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getEntityGraphName() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getResultSetMappingName() {
 		return resultSetMappingName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Set<String> getQuerySpaces() {
 		return querySpaces;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NamedNativeQueryMemento<R> resolve(SessionFactoryImplementor factory) {
 		return new NativeSelectionMementoImpl<>(
 				name,
@@ -154,6 +163,7 @@ public class NamedNativeSelectionDefinitionImpl<R> extends AbstractNamedSelectio
 	///
 	/// @param annotation The annotation.
 	/// @param location Where the annotation was found.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static NamedNativeSelectionDefinitionImpl<?> from(NamedNativeQuery annotation, AnnotationTarget location) {
 		return new NamedNativeSelectionDefinitionImpl<>(
 				annotation.name(),
@@ -180,6 +190,7 @@ public class NamedNativeSelectionDefinitionImpl<R> extends AbstractNamedSelectio
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static FlushMode interpret(QueryFlushMode queryFlushMode) {
 		if ( queryFlushMode == QueryFlushMode.DEFAULT ) {
 			return null;
@@ -195,10 +206,12 @@ public class NamedNativeSelectionDefinitionImpl<R> extends AbstractNamedSelectio
 	///
 	/// @param annotation The annotation.
 	/// @param location Where the annotation was found.
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static NamedNativeSelectionDefinitionImpl<?> from(jakarta.persistence.NamedNativeQuery annotation, AnnotationTarget location) {
 		return from( annotation, location, annotation.resultSetMapping() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static NamedNativeSelectionDefinitionImpl<?> from(
 			jakarta.persistence.NamedNativeQuery annotation,
 			AnnotationTarget location,
@@ -228,6 +241,7 @@ public class NamedNativeSelectionDefinitionImpl<R> extends AbstractNamedSelectio
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static NamedNativeSelectionDefinitionImpl<?> from(
 			String name,
 			SQLSelect sqlSelect,

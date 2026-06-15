@@ -6,6 +6,8 @@ package org.hibernate.sql.exec.spi;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Performs parameter value binding to a JDBC PreparedStatement.
@@ -20,6 +22,7 @@ public interface JdbcParameterBinder {
 	/**
 	 * Bind the appropriate value in the JDBC statement
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void bindParameterValue(
 			PreparedStatement statement,
 			int startPosition,

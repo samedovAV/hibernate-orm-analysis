@@ -16,6 +16,8 @@ import org.hibernate.sql.model.MutationOperationGroup;
 import org.hibernate.sql.model.MutationType;
 
 import static org.hibernate.sql.model.internal.MutationOperationGroupFactory.singleOperation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * {@link InsertRowsCoordinator} implementation for temporal collection tables
@@ -57,11 +59,13 @@ public class InsertRowsCoordinatorHistory implements InsertRowsCoordinator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionMutationTarget getMutationTarget() {
 		return mutationTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void insertRows(
 			PersistentCollection<?> collection,
 			Object id,
@@ -113,11 +117,13 @@ public class InsertRowsCoordinatorHistory implements InsertRowsCoordinator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private MutationOperationGroup createHistoryOperationGroup() {
 		final var operation = rowMutationOperations.getInsertRowOperation( getHistoryTableMapping() );
 		return operation == null ? null : singleOperation( MutationType.INSERT, mutationTarget, operation );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private CollectionTableMapping getHistoryTableMapping() {
 		if ( historyTableMapping == null ) {
 			final var temporalMapping = mutationTarget.getTargetPart().getTemporalMapping();
@@ -128,6 +134,7 @@ public class InsertRowsCoordinatorHistory implements InsertRowsCoordinator {
 		return historyTableMapping;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private HistoryCollectionRowMutationHelper getRowMutationHelper() {
 		if ( rowMutationHelper == null ) {
 			rowMutationHelper = new HistoryCollectionRowMutationHelper(

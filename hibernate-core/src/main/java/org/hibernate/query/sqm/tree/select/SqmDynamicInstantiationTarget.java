@@ -8,6 +8,8 @@ package org.hibernate.query.sqm.tree.select;
 import org.hibernate.query.sqm.DynamicInstantiationNature;
 import org.hibernate.query.sqm.SqmExpressible;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents the thing-to-be-instantiated in a dynamic instantiation expression.  Hibernate
@@ -22,8 +24,10 @@ public interface SqmDynamicInstantiationTarget<T> extends SqmExpressible<T> {
 	 *
 	 * @return The nature of this target.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	DynamicInstantiationNature getNature();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JavaType<T> getTargetTypeDescriptor();
 
 	/**
@@ -33,6 +37,7 @@ public interface SqmDynamicInstantiationTarget<T> extends SqmExpressible<T> {
 	 *
 	 * @return The type to be instantiated.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Class<T> getJavaType() {
 		return getTargetTypeDescriptor().getJavaTypeClass();
 	}

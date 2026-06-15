@@ -19,6 +19,8 @@ import org.hibernate.type.spi.TypeConfiguration;
 import java.util.List;
 
 import static org.hibernate.query.sqm.produce.function.FunctionParameterType.STRING;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Emulates the ANSI SQL-standard {@code position()} function using {@code locate()}.
@@ -39,6 +41,7 @@ public class LocatePositionEmulation extends AbstractSqmFunctionDescriptor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected <T> SelfRenderingSqmFunction<T> generateSqmFunctionExpression(
 			List<? extends SqmTypedNode<?>> arguments,
 			ReturnableType<T> impliedResultType,
@@ -48,6 +51,7 @@ public class LocatePositionEmulation extends AbstractSqmFunctionDescriptor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getArgumentListSignature() {
 		return "(STRING pattern in STRING string)";
 	}

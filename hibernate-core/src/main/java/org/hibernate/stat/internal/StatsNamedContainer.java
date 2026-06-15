@@ -13,6 +13,8 @@ import org.hibernate.internal.util.collections.BoundedConcurrentHashMap;
 import jakarta.annotation.Nullable;
 
 import static org.hibernate.internal.util.collections.BoundedConcurrentHashMap.Eviction.LRU;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Decorates a ConcurrentHashMap implementation to make sure the methods are being
@@ -43,6 +45,7 @@ public final class StatsNamedContainer<V> {
 		this.map = new ConcurrentHashMap<>(  );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void clear() {
 		map.clear();
 	}
@@ -52,6 +55,7 @@ public final class StatsNamedContainer<V> {
 	 * only to get a recent snapshot.
 	 * @return all keys in string form.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] keysAsArray() {
 		return map.keySet().toArray( new String[0] );
 	}
@@ -66,6 +70,7 @@ public final class StatsNamedContainer<V> {
 	 * this guarantee, and prefer to reduce risk of blocking.
 	 */
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable V getOrCompute(final String key, final Function<String, V> function) {
 		final Object v1 = map.get( key );
 		if ( v1 != null ) {
@@ -92,6 +97,7 @@ public final class StatsNamedContainer<V> {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nullable V get(final String key) {
 		final Object o = map.get( key );
 		if ( o == NULL_TOKEN) {

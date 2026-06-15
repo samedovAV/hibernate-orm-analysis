@@ -7,6 +7,8 @@ package org.hibernate.tool.schema.extract.internal;
 import org.hibernate.boot.model.naming.Identifier;
 import org.hibernate.tool.schema.extract.spi.ColumnInformation;
 import org.hibernate.tool.schema.extract.spi.TableInformation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * JDBC column metadata
@@ -42,40 +44,48 @@ public class ColumnInformationImpl implements ColumnInformation {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableInformation getContainingTableInformation() {
 		return containingTableInformation;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Identifier getColumnIdentifier() {
 		return columnIdentifier;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getTypeCode() {
 		return typeCode;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getTypeName() {
 		return typeName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getColumnSize() {
 		return columnSize;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getDecimalDigits() {
 		return decimalDigits;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Boolean getNullable() {
 		return nullable;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "ColumnInformation(" + columnIdentifier + ')';
 	}

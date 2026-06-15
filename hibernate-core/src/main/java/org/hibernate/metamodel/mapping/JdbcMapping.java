@@ -13,6 +13,8 @@ import org.hibernate.type.descriptor.converter.spi.BasicValueConverter;
 import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.descriptor.jdbc.JdbcLiteralFormatter;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Describes the mapping for things which can be expressed in a SQL query.
@@ -54,26 +56,31 @@ public interface JdbcMapping extends MappingType, JdbcMappingContainer {
 	 * The descriptor for the Java type represented by this
 	 * expressible type
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JavaType<?> getJavaTypeDescriptor();
 
 	/**
 	 * The descriptor for the SQL type represented by this
 	 * expressible type
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcType getJdbcType();
 
 	/**
 	 * The strategy for extracting values of this expressible
 	 * type from JDBC ResultSets, CallableStatements, etc
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ValueExtractor<?> getJdbcValueExtractor();
 
 	/**
 	 * The strategy for binding values of this expressible type to
 	 * JDBC {@code PreparedStatement}s and {@code CallableStatement}s.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ValueBinder getJdbcValueBinder();
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default CastType getCastType() {
 		return getJdbcType().getCastType();
 	}
@@ -83,16 +90,19 @@ public interface JdbcMapping extends MappingType, JdbcMappingContainer {
 	 * a SQL literal.
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default JdbcLiteralFormatter getJdbcLiteralFormatter() {
 		return getJdbcType().getJdbcLiteralFormatter( getMappedJavaType() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default JavaType<?> getMappedJavaType() {
 		return getJavaTypeDescriptor();
 	}
 
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default JavaType<?> getJdbcJavaType() {
 		return getJavaTypeDescriptor();
 	}
@@ -102,6 +112,7 @@ public interface JdbcMapping extends MappingType, JdbcMappingContainer {
 	 * or <code>null</code> if there is no conversion.
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default BasicValueConverter<?,?> getValueConverter() {
 		return null;
 	}
@@ -109,6 +120,7 @@ public interface JdbcMapping extends MappingType, JdbcMappingContainer {
 	//TODO: would it be better to just give JdbcMapping a
 	//      noop converter by default, instead of having
 	//      to deal with null here?
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <T> Object convertToRelationalValue(T value) {
 		final var converter = getValueConverter();
 		if ( converter == null ) {
@@ -123,6 +135,7 @@ public interface JdbcMapping extends MappingType, JdbcMappingContainer {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <T> Object convertToDomainValue(T value) {
 		var converter = getValueConverter();
 		if ( converter == null ) {
@@ -138,11 +151,13 @@ public interface JdbcMapping extends MappingType, JdbcMappingContainer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int getJdbcTypeCount() {
 		return 1;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default JdbcMapping getJdbcMapping(int index) {
 		if ( index != 0 ) {
 			throw new IndexOutOfBoundsException( index );
@@ -151,17 +166,20 @@ public interface JdbcMapping extends MappingType, JdbcMappingContainer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default JdbcMapping getSingleJdbcMapping() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int forEachJdbcType(IndexedConsumer<JdbcMapping> action) {
 		action.accept( 0, this );
 		return 1;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int forEachJdbcType(int offset, IndexedConsumer<JdbcMapping> action) {
 		action.accept( 0, this );
 		return 1;

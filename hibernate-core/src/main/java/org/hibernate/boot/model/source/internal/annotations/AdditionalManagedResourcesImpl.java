@@ -27,6 +27,8 @@ import static java.util.Collections.addAll;
 import static java.util.Collections.emptyList;
 import static org.hibernate.boot.jaxb.SourceType.OTHER;
 import static org.hibernate.internal.util.collections.CollectionHelper.isNotEmpty;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -49,16 +51,19 @@ public class AdditionalManagedResourcesImpl implements ManagedResources {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Collection<ConverterDescriptor<?,?>> getAttributeConverterDescriptors() {
 		return emptyList();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Collection<Class<?>> getAnnotatedClassReferences() {
 		return knownClasses == null ? emptyList() : knownClasses;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Collection<String> getAnnotatedClassNames() {
 		if ( isNotEmpty( classDetails ) ) {
 			return classDetails.stream().map( ClassDetails::getName ).toList();
@@ -67,11 +72,13 @@ public class AdditionalManagedResourcesImpl implements ManagedResources {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Collection<String> getAnnotatedPackageNames() {
 		return packageNames == null ? emptyList() : packageNames;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Collection<Binding<? extends JaxbBindableMappingDescriptor>> getXmlMappingBindings() {
 		if ( xmlMappings == null ) {
 			return emptyList();
@@ -80,6 +87,7 @@ public class AdditionalManagedResourcesImpl implements ManagedResources {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, Class<?>> getExtraQueryImports() {
 		return Collections.emptyMap();
 	}
@@ -100,6 +108,7 @@ public class AdditionalManagedResourcesImpl implements ManagedResources {
 			this( new StandardServiceRegistryBuilder().build() );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder addLoadedClasses(List<Class<?>> additionalClasses) {
 			if ( additionalClasses != null ) {
 				if ( classes == null ) {
@@ -110,6 +119,7 @@ public class AdditionalManagedResourcesImpl implements ManagedResources {
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder addLoadedClasses(Class<?>... additionalClasses) {
 			if ( classes == null ) {
 				classes = new ArrayList<>();
@@ -118,6 +128,7 @@ public class AdditionalManagedResourcesImpl implements ManagedResources {
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder addClassDetails(List<ClassDetails> additionalClassDetails) {
 			if ( additionalClassDetails != null ) {
 				if ( classDetails == null ) {
@@ -128,6 +139,7 @@ public class AdditionalManagedResourcesImpl implements ManagedResources {
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder addPackages(String... additionalPackageNames) {
 			if ( packageNames == null ) {
 				packageNames = new ArrayList<>();
@@ -136,18 +148,22 @@ public class AdditionalManagedResourcesImpl implements ManagedResources {
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public ManagedResources build() {
 			return new AdditionalManagedResourcesImpl( classes, classDetails, packageNames, xmlMappings );
 		}
 
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public Builder addXmlMappings(String resourceName) {
 			return addXmlMappings( resourceName, new Origin( SourceType.RESOURCE, resourceName ) );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder addXmlMappings(String resourceName, Origin origin) {
 			return addXmlBinding( mappingBinder.bind( getResourceAsStream( resourceName ), origin ) );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder addXmlBinding(Binding<JaxbBindableMappingDescriptor> binding) {
 			if ( xmlMappings == null ) {
 				xmlMappings = new ArrayList<>();
@@ -156,6 +172,7 @@ public class AdditionalManagedResourcesImpl implements ManagedResources {
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public void addJaxbEntityMappings(List<JaxbEntityMappingsImpl> additionalJaxbMappings) {
 			if ( additionalJaxbMappings != null ) {
 				for ( var additionalJaxbMapping : additionalJaxbMappings ) {
@@ -164,6 +181,7 @@ public class AdditionalManagedResourcesImpl implements ManagedResources {
 			}
 		}
 
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		private static InputStream getResourceAsStream(String resourceName) {
 			return Builder.class.getClassLoader().getResourceAsStream( resourceName );
 		}

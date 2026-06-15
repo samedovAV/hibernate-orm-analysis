@@ -7,6 +7,8 @@ package org.hibernate.usertype;
 import org.hibernate.Incubating;
 
 import java.lang.annotation.Annotation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -51,5 +53,6 @@ public interface AnnotationBasedUserType<A extends Annotation, J> extends UserTy
 	 * @throws org.hibernate.HibernateException in case an error occurred during initialization, e.g. if
 	 *                                          an implementation can't create a value for the given property type.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void initialize(A annotation, UserTypeCreationContext context);
 }

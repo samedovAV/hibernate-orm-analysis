@@ -13,6 +13,8 @@ import org.hibernate.sql.model.ast.builder.TableInsertBuilderStandard;
 import org.hibernate.sql.model.ast.builder.TableMutationBuilder;
 
 import static org.hibernate.cfg.AvailableSettings.USE_GET_GENERATED_KEYS;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Delegate for dealing with {@code IDENTITY} columns where the dialect requires an
@@ -27,6 +29,7 @@ public class BasicSelectingDelegate extends AbstractSelectingDelegate {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableMutationBuilder<?> createTableMutationBuilder(
 			Expectation expectation,
 			SessionFactoryImplementor factory) {
@@ -34,6 +37,7 @@ public class BasicSelectingDelegate extends AbstractSelectingDelegate {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getSelectSQL() {
 		final String identitySelectString = persister.getIdentitySelectString();
 		if ( identitySelectString == null

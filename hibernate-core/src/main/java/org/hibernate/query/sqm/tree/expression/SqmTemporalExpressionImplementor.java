@@ -10,40 +10,48 @@ import jakarta.annotation.Nonnull;
 import jakarta.persistence.criteria.Expression;
 import jakarta.persistence.criteria.TemporalField;
 import org.hibernate.query.sqm.internal.SqmCriteriaNodeBuilder;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
  */
 public interface SqmTemporalExpressionImplementor<T extends Temporal & Comparable<? super T>>
 		extends SqmComparableExpressionImplementor<T>, SqmTemporalExpression<T> {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqmCriteriaNodeBuilder nodeBuilder();
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default <N extends Number & Comparable<N>> SqmNumericExpression<N> extract(@Nonnull TemporalField<N, T> field) {
 		return new SqmNumericExpressionWrapper<>( nodeBuilder().extract( field, this ) );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default SqmTemporalExpression<T> coalesce(@Nonnull Expression<? extends T> y) {
 		return new SqmTemporalExpressionWrapper<>( nodeBuilder().coalesce( this, y ) );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default SqmTemporalExpression<T> coalesce(T y) {
 		return new SqmTemporalExpressionWrapper<>( nodeBuilder().coalesce( this, y ) );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default SqmTemporalExpression<T> nullif(@Nonnull Expression<? extends T> y) {
 		return new SqmTemporalExpressionWrapper<>( nodeBuilder().nullif( this, y ) );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default SqmTemporalExpression<T> nullif(T y) {
 		return new SqmTemporalExpressionWrapper<>( nodeBuilder().nullif( this, y ) );
 	}

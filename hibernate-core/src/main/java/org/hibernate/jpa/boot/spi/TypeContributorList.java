@@ -7,6 +7,8 @@ package org.hibernate.jpa.boot.spi;
 import java.util.List;
 
 import org.hibernate.boot.model.TypeContributor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An object that provides a list of {@link TypeContributor}s to the JPA persistence provider.
@@ -21,5 +23,6 @@ import org.hibernate.boot.model.TypeContributor;
  */
 @Deprecated(forRemoval = true)
 public interface TypeContributorList {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<TypeContributor> getTypeContributors();
 }

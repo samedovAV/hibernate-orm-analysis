@@ -7,6 +7,8 @@ package org.hibernate.sql.exec.spi;
 import java.util.List;
 
 import org.hibernate.sql.ast.tree.expression.JdbcParameter;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Conceptually similar to a List of JdbcParameters, but exposing a
@@ -18,14 +20,18 @@ public interface JdbcParametersList {
 
 	JdbcParametersList EMPTY = new JdbcParametersListMulti( new JdbcParameter[]{} );
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcParameter get(int selectionIndex);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int size();
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static Builder newBuilder() {
 		return newBuilder( 2 );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static JdbcParametersList fromList(final List<JdbcParameter> originalList) {
 		final Builder builder = newBuilder( originalList.size() );
 		for ( JdbcParameter element : originalList ) {
@@ -34,14 +40,17 @@ public interface JdbcParametersList {
 		return builder.build();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static JdbcParametersList empty() {
 		return EMPTY;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static JdbcParametersList singleton(final JdbcParameter p) {
 		return new JdbcParametersListSingleton( p );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static Builder newBuilder(final int i) {
 		return new Builder( i );
 	}
@@ -54,6 +63,7 @@ public interface JdbcParametersList {
 			this.array = new JdbcParameter[sizeEstimate];
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void add(final JdbcParameter jdbcParameter) {
 			if ( index >= array.length ) {
 				int newSize = Math.max( index + 2, array.length >> 1 );
@@ -64,6 +74,7 @@ public interface JdbcParametersList {
 			this.array[index++] = jdbcParameter;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public JdbcParametersList build() {
 			if ( index == 0 ) {
 				return EMPTY;
@@ -90,10 +101,12 @@ public interface JdbcParametersList {
 			this.array = inputArray;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public JdbcParameter get(int selectionIndex) {
 			return array[selectionIndex];
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public int size() {
 			return array.length;
 		}
@@ -107,6 +120,7 @@ public interface JdbcParametersList {
 			this.singleElement = singleElement;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public JdbcParameter get(int selectionIndex) {
 			if ( selectionIndex != 0 ) {
 				throw new ArrayIndexOutOfBoundsException( selectionIndex );
@@ -114,6 +128,7 @@ public interface JdbcParametersList {
 			return singleElement;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public int size() {
 			return 1;
 		}

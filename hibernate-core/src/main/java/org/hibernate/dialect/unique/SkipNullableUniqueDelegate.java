@@ -9,6 +9,8 @@ import org.hibernate.boot.model.relational.SqlStringGenerationContext;
 import org.hibernate.dialect.Dialect;
 import org.hibernate.mapping.Column;
 import org.hibernate.mapping.UniqueKey;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link UniqueDelegate} that only creates unique constraints on not-null columns, and ignores requests for
@@ -30,11 +32,13 @@ public class SkipNullableUniqueDelegate extends CreateTableUniqueDelegate {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getColumnDefinitionUniquenessFragment(Column column, SqlStringGenerationContext context) {
 		return column.isNullable() ? "" : super.getColumnDefinitionUniquenessFragment(column, context);
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void appendUniqueConstraint(StringBuilder fragment, UniqueKey uniqueKey) {
 		if ( !uniqueKey.hasNullableColumn() ) {
 			super.appendUniqueConstraint( fragment, uniqueKey );
@@ -42,11 +46,13 @@ public class SkipNullableUniqueDelegate extends CreateTableUniqueDelegate {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getAlterTableToAddUniqueKeyCommand(UniqueKey uniqueKey, Metadata metadata, SqlStringGenerationContext context) {
 		return uniqueKey.hasNullableColumn() ? "" : super.getAlterTableToAddUniqueKeyCommand( uniqueKey, metadata, context );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getAlterTableToDropUniqueKeyCommand(UniqueKey uniqueKey, Metadata metadata, SqlStringGenerationContext context) {
 		return uniqueKey.hasNullableColumn() ? "" : super.getAlterTableToDropUniqueKeyCommand( uniqueKey, metadata, context );
 	}

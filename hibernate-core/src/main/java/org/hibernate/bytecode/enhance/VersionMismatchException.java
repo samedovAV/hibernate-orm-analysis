@@ -9,6 +9,8 @@ import java.util.Locale;
 import org.hibernate.bytecode.enhance.spi.EnhancementException;
 
 import net.bytebuddy.description.type.TypeDescription;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Indicates that the version of Hibernate used to enhance
@@ -40,14 +42,17 @@ public class VersionMismatchException extends EnhancementException {
 		this.runtimeVersion = runtimeVersion;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getTypeName() {
 		return typeName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getEnhancementVersion() {
 		return enhancementVersion;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getRuntimeVersion() {
 		return runtimeVersion;
 	}

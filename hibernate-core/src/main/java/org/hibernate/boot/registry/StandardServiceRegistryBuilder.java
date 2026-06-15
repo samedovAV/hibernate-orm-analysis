@@ -28,6 +28,8 @@ import org.hibernate.service.internal.ProvidedService;
 import org.hibernate.service.spi.ServiceContributor;
 
 import static org.hibernate.boot.cfgxml.spi.CfgXmlAccessService.LOADED_CONFIG_KEY;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Builder for standard {@link ServiceRegistry} instances.
@@ -52,18 +54,21 @@ public class StandardServiceRegistryBuilder {
 	 *
 	 * @see org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static StandardServiceRegistryBuilder forJpa(BootstrapServiceRegistry bootstrapServiceRegistry) {
 		return new StandardServiceRegistryBuilder(
 				bootstrapServiceRegistry,
 				new HashMap<>(),
 				new LoadedConfig( null ) {
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					protected void addConfigurationValues(Map<String,Object> configurationValues) {
 						// here, do nothing
 					}
 				}
 		) {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public StandardServiceRegistryBuilder configure(LoadedConfig loadedConfig) {
 				getAggregatedCfgXml().merge( loadedConfig );
 				// super also collects the properties - here we skip that part
@@ -156,6 +161,7 @@ public class StandardServiceRegistryBuilder {
 		this.initiators = standardInitiatorList();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ConfigLoader getConfigLoader() {
 		return configLoader;
 	}
@@ -163,6 +169,7 @@ public class StandardServiceRegistryBuilder {
 	/**
 	 * Intended for internal testing use only!!
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LoadedConfig getAggregatedCfgXml() {
 		return aggregatedCfgXml;
 	}
@@ -172,10 +179,12 @@ public class StandardServiceRegistryBuilder {
 	 *
 	 * @return List of standard initiators
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static List<StandardServiceInitiator<?>> standardInitiatorList() {
 		return new ArrayList<>( StandardServiceInitiators.LIST );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BootstrapServiceRegistry getBootstrapServiceRegistry() {
 		return bootstrapServiceRegistry;
 	}
@@ -194,6 +203,7 @@ public class StandardServiceRegistryBuilder {
 	 * @see #configure()
 	 * @see #configure(String)
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public StandardServiceRegistryBuilder loadProperties(String resourceName) {
 		settings.putAll( PropertiesHelper.map( configLoader.loadProperties( resourceName ) ) );
 		return this;
@@ -213,6 +223,7 @@ public class StandardServiceRegistryBuilder {
 	 * @see #configure()
 	 * @see #configure(String)
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public StandardServiceRegistryBuilder loadProperties(File file) {
 		settings.putAll( PropertiesHelper.map( configLoader.loadProperties( file ) ) );
 		return this;
@@ -227,6 +238,7 @@ public class StandardServiceRegistryBuilder {
 	 * @see #configure(String)
 	 * @see #loadProperties(String)
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public StandardServiceRegistryBuilder configure() {
 		return configure( DEFAULT_CFG_RESOURCE_NAME );
 	}
@@ -238,18 +250,22 @@ public class StandardServiceRegistryBuilder {
 	 *
 	 * @return this, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public StandardServiceRegistryBuilder configure(String resourceName) {
 		return configure( configLoader.loadConfigXmlResource( resourceName ) );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public StandardServiceRegistryBuilder configure(File configurationFile) {
 		return configure( configLoader.loadConfigXmlFile( configurationFile ) );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public StandardServiceRegistryBuilder configure(URL url) {
 		return configure( configLoader.loadConfigXmlUrl( url ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public StandardServiceRegistryBuilder configure(LoadedConfig loadedConfig) {
 		aggregatedCfgXml.merge( loadedConfig );
 		settings.putAll( loadedConfig.getConfigurationValues() );
@@ -265,6 +281,7 @@ public class StandardServiceRegistryBuilder {
 	 *
 	 * @return this, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public StandardServiceRegistryBuilder applySetting(String settingName, Object value) {
 		settings.put( settingName, value );
 		return this;
@@ -277,6 +294,7 @@ public class StandardServiceRegistryBuilder {
 	 *
 	 * @return this, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public StandardServiceRegistryBuilder applySettings(Map<String,Object> settings) {
 		this.settings.putAll( settings );
 		return this;
@@ -289,6 +307,7 @@ public class StandardServiceRegistryBuilder {
 	 *
 	 * @return this, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public StandardServiceRegistryBuilder applySettings(Properties settings) {
 		this.settings.putAll( PropertiesHelper.map(settings) );
 		return this;
@@ -297,6 +316,7 @@ public class StandardServiceRegistryBuilder {
 	/**
 	 * Discard all the settings applied so far.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public StandardServiceRegistryBuilder clearSettings() {
 		settings.clear();
 		return this;
@@ -309,6 +329,7 @@ public class StandardServiceRegistryBuilder {
 	 *
 	 * @return this, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public StandardServiceRegistryBuilder addInitiator(StandardServiceInitiator<?> initiator) {
 		initiators.add( initiator );
 		return this;
@@ -322,6 +343,7 @@ public class StandardServiceRegistryBuilder {
 	 *
 	 * @return this, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T extends Service> StandardServiceRegistryBuilder addService(Class<T> serviceRole, T service) {
 		providedServices.add( new ProvidedService<>( serviceRole, service ) );
 		return this;
@@ -337,6 +359,7 @@ public class StandardServiceRegistryBuilder {
 	 *
 	 * @return this, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public StandardServiceRegistryBuilder disableAutoClose() {
 		autoCloseRegistry = false;
 		return this;
@@ -347,6 +370,7 @@ public class StandardServiceRegistryBuilder {
 	 *
 	 * @return this, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public StandardServiceRegistryBuilder enableAutoClose() {
 		autoCloseRegistry = true;
 		return this;
@@ -357,6 +381,7 @@ public class StandardServiceRegistryBuilder {
 	 *
 	 * @return A newly-instantiated {@link StandardServiceRegistry}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public StandardServiceRegistry build() {
 		applyServiceContributors();
 
@@ -373,6 +398,7 @@ public class StandardServiceRegistryBuilder {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void applyServiceContributors() {
 		final Iterable<ServiceContributor> serviceContributors =
 				bootstrapServiceRegistry.requireService( ClassLoaderService.class )
@@ -387,6 +413,7 @@ public class StandardServiceRegistryBuilder {
 	 * Obtain the current aggregated settings.
 	 */
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String,Object> getSettings() {
 		return settings;
 	}
@@ -398,6 +425,7 @@ public class StandardServiceRegistryBuilder {
 	 *
 	 * @param serviceRegistry The registry to be closed.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void destroy(ServiceRegistry serviceRegistry) {
 		if ( serviceRegistry != null ) {
 			( (StandardServiceRegistryImpl) serviceRegistry ).destroy();

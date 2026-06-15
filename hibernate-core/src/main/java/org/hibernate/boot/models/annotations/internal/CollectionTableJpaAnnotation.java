@@ -26,6 +26,8 @@ import static org.hibernate.boot.models.xml.internal.XmlAnnotationHelper.applySc
 import static org.hibernate.boot.models.xml.internal.XmlAnnotationHelper.collectCheckConstraints;
 import static org.hibernate.boot.models.xml.internal.XmlAnnotationHelper.collectIndexes;
 import static org.hibernate.boot.models.xml.internal.XmlAnnotationHelper.collectUniqueConstraints;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -95,118 +97,142 @@ public class CollectionTableJpaAnnotation implements CollectionTable, CommonTabl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return CollectionTable.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String name() {
 		return name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void name(String value) {
 		this.name = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String catalog() {
 		return catalog;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void catalog(String value) {
 		this.catalog = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String schema() {
 		return schema;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void schema(String value) {
 		this.schema = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String comment() {
 		return comment;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void comment(String comment) {
 		this.comment = comment;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.JoinColumn[] joinColumns() {
 		return joinColumns;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void joinColumns(jakarta.persistence.JoinColumn[] value) {
 		this.joinColumns = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.ForeignKey foreignKey() {
 		return foreignKey;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void foreignKey(jakarta.persistence.ForeignKey value) {
 		this.foreignKey = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.UniqueConstraint[] uniqueConstraints() {
 		return uniqueConstraints;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void uniqueConstraints(jakarta.persistence.UniqueConstraint[] value) {
 		this.uniqueConstraints = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.Index[] indexes() {
 		return indexes;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void indexes(jakarta.persistence.Index[] value) {
 		this.indexes = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CheckConstraint[] check() {
 		return check;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void check(CheckConstraint[] check) {
 		this.check = check;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String type() {
 		return type;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void type(String value) {
 		this.type = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String options() {
 		return options;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void options(String value) {
 		this.options = value;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void apply(JaxbCollectionTableImpl jaxbTable, XmlDocumentContext xmlDocumentContext) {
 		applyOptionalString( jaxbTable.getName(), this::name );
 		applyCatalog( jaxbTable, this, xmlDocumentContext );

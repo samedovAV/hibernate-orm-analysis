@@ -11,6 +11,8 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.proxy.HibernateProxy;
 import org.hibernate.proxy.ProxyFactory;
 import org.hibernate.type.CompositeType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gavin King
@@ -19,6 +21,7 @@ public class MapProxyFactory implements ProxyFactory {
 
 	private String entityName;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void postInstantiate(
 			final String entityName,
 			final Class<?> persistentClass,
@@ -30,6 +33,7 @@ public class MapProxyFactory implements ProxyFactory {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernateProxy getProxy(final Object id, final SharedSessionContractImplementor session) {
 		return new MapProxy( new MapLazyInitializer( entityName, id, session ) );
 	}

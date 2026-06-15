@@ -7,6 +7,8 @@ package org.hibernate.proxy.map;
 import org.hibernate.proxy.AbstractSerializableProxy;
 
 import java.io.Serial;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public final class SerializableMapProxy extends AbstractSerializableProxy {
 
@@ -21,6 +23,7 @@ public final class SerializableMapProxy extends AbstractSerializableProxy {
 	}
 
 	@Serial
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Object readResolve() {
 		final var initializer = new MapLazyInitializer( getEntityName(), getId(), null );
 		afterDeserialization( initializer );

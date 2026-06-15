@@ -7,6 +7,8 @@ package org.hibernate.tool.schema.spi;
 import java.util.EnumSet;
 
 import org.hibernate.tool.schema.TargetType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Describes the target(s) of schema create, drop and migrate actions.
@@ -25,6 +27,7 @@ public interface TargetDescriptor {
 	 *
 	 * @return The target type.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EnumSet<TargetType> getTargetTypes();
 
 	/**
@@ -37,5 +40,6 @@ public interface TargetDescriptor {
 	 *
 	 * @return The script output target
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ScriptTargetOutput getScriptTargetOutput();
 }

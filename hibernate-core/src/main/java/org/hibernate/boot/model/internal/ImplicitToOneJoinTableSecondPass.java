@@ -20,6 +20,8 @@ import jakarta.persistence.JoinTable;
 import static org.hibernate.boot.model.internal.ToOneBinder.getReferenceEntityName;
 import static org.hibernate.internal.util.StringHelper.isEmpty;
 import static org.hibernate.internal.util.StringHelper.isNotBlank;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * For {@link jakarta.persistence.ManyToOne} and {@link jakarta.persistence.OneToOne}
@@ -61,6 +63,7 @@ public class ImplicitToOneJoinTableSecondPass implements SecondPass {
 	//	     the second pass. The problem is that there is some quite involved
 	//	     logic in TableBinder that isn't set up for that.
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void inferJoinTableName(TableBinder tableBinder, Map<String, PersistentClass> persistentClasses) {
 		if ( isEmpty( tableBinder.getName() ) ) {
 			final var owner = propertyHolder.getPersistentClass();
@@ -81,6 +84,7 @@ public class ImplicitToOneJoinTableSecondPass implements SecondPass {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private TableBinder createTableBinder() {
 		final var tableBinder = new TableBinder();
 		tableBinder.setBuildingContext( context );
@@ -109,6 +113,7 @@ public class ImplicitToOneJoinTableSecondPass implements SecondPass {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void doSecondPass(Map<String, PersistentClass> persistentClasses) {
 		final var tableBinder = createTableBinder();
 		inferJoinTableName( tableBinder, persistentClasses );

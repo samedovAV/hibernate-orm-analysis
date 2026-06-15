@@ -5,6 +5,8 @@
 package org.hibernate.metamodel.mapping.internal;
 
 import org.hibernate.mapping.Collection;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Defines the ability to perform post-creation processing for collection mappings.
@@ -20,5 +22,6 @@ public interface InFlightCollectionMapping {
 	 * the mapping model to be prepared, which includes creating attribute mapping
 	 * descriptors, identifier mapping descriptor, and so on.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void prepareMappingModel(MappingModelCreationProcess creationProcess, Collection bootCollectionDescriptor);
 }

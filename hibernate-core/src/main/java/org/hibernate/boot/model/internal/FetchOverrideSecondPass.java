@@ -12,6 +12,8 @@ import org.hibernate.boot.spi.MetadataBuildingContext;
 import org.hibernate.boot.spi.SecondPass;
 import org.hibernate.mapping.FetchProfile;
 import org.hibernate.mapping.PersistentClass;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Hardy Ferentschik
@@ -31,6 +33,7 @@ public class FetchOverrideSecondPass implements SecondPass {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void doSecondPass(Map<String, PersistentClass> persistentClasses) throws MappingException {
 		final var collector = buildingContext.getMetadataCollector();
 		final Class<?> entityClass = fetch.entity();

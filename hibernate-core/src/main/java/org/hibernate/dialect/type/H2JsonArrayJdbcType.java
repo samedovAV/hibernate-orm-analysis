@@ -15,6 +15,8 @@ import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.descriptor.jdbc.BasicBinder;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
 import org.hibernate.type.descriptor.jdbc.JsonArrayJdbcType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * H2 requires binding JSON via {@code setBytes} methods.
@@ -26,14 +28,17 @@ public class H2JsonArrayJdbcType extends JsonArrayJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "H2JsonArrayJdbcType";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> ValueBinder<X> getBinder(JavaType<X> javaType) {
 		return new BasicBinder<>( javaType, this ) {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBind(PreparedStatement st, X value, int index, WrapperOptions options)
 					throws SQLException {
 				final String json = ( (H2JsonArrayJdbcType) getJdbcType() ).toString( value, getJavaType(), options );
@@ -41,6 +46,7 @@ public class H2JsonArrayJdbcType extends JsonArrayJdbcType {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBind(CallableStatement st, X value, String name, WrapperOptions options)
 					throws SQLException {
 				final String json = ( (H2JsonArrayJdbcType) getJdbcType() ).toString( value, getJavaType(), options );

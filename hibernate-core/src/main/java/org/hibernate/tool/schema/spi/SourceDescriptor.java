@@ -5,6 +5,8 @@
 package org.hibernate.tool.schema.spi;
 
 import org.hibernate.tool.schema.SourceType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Describes a source for schema create, drop and migrate actions.
@@ -25,6 +27,7 @@ public interface SourceDescriptor {
 	 *
 	 * @return The source type
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SourceType getSourceType();
 
 	/**
@@ -37,5 +40,6 @@ public interface SourceDescriptor {
 	 *
 	 * @return The script file to read.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ScriptSourceInput getScriptSourceInput();
 }

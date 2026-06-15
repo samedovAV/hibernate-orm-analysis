@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.hibernate.annotations.Temporal;
 import org.hibernate.models.spi.ModelsContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -47,24 +49,29 @@ public class HistoryPartitioningAnnotation implements Temporal.HistoryPartitioni
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return Temporal.HistoryPartitioning.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String currentPartition() {
 		return currentPartition;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void currentPartition(String value) {
 		this.currentPartition = value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String historyPartition() {
 		return historyPartition;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void historyPartition(String value) {
 		this.historyPartition = value;
 	}

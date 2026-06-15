@@ -23,6 +23,8 @@ import org.hibernate.sql.results.graph.embeddable.EmbeddableResult;
 import org.hibernate.sql.results.graph.embeddable.EmbeddableResultGraphNode;
 import org.hibernate.sql.results.graph.internal.ImmutableFetchList;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -73,6 +75,7 @@ public class EmbeddableExpressionResultImpl<T> extends AbstractFetchParent imple
 		this.containsAnyNonScalars = determineIfContainedAnyScalars( getFetches() );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static boolean determineIfContainedAnyScalars(ImmutableFetchList fetches) {
 		for ( var fetch : fetches ) {
 			if ( fetch.containsAnyNonScalarResults() ) {
@@ -84,36 +87,43 @@ public class EmbeddableExpressionResultImpl<T> extends AbstractFetchParent imple
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getResultVariable() {
 		return resultVariable;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean containsAnyNonScalarResults() {
 		return containsAnyNonScalars;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableMappingType getFetchContainer() {
 		return this.fetchContainer;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<?> getResultJavaType() {
 		return getReferencedMappingType().getJavaType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableMappingType getReferencedMappingType() {
 		return getFetchContainer();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableValuedModelPart getReferencedMappingContainer() {
 		return getFetchContainer().getEmbeddedValueMapping();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResultAssembler<T> createResultAssembler(
 			InitializerParent<?> parent,
 			AssemblerCreationState creationState) {
@@ -122,6 +132,7 @@ public class EmbeddableExpressionResultImpl<T> extends AbstractFetchParent imple
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Initializer<?> createInitializer(
 			EmbeddableExpressionResultImpl<T> resultGraphNode,
 			InitializerParent<?> parent,
@@ -130,6 +141,7 @@ public class EmbeddableExpressionResultImpl<T> extends AbstractFetchParent imple
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Initializer<?> createInitializer(InitializerParent<?> parent, AssemblerCreationState creationState) {
 		return new EmbeddableInitializerImpl( this, null, null, parent, creationState, true );
 	}

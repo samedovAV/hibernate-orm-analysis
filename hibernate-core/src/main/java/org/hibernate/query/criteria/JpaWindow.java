@@ -9,6 +9,8 @@ import org.hibernate.query.common.FrameExclusion;
 
 import jakarta.persistence.criteria.Expression;
 import jakarta.persistence.criteria.Order;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Common contract for window parts used in window and aggregate functions.
@@ -24,6 +26,7 @@ public interface JpaWindow {
 	 *
 	 * @return the modified window
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaWindow partitionBy(Expression<?>... expressions);
 
 	/**
@@ -33,6 +36,7 @@ public interface JpaWindow {
 	 *
 	 * @return the modified window
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaWindow orderBy(Order... expressions);
 
 	/**
@@ -44,6 +48,7 @@ public interface JpaWindow {
 	 *
 	 * @return the modified window
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaWindow frameRows(JpaWindowFrame startFrame, JpaWindowFrame endFrame);
 
 	/**
@@ -55,6 +60,7 @@ public interface JpaWindow {
 	 *
 	 * @return the modified window
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaWindow frameRange(JpaWindowFrame startFrame, JpaWindowFrame endFrame);
 
 	/**
@@ -66,6 +72,7 @@ public interface JpaWindow {
 	 *
 	 * @return the modified window
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaWindow frameGroups(JpaWindowFrame startFrame, JpaWindowFrame endFrame);
 
 	/**
@@ -75,5 +82,6 @@ public interface JpaWindow {
 	 *
 	 * @return the modified window
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaWindow frameExclude(FrameExclusion frameExclusion);
 }

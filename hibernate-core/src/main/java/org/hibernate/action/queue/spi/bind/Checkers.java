@@ -16,12 +16,15 @@ import org.hibernate.sql.model.MutationTarget;
 import org.hibernate.stat.spi.StatisticsImplementor;
 
 import java.util.Locale;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// @author Steve Ebersole
 /// @since 8.0
 @Incubating
 public class Checkers {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean identifiedResultsCheck(
 			Expectation expectation,
 			int affectedRowCount,

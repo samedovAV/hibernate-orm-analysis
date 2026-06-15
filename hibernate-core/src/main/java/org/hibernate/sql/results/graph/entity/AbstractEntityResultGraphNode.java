@@ -22,6 +22,8 @@ import org.hibernate.sql.results.graph.basic.BasicResult;
 import org.hibernate.type.descriptor.java.JavaType;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * AbstractFetchParent sub-class for entity-valued graph nodes
@@ -41,6 +43,7 @@ public abstract class AbstractEntityResultGraphNode extends AbstractFetchParent 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void afterInitialize(FetchParent fetchParent, DomainResultCreationState creationState) {
 		final var navigablePath = getNavigablePath();
 		final var entityTableGroup =
@@ -59,6 +62,7 @@ public abstract class AbstractEntityResultGraphNode extends AbstractFetchParent 
 		super.afterInitialize( fetchParent, creationState );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private DomainResult<Object> rowIdResult(
 			DomainResultCreationState creationState,
 			NavigablePath navigablePath,
@@ -79,6 +83,7 @@ public abstract class AbstractEntityResultGraphNode extends AbstractFetchParent 
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Fetch identifierFetch(
 			DomainResultCreationState creationState,
 			EntityResultGraphNode entityResultGraphNode,
@@ -94,6 +99,7 @@ public abstract class AbstractEntityResultGraphNode extends AbstractFetchParent 
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private @Nullable DomainResult<?> auditChangesetIdResult(
 			DomainResultCreationState creationState,
 			TableGroup entityTableGroup) {
@@ -126,42 +132,51 @@ public abstract class AbstractEntityResultGraphNode extends AbstractFetchParent 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityMappingType getReferencedMappingContainer() {
 		return getEntityValuedModelPart().getEntityMappingType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityValuedModelPart getEntityValuedModelPart() {
 		return this.fetchContainer;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchableContainer getFetchContainer() {
 		return this.fetchContainer;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<?> getResultJavaType() {
 		return getEntityValuedModelPart().getEntityMappingType().getMappedJavaType();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable Fetch getIdentifierFetch() {
 		return identifierFetch;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BasicFetch<?> getDiscriminatorFetch() {
 		return discriminatorFetch;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResult<Object> getRowIdResult() {
 		return rowIdResult;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable DomainResult<?> getAuditChangesetIdResult() {
 		return auditChangesetIdResult;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void collectValueIndexesToCache(BitSet valueIndexes) {
 		final var entityPersister = fetchContainer.getEntityMappingType().getEntityPersister();
 		if ( identifierFetch != null ) {

@@ -10,6 +10,8 @@ import org.hibernate.boot.scan.spi.Scanner;
 import org.hibernate.boot.scan.spi.ScanningResult;
 
 import java.net.URL;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Standard implementation of [Scanner] used in cases
 ///
@@ -19,11 +21,13 @@ public class StandardScanner implements Scanner {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ScanningResult scan(URL... boundaries) {
 		return ScanningResult.NONE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ScanningResult jpaScan(ArchiveDescriptor rootArchive, JaxbPersistenceImpl.JaxbPersistenceUnitImpl jaxbUnit) {
 		return ScanningResult.NONE;
 	}

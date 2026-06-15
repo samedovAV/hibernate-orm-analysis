@@ -13,12 +13,15 @@ import org.hibernate.cache.spi.DomainDataRegion;
 import org.hibernate.cache.spi.QueryResultsRegion;
 import org.hibernate.cache.spi.TimestampsRegion;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
  */
 public abstract class RegionFactoryTemplate extends AbstractRegionFactory {
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainDataRegion buildDomainDataRegion(
 			DomainDataRegionConfig regionConfig,
 			DomainDataRegionBuildingContext buildingContext) {
@@ -32,10 +35,12 @@ public abstract class RegionFactoryTemplate extends AbstractRegionFactory {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected CacheKeysFactory getImplicitCacheKeysFactory() {
 		return DefaultCacheKeysFactory.INSTANCE;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected DomainDataStorageAccess createDomainDataStorageAccess(
 			DomainDataRegionConfig regionConfig,
 			DomainDataRegionBuildingContext buildingContext) {
@@ -43,6 +48,7 @@ public abstract class RegionFactoryTemplate extends AbstractRegionFactory {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QueryResultsRegion buildQueryResultsRegion(
 			String regionName,
 			SessionFactoryImplementor sessionFactory) {
@@ -54,11 +60,13 @@ public abstract class RegionFactoryTemplate extends AbstractRegionFactory {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract StorageAccess createQueryResultsRegionStorageAccess(
 			String regionName,
 			SessionFactoryImplementor sessionFactory);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TimestampsRegion buildTimestampsRegion(
 			String regionName, SessionFactoryImplementor sessionFactory) {
 		verifyStarted();
@@ -69,6 +77,7 @@ public abstract class RegionFactoryTemplate extends AbstractRegionFactory {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract StorageAccess createTimestampsRegionStorageAccess(
 			String regionName,
 			SessionFactoryImplementor sessionFactory);

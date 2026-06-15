@@ -19,6 +19,8 @@ import org.hibernate.query.sqm.tree.domain.SqmEntityDomainType;
 import org.hibernate.spi.NavigablePath;
 
 import static org.hibernate.internal.util.NullnessUtil.castNonNull;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -43,26 +45,31 @@ public class EntityDiscriminatorSqmPath<T> extends AbstractSqmPath<T> implements
 		this.entityDescriptor = entityDescriptor;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityDomainType getEntityDomainType() {
 		return entityDomainType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityMappingType getEntityDescriptor() {
 		return entityDescriptor;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nonnull SqmPath<?> getLhs() {
 		return castNonNull( super.getLhs() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nonnull EntityDiscriminatorSqmPathSource getExpressible() {
 //		return (EntityDiscriminatorSqmPathSource) getNodeType();
 		return (EntityDiscriminatorSqmPathSource) getReferencedPathSource();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public EntityDiscriminatorSqmPath copy(SqmCopyContext context) {
 		final var existing = context.getCopy( this );
 		if ( existing != null ) {
@@ -77,6 +84,7 @@ public class EntityDiscriminatorSqmPath<T> extends AbstractSqmPath<T> implements
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> X accept(SemanticQueryWalker<X> walker) {
 		return entityDescriptor.hasSubclasses()
 				? walker.visitDiscriminatorPath( this )

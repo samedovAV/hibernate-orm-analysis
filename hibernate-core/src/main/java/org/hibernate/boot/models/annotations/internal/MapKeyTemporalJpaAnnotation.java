@@ -10,6 +10,8 @@ import java.util.Map;
 import org.hibernate.models.spi.ModelsContext;
 
 import jakarta.persistence.MapKeyTemporal;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -37,15 +39,18 @@ public class MapKeyTemporalJpaAnnotation implements MapKeyTemporal {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return MapKeyTemporal.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.TemporalType value() {
 		return value;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void value(jakarta.persistence.TemporalType value) {
 		this.value = value;
 	}

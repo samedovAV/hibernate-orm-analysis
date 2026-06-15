@@ -5,6 +5,8 @@
 package org.hibernate;
 
 import java.sql.SQLException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Wraps a {@link SQLException} arising from the JDBC driver.
@@ -53,6 +55,7 @@ public class JDBCException extends HibernateException {
 	 *
 	 * @see SQLException#getSQLState()
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getSQLState() {
 		return sqlException.getSQLState();
 	}
@@ -64,6 +67,7 @@ public class JDBCException extends HibernateException {
 	 *
 	 * @see SQLException#getErrorCode()
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int getErrorCode() {
 		return sqlException.getErrorCode();
 	}
@@ -73,6 +77,7 @@ public class JDBCException extends HibernateException {
 	 *
 	 * @return The SQLException
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SQLException getSQLException() {
 		return sqlException;
 	}
@@ -82,6 +87,7 @@ public class JDBCException extends HibernateException {
 	 *
 	 * @return The SQL statement; may return null.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSQL() {
 		return sql;
 	}
@@ -89,6 +95,7 @@ public class JDBCException extends HibernateException {
 	/**
 	 * @return The error message without the SQL statement appended
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getErrorMessage() {
 		return message;
 	}

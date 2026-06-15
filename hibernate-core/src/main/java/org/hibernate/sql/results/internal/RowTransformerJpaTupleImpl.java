@@ -7,6 +7,8 @@ package org.hibernate.sql.results.internal;
 import jakarta.persistence.Tuple;
 
 import org.hibernate.sql.results.spi.RowTransformer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * RowTransformer generating a JPA {@link Tuple}
@@ -21,11 +23,13 @@ public class RowTransformerJpaTupleImpl implements RowTransformer<Tuple> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Tuple transformRow(Object[] row) {
 		return new TupleImpl( tupleMetadata, row );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int determineNumberOfResultElements(int rawElementCount) {
 		return 1;
 	}

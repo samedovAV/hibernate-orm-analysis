@@ -9,6 +9,8 @@ import org.hibernate.boot.model.source.spi.PluralAttributeElementNature;
 import org.hibernate.boot.model.source.spi.PluralAttributeElementSourceOneToMany;
 import org.hibernate.boot.model.source.spi.PluralAttributeSource;
 import org.hibernate.internal.util.StringHelper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -35,21 +37,25 @@ public class PluralAttributeElementSourceOneToManyImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PluralAttributeElementNature getNature() {
 		return PluralAttributeElementNature.ONE_TO_MANY;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getReferencedEntityName() {
 		return referencedEntityName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isIgnoreNotFound() {
 		return jaxbOneToManyElement.getNotFound() != null && "ignore".equalsIgnoreCase( jaxbOneToManyElement.getNotFound().value() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getXmlNodeName() {
 		return jaxbOneToManyElement.getNode();
 	}

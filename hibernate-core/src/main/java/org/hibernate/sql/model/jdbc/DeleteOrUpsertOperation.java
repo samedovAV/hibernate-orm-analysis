@@ -27,6 +27,8 @@ import org.hibernate.sql.model.internal.TableDeleteStandard;
 
 import static java.util.Collections.emptyList;
 import static org.hibernate.sql.model.ModelMutationLogging.MODEL_MUTATION_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -60,26 +62,31 @@ public class DeleteOrUpsertOperation implements SelfExecutingUpdateOperation {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutationType getMutationType() {
 		return MutationType.UPDATE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityMutationTarget getMutationTarget() {
 		return mutationTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableMapping getTableDetails() {
 		return tableMapping;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcValueDescriptor findValueDescriptor(String columnName, ParameterUsage usage) {
 		return upsertOperation.findValueDescriptor( columnName, usage );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void performMutation(
 			JdbcValueBindings jdbcValueBindings,
 			ValuesAnalysis valuesAnalysis,
@@ -94,6 +101,7 @@ public class DeleteOrUpsertOperation implements SelfExecutingUpdateOperation {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void performDelete(JdbcValueBindings jdbcValueBindings, SharedSessionContractImplementor session) {
 		MODEL_MUTATION_LOGGER.performingDelete( tableMapping.getTableName() );
 
@@ -140,6 +148,7 @@ public class DeleteOrUpsertOperation implements SelfExecutingUpdateOperation {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void bindDeleteKeyValues(
 			JdbcValueBindings jdbcValueBindings,
 			PreparedStatementDetails statementDetails,
@@ -164,6 +173,7 @@ public class DeleteOrUpsertOperation implements SelfExecutingUpdateOperation {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void bindKeyValue(
 			int jdbcPosition,
 			Binding binding,
@@ -189,6 +199,7 @@ public class DeleteOrUpsertOperation implements SelfExecutingUpdateOperation {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void performUpsert(JdbcValueBindings jdbcValueBindings, SharedSessionContractImplementor session) {
 		MODEL_MUTATION_LOGGER.performingUpsert( tableMapping.getTableName() );
 
@@ -224,6 +235,7 @@ public class DeleteOrUpsertOperation implements SelfExecutingUpdateOperation {
 	/*
 	 * Used by Hibernate Reactive
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public UpsertOperation getUpsertOperation() {
 		return upsertOperation;
 	}
@@ -231,10 +243,12 @@ public class DeleteOrUpsertOperation implements SelfExecutingUpdateOperation {
 	/*
 	 * Used by Hibernate Reactive
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public OptionalTableUpdate getOptionalTableUpdate() {
 		return optionalTableUpdate;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected Expectation getExpectation() {
 		return upsertOperation.getExpectation();
 	}

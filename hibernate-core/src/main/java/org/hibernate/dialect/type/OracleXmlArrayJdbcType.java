@@ -14,6 +14,8 @@ import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Types;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -25,16 +27,19 @@ public class OracleXmlArrayJdbcType extends XmlArrayJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> ValueBinder<X> getBinder(JavaType<X> javaType) {
 		// Seems the Oracle JDBC driver doesn't support `setNull(index, Types.SQLXML)`
 		// but it seems that the following works fine
 		return new XmlArrayBinder<>( javaType, this ) {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBindNull(PreparedStatement st, int index, WrapperOptions options) throws SQLException {
 				st.setNull( index, Types.VARCHAR );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBindNull(CallableStatement st, String name, WrapperOptions options) throws SQLException {
 				st.setNull( name, Types.VARCHAR );
 			}

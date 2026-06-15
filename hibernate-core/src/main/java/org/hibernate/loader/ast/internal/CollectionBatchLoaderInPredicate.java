@@ -22,6 +22,8 @@ import static org.hibernate.loader.ast.internal.MultiKeyLoadHelper.countIds;
 import static org.hibernate.loader.ast.internal.MultiKeyLoadLogging.MULTI_KEY_LOAD_LOGGER;
 import static org.hibernate.pretty.MessageHelper.collectionInfoString;
 import static org.hibernate.sql.exec.spi.JdbcParameterBindings.NO_BINDINGS;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * {@link CollectionBatchLoader} for batch fetching using a SQL {@code IN} predicate.
@@ -92,6 +94,7 @@ public class CollectionBatchLoaderInPredicate
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	void initializeKeys(Object key, Object[] keysToInitialize, SharedSessionContractImplementor session) {
 		final boolean loggerDebugEnabled = MULTI_KEY_LOAD_LOGGER.isDebugEnabled();
 		if ( loggerDebugEnabled ) {
@@ -159,6 +162,7 @@ public class CollectionBatchLoaderInPredicate
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void finishInitializingKeys(Object[] key, SharedSessionContractImplementor session) {
 		// do nothing
 	}

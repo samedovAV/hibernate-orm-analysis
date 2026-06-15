@@ -15,6 +15,8 @@ import org.hibernate.metamodel.mapping.PluralAttributeMapping;
 import org.hibernate.metamodel.mapping.SelectableMapping;
 import org.hibernate.metamodel.mapping.TemporalMapping;
 import org.hibernate.persister.entity.mutation.TemporalMutationHelper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Binds collection row values and restrictions for history table mutations.
@@ -45,6 +47,7 @@ final class HistoryCollectionRowMutationHelper {
 		this.indexIncrementer = indexIncrementer;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void bindInsertValues(
 			PersistentCollection<?> collection,
 			Object key,
@@ -131,6 +134,7 @@ final class HistoryCollectionRowMutationHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void bindDeleteRowRestrictions(
 			PersistentCollection<?> collection,
 			Object keyValue,
@@ -200,6 +204,7 @@ final class HistoryCollectionRowMutationHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void bindDeleteAllRestrictions(
 			Object keyValue,
 			SharedSessionContractImplementor session,
@@ -222,6 +227,7 @@ final class HistoryCollectionRowMutationHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void bindSetValue(
 			int valueIndex,
 			JdbcValueBindings jdbcValueBindings,
@@ -231,6 +237,7 @@ final class HistoryCollectionRowMutationHelper {
 		bindValue( jdbcValueBindings, jdbcValue, selectableMapping, ParameterUsage.SET );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void bindRestrictValue(
 			int valueIndex,
 			JdbcValueBindings jdbcValueBindings,
@@ -240,6 +247,7 @@ final class HistoryCollectionRowMutationHelper {
 		bindValue( jdbcValueBindings, jdbcValue, selectableMapping, ParameterUsage.RESTRICT );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void bindValue(
 			JdbcValueBindings jdbcValueBindings,
 			Object jdbcValue,

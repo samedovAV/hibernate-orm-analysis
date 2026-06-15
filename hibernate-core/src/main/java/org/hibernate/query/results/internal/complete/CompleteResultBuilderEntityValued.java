@@ -6,6 +6,8 @@ package org.hibernate.query.results.internal.complete;
 
 import org.hibernate.metamodel.mapping.EntityMappingType;
 import org.hibernate.query.results.spi.ResultBuilderEntityValued;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -13,5 +15,6 @@ import org.hibernate.query.results.spi.ResultBuilderEntityValued;
 public interface CompleteResultBuilderEntityValued
 		extends CompleteResultBuilder, ModelPartReferenceEntity, ResultBuilderEntityValued {
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityMappingType getReferencedPart();
 }

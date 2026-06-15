@@ -13,6 +13,8 @@ import org.hibernate.query.sqm.tree.SqmTypedNode;
 
 import java.util.List;
 import java.util.Locale;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link ArgumentsValidator} that validates the array type is compatible with the element type.
@@ -26,6 +28,7 @@ public class GenerateSeriesArgumentValidator implements ArgumentsValidator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void validate(
 			List<? extends SqmTypedNode<?>> arguments,
 			String functionName,
@@ -117,6 +120,7 @@ public class GenerateSeriesArgumentValidator implements ArgumentsValidator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private FunctionArgumentException unknownType(String functionName, List<? extends SqmTypedNode<?>> arguments, int parameterIndex) {
 		return new FunctionArgumentException(
 				String.format(

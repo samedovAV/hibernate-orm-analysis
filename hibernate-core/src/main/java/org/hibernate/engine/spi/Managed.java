@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.engine.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Contract for classes (specifically, entities and components/embeddables) that are "managed".
@@ -32,6 +35,7 @@ public interface Managed extends PrimeAmongSecondarySupertypes {
 	 * @return this same instance
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Managed asManaged() {
 		return this;
 	}

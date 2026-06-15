@@ -8,6 +8,8 @@ import org.hibernate.metamodel.mapping.internal.EmbeddedCollectionPart;
 import org.hibernate.sql.ast.tree.from.TableGroup;
 import org.hibernate.sql.ast.tree.from.TableGroupJoin;
 import org.hibernate.sql.ast.tree.from.VirtualTableGroup;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class TableGroupJoinHelper {
 
@@ -18,6 +20,7 @@ public class TableGroupJoinHelper {
 	 * {@link org.hibernate.sql.ast.tree.predicate.Predicate}, because that translation might cause nested joins to be
 	 * added to the table group of the join.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static TableGroupJoin determineJoinForPredicateApply(TableGroupJoin mainTableGroupJoin) {
 		final TableGroup mainTableGroup = mainTableGroupJoin.getJoinedGroup();
 		if ( !mainTableGroup.getNestedTableGroupJoins().isEmpty() || mainTableGroup.getTableGroupJoins().isEmpty() ) {

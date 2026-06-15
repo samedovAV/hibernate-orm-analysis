@@ -11,6 +11,8 @@ import org.hibernate.boot.model.source.spi.PluralAttributeIndexSource;
 import org.hibernate.boot.model.source.spi.PluralAttributeNature;
 import org.hibernate.boot.model.source.spi.Sortable;
 import org.hibernate.internal.util.StringHelper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class PluralAttributeSourceMapImpl
 		extends AbstractPluralAttributeSourceImpl
@@ -75,6 +77,7 @@ public class PluralAttributeSourceMapImpl
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static String interpretSorting(String sort) {
 		if ( StringHelper.isEmpty( sort ) ) {
 			return null;
@@ -88,31 +91,37 @@ public class PluralAttributeSourceMapImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PluralAttributeIndexSource getIndexSource() {
 		return indexSource;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PluralAttributeNature getNature() {
 		return PluralAttributeNature.MAP;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public XmlElementMetadata getSourceType() {
 		return XmlElementMetadata.MAP;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getXmlNodeName() {
 		return xmlNodeName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isSorted() {
 		return sorting != null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getComparatorName() {
 		return sorting;
 	}

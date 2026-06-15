@@ -11,6 +11,8 @@ import org.hibernate.boot.registry.StandardServiceInitiator;
 import org.hibernate.bytecode.spi.BytecodeProvider;
 import org.hibernate.bytecode.spi.ProxyFactoryFactory;
 import org.hibernate.service.spi.ServiceRegistryImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Most commonly the {@link ProxyFactoryFactory} will depend directly on the chosen {@link BytecodeProvider},
@@ -26,12 +28,14 @@ public final class ProxyFactoryFactoryInitiator implements StandardServiceInitia
 	public static final StandardServiceInitiator<ProxyFactoryFactory> INSTANCE = new ProxyFactoryFactoryInitiator();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ProxyFactoryFactory initiateService(@Nonnull Map<String, Object> configurationValues, @Nonnull ServiceRegistryImplementor registry) {
 		return registry.requireService( BytecodeProvider.class ).getProxyFactoryFactory();
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<ProxyFactoryFactory> getServiceInitiated() {
 		return ProxyFactoryFactory.class;
 	}

@@ -17,6 +17,8 @@ import org.hibernate.dialect.Dialect;
 import org.hibernate.models.spi.AnnotationTarget;
 
 import static org.hibernate.internal.util.collections.CollectionHelper.isNotEmpty;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Sanne Grinovero
@@ -25,6 +27,7 @@ import static org.hibernate.internal.util.collections.CollectionHelper.isNotEmpt
 public class DialectOverridesAnnotationHelper {
 	private static final Map<Class<? extends Annotation>, Class<? extends Annotation>> OVERRIDE_MAP = buildOverrideMap();
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static Map<Class<? extends Annotation>, Class<? extends Annotation>> buildOverrideMap() {
 		// not accessed concurrently
 		final Map<Class<? extends Annotation>, Class<? extends Annotation>> results = new HashMap<>();
@@ -45,6 +48,7 @@ public class DialectOverridesAnnotationHelper {
 		return results;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <A extends Annotation, O extends Annotation> Class<O> getOverrideAnnotation(Class<A> annotationType) {
 		final Class<O> overrideAnnotation = findOverrideAnnotation( annotationType );
 		if ( overrideAnnotation == null ) {
@@ -61,11 +65,13 @@ public class DialectOverridesAnnotationHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <A extends Annotation, O extends Annotation> Class<O> findOverrideAnnotation(Class<A> annotationType) {
 		//noinspection unchecked
 		return (Class<O>) OVERRIDE_MAP.get( annotationType );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static <T extends Annotation> T getOverridableAnnotation(
 			AnnotationTarget element,
 			Class<T> annotationType,

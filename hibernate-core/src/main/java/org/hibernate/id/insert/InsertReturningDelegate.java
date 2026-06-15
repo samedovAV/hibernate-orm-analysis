@@ -25,6 +25,8 @@ import org.hibernate.sql.model.ast.builder.TableMutationBuilder;
 import static java.sql.Statement.NO_GENERATED_KEYS;
 import static org.hibernate.generator.values.internal.GeneratedValuesHelper.getActualGeneratedModelPart;
 import static org.hibernate.generator.values.internal.GeneratedValuesHelper.getGeneratedValues;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Delegate for dealing with generated values where the dialect supports
@@ -53,6 +55,7 @@ public class InsertReturningDelegate extends AbstractReturningDelegate {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableMutationBuilder<?> createTableMutationBuilder(
 			Expectation expectation,
 			SessionFactoryImplementor sessionFactory) {
@@ -62,6 +65,7 @@ public class InsertReturningDelegate extends AbstractReturningDelegate {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected GeneratedValues executeAndExtractReturning(
 			String sql,
 			PreparedStatement preparedStatement,
@@ -82,6 +86,7 @@ public class InsertReturningDelegate extends AbstractReturningDelegate {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String prepareIdentifierGeneratingInsert(String insertSQL) {
 		final var identifierMapping =
 				(BasicEntityIdentifierMapping)
@@ -91,6 +96,7 @@ public class InsertReturningDelegate extends AbstractReturningDelegate {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public PreparedStatement prepareStatement(String sql, SharedSessionContractImplementor session) {
 		return session.getJdbcCoordinator().getMutationStatementPreparer()
 				.prepareStatement( sql, NO_GENERATED_KEYS );

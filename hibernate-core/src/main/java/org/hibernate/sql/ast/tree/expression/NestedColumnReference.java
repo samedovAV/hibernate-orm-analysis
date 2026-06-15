@@ -7,6 +7,8 @@ package org.hibernate.sql.ast.tree.expression;
 import org.hibernate.metamodel.mapping.SelectableMapping;
 import org.hibernate.sql.ast.SqlAstWalker;
 import org.hibernate.sql.ast.tree.from.EmbeddableFunctionTableReference;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Model a column which is relative to a base expression e.g. {@code array[1].columnName}.
@@ -20,16 +22,19 @@ public class NestedColumnReference extends ColumnReference {
 		this.baseExpression = tableReference.getExpression();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression getBaseExpression() {
 		return baseExpression;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getReadExpression() {
 		return super.getReadExpression();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker sqlTreeWalker) {
 		sqlTreeWalker.visitNestedColumnReference( this );
 	}

@@ -13,6 +13,8 @@ import org.hibernate.sql.results.jdbc.spi.JdbcValuesMappingProducer;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * JdbcValuesMappingProducer implementation based on a graph of {@linkplain ResultBuilder}
@@ -44,26 +46,31 @@ public interface ResultSetMapping extends JdbcValuesMappingProducer {
 	/**
 	 * An identifier for the mapping
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getMappingIdentifier();
 
 	/**
 	 * Indicates whether the mapping is dynamic per {@link ResultSetMapping}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isDynamic();
 
 	/**
 	 * The number of result builders currently associated with this mapping
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getNumberOfResultBuilders();
 
 	/**
 	 * The result builders currently associated with this mapping
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<ResultBuilder> getResultBuilders();
 
 	/**
 	 * Visit each result builder
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitResultBuilders(BiConsumer<Integer, ResultBuilder> resultBuilderConsumer);
 
 	/**
@@ -74,32 +81,39 @@ public interface ResultSetMapping extends JdbcValuesMappingProducer {
 	 * {@link ResultBuilder#visitFetchBuilders}), fetches defined in the legacy way are unassociated
 	 * to their "parent".
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitLegacyFetchBuilders(Consumer<LegacyFetchBuilder> resultBuilderConsumer);
 
 	/**
 	 * Add a builder
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addResultBuilder(ResultBuilder resultBuilder);
 
 	/**
 	 * Add a legacy fetch builder
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addLegacyFetchBuilder(LegacyFetchBuilder fetchBuilder);
 
 	/**
 	 * Create a memento from this mapping.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NamedResultSetMappingMemento toMemento(String name);
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static ResultSetMapping resolveResultSetMapping(String name, SessionFactoryImplementor sessionFactory) {
 		return resolveResultSetMapping( name, false, sessionFactory );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static ResultSetMapping resolveResultSetMapping(String name, boolean isDynamic, SessionFactoryImplementor sessionFactory) {
 		return sessionFactory.getJdbcValuesMappingProducerProvider()
 				.buildResultSetMapping( name, isDynamic, sessionFactory );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ResultSetMapping cacheKeyInstance();
 }

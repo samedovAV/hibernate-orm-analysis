@@ -11,6 +11,8 @@ import java.util.Properties;
 import org.hibernate.boot.registry.selector.spi.StrategyCreator;
 import org.hibernate.cache.spi.RegionFactory;
 import org.hibernate.service.spi.ServiceException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -24,6 +26,7 @@ public class StrategyCreatorRegionFactoryImpl implements StrategyCreator<RegionF
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public RegionFactory create(Class<? extends RegionFactory> strategyClass) {
 		assert RegionFactory.class.isAssignableFrom( strategyClass );
 
@@ -46,6 +49,7 @@ public class StrategyCreatorRegionFactoryImpl implements StrategyCreator<RegionF
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private RegionFactory instantiateWithProperties(Class<? extends RegionFactory> strategyClass, Class<?> propertiesClass) {
 		try {
 			return strategyClass.getConstructor( propertiesClass ).newInstance( properties );

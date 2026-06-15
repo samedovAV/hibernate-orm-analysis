@@ -28,6 +28,8 @@ import static org.hibernate.boot.models.xml.internal.attr.CommonAttributeProcess
 import static org.hibernate.boot.models.xml.internal.attr.CommonAttributeProcessing.applyOptimisticLock;
 import static org.hibernate.boot.models.xml.internal.attr.CommonAttributeProcessing.applyOptionality;
 import static org.hibernate.internal.util.NullnessHelper.coalesce;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -35,6 +37,7 @@ import static org.hibernate.internal.util.NullnessHelper.coalesce;
 public class OneToOneAttributeProcessing {
 
 	@SuppressWarnings("UnusedReturnValue")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static MutableMemberDetails processOneToOneAttribute(
 			JaxbOneToOneImpl jaxbOneToOne,
 			MutableClassDetails declarer,
@@ -82,6 +85,7 @@ public class OneToOneAttributeProcessing {
 		return memberDetails;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static OneToOneJpaAnnotation applyOneToOne(
 			MutableMemberDetails memberDetails,
 			AccessType accessType,
@@ -105,6 +109,7 @@ public class OneToOneAttributeProcessing {
 		return annotation;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void applyMappedBy(
 			MutableMemberDetails memberDetails,
 			JaxbOneToOneImpl jaxbOneToOne,
@@ -115,6 +120,7 @@ public class OneToOneAttributeProcessing {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void applyTarget(
 			MutableMemberDetails memberDetails,
 			JaxbOneToOneImpl jaxbOneToOne,

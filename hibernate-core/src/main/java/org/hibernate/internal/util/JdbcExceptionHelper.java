@@ -5,6 +5,8 @@
 package org.hibernate.internal.util;
 
 import java.sql.SQLException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -19,6 +21,7 @@ public final class JdbcExceptionHelper {
 	 * @param sqlException The exception from which to extract the SQLState
 	 * @return The error code.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static int extractErrorCode(SQLException sqlException) {
 		int errorCode = sqlException.getErrorCode();
 		SQLException nested = sqlException.getNextException();
@@ -35,6 +38,7 @@ public final class JdbcExceptionHelper {
 	 * @param sqlException The exception from which to extract the SQLState
 	 * @return The SQLState code, or null.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String extractSqlState(SQLException sqlException) {
 		String sqlState = sqlException.getSQLState();
 		SQLException nested = sqlException.getNextException();
@@ -51,10 +55,12 @@ public final class JdbcExceptionHelper {
 	 * @param sqlException The exception from which to extract the SQLState class code
 	 * @return The SQLState class code, or null.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String extractSqlStateClassCode(SQLException sqlException) {
 		return determineSqlStateClassCode( extractSqlState( sqlException ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String determineSqlStateClassCode(String sqlState) {
 		return sqlState == null || sqlState.length() < 2 ? sqlState : sqlState.substring( 0, 2 );
 	}

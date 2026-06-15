@@ -11,6 +11,8 @@ import java.util.function.Consumer;
 import org.hibernate.metamodel.mapping.EmbeddableMappingType;
 import org.hibernate.spi.NavigablePath;
 import org.hibernate.sql.ast.tree.expression.Expression;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A table group for functions that produce embeddable typed results.
@@ -35,21 +37,25 @@ public class EmbeddableFunctionTableGroup extends AbstractTableGroup {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getGroupAlias() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void applyAffectedTableNames(Consumer<String> nameCollector) {
 		tableReference.applyAffectedTableNames( nameCollector );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableReference getPrimaryTableReference() {
 		return tableReference;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<TableReferenceJoin> getTableReferenceJoins() {
 		return Collections.emptyList();
 	}

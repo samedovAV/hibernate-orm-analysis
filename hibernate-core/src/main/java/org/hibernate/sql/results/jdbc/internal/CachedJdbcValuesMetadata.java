@@ -10,6 +10,8 @@ import org.hibernate.sql.results.jdbc.spi.JdbcValuesMetadata;
 import org.hibernate.type.BasicType;
 import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 public final class CachedJdbcValuesMetadata implements JdbcValuesMetadata, Serializable {
@@ -23,21 +25,25 @@ public final class CachedJdbcValuesMetadata implements JdbcValuesMetadata, Seria
 		this.valueIndexesToCacheIndexes = valueIndexesToCacheIndexes;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int[] getValueIndexesToCacheIndexes() {
 		return valueIndexesToCacheIndexes;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<?> getStoredJavaType(int columnIndex) {
 		final var type = types[columnIndex];
 		return type != null ? type.getJavaTypeDescriptor() : null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getColumnCount() {
 		return columnNames.length;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int resolveColumnPosition(String columnName) {
 		for ( int i = 0; i < columnNames.length; i++ ) {
 			if ( columnName.equalsIgnoreCase( columnNames[i] ) ) {
@@ -48,6 +54,7 @@ public final class CachedJdbcValuesMetadata implements JdbcValuesMetadata, Seria
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String resolveColumnName(int position) {
 		final String name = columnNames[position - 1];
 		if ( name == null ) {
@@ -57,6 +64,7 @@ public final class CachedJdbcValuesMetadata implements JdbcValuesMetadata, Seria
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <J> BasicType<J> resolveType(
 			int position,
 			JavaType<J> explicitJavaType,

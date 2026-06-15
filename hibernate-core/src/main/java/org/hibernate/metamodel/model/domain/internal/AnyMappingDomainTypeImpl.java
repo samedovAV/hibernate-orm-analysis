@@ -20,6 +20,8 @@ import org.hibernate.type.internal.ConvertedBasicTypeImpl;
 
 import static jakarta.persistence.metamodel.Type.PersistenceType.ENTITY;
 import static org.hibernate.metamodel.mapping.internal.AnyDiscriminatorPart.determineDiscriminatorConverter;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -55,6 +57,7 @@ public class AnyMappingDomainTypeImpl<T> implements AnyMappingDomainType<T>, Sqm
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable SqmDomainType<T> getSqmType() {
 		return this;
 	}
@@ -65,10 +68,12 @@ public class AnyMappingDomainTypeImpl<T> implements AnyMappingDomainType<T>, Sqm
 //	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getTypeName() {
 		return baseJtd.getTypeName();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private NavigableRole resolveNavigableRole(Any bootAnyMapping) {
 		final var buffer = new StringBuilder();
 		final var table = bootAnyMapping.getTable();
@@ -92,27 +97,32 @@ public class AnyMappingDomainTypeImpl<T> implements AnyMappingDomainType<T>, Sqm
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistenceType getPersistenceType() {
 		return ENTITY;
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<T> getJavaType() {
 		return baseJtd.getJavaTypeClass();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<T> getExpressibleJavaType() {
 		return baseJtd;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BasicType<Class<?>> getDiscriminatorType() {
 		return anyDiscriminatorType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SimpleDomainType<?> getKeyType() {
 		return (BasicType<?>) anyType.getIdentifierType();
 	}

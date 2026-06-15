@@ -9,6 +9,8 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 import org.hibernate.Incubating;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Stack implementation exposing useful methods for Hibernate needs.
@@ -21,52 +23,62 @@ public interface Stack<T> {
 	/**
 	 * Push the new element on the top of the stack
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void push(T newCurrent);
 
 	/**
 	 * Pop (remove and return) the current element off the stack
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	T pop();
 
 	/**
 	 * The element currently at the top of the stack
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	T getCurrent();
 
 	/**
 	 * The element at the given offset, relative to the top of the stack
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	T peek(int offsetFromTop);
 
 	/**
 	 * The element currently at the bottom of the stack
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	T getRoot();
 
 	/**
 	 * How many elements are currently on the stack?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int depth();
 
 	/**
 	 * Are there no elements currently in the stack?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isEmpty();
 
 	/**
 	 * Remove all elements from the stack
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void clear();
 
 	/**
 	 * Visit all elements in the stack, starting with the root and working "forward"
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitRootFirst(Consumer<T> action);
 
 	/**
 	 * Find an element on the stack and return a value.  The first non-null element
 	 * returned from `action` stops the iteration and is returned from here
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> X findCurrentFirst(Function<T, X> action);
 
 	/**
@@ -83,6 +95,7 @@ public interface Stack<T> {
 	 * @param <Y> the type of the fixed parameter
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X,Y> X findCurrentFirstWithParameter(Y parameter, BiFunction<T, Y, X> biFunction);
 
 }

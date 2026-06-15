@@ -12,6 +12,8 @@ import org.hibernate.sql.model.MutationTarget;
 import org.hibernate.sql.model.MutationType;
 import org.hibernate.sql.model.ast.MutationGroup;
 import org.hibernate.sql.model.ast.TableMutation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard MutationGroup implementation for cases with multiple table mutations
@@ -33,26 +35,31 @@ public class MutationGroupStandard implements MutationGroup {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutationType getMutationType() {
 		return mutationType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutationTarget<?,?> getMutationTarget() {
 		return mutationTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getNumberOfTableMutations() {
 		return tableMutationList.size();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableMutation getSingleTableMutation() {
 		throw new IllegalStateException( "Group contains multiple table mutations : " + mutationTarget.getNavigableRole() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public TableMutation getTableMutation(String tableName) {
 		for ( int i = 0; i < tableMutationList.size(); i++ ) {
 			final TableMutation<?> tableMutation = tableMutationList.get( i );
@@ -66,6 +73,7 @@ public class MutationGroupStandard implements MutationGroup {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <O extends MutationOperation, M extends TableMutation<O>> void forEachTableMutation(BiConsumer<Integer, M> action) {
 		for ( int i = 0; i < tableMutationList.size(); i++ ) {
 			//noinspection unchecked
@@ -74,6 +82,7 @@ public class MutationGroupStandard implements MutationGroup {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableMutation getTableMutation(int i) {
 		return tableMutationList.get( i );
 	}

@@ -17,6 +17,8 @@ import org.hibernate.jpa.boot.internal.PersistenceUnitInfoDescriptor;
 
 import jakarta.persistence.spi.PersistenceUnitInfo;
 import jakarta.persistence.PersistenceUnitTransactionType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Entry into the bootstrap process.
@@ -28,6 +30,7 @@ public final class Bootstrap {
 	private Bootstrap() {
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static EntityManagerFactoryBuilder getEntityManagerFactoryBuilder(
 			PersistenceUnitDescriptor persistenceUnitDescriptor,
 			Map<String,Object> integration) {
@@ -43,6 +46,7 @@ public final class Bootstrap {
 	 *
 	 * @return The EMFB
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static EntityManagerFactoryBuilder getEntityManagerFactoryBuilder(
 			URL persistenceXmlUrl,
 			String persistenceUnitName,
@@ -59,6 +63,7 @@ public final class Bootstrap {
 	 *
 	 * @return The EMFB
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static EntityManagerFactoryBuilder getEntityManagerFactoryBuilder(
 			URL persistenceXmlUrl,
 			String persistenceUnitName,
@@ -70,6 +75,7 @@ public final class Bootstrap {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static EntityManagerFactoryBuilder getEntityManagerFactoryBuilder(
 			PersistenceUnitDescriptor persistenceUnitDescriptor,
 			Map<String,Object> integration,
@@ -77,6 +83,7 @@ public final class Bootstrap {
 		return new EntityManagerFactoryBuilderImpl( persistenceUnitDescriptor, integration, providedClassLoader );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static EntityManagerFactoryBuilder getEntityManagerFactoryBuilder(
 			PersistenceUnitDescriptor persistenceUnitDescriptor,
 			Map<String,Object> integration,
@@ -88,6 +95,7 @@ public final class Bootstrap {
 	 * For tests only
 	 */
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static EntityManagerFactoryBuilder getEntityManagerFactoryBuilder(
 			PersistenceUnitDescriptor persistenceUnitDescriptor,
 			Map<String,Object> integration,
@@ -95,12 +103,14 @@ public final class Bootstrap {
 		return new EntityManagerFactoryBuilderImpl( persistenceUnitDescriptor, integration, mergedSettingsBaseline );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static EntityManagerFactoryBuilder getEntityManagerFactoryBuilder(
 			PersistenceUnitInfo persistenceUnitInfo,
 			Map<String,Object> integration) {
 		return getEntityManagerFactoryBuilder( persistenceUnitInfo, false, integration );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static EntityManagerFactoryBuilder getEntityManagerFactoryBuilder(
 			PersistenceUnitInfo persistenceUnitInfo,
 			boolean classTransformerRegistrationDisabled,
@@ -111,6 +121,7 @@ public final class Bootstrap {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static EntityManagerFactoryBuilder getEntityManagerFactoryBuilder(
 			PersistenceUnitInfo persistenceUnitInfo,
 			Map<String,Object> integration,
@@ -118,6 +129,7 @@ public final class Bootstrap {
 		return getEntityManagerFactoryBuilder( new PersistenceUnitInfoDescriptor( persistenceUnitInfo ), integration, providedClassLoader );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static EntityManagerFactoryBuilder getEntityManagerFactoryBuilder(
 			PersistenceUnitInfo persistenceUnitInfo,
 			Map<String,Object> integration,
@@ -129,6 +141,7 @@ public final class Bootstrap {
 	 * For tests only
 	 */
 	@Internal
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static EntityManagerFactoryBuilder getEntityManagerFactoryBuilder(
 			PersistenceUnitInfo persistenceUnitInfo,
 			Map<String,Object> integration,

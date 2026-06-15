@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.hibernate.Internal;
 import org.hibernate.internal.util.StringHelper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A SQL {@code IN} expression.
@@ -30,35 +32,42 @@ public class InFragment {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public InFragment addValue(Object value) {
 		values.add( value );
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public InFragment addValues(Object[] values) {
 		Collections.addAll( this.values, values );
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public InFragment setColumn(String columnName) {
 		this.columnName = columnName;
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public InFragment setColumn(String alias, String columnName) {
 		this.columnName = StringHelper.qualify( alias, columnName );
 		return setColumn( this.columnName );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public InFragment setFormula(String alias, String formulaTemplate) {
 		this.columnName = StringHelper.replace( formulaTemplate, Template.TEMPLATE, alias );
 		return setColumn( this.columnName );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<Object> getValues() {
 		return values;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String toFragmentString() {
 		final StringBuilder buf = new StringBuilder( values.size() * 5 );
 

@@ -15,12 +15,15 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import static org.hibernate.type.format.jackson.JacksonIntegration.isJacksonOsonExtensionAvailable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 class OracleOsonJacksonHelper {
 
 	public static final @Nullable Class<? extends Closeable> READER_CLASS = loadOrNull( "com.fasterxml.jackson.core.JsonParser" );
 	public static final @Nullable Class<? extends Closeable> WRITER_CLASS = loadOrNull( "com.fasterxml.jackson.core.JsonGenerator" );
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static @Nullable Class<? extends Closeable> loadOrNull(String name) {
 		try {
 			//N.B. intentionally not using the context classloader
@@ -38,11 +41,13 @@ class OracleOsonJacksonHelper {
 	private OracleOsonJacksonHelper() {
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Closeable createWriteTarget(OutputStream out) throws IOException {
 		return FactoryHolder.JACKSON_FACTORY.createGenerator( out );
 	}
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Closeable createReadSource(InputStream osonBytes) throws IOException {
 		return FactoryHolder.JACKSON_FACTORY.createParser( osonBytes );
 	}

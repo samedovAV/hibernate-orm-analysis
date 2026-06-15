@@ -27,6 +27,8 @@ import org.hibernate.stat.SessionStatistics;
 
 import java.util.Collection;
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// The main runtime interface between a Java application and Hibernate. Represents the
 /// notion of a _persistence context_, a set of managed entity instances associated
@@ -201,6 +203,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	///
 	/// @throws HibernateException if changes could not be synchronized with the database
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void flush();
 
 	/// Set the current [JPA flush mode][FlushModeType] for this session.
@@ -213,6 +216,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	///
 	/// @see #setHibernateFlushMode(FlushMode)
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setFlushMode(@Nonnull FlushModeType flushMode);
 
 	/// Set the current [flush mode][FlushMode] for this session.
@@ -229,6 +233,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// Note that [FlushMode] defines more options than [FlushModeType].
 	///
 	/// @param flushMode the new [FlushMode]
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setHibernateFlushMode(FlushMode flushMode);
 
 	/// Get the current [JPA flush mode][FlushModeType] for this session.
@@ -238,11 +243,13 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @see #getHibernateFlushMode()
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	FlushModeType getFlushMode();
 
 	/// Get the current [flush mode][FlushMode] for this session.
 	///
 	/// @return the [FlushMode] currently in effect
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	FlushMode getHibernateFlushMode();
 
 	/// Set the current [cache mode][CacheMode] for this session.
@@ -251,12 +258,14 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// the second level cache.
 	///
 	/// @param cacheMode the new cache mode
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setCacheMode(@Nonnull CacheMode cacheMode);
 
 	/// Get the current [cache mode][CacheMode] for this session.
 	///
 	/// @return the current cache mode
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CacheMode getCacheMode();
 
 	/// The JPA-defined [CacheStoreMode].
@@ -266,6 +275,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @since 6.2
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CacheStoreMode getCacheStoreMode();
 
 	/// The JPA-defined [CacheRetrieveMode].
@@ -275,6 +285,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @since 6.2
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CacheRetrieveMode getCacheRetrieveMode();
 
 	/// Enable or disable writes to the second-level cache.
@@ -285,6 +296,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	///
 	/// @since 6.2
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setCacheStoreMode(@Nonnull CacheStoreMode cacheStoreMode);
 
 	/// Enable or disable reads from the second-level cache.
@@ -295,12 +307,14 @@ public interface Session extends SharedSessionContract, EntityManager {
 	///
 	/// @since 6.2
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setCacheRetrieveMode(@Nonnull CacheRetrieveMode cacheRetrieveMode);
 
 	/// Get the maximum batch size for batch fetching associations by
 	/// id in this session.
 	///
 	/// @since 6.3
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getFetchBatchSize();
 
 	/// Set the maximum batch size for batch fetching associations by
@@ -319,6 +333,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @since 6.3
 	///
 	/// @see org.hibernate.cfg.AvailableSettings#DEFAULT_BATCH_FETCH_SIZE
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setFetchBatchSize(int batchSize);
 
 	/// Determine if subselect fetching is enabled in this session.
@@ -326,6 +341,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @return `true` is subselect fetching is enabled
 	///
 	/// @since 6.3
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isSubselectFetchingEnabled();
 
 	/// Enable or disable subselect fetching in this session. Override the
@@ -338,6 +354,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @since 6.3
 	///
 	/// @see org.hibernate.cfg.AvailableSettings#USE_SUBSELECT_FETCH
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setSubselectFetchingEnabled(boolean enabled);
 
 	/// Get the session factory which created this session.
@@ -346,6 +363,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	///
 	/// @see SessionFactory
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactory getSessionFactory();
 
 	/// Cancel the execution of the current query.
@@ -354,6 +372,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// another thread.
 	///
 	/// @throws HibernateException if there was a problem cancelling the query
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void cancelQuery();
 
 	/// Whether this session contains any changes which must be synchronized with
@@ -361,6 +380,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// we flushed this session?
 	///
 	/// @return `true` if the session contains pending changes; `false` otherwise.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isDirty();
 
 	/// Will entities and proxies that are loaded into this session be made
@@ -373,6 +393,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	///
 	/// @return `true`, loaded entities/proxies will be made read-only by default;
 	///		 `false`, loaded entities/proxies will be made modifiable by default.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isDefaultReadOnly();
 
 	/// Change the default for entities and proxies loaded into this session
@@ -405,6 +426,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	///				 `false`, the default for loaded entities/proxies is modifiable
 	/// @throws SessionException if the session was originally
 	///         {@linkplain SessionBuilder#readOnly created in read-only mode}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setDefaultReadOnly(boolean readOnly);
 
 	/// Return the identifier value of the given entity associated with this session.
@@ -418,6 +440,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @throws TransientObjectException if the instance is transient or associated with
 	/// a different session
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getIdentifier(@Nonnull Object object);
 
 	/// Determine if the given entity is associated with this session.
@@ -429,6 +452,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	///
 	/// @deprecated Use [#contains(Object)] instead.
 	@Deprecated(since = "7.2", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean contains(@Nonnull String entityName, @Nonnull Object object);
 
 	/// Remove this instance from the session cache. Changes to the instance will
@@ -437,6 +461,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	///
 	/// @param object the managed instance to detach
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void detach(@Nonnull Object object);
 
 	/// Remove this instance from the session cache. Changes to the instance will
@@ -448,6 +473,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @param object the managed entity to evict
 	///
 	/// @throws IllegalArgumentException if the given object is not an entity
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void evict(@Nonnull Object object);
 
 	/// Return the persistent instance of the given entity class with the given identifier,
@@ -481,6 +507,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @return a fully-fetched persistent instance or null
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T find(@Nonnull Class<T> entityType, @Nonnull Object id);
 
 	/// {@inheritDoc}
@@ -493,6 +520,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @param options options controlling the behavior of the operation
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T find(@Nonnull Class<T> entityType, @Nonnull Object id, @Nullable FindOption... options);
 
 	/// Return the persistent instances of the given entity class with the given identifiers
@@ -529,6 +557,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	///
 	/// @since 7.0
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<E> List<E> findMultiple(@Nonnull Class<E> entityType, @Nonnull List<?> ids, @Nullable FindOption... options);
 
 	/// Return the persistent instances of the root entity of the given [EntityGraph]
@@ -566,6 +595,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	///
 	/// @since 7.0
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<E> List<E> findMultiple(@Nonnull EntityGraph<E> entityGraph, @Nonnull List<?> ids, @Nullable FindOption... options);
 
 	/// Read the persistent state associated with the given identifier into the given
@@ -573,6 +603,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	///
 	/// @param object a transient instance of an entity class
 	/// @param id an identifier
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void load(@Nonnull Object object, @Nonnull Object id);
 
 	/// Copy the state of the given object onto the persistent object with the same
@@ -588,6 +619,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @return an updated persistent instance
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T merge(@Nonnull T object);
 
 	/// Copy the state of the given object onto the persistent object with the same
@@ -603,6 +635,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	///
 	/// @return an updated persistent instance
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T merge(@Nonnull String entityName, @Nonnull T object);
 
 	/// Copy the state of the given object onto the persistent object with the same
@@ -621,6 +654,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	///
 	/// @since 7.0
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T merge(@Nonnull T object, @Nonnull EntityGraph<? super T> loadGraph);
 
 	/// Make a transient instance persistent and mark it for later insertion in the
@@ -634,6 +668,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	///
 	/// @param object a transient instance to be made persistent
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void persist(@Nonnull Object object);
 
 	/// Make a transient instance persistent and mark it for later insertion in the
@@ -647,6 +682,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	///
 	/// @param entityName the entity name
 	/// @param object a transient instance to be made persistent
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void persist(String entityName, Object object);
 
 	/// Obtain the specified lock level on the given managed instance associated
@@ -673,6 +709,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @param lockMode the lock level
 	///
 	/// @see #lock(Object, LockModeType)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void lock(@Nonnull Object object, @Nonnull LockMode lockMode);
 
 	/// Obtain the specified lock level on the given managed instance associated
@@ -700,6 +737,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @param lockMode the lock level
 	///
 	/// @see #lock(Object, LockModeType, LockOption...)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void lock(@Nonnull Object object, @Nonnull LockMode lockMode, @Nullable LockOption... lockOptions);
 
 	/// Reread the state of the given managed instance associated with this session
@@ -721,6 +759,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	///
 	/// @param object a persistent instance associated with this session
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void refresh(@Nonnull Object object);
 
 	/// {@inheritDoc}
@@ -728,6 +767,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @param object a persistent instance associated with this session
 	/// @param options options controlling the behavior of the operation
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void refresh(@Nonnull Object object, @Nullable RefreshOption... options);
 
 	/// Mark a persistence instance associated with this session for removal from
@@ -740,6 +780,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @param object the managed persistent instance to remove, or a detached
 	///               instance unless operating in fully JPA-compliant mode
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void remove(@Nonnull Object object);
 
 	/// Determine the current [lock mode][LockMode] held on the given
@@ -758,6 +799,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	///                               with this persistence context
 	/// @throws ObjectDeletedException if the given instance was already
 	///                                {@linkplain #remove removed}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	LockMode getCurrentLockMode(Object object);
 
 	/// Completely clear the persistence context. Evict all loaded instances,
@@ -767,6 +809,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	///
 	/// Does not close open iterators or instances of [ScrollableResults].
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void clear();
 
 	/// Return the persistent instance of the given entity class with the given identifier,
@@ -785,6 +828,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @deprecated Use [#find(Class,Object,FindOption...)] instead.
 	@Nonnull
 	@Deprecated(since = "7.0", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T get(@Nonnull Class<T> entityType, @Nonnull Object id, @Nonnull LockMode lockMode);
 
 	/// Return the persistent instance of the given entity class with the given identifier,
@@ -801,6 +845,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @deprecated The semantics of this method may change in a future release.
 	@Nonnull
 	@Deprecated(since = "7.0", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object get(@Nonnull String entityName, @Nonnull Object id, @Nonnull LockMode lockMode);
 
 	/// Return the persistent instance of the given entity class with the given identifier,
@@ -819,6 +864,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	@Deprecated(since = "7.0", forRemoval = true)
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T get(@Nonnull Class<T> entityType, @Nonnull Object id, @Nonnull LockOptions lockOptions);
 
 	/// Return the persistent instance of the given entity class with the given identifier,
@@ -839,6 +885,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	@Deprecated(since = "7.0", forRemoval = true)
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object get(@Nonnull String entityName, @Nonnull Object id, @Nonnull LockOptions lockOptions);
 
 	/// Obtain a lock on the given managed instance associated with this session,
@@ -853,6 +900,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	///             Use [#lock(Object, LockModeType, LockOption...)] instead
 	@SuppressWarnings("removal")
 	@Deprecated(since = "7.0", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void lock(@Nonnull Object object, @Nonnull LockOptions lockOptions);
 
 	/// Reread the state of the given managed instance from the underlying database,
@@ -865,6 +913,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	///             Use [#refresh(Object, RefreshOption...)] instead
 	@SuppressWarnings("removal")
 	@Deprecated(since = "7.0", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void refresh(@Nonnull Object object, @Nonnull LockOptions lockOptions);
 
 	/// Return the entity name for the given persistent entity.
@@ -876,6 +925,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	///
 	/// @return the entity name
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getEntityName(@Nonnull Object object);
 
 	/// Return a reference to the persistent instance with the given class and identifier,
@@ -901,6 +951,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @return the persistent instance or proxy
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T getReference(@Nonnull Class<T> entityType, @Nonnull Object id);
 
 	/// Return a reference to the persistent instance of the given named entity with the
@@ -914,6 +965,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	///
 	/// @return the persistent instance or proxy
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getReference(@Nonnull String entityName, @Nonnull Object id);
 
 	/// Return a reference to the persistent instance with the same identity as the given
@@ -929,6 +981,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @since 6.0
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T getReference(@Nonnull T object);
 
 	/// Return a reference to the persistent instance of the given entity type with
@@ -942,6 +995,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	///                [id][KeyType#IDENTIFIER] or as a [natural id][KeyType#NATURAL]
 	/// @since 8.0
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T getReference(@Nonnull Class<T> entityType, @Nonnull Object key, @Nonnull KeyType keyType);
 
 	/// Create an [IdentifierLoadAccess] instance to retrieve an instance of the given
@@ -959,6 +1013,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	@SuppressWarnings("removal")
 	@Deprecated(since = "7.1", forRemoval = true)
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> IdentifierLoadAccess<T> byId(@Nonnull Class<T> entityClass);
 
 	/// Create an [IdentifierLoadAccess] instance to retrieve an instance of the named
@@ -976,6 +1031,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	@SuppressWarnings("removal")
 	@Deprecated(since = "7.1", forRemoval = true)
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> IdentifierLoadAccess<T> byId(@Nonnull String entityName);
 
 	/// Create a [MultiIdentifierLoadAccess] instance to retrieve multiple instances
@@ -993,6 +1049,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	@Nonnull
 	@SuppressWarnings("removal")
 	@Deprecated(since = "7.2", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> MultiIdentifierLoadAccess<T> byMultipleIds(@Nonnull Class<T> entityClass);
 
 	/// Create a [MultiIdentifierLoadAccess] instance to retrieve multiple instances
@@ -1009,6 +1066,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	@Nonnull
 	@SuppressWarnings("removal")
 	@Deprecated(since = "7.2", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> MultiIdentifierLoadAccess<T> byMultipleIds(@Nonnull String entityName);
 
 	/// Create a [NaturalIdLoadAccess] instance to retrieve an instance of the given
@@ -1026,6 +1084,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @deprecated Use {@linkplain #find} with [KeyType#NATURAL] instead.
 	@Nonnull
 	@Deprecated(since = "7.3")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> NaturalIdLoadAccess<T> byNaturalId(@Nonnull Class<T> entityClass);
 
 	/// Create a [NaturalIdLoadAccess] instance to retrieve an instance of the named
@@ -1043,6 +1102,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @deprecated Use {@linkplain #find} with [KeyType#NATURAL] instead.
 	@Nonnull
 	@Deprecated(since = "7.3")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> NaturalIdLoadAccess<T> byNaturalId(@Nonnull String entityName);
 
 	/// Create a [SimpleNaturalIdLoadAccess] instance to retrieve an instance of the
@@ -1060,6 +1120,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @deprecated Use {@linkplain #find} with [KeyType#NATURAL] instead.
 	@Nonnull
 	@Deprecated(since = "7.3")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> SimpleNaturalIdLoadAccess<T> bySimpleNaturalId(@Nonnull Class<T> entityClass);
 
 	/// Create a [SimpleNaturalIdLoadAccess] instance to retrieve an instance of the
@@ -1077,6 +1138,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @deprecated Use {@linkplain #find} with [KeyType#NATURAL] instead.
 	@Deprecated(since = "7.3")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> SimpleNaturalIdLoadAccess<T> bySimpleNaturalId(@Nonnull String entityName);
 
 	/// Create a [MultiIdentifierLoadAccess] instance to retrieve multiple instances
@@ -1094,6 +1156,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	///
 	@Nonnull
 	@Deprecated(since = "7.3")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> NaturalIdMultiLoadAccess<T> byMultipleNaturalId(@Nonnull Class<T> entityClass);
 
 	/// Create a [MultiIdentifierLoadAccess] instance to retrieve multiple instances
@@ -1110,12 +1173,14 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @deprecated Use {@linkplain #findMultiple} with [KeyType#NATURAL] instead.
 	@Nonnull
 	@Deprecated(since = "7.3")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> NaturalIdMultiLoadAccess<T> byMultipleNaturalId(@Nonnull String entityName);
 
 	/// Get the [statistics][SessionStatistics] for this session.
 	///
 	/// @return the session statistics being collected for this session
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionStatistics getStatistics();
 
 	/// Is the specified entity or proxy read-only?
@@ -1129,6 +1194,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @param entityOrProxy an entity or proxy
 	/// @return `true` if the entity or proxy is read-only,
 	///         `false` if the entity or proxy is modifiable.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isReadOnly(@Nonnull Object entityOrProxy);
 
 	/// Set an unmodified persistent object to read-only mode, or a read-only
@@ -1161,6 +1227,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	///				   `false` if the entity or proxy should be made modifiable
 	///
 	/// @throws IllegalStateException if an immutable entity is set to modifiable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setReadOnly(@Nonnull Object entityOrProxy, boolean readOnly);
 
 	/// Is the [fetch profile][org.hibernate.annotations.FetchProfile]
@@ -1173,6 +1240,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	///                                 match any known fetch profile names
 	///
 	/// @see org.hibernate.annotations.FetchProfile
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isFetchProfileEnabled(@Nonnull String name) throws UnknownProfileException;
 
 	/// Enable the [fetch profile][org.hibernate.annotations.FetchProfile]
@@ -1185,6 +1253,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	///                                 match any known fetch profile names
 	///
 	/// @see org.hibernate.annotations.FetchProfile
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void enableFetchProfile(@Nonnull String name) throws UnknownProfileException;
 
 	/// Disable the [fetch profile][org.hibernate.annotations.FetchProfile]
@@ -1197,6 +1266,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	///                                 match any known fetch profile names
 	///
 	/// @see org.hibernate.annotations.FetchProfile
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void disableFetchProfile(@Nonnull String name) throws UnknownProfileException;
 
 	/// Obtain a {@linkplain LobHelper} for instances of [java.sql.Blob]
@@ -1207,6 +1277,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @deprecated Use [#getLobHelper()] instead.
 	@Nonnull
 	@Deprecated(since="7.0", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	LobHelper getLobHelper();
 
 	/// Obtain the collection of all managed entities which belong to this
@@ -1215,6 +1286,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @since 7.0
 	@Incubating
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Collection<?> getManagedEntities();
 
 	/// Obtain a collection of all managed instances of the entity type with the
@@ -1223,6 +1295,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @since 7.0
 	@Incubating
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Collection<?> getManagedEntities(@Nonnull String entityName);
 
 	/// Obtain a collection of all managed entities of the given type which belong
@@ -1232,6 +1305,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @since 7.0
 	@Incubating
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<E> Collection<E> getManagedEntities(@Nonnull Class<E> entityType);
 
 	/// Obtain a collection of all managed entities of the given type which belong
@@ -1241,11 +1315,13 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @since 7.0
 	@Incubating
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<E> Collection<E> getManagedEntities(@Nonnull EntityType<E> entityType);
 
 	/// Add one or more listeners to the Session
 	///
 	/// @param listeners the listener(s) to add
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addEventListeners(@Nonnull SessionEventListener... listeners);
 
 	/// Set a hint. The hints understood by Hibernate are enumerated by
@@ -1261,6 +1337,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// interface. For example, [#enableFetchProfile(String)]
 	/// should be used in preference to the hint [org.hibernate.jpa.HibernateHints#HINT_FETCH_PROFILE].
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setProperty(@Nonnull String propertyName, @Nullable Object value);
 
 	/// Create a new mutable instance of [EntityGraph], with only
@@ -1276,6 +1353,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @see org.hibernate.graph.EntityGraphs#createGraph(jakarta.persistence.metamodel.EntityType)
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> RootGraph<T> createEntityGraph(@Nonnull Class<T> rootType);
 
 	/// Obtain a mutable copy of a predefined
@@ -1298,6 +1376,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @see jakarta.persistence.EntityManagerFactory#addNamedEntityGraph(String, EntityGraph)
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	RootGraph<?> getEntityGraph(@Nonnull String graphName);
 
 	/// Obtain a mutable copy of a predefined
@@ -1319,6 +1398,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @since 8.0
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> RootGraph<T> getEntityGraph(@Nonnull Class<T> rootType, @Nonnull String graphName);
 
 	/// Create a new mutable instance of [EntityGraph], based on
@@ -1332,6 +1412,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	@Nullable
 	@SuppressWarnings("removal")
 	@Override @Deprecated(forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	RootGraph<?> createEntityGraph(@Nonnull String graphName);
 
 	/// Create a new mutable instance of [EntityGraph], based on
@@ -1346,6 +1427,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	@Nullable
 	@SuppressWarnings("removal")
 	@Override @Deprecated(forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> RootGraph<T> createEntityGraph(@Nonnull Class<T> rootType, @Nonnull String graphName);
 
 	/// Retrieve all named [EntityGraph]s with the given root entity type.
@@ -1354,6 +1436,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	/// @see jakarta.persistence.EntityManagerFactory#addNamedEntityGraph(String, EntityGraph)
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> List<EntityGraph<? super T>> getEntityGraphs(@Nonnull Class<T> entityClass);
 
 	/**
@@ -1361,6 +1444,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R> SelectionQuery<R> createQuery(@Nonnull String queryString, @Nonnull Class<R> resultClass);
 
 	/**
@@ -1368,6 +1452,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R> SelectionQuery<R> createQuery(@Nonnull TypedQueryReference<R> typedQueryReference);
 
 	/**
@@ -1375,6 +1460,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R> SelectionQuery<R> createNamedQuery(@Nonnull String name, @Nonnull Class<R> resultClass);
 
 	/**
@@ -1382,6 +1468,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery createQuery(@Nonnull String queryString);
 
 	/**
@@ -1389,6 +1476,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery createNamedQuery(@Nonnull String name);
 
 	/**
@@ -1398,6 +1486,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	@Override
 	@SuppressWarnings("removal")
 	@Deprecated(forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery createQuery(@Nonnull CriteriaStatement<?> criteriaStatement);
 
 	/// @deprecated Use [#createNamedQuery(String)] instead. Retained to allow for
@@ -1406,6 +1495,7 @@ public interface Session extends SharedSessionContract, EntityManager {
 	@Nonnull
 	@SuppressWarnings("rawtypes")
 	@Deprecated(since = "8.0", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery getNamedNativeQuery(@Nonnull String name);
 
 }

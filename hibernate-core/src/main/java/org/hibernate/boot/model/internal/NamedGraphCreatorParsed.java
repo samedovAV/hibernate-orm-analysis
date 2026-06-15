@@ -25,6 +25,8 @@ import org.hibernate.service.ServiceRegistry;
 import static org.hibernate.graph.internal.parse.GraphParsing.parseLegacyGraphText;
 import static org.hibernate.graph.internal.parse.GraphParsing.parseText;
 import static org.hibernate.internal.util.StringHelper.nullIfEmpty;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -45,6 +47,7 @@ class NamedGraphCreatorParsed implements NamedGraphCreator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public RootGraphImplementor<?> createEntityGraph(
 			GraphParserEntityClassResolver entityDomainClassResolver,
 			GraphParserEntityNameResolver entityDomainNameResolver,
@@ -65,6 +68,7 @@ class NamedGraphCreatorParsed implements NamedGraphCreator {
 		return parseGraphForLegacyParsingMode( entityDomainClassResolver, entityDomainNameResolver );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static @Nonnull EntityDomainType<?> resolve(
 			String entityName, GraphParserEntityNameResolver entityDomainNameResolver) {
 		final var entityDomainType =
@@ -78,6 +82,7 @@ class NamedGraphCreatorParsed implements NamedGraphCreator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private <T> RootGraphImplementor<T> parseGraph(
 			GraphParserEntityClassResolver entityDomainClassResolver,
 			GraphParserEntityNameResolver entityDomainNameResolver) {
@@ -94,6 +99,7 @@ class NamedGraphCreatorParsed implements NamedGraphCreator {
 	}
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private <T> RootGraphImplementor<T> parseGraphForLegacyParsingMode(
 			GraphParserEntityClassResolver entityDomainClassResolver,
 			GraphParserEntityNameResolver entityDomainNameResolver) {
@@ -127,6 +133,7 @@ class NamedGraphCreatorParsed implements NamedGraphCreator {
 	}
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private <T> EntityDomainType<T> resolveEntityDomainTypeFromAnnotation(GraphParserEntityClassResolver entityDomainClassResolver) {
 		final Class<?> annotationRootAttribute = annotation.root();
 		final boolean isAnnotationRootAttributeVoid = void.class.equals( annotationRootAttribute );

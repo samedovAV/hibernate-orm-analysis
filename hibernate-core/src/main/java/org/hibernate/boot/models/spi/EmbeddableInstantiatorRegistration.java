@@ -5,6 +5,8 @@
 package org.hibernate.boot.models.spi;
 
 import org.hibernate.models.spi.ClassDetails;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Registered {@linkplain org.hibernate.metamodel.spi.EmbeddableInstantiator}
@@ -23,10 +25,12 @@ public class EmbeddableInstantiatorRegistration {
 		this.instantiator = instantiator;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ClassDetails getEmbeddableClass() {
 		return embeddableClass;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ClassDetails getInstantiator() {
 		return instantiator;
 	}

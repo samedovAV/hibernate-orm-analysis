@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.property.access.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Describes a strategy for accessing a persistent attribute,
@@ -20,5 +23,6 @@ public interface PropertyAccessStrategy {
 	 *
 	 * @return The appropriate PropertyAccess
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PropertyAccess buildPropertyAccess(Class<?> containerJavaType, String propertyName, boolean setterRequired);
 }

@@ -23,6 +23,8 @@ import org.hibernate.usertype.UserType;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.SharedCacheMode;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for specifying various overrides to be used in metamodel building.
@@ -45,6 +47,7 @@ public interface MetadataBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#DEFAULT_CATALOG
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MetadataBuilder applyImplicitCatalogName(String implicitCatalogName);
 
 	/**
@@ -59,6 +62,7 @@ public interface MetadataBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#DEFAULT_SCHEMA
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MetadataBuilder applyImplicitSchemaName(String implicitSchemaName);
 
 	/**
@@ -73,6 +77,7 @@ public interface MetadataBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#IMPLICIT_NAMING_STRATEGY
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MetadataBuilder applyImplicitNamingStrategy(ImplicitNamingStrategy namingStrategy);
 
 	/**
@@ -87,6 +92,7 @@ public interface MetadataBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#PHYSICAL_NAMING_STRATEGY
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MetadataBuilder applyPhysicalNamingStrategy(PhysicalNamingStrategy namingStrategy);
 
 	/**
@@ -101,6 +107,7 @@ public interface MetadataBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#IMPLICIT_NAMING_STRATEGY
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MetadataBuilder applyColumnOrderingStrategy(ColumnOrderingStrategy columnOrderingStrategy);
 
 	/**
@@ -115,6 +122,7 @@ public interface MetadataBuilder {
 	 *
 	 * @see #applyAccessType
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MetadataBuilder applySharedCacheMode(SharedCacheMode cacheMode);
 
 	/**
@@ -131,6 +139,7 @@ public interface MetadataBuilder {
 	 * @see org.hibernate.cfg.AvailableSettings#DEFAULT_CACHE_CONCURRENCY_STRATEGY
 	 * @see #applySharedCacheMode(jakarta.persistence.SharedCacheMode)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MetadataBuilder applyAccessType(AccessType accessType);
 
 	/**
@@ -149,6 +158,7 @@ public interface MetadataBuilder {
 	 * @deprecated Set the {@code hibernate-models} setting {@code hibernate.models.jandex.index} instead.  This method has no effect.
 	 */
 	@Deprecated
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MetadataBuilder applyIndexView(Object jandexView);
 
 	/**
@@ -163,6 +173,7 @@ public interface MetadataBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#SCANNER
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MetadataBuilder applyScanning(ScanningProvider scanner);
 
 	/**
@@ -177,8 +188,10 @@ public interface MetadataBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#SCANNER_ARCHIVE_INTERPRETER
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MetadataBuilder applyArchiveDescriptorFactory(ArchiveDescriptorFactory factory);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MetadataBuilder applyImplicitListSemantics(CollectionClassification classification);
 
 	/**
@@ -200,6 +213,7 @@ public interface MetadataBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#IGNORE_EXPLICIT_DISCRIMINATOR_COLUMNS_FOR_JOINED_SUBCLASS
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MetadataBuilder enableExplicitDiscriminatorsForJoinedSubclassSupport(boolean enabled);
 
 	/**
@@ -223,6 +237,7 @@ public interface MetadataBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#IMPLICIT_DISCRIMINATOR_COLUMNS_FOR_JOINED_SUBCLASS
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MetadataBuilder enableImplicitDiscriminatorsForJoinedSubclassSupport(boolean enabled);
 
 	/**
@@ -239,6 +254,7 @@ public interface MetadataBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#FORCE_DISCRIMINATOR_IN_SELECTS_BY_DEFAULT
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MetadataBuilder enableImplicitForcingOfDiscriminatorsInSelect(boolean supported);
 
 	/**
@@ -255,11 +271,13 @@ public interface MetadataBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#USE_NATIONALIZED_CHARACTER_DATA
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MetadataBuilder enableGlobalNationalizedCharacterDataSupport(boolean enabled);
 
 	/**
 	 * Defines a default fetch-type for to-one associations.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MetadataBuilder applyDefaultToOneFetchType(FetchType defaultToOneFetchType);
 
 	/**
@@ -269,6 +287,7 @@ public interface MetadataBuilder {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MetadataBuilder applyBasicType(BasicType<?> type);
 
 	/**
@@ -280,6 +299,7 @@ public interface MetadataBuilder {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MetadataBuilder applyBasicType(BasicType<?> type, String... keys);
 
 	/**
@@ -290,6 +310,7 @@ public interface MetadataBuilder {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MetadataBuilder applyBasicType(UserType<?> type, String... keys);
 
 	/**
@@ -300,6 +321,7 @@ public interface MetadataBuilder {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MetadataBuilder applyTypes(TypeContributor typeContributor);
 
 	/**
@@ -310,6 +332,7 @@ public interface MetadataBuilder {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MetadataBuilder applyCacheRegionDefinition(CacheRegionDefinition cacheRegionDefinition);
 
 	/**
@@ -329,6 +352,7 @@ public interface MetadataBuilder {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MetadataBuilder applyTempClassLoader(ClassLoader tempClassLoader);
 
 	/**
@@ -339,6 +363,7 @@ public interface MetadataBuilder {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MetadataBuilder applyFunctions(FunctionContributor functionContributor);
 
 	/**
@@ -346,11 +371,13 @@ public interface MetadataBuilder {
 	 *
 	 * @see org.hibernate.dialect.function.StandardSQLFunction
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MetadataBuilder applySqlFunction(String functionName, SqmFunctionDescriptor function);
 
 	/**
 	 * Contribute an {@link AuxiliaryDatabaseObject}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MetadataBuilder applyAuxiliaryDatabaseObject(AuxiliaryDatabaseObject auxiliaryDatabaseObject);
 
 	/**
@@ -361,6 +388,7 @@ public interface MetadataBuilder {
 	 * @return {@code this} for method chaining
 	 *
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MetadataBuilder applyAttributeConverter(ConverterDescriptor<?,?> descriptor);
 
 	/**
@@ -370,6 +398,7 @@ public interface MetadataBuilder {
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<O,R> MetadataBuilder applyAttributeConverter(Class<? extends AttributeConverter<O,R>> attributeConverterClass);
 
 	/**
@@ -382,6 +411,7 @@ public interface MetadataBuilder {
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<O,R> MetadataBuilder applyAttributeConverter(Class<? extends AttributeConverter<O,R>> attributeConverterClass, boolean autoApply);
 
 	/**
@@ -391,6 +421,7 @@ public interface MetadataBuilder {
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<O,R> MetadataBuilder applyAttributeConverter(AttributeConverter<O,R> attributeConverter);
 
 	/**
@@ -403,6 +434,7 @@ public interface MetadataBuilder {
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MetadataBuilder applyAttributeConverter(AttributeConverter<?,?> attributeConverter, boolean autoApply);
 
 	/**
@@ -410,6 +442,7 @@ public interface MetadataBuilder {
 	 *
 	 * @return The built metadata.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Metadata build();
 
 }

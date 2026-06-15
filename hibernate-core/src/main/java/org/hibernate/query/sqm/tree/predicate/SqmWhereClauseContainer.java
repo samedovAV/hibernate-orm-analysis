@@ -5,6 +5,8 @@
 package org.hibernate.query.sqm.tree.predicate;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Unified contract for things that can contain a SqmWhereClause.
@@ -12,7 +14,9 @@ import jakarta.annotation.Nullable;
  * @author Steve Ebersole
  */
 public interface SqmWhereClauseContainer {
-	@Nullable SqmWhereClause getWhereClause();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	SqmWhereClause getWhereClause();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void applyPredicate(SqmPredicate accept);
 }

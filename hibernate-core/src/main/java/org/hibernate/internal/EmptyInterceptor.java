@@ -8,6 +8,8 @@ import java.io.Serializable;
 
 import org.hibernate.Interceptor;
 import org.hibernate.type.Type;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An interceptor that does nothing.
@@ -25,11 +27,13 @@ public final class EmptyInterceptor implements Interceptor, Serializable {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean onLoad(Object entity, Object id, Object[] state, String[] propertyNames, Type[] types) {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean onFlushDirty(
 			Object entity,
 			Object id,
@@ -41,15 +45,18 @@ public final class EmptyInterceptor implements Interceptor, Serializable {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean onSave(Object entity, Object id, Object[] state, String[] propertyNames, Type[] types) {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void onDelete(Object entity, Object id, Object[] state, String[] propertyNames, Type[] types) {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int[] findDirty(
 			Object entity,
 			Object id,
@@ -61,6 +68,7 @@ public final class EmptyInterceptor implements Interceptor, Serializable {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getEntity(String entityName, Object id) {
 		return null;
 	}

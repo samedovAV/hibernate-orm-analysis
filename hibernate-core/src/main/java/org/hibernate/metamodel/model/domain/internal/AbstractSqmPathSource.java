@@ -10,6 +10,8 @@ import org.hibernate.metamodel.model.domain.DomainType;
 import org.hibernate.query.sqm.SqmPathSource;
 import org.hibernate.query.sqm.tree.domain.SqmDomainType;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -33,27 +35,32 @@ public abstract class AbstractSqmPathSource<J> implements SqmPathSource<J> {
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<J> getBindableJavaType() {
 		return domainType.getJavaType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getPathName() {
 		return localPathName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmDomainType<J> getPathType() {
 		return domainType;
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BindableType getBindableType() {
 		return jpaBindableType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JavaType<J> getExpressibleJavaType() {
 		return domainType.getExpressibleJavaType();
 	}

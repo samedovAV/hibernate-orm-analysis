@@ -5,6 +5,8 @@
 package org.hibernate.loader.ast.spi;
 
 import org.hibernate.metamodel.mapping.EntityMappingType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specialization of Loader for loading entities of a type
@@ -13,5 +15,6 @@ import org.hibernate.metamodel.mapping.EntityMappingType;
  */
 public interface EntityLoader extends Loader {
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityMappingType getLoadable();
 }

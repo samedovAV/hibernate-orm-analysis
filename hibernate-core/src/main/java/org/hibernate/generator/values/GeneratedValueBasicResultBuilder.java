@@ -19,6 +19,8 @@ import org.hibernate.sql.results.jdbc.spi.JdbcValuesMetadata;
 import static org.hibernate.generator.values.internal.GeneratedValuesHelper.getActualGeneratedModelPart;
 import static org.hibernate.query.results.internal.ResultsHelper.impl;
 import static org.hibernate.query.results.internal.ResultsHelper.jdbcPositionToValuesArrayPosition;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Simple implementation of {@link ResultBuilder} for retrieving generated basic values.
@@ -44,16 +46,19 @@ public class GeneratedValueBasicResultBuilder implements ResultBuilder {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getJavaType() {
 		return modelPart.getExpressibleJavaType().getJavaTypeClass();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ResultBuilder cacheKeyInstance() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BasicResult<?> buildResult(
 			JdbcValuesMetadata jdbcResultsMetadata,
 			int resultPosition,
@@ -69,18 +74,21 @@ public class GeneratedValueBasicResultBuilder implements ResultBuilder {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private SqlSelection sqlSelection(
 			JdbcValuesMetadata jdbcResultsMetadata, DomainResultCreationState domainResultCreationState) {
 		final var creationStateImpl = impl( domainResultCreationState );
 		return sqlSelection( jdbcResultsMetadata, creationStateImpl, tableReference( creationStateImpl ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private TableReference tableReference(DomainResultCreationStateImpl creationStateImpl) {
 		return creationStateImpl.getFromClauseAccess()
 				.resolveTableGroup( navigablePath.getParent(), path -> this.tableGroup )
 				.resolveTableReference( navigablePath, modelPart, "t" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private SqlSelection sqlSelection(
 			JdbcValuesMetadata jdbcResultsMetadata,
 			DomainResultCreationStateImpl creationStateImpl,
@@ -100,10 +108,12 @@ public class GeneratedValueBasicResultBuilder implements ResultBuilder {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BasicValuedModelPart getModelPart() {
 		return modelPart;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static int columnIndex(JdbcValuesMetadata jdbcResultsMetadata, BasicValuedModelPart modelPart) {
 		if ( jdbcResultsMetadata.getColumnCount() == 1 ) {
 			assert modelPart.isEntityIdentifierMapping()
@@ -115,6 +125,7 @@ public class GeneratedValueBasicResultBuilder implements ResultBuilder {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static int getColumnPosition(JdbcValuesMetadata valuesMetadata, BasicValuedModelPart modelPart) {
 		return valuesMetadata.resolveColumnPosition( getActualGeneratedModelPart( modelPart ).getSelectionExpression() );
 	}

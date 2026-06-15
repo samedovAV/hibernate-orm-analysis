@@ -14,6 +14,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.Serializable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// An InputStreamAccess implementation based on a File reference
 ///
@@ -31,11 +33,13 @@ public class FileInputStreamAccess implements InputStreamAccess, Serializable {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getStreamName() {
 		return name;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public InputStream accessInputStream() {
 		try {
 			return new BufferedInputStream( new FileInputStream( file ) );

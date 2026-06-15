@@ -12,6 +12,8 @@ import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.event.spi.PostDeleteEvent;
 import org.hibernate.event.spi.PostDeleteEventListener;
 import org.hibernate.persister.entity.EntityPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Post-execution callback for entity delete actions.
 ///
@@ -48,11 +50,13 @@ public class PostDeleteHandling implements PostExecutionCallback {
 		this.preDeleteHandling = preDeleteHandling;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PreDeleteHandling getPreDeleteHandling() {
 		return preDeleteHandling;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handle(SessionImplementor session) {
 		final var persister = action.getPersister();
 		final Object id = action.getId();
@@ -74,6 +78,7 @@ public class PostDeleteHandling implements PostExecutionCallback {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void postDeleteLoaded(
 			Object id,
 			EntityPersister persister,
@@ -96,11 +101,13 @@ public class PostDeleteHandling implements PostExecutionCallback {
 		firePostDelete( session );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void firePostDelete(SessionImplementor session) {
 		session.getFactory().getEventListenerGroups().eventListenerGroup_POST_DELETE
 				.fireLazyEventOnEachListener( () -> newPostDeleteEvent( session ), PostDeleteEventListener::onPostDelete );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private PostDeleteEvent newPostDeleteEvent(SessionImplementor session) {
 		return new PostDeleteEvent(
 				action.getInstance(),
@@ -111,6 +118,7 @@ public class PostDeleteHandling implements PostExecutionCallback {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void postDeleteUnloaded(
 			Object id,
 			EntityPersister persister,
@@ -124,6 +132,7 @@ public class PostDeleteHandling implements PostExecutionCallback {
 		removeCacheItem( session, cacheKey );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void removeCacheItem(SessionImplementor session, Object cacheKey) {
 		final var persister = action.getPersister();
 		if ( persister.canWriteToCache() ) {

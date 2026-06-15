@@ -8,6 +8,8 @@ import java.util.function.Consumer;
 
 import org.hibernate.internal.util.IndexedConsumer;
 import org.hibernate.spi.DotIdentifierSequence;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Access to a group of ModelPart by name or for iteration.
@@ -15,16 +17,21 @@ import org.hibernate.spi.DotIdentifierSequence;
  * @author Steve Ebersole
  */
 public interface ModelPartContainer extends ModelPart {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ModelPart findSubPart(String name, EntityMappingType treatTargetType);
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void forEachSubPart(IndexedConsumer<ModelPart> consumer) {
 		forEachSubPart( consumer, null );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void forEachSubPart(IndexedConsumer<ModelPart> consumer, EntityMappingType treatTarget);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitSubParts(Consumer<ModelPart> consumer, EntityMappingType treatTargetType);
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default ModelPart findByPath(String path) {
 		int nextStart = 0;
 		int dotIndex;
@@ -39,6 +46,7 @@ public interface ModelPartContainer extends ModelPart {
 		return modelPartContainer.findSubPart( path.substring( nextStart ), null );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default ModelPart findByPath(DotIdentifierSequence path) {
 		ModelPartContainer modelPartContainer = this;
 		final DotIdentifierSequence endPart;

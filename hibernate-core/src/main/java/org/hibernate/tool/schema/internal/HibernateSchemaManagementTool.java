@@ -65,6 +65,8 @@ import static org.hibernate.internal.util.NullnessHelper.coalesceSuppliedValues;
 import static org.hibernate.internal.util.StringHelper.isEmpty;
 import static org.hibernate.internal.util.StringHelper.isNotEmpty;
 import static org.hibernate.internal.util.config.ConfigurationHelper.getString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The standard Hibernate implementation of {@link SchemaManagementTool}
@@ -82,36 +84,43 @@ public class HibernateSchemaManagementTool implements SchemaManagementTool, Serv
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void injectServices(@Nonnull ServiceRegistryImplementor serviceRegistry) {
 		this.serviceRegistry = serviceRegistry;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SchemaCreator getSchemaCreator(Map<String,Object> options) {
 		return new SchemaCreatorImpl( this, getSchemaFilterProvider( options ).getCreateFilter() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SchemaDropper getSchemaDropper(Map<String,Object> options) {
 		return new SchemaDropperImpl( this, getSchemaFilterProvider( options ).getDropFilter() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SchemaTruncator getSchemaTruncator(Map<String,Object> options) {
 		return new SchemaTruncatorImpl( this, getSchemaFilterProvider( options ).getTruncatorFilter() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SchemaPopulator getSchemaPopulator(Map<String, Object> options) {
 		return new SchemaPopulatorImpl( this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public GeneratorSynchronizer getSequenceSynchronizer(Map<String, Object> options) {
 		return new GeneratorSynchronizerImpl( this, getSchemaFilterProvider( options ).getMigrateFilter() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SchemaMigrator getSchemaMigrator(Map<String,Object> options) {
 		final var migrateFilter = getSchemaFilterProvider( options ).getMigrateFilter();
 		return JdbcMetadataAccessStrategy.interpretSetting( options ) == JdbcMetadataAccessStrategy.GROUPED
@@ -120,6 +129,7 @@ public class HibernateSchemaManagementTool implements SchemaManagementTool, Serv
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SchemaValidator getSchemaValidator(Map<String,Object> options) {
 		final var validateFilter = getSchemaFilterProvider( options ).getValidateFilter();
 		return JdbcMetadataAccessStrategy.interpretSetting( options ) == JdbcMetadataAccessStrategy.GROUPED
@@ -127,6 +137,7 @@ public class HibernateSchemaManagementTool implements SchemaManagementTool, Serv
 				: new IndividuallySchemaValidatorImpl( this, validateFilter );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private SchemaFilterProvider getSchemaFilterProvider(Map<String,Object> options) {
 		return serviceRegistry.requireService( StrategySelector.class )
 				.resolveDefaultableStrategy( SchemaFilterProvider.class,
@@ -135,20 +146,24 @@ public class HibernateSchemaManagementTool implements SchemaManagementTool, Serv
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setCustomDatabaseGenerationTarget(GenerationTarget generationTarget) {
 		this.customTarget = generationTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ExtractionTool getExtractionTool() {
 		return HibernateExtractionTool.INSTANCE;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	GenerationTarget getCustomDatabaseGenerationTarget() {
 		return customTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public GenerationTarget[] buildGenerationTargets(
 			TargetDescriptor targetDescriptor,
 			JdbcContext jdbcContext,
@@ -183,18 +198,22 @@ public class HibernateSchemaManagementTool implements SchemaManagementTool, Serv
 		return targets;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected GenerationTarget buildStdoutTarget(String scriptDelimiter) {
 		return new GenerationTargetToStdout( scriptDelimiter );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected GenerationTarget buildScriptTarget(TargetDescriptor targetDescriptor, String scriptDelimiter) {
 		return new GenerationTargetToScript( targetDescriptor.getScriptTargetOutput(), scriptDelimiter );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected GenerationTarget buildDatabaseTarget(JdbcContext jdbcContext, boolean needsAutoCommit) {
 		return new GenerationTargetToDatabase( getDdlTransactionIsolator( jdbcContext ), true, needsAutoCommit );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	GenerationTarget[] buildGenerationTargets(
 			TargetDescriptor targetDescriptor,
 			DdlTransactionIsolator ddlTransactionIsolator,
@@ -228,6 +247,7 @@ public class HibernateSchemaManagementTool implements SchemaManagementTool, Serv
 		return targets;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DdlTransactionIsolator getDdlTransactionIsolator(JdbcContext jdbcContext) {
 		if ( jdbcContext.getJdbcConnectionAccess() instanceof JdbcConnectionAccessProvidedConnectionImpl ) {
 			return new DdlTransactionIsolatorProvidedConnectionImpl( jdbcContext );
@@ -236,6 +256,7 @@ public class HibernateSchemaManagementTool implements SchemaManagementTool, Serv
 				.buildDdlTransactionIsolator( jdbcContext );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcContext resolveJdbcContext(Map<String,Object> configurationValues) {
 		final var jdbcContextBuilder = new JdbcContextBuilder( serviceRegistry );
 
@@ -303,11 +324,13 @@ public class HibernateSchemaManagementTool implements SchemaManagementTool, Serv
 			final Dialect indicatedDialect = serviceRegistry.requireService( DialectResolver.class ).resolveDialect(
 					new DialectResolutionInfo() {
 						@Override
+						@Prove(complexity = Complexity.O_1, n = "", count = {})
 						public String getDatabaseName() {
 							return dbName;
 						}
 
 						@Override
+						@Prove(complexity = Complexity.O_1, n = "", count = {})
 						public String getDatabaseVersion() {
 							return dbVersion == null
 									? String.valueOf( NO_VERSION ) :
@@ -315,6 +338,7 @@ public class HibernateSchemaManagementTool implements SchemaManagementTool, Serv
 						}
 
 						@Override
+						@Prove(complexity = Complexity.O_1, n = "", count = {})
 						public int getDatabaseMajorVersion() {
 							return isEmpty( dbMajor )
 									? NO_VERSION
@@ -322,6 +346,7 @@ public class HibernateSchemaManagementTool implements SchemaManagementTool, Serv
 						}
 
 						@Override
+						@Prove(complexity = Complexity.O_1, n = "", count = {})
 						public int getDatabaseMinorVersion() {
 							return isEmpty( dbMinor )
 									? NO_VERSION
@@ -329,26 +354,31 @@ public class HibernateSchemaManagementTool implements SchemaManagementTool, Serv
 						}
 
 						@Override
+						@Prove(complexity = Complexity.O_1, n = "", count = {})
 						public String getDriverName() {
 							return null;
 						}
 
 						@Override
+						@Prove(complexity = Complexity.O_1, n = "", count = {})
 						public int getDriverMajorVersion() {
 							return NO_VERSION;
 						}
 
 						@Override
+						@Prove(complexity = Complexity.O_1, n = "", count = {})
 						public int getDriverMinorVersion() {
 							return NO_VERSION;
 						}
 
 						@Override
+						@Prove(complexity = Complexity.O_1, n = "", count = {})
 						public String getSQLKeywords() {
 							return "";
 						}
 
 						@Override
+						@Prove(complexity = Complexity.O_1, n = "", count = {})
 						public Map<String, Object> getConfigurationValues() {
 							return configurationValues;
 						}
@@ -371,6 +401,7 @@ public class HibernateSchemaManagementTool implements SchemaManagementTool, Serv
 		return jdbcContextBuilder.buildJdbcContext();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ServiceRegistry getServiceRegistry() {
 		return serviceRegistry;
 	}
@@ -393,6 +424,7 @@ public class HibernateSchemaManagementTool implements SchemaManagementTool, Serv
 			this.jdbcConnectionAccess = jdbcServices.getBootstrapJdbcConnectionAccess();
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public JdbcContext buildJdbcContext() {
 			return new JdbcContextImpl( jdbcConnectionAccess, dialect, sqlStatementLogger, sqlExceptionHelper, serviceRegistry );
 		}
@@ -419,26 +451,31 @@ public class HibernateSchemaManagementTool implements SchemaManagementTool, Serv
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public JdbcConnectionAccess getJdbcConnectionAccess() {
 			return jdbcConnectionAccess;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Dialect getDialect() {
 			return dialect;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public SqlStatementLogger getSqlStatementLogger() {
 			return sqlStatementLogger;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public SqlExceptionHelper getSqlExceptionHelper() {
 			return sqlExceptionHelper;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public ServiceRegistry getServiceRegistry() {
 			return serviceRegistry;
 		}
@@ -452,6 +489,7 @@ public class HibernateSchemaManagementTool implements SchemaManagementTool, Serv
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public ExtractionContext createExtractionContext(
 				ServiceRegistry serviceRegistry,
 				JdbcEnvironment jdbcEnvironment,
@@ -468,6 +506,7 @@ public class HibernateSchemaManagementTool implements SchemaManagementTool, Serv
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public InformationExtractor createInformationExtractor(ExtractionContext extractionContext) {
 			return extractionContext.getJdbcEnvironment().getDialect().getInformationExtractor( extractionContext );
 		}

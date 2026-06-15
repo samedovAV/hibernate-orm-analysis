@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.cache.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Responsible for building the {@link TimestampsCache} to use for
@@ -18,5 +21,6 @@ public interface TimestampsCacheFactory {
 	/**
 	 * Build the {@link TimestampsCache}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TimestampsCache buildTimestampsCache(CacheImplementor cacheManager, TimestampsRegion timestampsRegion);
 }

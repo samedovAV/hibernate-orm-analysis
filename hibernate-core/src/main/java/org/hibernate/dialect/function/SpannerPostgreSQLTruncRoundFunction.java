@@ -11,6 +11,8 @@ import org.hibernate.sql.ast.tree.SqlAstNode;
 import org.hibernate.sql.ast.tree.expression.Expression;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class SpannerPostgreSQLTruncRoundFunction extends PostgreSQLTruncRoundFunction {
 
@@ -19,6 +21,7 @@ public class SpannerPostgreSQLTruncRoundFunction extends PostgreSQLTruncRoundFun
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void render(SqlAppender sqlAppender, List<? extends SqlAstNode> arguments, ReturnableType<?> returnType, SqlAstTranslator<?> walker) {
 		final int numberOfArguments = arguments.size();
 		final Expression firstArg = (Expression) arguments.get( 0 );

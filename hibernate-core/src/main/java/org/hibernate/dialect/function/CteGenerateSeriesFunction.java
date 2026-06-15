@@ -48,6 +48,8 @@ import org.hibernate.type.descriptor.jdbc.JdbcType;
 import org.hibernate.type.spi.TypeConfiguration;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -69,6 +71,7 @@ public class CteGenerateSeriesFunction extends NumberSeriesGenerateSeriesFunctio
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected <T> SelfRenderingSqmSetReturningFunction<T> generateSqmSetReturningFunctionExpression(List<? extends SqmTypedNode<?>> arguments, QueryEngine queryEngine) {
 		//noinspection unchecked
 		return new SelfRenderingSqmSetReturningFunction<>(
@@ -81,6 +84,7 @@ public class CteGenerateSeriesFunction extends NumberSeriesGenerateSeriesFunctio
 				getName()
 		) {
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public TableGroup convertToSqlAst(NavigablePath navigablePath, String identifierVariable, boolean lateral, boolean canUseInnerJoins, boolean withOrdinality, SqmToSqlAstConverter walker) {
 				final FunctionTableGroup tableGroup = (FunctionTableGroup) super.convertToSqlAst(
 						navigablePath,
@@ -137,6 +141,7 @@ public class CteGenerateSeriesFunction extends NumberSeriesGenerateSeriesFunctio
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public QuerySpec transform(CteContainer cteContainer, QuerySpec querySpec, SqmToSqlAstConverter converter) {
 			// First add the CTE that creates the series
 			if ( cteContainer.getCteStatement( CteGenerateSeriesQueryTransformer.NAME ) == null ) {
@@ -145,10 +150,12 @@ public class CteGenerateSeriesFunction extends NumberSeriesGenerateSeriesFunctio
 			return super.transform( cteContainer, querySpec, converter );
 		}
 
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		protected CteStatement createSeriesCte(SqmToSqlAstConverter converter) {
 			return createSeriesCte( maxSeriesSize, converter );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public static CteStatement createSeriesCte(int maxSeriesSize, SqmToSqlAstConverter converter) {
 			final BasicType<Long> longType =
 					converter.getCreationContext().getTypeConfiguration()
@@ -191,6 +198,7 @@ public class CteGenerateSeriesFunction extends NumberSeriesGenerateSeriesFunctio
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private SelectStatement createCteSubquery(FunctionTableGroup tableGroup, SqmToSqlAstConverter walker) {
 		final AnonymousTupleTableGroupProducer tableGroupProducer = (AnonymousTupleTableGroupProducer) tableGroup.getModelPart();
 		final ModelPart indexPart = tableGroupProducer.findSubPart( CollectionPart.Nature.INDEX.getName(), null );
@@ -415,6 +423,7 @@ public class CteGenerateSeriesFunction extends NumberSeriesGenerateSeriesFunctio
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public SelectableMapping[] resolveFunctionReturnType(
 				List<? extends SqlAstNode> arguments,
 				String tableIdentifierVariable,
@@ -431,6 +440,7 @@ public class CteGenerateSeriesFunction extends NumberSeriesGenerateSeriesFunctio
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderGenerateSeries(
 			SqlAppender sqlAppender,
 			Expression start,

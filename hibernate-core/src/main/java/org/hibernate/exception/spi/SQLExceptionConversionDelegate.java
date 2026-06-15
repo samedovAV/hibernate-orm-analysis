@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import org.hibernate.JDBCException;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Allow a {@link SQLExceptionConverter} to work by chaining together
@@ -31,6 +33,7 @@ public interface SQLExceptionConversionDelegate {
 	 *         if this delegate does not know how to interpret the
 	 *         given {@link SQLException}.
 	 */
-	@Nullable JDBCException convert(SQLException sqlException, String message, String sql);
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	JDBCException convert(SQLException sqlException, String message, String sql);
 
 }

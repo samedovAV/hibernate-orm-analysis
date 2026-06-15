@@ -24,6 +24,8 @@ import org.hibernate.query.sqm.tree.select.SqmSelectStatement;
 
 import java.util.Collections;
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gavin King
@@ -47,17 +49,20 @@ public class SimpleProjectionSpecificationImpl<T,X> implements SimpleProjectionS
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QuerySpecification<T> restrict(Restriction<? super T> restriction) {
 		throw new UnsupportedOperationException( "This is not supported yet!" );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SelectionQuery<X> createQuery(EntityHandler entityHandler) {
 		return entityHandler.unwrap( SharedSessionContract.class )
 				.createQuery( buildCriteria( entityHandler.getCriteriaBuilder() ) );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CriteriaQuery<X> buildCriteria(CriteriaBuilder builder) {
 		var impl = (SelectionSpecificationImpl<T>) selectionSpecification;
 		// TODO: handle HQL, existing criteria
@@ -78,6 +83,7 @@ public class SimpleProjectionSpecificationImpl<T,X> implements SimpleProjectionS
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SimpleProjectionSpecification<T,X> validate(CriteriaBuilder builder) {
 		selectionSpecification.validate( builder );
 		// TODO: validate projection
@@ -85,18 +91,21 @@ public class SimpleProjectionSpecificationImpl<T,X> implements SimpleProjectionS
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TypedQueryReference<X> reference() {
 		return this;
 	}
 
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return null;
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<X> getResultType() {
 		if ( path != null ) {
 			return path.getType();
@@ -111,16 +120,19 @@ public class SimpleProjectionSpecificationImpl<T,X> implements SimpleProjectionS
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, Object> getHints() {
 		return Collections.emptyMap();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Timeout getTimeout() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getEntityGraphName() {
 		return "";
 	}

@@ -17,6 +17,8 @@ import org.hibernate.sql.results.graph.FetchParent;
 import org.hibernate.sql.results.graph.InitializerParent;
 import org.hibernate.sql.results.graph.collection.CollectionInitializer;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -39,6 +41,7 @@ public class DelayedCollectionFetch extends CollectionFetch {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public DomainResultAssembler<?> createAssembler(
 			InitializerParent<?> parent,
 			AssemblerCreationState creationState) {
@@ -48,6 +51,7 @@ public class DelayedCollectionFetch extends CollectionFetch {
 				: super.createAssembler( parent, creationState );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionInitializer<?> createInitializer(InitializerParent<?> parent, AssemblerCreationState creationState) {
 		return new DelayedCollectionInitializer(
 				getNavigablePath(),
@@ -60,21 +64,25 @@ public class DelayedCollectionFetch extends CollectionFetch {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchTiming getTiming() {
 		return FetchTiming.DELAYED;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasTableGroup() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<?> getResultJavaType() {
 		return getFetchedMapping().getJavaType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void collectValueIndexesToCache(BitSet valueIndexes) {
 		if ( collectionKeyResult != null ) {
 			collectionKeyResult.collectValueIndexesToCache( valueIndexes );

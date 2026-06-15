@@ -7,6 +7,8 @@ package org.hibernate.sql.results.graph;
 import java.util.BitSet;
 
 import org.hibernate.spi.NavigablePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Marker interface for Fetches that are actually references to
 /// another fetch based on "normalized navigable path"
@@ -44,9 +46,11 @@ public interface BiDirectionalFetch extends Fetch {
 	/// For `o`, the referenced path is `p`.  For `oa`, it's `p.address`
 	/// Different from [#getNavigablePath()] which returns this fetch's path, i.e.
 	/// `p.address.owner` and `p.address.owner.address` respectively
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NavigablePath getReferencedPath();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void collectValueIndexesToCache(BitSet valueIndexes) {
 		// No-op
 	}

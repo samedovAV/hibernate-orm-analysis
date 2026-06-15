@@ -8,6 +8,8 @@ import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 
 import java.io.Serializable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base class for events which are generated from a {@link org.hibernate.Session}
@@ -22,10 +24,12 @@ public abstract class AbstractEvent implements Serializable {
 		this.source = source;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SharedSessionContractImplementor getSession() {
 		return source;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionFactoryImplementor getFactory() {
 		return source.getFactory();
 	}

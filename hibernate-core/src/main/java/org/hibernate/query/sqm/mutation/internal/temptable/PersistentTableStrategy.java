@@ -22,6 +22,8 @@ import org.jboss.logging.Logger;
 import static org.hibernate.engine.jdbc.JdbcLogging.JDBC_LOGGER;
 
 import static org.hibernate.internal.util.NullnessUtil.castNonNull;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * This is a strategy that mimics temporary tables for databases which do not support
@@ -61,10 +63,12 @@ public abstract class PersistentTableStrategy {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TemporaryTableStrategy getTemporaryTableStrategy() {
 		return castNonNull( sessionFactory.getJdbcServices().getDialect().getPersistentTemporaryTableStrategy() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void prepare(
 			MappingModelCreationProcess mappingModelCreationProcess,
 			JdbcConnectionAccess connectionAccess) {
@@ -126,6 +130,7 @@ public abstract class PersistentTableStrategy {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void release(
 			SessionFactoryImplementor sessionFactory,
 			JdbcConnectionAccess connectionAccess) {
@@ -167,10 +172,12 @@ public abstract class PersistentTableStrategy {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TemporaryTable getTemporaryTable() {
 		return temporaryTable;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SessionFactoryImplementor getSessionFactory() {
 		return sessionFactory;
 	}

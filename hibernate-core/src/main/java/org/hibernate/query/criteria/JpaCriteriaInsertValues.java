@@ -8,6 +8,8 @@ import java.util.List;
 
 import jakarta.annotation.Nonnull;
 import org.hibernate.Incubating;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A representation of SqmInsertValuesStatement at the
@@ -34,13 +36,16 @@ import org.hibernate.Incubating;
 public interface JpaCriteriaInsertValues<T> extends JpaCriteriaInsert<T> {
 
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaCriteriaInsertValues<T> values(@Nonnull JpaValues... values);
 
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaCriteriaInsertValues<T> values(@Nonnull List<? extends JpaValues> values);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaCriteriaInsertValues<T> onConflict(@Nonnull JpaConflictClause<T> conflictClause);
 
 }

@@ -15,6 +15,8 @@ import org.hibernate.sql.model.internal.TableUpdateStandard;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Simplified builder for UPDATE statements for updating an entity's version.
 ///
@@ -73,16 +75,19 @@ public class VersionUpdateBuilder implements TableMutationBuilder<TableUpdateSta
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutatingTableReference getMutatingTable() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasValueBindings() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public TableUpdateStandard buildMutation() {
 		var sqlBuffer = new StringBuilder( "update " );
 		sqlBuffer.append( tableReference.getTableName() );

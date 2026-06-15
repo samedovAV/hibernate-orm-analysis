@@ -5,6 +5,8 @@
 package org.hibernate.boot;
 
 import java.net.URL;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Abstraction for locating class-path resources
@@ -23,5 +25,6 @@ public interface ResourceLocator {
 	 *
 	 * @return The located URL, or {@code null} if no match found
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	URL locateResource(String resourceName);
 }

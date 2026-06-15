@@ -5,6 +5,8 @@
 package org.hibernate.tool.schema.extract.spi;
 
 import org.hibernate.boot.model.relational.QualifiedSequenceName;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Access to information about existing sequences.
@@ -18,6 +20,7 @@ public interface SequenceInformation {
 	 *
 	 * @return The sequence name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	QualifiedSequenceName getSequenceName();
 
 	/**
@@ -25,6 +28,7 @@ public interface SequenceInformation {
 	 *
 	 * @return The extracted start value or null id the value could not be extracted.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Number getStartValue();
 
 	/**
@@ -32,6 +36,7 @@ public interface SequenceInformation {
 	 *
 	 * @return The extracted minimum value or null id the value could not be extracted.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Number getMinValue();
 
 	/**
@@ -39,6 +44,7 @@ public interface SequenceInformation {
 	 *
 	 * @return The extracted maximum value or null id the value could not be extracted.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Number getMaxValue();
 
 	/**
@@ -46,5 +52,6 @@ public interface SequenceInformation {
 	 *
 	 * @return The extracted increment value; use a negative number to indicate the increment could not be extracted.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Number getIncrementValue();
 }

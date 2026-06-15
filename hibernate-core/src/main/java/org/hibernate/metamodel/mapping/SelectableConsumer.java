@@ -9,6 +9,8 @@ import org.hibernate.engine.jdbc.Size;
 
 import java.util.function.BiConsumer;
 import java.util.function.IntFunction;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Consumer used to visit selectable (column/formula) mappings
@@ -24,6 +26,7 @@ public interface SelectableConsumer {
 	 * {@link SelectableMappings#forEachSelectable(int, SelectableConsumer)}
 	 * was used
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void accept(int selectionIndex, SelectableMapping selectableMapping);
 
 	/**
@@ -40,6 +43,7 @@ public interface SelectableConsumer {
 	 *     <li>{@link SelectableMapping#getJdbcMapping()}</li>
 	 * </ul>
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void accept(String tableName, JdbcMappingContainer base, String[] columnNames) {
 		assert base.getJdbcTypeCount() == columnNames.length;
 
@@ -61,6 +65,7 @@ public interface SelectableConsumer {
 	 *     <li>{@link SelectableMapping#getJdbcMapping()}</li>
 	 * </ul>
 	 */
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	default void accept(SelectableMappings base, String tableName, String[] columnNames) {
 		class SelectableMappingIterator implements SelectableMapping {
 			private final String tableName;
@@ -76,6 +81,7 @@ public interface SelectableConsumer {
 				assert delegate.getJdbcTypeCount() == columnNames.length;
 			}
 
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			private void forEach(BiConsumer<Integer,SelectableMapping> consumer) {
 				for ( index = 0; index < columnNames.length; index++ ) {
 					consumer.accept( index, this );
@@ -83,100 +89,120 @@ public interface SelectableConsumer {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public String getContainingTableExpression() {
 				return tableName;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public String getSelectionExpression() {
 				return columnNames[index];
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public @Nullable String getCustomReadExpression() {
 				return null;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public @Nullable String getCustomWriteExpression() {
 				return null;
 			}
 
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			private SelectableMapping getDelegate() {
 				return delegate.getSelectable( index );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public String getSelectableName() {
 				return getDelegate().getSelectableName();
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public SelectablePath getSelectablePath() {
 				return getDelegate().getSelectablePath();
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public boolean isFormula() {
 				return getDelegate().isFormula();
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public boolean isNullable() {
 				return getDelegate().isNullable();
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public boolean isInsertable() {
 				return getDelegate().isInsertable();
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public boolean isUpdateable() {
 				return getDelegate().isUpdateable();
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public boolean isPartitioned() {
 				return getDelegate().isPartitioned();
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public @Nullable Long getLength() {
 				return getDelegate().getLength();
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public @Nullable Integer getArrayLength() {
 				return getDelegate().getArrayLength();
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public @Nullable Integer getPrecision() {
 				return getDelegate().getPrecision();
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public @Nullable Integer getScale() {
 				return getDelegate().getScale();
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public @Nullable Integer getTemporalPrecision() {
 				return getDelegate().getTemporalPrecision();
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public boolean isLob() {
 				return getDelegate().isLob();
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public JdbcMapping getJdbcMapping() {
 				return getDelegate().getJdbcMapping();
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public Size toSize() {
 				return getDelegate().toSize();
 			}
@@ -201,6 +227,7 @@ public interface SelectableConsumer {
 			assert base.getJdbcTypeCount() == columnNames.length;
 		}
 
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		private void forEach(BiConsumer<Integer,SelectableMapping> consumer) {
 			for ( index = 0; index < columnNames.length; index++ ) {
 				consumer.accept( index, this );
@@ -208,48 +235,57 @@ public interface SelectableConsumer {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getContainingTableExpression() {
 			return tableName;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getSelectionExpression() {
 			return columnNames[index];
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public JdbcMapping getJdbcMapping() {
 			return base.getJdbcMapping( index );
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean isFormula() {
 			return false;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean isNullable() {
 			return false;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean isInsertable() {
 			// we insert keys
 			return true;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean isUpdateable() {
 			// we never update keys
 			return false;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean isPartitioned() {
 			return false;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public @Nullable Long getLength() {
 			// we could probably use the details from `base`, but
 			// this method should really never be called on this object
@@ -257,6 +293,7 @@ public interface SelectableConsumer {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public @Nullable Integer getArrayLength() {
 			// we could probably use the details from `base`, but
 			// this method should really never be called on this object
@@ -264,6 +301,7 @@ public interface SelectableConsumer {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public @Nullable Integer getPrecision() {
 			// we could probably use the details from `base`, but
 			// this method should really never be called on this object
@@ -271,6 +309,7 @@ public interface SelectableConsumer {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public @Nullable Integer getScale() {
 			// we could probably use the details from `base`, but
 			// this method should really never be called on this object
@@ -278,6 +317,7 @@ public interface SelectableConsumer {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public @Nullable Integer getTemporalPrecision() {
 			// we could probably use the details from `base`, but
 			// this method should really never be called on this object
@@ -285,11 +325,13 @@ public interface SelectableConsumer {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public @Nullable String getCustomReadExpression() {
 			return null;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public @Nullable String getCustomWriteExpression() {
 			return null;
 		}
@@ -304,82 +346,98 @@ public interface SelectableConsumer {
 	 * Very limited functionality in terms of the visited SelectableMappings
 	 * will not have any defined JdbcMapping, etc
 	 */
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	default void accept(String tableName, String[] columnNames, IntFunction<JdbcMapping> jdbcMappings) {
 		class SelectableMappingIterator implements SelectableMapping {
 
 			private int index;
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public String getContainingTableExpression() {
 				return tableName;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public String getSelectionExpression() {
 				return columnNames[index];
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public @Nullable String getCustomReadExpression() {
 				return null;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public @Nullable String getCustomWriteExpression() {
 				return null;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public @Nullable Long getLength() {
 				return null;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public @Nullable Integer getArrayLength() {
 				return null;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public @Nullable Integer getPrecision() {
 				return null;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public @Nullable Integer getScale() {
 				return null;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public @Nullable Integer getTemporalPrecision() {
 				return null;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public boolean isFormula() {
 				return false;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public boolean isNullable() {
 				return true;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public boolean isInsertable() {
 				return true;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public boolean isUpdateable() {
 				return true;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public boolean isPartitioned() {
 				return false;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public JdbcMapping getJdbcMapping() {
 				return jdbcMappings.apply( index );
 			}

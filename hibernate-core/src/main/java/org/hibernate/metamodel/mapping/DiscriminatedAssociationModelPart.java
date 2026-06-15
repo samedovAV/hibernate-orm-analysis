@@ -8,6 +8,8 @@ import org.hibernate.sql.ast.tree.from.TableGroupJoinProducer;
 import org.hibernate.sql.ast.tree.predicate.Predicate;
 import org.hibernate.sql.results.graph.Fetchable;
 import org.hibernate.sql.results.graph.FetchableContainer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A discriminated association.  This is similar to an association to
@@ -20,12 +22,16 @@ import org.hibernate.sql.results.graph.FetchableContainer;
  * @author Steve Ebersole
  */
 public interface DiscriminatedAssociationModelPart extends Discriminable, Fetchable, FetchableContainer, TableGroupJoinProducer {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	BasicValuedModelPart getKeyPart();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityMappingType resolveDiscriminatorValue(Object discriminatorValue);
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object resolveDiscriminatorForEntityType(EntityMappingType entityMappingType);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isSimpleJoinPredicate(Predicate predicate) {
 		return predicate == null;
 	}

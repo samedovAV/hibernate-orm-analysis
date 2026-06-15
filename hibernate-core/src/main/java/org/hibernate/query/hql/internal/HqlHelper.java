@@ -15,6 +15,8 @@ import static org.hibernate.grammars.hql.HqlLexer.HAVING;
 import static org.hibernate.grammars.hql.HqlLexer.LEFT_PAREN;
 import static org.hibernate.grammars.hql.HqlLexer.ORDER;
 import static org.hibernate.grammars.hql.HqlLexer.WHERE;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Utility methods for HQL string manipulation.
@@ -35,6 +37,7 @@ public final class HqlHelper {
 	 * @param entityName the entity name to insert, or {@code null} to skip
 	 * @return the HQL string with a {@code from} clause
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String addFromClauseIfNecessary(String hql, @Nullable String entityName) {
 		if ( entityName == null ) {
 			return hql;
@@ -80,6 +83,7 @@ public final class HqlHelper {
 	 * Does the given HQL string begin with an {@code insert},
 	 * {@code update}, or {@code delete} keyword?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isMutationStatement(String hql) {
 		final String trimmed = hql.trim();
 		final String keyword = trimmed.length() > 6 ? trimmed.substring( 0, 6 ) : "";

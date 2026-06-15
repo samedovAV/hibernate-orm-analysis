@@ -30,6 +30,8 @@ import java.util.UUID;
 
 import jakarta.persistence.TemporalType;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * References to common instances of {@link BasicTypeReference}.
@@ -843,6 +845,7 @@ public final class StandardBasicTypes {
 //	);
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void prime(TypeConfiguration typeConfiguration) {
 		BasicTypeRegistry basicTypeRegistry = typeConfiguration.getBasicTypeRegistry();
 
@@ -1463,6 +1466,7 @@ public final class StandardBasicTypes {
 		basicTypeRegistry.primed();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void handle(
 			BasicType<?> type,
 			String legacyTypeClassName,
@@ -1471,6 +1475,7 @@ public final class StandardBasicTypes {
 		basicTypeRegistry.addPrimeEntry( type, legacyTypeClassName, registrationKeys );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void handle(
 			BasicTypeReference<?> type,
 			String legacyTypeClassName,

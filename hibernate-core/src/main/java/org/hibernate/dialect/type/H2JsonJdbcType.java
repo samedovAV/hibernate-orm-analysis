@@ -18,6 +18,8 @@ import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.descriptor.jdbc.AggregateJdbcType;
 import org.hibernate.type.descriptor.jdbc.BasicBinder;
 import org.hibernate.type.descriptor.jdbc.JsonJdbcType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * H2 requires binding JSON via {@code setBytes} methods.
@@ -33,16 +35,19 @@ public class H2JsonJdbcType extends JsonJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getJdbcTypeCode() {
 		return SqlTypes.VARBINARY;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "H2JsonJdbcType";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AggregateJdbcType resolveAggregateJdbcType(
 			EmbeddableMappingType mappingType,
 			String sqlType,
@@ -51,9 +56,11 @@ public class H2JsonJdbcType extends JsonJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> ValueBinder<X> getBinder(JavaType<X> javaType) {
 		return new BasicBinder<>( javaType, this ) {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBind(PreparedStatement st, X value, int index, WrapperOptions options)
 					throws SQLException {
 				final String json = ( (H2JsonJdbcType) getJdbcType() ).toString( value, getJavaType(), options );
@@ -61,6 +68,7 @@ public class H2JsonJdbcType extends JsonJdbcType {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBind(CallableStatement st, X value, String name, WrapperOptions options)
 					throws SQLException {
 				final String json = ( (H2JsonJdbcType) getJdbcType() ).toString( value, getJavaType(), options );

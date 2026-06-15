@@ -10,6 +10,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import org.hibernate.mapping.MetaAttribute;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents a collection of "tooling hints" ({@code <meta/>} mapping info) keyed by a name.
@@ -36,18 +38,22 @@ public class ToolingHintContext {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Collection<ToolingHint> getToolingHints() {
 		return toolingHintMap.values();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Iterable<String> getKeys() {
 		return toolingHintMap.keySet();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ToolingHint getToolingHint(String key) {
 		return toolingHintMap.get( key );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void add(ToolingHint toolingHint) {
 		toolingHintMap.put( toolingHint.getName(), toolingHint );
 	}
@@ -58,6 +64,7 @@ public class ToolingHintContext {
 	 *
 	 * @return The underlying Map
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Map<String,MetaAttribute> getMetaAttributeMap() {
 		final Map<String,MetaAttribute> collectedAttributeMap = new ConcurrentHashMap<>();
 		for ( ToolingHint toolingHint : toolingHintMap.values() ) {

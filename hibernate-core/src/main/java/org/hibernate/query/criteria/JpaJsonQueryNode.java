@@ -5,6 +5,8 @@
 package org.hibernate.query.criteria;
 
 import org.hibernate.Incubating;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The base for {@code json_query} function nodes.
@@ -17,12 +19,14 @@ public interface JpaJsonQueryNode {
 	 *
 	 * @return the wrap mode
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	WrapMode getWrapMode();
 	/**
 	 * Get the {@link ErrorBehavior} of this json query expression.
 	 *
 	 * @return the error behavior
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ErrorBehavior getErrorBehavior();
 
 	/**
@@ -30,6 +34,7 @@ public interface JpaJsonQueryNode {
 	 *
 	 * @return the empty behavior
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EmptyBehavior getEmptyBehavior();
 
 	/**
@@ -37,24 +42,28 @@ public interface JpaJsonQueryNode {
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonQueryNode withoutWrapper();
 	/**
 	 * Sets the {@link WrapMode#WITH_WRAPPER} for this json query expression.
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonQueryNode withWrapper();
 	/**
 	 * Sets the {@link WrapMode#WITH_CONDITIONAL_WRAPPER} for this json query expression.
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonQueryNode withConditionalWrapper();
 	/**
 	 * Sets the {@link WrapMode#UNSPECIFIED} for this json query expression.
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonQueryNode unspecifiedWrapper();
 
 	/**
@@ -62,30 +71,35 @@ public interface JpaJsonQueryNode {
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonQueryNode unspecifiedOnError();
 	/**
 	 * Sets the {@link ErrorBehavior#ERROR} for this json query expression.
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonQueryNode errorOnError();
 	/**
 	 * Sets the {@link ErrorBehavior#NULL} for this json query expression.
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonQueryNode nullOnError();
 	/**
 	 * Sets the {@link ErrorBehavior#EMPTY_ARRAY} for this json query expression.
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonQueryNode emptyArrayOnError();
 	/**
 	 * Sets the {@link ErrorBehavior#EMPTY_OBJECT} for this json query expression.
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonQueryNode emptyObjectOnError();
 
 	/**
@@ -93,30 +107,35 @@ public interface JpaJsonQueryNode {
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonQueryNode unspecifiedOnEmpty();
 	/**
 	 * Sets the {@link EmptyBehavior#ERROR} for this json query expression.
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonQueryNode errorOnEmpty();
 	/**
 	 * Sets the {@link EmptyBehavior#NULL} for this json query expression.
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonQueryNode nullOnEmpty();
 	/**
 	 * Sets the {@link EmptyBehavior#EMPTY_ARRAY} for this json query expression.
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonQueryNode emptyArrayOnEmpty();
 	/**
 	 * Sets the {@link EmptyBehavior#EMPTY_OBJECT} for this json query expression.
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonQueryNode emptyObjectOnEmpty();
 
 	/**

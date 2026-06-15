@@ -15,6 +15,8 @@ import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Defines a mapping between a Java type and one or more JDBC {@linkplain java.sql.Types types},
@@ -50,6 +52,7 @@ public interface Type extends Serializable {
 	 *
 	 * @return True if this type is also an {@link AssociationType} implementor; false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isAssociationType();
 
 	/**
@@ -61,6 +64,7 @@ public interface Type extends Serializable {
 	 *
 	 * @return True if this type is also a {@link CollectionType} implementor; false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isCollectionType();
 
 	/**
@@ -72,6 +76,7 @@ public interface Type extends Serializable {
 	 *
 	 * @return True if this type is also an {@link EntityType} implementor; false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isEntityType();
 
 	/**
@@ -83,6 +88,7 @@ public interface Type extends Serializable {
 	 *
 	 * @return True if this type is also an {@link AnyType} implementor; false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isAnyType();
 
 	/**
@@ -94,6 +100,7 @@ public interface Type extends Serializable {
 	 *
 	 * @return True if this type is also a {@link CompositeType} implementor; false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isComponentType();
 
 	/**
@@ -107,6 +114,7 @@ public interface Type extends Serializable {
 	 *
 	 * @throws MappingException Generally indicates an issue accessing the passed mappingContext object.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getColumnSpan(MappingContext mappingContext) throws MappingException;
 
 	/**
@@ -121,6 +129,7 @@ public interface Type extends Serializable {
 	 *
 	 * @throws MappingException Generally indicates an issue accessing the passed mapping object.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int[] getSqlTypeCodes(MappingContext mappingContext) throws MappingException;
 
 	/**
@@ -128,6 +137,7 @@ public interface Type extends Serializable {
 	 *
 	 * @return The Java class handled by this type.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Class<?> getReturnedClass();
 
 	/**
@@ -137,6 +147,7 @@ public interface Type extends Serializable {
 	 *
 	 * @since 6.5
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String getReturnedClassName() {
 		return getReturnedClass().getName();
 	}
@@ -157,6 +168,7 @@ public interface Type extends Serializable {
 	 *
 	 * @throws HibernateException A problem occurred performing the comparison
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isSame(@Nullable Object x, @Nullable Object y) throws HibernateException;
 
 	/**
@@ -176,6 +188,7 @@ public interface Type extends Serializable {
 	 *
 	 * @throws HibernateException A problem occurred performing the comparison
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isEqual(@Nullable Object x, @Nullable Object y) throws HibernateException;
 
 	/**
@@ -196,6 +209,7 @@ public interface Type extends Serializable {
 	 *
 	 * @throws HibernateException A problem occurred performing the comparison
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isEqual(@Nullable Object x, @Nullable Object y, SessionFactoryImplementor factory)
 			throws HibernateException;
 
@@ -208,6 +222,7 @@ public interface Type extends Serializable {
 	 *
 	 * @throws HibernateException A problem occurred calculating the hash code
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getHashCode(Object x) throws HibernateException;
 
 	/**
@@ -221,6 +236,7 @@ public interface Type extends Serializable {
 	 *
 	 * @throws HibernateException A problem occurred calculating the hash code
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getHashCode(Object x, SessionFactoryImplementor factory) throws HibernateException;
 
 	/**
@@ -228,6 +244,7 @@ public interface Type extends Serializable {
 	 * When {@code null}, use {@link Object#equals(Object)} and {@link Object#hashCode()}.
 	 * This is useful to avoid mega-morphic callsites.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default @Nullable Type getTypeForEqualsHashCode() {
 		return this;
 	}
@@ -242,8 +259,10 @@ public interface Type extends Serializable {
 	 *
 	 * @see java.util.Comparator#compare(Object, Object)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int compare(@Nullable Object x, @Nullable Object y);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int compare(@Nullable Object x, @Nullable Object y, SessionFactoryImplementor sessionFactory);
 
 	/**
@@ -257,6 +276,7 @@ public interface Type extends Serializable {
 	 *
 	 * @throws HibernateException A problem occurred performing the checking
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isDirty(@Nullable Object old, @Nullable Object current, SharedSessionContractImplementor session)
 			throws HibernateException;
 
@@ -272,6 +292,7 @@ public interface Type extends Serializable {
 	 *
 	 * @throws HibernateException A problem occurred performing the checking
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isDirty(@Nullable Object oldState, @Nullable Object currentState, boolean[] checkable, SharedSessionContractImplementor session)
 			throws HibernateException;
 
@@ -290,6 +311,7 @@ public interface Type extends Serializable {
 	 *
 	 * @throws HibernateException A problem occurred performing the checking
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isModified(
 			@Nullable Object dbState,
 			@Nullable Object currentState,
@@ -312,6 +334,7 @@ public interface Type extends Serializable {
 	 * @throws HibernateException An error from Hibernate
 	 * @throws SQLException An error from the JDBC driver
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void nullSafeSet(
 			PreparedStatement st,
 			@Nullable Object value,
@@ -334,6 +357,7 @@ public interface Type extends Serializable {
 	 * @throws HibernateException An error from Hibernate
 	 * @throws SQLException An error from the JDBC driver
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void nullSafeSet(PreparedStatement st, @Nullable Object value, int index, SharedSessionContractImplementor session)
 			throws HibernateException, SQLException;
 
@@ -347,6 +371,7 @@ public interface Type extends Serializable {
 	 *
 	 * @throws HibernateException An error from Hibernate
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String toLoggableString(@Nullable Object value, SessionFactoryImplementor factory)
 			throws HibernateException;
 
@@ -355,6 +380,7 @@ public interface Type extends Serializable {
 	 *
 	 * @return the Hibernate type name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getName();
 
 	/**
@@ -367,7 +393,8 @@ public interface Type extends Serializable {
 	 *
 	 * @throws HibernateException An error from Hibernate
 	 */
-	@Nullable Object deepCopy(@Nullable Object value, SessionFactoryImplementor factory)
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	Object deepCopy(@Nullable Object value, SessionFactoryImplementor factory)
 			throws HibernateException;
 
 	/**
@@ -377,6 +404,7 @@ public interface Type extends Serializable {
 	 *
 	 * @return boolean
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isMutable();
 
 	/**
@@ -406,6 +434,7 @@ public interface Type extends Serializable {
 	 *
 	 * @throws HibernateException An error from Hibernate
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default @Nullable Serializable disassemble(@Nullable Object value, SessionFactoryImplementor sessionFactory)
 			throws HibernateException {
 		return disassemble( value, null, null );
@@ -425,7 +454,8 @@ public interface Type extends Serializable {
 	 *
 	 * @throws HibernateException An error from Hibernate
 	 */
-	@Nullable Serializable disassemble(@Nullable Object value, @Nullable SharedSessionContractImplementor session, @Nullable Object owner)
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	Serializable disassemble(@Nullable Object value, @Nullable SharedSessionContractImplementor session, @Nullable Object owner)
 			throws HibernateException;
 
 	/**
@@ -440,7 +470,8 @@ public interface Type extends Serializable {
 	 *
 	 * @throws HibernateException An error from Hibernate
 	 */
-	@Nullable Object assemble(@Nullable Serializable cached, SharedSessionContractImplementor session, Object owner)
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	Object assemble(@Nullable Serializable cached, SharedSessionContractImplementor session, Object owner)
 			throws HibernateException;
 
 	/**
@@ -460,7 +491,8 @@ public interface Type extends Serializable {
 	 *
 	 * @throws HibernateException An error from Hibernate
 	 */
-	@Nullable Object replace(
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	Object replace(
 			@Nullable Object original,
 			@Nullable Object target,
 			SharedSessionContractImplementor session,
@@ -485,7 +517,8 @@ public interface Type extends Serializable {
 	 *
 	 * @throws HibernateException An error from Hibernate
 	 */
-	@Nullable Object replace(
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	Object replace(
 			@Nullable Object original,
 			@Nullable Object target,
 			SharedSessionContractImplementor session,
@@ -503,5 +536,6 @@ public interface Type extends Serializable {
 	 * @return array indicating column nullness for a value instance
 	 */
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean[] toColumnNullness(@Nullable Object value, MappingContext mappingContext);
 }

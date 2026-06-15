@@ -10,6 +10,8 @@ import org.hibernate.type.descriptor.java.AbstractClassJavaType;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
 import org.hibernate.type.descriptor.jdbc.JdbcTypeIndicators;
 import org.hibernate.type.descriptor.jdbc.internal.DelayedStructJdbcType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Java type for embeddable aggregates, which allows resolving a recommended {@link JdbcType}.
@@ -25,11 +27,13 @@ public class EmbeddableAggregateJavaType<T> extends AbstractClassJavaType<T> {
 		this.structName = structName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getStructName() {
 		return structName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcType getRecommendedJdbcType(JdbcTypeIndicators context) {
 		final var basicType = context.getTypeConfiguration().getBasicTypeForJavaType( getJavaType() );
 		if ( basicType != null ) {
@@ -68,6 +72,7 @@ public class EmbeddableAggregateJavaType<T> extends AbstractClassJavaType<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> X unwrap(T value, Class<X> type, WrapperOptions options) {
 		if ( type.isAssignableFrom( getJavaTypeClass() ) ) {
 			return type.cast( value );
@@ -78,6 +83,7 @@ public class EmbeddableAggregateJavaType<T> extends AbstractClassJavaType<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> T wrap(X value, WrapperOptions options) {
 		if ( value == null ) {
 			return null;
@@ -94,6 +100,7 @@ public class EmbeddableAggregateJavaType<T> extends AbstractClassJavaType<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "BasicJavaType(" + getTypeName() + ")";
 	}

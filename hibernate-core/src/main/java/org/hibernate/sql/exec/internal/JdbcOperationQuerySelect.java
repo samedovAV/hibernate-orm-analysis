@@ -23,6 +23,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Executable JDBC command produced from some form of Query.
@@ -109,53 +111,64 @@ public class JdbcOperationQuerySelect
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcValuesMappingProducer getJdbcValuesMappingProducer() {
 		return jdbcValuesMappingProducer;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getRowsToSkip() {
 		return rowsToSkip;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getMaxRows() {
 		return maxRows;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable LoadedValuesCollectorFactory getLoadedValuesCollectorFactory() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void performPreActions(StatementAccess jdbcStatementAccess, Connection jdbcConnection, ExecutionContext executionContext) {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void performPostActions(boolean succeeded, StatementAccess jdbcStatementAccess, Connection jdbcConnection, ExecutionContext executionContext, LoadedValuesCollector loadedValuesCollector) {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean usesLimitParameters() {
 		return offsetParameter != null || limitParameter != null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcParameter getLimitParameter() {
 		return limitParameter;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcParameter getOffsetParameter() {
 		return offsetParameter;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcLockStrategy getLockStrategy() {
 		return jdbcLockStrategy;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isCompatibleWith(JdbcParameterBindings jdbcParameterBindings, QueryOptions queryOptions) {
 		if ( scrollExecution != queryOptions.isScrollExecution() ) {
 			return false;
@@ -204,6 +217,7 @@ public class JdbcOperationQuerySelect
 			&& isCompatible( limitParameter, limit == null ? null : limit.getMaxRows(), Integer.MAX_VALUE );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean isCompatible(JdbcParameter parameter, Integer requestedValue, int defaultValue) {
 		if ( parameter == null ) {
 			return requestedValue == null;

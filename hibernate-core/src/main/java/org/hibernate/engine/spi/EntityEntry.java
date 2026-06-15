@@ -14,6 +14,8 @@ import org.hibernate.internal.util.ImmutableBitSet;
 import org.hibernate.persister.entity.EntityPersister;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Information about the current state of a managed entity instance with respect
@@ -28,32 +30,46 @@ import jakarta.annotation.Nullable;
  * @author Sanne Grinovero
  */
 public interface EntityEntry {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	LockMode getLockMode();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setLockMode(LockMode lockMode);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Status getStatus();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setStatus(Status status);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getId();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object[] getLoadedState();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getLoadedValue(String propertyName);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void overwriteLoadedStateCollectionValue(String propertyName, PersistentCollection<?> collection);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object[] getDeletedState();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setDeletedState(Object[] deletedState);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isExistsInDatabase();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getVersion();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void postInsert(Object version);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityPersister getPersister();
 
 	/**
@@ -62,12 +78,16 @@ public interface EntityEntry {
 	 * @return the {@link EntityKey}
 	 * @throws IllegalStateException if {@link #getId()} is null
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityKey getEntityKey();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getEntityName();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getRowId();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void postLoad(Object entity);
 
 	/**
@@ -80,20 +100,24 @@ public interface EntityEntry {
 	 * new {@link #getLoadedState() loaded state}.
 	 * @param nextVersion The new version.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void postUpdate(Object entity, Object[] updatedState, Object nextVersion);
 
 	/**
 	 * After actually deleting a row, record the fact that the instance no longer
 	 * exists in the database.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void postDelete();
 
 	/**
 	 * After actually inserting a row, record the fact that the instance exists
 	 * in the database (needed for identity column key generation).
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void postInsert(Object[] insertedState);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isNullifiable(boolean earlyInsert, SharedSessionContractImplementor session);
 
 	/**
@@ -108,6 +132,7 @@ public interface EntityEntry {
 	 *         and that the dirty-check should happen;
 	 *         {@code false} indicates there is no way the entity can be dirty
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean requiresDirtyCheck(Object entity);
 
 	/**
@@ -124,12 +149,16 @@ public interface EntityEntry {
 	 * @return {@code true}, if the entity is modifiable;
 	 *         {@code false}, otherwise,
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isModifiableEntity();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void forceLocked(Object entity, Object nextVersion);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isReadOnly();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean setReadOnly(boolean readOnly, Object entity);
 
 	/**
@@ -137,12 +166,15 @@ public interface EntityEntry {
 	 * When {@code null}, no knowledge is available and every attribute must be assumed potentially lazy.
 	 */
 	@Internal
-	@Nullable ImmutableBitSet getMaybeLazySet();
+	@Nullable@Prove(complexity = Complexity.O_1, n = "", count = {})
+ ImmutableBitSet getMaybeLazySet();
 
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setMaybeLazySet(@Nullable ImmutableBitSet maybeLazySet);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String toString();
 
 	/**
@@ -154,12 +186,15 @@ public interface EntityEntry {
 	 *
 	 * @throws IOException If a stream error occurs
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void serialize(ObjectOutputStream oos) throws IOException;
 
 	//the following methods are handling extraState contracts.
 	//they are not shared by a common superclass to avoid alignment padding
 	//we are trading off duplication for padding efficiency
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addExtraState(EntityEntryExtraState extraState);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T extends EntityEntryExtraState> T getExtraState(Class<T> extraStateType);
 }

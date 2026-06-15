@@ -4,6 +4,8 @@
  */
 package org.hibernate.usertype;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Marker interface for user types which want to perform custom
@@ -19,5 +21,6 @@ public interface LoggableUserType {
 	 * @param factory The factory.
 	 * @return The loggable string representation.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String toLoggableString(Object value, SessionFactoryImplementor factory);
 }

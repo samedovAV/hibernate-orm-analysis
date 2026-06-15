@@ -11,6 +11,8 @@ import org.hibernate.internal.util.collections.ArrayHelper;
 import org.hibernate.type.Type;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Operations for searching an array of property values for modified elements.
@@ -31,6 +33,7 @@ class DirtyHelper {
 	 *
 	 * @return Array containing indices of the dirty properties, or null if no properties considered dirty.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static int[] findDirty(
 			@Nullable Type[] propertyTypes,
 			final Object[] currentState,
@@ -51,6 +54,7 @@ class DirtyHelper {
 		return count == 0 ? null : ArrayHelper.trim( results, count );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static boolean isDirty(
 			@Nullable Type[] propertyTypes,
 			Object[] currentState,
@@ -86,6 +90,7 @@ class DirtyHelper {
 	 *
 	 * @return Array containing indices of the modified properties, or null if no properties considered modified.
 	 **/
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static int[] findModified(
 			final Type[] propertyTypes,
 			final boolean[] propertyCheckability,
@@ -125,6 +130,7 @@ class DirtyHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static boolean isModified(
 			Type[] propertyTypes,
 			boolean[] propertyCheckability,

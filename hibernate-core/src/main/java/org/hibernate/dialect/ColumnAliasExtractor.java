@@ -6,6 +6,8 @@ package org.hibernate.dialect;
 
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Strategy for extracting the unique column alias out of a {@link ResultSetMetaData}.  This is used during the
@@ -27,6 +29,7 @@ public interface ColumnAliasExtractor {
 	 *
 	 * @throws SQLException Indicates a problem accessing the JDBC ResultSetMetaData
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String extractColumnAlias(ResultSetMetaData metaData, int position) throws SQLException;
 
 	/**

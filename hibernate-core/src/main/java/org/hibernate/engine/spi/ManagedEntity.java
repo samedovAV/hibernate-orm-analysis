@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.engine.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Specialized {@link Managed} contract for entity classes, providing access to information
@@ -29,6 +32,7 @@ public interface ManagedEntity extends Managed, InstanceIdentity {
 	 *
 	 * @return The entity instance.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object $$_hibernate_getEntityInstance();
 
 	/**
@@ -38,6 +42,7 @@ public interface ManagedEntity extends Managed, InstanceIdentity {
 	 *
 	 * @see #$$_hibernate_setEntityEntry
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityEntry $$_hibernate_getEntityEntry();
 
 	/**
@@ -47,6 +52,7 @@ public interface ManagedEntity extends Managed, InstanceIdentity {
 	 *
 	 * @param entityEntry The EntityEntry associated with this entity instance.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void $$_hibernate_setEntityEntry(EntityEntry entityEntry);
 
 	/**
@@ -55,6 +61,7 @@ public interface ManagedEntity extends Managed, InstanceIdentity {
 	 *
 	 * @return The previous entry
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ManagedEntity $$_hibernate_getPreviousManagedEntity();
 
 	/**
@@ -63,6 +70,7 @@ public interface ManagedEntity extends Managed, InstanceIdentity {
 	 *
 	 * @param previous The previous entry
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void $$_hibernate_setPreviousManagedEntity(ManagedEntity previous);
 
 	/**
@@ -71,6 +79,7 @@ public interface ManagedEntity extends Managed, InstanceIdentity {
 	 *
 	 * @return The next entry
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ManagedEntity $$_hibernate_getNextManagedEntity();
 
 	/**
@@ -79,6 +88,7 @@ public interface ManagedEntity extends Managed, InstanceIdentity {
 	 *
 	 * @param next The next entry
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void $$_hibernate_setNextManagedEntity(ManagedEntity next);
 
 	/**
@@ -111,6 +121,7 @@ public interface ManagedEntity extends Managed, InstanceIdentity {
 	 *                   false otherwise
 	 *
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void $$_hibernate_setUseTracker(boolean useTracker);
 
 	/**
@@ -118,6 +129,7 @@ public interface ManagedEntity extends Managed, InstanceIdentity {
 	 *
 	 * @return true if the tracker can be used to detect dirty properties, false otherwise
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean $$_hibernate_useTracker();
 
 	/**
@@ -126,6 +138,7 @@ public interface ManagedEntity extends Managed, InstanceIdentity {
 	 * @return this same instance
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default ManagedEntity asManagedEntity() {
 		return this;
 	}
@@ -144,6 +157,7 @@ public interface ManagedEntity extends Managed, InstanceIdentity {
 	 * @see #$$_hibernate_setInstanceId(int)
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default EntityEntry $$_hibernate_setPersistenceInfo(EntityEntry entityEntry, ManagedEntity previous, ManagedEntity next, int instanceId) {
 		final var oldEntry = $$_hibernate_getEntityEntry();
 		$$_hibernate_setEntityEntry( entityEntry );

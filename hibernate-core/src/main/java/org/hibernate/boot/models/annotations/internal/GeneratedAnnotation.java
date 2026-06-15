@@ -10,6 +10,8 @@ import java.util.Map;
 import org.hibernate.annotations.Generated;
 import org.hibernate.generator.EventType;
 import org.hibernate.models.spi.ModelsContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -46,35 +48,42 @@ public class GeneratedAnnotation implements Generated {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return Generated.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public org.hibernate.generator.EventType[] event() {
 		return event;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void event(org.hibernate.generator.EventType[] value) {
 		this.event = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String sql() {
 		return sql;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void sql(String value) {
 		this.sql = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean writable() {
 		return writable;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void writable(boolean value) {
 		this.writable = value;
 	}

@@ -11,6 +11,8 @@ import org.hibernate.type.descriptor.jdbc.JdbcTypeIndicators;
 import org.hibernate.type.descriptor.jdbc.spi.JdbcTypeRegistry;
 
 import java.sql.Types;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class SybaseJtdsLongNVarcharJdbcType extends SybaseJtdsNVarcharJdbcType {
 
@@ -20,16 +22,19 @@ public class SybaseJtdsLongNVarcharJdbcType extends SybaseJtdsNVarcharJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getJdbcTypeCode() {
 		return Types.LONGNVARCHAR;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "SybaseJtdsLongNVarcharJdbcType";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcType resolveIndicatedType(
 			JdbcTypeIndicators indicators,
 			JavaType<?> domainJtd) {

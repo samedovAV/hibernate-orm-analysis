@@ -26,6 +26,8 @@ import org.hibernate.sql.results.graph.InitializerParent;
 import org.hibernate.sql.results.graph.InitializerProducer;
 import org.hibernate.sql.results.graph.entity.AbstractDiscriminatedEntityResultGraphNode;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Join fetching of {@link org.hibernate.annotations.Any} mappings.
@@ -69,41 +71,49 @@ public class JoinedDiscriminatedEntityFetch extends AbstractDiscriminatedEntityR
 		this.affectedByFilters = affectedByFilters;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static boolean isAffectedByEnabledFilters(EntityMappingType entityMappingType, DomainResultCreationState creationState) {
 		final LoadQueryInfluencers loadQueryInfluencers = creationState.getSqlAstCreationState()
 				.getLoadQueryInfluencers();
 		return entityMappingType.isAffectedByEnabledFilters( loadQueryInfluencers, true );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected List<EntityResultImpl<?>> getConcreteEntityResults() {
 		return concreteEntityResults;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected BitSet getAffectedByFilters() {
 		return affectedByFilters;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchParent getFetchParent() {
 		return fetchParent;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DiscriminatedAssociationModelPart getFetchedMapping() {
 		return getReferencedMappingContainer();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchTiming getTiming() {
 		return fetchTiming;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasTableGroup() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResultAssembler<?> createAssembler(
 			InitializerParent<?> parent,
 			AssemblerCreationState creationState) {
@@ -114,6 +124,7 @@ public class JoinedDiscriminatedEntityFetch extends AbstractDiscriminatedEntityR
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Initializer<?> createInitializer(
 			JoinedDiscriminatedEntityFetch resultGraphNode,
 			InitializerParent<?> parent,
@@ -122,6 +133,7 @@ public class JoinedDiscriminatedEntityFetch extends AbstractDiscriminatedEntityR
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Initializer<?> createInitializer(InitializerParent<?> parent, AssemblerCreationState creationState) {
 		return new JoinedDiscriminatedEntityInitializer(
 				parent,
@@ -138,6 +150,7 @@ public class JoinedDiscriminatedEntityFetch extends AbstractDiscriminatedEntityR
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public boolean containsCollectionFetches() {
 		for ( var entityResult : concreteEntityResults ) {
 			if ( entityResult.containsCollectionFetches() ) {
@@ -148,6 +161,7 @@ public class JoinedDiscriminatedEntityFetch extends AbstractDiscriminatedEntityR
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void collectValueIndexesToCache(BitSet valueIndexes) {
 		super.collectValueIndexesToCache( valueIndexes );
 		for ( var entityResult : concreteEntityResults ) {
@@ -156,6 +170,7 @@ public class JoinedDiscriminatedEntityFetch extends AbstractDiscriminatedEntityR
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchParent asFetchParent() {
 		return this;
 	}

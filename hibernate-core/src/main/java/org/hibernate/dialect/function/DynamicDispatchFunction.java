@@ -17,6 +17,8 @@ import org.hibernate.query.sqm.produce.function.ArgumentsValidator;
 import org.hibernate.query.sqm.tree.SqmTypedNode;
 import org.hibernate.query.sqm.tree.predicate.SqmPredicate;
 import org.hibernate.query.sqm.tree.select.SqmOrderByClause;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A function that dynamically dispatches to other functions,
@@ -36,6 +38,7 @@ public class DynamicDispatchFunction implements SqmFunctionDescriptor, Arguments
 		this.functionKind = functionKind( functionRegistry, functionNames );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static FunctionKind functionKind(SqmFunctionRegistry functionRegistry, String[] functionNames) {
 		FunctionKind functionKind = null;
 		// Sanity check
@@ -57,11 +60,13 @@ public class DynamicDispatchFunction implements SqmFunctionDescriptor, Arguments
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FunctionKind getFunctionKind() {
 		return functionKind;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> SelfRenderingSqmFunction<T> generateSqmExpression(
 			List<? extends SqmTypedNode<?>> arguments,
 			ReturnableType<T> impliedResultType,
@@ -71,6 +76,7 @@ public class DynamicDispatchFunction implements SqmFunctionDescriptor, Arguments
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> SelfRenderingSqmFunction<T> generateAggregateSqmExpression(
 			List<? extends SqmTypedNode<?>> arguments,
 			SqmPredicate filter,
@@ -86,6 +92,7 @@ public class DynamicDispatchFunction implements SqmFunctionDescriptor, Arguments
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> SelfRenderingSqmFunction<T> generateOrderedSetAggregateSqmExpression(
 			List<? extends SqmTypedNode<?>> arguments,
 			SqmPredicate filter,
@@ -103,6 +110,7 @@ public class DynamicDispatchFunction implements SqmFunctionDescriptor, Arguments
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> SelfRenderingSqmFunction<T> generateWindowSqmExpression(
 			List<? extends SqmTypedNode<?>> arguments,
 			SqmPredicate filter,
@@ -122,11 +130,13 @@ public class DynamicDispatchFunction implements SqmFunctionDescriptor, Arguments
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ArgumentsValidator getArgumentsValidator() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void validate(
 			List<? extends SqmTypedNode<?>> arguments,
 			String functionName,
@@ -134,6 +144,7 @@ public class DynamicDispatchFunction implements SqmFunctionDescriptor, Arguments
 		validateGetFunction( arguments, bindingContext );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private SqmFunctionDescriptor validateGetFunction(
 			List<? extends SqmTypedNode<?>> arguments,
 			BindingContext bindingContext) {

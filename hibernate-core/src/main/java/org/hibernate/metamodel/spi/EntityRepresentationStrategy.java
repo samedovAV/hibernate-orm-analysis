@@ -9,6 +9,8 @@ import java.util.function.Consumer;
 import org.hibernate.EntityNameResolver;
 import org.hibernate.proxy.ProxyFactory;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specialization of {@link ManagedTypeRepresentationStrategy} for an entity type
@@ -20,26 +22,32 @@ public interface EntityRepresentationStrategy extends ManagedTypeRepresentationS
 	/**
 	 * Create a delegate capable of instantiating instances of the represented type.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityInstantiator getInstantiator();
 
 	/**
 	 * Create the delegate capable of producing proxies for the given entity
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProxyFactory getProxyFactory();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isBytecodeEnhanced() {
 		return false;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JavaType<?> getProxyJavaType();
 
 	/**
 	 * The Java type descriptor for the type returned when the entity is loaded
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default JavaType<?> getLoadJavaType() {
 		return getMappedJavaType();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void visitEntityNameResolvers(Consumer<EntityNameResolver> consumer) {
 		// by default do nothing
 	}

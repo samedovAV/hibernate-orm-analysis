@@ -17,6 +17,8 @@ import org.hibernate.resource.beans.internal.Helper;
 import org.hibernate.resource.beans.spi.BeanInstanceProducer;
 
 import static org.hibernate.resource.beans.internal.BeansMessageLogger.BEANS_MSG_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -26,6 +28,7 @@ public abstract class AbstractCdiBeanContainer implements CdiBasedBeanContainer 
 	private final List<ContainedBeanImplementor<?>> registeredBeans = new ArrayList<>();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <B> ContainedBean<B> getBean(
 			Class<B> beanType,
 			LifecycleOptions lifecycleOptions,
@@ -35,6 +38,7 @@ public abstract class AbstractCdiBeanContainer implements CdiBasedBeanContainer 
 				: createBean( beanType, lifecycleOptions, fallbackProducer );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private <B> ContainedBean<B> getCacheableBean(
 			Class<B> beanType,
 			LifecycleOptions lifecycleOptions,
@@ -52,6 +56,7 @@ public abstract class AbstractCdiBeanContainer implements CdiBasedBeanContainer 
 		return bean;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private <B> ContainedBeanImplementor<B> createBean(
 			Class<B> beanType,
 			LifecycleOptions lifecycleOptions,
@@ -67,12 +72,14 @@ public abstract class AbstractCdiBeanContainer implements CdiBasedBeanContainer 
 		return bean;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract <B> ContainedBeanImplementor<B> createBean(
 			Class<B> beanType,
 			BeanLifecycleStrategy lifecycleStrategy,
 			BeanInstanceProducer fallbackProducer);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <B> ContainedBean<B> getBean(
 			String beanName,
 			Class<B> beanType,
@@ -83,6 +90,7 @@ public abstract class AbstractCdiBeanContainer implements CdiBasedBeanContainer 
 				: createBean( beanName, beanType, lifecycleOptions, fallbackProducer );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private <B> ContainedBeanImplementor<B> getCacheableBean(
 			String beanName,
 			Class<B> beanType,
@@ -102,6 +110,7 @@ public abstract class AbstractCdiBeanContainer implements CdiBasedBeanContainer 
 		return bean;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private <B> ContainedBeanImplementor<B> createBean(
 			String beanName,
 			Class<B> beanType,
@@ -119,6 +128,7 @@ public abstract class AbstractCdiBeanContainer implements CdiBasedBeanContainer 
 		return bean;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract <B> ContainedBeanImplementor<B> createBean(
 			String name,
 			Class<B> beanType,
@@ -126,11 +136,13 @@ public abstract class AbstractCdiBeanContainer implements CdiBasedBeanContainer 
 			BeanInstanceProducer fallbackProducer);
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected final void forEachBean(Consumer<ContainedBeanImplementor<?>> consumer) {
 		registeredBeans.forEach( consumer );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final void stop() {
 		BEANS_MSG_LOGGER.stoppingBeanContainer( this );
 		forEachBean( ContainedBeanImplementor::release );

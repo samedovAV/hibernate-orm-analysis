@@ -6,6 +6,8 @@ package org.hibernate.metamodel.mapping.ordering.ast;
 
 import org.hibernate.metamodel.mapping.PluralAttributeMapping;
 import org.hibernate.metamodel.mapping.ordering.TranslationContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * SequencePart implementation used to translate the root of a path
@@ -22,6 +24,7 @@ public class RootSequencePart implements SequencePart {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SequencePart resolvePathPart(
 			String name,
 			String identifier,

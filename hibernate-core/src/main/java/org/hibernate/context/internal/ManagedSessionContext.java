@@ -12,6 +12,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.context.spi.AbstractCurrentSessionContext;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents a {@link org.hibernate.context.spi.CurrentSessionContext} the notion of a contextual session
@@ -51,6 +53,7 @@ public class ManagedSessionContext extends AbstractCurrentSessionContext {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Session currentSession() {
 		final var current = existingSession( factory() );
 		if ( current == null ) {
@@ -70,6 +73,7 @@ public class ManagedSessionContext extends AbstractCurrentSessionContext {
 	 * within the current thread.
 	 * @return True if there is currently a session bound.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean hasBind(SessionFactory factory) {
 		return existingSession( factory ) != null;
 	}
@@ -80,6 +84,7 @@ public class ManagedSessionContext extends AbstractCurrentSessionContext {
 	 * @param session The session to be bound.
 	 * @return Any previously bound session (should be null in most cases).
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Session bind(Session session) {
 		return sessionMap( true ).put( session.getSessionFactory(), session );
 	}
@@ -91,6 +96,7 @@ public class ManagedSessionContext extends AbstractCurrentSessionContext {
 	 * @param factory The factory for which to unbind the current session.
 	 * @return The bound session if one, else null.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Session unbind(SessionFactory factory) {
 		final var sessionMap = sessionMap();
 		Session existing = null;
@@ -101,15 +107,18 @@ public class ManagedSessionContext extends AbstractCurrentSessionContext {
 		return existing;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Session existingSession(SessionFactory factory) {
 		final var sessionMap = sessionMap();
 		return sessionMap == null ? null : sessionMap.get( factory );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected static Map<SessionFactory,Session> sessionMap() {
 		return sessionMap( false );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Map<SessionFactory,Session> sessionMap(boolean createMap) {
 		var sessionMap = CONTEXT_TL.get();
 		if ( sessionMap == null && createMap ) {
@@ -119,6 +128,7 @@ public class ManagedSessionContext extends AbstractCurrentSessionContext {
 		return sessionMap;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void doCleanup() {
 		final var sessionMap = sessionMap( false );
 		if ( sessionMap != null ) {

@@ -6,6 +6,8 @@ package org.hibernate.persister.filter.internal;
 
 import org.hibernate.persister.filter.FilterAliasGenerator;
 import org.hibernate.sql.ast.tree.from.TableGroup;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Rob Worsnop
@@ -20,6 +22,7 @@ public class TableGroupFilterAliasGenerator implements FilterAliasGenerator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getAlias(String table) {
 		final var tableReference =
 				tableGroup.getTableReference( null, table == null ? defaultTable : table, true );

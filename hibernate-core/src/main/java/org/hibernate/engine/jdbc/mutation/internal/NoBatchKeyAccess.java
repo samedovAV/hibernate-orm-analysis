@@ -6,6 +6,8 @@ package org.hibernate.engine.jdbc.mutation.internal;
 
 import org.hibernate.engine.jdbc.batch.spi.BatchKey;
 import org.hibernate.engine.jdbc.mutation.spi.BatchKeyAccess;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A form of {@link BatchKeyAccess} for cases where batching is not wanted, which is
@@ -20,6 +22,7 @@ public class NoBatchKeyAccess implements BatchKeyAccess {
 	public static final NoBatchKeyAccess INSTANCE = new NoBatchKeyAccess();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BatchKey getBatchKey() {
 		return null;
 	}

@@ -10,6 +10,8 @@ import java.util.function.Consumer;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.sql.ast.tree.expression.ColumnReference;
 import org.hibernate.sql.model.ast.TableInsert;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Identity column support for H2 2+ versions
@@ -23,16 +25,19 @@ public class H2FinalTableIdentityColumnSupport extends H2IdentityColumnSupport {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsInsertSelectIdentity() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String appendIdentitySelectToInsert(String identityColumnName, String insertString) {
 		return "select " + identityColumnName + " from final table ( " + insertString + " )";
 	}
 
 	@Deprecated //TODO: move this logic back to H2SqlAstTranslator
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void render(
 			TableInsert tableInsert,
 			Consumer<String> sqlAppender,

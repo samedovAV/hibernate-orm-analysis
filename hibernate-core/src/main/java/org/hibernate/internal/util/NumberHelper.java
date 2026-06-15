@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.internal.util;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 
 public final class NumberHelper {
@@ -10,6 +13,7 @@ public final class NumberHelper {
 	private NumberHelper() {
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static int digitCount(int number) {
 		if ( number < 100000 ) {
 			if ( number < 100 ) {

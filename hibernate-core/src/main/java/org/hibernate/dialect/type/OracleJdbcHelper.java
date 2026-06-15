@@ -12,6 +12,8 @@ import org.hibernate.boot.registry.classloading.spi.ClassLoadingException;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
 import org.hibernate.type.descriptor.jdbc.JdbcTypeConstructor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The following class provides some convenience methods for accessing JdbcType instance,
@@ -21,6 +23,7 @@ import org.hibernate.type.descriptor.jdbc.JdbcTypeConstructor;
  */
 public class OracleJdbcHelper {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isUsable(ServiceRegistry serviceRegistry) {
 		final ClassLoaderService classLoaderService = serviceRegistry.requireService( ClassLoaderService.class );
 		try {
@@ -31,6 +34,7 @@ public class OracleJdbcHelper {
 			return false;
 		}
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isOsonAvailable(ServiceRegistry serviceRegistry) {
 		final ClassLoaderService classLoaderService = serviceRegistry.requireService( ClassLoaderService.class );
 		try {
@@ -42,18 +46,22 @@ public class OracleJdbcHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static JdbcTypeConstructor getArrayJdbcTypeConstructor(ServiceRegistry serviceRegistry) {
 		return create( serviceRegistry, "org.hibernate.dialect.type.OracleArrayJdbcTypeConstructor" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static JdbcTypeConstructor getNestedTableJdbcTypeConstructor(ServiceRegistry serviceRegistry) {
 		return create( serviceRegistry, "org.hibernate.dialect.type.OracleNestedTableJdbcTypeConstructor" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static JdbcType getStructJdbcType(ServiceRegistry serviceRegistry) {
 		return create( serviceRegistry, "org.hibernate.dialect.type.OracleStructJdbcType" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static <X> X create(ServiceRegistry serviceRegistry, String className) {
 		final ClassLoaderService classLoaderService = serviceRegistry.requireService( ClassLoaderService.class );
 		try {

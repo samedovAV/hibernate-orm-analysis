@@ -5,6 +5,8 @@
 package org.hibernate.persister.entity.mutation;
 
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Coordinates the deleting of an entity.
@@ -16,5 +18,6 @@ public interface DeleteCoordinator extends MutationCoordinator {
 	/**
 	 * Delete a persistent instance.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void delete(Object entity, Object id, Object version, SharedSessionContractImplementor session);
 }

@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.source.internal.hbm;
 
 import org.hibernate.boot.model.source.spi.InLineViewSource;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -34,34 +36,41 @@ public class InLineViewSourceImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getExplicitSchemaName() {
 		return schemaName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getExplicitCatalogName() {
 		return catalogName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSelectStatement() {
 		return selectStatement;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getLogicalName() {
 		return logicalName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getComment() {
 		return comment;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String determineCatalogName(MappingDocument mappingDocument, String catalogName) {
 		return catalogName != null ? catalogName : mappingDocument.getDocumentRoot().getCatalog();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String determineSchemaName(MappingDocument mappingDocument, String schemaName) {
 		return schemaName != null ? schemaName : mappingDocument.getDocumentRoot().getSchema();
 	}

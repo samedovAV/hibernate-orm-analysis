@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.internal.util;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 
 public final class QuotingHelper {
@@ -10,6 +13,7 @@ public final class QuotingHelper {
 	private QuotingHelper() { /* static methods only - hide constructor */
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String unquoteIdentifier(String text) {
 		final int end = text.length() - 1;
 		assert text.charAt( 0 ) == '`' && text.charAt( end ) == '`';
@@ -68,6 +72,7 @@ public final class QuotingHelper {
 		return sb.toString();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String unquoteStringLiteral(String text) {
 		assert text.length() > 1;
 		final int end = text.length() - 1;
@@ -96,6 +101,7 @@ public final class QuotingHelper {
 		return sb.toString();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String unquoteJavaStringLiteral(String text) {
 		assert text.length() > 1;
 		final char firstChar = text.charAt( 0 );
@@ -152,14 +158,17 @@ public final class QuotingHelper {
 		return sb.toString();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void appendDoubleQuoteEscapedString(StringBuilder sb, String text) {
 		appendWithDoubleEscaping( sb, text, '"' );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void appendSingleQuoteEscapedString(StringBuilder sb, String text) {
 		appendWithDoubleEscaping( sb, text, '\'' );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static void appendWithDoubleEscaping(StringBuilder sb, String text, char quoteChar) {
 		sb.append( quoteChar );
 		for ( int i = 0; i < text.length(); i++ ) {

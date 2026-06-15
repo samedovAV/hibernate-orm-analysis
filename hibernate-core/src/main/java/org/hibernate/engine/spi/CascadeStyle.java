@@ -5,6 +5,8 @@
 package org.hibernate.engine.spi;
 
 import java.io.Serializable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A contract for defining the aspects of cascading various persistence actions.
@@ -22,6 +24,7 @@ public interface CascadeStyle extends Serializable {
 	 *
 	 * @return True if the action should be cascaded under this style; false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean doCascade(CascadingAction<?> action);
 
 	/**
@@ -38,6 +41,7 @@ public interface CascadeStyle extends Serializable {
 	 * @return True if the action should be really cascaded under this style;
 	 *         false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean reallyDoCascade(CascadingAction<?> action);
 
 	/**
@@ -46,5 +50,6 @@ public interface CascadeStyle extends Serializable {
 	 * @return True if this style need to account for orphan delete
 	 *         operations; false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean hasOrphanDelete();
 }

@@ -18,6 +18,8 @@ import org.hibernate.sql.ast.tree.expression.Expression;
 
 import static org.hibernate.query.sqm.produce.function.FunctionParameterType.ANY;
 import static org.hibernate.query.sqm.produce.function.FunctionParameterType.INTEGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Implement the array set function by using {@code unnest}.
@@ -41,6 +43,7 @@ public class ArraySetUnnestFunction extends AbstractSqmSelfRenderingFunctionDesc
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,

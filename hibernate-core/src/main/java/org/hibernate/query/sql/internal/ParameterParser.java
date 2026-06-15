@@ -11,6 +11,8 @@ import org.hibernate.internal.log.DeprecationLogger;
 import org.hibernate.internal.util.StringHelper;
 import org.hibernate.query.ParameterLabelException;
 import org.hibernate.query.sql.spi.ParameterRecognizer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The single available method {@link #parse} is responsible for parsing a
@@ -48,6 +50,7 @@ public class ParameterParser {
 	 * @param nativeJdbcParametersIgnored Whether to ignore ordinal parameters in native queries or not.
 	 * @throws QueryException Indicates unexpected parameter conditions.
 	 */
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public static void parse(String sqlString, ParameterRecognizer recognizer, boolean nativeJdbcParametersIgnored) throws QueryException {
 		checkIsNotAFunctionCall( sqlString );
 		final int stringLength = sqlString.length();
@@ -204,10 +207,12 @@ public class ParameterParser {
 		recognizer.complete();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void parse(String sqlString, ParameterRecognizer recognizer) throws QueryException {
 		parse( sqlString, recognizer, false );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static void checkIsNotAFunctionCall(String sqlString) {
 		final String trimmed = sqlString.trim();
 		if ( !( trimmed.startsWith( "{" ) && trimmed.endsWith( "}" ) ) ) {

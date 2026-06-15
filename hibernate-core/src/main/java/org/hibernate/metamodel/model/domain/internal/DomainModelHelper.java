@@ -11,6 +11,8 @@ import org.hibernate.metamodel.model.domain.ManagedDomainType;
 import org.hibernate.metamodel.model.domain.PersistentAttribute;
 
 import static org.hibernate.metamodel.mapping.internal.MappingModelHelper.isCompatibleModelPart;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Helper containing utilities useful for domain model handling
@@ -19,6 +21,7 @@ import static org.hibernate.metamodel.mapping.internal.MappingModelHelper.isComp
  */
 public class DomainModelHelper {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static boolean isCompatible(
 			PersistentAttribute<?, ?> attribute1,
 			PersistentAttribute<?, ?> attribute2,
@@ -37,6 +40,7 @@ public class DomainModelHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	static ModelPart getEntityAttributeModelPart(
 			PersistentAttribute<?, ?> attribute,
 			ManagedDomainType<?> domainType,

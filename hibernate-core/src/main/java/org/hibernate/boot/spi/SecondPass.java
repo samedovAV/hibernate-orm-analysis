@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.hibernate.MappingException;
 import org.hibernate.mapping.PersistentClass;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Hibernate builds its {@linkplain org.hibernate.mapping build-time model}
@@ -23,5 +25,6 @@ public interface SecondPass extends Serializable {
 	/**
 	 * Perform the operation
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void doSecondPass(Map<String, PersistentClass> persistentClasses) throws MappingException;
 }

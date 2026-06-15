@@ -9,6 +9,8 @@ import org.hibernate.internal.util.collections.CollectionHelper;
 
 import java.util.Collections;
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Helper for building [org.hibernate.boot.query.NamedQueryDefinition]
 /// references from annotations.
@@ -16,6 +18,7 @@ import java.util.Map;
 /// @author Steve Ebersole
 public final class Helper {
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static Map<String,Object> extractHints(QueryHint[] hints) {
 		if ( hints.length == 0 ) {
 			return Collections.emptyMap();

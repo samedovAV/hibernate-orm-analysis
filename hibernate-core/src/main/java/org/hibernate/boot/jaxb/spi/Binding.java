@@ -7,6 +7,8 @@ package org.hibernate.boot.jaxb.spi;
 import java.io.Serializable;
 
 import org.hibernate.boot.jaxb.Origin;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents a JAXB binding, as well as keeping information about the origin
@@ -29,6 +31,7 @@ public class Binding<T> implements Serializable {
 	 *
 	 * @return The JAXB root object
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public T getRoot() {
 		return root;
 	}
@@ -38,6 +41,7 @@ public class Binding<T> implements Serializable {
 	 *
 	 * @return The origin
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Origin getOrigin() {
 		return origin;
 	}

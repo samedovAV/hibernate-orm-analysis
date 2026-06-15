@@ -8,6 +8,8 @@ import org.hibernate.query.sqm.function.AbstractSqmSelfRenderingFunctionDescript
 import org.hibernate.query.sqm.produce.function.StandardArgumentsValidators;
 import org.hibernate.query.sqm.produce.function.StandardFunctionReturnTypeResolvers;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Encapsulates the validator, return type and argument type resolvers for the array_includes function.
@@ -31,6 +33,7 @@ public abstract class AbstractArrayIncludesFunction extends AbstractSqmSelfRende
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getArgumentListSignature() {
 		return "(ARRAY haystackArray, OBJECT needleArray)";
 	}

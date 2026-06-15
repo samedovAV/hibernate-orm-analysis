@@ -5,6 +5,8 @@
 package org.hibernate.bytecode.enhance.spi.interceptor;
 
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contains the state necessary to properly implement SessionAssociableInterceptor;
@@ -52,6 +54,7 @@ public final class SessionAssociationMarkers {
 		allowLoadOutsideTransaction = true;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SessionAssociationMarkers deAssociatedCopy() {
 		return allowLoadOutsideTransaction
 				? new SessionAssociationMarkers( sessionFactoryUuid )
@@ -63,6 +66,7 @@ public final class SessionAssociationMarkers {
 	 * used by multiple managed entities.
 	 * Removes the reference to the session; useful on Session close.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void sessionClosed() {
 		session = null;
 	}

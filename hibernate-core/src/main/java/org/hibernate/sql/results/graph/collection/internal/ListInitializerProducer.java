@@ -14,6 +14,8 @@ import org.hibernate.sql.results.graph.DomainResult;
 import org.hibernate.sql.results.graph.Fetch;
 import org.hibernate.sql.results.graph.InitializerParent;
 import org.hibernate.sql.results.graph.collection.CollectionInitializer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -33,6 +35,7 @@ public class ListInitializerProducer implements CollectionInitializerProducer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionInitializer<?> produceInitializer(
 			NavigablePath navigablePath,
 			PluralAttributeMapping attribute,

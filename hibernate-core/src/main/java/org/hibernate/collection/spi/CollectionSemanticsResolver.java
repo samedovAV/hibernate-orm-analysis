@@ -6,6 +6,8 @@ package org.hibernate.collection.spi;
 
 import org.hibernate.Incubating;
 import org.hibernate.mapping.Collection;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Resolve the collection semantics for the given mapped collection.
@@ -20,5 +22,6 @@ import org.hibernate.mapping.Collection;
 @Incubating
 public interface CollectionSemanticsResolver {
 	// really need some form of access to the attribute site
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<CE,E> CollectionSemantics<CE,E> resolveRepresentation(Collection bootDescriptor);
 }

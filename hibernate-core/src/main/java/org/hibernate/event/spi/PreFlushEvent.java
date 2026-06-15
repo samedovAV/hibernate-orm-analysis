@@ -6,6 +6,8 @@ package org.hibernate.event.spi;
 
 import org.hibernate.Incubating;
 import org.hibernate.query.spi.QueryParameterBindings;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An event that occurs just before arguments are bound to JDBC
@@ -27,14 +29,17 @@ public class PreFlushEvent extends AbstractSessionEvent {
 		this.parameterBindings = parameterBindings;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QueryParameterBindings getParameterBindings() {
 		return parameterBindings;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isPreFlushRequired() {
 		return preFlushRequired;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setPreFlushRequired(boolean preFlushRequired) {
 		this.preFlushRequired = preFlushRequired;
 	}

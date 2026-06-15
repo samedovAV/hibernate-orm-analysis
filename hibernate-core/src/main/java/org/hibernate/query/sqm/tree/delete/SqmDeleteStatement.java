@@ -30,6 +30,8 @@ import java.util.Map;
 import java.util.Set;
 
 import static org.hibernate.query.sqm.SqmQuerySource.CRITERIA;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -81,6 +83,7 @@ public class SqmDeleteStatement<T>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmDeleteStatement<T> copy(SqmCopyContext context) {
 		final var existing = context.getCopy( this );
 		if ( existing != null ) {
@@ -102,6 +105,7 @@ public class SqmDeleteStatement<T>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void validate(@Nullable String hql) {
 		if ( getQuerySource() == SqmQuerySource.CRITERIA ) {
 			SqmUtil.validateCriteriaTree( this );
@@ -110,6 +114,7 @@ public class SqmDeleteStatement<T>
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmDeleteStatement<T> where(@Nonnull Expression<Boolean> restriction) {
 		setWhere( restriction );
 		return this;
@@ -117,6 +122,7 @@ public class SqmDeleteStatement<T>
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmDeleteStatement<T> where(@Nonnull BooleanExpression... restrictions) {
 		setWhere( restrictions );
 		return this;
@@ -124,17 +130,20 @@ public class SqmDeleteStatement<T>
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmDeleteStatement<T> where(@Nonnull List<? extends Expression<Boolean>> restrictions) {
 		setWhere( restrictions );
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> X accept(SemanticQueryWalker<X> walker) {
 		return walker.visitDeleteStatement( this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void appendHqlString(StringBuilder hql, SqmRenderContext context) {
 		appendHqlCteString( hql, context );
 		hql.append( "delete from " );
@@ -148,6 +157,7 @@ public class SqmDeleteStatement<T>
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <U> Subquery<U> subquery(@Nonnull EntityType<U> type) {
 		throw new UnsupportedOperationException( "DELETE query cannot be sub-query" );
 	}

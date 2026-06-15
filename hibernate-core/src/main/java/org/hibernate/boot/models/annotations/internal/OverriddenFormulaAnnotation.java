@@ -17,6 +17,8 @@ import org.hibernate.models.spi.ModelsContext;
 
 import static org.hibernate.boot.models.DialectOverrideAnnotations.DIALECT_OVERRIDE_FORMULA;
 import static org.hibernate.boot.models.internal.OrmAnnotationHelper.extractJdkValue;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -56,20 +58,24 @@ public class OverriddenFormulaAnnotation
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AnnotationDescriptor<Formula> getOverriddenDescriptor() {
 		return HibernateAnnotations.FORMULA;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Formula override() {
 		return override;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void override(Formula value) {
 		this.override = value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return DialectOverride.Formula.class;
 	}

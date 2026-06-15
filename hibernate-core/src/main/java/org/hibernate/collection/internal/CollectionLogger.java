@@ -20,6 +20,8 @@ import java.util.Locale;
 import static org.jboss.logging.Logger.Level.DEBUG;
 import static org.jboss.logging.Logger.Level.INFO;
 import static org.jboss.logging.Logger.Level.WARN;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Subsystem logging related to PersistentCollection runtime events
@@ -38,31 +40,38 @@ public interface CollectionLogger extends BasicLogger {
 
 	@LogMessage(level = WARN)
 	@Message(id = 90030001, value = "Unable to close temporary session used to load lazy collection associated to no session")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void unableToCloseTemporarySession();
 
 	@LogMessage(level = WARN)
 	@Message(id = 90030002, value = "Detaching an uninitialized collection with enabled filters from a session: %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void enabledFiltersWhenDetachFromSession(String collectionInfoString);
 
 	@LogMessage(level = WARN)
 	@Message(id = 90030004, value = "Attaching an uninitialized collection with queued operations to a session: %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void queuedOperationWhenAttachToSession(String collectionInfoString);
 
 	@LogMessage(level = INFO)
 	@Message(id = 90030005, value = "Detaching an uninitialized collection with queued operations from a session: %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void queuedOperationWhenDetachFromSession(String collectionInfoString);
 
 	@LogMessage(level = DEBUG)
 	@Message(id = 90030006, value = "Detaching an uninitialized collection with queued operations from a session due to rollback: %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void queuedOperationWhenDetachFromSessionOnRollback(String collectionInfoString);
 
 	@LogMessage(level = WARN)
 	@Message(id = 90030007, value = "Cannot unset session in a collection because an unexpected session is defined."
 									+ " A persistent collection may only be associated with one session at a time. %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void logCannotUnsetUnexpectedSessionInCollection(String msg);
 
 	@LogMessage(level = WARN)
 	@Message(id = 90030008, value = "An unexpected session is defined for a collection, but the collection is not connected to that session."
 									+ " A persistent collection may only be associated with one session at a time. Overwriting session. %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void logUnexpectedSessionInCollectionNotConnected(String msg);
 }

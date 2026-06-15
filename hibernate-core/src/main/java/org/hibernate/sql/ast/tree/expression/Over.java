@@ -18,6 +18,8 @@ import org.hibernate.sql.ast.tree.select.SortSpecification;
 import org.hibernate.sql.results.graph.DomainResult;
 import org.hibernate.sql.results.graph.DomainResultCreationState;
 import org.hibernate.sql.results.graph.basic.BasicResult;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -70,53 +72,65 @@ public class Over<T> implements Expression, DomainResultProducer<T> {
 		this.exclusion = exclusion;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression getExpression() {
 		return expression;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<Expression> getPartitions() {
 		return partitions;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<SortSpecification> getOrderList() {
 		return orderList;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FrameMode getMode() {
 		return mode;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FrameKind getStartKind() {
 		return startKind;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression getStartExpression() {
 		return startExpression;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FrameKind getEndKind() {
 		return endKind;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression getEndExpression() {
 		return endExpression;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FrameExclusion getExclusion() {
 		return exclusion;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcMappingContainer getExpressionType() {
 		return expression.getExpressionType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker walker) {
 		walker.visitOver( this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResult<T> createDomainResult(String resultVariable, DomainResultCreationState creationState) {
 		final SqlSelection sqlSelection = createSelection( creationState.getSqlAstCreationState() );
 		return new BasicResult<>(
@@ -127,10 +141,12 @@ public class Over<T> implements Expression, DomainResultProducer<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applySqlSelections(DomainResultCreationState creationState) {
 		createSelection( creationState.getSqlAstCreationState() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private SqlSelection createSelection(SqlAstCreationState creationState) {
 		return creationState.getSqlExpressionResolver().resolveSqlSelection(
 				this,

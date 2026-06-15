@@ -17,6 +17,8 @@ import org.hibernate.engine.jdbc.LobCreator;
 import org.hibernate.engine.jdbc.internal.ArrayBackedBinaryStream;
 import org.hibernate.engine.jdbc.internal.StreamBackedBinaryStream;
 import org.hibernate.type.descriptor.java.DataHelper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Manages aspects of representing {@link Blob} objects.
@@ -69,6 +71,7 @@ public final class BlobProxy implements Blob, BlobImplementer {
 		setStreamMark();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void setStreamMark() {
 		final InputStream inputStream = binaryStream.getInputStream();
 		if ( inputStream != null && inputStream.markSupported() ) {
@@ -80,16 +83,19 @@ public final class BlobProxy implements Blob, BlobImplementer {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private InputStream getStream() throws SQLException {
 		return getUnderlyingStream().getInputStream();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BinaryStream getUnderlyingStream() throws SQLException {
 		resetIfNeeded();
 		return binaryStream;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void resetIfNeeded() throws SQLException {
 		try {
 			if ( needsReset ) {
@@ -116,6 +122,7 @@ public final class BlobProxy implements Blob, BlobImplementer {
 	 *
 	 * @return The BlobProxy instance to represent this data.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Blob generateProxy(byte[] bytes) {
 		return new BlobProxy( bytes );
 	}
@@ -133,16 +140,19 @@ public final class BlobProxy implements Blob, BlobImplementer {
 	 *
 	 * @return The BlobProxy instance to represent this data.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Blob generateProxy(InputStream stream, long length) {
 		return new BlobProxy( stream, length );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long length() throws SQLException {
 		return binaryStream.getLength();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public byte[] getBytes(final long start, final int length) throws SQLException {
 		if ( start < 1 ) {
 			throw new SQLException( "Start position 1-based; must be 1 or more." );
@@ -154,46 +164,55 @@ public final class BlobProxy implements Blob, BlobImplementer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public InputStream getBinaryStream() throws SQLException {
 		return getStream();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long position(byte[] pattern, long start) {
 		throw notSupported();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long position(Blob pattern, long start) {
 		throw notSupported();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int setBytes(long pos, byte[] bytes) {
 		throw notSupported();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int setBytes(long pos, byte[] bytes, int offset, int len) {
 		throw notSupported();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public OutputStream setBinaryStream(long pos) {
 		throw notSupported();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void truncate(long len) {
 		throw notSupported();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void free() {
 		binaryStream.release();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public InputStream getBinaryStream(final long start, final long length) throws SQLException {
 		if ( start < 1 ) {
 			throw new SQLException( "Start position 1-based; must be 1 or more." );
@@ -212,6 +231,7 @@ public final class BlobProxy implements Blob, BlobImplementer {
 		return DataHelper.subStream( getStream(), start-1, (int)length );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static UnsupportedOperationException notSupported() {
 		return new UnsupportedOperationException( "Blob may not be manipulated from creating session" );
 	}

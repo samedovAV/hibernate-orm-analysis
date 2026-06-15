@@ -3,11 +3,16 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.boot.jaxb.mapping.spi.db;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * @author Steve Ebersole
  */
 public interface JaxbColumnMutable extends JaxbColumn {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Boolean isInsertable();
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Boolean isUpdatable();
 }

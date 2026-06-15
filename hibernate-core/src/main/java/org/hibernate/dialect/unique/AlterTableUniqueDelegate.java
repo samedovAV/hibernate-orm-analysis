@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hibernate.internal.util.StringHelper.isNotEmpty;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link UniqueDelegate} which uses {@code alter table} commands to create and drop
@@ -35,6 +37,7 @@ public class AlterTableUniqueDelegate implements UniqueDelegate {
 		this.dialect = dialect;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static String constraintName(UniqueKey uniqueKey, Database database) {
 		final String uniqueKeyName = uniqueKey.getName();
 		if ( uniqueKeyName == null ) {
@@ -50,6 +53,7 @@ public class AlterTableUniqueDelegate implements UniqueDelegate {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static String tableName(UniqueKey uniqueKey, SqlStringGenerationContext context) {
 		return context.format( uniqueKey.getTable().getQualifiedTableName() );
 	}
@@ -57,18 +61,21 @@ public class AlterTableUniqueDelegate implements UniqueDelegate {
 	// legacy model ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getColumnDefinitionUniquenessFragment(Column column,
 			SqlStringGenerationContext context) {
 		return "";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getTableCreationUniqueConstraintsFragment(Table table,
 			SqlStringGenerationContext context) {
 		return "";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getAlterTableToAddUniqueKeyCommand(
 			UniqueKey uniqueKey, Metadata metadata,
 			SqlStringGenerationContext context) {
@@ -77,6 +84,7 @@ public class AlterTableUniqueDelegate implements UniqueDelegate {
 				+ " " + uniqueConstraintSql( uniqueKey );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected String uniqueConstraintSql(UniqueKey uniqueKey) {
 		final var fragment = new StringBuilder();
 		fragment.append( "unique (" );
@@ -101,6 +109,7 @@ public class AlterTableUniqueDelegate implements UniqueDelegate {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getAlterTableToDropUniqueKeyCommand(UniqueKey uniqueKey, Metadata metadata,
 			SqlStringGenerationContext context) {
 		final String tableName = tableName( uniqueKey, context );

@@ -41,6 +41,8 @@ import org.hibernate.sql.exec.spi.JdbcOperation;
 import org.hibernate.sql.model.internal.TableInsertStandard;
 
 import static org.hibernate.dialect.sql.ast.SybaseASESqlAstTranslator.isLob;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An SQL AST translator for HANA.
@@ -56,6 +58,7 @@ public class HANASqlAstTranslator<T extends JdbcOperation> extends AbstractSqlAs
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void visitBinaryArithmeticExpression(BinaryArithmeticExpression arithmeticExpression) {
 		if ( isIntegerDivisionEmulationRequired( arithmeticExpression ) ) {
 			appendSql( "cast(" );
@@ -70,15 +73,18 @@ public class HANASqlAstTranslator<T extends JdbcOperation> extends AbstractSqlAs
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void visitArithmeticOperand(Expression expression) {
 		render( expression, SqlAstNodeRenderingMode.NO_PLAIN_PARAMETER );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean isHanaCloud() {
 		return ( (HANADialect) getDialect() ).isCloud();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void visitInsertStatementOnly(InsertSelectStatement statement) {
 		if ( statement.getConflictClause() == null || statement.getConflictClause().isDoNothing() ) {
 			// Render plain insert statement and possibly run into unique constraint violation
@@ -90,6 +96,7 @@ public class HANASqlAstTranslator<T extends JdbcOperation> extends AbstractSqlAs
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void visitUpdateStatementOnly(UpdateStatement statement) {
 		// HANA Cloud does not support the FROM clause in UPDATE statements
 		if ( isHanaCloud() && hasNonTrivialFromClause( statement.getFromClause() ) ) {
@@ -101,6 +108,7 @@ public class HANASqlAstTranslator<T extends JdbcOperation> extends AbstractSqlAs
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void renderUpdateClause(UpdateStatement updateStatement) {
 		// HANA Cloud does not support the FROM clause in UPDATE statements
 		if ( isHanaCloud() ) {
@@ -120,6 +128,7 @@ public class HANASqlAstTranslator<T extends JdbcOperation> extends AbstractSqlAs
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderFromClauseAfterUpdateSet(UpdateStatement statement) {
 		// HANA Cloud does not support the FROM clause in UPDATE statements
 		if ( !isHanaCloud() ) {
@@ -134,6 +143,7 @@ public class HANASqlAstTranslator<T extends JdbcOperation> extends AbstractSqlAs
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void renderDmlTargetTableExpression(NamedTableReference tableReference) {
 		super.renderDmlTargetTableExpression( tableReference );
 		if ( getClauseStack().getCurrent() != Clause.INSERT ) {
@@ -142,6 +152,7 @@ public class HANASqlAstTranslator<T extends JdbcOperation> extends AbstractSqlAs
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void visitConflictClause(ConflictClause conflictClause) {
 		if ( conflictClause != null ) {
 			if ( conflictClause.isDoUpdate() && conflictClause.getConstraintName() != null ) {
@@ -150,6 +161,7 @@ public class HANASqlAstTranslator<T extends JdbcOperation> extends AbstractSqlAs
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean shouldEmulateFetchClause(QueryPart queryPart) {
 		// HANA only supports the LIMIT + OFFSET syntax but also window functions
 		// Check if current query part is already row numbering to avoid infinite recursion
@@ -158,12 +170,14 @@ public class HANASqlAstTranslator<T extends JdbcOperation> extends AbstractSqlAs
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean isCorrelated(CteStatement cteStatement) {
 		// Report false here, because apparently HANA does not need the "lateral" keyword to correlate a from clause subquery in a subquery
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void visitQueryGroup(QueryGroup queryGroup) {
 		if ( shouldEmulateFetchClause( queryGroup ) ) {
 			emulateFetchOffsetWithWindowFunctions( queryGroup, true );
@@ -174,6 +188,7 @@ public class HANASqlAstTranslator<T extends JdbcOperation> extends AbstractSqlAs
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void visitQuerySpec(QuerySpec querySpec) {
 		if ( shouldEmulateFetchClause( querySpec ) ) {
 			emulateFetchOffsetWithWindowFunctions( querySpec, true );
@@ -184,6 +199,7 @@ public class HANASqlAstTranslator<T extends JdbcOperation> extends AbstractSqlAs
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void visitQueryPartTableReference(QueryPartTableReference tableReference) {
 		if ( tableReference.isLateral() && !inLateral ) {
 			inLateral = true;
@@ -196,6 +212,7 @@ public class HANASqlAstTranslator<T extends JdbcOperation> extends AbstractSqlAs
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void renderDerivedTableReference(DerivedTableReference tableReference) {
 		if ( tableReference instanceof FunctionTableReference && tableReference.isLateral() ) {
 			// No need for a lateral keyword for functions
@@ -207,6 +224,7 @@ public class HANASqlAstTranslator<T extends JdbcOperation> extends AbstractSqlAs
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void renderNamedSetReturningFunction(String functionName, List<? extends SqlAstNode> sqlAstArguments, AnonymousTupleTableGroupProducer tupleType, String tableIdentifierVariable, SqlAstNodeRenderingMode argumentRenderingMode) {
 		final ModelPart ordinalitySubPart = tupleType.findSubPart( CollectionPart.Nature.INDEX.getName(), null );
 		if ( ordinalitySubPart != null ) {
@@ -222,17 +240,20 @@ public class HANASqlAstTranslator<T extends JdbcOperation> extends AbstractSqlAs
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected SqlAstNodeRenderingMode getParameterRenderingMode() {
 		// HANA does not support parameters in lateral subqueries for some reason, so inline all the parameters in this case
 		return inLateral ? SqlAstNodeRenderingMode.INLINE_ALL_PARAMETERS : super.getParameterRenderingMode();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderDerivedTableReferenceIdentificationVariable(DerivedTableReference tableReference) {
 		renderTableReferenceIdentificationVariable( tableReference );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void visitOffsetFetchClause(QueryPart queryPart) {
 		if ( !isRowNumberingCurrentQueryPart() ) {
 			renderLimitOffsetClause( queryPart );
@@ -240,6 +261,7 @@ public class HANASqlAstTranslator<T extends JdbcOperation> extends AbstractSqlAs
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderComparison(Expression lhs, ComparisonOperator operator, Expression rhs) {
 		// In SAP HANA, LOBs are not "comparable", so we have to use a like predicate for comparison
 		final boolean isLob = isLob( lhs.getExpressionType() );
@@ -302,6 +324,7 @@ public class HANASqlAstTranslator<T extends JdbcOperation> extends AbstractSqlAs
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderPartitionItem(Expression expression) {
 		if ( expression instanceof Literal ) {
 			appendSql( "grouping sets (())" );
@@ -315,6 +338,7 @@ public class HANASqlAstTranslator<T extends JdbcOperation> extends AbstractSqlAs
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderInsertIntoNoColumns(TableInsertStandard tableInsert) {
 		throw new MappingException(
 				String.format(
@@ -326,11 +350,13 @@ public class HANASqlAstTranslator<T extends JdbcOperation> extends AbstractSqlAs
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void visitValuesList(List<Values> valuesList) {
 		visitValuesListEmulateSelectUnion( valuesList );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void visitValuesTableReference(ValuesTableReference tableReference) {
 		emulateValuesTableReferenceColumnAliasing( tableReference );
 	}

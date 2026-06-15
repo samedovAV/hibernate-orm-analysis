@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import org.hibernate.sql.exec.spi.ExecutionContext;
 import org.hibernate.sql.exec.spi.JdbcParameterBindings;
 import org.hibernate.type.BasicType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link org.hibernate.sql.ast.tree.expression.JdbcParameter} which
@@ -23,6 +25,7 @@ public class LimitJdbcParameter extends AbstractJdbcParameter {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void bindParameterValue(
 			PreparedStatement statement,
 			int startPosition,

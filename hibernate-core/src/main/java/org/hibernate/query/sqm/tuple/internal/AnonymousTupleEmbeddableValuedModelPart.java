@@ -65,6 +65,8 @@ import jakarta.persistence.metamodel.Attribute;
 import jakarta.annotation.Nullable;
 
 import static java.util.Objects.requireNonNullElse;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -108,6 +110,7 @@ public class AnonymousTupleEmbeddableValuedModelPart implements EmbeddableValued
 		this.fetchableIndex = fetchableIndex;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private Map<String, ModelPart> createModelParts(
 			SqmExpressible<?> sqmExpressible,
 			SqlTypedMapping[] sqlTypedMappings,
@@ -141,11 +144,13 @@ public class AnonymousTupleEmbeddableValuedModelPart implements EmbeddableValued
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ModelPart findSubPart(String name, EntityMappingType treatTargetType) {
 		return modelPartMap.get( name );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void forEachSubPart(IndexedConsumer<ModelPart> consumer, EntityMappingType treatTarget) {
 		for ( int i = 0; i < modelParts.length; i++ ) {
 			consumer.accept( i, modelParts[i] );
@@ -153,6 +158,7 @@ public class AnonymousTupleEmbeddableValuedModelPart implements EmbeddableValued
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void visitSubParts(Consumer<ModelPart> consumer, EntityMappingType treatTargetType) {
 		for ( int i = 0; i < modelParts.length; i++ ) {
 			consumer.accept( modelParts[i] );
@@ -160,37 +166,44 @@ public class AnonymousTupleEmbeddableValuedModelPart implements EmbeddableValued
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<?> getJavaType() {
 		return domainType.getExpressibleJavaType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getPartName() {
 		return componentName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int getJdbcTypeCount() {
 		return existingModelPartContainer.getJdbcTypeCount();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableMappingType getEmbeddableTypeDescriptor() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableValuedModelPart getEmbeddedValueMapping() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public EmbeddableRepresentationStrategy getRepresentationStrategy() {
 		return existingModelPartContainer.getEmbeddableTypeDescriptor()
 				.getRepresentationStrategy();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableMappingType createInverseMappingType(
 			EmbeddedAttributeMapping valueMapping,
 			TableGroupProducer declaringTableGroupProducer,
@@ -200,26 +213,31 @@ public class AnonymousTupleEmbeddableValuedModelPart implements EmbeddableValued
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getNumberOfAttributeMappings() {
 		return modelParts.length;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AttributeMapping getAttributeMapping(int position) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AttributeMappingsList getAttributeMappings() {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void forEachAttributeMapping(Consumer<? super AttributeMapping> action) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X, Y> int decompose(
 			Object domainValue,
 			int offset,
@@ -231,31 +249,37 @@ public class AnonymousTupleEmbeddableValuedModelPart implements EmbeddableValued
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object[] getValues(Object instance) {
 		return existingModelPartContainer.getEmbeddableTypeDescriptor().getValues( instance );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object getValue(Object instance, int position) {
 		return existingModelPartContainer.getEmbeddableTypeDescriptor().getValue( instance, position );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void setValues(Object instance, Object[] resolvedValues) {
 		existingModelPartContainer.getEmbeddableTypeDescriptor().setValues( instance, resolvedValues );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void setValue(Object instance, int position, Object value) {
 		existingModelPartContainer.getEmbeddableTypeDescriptor().setValue( instance, position, value );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getSelectableIndex(String selectableName) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SelectableMapping getSelectable(int columnIndex) {
 		final List<SelectableMapping> results = new ArrayList<>();
 		forEachSelectable( (index, selection) -> results.add( selection ) );
@@ -263,21 +287,25 @@ public class AnonymousTupleEmbeddableValuedModelPart implements EmbeddableValued
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Fetchable getFetchable(int position) {
 		return (Fetchable) modelParts[position];
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcMapping getJdbcMapping(int index) {
 		return getSelectable( index ).getJdbcMapping();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int forEachSelectable(SelectableConsumer consumer) {
 		return forEachSelectable( 0, consumer );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public int forEachSelectable(int offset, SelectableConsumer consumer) {
 		int span = 0;
 		for ( ModelPart mapping : modelParts ) {
@@ -287,21 +315,25 @@ public class AnonymousTupleEmbeddableValuedModelPart implements EmbeddableValued
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void forEachInsertable(int offset, SelectableConsumer consumer) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void forEachUpdatable(int offset, SelectableConsumer consumer) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getContainingTableExpression() {
 		return "";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqlTuple toSqlExpression(
 			TableGroup tableGroup,
 			Clause clause,
@@ -325,21 +357,25 @@ public class AnonymousTupleEmbeddableValuedModelPart implements EmbeddableValued
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<?> getMappedJavaType() {
 		return existingModelPartContainer.getJavaType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqlAstJoinType getDefaultSqlAstJoinType(TableGroup parentTableGroup) {
 		return SqlAstJoinType.INNER;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isSimpleJoinPredicate(Predicate predicate) {
 		return predicate == null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableGroupJoin createTableGroupJoin(
 			NavigablePath navigablePath,
 			TableGroup lhs,
@@ -365,6 +401,7 @@ public class AnonymousTupleEmbeddableValuedModelPart implements EmbeddableValued
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableGroup createRootTableGroupJoin(
 			NavigablePath navigablePath,
 			TableGroup lhs,
@@ -378,26 +415,31 @@ public class AnonymousTupleEmbeddableValuedModelPart implements EmbeddableValued
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSqlAliasStem() {
 		return getPartName();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getFetchableName() {
 		return getPartName();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getFetchableKey() {
 		return fetchableIndex;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchOptions getMappedFetchOptions() {
 		return FETCH_OPTIONS;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Fetch generateFetch(
 			FetchParent fetchParent,
 			NavigablePath fetchablePath,
@@ -409,26 +451,31 @@ public class AnonymousTupleEmbeddableValuedModelPart implements EmbeddableValued
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getNumberOfFetchables() {
 		return modelParts.length;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigableRole getNavigableRole() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityMappingType findContainingEntityMapping() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasPartitionedSelectionMapping() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> DomainResult<T> createDomainResult(
 			NavigablePath navigablePath,
 			TableGroup tableGroup,
@@ -443,6 +490,7 @@ public class AnonymousTupleEmbeddableValuedModelPart implements EmbeddableValued
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void applySqlSelections(
 			NavigablePath navigablePath,
 			TableGroup tableGroup,
@@ -453,6 +501,7 @@ public class AnonymousTupleEmbeddableValuedModelPart implements EmbeddableValued
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void applySqlSelections(
 			NavigablePath navigablePath,
 			TableGroup tableGroup,
@@ -464,6 +513,7 @@ public class AnonymousTupleEmbeddableValuedModelPart implements EmbeddableValued
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public <X, Y> int breakDownJdbcValues(
 			Object domainValue,
 			int offset,
@@ -489,6 +539,7 @@ public class AnonymousTupleEmbeddableValuedModelPart implements EmbeddableValued
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public Object disassemble(Object value, SharedSessionContractImplementor session) {
 		if ( value == null ) {
 			return null;
@@ -504,6 +555,7 @@ public class AnonymousTupleEmbeddableValuedModelPart implements EmbeddableValued
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void addToCacheKey(MutableCacheKeyBuilder cacheKey, Object value, SharedSessionContractImplementor session) {
 		if ( value == null ) {
 			for ( ModelPart mapping : modelParts ) {
@@ -521,6 +573,7 @@ public class AnonymousTupleEmbeddableValuedModelPart implements EmbeddableValued
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public <X, Y> int forEachDisassembledJdbcValue(
 			Object value,
 			int offset,
@@ -544,6 +597,7 @@ public class AnonymousTupleEmbeddableValuedModelPart implements EmbeddableValued
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public <X, Y> int forEachJdbcValue(
 			Object value,
 			int offset,
@@ -568,6 +622,7 @@ public class AnonymousTupleEmbeddableValuedModelPart implements EmbeddableValued
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public int forEachJdbcType(int offset, IndexedConsumer<JdbcMapping> action) {
 		int span = 0;
 		for ( ModelPart attributeMapping : modelParts ) {

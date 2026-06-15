@@ -14,6 +14,8 @@ import org.hibernate.query.sqm.produce.function.StandardArgumentsValidators;
 import org.hibernate.query.sqm.produce.function.StandardFunctionReturnTypeResolvers;
 import org.hibernate.type.internal.ParameterizedTypeImpl;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Encapsulates the validator, return type and argument type resolvers for the array_positions functions.
@@ -44,6 +46,7 @@ public abstract class AbstractArrayPositionsFunction extends AbstractSqmSelfRend
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getArgumentListSignature() {
 		return "(ARRAY array, OBJECT element)";
 	}

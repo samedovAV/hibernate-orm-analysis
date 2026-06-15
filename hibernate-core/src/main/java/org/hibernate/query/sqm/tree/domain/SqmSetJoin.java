@@ -22,6 +22,8 @@ import org.hibernate.spi.NavigablePath;
 
 import java.util.List;
 import java.util.Set;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -51,6 +53,7 @@ public class SqmSetJoin<O, E>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmSetJoin<O, E> copy(SqmCopyContext context) {
 		final var existing = context.getCopy( this );
 		if ( existing != null ) {
@@ -75,90 +78,105 @@ public class SqmSetJoin<O, E>
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmSetPersistentAttribute<O, E> getModel() {
 //		return (SqmSetPersistentAttribute<O, E>) super.getNodeType();
 		return (SqmSetPersistentAttribute<O, E>) super.getModel();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> X accept(SemanticQueryWalker<X> walker) {
 		return walker.visitSetJoin( this );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmSetPersistentAttribute<O, E> getAttribute() {
 		return getModel();
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmSetJoin<O, E> on(@Nullable JpaExpression<Boolean> restriction) {
 		return (SqmSetJoin<O, E>) super.on( restriction );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmSetJoin<O, E> on(@Nonnull Expression<Boolean> restriction) {
 		return (SqmSetJoin<O, E>) super.on( restriction );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmSetJoin<O, E> on(@Nullable JpaPredicate... restrictions) {
 		return (SqmSetJoin<O, E>) super.on( restrictions );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmSetJoin<O, E> on(@Nonnull BooleanExpression... restrictions) {
 		return (SqmSetJoin<O, E>) super.on( restrictions );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmSetJoin<O, E> on(@Nonnull List<? extends Expression<Boolean>> restrictions) {
 		return (SqmSetJoin<O, E>) super.on( restrictions );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmCorrelatedSetJoin<O, E> createCorrelation() {
 		return new SqmCorrelatedSetJoin<>( this );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S extends E> SqmTreatedSetJoin<O,E,S> treatAs(@Nonnull Class<S> treatJavaType) {
 		return treatAs( treatJavaType, null );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends E> SqmSetJoin<O, S> treat(@Nonnull Class<S> treatJavaType) {
 		return treatAs( treatJavaType );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S extends E> SqmTreatedSetJoin<O,E,S> treatAs(@Nonnull EntityDomainType<S> treatTarget) {
 		return treatAs( treatTarget, null );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S extends E> SqmTreatedSetJoin<O,E,S> treatAs(@Nonnull Class<S> treatJavaType, @Nullable String alias) {
 		return treatAs( treatJavaType, alias, false );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S extends E> SqmTreatedSetJoin<O,E,S> treatAs(@Nonnull EntityDomainType<S> treatTarget, @Nullable String alias) {
 		return treatAs( treatTarget, alias, false );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends E> SqmTreatedSetJoin<O, E, S> treatAs(@Nonnull Class<S> treatJavaType, @Nullable String alias, boolean fetch) {
 		final var treatTarget = nodeBuilder().getDomainModel().managedType( treatJavaType );
 		final var treat = (SqmTreatedSetJoin<O, E, S>) findTreat( treatTarget, alias );
@@ -177,6 +195,7 @@ public class SqmSetJoin<O, E>
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends E> SqmTreatedSetJoin<O,E,S> treatAs(@Nonnull EntityDomainType<S> treatTarget, @Nullable String alias, boolean fetch) {
 		final var treat = (SqmTreatedSetJoin<O, E, S>) findTreat( treatTarget, alias );
 		if ( treat == null ) {

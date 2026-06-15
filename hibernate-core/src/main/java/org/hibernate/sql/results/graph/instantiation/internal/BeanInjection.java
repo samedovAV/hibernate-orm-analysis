@@ -5,6 +5,8 @@
 package org.hibernate.sql.results.graph.instantiation.internal;
 
 import org.hibernate.sql.results.graph.DomainResultAssembler;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -18,10 +20,12 @@ public class BeanInjection {
 		this.valueAssembler = valueAssembler;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BeanInjector getBeanInjector() {
 		return beanInjector;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResultAssembler getValueAssembler() {
 		return valueAssembler;
 	}

@@ -17,6 +17,8 @@ import org.hibernate.query.internal.QueryParameterPositionalImpl;
 import org.hibernate.query.spi.QueryParameterImplementor;
 import org.hibernate.query.sql.spi.ParameterOccurrence;
 import org.hibernate.query.sql.spi.ParameterRecognizer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -43,6 +45,7 @@ public class ParameterRecognizerImpl implements ParameterRecognizer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void complete() {
 		// validate the positions.  JPA says that these should start with 1 and
 		// increment contiguously (no gaps)
@@ -72,18 +75,22 @@ public class ParameterRecognizerImpl implements ParameterRecognizer {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, QueryParameterImplementor<?>> getNamedQueryParameters() {
 		return namedQueryParameters;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<Integer, QueryParameterImplementor<?>> getPositionalQueryParameters() {
 		return positionalQueryParameters;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ArrayList<ParameterOccurrence> getParameterList() {
 		return parameterList;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getAdjustedSqlString() {
 		return sqlStringBuffer.toString();
 	}
@@ -92,6 +99,7 @@ public class ParameterRecognizerImpl implements ParameterRecognizer {
 	// Recognition code
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void ordinalParameter(int sourcePosition) {
 		if ( parameterStyle == null ) {
 			parameterStyle = ParameterStyle.JDBC;
@@ -125,6 +133,7 @@ public class ParameterRecognizerImpl implements ParameterRecognizer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void namedParameter(String name, int sourcePosition) {
 		if ( parameterStyle == null ) {
 			parameterStyle = ParameterStyle.NAMED;
@@ -156,6 +165,7 @@ public class ParameterRecognizerImpl implements ParameterRecognizer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jpaPositionalParameter(int position, int sourcePosition) {
 		if ( parameterStyle == null ) {
 			parameterStyle = ParameterStyle.NAMED;
@@ -191,6 +201,7 @@ public class ParameterRecognizerImpl implements ParameterRecognizer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void other(char character) {
 		sqlStringBuffer.append( character );
 	}

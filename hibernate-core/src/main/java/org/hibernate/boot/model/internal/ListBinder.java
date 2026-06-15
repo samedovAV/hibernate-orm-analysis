@@ -22,6 +22,8 @@ import org.hibernate.usertype.UserCollectionType;
 import static org.hibernate.boot.model.internal.BasicValueBinder.Kind.LIST_INDEX;
 import static org.hibernate.boot.model.internal.PropertyHolderBuilder.buildPropertyHolder;
 import static org.hibernate.internal.util.StringHelper.qualify;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link CollectionBinder} for {@link org.hibernate.collection.spi.PersistentList lists},
@@ -37,19 +39,23 @@ public class ListBinder extends CollectionBinder {
 		super( customTypeBeanResolver, false, buildingContext );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private List getList() {
 		return (List) collection;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Collection createCollection(PersistentClass owner) {
 		return new List( getCustomTypeBeanResolver(), owner, getBuildingContext() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SecondPass getSecondPass() {
 		return new CollectionSecondPass( ListBinder.this.collection ) {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public void secondPass(Map<String, PersistentClass> persistentClasses) throws MappingException {
 				bindStarToManySecondPass( persistentClasses );
 				bindIndex();
@@ -57,6 +63,7 @@ public class ListBinder extends CollectionBinder {
 		};
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void bindIndex() {
 		final PropertyHolder valueHolder =
 				buildPropertyHolder( collection, getPath(), null, null, propertyHolder, buildingContext );
@@ -81,10 +88,12 @@ public class ListBinder extends CollectionBinder {
 		createBackref();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String getPath() {
 		return qualify( collection.getRole(), "key" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void createBackref() {
 		if ( collection.isOneToMany()
 				&& !collection.getKey().isNullable()

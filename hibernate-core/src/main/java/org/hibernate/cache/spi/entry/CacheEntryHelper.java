@@ -12,6 +12,8 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.property.access.internal.PropertyAccessStrategyBackRefImpl;
 import org.hibernate.type.Type;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Operations for assembly and disassembly of an array of property values.
@@ -30,6 +32,7 @@ public class CacheEntryHelper {
 	 *
 	 * @return The disassembled state
 	 */
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	static Serializable[] disassemble(
 			final Object[] row,
 			final Type[] types,
@@ -60,6 +63,7 @@ public class CacheEntryHelper {
 	 * @param owner The entity "owning" the values
 	 * @return The assembled state
 	 */
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	static Object[] assemble(
 			final Serializable[] row,
 			final Type[] types,
@@ -77,11 +81,13 @@ public class CacheEntryHelper {
 		return assembled;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isPlaceholder(Object value) {
 		return value == LazyPropertyInitializer.UNFETCHED_PROPERTY
 			|| value == PropertyAccessStrategyBackRefImpl.UNKNOWN;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Object buildStructuredCacheEntry(
 			Object entity,
 			Object version,

@@ -20,6 +20,8 @@ import org.hibernate.sql.results.spi.RowTransformer;
 import org.hibernate.type.descriptor.java.JavaType;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -93,11 +95,13 @@ public class StandardRowReader<T> implements RowReader<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<T> getDomainResultResultJavaType() {
 		return domainResultJavaType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public List<JavaType<?>> getResultJavaTypes() {
 		final List<JavaType<?>> javaTypes = new ArrayList<>( resultAssemblers.length );
 		for ( var resultAssembler : resultAssemblers ) {
@@ -107,11 +111,13 @@ public class StandardRowReader<T> implements RowReader<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getInitializerCount() {
 		return initializers.length;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable EntityKey resolveSingleResultEntityKey(RowProcessingState rowProcessingState) {
 		final var entityInitializer =
 				resultInitializers.length == 0
@@ -128,11 +134,13 @@ public class StandardRowReader<T> implements RowReader<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasCollectionInitializers() {
 		return hasCollectionInitializers;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public T readRow(RowProcessingState rowProcessingState) {
 		coordinateInitializers();
 		final T result = getResult( rowProcessingState );
@@ -142,6 +150,7 @@ public class StandardRowReader<T> implements RowReader<T> {
 
 	@AllowReflection
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private T getResult(RowProcessingState rowProcessingState) {
 		if ( componentType != ComponentType.OBJECT ) {
 			return (T) readPrimitiveRow( rowProcessingState );
@@ -160,6 +169,7 @@ public class StandardRowReader<T> implements RowReader<T> {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private Object readPrimitiveRow(RowProcessingState rowProcessingState) {
 		// The following is ugly, but unfortunately necessary to not hurt performance.
 		// This implementation was micro-benchmarked and discussed with Francesco Nigro,
@@ -219,12 +229,14 @@ public class StandardRowReader<T> implements RowReader<T> {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void finishUpRow() {
 		for ( var data : initializersData ) {
 			data.setState( Initializer.State.UNINITIALIZED );
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void coordinateInitializers() {
 		for ( int i = 0; i < resultInitializers.length; i++ ) {
 			resultInitializers[i].resolveKey( resultInitializersData[i] );
@@ -242,6 +254,7 @@ public class StandardRowReader<T> implements RowReader<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void startLoading(RowProcessingState processingState) {
 		for ( int i = 0; i < resultInitializers.length; i++ ) {
 			final var initializer = resultInitializers[i];
@@ -257,6 +270,7 @@ public class StandardRowReader<T> implements RowReader<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void finishUp(RowProcessingState rowProcessingState) {
 		for ( int i = 0; i < initializers.length; i++ ) {
 			initializers[i].endLoading( initializersData[i] );
@@ -280,6 +294,7 @@ public class StandardRowReader<T> implements RowReader<T> {
 			this.componentType = componentType;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public static ComponentType determineComponentType(Class<?> resultType) {
 			if ( resultType == boolean[].class) {
 				return BOOLEAN;
@@ -310,6 +325,7 @@ public class StandardRowReader<T> implements RowReader<T> {
 			}
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Class<?> getComponentType() {
 			return componentType;
 		}

@@ -5,6 +5,8 @@
 package org.hibernate.boot.archive.spi;
 
 import java.net.URL;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Contract for building ArchiveDescriptor instances.
 /// Generally, only the [#buildArchiveDescriptor(URL)] form should be used.
@@ -17,6 +19,7 @@ public interface ArchiveDescriptorFactory {
 	/// @param url The url to the archive
 	///
 	/// @return The descriptor
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ArchiveDescriptor buildArchiveDescriptor(URL url);
 
 	/// Build a descriptor of the archive indicated by the path relative to the given url
@@ -25,5 +28,6 @@ public interface ArchiveDescriptorFactory {
 	/// @param path The path within the given url that refers to the archive
 	///
 	/// @return The descriptor
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ArchiveDescriptor buildArchiveDescriptor(URL url, String path);
 }

@@ -13,12 +13,15 @@ import org.hibernate.service.spi.ServiceRegistryImplementor;
 import java.util.Map;
 
 import static org.hibernate.cfg.FlushSettings.FLUSH_QUEUE_TYPE;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// @author Steve Ebersole
 public class ActionQueueFactoryServiceInitiator implements StandardServiceInitiator<ActionQueueFactoryService> {
 	public static final ActionQueueFactoryServiceInitiator INSTANCE = new ActionQueueFactoryServiceInitiator();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable ActionQueueFactoryService initiateService(
 			@Nonnull Map<String, Object> configurationValues,
 			@Nonnull ServiceRegistryImplementor registry) {
@@ -27,6 +30,7 @@ public class ActionQueueFactoryServiceInitiator implements StandardServiceInitia
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<ActionQueueFactoryService> getServiceInitiated() {
 		return ActionQueueFactoryService.class;
 	}

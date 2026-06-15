@@ -21,6 +21,8 @@ import org.jboss.logging.Logger;
 import static org.hibernate.tool.schema.internal.Helper.applySqlStrings;
 import static org.hibernate.tool.schema.internal.Helper.createSqlStringGenerationContext;
 import static org.hibernate.tool.schema.internal.Helper.interpretFormattingEnabled;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Basic implementation of {@link GeneratorSynchronizer}.
@@ -39,6 +41,7 @@ public class GeneratorSynchronizerImpl implements GeneratorSynchronizer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void doSynchronize(
 			Metadata metadata,
 			ExecutionOptions options,
@@ -51,6 +54,7 @@ public class GeneratorSynchronizerImpl implements GeneratorSynchronizer {
 	}
 
 	@Internal
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void doSynchronize(
 			Metadata metadata,
 			ExecutionOptions options,
@@ -76,6 +80,7 @@ public class GeneratorSynchronizerImpl implements GeneratorSynchronizer {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void performSync(
 			Metadata metadata,
 			ExecutionOptions options,
@@ -89,6 +94,7 @@ public class GeneratorSynchronizerImpl implements GeneratorSynchronizer {
 		syncFromMetadata( metadata, options, schemaFilter, contributableInclusionFilter, dialect, formatter, targets );
 	}
 
+	@Prove(complexity = Complexity.O_N3, n = "", count = {})
 	private void syncFromMetadata(
 			Metadata metadata,
 			ExecutionOptions options,

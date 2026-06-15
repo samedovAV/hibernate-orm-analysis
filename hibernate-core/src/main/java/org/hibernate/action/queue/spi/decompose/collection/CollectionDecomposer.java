@@ -14,6 +14,8 @@ import org.hibernate.action.queue.spi.plan.FlushOperation;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 
 import java.util.function.Consumer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Decomposer for [collection actions][org.hibernate.action.internal.CollectionAction].
 /// Comes in 2 general flavors -
@@ -41,6 +43,7 @@ import java.util.function.Consumer;
 @Incubating
 public interface CollectionDecomposer {
 	/// Decomposes collection (re)create actions.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void decomposeRecreate(
 			CollectionRecreateAction action,
 			int ordinalBase,
@@ -49,6 +52,7 @@ public interface CollectionDecomposer {
 			Consumer<FlushOperation> operationConsumer);
 
 	/// Decomposes collection update actions.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void decomposeUpdate(
 			CollectionUpdateAction action,
 			int ordinalBase,
@@ -57,6 +61,7 @@ public interface CollectionDecomposer {
 			Consumer<FlushOperation> operationConsumer);
 
 	/// Decomposes collection removal ("delete all") operations.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void decomposeRemove(
 			CollectionRemoveAction action,
 			int ordinalBase,
@@ -65,6 +70,7 @@ public interface CollectionDecomposer {
 			Consumer<FlushOperation> operationConsumer);
 
 	/// Decomposes queued collection operations.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void decomposeQueuedOperations(
 			QueuedOperationCollectionAction action,
 			int ordinalBase,

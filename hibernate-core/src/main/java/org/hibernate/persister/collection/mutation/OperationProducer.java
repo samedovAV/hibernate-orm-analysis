@@ -6,6 +6,8 @@ package org.hibernate.persister.collection.mutation;
 
 import org.hibernate.sql.model.ast.MutatingTableReference;
 import org.hibernate.sql.model.jdbc.JdbcMutationOperation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Callback for producing a {@link JdbcMutationOperation} given
@@ -19,5 +21,6 @@ import org.hibernate.sql.model.jdbc.JdbcMutationOperation;
  */
 @FunctionalInterface
 public interface OperationProducer {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcMutationOperation createOperation(MutatingTableReference tableReference);
 }

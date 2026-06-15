@@ -14,22 +14,27 @@ import org.hibernate.event.spi.EventSource;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// ActionQueueFactory for building ActionQueueLegacy instances.
 ///
 /// @author Steve Ebersole
 public class LegacyActionQueueFactory implements ActionQueueFactory, Serializable {
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QueueType getConfiguredQueueType() {
 		return QueueType.LEGACY;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ActionQueue buildActionQueue(SessionImplementor session) {
 		return new ActionQueueLegacy( session );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public ActionQueue deserialize(
 			ObjectInputStream ois,
 			SessionImplementor session) throws IOException, ClassNotFoundException {

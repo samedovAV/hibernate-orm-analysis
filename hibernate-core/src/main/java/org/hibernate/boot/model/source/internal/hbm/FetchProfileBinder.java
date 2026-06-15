@@ -13,6 +13,8 @@ import org.hibernate.mapping.MetadataSource;
 
 import static jakarta.persistence.FetchType.EAGER;
 import static org.hibernate.boot.BootLogging.BOOT_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -29,6 +31,7 @@ public class FetchProfileBinder {
 	 * @param context Access to information relative to the mapping document containing this binding
 	 * @param fetchProfileBinding The {@code <fetch-profile/>} binding
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void processFetchProfile(
 			HbmLocalMetadataBuildingContext context,
 			JaxbHbmFetchProfileType fetchProfileBinding) {
@@ -44,6 +47,7 @@ public class FetchProfileBinder {
 	 * @param containingEntityName The name of the entity containing the fetch profile declaration.  May
 	 * be {@code null} to indicate a fetch profile defined at the root.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void processFetchProfile(
 			HbmLocalMetadataBuildingContext context,
 			JaxbHbmFetchProfileType fetchProfileBinding,
@@ -70,11 +74,13 @@ public class FetchProfileBinder {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static String entityName(String containingEntityName, JaxbHbmFetchProfileType.JaxbHbmFetch fetchBinding) {
 		final String entityName = fetchBinding.getEntity();
 		return entityName == null ? containingEntityName : entityName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static FetchProfile fetchProfile(
 			HbmLocalMetadataBuildingContext context, JaxbHbmFetchProfileType fetchProfileBinding) {
 		final var collector = context.getMetadataCollector();
@@ -90,6 +96,7 @@ public class FetchProfileBinder {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static FetchMode fetchMode(String style) {
 		for ( var mode: FetchMode.values() ) {
 			if ( mode.name().equalsIgnoreCase( style ) ) {

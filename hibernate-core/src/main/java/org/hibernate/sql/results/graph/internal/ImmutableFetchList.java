@@ -13,6 +13,8 @@ import org.hibernate.sql.results.graph.Fetch;
 import org.hibernate.sql.results.graph.FetchList;
 import org.hibernate.sql.results.graph.Fetchable;
 import org.hibernate.sql.results.graph.FetchableContainer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public final class ImmutableFetchList implements FetchList {
 
@@ -29,6 +31,7 @@ public final class ImmutableFetchList implements FetchList {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int size() {
 		if ( fetches == null ) {
 			return 0;
@@ -43,16 +46,19 @@ public final class ImmutableFetchList implements FetchList {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isEmpty() {
 		return fetches == null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Fetch get(Fetchable fetchable) {
 		return fetches == null ? null : fetches[fetchable.getFetchableKey()];
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void forEach(Consumer<? super Fetch> consumer) {
 		if ( fetches != null ) {
 			for ( Fetch fetch : fetches ) {
@@ -64,6 +70,7 @@ public final class ImmutableFetchList implements FetchList {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void indexedForEach(IndexedConsumer<? super Fetch> consumer) {
 		if ( fetches != null ) {
 			int index = 0;
@@ -76,6 +83,7 @@ public final class ImmutableFetchList implements FetchList {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Iterator<Fetch> iterator() {
 		if ( fetches == null ) {
 			return Collections.emptyIterator();
@@ -96,11 +104,13 @@ public final class ImmutableFetchList implements FetchList {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean hasNext() {
 			return idx < ImmutableFetchList.this.fetches.length;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public Fetch next() {
 			final Fetch fetch = ImmutableFetchList.this.fetches[idx++];
 			while ( idx < ImmutableFetchList.this.fetches.length ) {
@@ -121,10 +131,12 @@ public final class ImmutableFetchList implements FetchList {
 			this.fetches = new Fetch[container.getNumberOfFetchableKeys()];
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void add(Fetch fetch) {
 			fetches[fetch.getFetchedMapping().getFetchableKey()] = fetch;
 		}
 
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public ImmutableFetchList build() {
 			for ( Fetch fetch : fetches ) {
 				if ( fetch != null ) {

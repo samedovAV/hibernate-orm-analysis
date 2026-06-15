@@ -15,6 +15,8 @@ import java.util.function.Consumer;
 import jakarta.annotation.Nullable;
 import org.hibernate.engine.jdbc.mutation.ParameterUsage;
 import org.hibernate.sql.model.jdbc.JdbcValueDescriptor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Group of all parameter {@linkplain #getBindings() bindings} for a table.
@@ -31,11 +33,13 @@ public class BindingGroup {
 		this.bindings = new ArrayList<>();
 		this.bindingsView = new AbstractSet<>() {
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public Iterator<Binding> iterator() {
 				return bindings.iterator();
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public int size() {
 				return bindings.size();
 			}
@@ -45,6 +49,7 @@ public class BindingGroup {
 	/**
 	 * The table for which we are grouping parameter bindings
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getTableName() {
 		return tableName;
 	}
@@ -52,6 +57,7 @@ public class BindingGroup {
 	/**
 	 * The parameter bindings
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Set<Binding> getBindings() {
 		return bindingsView;
 	}
@@ -59,6 +65,7 @@ public class BindingGroup {
 	/**
 	 * Visit each parameter binding
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void forEachBinding(Consumer<Binding> action) {
 		bindings.forEach( action );
 	}
@@ -66,6 +73,7 @@ public class BindingGroup {
 	/**
 	 * Create a binding
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void bindValue(String columnName, Object value, JdbcValueDescriptor valueDescriptor) {
 		final int position = valueDescriptor.getJdbcPosition();
 		for ( int i = 0; i < bindings.size(); i++ ) {
@@ -84,11 +92,13 @@ public class BindingGroup {
 	/**
 	 * Clear the {@linkplain #getBindings() bindings}
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void clear() {
 		bindings.clear();
 	}
 
-	@Nullable public Binding findBinding(String columnName, ParameterUsage usage) {
+	@Nullable @Prove(complexity = Complexity.O_N, n = "", count = {})
+	public Binding findBinding(String columnName, ParameterUsage usage) {
 		for ( Binding binding : bindings ) {
 			if ( binding.getValueDescriptor().getUsage() == usage
 				&& binding.getColumnName().equals( columnName ) ) {
@@ -98,6 +108,7 @@ public class BindingGroup {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Binding getBinding(String columnName, ParameterUsage usage) {
 		final Binding binding = findBinding( columnName, usage );
 		if ( binding != null ) {

@@ -15,6 +15,8 @@ import org.hibernate.boot.model.source.spi.PluralAttributeSequentialIndexSource;
 import org.hibernate.boot.model.source.spi.RelationalValueSource;
 import org.hibernate.boot.model.source.spi.SizeSource;
 import org.hibernate.internal.util.StringHelper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  *
@@ -43,21 +45,25 @@ public class PluralAttributeSequentialIndexSourceImpl
 							: Collections.singletonList( jaxbListIndex.getColumn() );
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public XmlElementMetadata getSourceType() {
 						return XmlElementMetadata.LIST_INDEX;
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public String getSourceName() {
 						return null;
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public String getColumnAttribute() {
 						return jaxbListIndex.getColumnAttribute();
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public List getColumnOrFormulaElements() {
 						return columnElements;
 					}
@@ -83,21 +89,25 @@ public class PluralAttributeSequentialIndexSourceImpl
 				null,
 				new RelationalValueSourceHelper.AbstractColumnsAndFormulasSource() {
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public XmlElementMetadata getSourceType() {
 						return XmlElementMetadata.INDEX;
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public String getSourceName() {
 						return null;
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public String getColumnAttribute() {
 						return jaxbIndex.getColumnAttribute();
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public SizeSource getSizeSource() {
 						return Helper.interpretSizeSource(
 								jaxbIndex.getLength(),
@@ -107,6 +117,7 @@ public class PluralAttributeSequentialIndexSourceImpl
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public List getColumnOrFormulaElements() {
 						return jaxbIndex.getColumn();
 					}
@@ -115,41 +126,49 @@ public class PluralAttributeSequentialIndexSourceImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean areValuesIncludedInInsertByDefault() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean areValuesIncludedInUpdateByDefault() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean areValuesNullableByDefault() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getBase() {
 		return base;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PluralAttributeIndexNature getNature() {
 		return PluralAttributeIndexNature.SEQUENTIAL;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernateTypeSourceImpl getTypeInformation() {
 		return typeSource;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getXmlNodeName() {
 		return xmlNodeName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<RelationalValueSource> getRelationalValueSources() {
 		return valueSources;
 	}

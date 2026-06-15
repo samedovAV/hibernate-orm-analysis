@@ -8,6 +8,8 @@ import org.hibernate.metamodel.model.domain.BasicDomainType;
 import org.hibernate.type.BasicType;
 import org.hibernate.type.ConvertedBasicType;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Union of {@link ConvertedBasicType} and {@link BasicDomainType} capabilities.
@@ -20,11 +22,14 @@ import org.hibernate.type.descriptor.java.JavaType;
  */
 public interface DiscriminatorType<O> extends ConvertedBasicType<O>, BasicDomainType<O> {
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	DiscriminatorConverter<O, ?> getValueConverter();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	BasicType<?> getUnderlyingJdbcMapping();
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default JavaType<O> getJavaTypeDescriptor() {
 		return ConvertedBasicType.super.getJavaTypeDescriptor();
 	}

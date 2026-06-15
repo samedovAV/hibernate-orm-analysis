@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.StringTokenizer;
 
 import static org.hibernate.internal.util.StringHelper.isEmpty;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Performs formatting of DDL SQL statements.
@@ -29,6 +31,7 @@ public class DDLFormatterImpl implements Formatter {
 	private static final Set<String> QUOTES = Set.of( "\"", "`", "]", "[", "'" );
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String format(String sql) {
 		if ( isEmpty( sql ) ) {
 			return sql;
@@ -56,6 +59,7 @@ public class DDLFormatterImpl implements Formatter {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private String formatCommentOn(String sql) {
 		final StringBuilder result = new StringBuilder( 60 ).append( INITIAL_LINE );
 		final StringTokenizer tokens =
@@ -79,6 +83,7 @@ public class DDLFormatterImpl implements Formatter {
 		return result.toString();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private String formatAlterTable(String sql) {
 		final StringBuilder result = new StringBuilder( 60 ).append( INITIAL_LINE );
 		final StringTokenizer tokens =
@@ -104,6 +109,7 @@ public class DDLFormatterImpl implements Formatter {
 		return result.toString();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private String formatCreateTable(String sql) {
 		final StringBuilder result = new StringBuilder( 60 ).append( INITIAL_LINE );
 		final StringTokenizer tokens =
@@ -144,10 +150,12 @@ public class DDLFormatterImpl implements Formatter {
 		return result.toString();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isBreak(String token) {
 		return BREAKS.contains( token );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isQuote(String token) {
 		return QUOTES.contains( token );
 	}

@@ -18,6 +18,8 @@ import org.hibernate.sql.ast.tree.select.SortSpecification;
 
 import java.util.List;
 import java.util.Locale;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Support for HQL functions that have different representations
@@ -73,6 +75,7 @@ public class PatternBasedSqmFunctionDescriptor
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,
@@ -82,6 +85,7 @@ public class PatternBasedSqmFunctionDescriptor
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,
@@ -92,6 +96,7 @@ public class PatternBasedSqmFunctionDescriptor
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,
@@ -103,6 +108,7 @@ public class PatternBasedSqmFunctionDescriptor
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,
@@ -115,6 +121,7 @@ public class PatternBasedSqmFunctionDescriptor
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getArgumentListSignature() {
 		return argumentListSignature == null
 				? super.getArgumentListSignature()
@@ -122,6 +129,7 @@ public class PatternBasedSqmFunctionDescriptor
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return String.format(
 				Locale.ROOT,

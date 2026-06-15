@@ -5,6 +5,8 @@
 package org.hibernate.metamodel.spi;
 
 import org.hibernate.Incubating;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Strategy for instantiating a managed type
@@ -18,10 +20,12 @@ public interface Instantiator {
 	 * instance of managed structure
 	 * @see Class#isInstance
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isInstance(Object object);
 
 	/**
 	 * @see Class#equals
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isSameClass(Object object);
 }

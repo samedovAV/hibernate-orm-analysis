@@ -9,6 +9,8 @@ import org.hibernate.Internal;
 import java.lang.reflect.Proxy;
 import java.sql.Clob;
 import java.sql.NClob;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Manages aspects of proxying {@link NClob}s to add serializability.
@@ -36,6 +38,7 @@ public class SerializableNClobProxy extends SerializableClobProxy {
 	 * @param nclob The NClob to wrap.
 	 * @return The generated proxy.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static NClob generateProxy(NClob nclob) {
 		return (NClob) Proxy.newProxyInstance( getProxyClassLoader(), PROXY_INTERFACES, new SerializableNClobProxy( nclob ) );
 	}
@@ -46,6 +49,7 @@ public class SerializableNClobProxy extends SerializableClobProxy {
 	 *
 	 * @return The class loader appropriate for proxy construction.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static ClassLoader getProxyClassLoader() {
 		return SerializableClobProxy.getProxyClassLoader();
 	}

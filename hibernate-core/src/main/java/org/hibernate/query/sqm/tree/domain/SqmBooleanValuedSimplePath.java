@@ -13,6 +13,8 @@ import org.hibernate.query.sqm.tree.expression.SqmBooleanExpression;
 import org.hibernate.query.sqm.tree.expression.SqmBooleanExpressionImplementor;
 import org.hibernate.query.sqm.tree.expression.SqmBooleanExpressionWrapper;
 import org.hibernate.spi.NavigablePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -38,6 +40,7 @@ public class SqmBooleanValuedSimplePath
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected SqmBooleanValuedSimplePath createCopy(
 			NavigablePath navigablePath,
 			SqmPathSource<Boolean> referencedPathSource,
@@ -55,36 +58,42 @@ public class SqmBooleanValuedSimplePath
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmBooleanExpression coalesce(@Nonnull Expression<? extends Boolean> y) {
 		return new SqmBooleanExpressionWrapper( nodeBuilder().coalesce( this, y ) );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmBooleanExpression coalesce(Boolean y) {
 		return new SqmBooleanExpressionWrapper( nodeBuilder().coalesce( this, y ) );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmBooleanExpression nullif(@Nonnull Expression<? extends Boolean> y) {
 		return new SqmBooleanExpressionWrapper( nodeBuilder().nullif( this, y ) );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmBooleanExpression nullif(Boolean y) {
 		return new SqmBooleanExpressionWrapper( nodeBuilder().nullif( this, y ) );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmBooleanExpression max() {
 		throw new UnsupportedOperationException( "Boolean expression does not support max()" );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmBooleanExpression min() {
 		throw new UnsupportedOperationException( "Boolean expression does not support min()" );
 	}

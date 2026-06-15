@@ -10,9 +10,12 @@ import java.lang.reflect.Method;
 
 import static java.lang.Integer.toHexString;
 import static org.hibernate.bytecode.internal.bytebuddy.BytecodeProviderImpl.EMBEDDED_MEMBER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class NameEncodeHelper {
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String encodeName(String[] propertyNames, Member[] getters, Member[] setters) {
 		final var encoded = new StringBuilder();
 		for ( int i = 0; i < propertyNames.length; i++ ) {
@@ -23,6 +26,7 @@ public class NameEncodeHelper {
 		return encoded.toString();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static int getKind(Member member) {
 		// Encode the member type as 2-bit integer
 		if ( member == EMBEDDED_MEMBER ) {

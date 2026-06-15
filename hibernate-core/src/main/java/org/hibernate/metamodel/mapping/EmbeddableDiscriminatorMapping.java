@@ -6,6 +6,8 @@ package org.hibernate.metamodel.mapping;
 
 import org.hibernate.HibernateException;
 import org.hibernate.sql.results.graph.FetchOptions;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Details about the discriminator for an embeddable hierarchy.
@@ -19,6 +21,7 @@ public interface EmbeddableDiscriminatorMapping extends DiscriminatorMapping, Fe
 	 *
 	 * @throws HibernateException if the embeddable class name is not handled by this discriminator
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Object getDiscriminatorValue(String embeddableClassName) {
 		return getValueConverter().getDetailsForEntityName( embeddableClassName ).getValue();
 	}

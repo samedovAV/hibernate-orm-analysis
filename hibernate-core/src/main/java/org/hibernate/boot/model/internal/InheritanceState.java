@@ -37,6 +37,8 @@ import static org.hibernate.boot.model.internal.PropertyBinder.isEmbeddedId;
 import static org.hibernate.boot.spi.AccessType.DEFAULT;
 import static org.hibernate.boot.spi.AccessType.getAccessStrategy;
 import static org.hibernate.internal.util.ReflectHelper.OBJECT_CLASS_NAME;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Some extra data to the inheritance position of a class.
@@ -74,6 +76,7 @@ public class InheritanceState {
 		extractInheritanceType( classDetails );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void extractInheritanceType(ClassDetails classDetails) {
 		final boolean isMappedSuperclass = classDetails.hasDirectAnnotationUsage( MappedSuperclass.class );
 		setEmbeddableSuperclass( isMappedSuperclass );
@@ -82,14 +85,17 @@ public class InheritanceState {
 		setType( inheritance != null ? inheritance.strategy() : defaultInheritanceType );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasTable() {
 		return !hasParents() || SINGLE_TABLE != getType();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasDenormalizedTable() {
 		return hasParents() && TABLE_PER_CLASS == getType();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static InheritanceState getInheritanceStateOfSuperEntity(
 			ClassDetails classDetails,
 			Map<ClassDetails, InheritanceState> states) {
@@ -105,6 +111,7 @@ public class InheritanceState {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static InheritanceState getSuperclassInheritanceState(
 			ClassDetails classDetails,
 			Map<ClassDetails, InheritanceState> states) {
@@ -120,46 +127,57 @@ public class InheritanceState {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ClassDetails getClassDetails() {
 		return classDetails;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setClassDetails(ClassDetails classDetails) {
 		this.classDetails = classDetails;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasSiblings() {
 		return hasSiblings;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setHasSiblings(boolean hasSiblings) {
 		this.hasSiblings = hasSiblings;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasParents() {
 		return hasParents;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setHasParents(boolean hasParents) {
 		this.hasParents = hasParents;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public InheritanceType getType() {
 		return type;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setType(InheritanceType type) {
 		this.type = type;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isEmbeddableSuperclass() {
 		return isEmbeddableSuperclass;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setEmbeddableSuperclass(boolean embeddableSuperclass) {
 		isEmbeddableSuperclass = embeddableSuperclass;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ElementsToProcess postProcess(PersistentClass persistenceClass, EntityBinder entityBinder) {
 		//make sure we run elements to process
 		getElementsToProcess();
@@ -168,6 +186,7 @@ public class InheritanceState {
 		return elementsToProcess;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void postProcess(Component component) {
 		if ( classesToProcessForMappedSuperclass.isEmpty() ) {
 			// Component classes might be processed more than once,
@@ -177,6 +196,7 @@ public class InheritanceState {
 		addMappedSuperClassInMetadata( component );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public ClassDetails getClassWithIdClass(boolean evenIfSubclass) {
 		if ( !evenIfSubclass && hasParents() ) {
 			return null;
@@ -199,6 +219,7 @@ public class InheritanceState {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Boolean hasIdClassOrEmbeddedId() {
 		if ( hasIdClassOrEmbeddedId == null ) {
 			hasIdClassOrEmbeddedId = false;
@@ -222,6 +243,7 @@ public class InheritanceState {
 	 * guessing from @Id or @EmbeddedId presence if not specified.
 	 * Change EntityBinder by side effect
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	ElementsToProcess getElementsToProcess() {
 		if ( elementsToProcess == null ) {
 			final var inheritanceState = inheritanceStatePerClass.get( classDetails );
@@ -254,6 +276,7 @@ public class InheritanceState {
 		return elementsToProcess;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private AccessType determineDefaultAccessType() {
 
 		// do not check for `@Access` to determine the default access type of the hierarchy
@@ -296,6 +319,7 @@ public class InheritanceState {
 		return DEFAULT;
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private static AccessType determineAccessTypeFromId(ClassDetails accessTypeSource) {
 		for ( var candidate = accessTypeSource; !noSuperclass( candidate );
 			candidate = candidate.getSuperClass() ) {
@@ -319,6 +343,7 @@ public class InheritanceState {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private ClassDetails getRootEntity() {
 		ClassDetails rootEntity = null;
 		for ( var candidate = classDetails; candidate != null && !isObjectClass( candidate );
@@ -330,6 +355,7 @@ public class InheritanceState {
 		return rootEntity;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static AccessType determineAccessTypeFromMembers(ClassDetails classDetails) {
 		for ( var field : classDetails.getFields() ) {
 			if ( canBeUsedToInferAccessType( field )
@@ -349,12 +375,14 @@ public class InheritanceState {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean canBeUsedToInferAccessType(MemberDetails memberDetails) {
 		return memberDetails.isPersistable()
 			&& !memberDetails.hasDirectAnnotationUsage( Access.class )
 			&& !memberDetails.hasDirectAnnotationUsage( Transient.class );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static boolean hasMappingAnnotation(MemberDetails memberDetails) {
 		final var annotations = memberDetails.getDirectAnnotationUsages();
 		if ( annotations == null || annotations.isEmpty() ) {
@@ -385,18 +413,22 @@ public class InheritanceState {
 			"jakarta.persistence.Access"
 	);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean noSuperclass(ClassDetails candidate) {
 		return candidate == null || isObjectClass( candidate );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isEntityOrMappedSuperclass(ClassDetails candidate) {
 		return isEntity( candidate ) || isMappedSuperclass( candidate );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isObjectClass(ClassDetails candidate) {
 		return OBJECT_CLASS_NAME.equals( candidate.getName() );
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private void getMappedSuperclassesTillNextEntityOrdered() {
 		//ordered to allow proper messages on properties subclassing
 		ClassDetails currentClassInHierarchy = classDetails;
@@ -416,6 +448,7 @@ public class InheritanceState {
 		while ( superclassState != null && superclassState.isEmbeddableSuperclass() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void addMappedSuperClassInMetadata(Component component) {
 		final var mappedSuperclass = processMappedSuperclass( component.getTable() );
 		if ( mappedSuperclass != null ) {
@@ -423,6 +456,7 @@ public class InheritanceState {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void addMappedSuperClassInMetadata(PersistentClass persistentClass) {
 		final var mappedSuperclass = processMappedSuperclass( persistentClass.getImplicitTable() );
 		if ( mappedSuperclass != null ) {
@@ -430,6 +464,7 @@ public class InheritanceState {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private org.hibernate.mapping.MappedSuperclass processMappedSuperclass(Table implicitTable) {
 		//add @MappedSuperclass in the metadata
 		// classes from 0 to n-1 are @MappedSuperclass and should be linked
@@ -464,10 +499,12 @@ public class InheritanceState {
 		private final List<PropertyData> properties;
 		private final int idPropertyCount;
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public List<PropertyData> getElements() {
 			return properties;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public int getIdPropertyCount() {
 			return idPropertyCount;
 		}

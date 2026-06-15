@@ -21,6 +21,8 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import static org.hibernate.type.SqlTypes.NAMED_ORDINAL_ENUM;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents a named {@code enum} type on Oracle 23ai+.
@@ -43,35 +45,42 @@ public class OracleOrdinalEnumJdbcType extends OracleEnumJdbcType {
 	public static final OracleOrdinalEnumJdbcType INSTANCE = new OracleOrdinalEnumJdbcType();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getJdbcTypeCode() {
 		return Types.INTEGER;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getDefaultSqlTypeCode() {
 		return NAMED_ORDINAL_ENUM;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> ValueBinder<X> getBinder(JavaType<X> javaType) {
 		return new BasicBinder<>( javaType, this ) {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBindNull(PreparedStatement st, int index, WrapperOptions options) throws SQLException {
 				st.setNull( index, getJdbcTypeCode() );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBindNull(CallableStatement st, String name, WrapperOptions options) throws SQLException {
 				st.setNull( name, getJdbcTypeCode() );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBind(PreparedStatement st, X value, int index, WrapperOptions options)
 					throws SQLException {
 				st.setInt( index, ((Enum<?>) value).ordinal()+1 );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBind(CallableStatement st, X value, String name, WrapperOptions options)
 					throws SQLException {
 				st.setInt( name, ((Enum<?>) value).ordinal()+1 );
@@ -80,9 +89,11 @@ public class OracleOrdinalEnumJdbcType extends OracleEnumJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> ValueExtractor<X> getExtractor(JavaType<X> javaType) {
 		return new BasicExtractor<>( javaType, this ) {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(ResultSet rs, int paramIndex, WrapperOptions options) throws SQLException {
 				final int value = rs.getInt( paramIndex );
 				return rs.wasNull()
@@ -91,11 +102,13 @@ public class OracleOrdinalEnumJdbcType extends OracleEnumJdbcType {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(CallableStatement statement, int index, WrapperOptions options) throws SQLException {
 				return getJavaType().wrap( statement.getInt( index ), options );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(CallableStatement statement, String name, WrapperOptions options) throws SQLException {
 				return getJavaType().wrap( statement.getInt( name ), options );
 			}
@@ -103,6 +116,7 @@ public class OracleOrdinalEnumJdbcType extends OracleEnumJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	String[] getCreateEnumTypeCommand(String name, String[] enumeratedValues, Dialect dialect) {
 		return dialect.getCreateEnumTypeCommand( name, enumeratedValues );
 	}

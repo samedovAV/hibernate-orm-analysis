@@ -45,6 +45,8 @@ import static org.hibernate.internal.util.StringHelper.isNotEmpty;
 import static org.hibernate.internal.util.StringHelper.nullIfBlank;
 import static org.hibernate.internal.util.collections.ArrayHelper.isEmpty;
 import static org.hibernate.internal.util.collections.CollectionHelper.isNotEmpty;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A mapping to a column, logically representing a
@@ -92,123 +94,153 @@ public class AnnotatedColumn {
 	String options;
 	String comment;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AnnotatedColumns getParent() {
 		return parent;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setParent(AnnotatedColumns parent) {
 		parent.addColumn( this );
 		this.parent = parent;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getLogicalColumnName() {
 		return logicalColumnName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSqlType() {
 		return sqlType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Long getLength() {
 		return length;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Integer getPrecision() {
 		return precision;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Integer getScale() {
 		return scale;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Integer getArrayLength() {
 		return arrayLength;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setArrayLength(Integer arrayLength) {
 		this.arrayLength = arrayLength;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isUnique() {
 		return unique;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isFormula() {
 		return isNotEmpty( formulaString );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getExplicitTableName() {
 		return explicitTableName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setExplicitTableName(String explicitTableName) {
 		this.explicitTableName = "``".equals( explicitTableName ) ? "" : explicitTableName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setFormula(String formula) {
 		this.formulaString = formula;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isImplicit() {
 		return isImplicit;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setInsertable(boolean insertable) {
 		this.insertable = insertable;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setUpdatable(boolean updatable) {
 		this.updatable = updatable;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setImplicit(boolean implicit) {
 		isImplicit = implicit;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setSqlType(String sqlType) {
 		this.sqlType = sqlType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setLength(Long length) {
 		this.length = length;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setPrecision(Integer precision) {
 		this.precision = precision;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setScale(Integer scale) {
 		this.scale = scale;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setTemporalPrecision(Integer temporalPrecision) {
 		this.temporalPrecision = temporalPrecision;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setLogicalColumnName(String logicalColumnName) {
 		this.logicalColumnName = logicalColumnName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setUnique(boolean unique) {
 		this.unique = unique;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isNullable() {
 		return isFormula() || mappingColumn.isNullable();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getDefaultValue() {
 		return defaultValue;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setDefaultValue(String defaultValue) {
 		this.defaultValue = defaultValue;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addCheckConstraint(String name, String constraint) {
 		checkConstraints.add( new CheckConstraint( name, constraint ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addCheckConstraint(String name, String constraint, String options) {
 		checkConstraints.add( new CheckConstraint( name, constraint, options ) );
 	}
@@ -221,10 +253,12 @@ public class AnnotatedColumn {
 //		this.comment = comment;
 //	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getGeneratedAs() {
 		return generatedAs;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void setGeneratedAs(String as) {
 		this.generatedAs = as;
 	}
@@ -232,6 +266,7 @@ public class AnnotatedColumn {
 	public AnnotatedColumn() {
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void bind() {
 		if ( isNotEmpty( formulaString ) ) {
 			BOOT_LOGGER.bindingFormula( formulaString );
@@ -271,11 +306,13 @@ public class AnnotatedColumn {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void initMappingFormula() {
 		formula = new Formula();
 		formula.setFormula( formulaString );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void initMappingColumn(
 			String columnName,
 			String propertyName,
@@ -333,6 +370,7 @@ public class AnnotatedColumn {
 		mappingColumn.setCustomWrite( writeExpression );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isNameDeferred() {
 		return mappingColumn == null || isEmpty( mappingColumn.getName() );
 	}
@@ -347,6 +385,7 @@ public class AnnotatedColumn {
 	 * during a {@link org.hibernate.boot.spi.SecondPass}.
 	 * @return {@code true} if a name could be inferred
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean inferColumnNameIfPossible(String columnName, String propertyName, boolean applyNamingStrategy) {
 		if ( isNotEmpty( columnName ) || isNotEmpty( propertyName ) ) {
 			mappingColumn.setName(
@@ -359,6 +398,7 @@ public class AnnotatedColumn {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String resolveLogicalColumnName(String columnName, String propertyName) {
 		final String baseColumnName = isNotEmpty( columnName ) ? columnName : inferColumnName( propertyName );
 		final var propertyHolder = parent.getPropertyHolder();
@@ -368,6 +408,7 @@ public class AnnotatedColumn {
 				: baseColumnName;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private String applyEmbeddedColumnNaming(String inferredColumnName, ComponentPropertyHolder propertyHolder) {
 		// code
 		String result = inferredColumnName;
@@ -400,6 +441,7 @@ public class AnnotatedColumn {
 		return result;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String processColumnName(String columnName, boolean applyNamingStrategy, boolean isExplicit) {
 		if ( applyNamingStrategy ) {
 			final var database = getDatabase();
@@ -413,6 +455,7 @@ public class AnnotatedColumn {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String inferColumnName(String propertyName) {
 		Identifier implicitName = getObjectNameNormalizer().normalizeIdentifierQuoting(
 				getImplicitNamingStrategy().determineBasicColumnName(
@@ -420,11 +463,13 @@ public class AnnotatedColumn {
 							final AttributePath attributePath = AttributePath.parse( propertyName );
 
 							@Override
+							@Prove(complexity = Complexity.O_1, n = "", count = {})
 							public AttributePath getAttributePath() {
 								return attributePath;
 							}
 
 							@Override
+							@Prove(complexity = Complexity.O_1, n = "", count = {})
 							public boolean isCollectionElement() {
 								// if the propertyHolder is a collection, assume the
 								// @Column refers to the element column
@@ -433,6 +478,7 @@ public class AnnotatedColumn {
 							}
 
 							@Override
+							@Prove(complexity = Complexity.O_N, n = "", count = {})
 							public MetadataBuildingContext getBuildingContext() {
 								return AnnotatedColumn.this.getBuildingContext();
 							}
@@ -454,38 +500,47 @@ public class AnnotatedColumn {
 		return implicitName.render( getDatabase().getDialect() );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private ObjectNameNormalizer getObjectNameNormalizer() {
 		return getBuildingContext().getObjectNameNormalizer();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private Database getDatabase() {
 		return getBuildingContext().getMetadataCollector().getDatabase();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private PhysicalNamingStrategy getPhysicalNamingStrategy() {
 		return getBuildingContext().getBuildingOptions().getPhysicalNamingStrategy();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private ImplicitNamingStrategy getImplicitNamingStrategy() {
 		return getBuildingContext().getBuildingOptions().getImplicitNamingStrategy();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getName() {
 		return mappingColumn.getName();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Column getMappingColumn() {
 		return mappingColumn;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isInsertable() {
 		return insertable;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isUpdatable() {
 		return updatable;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void setNullable(boolean nullable) {
 		this.nullable = nullable;
 		if ( mappingColumn != null ) {
@@ -493,17 +548,20 @@ public class AnnotatedColumn {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void setMappingColumn(Column mappingColumn) {
 		this.mappingColumn = mappingColumn;
 	}
 
 	//TODO: move this operation to AnnotatedColumns!!
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void linkWithAggregateValue(SimpleValue value, Component component) {
 		mappingColumn = new AggregateColumn( mappingColumn, component );
 		linkWithValue( value );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void linkWithValue(SimpleValue value) {
 		if ( formula != null ) {
 			value.addFormula( formula );
@@ -518,6 +576,7 @@ public class AnnotatedColumn {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void addColumnBinding(SimpleValue value) {
 		final String logicalColumnName;
 		if ( isNotEmpty( this.logicalColumnName ) ) {
@@ -528,16 +587,19 @@ public class AnnotatedColumn {
 					getImplicitNamingStrategy().determineBasicColumnName(
 							new ImplicitBasicColumnNameSource() {
 								@Override
+								@Prove(complexity = Complexity.O_1, n = "", count = {})
 								public AttributePath getAttributePath() {
 									return AttributePath.parse( getParent().getPropertyName() );
 								}
 
 								@Override
+								@Prove(complexity = Complexity.O_1, n = "", count = {})
 								public boolean isCollectionElement() {
 									return false;
 								}
 
 								@Override
+								@Prove(complexity = Complexity.O_N, n = "", count = {})
 								public MetadataBuildingContext getBuildingContext() {
 									return AnnotatedColumn.this.getBuildingContext();
 								}
@@ -550,6 +612,7 @@ public class AnnotatedColumn {
 				.addColumnNameBinding( value.getTable(), logicalColumnName, getMappingColumn() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void forceNotNull() {
 		if ( mappingColumn == null ) {
 			throw new CannotForceNonNullableException(
@@ -561,6 +624,7 @@ public class AnnotatedColumn {
 		mappingColumn.setNullable( false );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static AnnotatedColumns buildFormulaFromAnnotation(
 			org.hibernate.annotations.Formula formulaAnn,
 //			Comment commentAnn,
@@ -582,6 +646,7 @@ public class AnnotatedColumn {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static AnnotatedColumns buildColumnFromNoAnnotation(
 			FractionalSeconds fractionalSeconds,
 //			Comment commentAnn,
@@ -602,6 +667,7 @@ public class AnnotatedColumn {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static AnnotatedColumns buildColumnFromAnnotation(
 			jakarta.persistence.Column column,
 			FractionalSeconds fractionalSeconds,
@@ -624,6 +690,7 @@ public class AnnotatedColumn {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static AnnotatedColumns buildColumnsFromAnnotations(
 			jakarta.persistence.Column[] columns,
 			FractionalSeconds fractionalSeconds,
@@ -647,6 +714,7 @@ public class AnnotatedColumn {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static AnnotatedColumns buildColumnFromAnnotations(
 			jakarta.persistence.Column column,
 //			Comment commentAnn,
@@ -672,6 +740,7 @@ public class AnnotatedColumn {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static AnnotatedColumns buildColumnOrFormulaFromAnnotation(
 			jakarta.persistence.Column column,
 			org.hibernate.annotations.Formula formulaAnn,
@@ -698,6 +767,7 @@ public class AnnotatedColumn {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static AnnotatedColumns buildColumnsOrFormulaFromAnnotation(
 			jakarta.persistence.Column[] columns,
 			org.hibernate.annotations.Formula formulaAnn,
@@ -754,6 +824,7 @@ public class AnnotatedColumn {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static jakarta.persistence.Column[] overrideColumns(
 			jakarta.persistence.Column[] columns,
 			PropertyHolder propertyHolder,
@@ -780,6 +851,7 @@ public class AnnotatedColumn {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static AnnotatedColumns buildExplicitColumns(
 //			Comment comment,
 			PropertyHolder propertyHolder,
@@ -814,6 +886,7 @@ public class AnnotatedColumn {
 		return parent;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static String getTableName(
 			jakarta.persistence.Column column,
 			Database database) {
@@ -823,6 +896,7 @@ public class AnnotatedColumn {
 				: database.getJdbcEnvironment().getIdentifierHelper().toIdentifier( table ).render();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static String getSqlType(
 			MetadataBuildingContext context,
 			jakarta.persistence.Column column) {
@@ -832,6 +906,7 @@ public class AnnotatedColumn {
 				: context.getObjectNameNormalizer().applyGlobalQuoting( columnDefinition );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static AnnotatedColumn buildColumn(
 //			Comment comment,
 			PropertyHolder propertyHolder,
@@ -878,6 +953,7 @@ public class AnnotatedColumn {
 		return annotatedColumn;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Integer temporalPrecision(jakarta.persistence.Column column) {
 		final Integer secondPrecision =
 				column.annotationType() == jakarta.persistence.Column.class
@@ -888,6 +964,7 @@ public class AnnotatedColumn {
 				: secondPrecision;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void handleArrayLength(PropertyData inferredData) {
 		final var arrayAnn = inferredData.getAttributeMember().getDirectAnnotationUsage( Array.class );
 		if ( arrayAnn != null ) {
@@ -895,6 +972,7 @@ public class AnnotatedColumn {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static String logicalColumnName(
 			PropertyData inferredData,
 			String suffixForDefaultColumnName,
@@ -907,6 +985,7 @@ public class AnnotatedColumn {
 				: columnName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static String getColumnName(Database database, jakarta.persistence.Column column) {
 		final String name = column.name();
 		return name.isBlank()
@@ -914,6 +993,7 @@ public class AnnotatedColumn {
 				: database.getJdbcEnvironment().getIdentifierHelper().toIdentifier( name ).render();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void applyColumnDefault(PropertyData inferredData, int length) {
 		final var memberDetails = inferredData.getAttributeMember();
 		if ( memberDetails != null ) {
@@ -935,6 +1015,7 @@ public class AnnotatedColumn {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void applyGeneratedAs(PropertyData inferredData, int length) {
 		final var memberDetails = inferredData.getAttributeMember();
 		if ( memberDetails != null ) {
@@ -956,10 +1037,12 @@ public class AnnotatedColumn {
 		}
 }
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void applyColumnCheckConstraint(jakarta.persistence.Column column) {
 		applyCheckConstraints( column.check() );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	void applyCheckConstraints(jakarta.persistence.CheckConstraint[] checkConstraintAnnotationUsages) {
 		if ( isNotEmpty( checkConstraintAnnotationUsages ) ) {
 			for ( var checkConstraintAnnotationUsage : checkConstraintAnnotationUsages ) {
@@ -972,6 +1055,7 @@ public class AnnotatedColumn {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	void applyCheckConstraint(PropertyData inferredData, int length) {
 		final var memberDetails = inferredData.getAttributeMember();
 		if ( memberDetails != null ) {
@@ -1000,6 +1084,7 @@ public class AnnotatedColumn {
 	}
 
 	//must only be called after all setters are defined and before binding
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void extractDataFromPropertyData(
 			PropertyHolder propertyHolder,
 			PropertyData inferredData,
@@ -1015,6 +1100,7 @@ public class AnnotatedColumn {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void processColumnTransformerExpressions(ColumnTransformer annotation) {
 		if ( annotation != null ) {
 			final String targetColumnName = annotation.forColumn();
@@ -1026,6 +1112,7 @@ public class AnnotatedColumn {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static AnnotatedColumns buildImplicitColumn(
 			FractionalSeconds fractionalSeconds,
 			PropertyData inferredData,
@@ -1075,6 +1162,7 @@ public class AnnotatedColumn {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String toString() {
 		final var string = new StringBuilder();
 		string.append( getClass().getSimpleName() ).append( "(" );
@@ -1088,24 +1176,29 @@ public class AnnotatedColumn {
 		return string.toString();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	MetadataBuildingContext getBuildingContext() {
 		return getParent().getBuildingContext();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void applyColumnOptions(jakarta.persistence.Column column) {
 		options = column.options();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void applyColumnComment(jakarta.persistence.Column column) {
 		if ( !column.comment().isBlank() ) {
 			comment = column.comment();
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setOptions(String options){
 		this.options = options;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setComment(String comment){
 		this.comment = comment;
 	}

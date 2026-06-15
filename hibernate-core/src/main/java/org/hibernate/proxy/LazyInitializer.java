@@ -6,6 +6,8 @@ package org.hibernate.proxy;
 
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Handles fetching of the underlying entity for a proxy.
@@ -21,6 +23,7 @@ public interface LazyInitializer {
 	 *
 	 * @see org.hibernate.Hibernate#initialize(Object)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void initialize() throws HibernateException;
 
 	/**
@@ -28,6 +31,7 @@ public interface LazyInitializer {
 	 *
 	 * @return The identifier value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Object getInternalIdentifier() {
 		return getIdentifier();
 	}
@@ -40,6 +44,7 @@ public interface LazyInitializer {
 	 *
 	 * @return The identifier value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getIdentifier();
 
 	/**
@@ -47,6 +52,7 @@ public interface LazyInitializer {
 	 *
 	 * @param id The identifier value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setIdentifier(Object id);
 
 	/**
@@ -54,6 +60,7 @@ public interface LazyInitializer {
 	 *
 	 * @return The entity-name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getEntityName();
 
 	/**
@@ -61,6 +68,7 @@ public interface LazyInitializer {
 	 *
 	 * @return The actual entity class.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Class<?> getPersistentClass();
 
 	/**
@@ -70,6 +78,7 @@ public interface LazyInitializer {
 	 *
 	 * @see org.hibernate.Hibernate#isInitialized(Object)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isUninitialized();
 
 	/**
@@ -77,6 +86,7 @@ public interface LazyInitializer {
 	 *
 	 * @return The underlying target entity.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getImplementation();
 
 	/**
@@ -89,6 +99,7 @@ public interface LazyInitializer {
 	 *
 	 * @throws HibernateException Indicates problem locating the target.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getImplementation(SharedSessionContractImplementor session) throws HibernateException;
 
 	/**
@@ -96,6 +107,7 @@ public interface LazyInitializer {
 	 *
 	 * @param target The proxy target (the actual entity being proxied).
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setImplementation(Object target);
 
 	/**
@@ -104,6 +116,7 @@ public interface LazyInitializer {
 	 * @return The actual entity class.
 	 * @since 6.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Class<?> getImplementationClass();
 
 	/**
@@ -112,6 +125,7 @@ public interface LazyInitializer {
 	 * @return The actual entity name.
 	 * @since 6.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getImplementationEntityName();
 
 	/**
@@ -119,6 +133,7 @@ public interface LazyInitializer {
 	 * @return true, if the setting is available
 	 *         false, if the proxy is detached or its associated session is closed
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isReadOnlySettingAvailable();
 
 	/**
@@ -136,6 +151,7 @@ public interface LazyInitializer {
 	 * @see LazyInitializer#isReadOnlySettingAvailable()
 	 * @see org.hibernate.Session#isReadOnly(Object entityOrProxy)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isReadOnly();
 
 	/**
@@ -156,6 +172,7 @@ public interface LazyInitializer {
 	 *
 	 * @see org.hibernate.Session#setReadOnly(Object entityOrProxy, boolean readOnly)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setReadOnly(boolean readOnly);
 
 	/**
@@ -163,6 +180,7 @@ public interface LazyInitializer {
 	 *
 	 * @return The associated session.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionContractImplementor getSession();
 
 	/**
@@ -177,6 +195,7 @@ public interface LazyInitializer {
 	 * @throws HibernateException Indicates that the proxy was still contained in the persistence context of the
 	 * "previous session".
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setSession(SharedSessionContractImplementor session) throws HibernateException;
 
 	/**
@@ -186,8 +205,11 @@ public interface LazyInitializer {
 	 * Generally speaking this is intended to be called only during {@link org.hibernate.Session#evict} and
 	 * {@link org.hibernate.Session#clear} processing; most other use-cases should call {@link #setSession} instead.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void unsetSession();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setUnwrap(boolean unwrap);
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isUnwrap();
 }

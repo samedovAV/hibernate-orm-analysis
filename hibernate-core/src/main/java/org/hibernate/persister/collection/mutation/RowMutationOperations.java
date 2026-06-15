@@ -16,6 +16,8 @@ import org.hibernate.sql.model.ast.MutatingTableReference;
 import org.hibernate.sql.model.jdbc.JdbcMutationOperation;
 
 import static org.hibernate.internal.util.NullnessHelper.areSameNullness;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Composition of the {@link MutationOperation} references for a collection mapping.
@@ -80,6 +82,7 @@ public class RowMutationOperations {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "RowMutationOperations(" + target.getRolePath() + ")";
 	}
@@ -88,14 +91,17 @@ public class RowMutationOperations {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// insert row
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasInsertRow() {
 		return insertRowOperationProducer != null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Values getInsertRowValues() {
 		return insertRowValues;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcMutationOperation getInsertRowOperation() {
 		if ( !hasInsertRow() ) {
 			return null;
@@ -110,6 +116,7 @@ public class RowMutationOperations {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcMutationOperation getInsertRowOperation(TableMapping tableMapping) {
 		if ( !hasInsertRow() ) {
 			return null;
@@ -124,10 +131,12 @@ public class RowMutationOperations {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// update row
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasUpdateRow() {
 		return updateRowOperationProducer != null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcMutationOperation getUpdateRowOperation() {
 		if ( !hasUpdateRow() ) {
 			return null;
@@ -142,10 +151,12 @@ public class RowMutationOperations {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Values getUpdateRowValues() {
 		return updateRowValues;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Restrictions getUpdateRowRestrictions() {
 		return updateRowRestrictions;
 	}
@@ -154,14 +165,17 @@ public class RowMutationOperations {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// delete row
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasDeleteRow() {
 		return deleteRowOperationProducer != null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Restrictions getDeleteRowRestrictions() {
 		return deleteRowRestrictions;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcMutationOperation getDeleteRowOperation() {
 		if ( !hasDeleteRow() ) {
 			return null;
@@ -176,6 +190,7 @@ public class RowMutationOperations {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcMutationOperation getDeleteRowOperation(TableMapping tableMapping) {
 		if ( !hasInsertRow() ) {
 			return null;
@@ -186,12 +201,14 @@ public class RowMutationOperations {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public OperationProducer getDeleteAllRowsOperationProducer() {
 		return deleteAllRowsOperationProducer;
 	}
 
 	@FunctionalInterface
 	public interface Restrictions {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void applyRestrictions(
 				PersistentCollection<?> collection,
 				Object key,
@@ -203,6 +220,7 @@ public class RowMutationOperations {
 
 	@FunctionalInterface
 	public interface Values {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void applyValues(
 				PersistentCollection<?> collection,
 				Object key,

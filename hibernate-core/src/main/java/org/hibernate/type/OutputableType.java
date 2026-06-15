@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import org.hibernate.Incubating;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specialization of {@link org.hibernate.metamodel.model.domain.DomainType} for types that
@@ -26,11 +28,13 @@ public interface OutputableType<J> extends BindableType<J> {
 	 *
 	 * @return {@code true} indicates that {@link #extract} calls will not fail due to {@link IllegalStateException}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean canDoExtraction();
 
 	/**
 	 * Descriptor for the SQL type mapped by this type.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcType getJdbcType();
 
 	/**
@@ -45,6 +49,7 @@ public interface OutputableType<J> extends BindableType<J> {
 	 * @throws SQLException Indicates an issue calling into the CallableStatement
 	 * @throws IllegalStateException Thrown if this method is called on instances that return {@code false} for {@link #canDoExtraction}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	J extract(CallableStatement statement, int paramIndex, SharedSessionContractImplementor session) throws SQLException;
 
 	/**
@@ -59,5 +64,6 @@ public interface OutputableType<J> extends BindableType<J> {
 	 * @throws SQLException Indicates an issue calling into the CallableStatement
 	 * @throws IllegalStateException Thrown if this method is called on instances that return {@code false} for {@link #canDoExtraction}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	J extract(CallableStatement statement, String paramName, SharedSessionContractImplementor session) throws SQLException;
 }

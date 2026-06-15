@@ -12,6 +12,8 @@ import java.util.function.Supplier;
 import org.hibernate.cache.cfg.spi.EntityDataCachingConfig;
 import org.hibernate.cache.spi.access.AccessType;
 import org.hibernate.metamodel.model.domain.NavigableRole;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -37,30 +39,36 @@ public class EntityDataCachingConfigImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Supplier<Comparator<Object>> getVersionComparatorAccess() {
 		return versionComparatorAccess;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isMutable() {
 		return isEntityMutable;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isVersioned() {
 		return getVersionComparatorAccess() != null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigableRole getNavigableRole() {
 		return navigableRole;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Set<NavigableRole> getCachedTypes() {
 		return cachedTypes;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addCachedType(NavigableRole typeRole) {
 		cachedTypes.add( typeRole );
 	}

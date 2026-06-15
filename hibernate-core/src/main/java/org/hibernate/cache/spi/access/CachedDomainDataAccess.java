@@ -9,6 +9,8 @@ import jakarta.persistence.Cache;
 import org.hibernate.cache.CacheException;
 import org.hibernate.cache.spi.DomainDataRegion;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base contract for accessing the cached data for a particular element of
@@ -31,11 +33,13 @@ public interface CachedDomainDataAccess {
 	/**
 	 * The region containing the data being accessed
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	DomainDataRegion getRegion();
 
 	/**
 	 * The type of access implemented
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	AccessType getAccessType();
 
 
@@ -54,6 +58,7 @@ public interface CachedDomainDataAccess {
 	 *
 	 * @throws CacheException Propagated from underlying cache provider
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object get(SharedSessionContractImplementor session, Object key);
 
 	/**
@@ -68,6 +73,7 @@ public interface CachedDomainDataAccess {
 	 *
 	 * @throws CacheException Propagated from underlying cache provider
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean putFromLoad(
 			SharedSessionContractImplementor session,
 			Object key,
@@ -88,6 +94,7 @@ public interface CachedDomainDataAccess {
 	 *
 	 * @throws CacheException Propagated from underlying cache provider
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean putFromLoad(
 			SharedSessionContractImplementor session,
 			Object key,
@@ -111,6 +118,7 @@ public interface CachedDomainDataAccess {
 	 *
 	 * @throws CacheException Propagated from underlying cache provider
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SoftLock lockItem(SharedSessionContractImplementor session, Object key, Object version);
 
 	/**
@@ -124,6 +132,7 @@ public interface CachedDomainDataAccess {
 	 *
 	 * @throws CacheException Propagated from underlying cache provider
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void unlockItem(SharedSessionContractImplementor session, Object key, SoftLock lock);
 
 	/**
@@ -136,6 +145,7 @@ public interface CachedDomainDataAccess {
 	 *
 	 * @throws CacheException Propagated from underlying cache provider
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void remove(SharedSessionContractImplementor session, Object key);
 
 	/**
@@ -143,6 +153,7 @@ public interface CachedDomainDataAccess {
 	 *
 	 * @throws CacheException Propagated from underlying cache provider
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void removeAll(SharedSessionContractImplementor session);
 
 
@@ -162,6 +173,7 @@ public interface CachedDomainDataAccess {
 	 * @return True if the underlying cache contains corresponding data; false
 	 * otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean contains(Object key);
 
 	/**
@@ -171,6 +183,7 @@ public interface CachedDomainDataAccess {
 	 *
 	 * @throws CacheException Propagated from underlying cache provider
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SoftLock lockRegion();
 
 	/**
@@ -181,6 +194,7 @@ public interface CachedDomainDataAccess {
 	 *
 	 * @throws CacheException Propagated from underlying cache provider
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void unlockRegion(SoftLock lock);
 
 	/**
@@ -196,6 +210,7 @@ public interface CachedDomainDataAccess {
 	 *
 	 * @throws CacheException Propagated from underlying cache provider
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void evict(Object key);
 
 	/**
@@ -210,5 +225,6 @@ public interface CachedDomainDataAccess {
 	 *
 	 * @throws CacheException Propagated from underlying cache provider
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void evictAll();
 }

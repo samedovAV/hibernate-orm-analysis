@@ -11,6 +11,8 @@ import jakarta.annotation.Nullable;
 import org.hibernate.query.spi.Limit;
 import org.hibernate.query.spi.QueryOptions;
 import org.hibernate.sql.ast.spi.ParameterMarkerStrategy;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract defining dialect-specific limit and offset handling.
@@ -24,6 +26,7 @@ public interface LimitHandler {
 	 *
 	 * @return True if this handler supports limit alone.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean supportsLimit();
 
 	/**
@@ -32,6 +35,7 @@ public interface LimitHandler {
 	 *
 	 * @return True if this handler supports offset alone.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean supportsOffset();
 
 	/**
@@ -39,12 +43,15 @@ public interface LimitHandler {
 	 *
 	 * @return True if the handler supports an offset within the limit support.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean supportsLimitOffset();
 
 	@Deprecated(forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String processSql(String sql, Limit limit);
 
 	@Deprecated(forRemoval = true)
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default String processSql(String sql, Limit limit, QueryOptions queryOptions) {
 		return processSql( sql, limit );
 	}
@@ -54,12 +61,15 @@ public interface LimitHandler {
 	 *
 	 * @since 7.1
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default String processSql(String sql, int jdbcParameterCount, @Nullable ParameterMarkerStrategy parameterMarkerStrategy, QueryOptions queryOptions) {
 		return processSql( sql, queryOptions.getLimit(), queryOptions );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int bindLimitParametersAtStartOfQuery(Limit limit, PreparedStatement statement, int index) throws SQLException;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int bindLimitParametersAtEndOfQuery(Limit limit, PreparedStatement statement, int index) throws SQLException;
 
 	/**
@@ -68,6 +78,7 @@ public interface LimitHandler {
 	 *
 	 * @since 7.1
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean processSqlMutatesState() {
 		return true;
 	}
@@ -77,10 +88,12 @@ public interface LimitHandler {
 	 *
 	 * @since 7.1
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int getParameterPositionStart(Limit limit) {
 		return 1;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setMaxRows(Limit limit, PreparedStatement statement) throws SQLException;
 
 }

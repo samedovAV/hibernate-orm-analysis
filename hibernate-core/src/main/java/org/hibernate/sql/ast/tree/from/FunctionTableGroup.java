@@ -12,6 +12,8 @@ import java.util.function.Consumer;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.spi.NavigablePath;
 import org.hibernate.sql.ast.tree.expression.FunctionExpression;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A special table group for a table valued functions.
@@ -53,11 +55,13 @@ public class FunctionTableGroup extends AbstractTableGroup {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isLateral() {
 		return getPrimaryTableReference().isLateral();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public TableReference getTableReference(
 			NavigablePath navigablePath,
 			String tableExpression,
@@ -85,16 +89,19 @@ public class FunctionTableGroup extends AbstractTableGroup {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void applyAffectedTableNames(Consumer<String> nameCollector) {
 		getPrimaryTableReference().applyAffectedTableNames( nameCollector );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FunctionTableReference getPrimaryTableReference() {
 		return functionTableReference;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<TableReferenceJoin> getTableReferenceJoins() {
 		return Collections.emptyList();
 	}

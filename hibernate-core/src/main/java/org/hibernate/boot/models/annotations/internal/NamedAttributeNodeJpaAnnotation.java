@@ -10,6 +10,8 @@ import java.util.Map;
 import org.hibernate.models.spi.ModelsContext;
 
 import jakarta.persistence.NamedAttributeNode;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -47,35 +49,42 @@ public class NamedAttributeNodeJpaAnnotation implements NamedAttributeNode {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return NamedAttributeNode.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String value() {
 		return value;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void value(String value) {
 		this.value = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String subgraph() {
 		return subgraph;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void subgraph(String value) {
 		this.subgraph = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String keySubgraph() {
 		return keySubgraph;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void keySubgraph(String value) {
 		this.keySubgraph = value;
 	}

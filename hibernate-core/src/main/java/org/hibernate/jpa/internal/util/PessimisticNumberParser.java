@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.jpa.internal.util;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * An old-style query might pass positional numbers of Query parameters as strings. This implies we always need to
@@ -22,6 +25,7 @@ public final class PessimisticNumberParser {
 		//not to be constructed
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Integer toNumberOrNull(final String parameterName) {
 		if ( isValidNumber( parameterName ) ) {
 			try {
@@ -34,6 +38,7 @@ public final class PessimisticNumberParser {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static boolean isValidNumber(final String parameterName) {
 		if ( parameterName.length() == 0 ) {
 			return false;

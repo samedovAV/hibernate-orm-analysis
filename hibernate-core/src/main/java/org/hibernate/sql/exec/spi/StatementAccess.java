@@ -5,6 +5,8 @@
 package org.hibernate.sql.exec.spi;
 
 import java.sql.Statement;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Access to a JDBC {@linkplain Statement}.
@@ -18,5 +20,6 @@ public interface StatementAccess {
 	/**
 	 * Access the JDBC {@linkplain Statement}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Statement getJdbcStatement();
 }

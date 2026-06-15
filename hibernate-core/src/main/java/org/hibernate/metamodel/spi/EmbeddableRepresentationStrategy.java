@@ -6,6 +6,8 @@ package org.hibernate.metamodel.spi;
 
 import org.hibernate.Incubating;
 import org.hibernate.bytecode.spi.ReflectionOptimizer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Describes the representation of a particular embeddable type.
@@ -17,12 +19,15 @@ public interface EmbeddableRepresentationStrategy extends ManagedTypeRepresentat
 	/**
 	 * Create a delegate capable of instantiating instances of the represented type.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EmbeddableInstantiator getInstantiator();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default EmbeddableInstantiator getInstantiatorForDiscriminator(Object discriminatorValue) {
 		return getInstantiator();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default EmbeddableInstantiator getInstantiatorForClass(String className) {
 		return getInstantiator();
 	}
@@ -32,5 +37,6 @@ public interface EmbeddableRepresentationStrategy extends ManagedTypeRepresentat
 	 *
 	 * https://hibernate.atlassian.net/browse/HHH-14952
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ReflectionOptimizer getReflectionOptimizer();
 }

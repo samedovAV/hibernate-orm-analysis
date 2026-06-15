@@ -8,6 +8,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Describes the nature of the collection itself as declared by the metadata.
@@ -30,10 +32,12 @@ public enum PluralAttributeNature {
 		this.indexed = indexed;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> reportedJavaType() {
 		return reportedJavaType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isIndexed() {
 		return indexed;
 	}

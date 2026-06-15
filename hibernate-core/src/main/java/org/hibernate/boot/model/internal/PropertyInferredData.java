@@ -23,6 +23,8 @@ import org.hibernate.models.spi.TypeDetails.Kind;
 import org.hibernate.models.spi.TypeVariableScope;
 
 import java.util.Locale;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Retrieve all inferred data from an annotated element
@@ -55,11 +57,13 @@ public class PropertyInferredData implements PropertyData {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return String.format( "PropertyInferredData{property=%s, declaringClass=%s}", propertyMember, declaringClass );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AccessType getDefaultAccess() throws MappingException {
 		AccessType accessType = defaultAccess;
 
@@ -77,11 +81,13 @@ public class PropertyInferredData implements PropertyData {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getPropertyName() throws MappingException {
 		return propertyMember.resolveAttributeName();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TypeDetails getPropertyType() throws MappingException {
 		final var sourceModelContext = buildingContext.getBootstrapContext().getModelsContext();
 		final var targetAnnotation = propertyMember.getDirectAnnotationUsage( org.hibernate.boot.internal.Target.class );
@@ -103,6 +109,7 @@ public class PropertyInferredData implements PropertyData {
 		return propertyMember.resolveRelativeType( ownerType );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static TargetEmbeddable getTargetEmbeddableAnnotation(MemberDetails memberDetails) {
 		// first we look for the annotation on the member itself
 		final var memberAnnotation = memberDetails.getDirectAnnotationUsage( TargetEmbeddable.class );
@@ -138,6 +145,7 @@ public class PropertyInferredData implements PropertyData {
 		return memberRawClass.getDirectAnnotationUsage( TargetEmbeddable.class );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static ClassTypeDetailsImpl resolveTargetEmbeddableAnnotation(
 			TargetEmbeddable targetEmbeddable,
 			ModelsContext sourceModelContext) {
@@ -148,6 +156,7 @@ public class PropertyInferredData implements PropertyData {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TypeDetails getClassOrElementType() throws MappingException {
 		final var modelsContext = buildingContext.getBootstrapContext().getModelsContext();
 		final var annotationUsage = propertyMember.getDirectAnnotationUsage( org.hibernate.boot.internal.Target.class );
@@ -170,6 +179,7 @@ public class PropertyInferredData implements PropertyData {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ClassDetails getClassOrPluralElement() throws MappingException {
 		final var xmlTarget = propertyMember.getDirectAnnotationUsage( org.hibernate.boot.internal.Target.class );
 		if ( xmlTarget != null ) {
@@ -190,21 +200,25 @@ public class PropertyInferredData implements PropertyData {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getClassOrElementName() throws MappingException {
 		return getClassOrElementType().getName();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getTypeName() throws MappingException {
 		return getPropertyType().getName();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MemberDetails getAttributeMember() {
 		return propertyMember;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ClassDetails getDeclaringClass() {
 		return declaringClass;
 	}

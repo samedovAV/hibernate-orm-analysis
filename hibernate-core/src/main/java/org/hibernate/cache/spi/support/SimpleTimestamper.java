@@ -6,6 +6,8 @@ package org.hibernate.cache.spi.support;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Generates increasing identifiers (in a single VM only). Not valid across multiple VMs.  Identifiers are not
@@ -22,6 +24,7 @@ public final class SimpleTimestamper {
 
 	public static final short ONE_MS = 1 << BIN_DIGITS;
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public static long next() {
 		while ( true ) {
 			long base = System.currentTimeMillis() << BIN_DIGITS;
@@ -35,6 +38,7 @@ public final class SimpleTimestamper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static int timeOut() {
 		return (int) TimeUnit.SECONDS.toMillis( 60 ) * ONE_MS;
 	}

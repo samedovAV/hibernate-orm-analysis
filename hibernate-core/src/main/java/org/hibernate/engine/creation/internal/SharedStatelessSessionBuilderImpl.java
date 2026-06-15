@@ -17,6 +17,8 @@ import org.hibernate.resource.jdbc.spi.StatementInspector;
 import java.util.Objects;
 
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Builder for shared {@linkplain StatelessSessionImplementor stateless} sessions.
@@ -39,9 +41,11 @@ public abstract class SharedStatelessSessionBuilderImpl
 		this.options = options;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract StatelessSessionImplementor createStatelessSession(SharedStatelessOptions options);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected SharedStatelessSessionBuilder getThis() {
 		return this;
 	}
@@ -51,6 +55,7 @@ public abstract class SharedStatelessSessionBuilderImpl
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public StatelessSessionImplementor open() {
 		CORE_LOGGER.openingStatelessSession( options.getTenantIdentifierValue() );
 		if ( original.getSessionFactory().getSessionFactoryOptions().isMultiTenancyEnabled() ) {
@@ -67,12 +72,14 @@ public abstract class SharedStatelessSessionBuilderImpl
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public StatelessSession openStatelessSession() {
 		return open();
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SharedStatelessSessionBuilder connection() {
 		options.shareTransactionContext();
 		return this;
@@ -80,6 +87,7 @@ public abstract class SharedStatelessSessionBuilderImpl
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SharedStatelessSessionBuilder interceptor() {
 		options.useInterceptor( original.getInterceptor() );
 		return this;
@@ -87,6 +95,7 @@ public abstract class SharedStatelessSessionBuilderImpl
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedStatelessSessionBuilder statementInspector() {
 		options.statementInspector( original.getJdbcSessionContext().getStatementInspector() );
 		return this;
@@ -94,6 +103,7 @@ public abstract class SharedStatelessSessionBuilderImpl
 
 	@Override @Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public StatelessSessionBuilder statementInspector(@Nonnull StatementInspector statementInspector) {
 		options.statementInspector( statementInspector );
 		return this;

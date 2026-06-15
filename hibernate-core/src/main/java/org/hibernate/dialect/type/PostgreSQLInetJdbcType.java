@@ -21,6 +21,8 @@ import org.hibernate.type.descriptor.jdbc.JdbcLiteralFormatter;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
 
 import org.postgresql.util.PGobject;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -28,21 +30,25 @@ import org.postgresql.util.PGobject;
 public class PostgreSQLInetJdbcType implements JdbcType {
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getJdbcTypeCode() {
 		return Types.OTHER;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getDefaultSqlTypeCode() {
 		return SqlTypes.INET;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> JdbcLiteralFormatter<T> getJdbcLiteralFormatter(JavaType<T> javaType) {
 		// No literal support for now
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected <X> X fromString(String string, JavaType<X> javaType, WrapperOptions options) {
 		final String host;
 		if ( string == null ) {
@@ -61,14 +67,17 @@ public class PostgreSQLInetJdbcType implements JdbcType {
 		return javaType.wrap( host, options );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected <X> String toString(X value, JavaType<X> javaType, WrapperOptions options) {
 		return javaType.unwrap( value, String.class, options );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> ValueBinder<X> getBinder(JavaType<X> javaType) {
 		return new BasicBinder<>( javaType, this ) {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBind(PreparedStatement st, X value, int index, WrapperOptions options)
 					throws SQLException {
 				final String stringValue = PostgreSQLInetJdbcType.this.toString( value, getJavaType(), options );
@@ -79,6 +88,7 @@ public class PostgreSQLInetJdbcType implements JdbcType {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBind(CallableStatement st, X value, String name, WrapperOptions options)
 					throws SQLException {
 				final String stringValue = PostgreSQLInetJdbcType.this.toString( value, getJavaType(), options );
@@ -91,24 +101,29 @@ public class PostgreSQLInetJdbcType implements JdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> ValueExtractor<X> getExtractor(JavaType<X> javaType) {
 		return new BasicExtractor<>( javaType, this ) {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(ResultSet rs, int paramIndex, WrapperOptions options) throws SQLException {
 				return getObject( rs.getObject( paramIndex ), options );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(CallableStatement statement, int index, WrapperOptions options) throws SQLException {
 				return getObject( statement.getObject( index ), options );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(CallableStatement statement, String name, WrapperOptions options)
 					throws SQLException {
 				return getObject( statement.getObject( name ), options );
 			}
 
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			private X getObject(Object object, WrapperOptions options) throws SQLException {
 				if ( object == null ) {
 					return null;

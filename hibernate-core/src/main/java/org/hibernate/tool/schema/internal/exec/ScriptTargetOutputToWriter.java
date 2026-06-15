@@ -8,6 +8,8 @@ import java.io.Writer;
 
 import org.hibernate.tool.schema.spi.SchemaManagementException;
 import org.hibernate.tool.schema.spi.ScriptTargetOutput;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * ScriptTargetOutput implementation for supplied Writer references.
@@ -32,6 +34,7 @@ public class ScriptTargetOutputToWriter extends AbstractScriptTargetOutput imple
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Writer writer() {
 		return writer;
 	}

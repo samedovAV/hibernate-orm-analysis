@@ -6,6 +6,8 @@ package org.hibernate.event.spi;
 
 import org.hibernate.Internal;import org.hibernate.collection.spi.PersistentCollection;
 import org.hibernate.persister.collection.CollectionPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Defines a base class for events involving collections.
@@ -79,6 +81,7 @@ public abstract class AbstractCollectionEvent extends AbstractSessionEvent {
 	/**
 	 * The descriptor for the {@linkplain #getCollection() collection} mapping.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionPersister getCollectionPersister() {
 		return collectionPersister;
 	}
@@ -86,6 +89,7 @@ public abstract class AbstractCollectionEvent extends AbstractSessionEvent {
 	/**
 	 * The (wrapped) collection instance affected by this event.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistentCollection<?> getCollection() {
 		return collection;
 	}
@@ -96,6 +100,7 @@ public abstract class AbstractCollectionEvent extends AbstractSessionEvent {
 	 * @return the affected owner; returns null if the entity is not in the persistence context
 	 * (e.g., because the collection from a detached entity was moved to a new owner)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getAffectedOwnerOrNull() {
 		return owner;
 	}
@@ -107,6 +112,7 @@ public abstract class AbstractCollectionEvent extends AbstractSessionEvent {
 	 * from the collection's loaded key (e.g., a property-ref is used for the
 	 * collection and does not include the entity's ID)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getAffectedOwnerIdOrNull() {
 		return ownerId;
 	}
@@ -117,28 +123,34 @@ public abstract class AbstractCollectionEvent extends AbstractSessionEvent {
 	 * @return the entity name; if the owner is not in the PersistenceContext, the
 	 * returned value may be a superclass name, instead of the actual class name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getAffectedOwnerEntityName() {
 		return ownerEntityName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected static CollectionPersister getLoadedCollectionPersister(PersistentCollection<?> collection, EventSource source) {
 		final var entry = source.getPersistenceContextInternal().getCollectionEntry( collection );
 		return entry == null ? null : entry.getLoadedPersister();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected static Object getLoadedOwnerOrNull( PersistentCollection<?> collection, EventSource source ) {
 		return source.getPersistenceContextInternal().getLoadedCollectionOwnerOrNull( collection );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected static Object getLoadedOwnerIdOrNull(PersistentCollection<?> collection, EventSource source ) {
 		return source.getPersistenceContextInternal().getLoadedCollectionOwnerIdOrNull( collection );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected static Object getOwnerIdOrNull(Object owner, EventSource source ) {
 		final var ownerEntry = source.getPersistenceContextInternal().getEntry( owner );
 		return ownerEntry == null ? null : ownerEntry.getId();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected static String getAffectedOwnerEntityName(
 			CollectionPersister collectionPersister,
 			Object affectedOwner,

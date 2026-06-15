@@ -17,6 +17,8 @@ import org.hibernate.persister.entity.mutation.DeleteCoordinatorSoft;
 import org.hibernate.persister.state.spi.StateManagementGraphIntegration;
 
 import static org.hibernate.boot.model.internal.SoftDeleteHelper.resolveSoftDeleteMapping;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gavin King
@@ -28,6 +30,7 @@ public final class SoftDeleteStateManagement extends AbstractStateManagement {
 
 	private final StateManagementGraphIntegration graphIntegration = new StateManagementGraphIntegration() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public EntityMutationPlanContributor createEntityMutationPlanContributor(EntityPersister persister) {
 			return new SoftDeleteEntityMutationPlanContributor( persister, persister.getFactory() );
 		}
@@ -41,6 +44,7 @@ public final class SoftDeleteStateManagement extends AbstractStateManagement {
 	// Graph ActionQueue integration
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public StateManagementGraphIntegration getGraphIntegration() {
 		return graphIntegration;
 	}
@@ -50,11 +54,13 @@ public final class SoftDeleteStateManagement extends AbstractStateManagement {
 	// Legacy ActionQueue integration
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DeleteCoordinator createDeleteCoordinator(EntityPersister persister) {
 		return new DeleteCoordinatorSoft( persister, persister.getFactory() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AuxiliaryMapping createAuxiliaryMapping(
 			EntityPersister persister,
 			RootClass rootClass,
@@ -63,6 +69,7 @@ public final class SoftDeleteStateManagement extends AbstractStateManagement {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AuxiliaryMapping createAuxiliaryMapping(
 			PluralAttributeMapping pluralAttributeMapping,
 			Collection bootDescriptor,

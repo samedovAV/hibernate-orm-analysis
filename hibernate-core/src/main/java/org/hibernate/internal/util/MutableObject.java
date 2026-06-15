@@ -7,6 +7,8 @@ package org.hibernate.internal.util;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Mutable object reference.  Mainly useful with anonymous code blocks
@@ -25,22 +27,27 @@ public class MutableObject<T> {
 		this.reference = reference;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public T get() {
 		return reference;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isSet() {
 		return reference != null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isNotSet() {
 		return reference == null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void set(T reference) {
 		this.reference = reference;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void set(T reference, Consumer<T> existingConsumer) {
 		if ( this.reference != null ) {
 			existingConsumer.accept( this.reference );
@@ -49,6 +56,7 @@ public class MutableObject<T> {
 		this.reference = reference;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void set(T reference, BiConsumer<T,T> existingConsumer) {
 		if ( this.reference != null ) {
 			existingConsumer.accept( reference, this.reference );
@@ -57,12 +65,14 @@ public class MutableObject<T> {
 		this.reference = reference;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setIfNot(T reference) {
 		if ( this.reference == null ) {
 			this.reference = reference;
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setIfNot(T reference, Supplier<RuntimeException> overwriteHandler) {
 		if ( this.reference == null ) {
 			this.reference = reference;
@@ -72,12 +82,14 @@ public class MutableObject<T> {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setIfNot(Supplier<T> referenceSupplier) {
 		if ( this.reference == null ) {
 			this.reference = referenceSupplier.get();
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setIfNot(Supplier<T> referenceSupplier, Supplier<RuntimeException> overwriteHandler) {
 		if ( this.reference == null ) {
 			this.reference = referenceSupplier.get();

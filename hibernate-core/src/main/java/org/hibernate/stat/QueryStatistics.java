@@ -5,6 +5,8 @@
 package org.hibernate.stat;
 
 import java.io.Serializable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Statistics relating to a particular query written in HQL or SQL.
@@ -20,35 +22,42 @@ public interface QueryStatistics extends Serializable {
 	/**
 	 * How many times has this query been executed?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	long getExecutionCount();
 
 	/**
 	 * How many {@link java.sql.ResultSet} rows have been processed
 	 * for this query
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	long getExecutionRowCount();
 
 	/**
 	 * What is the average amount time taken to execute this query?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	long getExecutionAvgTime();
 
 	/**
 	 * What is the max amount time taken to execute this query?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	long getExecutionMaxTime();
 
 	/**
 	 * What is the min amount time taken to execute this query?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	long getExecutionMinTime();
 
 	/**
 	 * How long, cumulatively, have all executions of this query
 	 * taken?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	long getExecutionTotalTime();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	double getExecutionAvgTimeAsDouble();
 
 	/**
@@ -58,6 +67,7 @@ public interface QueryStatistics extends Serializable {
 	 * regions at different times.  This value represents the
 	 * sum total across all of those regions
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	long getCacheHitCount();
 
 	/**
@@ -67,6 +77,7 @@ public interface QueryStatistics extends Serializable {
 	 * regions at different times.  This value represents the
 	 * sum total across all of those regions
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	long getCacheMissCount();
 
 	/**
@@ -76,12 +87,14 @@ public interface QueryStatistics extends Serializable {
 	 * regions at different times.  This value represents the
 	 * sum total across all of those regions
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	long getCachePutCount();
 
 	/**
 	 * The number of query plans successfully fetched from the
 	 * cache.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default long getPlanCacheHitCount() {
 		//For backward compatibility
 		return 0;
@@ -90,6 +103,7 @@ public interface QueryStatistics extends Serializable {
 	/**
 	 * The number of query plans *not* fetched from the cache.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default long getPlanCacheMissCount(){
 		//For backward compatibility
 		return 0;
@@ -99,6 +113,7 @@ public interface QueryStatistics extends Serializable {
 	 * The overall time spent to compile the plan for this
 	 * particular query.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default long getPlanCompilationTotalMicroseconds() {
 		//For backward compatibility
 		return 0;

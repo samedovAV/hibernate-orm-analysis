@@ -28,6 +28,8 @@ import org.hibernate.bytecode.enhance.spi.UnsupportedEnhancementStrategy;
 import static java.lang.Character.toUpperCase;
 import static net.bytebuddy.matcher.ElementMatchers.isGetter;
 import static org.hibernate.bytecode.enhance.internal.bytebuddy.PersistentAttributeTransformer.collectPersistentFields;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 class ByteBuddyEnhancementContext {
 
@@ -44,66 +46,82 @@ class ByteBuddyEnhancementContext {
 		this.constants = enhancerConstants;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isEntityClass(TypeDescription classDescriptor) {
 		return enhancementContext.isEntityClass( new UnloadedTypeDescription( classDescriptor ) );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isCompositeClass(TypeDescription classDescriptor) {
 		return enhancementContext.isCompositeClass( new UnloadedTypeDescription( classDescriptor ) );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isMappedSuperclassClass(TypeDescription classDescriptor) {
 		return enhancementContext.isMappedSuperclassClass( new UnloadedTypeDescription( classDescriptor ) );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean doDirtyCheckingInline() {
 		return enhancementContext.doDirtyCheckingInline();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean doExtendedEnhancement() {
 		return enhancementContext.doExtendedEnhancement();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean hasLazyLoadableAttributes(TypeDescription classDescriptor) {
 		return enhancementContext.hasLazyLoadableAttributes( new UnloadedTypeDescription( classDescriptor ) );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isPersistentField(AnnotatedFieldDescription field) {
 		return enhancementContext.isPersistentField( field );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCompositeField(AnnotatedFieldDescription field) {
 		return isCompositeClass( field.getType().asErasure() ) || field.hasAnnotation( Embedded.class );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public AnnotatedFieldDescription[] order(AnnotatedFieldDescription[] persistentFields) {
 		return (AnnotatedFieldDescription[]) enhancementContext.order( persistentFields );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isLazyLoadable(AnnotatedFieldDescription field) {
 		return enhancementContext.isLazyLoadable( field );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isMappedCollection(AnnotatedFieldDescription field) {
 		return enhancementContext.isMappedCollection( field );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean doBiDirectionalAssociationManagement() {
 		return enhancementContext.doBiDirectionalAssociationManagement();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isDiscoveredType(TypeDescription typeDescription) {
 		return enhancementContext.isDiscoveredType( new UnloadedTypeDescription( typeDescription ) );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void registerDiscoveredType(TypeDescription typeDescription, Type.PersistenceType type) {
 		enhancementContext.registerDiscoveredType( new UnloadedTypeDescription( typeDescription ), type );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public UnsupportedEnhancementStrategy getUnsupportedEnhancementStrategy() {
 		return enhancementContext.getUnsupportedEnhancementStrategy();
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void discoverCompositeTypes(TypeDescription managedCtClass, TypePool typePool) {
 		if ( !isDiscoveredType( managedCtClass ) ) {
 			final var determinedPersistenceType = determinePersistenceType( managedCtClass );
@@ -123,6 +141,7 @@ class ByteBuddyEnhancementContext {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Type.PersistenceType determinePersistenceType(TypeDescription managedCtClass) {
 		if ( isEntityClass( managedCtClass ) ) {
 			return Type.PersistenceType.ENTITY;
@@ -139,6 +158,7 @@ class ByteBuddyEnhancementContext {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Optional<MethodDescription> resolveGetter(FieldDescription fieldDescription) {
 		//There is a non-straightforward cache here, but we really need this to be able to
 		//efficiently handle enhancement of large models.
@@ -167,6 +187,7 @@ class ByteBuddyEnhancementContext {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private @Nonnull Map<String, MethodDescription> getGetters(TypeDescription erasure) {
 		//Always try to get with a simple "get" before doing a "computeIfAbsent" operation,
 		//otherwise large models might exhibit significant contention on the map.

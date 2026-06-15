@@ -18,6 +18,8 @@ import org.jboss.logging.Logger;
 
 import static java.util.Collections.addAll;
 import static org.hibernate.internal.util.StringHelper.splitAtCommas;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Builder for {@link IdentifierHelper} instances.  Mainly here to allow progressive
@@ -44,6 +46,7 @@ public class IdentifierHelperBuilder {
 	private IdentifierCaseStrategy unquotedCaseStrategy = IdentifierCaseStrategy.UPPER;
 	private IdentifierCaseStrategy quotedCaseStrategy = IdentifierCaseStrategy.MIXED;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static IdentifierHelperBuilder from(JdbcEnvironment jdbcEnvironment) {
 		return new IdentifierHelperBuilder( jdbcEnvironment );
 	}
@@ -59,6 +62,7 @@ public class IdentifierHelperBuilder {
 	 *
 	 * @throws SQLException Any access to DatabaseMetaData can case SQLException; just re-throw.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applyReservedWords(DatabaseMetaData metaData) throws SQLException {
 		if ( metaData != null
 				// Important optimisation: skip loading all keywords
@@ -68,6 +72,7 @@ public class IdentifierHelperBuilder {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applyIdentifierCasing(DatabaseMetaData metaData) throws SQLException {
 		if ( metaData != null ) {
 			final int unquotedAffirmatives = ArrayHelper.countTrue(
@@ -124,66 +129,82 @@ public class IdentifierHelperBuilder {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isGloballyQuoteIdentifiers() {
 		return globallyQuoteIdentifiers;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setGloballyQuoteIdentifiers(boolean globallyQuoteIdentifiers) {
 		this.globallyQuoteIdentifiers = globallyQuoteIdentifiers;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isSkipGlobalQuotingForColumnDefinitions() {
 		return skipGlobalQuotingForColumnDefinitions;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setSkipGlobalQuotingForColumnDefinitions(boolean skipGlobalQuotingForColumnDefinitions) {
 		this.skipGlobalQuotingForColumnDefinitions = skipGlobalQuotingForColumnDefinitions;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setAutoQuoteKeywords(boolean autoQuoteKeywords) {
 		this.autoQuoteKeywords = autoQuoteKeywords;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setAutoQuoteInitialUnderscore(boolean autoQuoteInitialUnderscore) {
 		this.autoQuoteInitialUnderscore = autoQuoteInitialUnderscore;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setAutoQuoteDollar(boolean autoQuoteDollar) {
 		this.autoQuoteDollar = autoQuoteDollar;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NameQualifierSupport getNameQualifierSupport() {
 		return nameQualifierSupport;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setNameQualifierSupport(NameQualifierSupport nameQualifierSupport) {
 		this.nameQualifierSupport = nameQualifierSupport == null ? NameQualifierSupport.BOTH : nameQualifierSupport;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public IdentifierCaseStrategy getUnquotedCaseStrategy() {
 		return unquotedCaseStrategy;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setUnquotedCaseStrategy(IdentifierCaseStrategy unquotedCaseStrategy) {
 		this.unquotedCaseStrategy = unquotedCaseStrategy;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public IdentifierCaseStrategy getQuotedCaseStrategy() {
 		return quotedCaseStrategy;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setQuotedCaseStrategy(IdentifierCaseStrategy quotedCaseStrategy) {
 		this.quotedCaseStrategy = quotedCaseStrategy;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void clearReservedWords() {
 		this.reservedWords.clear();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void applyReservedWords(String... words) {
 		applyReservedWords( Arrays.asList( words ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applyReservedWords(Collection<String> words) {
 		//No use when autoQuoteKeywords is disabled
 		if ( autoQuoteKeywords ) {
@@ -191,15 +212,18 @@ public class IdentifierHelperBuilder {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void applyReservedWords(Set<String> words) {
 		applyReservedWords( (Collection<String>) words );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setReservedWords(Set<String> words) {
 		clearReservedWords();
 		applyReservedWords( words );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public IdentifierHelper build() {
 		if ( unquotedCaseStrategy == quotedCaseStrategy ) {
 			LOG.debugf(

@@ -10,6 +10,8 @@ import java.util.Objects;
 
 import org.hibernate.boot.registry.selector.spi.DialectSelector;
 import org.hibernate.dialect.Dialect;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class AggregatedDialectSelector implements DialectSelector {
 
@@ -25,6 +27,7 @@ public class AggregatedDialectSelector implements DialectSelector {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public Class<? extends Dialect> resolve(final String name) {
 		Objects.requireNonNull( name );
 		if ( name.isEmpty() ) {

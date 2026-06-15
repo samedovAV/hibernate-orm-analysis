@@ -30,6 +30,8 @@ import static org.hibernate.engine.internal.ManagedTypeHelper.asPersistentAttrib
 import static org.hibernate.engine.internal.ManagedTypeHelper.isPersistentAttributeInterceptableType;
 import static org.hibernate.engine.internal.ManagedTypeHelper.processIfManagedEntity;
 import static org.hibernate.engine.internal.ManagedTypeHelper.processIfSelfDirtinessTracker;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * BytecodeEnhancementMetadata implementation for {@link org.hibernate.metamodel.RepresentationMode#POJO POJO} models
@@ -40,6 +42,7 @@ public class BytecodeEnhancementMetadataPojoImpl implements BytecodeEnhancementM
 	/**
 	 * Static constructor
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static BytecodeEnhancementMetadataPojoImpl from(
 			PersistentClass persistentClass,
 			Set<String> identifierAttributeNames,
@@ -96,21 +99,25 @@ public class BytecodeEnhancementMetadataPojoImpl implements BytecodeEnhancementM
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getEntityName() {
 		return entityName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isEnhancedForLazyLoading() {
 		return enhancedForLazyLoading;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LazyAttributesMetadata getLazyAttributesMetadata() {
 		return lazyAttributesMetadata;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasUnFetchedAttributes(Object entity) {
 		if ( ! enhancedForLazyLoading ) {
 			return false;
@@ -130,6 +137,7 @@ public class BytecodeEnhancementMetadataPojoImpl implements BytecodeEnhancementM
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isAttributeLoaded(Object entity, String attributeName) {
 		if ( ! enhancedForLazyLoading ) {
 			return true;
@@ -144,11 +152,13 @@ public class BytecodeEnhancementMetadataPojoImpl implements BytecodeEnhancementM
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable LazyAttributeLoadingInterceptor extractInterceptor(Object entity) throws NotInstrumentedException {
 		return (LazyAttributeLoadingInterceptor) extractLazyInterceptor( entity );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistentAttributeInterceptable createEnhancedProxy(EntityKey entityKey, boolean addEmptyEntry, SharedSessionContractImplementor session) {
 		final var persister = entityKey.getPersister();
 		final Object identifier = entityKey.getIdentifier();
@@ -192,15 +202,18 @@ public class BytecodeEnhancementMetadataPojoImpl implements BytecodeEnhancementM
 		return entity;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void clearDirtyAttributes(final SelfDirtinessTracker entity) {
 		entity.$$_hibernate_clearDirtyAttributes();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void useTracker(final ManagedEntity entity) {
 		entity.$$_hibernate_setUseTracker( true );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public LazyAttributeLoadingInterceptor injectInterceptor(
 			Object entity,
 			Object identifier,
@@ -228,6 +241,7 @@ public class BytecodeEnhancementMetadataPojoImpl implements BytecodeEnhancementM
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void injectEnhancedEntityAsProxyInterceptor(
 			Object entity,
 			EntityKey entityKey,
@@ -249,6 +263,7 @@ public class BytecodeEnhancementMetadataPojoImpl implements BytecodeEnhancementM
 	 */
 	//This state object needs to be lazily initialized as it needs access to the Persister, but once
 	//initialized it can be reused across multiple sessions.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EnhancementAsProxyLazinessInterceptor.EntityRelatedState getEnhancementAsProxyLazinessInterceptorMetastate(SharedSessionContractImplementor session) {
 		var state = this.enhancementAsProxyInterceptorState;
 		if ( state == null ) {
@@ -266,6 +281,7 @@ public class BytecodeEnhancementMetadataPojoImpl implements BytecodeEnhancementM
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void injectInterceptor(
 			Object entity,
 			PersistentAttributeInterceptor interceptor,
@@ -289,6 +305,7 @@ public class BytecodeEnhancementMetadataPojoImpl implements BytecodeEnhancementM
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable BytecodeLazyAttributeInterceptor extractLazyInterceptor(Object entity) throws NotInstrumentedException {
 		if ( !enhancedForLazyLoading ) {
 			throw new NotInstrumentedException( "Entity class [" + entityClass.getName()
@@ -316,6 +333,7 @@ public class BytecodeEnhancementMetadataPojoImpl implements BytecodeEnhancementM
 	/*
 	 * Used by Hibernate Reactive
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getEntityClass() {
 		return entityClass;
 	}
@@ -323,6 +341,7 @@ public class BytecodeEnhancementMetadataPojoImpl implements BytecodeEnhancementM
 	/*
 	 * Used by Hibernate Reactive
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LazyAttributeLoadingInterceptor.EntityRelatedState getLazyAttributeLoadingInterceptorState() {
 		return lazyAttributeLoadingInterceptorState;
 	}

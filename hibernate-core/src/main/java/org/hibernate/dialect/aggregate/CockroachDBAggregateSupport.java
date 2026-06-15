@@ -34,16 +34,20 @@ import static org.hibernate.type.SqlTypes.LONG32VARBINARY;
 import static org.hibernate.type.SqlTypes.SMALLINT;
 import static org.hibernate.type.SqlTypes.TINYINT;
 import static org.hibernate.type.SqlTypes.VARBINARY;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class CockroachDBAggregateSupport extends AggregateSupportImpl {
 
 	private static final AggregateSupport INSTANCE = new CockroachDBAggregateSupport();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static AggregateSupport valueOf(Dialect dialect) {
 		return CockroachDBAggregateSupport.INSTANCE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String aggregateComponentCustomReadExpression(
 			String template,
 			String placeholder,
@@ -111,6 +115,7 @@ public class CockroachDBAggregateSupport extends AggregateSupportImpl {
 		throw new IllegalArgumentException( "Unsupported aggregate SQL type: " + aggregateColumnTypeCode );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static String jsonCustomWriteExpression(String customWriteExpression, JdbcMapping jdbcMapping) {
 		final int sqlTypeCode = jdbcMapping.getJdbcType().getDefaultSqlTypeCode();
 		switch ( sqlTypeCode ) {
@@ -136,6 +141,7 @@ public class CockroachDBAggregateSupport extends AggregateSupportImpl {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String aggregateComponentAssignmentExpression(
 			String aggregateParentAssignmentExpression,
 			String columnExpression,
@@ -151,6 +157,7 @@ public class CockroachDBAggregateSupport extends AggregateSupportImpl {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean requiresAggregateCustomWriteExpressionRenderer(int aggregateSqlTypeCode) {
 		switch ( aggregateSqlTypeCode ) {
 			case JSON:
@@ -160,6 +167,7 @@ public class CockroachDBAggregateSupport extends AggregateSupportImpl {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public WriteExpressionRenderer aggregateCustomWriteExpressionRenderer(
 			SelectableMapping aggregateColumn,
 			SelectableMapping[] columnsToUpdate,
@@ -172,6 +180,7 @@ public class CockroachDBAggregateSupport extends AggregateSupportImpl {
 		throw new IllegalArgumentException( "Unsupported aggregate SQL type: " + aggregateSqlTypeCode );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private WriteExpressionRenderer jsonAggregateColumnWriter(
 			SelectableMapping aggregateColumn,
 			SelectableMapping[] columns) {
@@ -179,6 +188,7 @@ public class CockroachDBAggregateSupport extends AggregateSupportImpl {
 	}
 
 	interface JsonWriteExpression {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void append(
 				SqlAppender sb,
 				String path,
@@ -188,6 +198,7 @@ public class CockroachDBAggregateSupport extends AggregateSupportImpl {
 	private static class AggregateJsonWriteExpression implements JsonWriteExpression {
 		private final LinkedHashMap<String, JsonWriteExpression> subExpressions = new LinkedHashMap<>();
 
+		@Prove(complexity = Complexity.O_N2, n = "", count = {})
 		protected void initializeSubExpressions(SelectableMapping[] columns) {
 			for ( SelectableMapping column : columns ) {
 				final SelectablePath selectablePath = column.getSelectablePath();
@@ -211,6 +222,7 @@ public class CockroachDBAggregateSupport extends AggregateSupportImpl {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N2, n = "", count = {})
 		public void append(
 				SqlAppender sb,
 				String path,
@@ -252,6 +264,7 @@ public class CockroachDBAggregateSupport extends AggregateSupportImpl {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void render(
 				SqlAppender sqlAppender,
 				SqlAstTranslator<?> translator,
@@ -296,6 +309,7 @@ public class CockroachDBAggregateSupport extends AggregateSupportImpl {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public void append(
 				SqlAppender sb,
 				String path,

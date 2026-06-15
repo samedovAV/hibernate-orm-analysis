@@ -12,6 +12,8 @@ import org.hibernate.type.descriptor.jdbc.internal.AbstractJavaTimeJdbcType;
 import org.hibernate.type.descriptor.jdbc.internal.JdbcLiteralFormatterTemporal;
 
 import jakarta.persistence.TemporalType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Descriptor for handling {@linkplain LocalTime} directly through the JDBC driver
@@ -26,16 +28,19 @@ public class LocalTimeJdbcType extends AbstractJavaTimeJdbcType<LocalTime> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getJdbcTypeCode() {
 		return SqlTypes.LOCAL_TIME;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getDdlTypeCode() {
 		return SqlTypes.TIME;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> JdbcLiteralFormatter<T> getJdbcLiteralFormatter(JavaType<T> javaType) {
 		return new JdbcLiteralFormatterTemporal<>( javaType, TemporalType.TIME );
 	}

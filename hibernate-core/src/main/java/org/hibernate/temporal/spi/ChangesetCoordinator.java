@@ -8,6 +8,8 @@ import org.hibernate.Incubating;
 import org.hibernate.cfg.StateManagementSettings;
 import org.hibernate.dialect.Dialect;
 import org.hibernate.service.Service;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -43,6 +45,7 @@ public interface ChangesetCoordinator extends Service {
 	/**
 	 * The Java type of the changeset identifiers or timestamps.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Class<?> getIdentifierType();
 
 	/**
@@ -51,6 +54,7 @@ public interface ChangesetCoordinator extends Service {
 	 *
 	 * @see StateManagementSettings#CHANGESET_ID_SUPPLIER
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ChangesetIdentifierSupplier<?> getIdentifierSupplier();
 
 	/**
@@ -63,11 +67,13 @@ public interface ChangesetCoordinator extends Service {
 	 * @see StateManagementSettings#USE_SERVER_TRANSACTION_TIMESTAMPS
 	 * @see Dialect#isCurrentTimestampStable()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean useServerTimestamp(Dialect dialect);
 
 	/**
 	 * Whether the changeset identifiers are actually timestamps.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isIdentifierTypeInstant();
 
 	/**
@@ -82,6 +88,7 @@ public interface ChangesetCoordinator extends Service {
 	 * @param identifierType the Java type of changeset identifiers
 	 *        produced by the supplier
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <T> void contributeIdentifierSupplier(ChangesetIdentifierSupplier<T> supplier, Class<T> identifierType) {
 	}
 }

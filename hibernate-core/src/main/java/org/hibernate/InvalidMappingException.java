@@ -5,6 +5,8 @@
 package org.hibernate;
 
 import org.hibernate.boot.jaxb.Origin;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Thrown when a mapping is found to be invalid.
@@ -56,10 +58,12 @@ public class InvalidMappingException extends MappingException {
 		this( customMessage, origin.getType().getLegacyTypeText(), origin.getName() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getType() {
 		return type;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getPath() {
 		return path;
 	}

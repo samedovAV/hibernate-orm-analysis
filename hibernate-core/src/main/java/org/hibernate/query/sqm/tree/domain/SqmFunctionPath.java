@@ -28,6 +28,8 @@ import jakarta.persistence.metamodel.Type;
 
 
 import static java.util.Arrays.asList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class SqmFunctionPath<T> extends AbstractSqmPath<T> {
 	private final SqmFunction<?> function;
@@ -46,6 +48,7 @@ public class SqmFunctionPath<T> extends AbstractSqmPath<T> {
 		this.function = function;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static <X> SqmPathSource<X> determinePathSource(NavigablePath navigablePath, SqmFunction<?> function) {
 		//noinspection unchecked
 		final var nodeType = (SqmBindableType<X>) function.getNodeType();
@@ -86,11 +89,13 @@ public class SqmFunctionPath<T> extends AbstractSqmPath<T> {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmFunction<?> getFunction() {
 		return function;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmFunctionPath<T> copy(SqmCopyContext context) {
 		final var existing = context.getCopy( this );
 		if ( existing != null ) {
@@ -107,6 +112,7 @@ public class SqmFunctionPath<T> extends AbstractSqmPath<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPath<?> resolvePathPart(
 			String name,
 			boolean isTerminal,
@@ -117,6 +123,7 @@ public class SqmFunctionPath<T> extends AbstractSqmPath<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPath<?> resolveIndexedAccess(
 			SqmExpression<?> selector,
 			boolean isTerminal,
@@ -146,34 +153,40 @@ public class SqmFunctionPath<T> extends AbstractSqmPath<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> X accept(SemanticQueryWalker<X> walker) {
 		return walker.visitFunctionPath( this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void appendHqlString(StringBuilder hql, SqmRenderContext context) {
 		function.appendHqlString( hql, context );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends T> SqmTreatedPath<T,S> treatAs(@Nonnull Class<S> treatJavaType) {
 		throw new TreatException( "Embeddable paths cannot be TREAT-ed" );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends T> SqmTreatedPath<T,S> treatAs(@Nonnull EntityDomainType<S> treatTarget) {
 		throw new TreatException( "Embeddable paths cannot be TREAT-ed" );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean equals(@Nullable Object object) {
 		return super.equals( object )
 			&& function.equals( ((SqmFunctionPath<?>) object).function );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int hashCode() {
 		int result = super.hashCode();
 		result = 31 * result + function.hashCode();
@@ -181,12 +194,14 @@ public class SqmFunctionPath<T> extends AbstractSqmPath<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isCompatible(Object object) {
 		return super.isCompatible( object )
 			&& function.isCompatible( ((SqmFunctionPath<?>) object).function );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int cacheHashCode() {
 		int result = super.cacheHashCode();
 		result = 31 * result + function.cacheHashCode();

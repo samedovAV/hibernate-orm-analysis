@@ -19,6 +19,8 @@ import org.hibernate.query.sql.spi.NativeQueryImplementor;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Set;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -46,57 +48,68 @@ public class NativeMutationMementoImpl<T>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSqlString() {
 		return sqlString;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Set<String> getQuerySpaces() {
 		return synchronizationSpaces;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public NativeQueryImplementor<T> toMutationQuery(SharedSessionContractImplementor session) {
 		return toMutationQuery( session, queryType );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> NativeQueryImplementor<X> toMutationQuery(SharedSessionContractImplementor session, Class<X> targetType) {
 		//noinspection unchecked,rawtypes
 		return new NativeQueryImpl( this, session );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NativeQueryImplementor<T> toQuery(SharedSessionContractImplementor session) {
 		return toMutationQuery( session );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> NativeQueryImplementor<X> toQuery(SharedSessionContractImplementor session, Class<X> resultType) {
 		return toMutationQuery( session, resultType );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> NativeQueryImplementor<X> toQuery(SharedSessionContractImplementor session, String resultSetMapping) {
 		throw new IllegalSelectQueryException( "Not a NamedSelectionMemento", sqlString );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void validate(QueryEngine queryEngine) {
 		// nothing to do
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NamedNativeQueryMemento<T> makeCopy(String name) {
 		return new NativeMutationMementoImpl<>( name, this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SelectionQueryImplementor<T> toSelectionQuery(SharedSessionContractImplementor session) {
 		throw new IllegalSelectQueryException( "Not a NamedSelectionMemento", sqlString );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> SelectionQueryImplementor<X> toSelectionQuery(SharedSessionContractImplementor session, Class<X> javaType) {
 		throw new IllegalSelectQueryException( "Not a NamedSelectionMemento", sqlString );
 	}
@@ -104,16 +117,19 @@ public class NativeMutationMementoImpl<T>
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getResultMappingName() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Integer getFirstResult() {
 		return -1;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Integer getMaxResults() {
 		return -1;
 	}

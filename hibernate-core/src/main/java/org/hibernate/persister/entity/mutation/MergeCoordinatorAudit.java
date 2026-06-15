@@ -9,6 +9,8 @@ import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.generator.values.GeneratedValues;
 import org.hibernate.persister.entity.EntityPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Merge coordinator for audited entities.
@@ -28,6 +30,7 @@ public class MergeCoordinatorAudit extends UpdateCoordinatorAudit {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public GeneratedValues update(
 			Object entity,
 			Object id,

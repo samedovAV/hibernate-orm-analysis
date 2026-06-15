@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.engine.jdbc.internal;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Represents the understood types or styles of formatting.
@@ -35,10 +38,12 @@ public enum FormatStyle {
 		this.formatter = formatter;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Formatter getFormatter() {
 		return formatter;
 	}
@@ -49,6 +54,7 @@ public enum FormatStyle {
 		 */
 		public static final NoFormatImpl INSTANCE = new NoFormatImpl();
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String format(String source) {
 			return source;
 		}

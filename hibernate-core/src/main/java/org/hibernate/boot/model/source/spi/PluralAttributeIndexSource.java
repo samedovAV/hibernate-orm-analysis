@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.boot.model.source.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Highly abstract concept of the index of an "indexed persistent collection".
@@ -13,6 +16,7 @@ package org.hibernate.boot.model.source.spi;
  *
  */
 public interface PluralAttributeIndexSource {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PluralAttributeIndexNature getNature();
 
 	/**
@@ -21,7 +25,9 @@ public interface PluralAttributeIndexSource {
 	 *
 	 * @return The Hibernate type information
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	HibernateTypeSource getTypeInformation();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getXmlNodeName();
 }

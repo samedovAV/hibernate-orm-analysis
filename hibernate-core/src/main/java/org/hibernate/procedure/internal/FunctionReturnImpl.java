@@ -19,6 +19,8 @@ import org.hibernate.sql.exec.internal.JdbcCallRefCursorExtractorImpl;
 import org.hibernate.sql.exec.spi.JdbcCallFunctionReturn;
 
 import jakarta.persistence.ParameterMode;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -42,6 +44,7 @@ class FunctionReturnImpl<T> implements FunctionReturnImplementor<T> {
 	}
 
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static <T> OutputableType<T> resolveOrmType(ProcedureCallImplementor<?> procedureCall, int sqlTypeCode) {
 		final var typeConfiguration = procedureCall.getSession().getFactory().getTypeConfiguration();
 		final var javaType =
@@ -51,6 +54,7 @@ class FunctionReturnImpl<T> implements FunctionReturnImplementor<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcCallFunctionReturn toJdbcFunctionReturn(SharedSessionContractImplementor persistenceContext) {
 		if ( getJdbcTypeCode() == Types.REF_CURSOR ) {
 			return new RefCurserJdbcCallFunctionReturnImpl( new JdbcCallRefCursorExtractorImpl( 1 ) );
@@ -69,51 +73,61 @@ class FunctionReturnImpl<T> implements FunctionReturnImplementor<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getJdbcTypeCode() {
 		return sqlTypeCode;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BindableType<T> getHibernateType() {
 		return ormType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Integer getPosition() {
 		return 1;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ParameterMode getMode() {
 		return ParameterMode.OUT;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<T> getParameterType() {
 		return ormType.getJavaType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void disallowMultiValuedBinding() {
 		// no-op
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applyAnticipatedType(BindableType<?> type) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean allowsMultiValuedBinding() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NamedCallableQueryMemento.ParameterMemento toMemento() {
 		return session -> new FunctionReturnImpl<>( procedureCall, ormType );
 	}

@@ -18,6 +18,8 @@ import org.hibernate.exception.spi.SQLExceptionConversionDelegate;
 import org.hibernate.internal.util.ValueHolder;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.spi.ServiceException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Template (as in template pattern) support for {@link ConnectionCreator} implementors.
@@ -50,11 +52,13 @@ public abstract class BasicConnectionCreator implements ConnectionCreator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getUrl() {
 		return url;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Connection createConnection() {
 		final Connection conn = makeConnection( url, connectionProps );
 		if ( conn == null ) {
@@ -112,6 +116,7 @@ public abstract class BasicConnectionCreator implements ConnectionCreator {
 				);
 
 				@Override
+				@Prove(complexity = Complexity.O_N, n = "", count = {})
 				public JDBCException convert(SQLException sqlException, String message, String sql) {
 					JDBCException exception = sqlStateDelegate.convert( sqlException, message, sql );
 					if ( exception == null ) {
@@ -124,6 +129,7 @@ public abstract class BasicConnectionCreator implements ConnectionCreator {
 			}
 	);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected JDBCException convertSqlException(String message, SQLException e) {
 		final String fullMessage = message + " [" + e.getMessage() + "]";
 		try {
@@ -142,11 +148,13 @@ public abstract class BasicConnectionCreator implements ConnectionCreator {
 		return simpleConverterAccess.getValue().convert( e, fullMessage, null );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract Connection makeConnection(String url, Properties connectionProps);
 
 	/**
 	 * Exposed for testing purposes only.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Properties getConnectionProperties() {
 		return new Properties( connectionProps );
 	}

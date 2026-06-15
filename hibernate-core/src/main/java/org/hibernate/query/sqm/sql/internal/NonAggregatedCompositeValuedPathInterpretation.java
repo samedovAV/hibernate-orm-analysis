@@ -16,6 +16,8 @@ import org.hibernate.sql.ast.tree.from.TableGroup;
 import jakarta.annotation.Nullable;
 
 import static org.hibernate.query.sqm.internal.SqmUtil.determineAffectedTableName;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Andrea Boriero
@@ -24,6 +26,7 @@ public class NonAggregatedCompositeValuedPathInterpretation<T>
 		extends AbstractSqmPathInterpretation<T>
 		implements SqlTupleContainer {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <T> NonAggregatedCompositeValuedPathInterpretation<T> from(
 			NonAggregatedCompositeSimplePath<T> sqmPath,
 			SqmToSqlAstConverter converter,
@@ -65,21 +68,25 @@ public class NonAggregatedCompositeValuedPathInterpretation<T>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqlTuple getSqlExpression() {
 		return sqlExpression;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable String getAffectedTableName() {
 		return affectedTableName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void accept(SqlAstWalker sqlTreeWalker) {
 		sqlExpression.accept( sqlTreeWalker );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqlTuple getSqlTuple() {
 		return sqlExpression;
 	}

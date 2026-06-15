@@ -8,6 +8,8 @@ import jakarta.annotation.Nonnull;
 import org.hibernate.metamodel.model.domain.EntityDomainType;
 import org.hibernate.metamodel.model.domain.ManagedDomainType;
 import org.hibernate.query.criteria.JpaTreatedPath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @param <T> The type of the treat source
@@ -17,17 +19,21 @@ import org.hibernate.query.criteria.JpaTreatedPath;
  */
 public interface SqmTreatedPath<T, S extends T> extends JpaTreatedPath<T,S>, SqmPathWrapper<T, S> {
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ManagedDomainType<S> getTreatTarget();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqmPath<T> getWrappedPath();
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<S1 extends S> SqmTreatedPath<S, S1> treatAs(@Nonnull Class<S1> treatJavaType);
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<S1 extends S> SqmTreatedPath<S, S1> treatAs(@Nonnull EntityDomainType<S1> treatTarget);
 
 }

@@ -15,6 +15,8 @@ import org.hibernate.sql.ast.tree.from.TableReference;
 import org.hibernate.sql.ast.tree.predicate.Predicate;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Metadata about audit log tables for entities and collections enabled for audit logging.
@@ -29,6 +31,7 @@ public interface AuditMapping extends AuxiliaryMapping {
 	/**
 	 * Get the changeset ID selectable mapping for the given original table.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectableMapping getChangesetIdMapping(String originalTableName);
 
 	/**
@@ -36,6 +39,7 @@ public interface AuditMapping extends AuxiliaryMapping {
 	 * or {@code null} if the table does not carry a modification type column.
 	 */
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectableMapping getModificationTypeMapping(String originalTableName);
 
 	/**
@@ -43,11 +47,13 @@ public interface AuditMapping extends AuxiliaryMapping {
 	 * or {@code null} if the validity audit strategy is not active.
 	 */
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectableMapping getInvalidatingChangesetIdMapping(String originalTableName);
 
 	/**
 	 * Get the entity loader for single-entity audit queries.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	AuditEntityLoader getEntityLoader();
 
 	/**
@@ -59,6 +65,7 @@ public interface AuditMapping extends AuxiliaryMapping {
 	 *
 	 * @param includeDeletions if {@code true}, omit the {@code REVTYPE <> DEL} filter
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Predicate createRestriction(
 			TableGroupProducer tableGroupProducer,
 			TableReference tableReference,

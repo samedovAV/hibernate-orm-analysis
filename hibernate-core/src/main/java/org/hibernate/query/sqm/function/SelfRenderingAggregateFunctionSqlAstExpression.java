@@ -14,6 +14,8 @@ import org.hibernate.sql.ast.spi.SqlAppender;
 import org.hibernate.sql.ast.tree.SqlAstNode;
 import org.hibernate.sql.ast.tree.expression.AggregateFunctionExpression;
 import org.hibernate.sql.ast.tree.predicate.Predicate;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Representation of an aggregate function call in the SQL AST for impls that know how to
@@ -38,11 +40,13 @@ public class SelfRenderingAggregateFunctionSqlAstExpression<T> extends SelfRende
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Predicate getFilter() {
 		return filter;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void renderToSql(
 			SqlAppender sqlAppender,
 			SqlAstTranslator<?> walker,

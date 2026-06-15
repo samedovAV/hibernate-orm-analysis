@@ -38,6 +38,8 @@ import org.hibernate.sql.results.graph.FetchParent;
 import org.hibernate.sql.results.graph.basic.BasicFetch;
 import org.hibernate.sql.results.graph.basic.BasicResult;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -100,156 +102,187 @@ public class AnonymousTupleBasicValuedModelPart implements OwnedValuedModelPart,
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MappingType getPartMappingType() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<?> getJavaType() {
 		return expressible.getExpressibleJavaType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<?> getMappedJavaType() {
 		return expressible.getExpressibleJavaType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MappingType getDeclaringType() {
 		return declaringType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getPartName() {
 		return partName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigableRole getNavigableRole() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityMappingType findContainingEntityMapping() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getSelectableName() {
 		return selectableMapping.getSelectableName();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SelectablePath getSelectablePath() {
 		return selectableMapping.getSelectablePath();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getWriteExpression() {
 		return selectableMapping.getWriteExpression();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcMapping getJdbcMapping() {
 		return selectableMapping.getJdbcMapping();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getContainingTableExpression() {
 		return selectableMapping.getContainingTableExpression();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getSelectionExpression() {
 		return selectableMapping.getSelectionExpression();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nullable String getCustomReadExpression() {
 		return selectableMapping.getCustomReadExpression();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nullable String getCustomWriteExpression() {
 		return selectableMapping.getCustomWriteExpression();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isFormula() {
 		return selectableMapping.isFormula();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isNullable() {
 		return selectableMapping.isNullable();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isInsertable() {
 		return selectableMapping.isInsertable();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isUpdateable() {
 		return selectableMapping.isUpdateable();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isPartitioned() {
 		return selectableMapping.isPartitioned();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasPartitionedSelectionMapping() {
 		return selectableMapping.isPartitioned();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nullable Long getLength() {
 		return selectableMapping.getLength();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nullable Integer getArrayLength() {
 		return selectableMapping.getArrayLength();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nullable Integer getPrecision() {
 		return selectableMapping.getPrecision();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nullable Integer getScale() {
 		return selectableMapping.getScale();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nullable Integer getTemporalPrecision() {
 		return selectableMapping.getTemporalPrecision();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MappingType getMappedType() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getFetchableName() {
 		return partName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getFetchableKey() {
 		return fetchableIndex;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchOptions getMappedFetchOptions() {
 		return FETCH_OPTIONS;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> DomainResult<T> createDomainResult(
 			NavigablePath navigablePath,
 			TableGroup tableGroup,
@@ -272,6 +305,7 @@ public class AnonymousTupleBasicValuedModelPart implements OwnedValuedModelPart,
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private SqlSelection resolveSqlSelection(
 			NavigablePath navigablePath,
 			TableGroup tableGroup,
@@ -293,6 +327,7 @@ public class AnonymousTupleBasicValuedModelPart implements OwnedValuedModelPart,
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BasicFetch<?> generateFetch(
 			FetchParent fetchParent,
 			NavigablePath fetchablePath,
@@ -325,6 +360,7 @@ public class AnonymousTupleBasicValuedModelPart implements OwnedValuedModelPart,
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applySqlSelections(
 			NavigablePath navigablePath,
 			TableGroup tableGroup,
@@ -333,6 +369,7 @@ public class AnonymousTupleBasicValuedModelPart implements OwnedValuedModelPart,
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applySqlSelections(
 			NavigablePath navigablePath,
 			TableGroup tableGroup,
@@ -345,6 +382,7 @@ public class AnonymousTupleBasicValuedModelPart implements OwnedValuedModelPart,
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X, Y> int forEachDisassembledJdbcValue(
 			Object value,
 			int offset,
@@ -357,12 +395,14 @@ public class AnonymousTupleBasicValuedModelPart implements OwnedValuedModelPart,
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int forEachJdbcType(int offset, IndexedConsumer<JdbcMapping> action) {
 		action.accept( offset, getJdbcMapping() );
 		return getJdbcTypeCount();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X, Y> int breakDownJdbcValues(
 			Object domainValue,
 			int offset,
@@ -375,11 +415,13 @@ public class AnonymousTupleBasicValuedModelPart implements OwnedValuedModelPart,
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object disassemble(Object value, SharedSessionContractImplementor session) {
 		return value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addToCacheKey(MutableCacheKeyBuilder cacheKey, Object value, SharedSessionContractImplementor session) {
 		if ( value == null ) {
 			return;
@@ -389,6 +431,7 @@ public class AnonymousTupleBasicValuedModelPart implements OwnedValuedModelPart,
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X, Y> int forEachJdbcValue(
 			Object value,
 			int offset,
@@ -401,12 +444,14 @@ public class AnonymousTupleBasicValuedModelPart implements OwnedValuedModelPart,
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int forEachSelectable(int offset, SelectableConsumer consumer) {
 		consumer.accept( offset, this );
 		return getJdbcTypeCount();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int forEachJdbcType(IndexedConsumer<JdbcMapping> action) {
 		action.accept( 0, getJdbcMapping() );
 		return getJdbcTypeCount();

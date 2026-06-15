@@ -6,6 +6,8 @@ package org.hibernate.sql.results.graph;
 
 import org.hibernate.spi.NavigablePath;
 import org.hibernate.sql.ast.tree.from.TableGroup;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for model-parts which contribute to their container's
@@ -20,6 +22,7 @@ public interface DatabaseSnapshotContributor extends Fetchable {
 	 * <p>
 	 * By default, simply use {@link #createDomainResult}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <T> DomainResult<T> createSnapshotDomainResult(
 			NavigablePath navigablePath,
 			TableGroup parentTableGroup,

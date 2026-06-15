@@ -18,6 +18,8 @@ import org.hibernate.sql.model.MutationTarget;
 import org.hibernate.sql.model.TableMapping;
 import org.hibernate.sql.model.ValuesAnalysis;
 import org.hibernate.sql.model.jdbc.JdbcMutationOperation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base {@link TableMutation} support
@@ -44,36 +46,44 @@ public abstract class AbstractTableMutation<O extends MutationOperation>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		final String type = isCustomSql() ? "custom-sql" : "generated";
 		return getLoggableName() + "(" + getMutationTarget().getRolePath() + " : " + type + ")";
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCustomSql() {
 		return this instanceof CustomSqlMutation;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract String getLoggableName();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutatingTableReference getMutatingTable() {
 		return mutatingTable;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutationTarget<?,?> getMutationTarget() {
 		return mutationTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getMutationComment() {
 		return sqlComment;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<ColumnValueParameter> getParameters() {
 		return parameters;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void forEachParameter(Consumer<ColumnValueParameter> consumer) {
 		if ( parameters == null ) {
 			return;
@@ -84,6 +94,7 @@ public abstract class AbstractTableMutation<O extends MutationOperation>
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected static  <T> void forEachThing(List<T> list, BiConsumer<Integer,T> action) {
 		if ( list == null ) {
 			return;
@@ -95,6 +106,7 @@ public abstract class AbstractTableMutation<O extends MutationOperation>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public O createMutationOperation(ValuesAnalysis valuesAnalysis, SessionFactoryImplementor factory) {
 		final SqlAstTranslatorFactory sqlAstTranslatorFactory = factory
 				.getJdbcServices()
@@ -114,6 +126,7 @@ public abstract class AbstractTableMutation<O extends MutationOperation>
 	 * Intended for use from {@link SqlAstTranslator}
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final O createMutationOperation(String sql, List<JdbcParameterBinder> parameterBinders) {
 		return createMutationOperation( getMutatingTable().getTableMapping(), sql, parameterBinders );
 	}
@@ -123,6 +136,7 @@ public abstract class AbstractTableMutation<O extends MutationOperation>
 	 *
 	 * @param effectiveBinders The parameter binders effective for this table mutation
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract O createMutationOperation(
 			TableMapping tableDetails,
 			String sql,

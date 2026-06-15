@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.boot.model.naming;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Used to help determine the implicit name of columns which are part of a primary-key,
@@ -20,6 +23,7 @@ public interface ImplicitPrimaryKeyJoinColumnNameSource extends ImplicitNameSour
 	 *
 	 * @return The referenced table name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier getReferencedTableName();
 
 	/**
@@ -28,5 +32,6 @@ public interface ImplicitPrimaryKeyJoinColumnNameSource extends ImplicitNameSour
 	 *
 	 * @return The referenced primary key column name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier getReferencedPrimaryKeyColumnName();
 }

@@ -23,6 +23,8 @@ import jakarta.annotation.Nullable;
 
 import static java.lang.String.CASE_INSENSITIVE_ORDER;
 import static org.hibernate.query.sqm.produce.function.StandardFunctionReturnTypeResolvers.useArgType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Defines a registry for {@link SqmFunctionDescriptor} instances.
@@ -44,6 +46,7 @@ public class SqmFunctionRegistry {
 	public SqmFunctionRegistry() {
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Set<String> getValidFunctionKeys() {
 		return functionMap.unmodifiableKeySet();
 	}
@@ -51,6 +54,7 @@ public class SqmFunctionRegistry {
 	/**
 	 * Useful for diagnostics - not efficient: do not use in production code.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Stream<Map.Entry<String, SqmFunctionDescriptor>> getFunctionsByName() {
 		final Map<String, SqmFunctionDescriptor> sortedFunctionMap = new TreeMap<>( CASE_INSENSITIVE_ORDER );
 		for ( var entry : functionMap.unmodifiableEntrySet() ) {
@@ -65,6 +69,7 @@ public class SqmFunctionRegistry {
 	/**
 	 * Useful for diagnostics - not efficient: do not use in production code.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Stream<Map.Entry<String, SqmSetReturningFunctionDescriptor>> getSetReturningFunctionsByName() {
 		final Map<String, SqmSetReturningFunctionDescriptor> sortedFunctionMap = new TreeMap<>( CASE_INSENSITIVE_ORDER );
 		for ( var entry : setReturningFunctionMap.unmodifiableEntrySet() ) {
@@ -80,6 +85,7 @@ public class SqmFunctionRegistry {
 	 * Find a {@link SqmFunctionDescriptor} by name.
 	 * Returns {@code null} if no such function is found.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable SqmFunctionDescriptor findFunctionDescriptor(String functionName) {
 		final String alternateKeyResolution = alternateKeyMap.get( functionName );
 		if ( alternateKeyResolution != null ) {
@@ -96,6 +102,7 @@ public class SqmFunctionRegistry {
 	 *
 	 * @throws NoSuchElementException if no such function is found
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmFunctionDescriptor getFunctionDescriptor(String functionName) {
 		final var functionDescriptor = findFunctionDescriptor( functionName );
 		if ( functionDescriptor == null ) {
@@ -108,6 +115,7 @@ public class SqmFunctionRegistry {
 	 * Find a {@link SqmSetReturningFunctionDescriptor} by name.
 	 * Returns {@code null} if no such function is found.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable SqmSetReturningFunctionDescriptor findSetReturningFunctionDescriptor(String functionName) {
 		final String alternateKeyResolution = alternateKeyMap.get( functionName );
 		if ( alternateKeyResolution != null ) {
@@ -124,6 +132,7 @@ public class SqmFunctionRegistry {
 	 *
 	 * @throws NoSuchElementException if no such function is found
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmSetReturningFunctionDescriptor getSetReturningFunctionDescriptor(String functionName) {
 		final var functionDescriptor = findSetReturningFunctionDescriptor( functionName );
 		if ( functionDescriptor == null ) {
@@ -135,6 +144,7 @@ public class SqmFunctionRegistry {
 	/**
 	 * Register a function descriptor by name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmFunctionDescriptor register(String registrationKey, SqmFunctionDescriptor function) {
 		functionMap.put( registrationKey, function );
 		alternateKeyMap.remove( registrationKey );
@@ -144,6 +154,7 @@ public class SqmFunctionRegistry {
 	/**
 	 * Register a set-returning function descriptor by name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmSetReturningFunctionDescriptor register(String registrationKey, SqmSetReturningFunctionDescriptor function) {
 		setReturningFunctionMap.put( registrationKey, function );
 		alternateKeyMap.remove( registrationKey );
@@ -154,6 +165,7 @@ public class SqmFunctionRegistry {
 	 * Register a pattern-based descriptor by name.  Shortcut for building the descriptor
 	 * via {@link #patternDescriptorBuilder} accepting its defaults.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmFunctionDescriptor registerPattern(String name, String pattern) {
 		return patternDescriptorBuilder( name, pattern ).register();
 	}
@@ -162,6 +174,7 @@ public class SqmFunctionRegistry {
 	 * Register a pattern-based descriptor by name and invariant return type.  Shortcut for building the descriptor
 	 * via {@link #patternDescriptorBuilder} accepting its defaults.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmFunctionDescriptor registerPattern(String name, String pattern, BasicType<?> returnType) {
 		return patternDescriptorBuilder( name, pattern )
 				.setInvariantType( returnType )
@@ -176,6 +189,7 @@ public class SqmFunctionRegistry {
 	 *
 	 * @return The builder
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PatternFunctionDescriptorBuilder patternDescriptorBuilder(String registrationKey, String pattern) {
 		return new PatternFunctionDescriptorBuilder( this, registrationKey, FunctionKind.NORMAL, pattern );
 	}
@@ -188,6 +202,7 @@ public class SqmFunctionRegistry {
 	 *
 	 * @return The builder
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PatternFunctionDescriptorBuilder patternAggregateDescriptorBuilder(String registrationKey, String pattern) {
 		return new PatternFunctionDescriptorBuilder( this, registrationKey, FunctionKind.AGGREGATE, pattern );
 	}
@@ -199,6 +214,7 @@ public class SqmFunctionRegistry {
 	 *
 	 * @param name The function name (and registration key)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmFunctionDescriptor registerNamed(String name) {
 		return namedDescriptorBuilder( name ).register();
 	}
@@ -210,6 +226,7 @@ public class SqmFunctionRegistry {
 	 *
 	 * @param name The function name (and registration key)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmFunctionDescriptor registerNamed(String name, BasicType<?> returnType) {
 		return namedDescriptorBuilder( name, name ).setInvariantType( returnType ).register();
 	}
@@ -223,6 +240,7 @@ public class SqmFunctionRegistry {
 	 *
 	 * @return The builder
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public NamedFunctionDescriptorBuilder namedDescriptorBuilder(String name) {
 		return namedDescriptorBuilder( name, name );
 	}
@@ -236,6 +254,7 @@ public class SqmFunctionRegistry {
 	 *
 	 * @return The builder
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public NamedFunctionDescriptorBuilder namedAggregateDescriptorBuilder(String name) {
 		return namedAggregateDescriptorBuilder( name, name );
 	}
@@ -249,6 +268,7 @@ public class SqmFunctionRegistry {
 	 *
 	 * @return The builder
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public NamedFunctionDescriptorBuilder namedOrderedSetAggregateDescriptorBuilder(String name) {
 		return namedOrderedSetAggregateDescriptorBuilder( name, name );
 	}
@@ -262,6 +282,7 @@ public class SqmFunctionRegistry {
 	 *
 	 * @return The builder
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public NamedFunctionDescriptorBuilder namedWindowDescriptorBuilder(String name) {
 		return namedWindowDescriptorBuilder( name, name );
 	}
@@ -276,6 +297,7 @@ public class SqmFunctionRegistry {
 	 *
 	 * @return The builder
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public NamedSetReturningFunctionDescriptorBuilder namedSetReturningDescriptorBuilder(
 			String name,
 			SetReturningFunctionTypeResolver typeResolver) {
@@ -290,6 +312,7 @@ public class SqmFunctionRegistry {
 	 *
 	 * @return The builder
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NamedFunctionDescriptorBuilder namedDescriptorBuilder(String registrationKey, String name) {
 		return new NamedFunctionDescriptorBuilder( this, registrationKey, FunctionKind.NORMAL, name );
 	}
@@ -302,6 +325,7 @@ public class SqmFunctionRegistry {
 	 *
 	 * @return The builder
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NamedFunctionDescriptorBuilder namedAggregateDescriptorBuilder(String registrationKey, String name) {
 		return new NamedFunctionDescriptorBuilder( this, registrationKey, FunctionKind.AGGREGATE, name );
 	}
@@ -314,6 +338,7 @@ public class SqmFunctionRegistry {
 	 *
 	 * @return The builder
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NamedFunctionDescriptorBuilder namedOrderedSetAggregateDescriptorBuilder(String registrationKey, String name) {
 		return new NamedFunctionDescriptorBuilder( this, registrationKey, FunctionKind.ORDERED_SET_AGGREGATE, name );
 	}
@@ -326,6 +351,7 @@ public class SqmFunctionRegistry {
 	 *
 	 * @return The builder
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NamedFunctionDescriptorBuilder namedWindowDescriptorBuilder(String registrationKey, String name) {
 		return new NamedFunctionDescriptorBuilder( this, registrationKey, FunctionKind.WINDOW, name );
 	}
@@ -339,6 +365,7 @@ public class SqmFunctionRegistry {
 	 *
 	 * @return The builder
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NamedSetReturningFunctionDescriptorBuilder namedSetReturningDescriptorBuilder(
 			String registrationKey,
 			String name,
@@ -346,10 +373,12 @@ public class SqmFunctionRegistry {
 		return new NamedSetReturningFunctionDescriptorBuilder( this, registrationKey, name, typeResolver );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public NamedFunctionDescriptorBuilder noArgsBuilder(String name) {
 		return noArgsBuilder( name, name );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NamedFunctionDescriptorBuilder noArgsBuilder(String registrationKey, String name) {
 		return namedDescriptorBuilder( registrationKey, name )
 				.setExactArgumentCount( 0 );
@@ -363,30 +392,36 @@ public class SqmFunctionRegistry {
 	 *
 	 * @param name The function name (and registration key)
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmFunctionDescriptor registerNoArgs(String name) {
 		return registerNoArgs( name, name );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmFunctionDescriptor registerNoArgs(String registrationKey, String name) {
 		return noArgsBuilder( registrationKey, name ).register();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmFunctionDescriptor registerNoArgs(String name, BasicType<?> returnType) {
 		return registerNoArgs( name, name, returnType );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmFunctionDescriptor registerNoArgs(String registrationKey, String name, BasicType<?> returnType) {
 		return noArgsBuilder( registrationKey, name )
 				.setInvariantType( returnType )
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmFunctionDescriptor wrapInJdbcEscape(String name, SqmFunctionDescriptor wrapped) {
 		final var wrapperTemplate = new JdbcEscapeFunctionDescriptor( name, wrapped );
 		register( name, wrapperTemplate );
 		return wrapperTemplate;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void registerAlternateKey(String alternateKey, String mappedKey) {
 		assert functionMap.containsKey( mappedKey );
 		alternateKeyMap.put( alternateKey, mappedKey );
@@ -397,6 +432,7 @@ public class SqmFunctionRegistry {
 	 *
 	 * i.e. a function which accepts 0-1 arguments.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MultipatternSqmFunctionDescriptor registerNullaryUnaryPattern(
 			String name,
 			BasicType<?> type,
@@ -419,6 +455,7 @@ public class SqmFunctionRegistry {
 	 *
 	 * i.e. a function which accepts 1-2 arguments.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MultipatternSqmFunctionDescriptor registerUnaryBinaryPattern(
 			String name,
 			String pattern1,
@@ -440,6 +477,7 @@ public class SqmFunctionRegistry {
 	 *
 	 * i.e. a function which accepts 1-2 arguments.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MultipatternSqmFunctionDescriptor registerUnaryBinaryPattern(
 			String name,
 			BasicType<?> type,
@@ -464,6 +502,7 @@ public class SqmFunctionRegistry {
 	 *
 	 * i.e. a function which accepts 2-3 arguments.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MultipatternSqmFunctionDescriptor registerBinaryTernaryPattern(
 			String name,
 			BasicType<?> type,
@@ -490,6 +529,7 @@ public class SqmFunctionRegistry {
 	 *
 	 * i.e. a function which accepts 3-4 arguments.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MultipatternSqmFunctionDescriptor registerTernaryQuaternaryPattern(
 			String name,
 			BasicType<?> type,
@@ -518,6 +558,7 @@ public class SqmFunctionRegistry {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private MultipatternSqmFunctionDescriptor registerPatterns(
 			String name,
 			FunctionParameterType[] parameterTypes,
@@ -542,6 +583,7 @@ public class SqmFunctionRegistry {
 		return function;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private MultipatternSqmFunctionDescriptor registerPatterns(
 			String name,
 			BasicType<?> type,
@@ -571,6 +613,7 @@ public class SqmFunctionRegistry {
 	 * Overlay the functions registered here on top of the
 	 * incoming registry, potentially overriding its registrations
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void overlay(SqmFunctionRegistry registryToOverly) {
 		// NOTE: done in this "direction" as it is easier to access the
 		//		 functionMap directly in performing this operation
@@ -578,6 +621,7 @@ public class SqmFunctionRegistry {
 		alternateKeyMap.forEach( registryToOverly::registerAlternateKey );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void close() {
 		functionMap.clear();
 		alternateKeyMap.clear();

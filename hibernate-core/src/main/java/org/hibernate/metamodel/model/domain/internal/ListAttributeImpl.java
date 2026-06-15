@@ -17,6 +17,8 @@ import org.hibernate.query.sqm.tree.domain.SqmListJoin;
 import org.hibernate.query.sqm.tree.domain.SqmListPersistentAttribute;
 import org.hibernate.query.sqm.tree.from.SqmAttributeJoin;
 import org.hibernate.query.sqm.tree.from.SqmFrom;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -39,16 +41,19 @@ public class ListAttributeImpl<X, E>
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionType getCollectionType() {
 		return CollectionType.LIST;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPathSource<Integer> getIndexPathSource() {
 		return indexPathSource;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nullable SqmPathSource<?> findSubPathSource(String name) {
 		final CollectionPart.Nature nature = CollectionPart.Nature.fromNameExact( name );
 		if ( nature != null ) {
@@ -63,6 +68,7 @@ public class ListAttributeImpl<X, E>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nullable SqmPathSource<?> findSubPathSource(String name, boolean includeSubtypes) {
 		return CollectionPart.Nature.INDEX.getName().equals( name )
 				? indexPathSource
@@ -70,6 +76,7 @@ public class ListAttributeImpl<X, E>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPathSource<?> getIntermediatePathSource(SqmPathSource<?> pathSource) {
 		final String pathName = pathSource.getPathName();
 		return pathName.equals( getElementPathSource().getPathName() )
@@ -77,6 +84,7 @@ public class ListAttributeImpl<X, E>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmAttributeJoin<X,E> createSqmJoin(
 			SqmFrom<?,X> lhs,
 			SqmJoinType joinType,

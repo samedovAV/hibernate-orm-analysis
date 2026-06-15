@@ -5,6 +5,8 @@
 package org.hibernate.engine.jdbc.proxy;
 
 import java.sql.Blob;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for {@link Blob} wrappers.
@@ -17,5 +19,6 @@ public interface WrappedBlob {
 	 *
 	 * @return The wrapped {@link Blob} reference
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Blob getWrappedBlob();
 }

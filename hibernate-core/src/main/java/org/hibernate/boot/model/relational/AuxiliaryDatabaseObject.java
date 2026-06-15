@@ -7,6 +7,8 @@ package org.hibernate.boot.model.relational;
 import java.io.Serializable;
 
 import org.hibernate.dialect.Dialect;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An auxiliary database object is a trigger, function, stored procedure,
@@ -25,6 +27,7 @@ public interface AuxiliaryDatabaseObject extends Exportable, Serializable {
 	 * @param dialect The dialect to check against.
 	 * @return True if this database object does apply to the given dialect.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean appliesToDialect(Dialect dialect);
 
 	/**
@@ -42,6 +45,7 @@ public interface AuxiliaryDatabaseObject extends Exportable, Serializable {
 	 * @return {@code true} indicates this object should be created before tables;
 	 *         {@code false} indicates it should be created after tables.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean beforeTablesOnCreation();
 
 	/**
@@ -51,6 +55,7 @@ public interface AuxiliaryDatabaseObject extends Exportable, Serializable {
 	 *
 	 * @return the SQL strings for creating the database object.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String[] sqlCreateStrings(SqlStringGenerationContext context);
 
 	/**
@@ -60,6 +65,7 @@ public interface AuxiliaryDatabaseObject extends Exportable, Serializable {
 	 *
 	 * @return the SQL strings for dropping the database object.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String[] sqlDropStrings(SqlStringGenerationContext context);
 
 	/**
@@ -67,6 +73,7 @@ public interface AuxiliaryDatabaseObject extends Exportable, Serializable {
 	 * that want to allow expansion of allowable dialects via mapping.
 	 */
 	interface Expandable {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void addDialectScope(String dialectName);
 	}
 }

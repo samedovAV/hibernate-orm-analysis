@@ -8,6 +8,8 @@ import java.sql.CallableStatement;
 import java.sql.ResultSet;
 
 import org.hibernate.service.Service;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for JDBC REF_CURSOR support.
@@ -23,6 +25,7 @@ public interface RefCursorSupport extends Service {
 	 * @param statement The callable statement.
 	 * @param position The bind position at which to register the output param.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void registerRefCursorParameter(CallableStatement statement, int position);
 
 	/**
@@ -31,6 +34,7 @@ public interface RefCursorSupport extends Service {
 	 * @param statement The callable statement.
 	 * @param name The parameter name (for drivers which support named parameters).
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void registerRefCursorParameter(CallableStatement statement, String name);
 
 	/**
@@ -43,6 +47,7 @@ public interface RefCursorSupport extends Service {
 	 *
 	 * @return The extracted result set.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ResultSet getResultSet(CallableStatement statement, int position);
 
 	/**
@@ -54,5 +59,6 @@ public interface RefCursorSupport extends Service {
 	 *
 	 * @return The extracted result set.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ResultSet getResultSet(CallableStatement statement, String name);
 }

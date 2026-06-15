@@ -20,6 +20,8 @@ import org.hibernate.engine.jdbc.LobCreator;
 import org.hibernate.internal.util.ReaderInputStream;
 import org.hibernate.engine.jdbc.internal.CharacterStreamImpl;
 import org.hibernate.type.descriptor.java.DataHelper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Manages aspects of proxying {@link Clob}s for non-contextual creation, including proxy creation and
@@ -65,62 +67,74 @@ public class ClobProxy implements Clob, ClobImplementer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long length() {
 		return characterStream.getLength();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public InputStream getAsciiStream() throws SQLException {
 		return new ReaderInputStream( getCharacterStream() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Reader getCharacterStream() throws SQLException {
 		return getUnderlyingStream().asReader();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CharacterStream getUnderlyingStream() {
 		resetIfNeeded();
 		return characterStream;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long position(String searchstr, long start) throws SQLException {
 		return characterStream.asString().indexOf( searchstr, (int) start + 1 );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long position(Clob searchstr, long start) throws SQLException {
 		throw notSupported();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int setString(long pos, String str) throws SQLException {
 		throw notSupported();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int setString(long pos, String str, int offset, int len) throws SQLException {
 		throw notSupported();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public OutputStream setAsciiStream(long pos) {
 		throw notSupported();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Writer setCharacterStream(long pos) {
 		throw notSupported();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void truncate(long len) throws SQLException {
 		throw notSupported();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSubString(long start, int length) throws SQLException {
 		if ( start < 1 ) {
 			throw new SQLException( "Start position 1-based; must be 1 or more." );
@@ -137,6 +151,7 @@ public class ClobProxy implements Clob, ClobImplementer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Reader getCharacterStream(long start, long length) throws SQLException {
 		if ( start < 1 ) {
 			throw new SQLException( "Start position 1-based; must be 1 or more." );
@@ -156,10 +171,12 @@ public class ClobProxy implements Clob, ClobImplementer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void free() throws SQLException {
 		characterStream.release();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void resetIfNeeded() {
 		try {
 			if ( needsReset ) {
@@ -179,6 +196,7 @@ public class ClobProxy implements Clob, ClobImplementer {
 	 *
 	 * @return The generated proxy.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Clob generateProxy(String string) {
 		return new ClobProxy( string );
 	}
@@ -191,10 +209,12 @@ public class ClobProxy implements Clob, ClobImplementer {
 	 *
 	 * @return The generated proxy.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Clob generateProxy(Reader reader, long length) {
 		return new ClobProxy( reader, length );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static UnsupportedOperationException notSupported() {
 		return new UnsupportedOperationException("Clob may not be manipulated from creating session");
 	}

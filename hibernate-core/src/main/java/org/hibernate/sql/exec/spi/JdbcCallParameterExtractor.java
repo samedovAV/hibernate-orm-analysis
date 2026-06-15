@@ -8,6 +8,8 @@ import java.sql.CallableStatement;
 
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.sql.exec.internal.JdbcCallRefCursorExtractorImpl;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Controls extracting values from OUT/INOUT parameters.
@@ -17,9 +19,12 @@ import org.hibernate.sql.exec.internal.JdbcCallRefCursorExtractorImpl;
  * @author Steve Ebersole
  */
 public interface JdbcCallParameterExtractor<T> {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getParameterName();
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getParameterPosition();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	T extractValue(
 			CallableStatement callableStatement,
 			boolean shouldUseJdbcNamedParameters,

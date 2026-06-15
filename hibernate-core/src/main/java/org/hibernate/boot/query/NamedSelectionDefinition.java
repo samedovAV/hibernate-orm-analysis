@@ -11,6 +11,8 @@ import org.hibernate.CacheMode;
 import org.hibernate.LockMode;
 import org.hibernate.Locking;
 import org.hibernate.query.spi.JpaTypedQueryReference;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -20,10 +22,12 @@ import org.hibernate.query.spi.JpaTypedQueryReference;
  */
 public interface NamedSelectionDefinition<R>
 		extends NamedQueryDefinition<R>, JpaTypedQueryReference<R> {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getQueryString();
 
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String getName() {
 		return getRegistrationName();
 	}
@@ -32,27 +36,38 @@ public interface NamedSelectionDefinition<R>
 	 * The expected result type of the query, or {@code null}.
 	 */
 	@Nullable //FIXME: declared @Nonnull by JPA
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Class<R> getResultType();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Boolean getReadOnly();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Boolean getCacheable();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getCacheRegion();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CacheMode getCacheMode();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	LockMode getHibernateLockMode();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PessimisticLockScope getLockScope();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Timeout getLockTimeout();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Locking.FollowOn getFollowOnLockingStrategy();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Integer getFetchSize();
 
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getEntityGraphName();
 }

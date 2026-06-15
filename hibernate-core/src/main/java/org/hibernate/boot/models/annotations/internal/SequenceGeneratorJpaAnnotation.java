@@ -10,6 +10,8 @@ import java.util.Map;
 import org.hibernate.models.spi.ModelsContext;
 
 import jakarta.persistence.SequenceGenerator;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -75,75 +77,90 @@ public class SequenceGeneratorJpaAnnotation implements SequenceGenerator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return SequenceGenerator.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String name() {
 		return name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void name(String value) {
 		this.name = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String sequenceName() {
 		return sequenceName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void sequenceName(String value) {
 		this.sequenceName = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String catalog() {
 		return catalog;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void catalog(String value) {
 		this.catalog = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String schema() {
 		return schema;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void schema(String value) {
 		this.schema = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int initialValue() {
 		return initialValue;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void initialValue(int value) {
 		this.initialValue = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int allocationSize() {
 		return allocationSize;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void allocationSize(int value) {
 		this.allocationSize = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String options() {
 		return options;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void options(String value) {
 		this.options = value;
 	}

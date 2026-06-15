@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.hibernate.annotations.MapKeyCompositeType;
 import org.hibernate.models.spi.ModelsContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -36,15 +38,18 @@ public class MapKeyCompositeTypeAnnotation implements MapKeyCompositeType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return MapKeyCompositeType.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public java.lang.Class<? extends org.hibernate.usertype.CompositeUserType<?>> value() {
 		return value;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void value(java.lang.Class<? extends org.hibernate.usertype.CompositeUserType<?>> value) {
 		this.value = value;
 	}

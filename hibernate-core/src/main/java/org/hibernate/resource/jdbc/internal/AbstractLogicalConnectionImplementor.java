@@ -16,6 +16,8 @@ import org.hibernate.resource.transaction.spi.TransactionStatus;
 
 import static org.hibernate.engine.jdbc.JdbcLogging.JDBC_LOGGER;
 import static org.hibernate.resource.jdbc.internal.LogicalConnectionLogging.CONNECTION_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base support for {@link LogicalConnection} implementations
@@ -28,11 +30,13 @@ public abstract class AbstractLogicalConnectionImplementor implements LogicalCon
 	protected ResourceRegistry resourceRegistry;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PhysicalJdbcTransaction getPhysicalJdbcTransaction() {
 		errorIfClosed();
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void errorIfClosed() {
 		if ( !isOpen() ) {
 			throw new IllegalStateException( this + " is closed" );
@@ -40,28 +44,34 @@ public abstract class AbstractLogicalConnectionImplementor implements LogicalCon
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ResourceRegistry getResourceRegistry() {
 		return resourceRegistry;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void afterStatement() {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void beforeTransactionCompletion() {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void afterTransaction() {
 		resourceRegistry.releaseResources();
 	}
 
 	// PhysicalJdbcTransaction impl ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract Connection getConnectionForTransactionManagement();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void begin() {
 		try {
 			if ( !doConnectionsFromProviderHaveAutoCommitDisabled() ) {
@@ -77,6 +87,7 @@ public abstract class AbstractLogicalConnectionImplementor implements LogicalCon
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void commit() {
 		if ( isPhysicallyConnected() ) {
 			commitConnection();
@@ -88,6 +99,7 @@ public abstract class AbstractLogicalConnectionImplementor implements LogicalCon
 		afterCompletion();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void commitConnection() {
 		try {
 			CONNECTION_LOGGER.preparingToCommitViaConnectionCommit();
@@ -115,10 +127,12 @@ public abstract class AbstractLogicalConnectionImplementor implements LogicalCon
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void afterCompletion() {
 		// by default, nothing to do
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void resetConnection(boolean initiallyAutoCommit) {
 		try {
 			if ( initiallyAutoCommit ) {
@@ -133,6 +147,7 @@ public abstract class AbstractLogicalConnectionImplementor implements LogicalCon
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void rollback() {
 		try {
 			CONNECTION_LOGGER.preparingToRollbackViaConnectionRollback();
@@ -154,6 +169,7 @@ public abstract class AbstractLogicalConnectionImplementor implements LogicalCon
 		afterCompletion();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected static boolean determineInitialAutoCommitMode(Connection providedConnection) {
 		try {
 			return providedConnection.getAutoCommit();
@@ -165,15 +181,18 @@ public abstract class AbstractLogicalConnectionImplementor implements LogicalCon
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TransactionStatus getStatus() {
 		return status;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean doConnectionsFromProviderHaveAutoCommitDisabled() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void markRollbackOnly() {
 		if ( status == TransactionStatus.ACTIVE ) {
 			status = TransactionStatus.MARKED_ROLLBACK;

@@ -74,6 +74,8 @@ import static org.hibernate.event.spi.EventType.PRE_LOAD;
 import static org.hibernate.event.spi.EventType.PRE_UPDATE;
 import static org.hibernate.event.spi.EventType.PRE_UPSERT;
 import static org.hibernate.event.spi.EventType.REFRESH;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard implementation of EventListenerRegistry
@@ -90,6 +92,7 @@ public class EventListenerRegistryImpl implements EventListenerRegistry {
 		this.eventListeners = eventListeners;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> EventListenerGroup<T> getEventListenerGroup(EventType<T> eventType) {
 		if ( eventListeners.length < eventType.ordinal() + 1 ) {
 			// eventType is a custom EventType that has not been registered.
@@ -106,6 +109,7 @@ public class EventListenerRegistryImpl implements EventListenerRegistry {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void addDuplicationStrategy(DuplicationStrategy strategy) {
 		for ( var group : eventListeners ) {
 			if ( group != null ) {
@@ -116,12 +120,14 @@ public class EventListenerRegistryImpl implements EventListenerRegistry {
 
 	@Override
 	@SafeVarargs
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final <T> void setListeners(EventType<T> type, Class<? extends T>... listenerClasses) {
 		setListeners( type, resolveListenerInstances( type, listenerClasses ) );
 	}
 
 	@SafeVarargs
 	@AllowReflection // Possible array types are registered in org.hibernate.graalvm.internal.StaticClassLists.typesNeedingArrayCopy
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private <T> T[] resolveListenerInstances(EventType<T> type, Class<? extends T>... listenerClasses) {
 		@SuppressWarnings("unchecked")
 		final T[] listeners = (T[]) Array.newInstance( type.baseListenerInterface(), listenerClasses.length );
@@ -131,6 +137,7 @@ public class EventListenerRegistryImpl implements EventListenerRegistry {
 		return listeners;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private <T> T resolveListenerInstance(Class<T> listenerClass) {
 		final T listenerInstance = listenerClass.cast( listenerClassToInstanceMap.get( listenerClass ) );
 		if ( listenerInstance == null ) {
@@ -143,6 +150,7 @@ public class EventListenerRegistryImpl implements EventListenerRegistry {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private <T> T instantiateListener(Class<T> listenerClass) {
 		try {
 			//noinspection deprecation
@@ -158,6 +166,7 @@ public class EventListenerRegistryImpl implements EventListenerRegistry {
 
 	@Override
 	@SafeVarargs
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final <T> void setListeners(EventType<T> type, T... listeners) {
 		final var registeredListeners = getEventListenerGroup( type );
 		registeredListeners.clear();
@@ -170,24 +179,28 @@ public class EventListenerRegistryImpl implements EventListenerRegistry {
 
 	@Override
 	@SafeVarargs
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final <T> void appendListeners(EventType<T> type, Class<? extends T>... listenerClasses) {
 		appendListeners( type, resolveListenerInstances( type, listenerClasses ) );
 	}
 
 	@Override
 	@SafeVarargs
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final <T> void appendListeners(EventType<T> type, T... listeners) {
 		getEventListenerGroup( type ).appendListeners( listeners );
 	}
 
 	@Override
 	@SafeVarargs
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final <T> void prependListeners(EventType<T> type, Class<? extends T>... listenerClasses) {
 		prependListeners( type, resolveListenerInstances( type, listenerClasses ) );
 	}
 
 	@Override
 	@SafeVarargs
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final <T> void prependListeners(EventType<T> type, T... listeners) {
 		getEventListenerGroup( type ).prependListeners( listeners );
 	}
@@ -208,6 +221,7 @@ public class EventListenerRegistryImpl implements EventListenerRegistry {
 			applyStandardListeners();
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void applyStandardListeners() {
 			// auto-flush listeners
 			prepareListeners( AUTO_FLUSH, new DefaultAutoFlushEventListener() );
@@ -312,10 +326,12 @@ public class EventListenerRegistryImpl implements EventListenerRegistry {
 
 		}
 
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public <T> void prepareListeners(EventType<T> eventType) {
 			prepareListeners( eventType, null );
 		}
 
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public <T> void prepareListeners(EventType<T> type, T defaultListener) {
 			prepareListeners(
 					type,
@@ -328,6 +344,7 @@ public class EventListenerRegistryImpl implements EventListenerRegistry {
 			);
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		<T> void prepareListeners(
 				EventType<T> type,
 				T defaultListener,
@@ -339,11 +356,13 @@ public class EventListenerRegistryImpl implements EventListenerRegistry {
 			listenerGroupMap.put( type, listenerGroup );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public <T> EventListenerGroup<T> getListenerGroup(EventType<T> eventType) {
 			//noinspection unchecked
 			return (EventListenerGroup<T>) listenerGroupMap.get( eventType );
 		}
 
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public EventListenerRegistry buildRegistry(Map<String, EventType<?>> registeredEventTypes) {
 			// validate contiguity of the event-type ordinals and build the EventListenerGroups array
 			final ArrayList<EventType<?>> eventTypeList =

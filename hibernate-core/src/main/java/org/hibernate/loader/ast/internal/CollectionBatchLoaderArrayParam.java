@@ -36,6 +36,8 @@ import static org.hibernate.loader.ast.internal.MultiKeyLoadHelper.hasSingleId;
 import static org.hibernate.loader.ast.internal.MultiKeyLoadHelper.trimIdBatch;
 import static org.hibernate.loader.ast.internal.MultiKeyLoadLogging.MULTI_KEY_LOAD_LOGGER;
 import static org.hibernate.pretty.MessageHelper.collectionInfoString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * {@link CollectionBatchLoader} using a SQL {@code ARRAY} parameter to pass the key values.
@@ -113,6 +115,7 @@ public class CollectionBatchLoaderArrayParam
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public PersistentCollection<?> load(Object keyBeingLoaded, SharedSessionContractImplementor session) {
 		final var keyDescriptor = getLoadable().getKeyDescriptor();
 		if ( keyDescriptor.isEmbedded()
@@ -126,6 +129,7 @@ public class CollectionBatchLoaderArrayParam
 	}
 
 	@AllowReflection
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private PersistentCollection<?> loadWithConversion(
 			Object keyBeingLoaded,
 			SharedSessionContractImplementor session,
@@ -172,11 +176,13 @@ public class CollectionBatchLoaderArrayParam
 				.getCollection( collectionKey( keyBeingLoaded, session ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private CollectionKey collectionKey(Object keyBeingLoaded, SharedSessionContractImplementor session) {
 		return session.generateCollectionKey( getLoadable().getCollectionDescriptor(), keyBeingLoaded );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void initializeKeys(Object key, Object[] keysToInitialize, SharedSessionContractImplementor session) {
 		if ( MULTI_KEY_LOAD_LOGGER.isTraceEnabled() ) {
 			MULTI_KEY_LOAD_LOGGER.collectionKeysToInitialize(
@@ -210,6 +216,7 @@ public class CollectionBatchLoaderArrayParam
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	void finishInitializingKeys(Object[] keys, SharedSessionContractImplementor session) {
 		for ( Object initializedKey : keys ) {
 			finishInitializingKey( initializedKey, session );
@@ -217,6 +224,7 @@ public class CollectionBatchLoaderArrayParam
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	Object[] resolveKeysToInitialize(Object keyBeingLoaded, SharedSessionContractImplementor session) {
 		assert !getLoadable().getKeyDescriptor().isEmbedded()
 			&& getLoadable().getKeyDescriptor().getKeyPart().getSingleJdbcMapping().getValueConverter() == null

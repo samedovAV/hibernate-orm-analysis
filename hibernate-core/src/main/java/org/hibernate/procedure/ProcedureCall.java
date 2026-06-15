@@ -26,6 +26,8 @@ import org.hibernate.query.SynchronizeableQuery;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Defines support for executing database stored procedures and functions using the
@@ -85,6 +87,7 @@ public interface ProcedureCall
 	 * @return The procedure name.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getProcedureName();
 
 
@@ -93,29 +96,35 @@ public interface ProcedureCall
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall setComment(@Nullable String comment);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall addQueryHint(@Nonnull String hint);
 
 	@Override
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall setMaxResults(int maxResults);
 
 	@Override
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall setFirstResult(int startPosition);
 
 	@Override
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall setLockMode(@Nonnull LockModeType lockMode);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall setQueryFlushMode(@Nonnull QueryFlushMode queryFlushMode);
 
 
@@ -133,6 +142,7 @@ public interface ProcedureCall
 	 * @return {@code true} indicates that this ProcedureCall represents a
 	 *         function call; {@code false} indicates a procedure call.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isFunctionCall();
 
 	/**
@@ -144,6 +154,7 @@ public interface ProcedureCall
 	 * @return {@code this}, for method chaining
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall markAsFunctionCall(int sqlType);
 
 	/**
@@ -156,6 +167,7 @@ public interface ProcedureCall
 	 * @since 6.2
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall markAsFunctionCall(@Nonnull Class<?> resultType);
 
 	/**
@@ -168,6 +180,7 @@ public interface ProcedureCall
 	 * @since 6.2
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall markAsFunctionCall(@Nonnull Type<?> typeReference);
 
 	/**
@@ -181,6 +194,7 @@ public interface ProcedureCall
 	 * @return The parameter registration memento
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> ProcedureParameter<T> registerParameter(int position, @Nonnull Class<T> type, @Nonnull ParameterMode mode);
 
 	/**
@@ -194,6 +208,7 @@ public interface ProcedureCall
 	 * @return The parameter registration memento
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> ProcedureParameter<T> registerParameter(int position, @Nonnull Type<T> type, @Nonnull ParameterMode mode);
 
 	/**
@@ -201,6 +216,7 @@ public interface ProcedureCall
 	 * instead of a class for the parameter type.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall registerStoredProcedureParameter(int position, @Nonnull Type<?> type, @Nonnull ParameterMode mode);
 
 	/**
@@ -214,6 +230,7 @@ public interface ProcedureCall
 	 * @throws NoSuchParameterException If no parameter with that position exists
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureParameter<?> getParameterRegistration(int position);
 
 	/**
@@ -230,6 +247,7 @@ public interface ProcedureCall
 	 * named procedure parameters.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> ProcedureParameter<T> registerParameter(@Nonnull String parameterName, @Nonnull Class<T> type, @Nonnull ParameterMode mode)
 			throws NamedParametersNotSupportedException;
 
@@ -247,6 +265,7 @@ public interface ProcedureCall
 	 * named procedure parameters.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> ProcedureParameter<T> registerParameter(@Nonnull String parameterName, @Nonnull Type<T> type, @Nonnull ParameterMode mode)
 			throws NamedParametersNotSupportedException;
 
@@ -255,6 +274,7 @@ public interface ProcedureCall
 	 * instead of a class for the parameter type.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall registerStoredProcedureParameter(@Nonnull String parameterName, @Nonnull Type<?> type, @Nonnull ParameterMode mode);
 
 	/**
@@ -268,6 +288,7 @@ public interface ProcedureCall
 	 * @throws NoSuchParameterException If no parameter with that name exists
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureParameter<?> getParameterRegistration(@Nonnull String name);
 
 	/**
@@ -276,6 +297,7 @@ public interface ProcedureCall
 	 * @return The (immutable) list of all registered parameters.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<ProcedureParameter<?>> getRegisteredParameters();
 
 	/**
@@ -288,6 +310,7 @@ public interface ProcedureCall
 	 * @return The ProcedureOutputs representation
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureOutputs getOutputs();
 
 	/**
@@ -299,12 +322,14 @@ public interface ProcedureCall
 	 */
 	@Incubating
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	FunctionReturn<?> getFunctionReturn();
 
 	/**
 	 * Release the underlying JDBC {@link java.sql.CallableStatement}
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void close() {
 		getOutputs().release();
 	}
@@ -313,115 +338,143 @@ public interface ProcedureCall
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall setTimeout(@Nullable Integer integer);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall setTimeout(int timeout);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall setTimeout(@Nullable Timeout timeout);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall addSynchronizedQuerySpace(String querySpace);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall addSynchronizedEntityName(String entityName) throws MappingException;
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall addSynchronizedEntityClass(@SuppressWarnings("rawtypes") Class entityClass) throws MappingException;
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall setHint(@Nonnull String hintName, @Nullable Object value);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> ProcedureCall setParameter(@Nonnull Parameter<T> param, @Nullable T value);
 
 	@Override @Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall setParameter(@Nonnull Parameter<Calendar> param, @Nullable Calendar value, @Nonnull TemporalType temporalType);
 
 	@Override @Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall setParameter(@Nonnull Parameter<Date> param, @Nullable Date value, @Nonnull TemporalType temporalType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall setParameter(@Nonnull String name, @Nullable Object value);
 
 	@Override @Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall setParameter(@Nonnull String name, @Nullable Calendar value, @Nonnull TemporalType temporalType);
 
 	@Override @Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall setParameter(@Nonnull String name, @Nullable Date value, @Nonnull TemporalType temporalType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> ProcedureCall setParameter(@Nonnull String name, @Nullable P value, @Nonnull Class<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> ProcedureCall setParameter(@Nonnull String name, @Nullable P value, @Nonnull Type<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> ProcedureCall setConvertedParameter(@Nonnull String name, @Nullable P value, @Nonnull Class<? extends AttributeConverter<P, ?>> converter);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall setParameter(int position, @Nullable Object value);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall setParameters(@Nonnull Object... arguments);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> ProcedureCall setConvertedParameter(int position, @Nullable P value, @Nonnull Class<? extends AttributeConverter<P, ?>> converter);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> ProcedureCall setParameter(int position, @Nullable P value, @Nonnull Class<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> ProcedureCall setParameter(int position, @Nullable P value, @Nonnull Type<P> type);
 
 	@Override @Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall setParameter(int position, @Nullable Calendar value, @Nonnull TemporalType temporalType);
 
 	@Override @Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall setParameter(int position, @Nullable Date value, @Nonnull TemporalType temporalType);
 
 	@Override @Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall setFlushMode(@Nonnull FlushModeType flushMode);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall registerStoredProcedureParameter(int position, Class<?> type, ParameterMode mode);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall registerStoredProcedureParameter(String parameterName, Class<?> type, ParameterMode mode);
 
 	@Override
 	@Nonnull
 	@SuppressWarnings("removal")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall setCacheStoreMode(@Nonnull CacheStoreMode cacheStoreMode);
 
 	@Override
 	@Nonnull
 	@SuppressWarnings("removal")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall setCacheRetrieveMode(@Nonnull CacheRetrieveMode cacheRetrieveMode);
 }

@@ -13,6 +13,8 @@ import org.hibernate.query.results.internal.complete.CompleteResultBuilderBasicM
 import org.hibernate.spi.NavigablePath;
 
 import java.util.function.Consumer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -32,16 +34,19 @@ public class ModelPartResultMementoBasicImpl implements ModelPartResultMementoBa
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigablePath getNavigablePath() {
 		return navigablePath;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getResultJavaType() {
 		return modelPart.getJavaType().getJavaTypeClass();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ResultBuilderBasicValued resolve(
 			Consumer<String> querySpaceConsumer,
 			ResultSetMappingResolutionContext context) {
@@ -49,11 +54,13 @@ public class ModelPartResultMementoBasicImpl implements ModelPartResultMementoBa
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <R> ColumnMapping<R> toJpaMapping(SessionFactory sessionFactory) {
 		return toJpaMappingElement( sessionFactory );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <R> ColumnMapping<R> toJpaMappingElement(SessionFactory sessionFactory) {
 		//noinspection unchecked
 		return ColumnMapping.of( columnName, (Class<R>) getResultJavaType() );

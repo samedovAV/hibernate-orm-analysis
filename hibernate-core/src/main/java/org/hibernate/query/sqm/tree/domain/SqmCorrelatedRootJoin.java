@@ -13,6 +13,8 @@ import org.hibernate.query.sqm.tree.from.SqmFrom;
 import org.hibernate.query.sqm.tree.from.SqmJoin;
 import org.hibernate.query.sqm.tree.from.SqmRoot;
 import org.hibernate.spi.NavigablePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -27,6 +29,7 @@ public class SqmCorrelatedRootJoin<T> extends SqmRoot<T> implements SqmCorrelati
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmCorrelatedRootJoin<T> copy(SqmCopyContext context) {
 		final var existing = context.getCopy( this );
 		if ( existing != null ) {
@@ -47,6 +50,7 @@ public class SqmCorrelatedRootJoin<T> extends SqmRoot<T> implements SqmCorrelati
 	// Need to suppress argument warnings because correlatedJoin which is under initialization is passed to addSqmJoin,
 	// which expects an initialized argument. We know this is safe though because we only store the instance
 	@SuppressWarnings({"unchecked", "argument"})
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <X, J extends SqmJoin<X, ?>> SqmCorrelatedRootJoin<X> create(J correlationParent, J correlatedJoin) {
 		final SqmFrom<?, X> parentPath = (SqmFrom<?, X>) correlationParent.getParentPath();
 		final SqmCorrelatedRootJoin<X> rootJoin;
@@ -70,26 +74,31 @@ public class SqmCorrelatedRootJoin<T> extends SqmRoot<T> implements SqmCorrelati
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmRoot<T> getCorrelationParent() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPath<T> getWrappedPath() {
 		return getCorrelationParent();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCorrelated() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmRoot<T> getCorrelatedRoot() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> X accept(SemanticQueryWalker<X> walker) {
 		return walker.visitCorrelatedRootJoin( this );
 	}

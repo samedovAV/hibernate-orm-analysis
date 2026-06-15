@@ -19,6 +19,8 @@ import static org.hibernate.property.access.spi.BuiltInPropertyAccessStrategies.
 import static org.hibernate.property.access.spi.BuiltInPropertyAccessStrategies.FIELD;
 import static org.hibernate.property.access.spi.BuiltInPropertyAccessStrategies.MAP;
 import static org.hibernate.property.access.spi.BuiltInPropertyAccessStrategies.MIXED;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard implementation of PropertyAccessStrategyResolver
@@ -33,6 +35,7 @@ public class PropertyAccessStrategyResolverStandardImpl implements PropertyAcces
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PropertyAccessStrategy resolvePropertyAccessStrategy(
 			Class<?> containerClass,
 			String explicitAccessStrategyName,
@@ -61,6 +64,7 @@ public class PropertyAccessStrategyResolverStandardImpl implements PropertyAcces
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected PropertyAccessStrategy resolveExplicitlyNamedPropertyAccessStrategy(String explicitAccessStrategyName) {
 		final var builtInStrategyEnum = BuiltInPropertyAccessStrategies.interpret( explicitAccessStrategyName );
 		return builtInStrategyEnum != null
@@ -71,6 +75,7 @@ public class PropertyAccessStrategyResolverStandardImpl implements PropertyAcces
 
 	private @Nullable StrategySelector strategySelectorService;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected StrategySelector strategySelectorService() {
 		if ( strategySelectorService == null ) {
 			if ( serviceRegistry == null ) {

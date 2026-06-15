@@ -6,6 +6,8 @@ package org.hibernate.relational;
 
 import org.hibernate.Incubating;
 import org.hibernate.tool.schema.spi.GeneratorSynchronizer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Allows programmatic {@linkplain #create schema export},
@@ -47,6 +49,7 @@ public interface SchemaManager extends jakarta.persistence.SchemaManager {
 	 * @since 7.0
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void truncate();
 
 	/**
@@ -66,6 +69,7 @@ public interface SchemaManager extends jakarta.persistence.SchemaManager {
 	 * @since 7.2
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void truncateTable(String tableName);
 
 	/**
@@ -84,6 +88,7 @@ public interface SchemaManager extends jakarta.persistence.SchemaManager {
 	 * @see org.hibernate.cfg.AvailableSettings#JAKARTA_HBM2DDL_LOAD_SCRIPT_SOURCE
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void populate();
 
 	/**
@@ -103,6 +108,7 @@ public interface SchemaManager extends jakarta.persistence.SchemaManager {
 	 * @since 7.2
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void resynchronizeGenerators();
 
 	/**
@@ -117,6 +123,7 @@ public interface SchemaManager extends jakarta.persistence.SchemaManager {
 	 * @since 7.1
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SchemaManager forSchema(String schemaName);
 
 	/**
@@ -127,6 +134,7 @@ public interface SchemaManager extends jakarta.persistence.SchemaManager {
 	 * @since 7.1
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SchemaManager forCatalog(String catalogName);
 
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -147,6 +155,7 @@ public interface SchemaManager extends jakarta.persistence.SchemaManager {
 	 * @deprecated Use {@link #create} instead.
 	 */
 	@Deprecated(forRemoval = true, since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void exportMappedObjects(boolean createSchemas);
 
 	/**
@@ -162,6 +171,7 @@ public interface SchemaManager extends jakarta.persistence.SchemaManager {
 	 * @deprecated Use {@link #drop} instead.
 	 */
 	@Deprecated(forRemoval = true, since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void dropMappedObjects(boolean dropSchemas);
 
 	/**
@@ -174,6 +184,7 @@ public interface SchemaManager extends jakarta.persistence.SchemaManager {
 	 * @deprecated Use {@link #validate} instead.
 	 */
 	@Deprecated(forRemoval = true, since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void validateMappedObjects();
 
 	/**
@@ -195,5 +206,6 @@ public interface SchemaManager extends jakarta.persistence.SchemaManager {
 	 * @deprecated Use {@link #truncate} instead.
 	 */
 	@Deprecated(forRemoval = true, since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void truncateMappedObjects();
 }

@@ -10,6 +10,8 @@ import org.hibernate.boot.spi.SecondPass;
 import org.hibernate.mapping.JoinedSubclass;
 import org.hibernate.mapping.PersistentClass;
 import org.hibernate.mapping.RootClass;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Emmanuel Bernard
@@ -27,6 +29,7 @@ public class CreateKeySecondPass implements SecondPass {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void doSecondPass(Map<String, PersistentClass> persistentClasses) {
 		if ( rootClass != null ) {
 			rootClass.createPrimaryKey();

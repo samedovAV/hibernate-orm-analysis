@@ -19,6 +19,8 @@ import org.hibernate.type.spi.TypeConfiguration;
 import java.util.List;
 
 import static org.hibernate.query.sqm.produce.function.FunctionParameterType.STRING;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class SpannerConcatFunction extends AbstractSqmSelfRenderingFunctionDescriptor {
 
@@ -35,6 +37,7 @@ public class SpannerConcatFunction extends AbstractSqmSelfRenderingFunctionDescr
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void render(SqlAppender sqlAppender, List<? extends SqlAstNode> sqlAstArguments, ReturnableType<?> returnType, SqlAstTranslator<?> walker) {
 		sqlAppender.append( "concat((" );
 		sqlAstArguments.get( 0 ).accept( walker );

@@ -9,12 +9,15 @@ import org.hibernate.TransactionManagementException;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Methods used by {@link org.hibernate.SessionFactory} to manage transactions.
  */
 public class TransactionManagement {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <S> void manageTransaction(S session, Transaction transaction, Consumer<S> consumer) {
 		try {
 			consumer.accept( session );
@@ -26,6 +29,7 @@ public class TransactionManagement {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <S,R> R manageTransaction(S session, Transaction transaction, Function<S,R> function) {
 		try {
 			R result = function.apply( session );
@@ -39,6 +43,7 @@ public class TransactionManagement {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static void rollback(Transaction transaction, RuntimeException exception) {
 		// an error happened in the action or during commit()
 		if ( transaction.isActive() ) {
@@ -51,6 +56,7 @@ public class TransactionManagement {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static void commit(Transaction transaction) {
 		if ( !transaction.isActive() ) {
 			throw new TransactionManagementException(

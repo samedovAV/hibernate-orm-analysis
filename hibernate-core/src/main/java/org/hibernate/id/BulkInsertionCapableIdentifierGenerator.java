@@ -6,6 +6,8 @@ package org.hibernate.id;
 
 import org.hibernate.boot.model.relational.SqlStringGenerationContext;
 import org.hibernate.generator.Generator;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specialized contract for {@link IdentifierGenerator} implementations capable of being used in conjunction
@@ -21,6 +23,7 @@ public interface BulkInsertionCapableIdentifierGenerator extends Generator {
 	 *
 	 * @return {@code true} if bulk insertions are supported; {@code false} otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean supportsBulkInsertionIdentifierGeneration() {
 		return true;
 	}
@@ -30,6 +33,7 @@ public interface BulkInsertionCapableIdentifierGenerator extends Generator {
 	 *
 	 * @return The identifier value generation fragment (SQL).  {@code null} indicates that no fragment is needed.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String determineBulkInsertionIdentifierGenerationSelectFragment(SqlStringGenerationContext context) {
 		return null;
 	}

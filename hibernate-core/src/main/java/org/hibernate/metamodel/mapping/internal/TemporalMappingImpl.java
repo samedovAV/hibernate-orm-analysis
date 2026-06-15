@@ -50,6 +50,8 @@ import static org.hibernate.boot.model.internal.TemporalHelper.ROW_END;
 import static org.hibernate.boot.model.internal.TemporalHelper.ROW_START;
 import static org.hibernate.query.sqm.ComparisonOperator.GREATER_THAN;
 import static org.hibernate.query.sqm.ComparisonOperator.LESS_THAN_OR_EQUAL;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Temporal mapping implementation.
@@ -109,6 +111,7 @@ public class TemporalMappingImpl implements TemporalMapping, LegacyAuxiliaryMuta
 	}
 
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private SelectableMapping endingColumnMapping(
 			String tableName,
 			Column endingColumn,
@@ -128,6 +131,7 @@ public class TemporalMappingImpl implements TemporalMapping, LegacyAuxiliaryMuta
 	}
 
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private SelectableMapping startingColumnMapping(
 			String tableName,
 			Column startingColumn,
@@ -147,38 +151,46 @@ public class TemporalMappingImpl implements TemporalMapping, LegacyAuxiliaryMuta
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getTableName() {
 		return tableName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SelectableMapping getStartingColumnMapping() {
 		return startingColumnMapping;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SelectableMapping getEndingColumnMapping() {
 		return endingColumnMapping;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcMapping getJdbcMapping() {
 		return jdbcMapping;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private Predicate createCurrentRestriction(TableReference tableReference) {
 		return createCurrentRestriction( tableReference, null );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Predicate createCurrentRestriction(TableReference tableReference, SqlExpressionResolver expressionResolver) {
 		final var endingColumn = resolveColumn( tableReference, expressionResolver, endingColumnMapping );
 		return new NullnessPredicate( endingColumn, false, jdbcMapping );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private Predicate createRestriction(TableReference tableReference, Object temporalValue) {
 		return createRestriction( tableReference, null, temporalValue );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Predicate createRestriction(
 			TableReference tableReference,
 			SqlExpressionResolver expressionResolver,
@@ -213,15 +225,18 @@ public class TemporalMappingImpl implements TemporalMapping, LegacyAuxiliaryMuta
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ColumnValueBinding createStartingValueBinding(ColumnReference startingColumnReference) {
 		return createTemporalValueBinding( startingColumnReference, startingColumnMapping );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ColumnValueBinding createEndingValueBinding(ColumnReference endingColumnReference) {
 		return createTemporalValueBinding( endingColumnReference, endingColumnMapping );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private ColumnValueBinding createTemporalValueBinding(
 			ColumnReference endingColumnReference, SelectableMapping columnMapping) {
 		return new ColumnValueBinding( endingColumnReference,
@@ -233,11 +248,13 @@ public class TemporalMappingImpl implements TemporalMapping, LegacyAuxiliaryMuta
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ColumnValueBinding createNullEndingValueBinding(ColumnReference endingColumnReference) {
 		return new ColumnValueBinding( endingColumnReference,
 				new ColumnWriteFragment( null, emptyList(), endingColumnMapping ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Expression resolveColumn(
 			TableReference tableReference,
 			SqlExpressionResolver expressionResolver,
@@ -248,6 +265,7 @@ public class TemporalMappingImpl implements TemporalMapping, LegacyAuxiliaryMuta
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addToInsertGroup(MutationGroupBuilder insertGroupBuilder, EntityPersister persister) {
 		if ( temporalTableStrategy == TemporalTableStrategy.SINGLE_TABLE ) {
 			final TableInsertBuilder insertBuilder =
@@ -263,6 +281,7 @@ public class TemporalMappingImpl implements TemporalMapping, LegacyAuxiliaryMuta
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applyPredicate(
 			EntityMappingType associatedEntityMappingType,
 			Consumer<Predicate> predicateConsumer,
@@ -282,6 +301,7 @@ public class TemporalMappingImpl implements TemporalMapping, LegacyAuxiliaryMuta
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applyPredicate(
 			EntityMappingType associatedEntityDescriptor,
 			Consumer<Predicate> predicateConsumer,
@@ -299,6 +319,7 @@ public class TemporalMappingImpl implements TemporalMapping, LegacyAuxiliaryMuta
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applyPredicate(
 			PluralAttributeMapping associatedEntityDescriptor,
 			Consumer<Predicate> predicateConsumer,
@@ -315,6 +336,7 @@ public class TemporalMappingImpl implements TemporalMapping, LegacyAuxiliaryMuta
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void applyPredicate(TableGroupJoin tableGroupJoin, LoadQueryInfluencers loadQueryInfluencers) {
 		if ( useTemporalRestriction( loadQueryInfluencers ) ) {
 			final var temporalInstant = loadQueryInfluencers.getTemporalIdentifier();
@@ -326,6 +348,7 @@ public class TemporalMappingImpl implements TemporalMapping, LegacyAuxiliaryMuta
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applyPredicate(
 			Supplier<Consumer<Predicate>> predicateCollector,
 			SqlAstCreationState creationState,
@@ -349,12 +372,14 @@ public class TemporalMappingImpl implements TemporalMapping, LegacyAuxiliaryMuta
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static boolean useTemporalRestriction(LoadQueryInfluencers influencers) {
 		return !influencers.isAllRevisions()
 			&& influencers.getSessionFactory().getJdbcServices().getDialect().getTemporalTableSupport()
 						.useTemporalRestriction( influencers );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private boolean useTemporalRestriction(SqlAstCreationState creationState) {
 		final var influencers = creationState.getLoadQueryInfluencers();
 		return !influencers.isAllRevisions()
@@ -363,6 +388,7 @@ public class TemporalMappingImpl implements TemporalMapping, LegacyAuxiliaryMuta
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean useAuxiliaryTable(LoadQueryInfluencers influencers) {
 		return temporalTableStrategy == TemporalTableStrategy.HISTORY_TABLE
 			&& influencers.getTemporalIdentifier() != null
@@ -370,6 +396,7 @@ public class TemporalMappingImpl implements TemporalMapping, LegacyAuxiliaryMuta
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isAffectedByInfluencers(LoadQueryInfluencers influencers) {
 		return influencers.getTemporalIdentifier() != null
 			&& !influencers.isAllRevisions();

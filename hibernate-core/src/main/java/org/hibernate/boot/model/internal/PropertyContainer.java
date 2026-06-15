@@ -40,6 +40,8 @@ import jakarta.persistence.Transient;
 
 import static org.hibernate.internal.util.StringHelper.qualify;
 import static org.hibernate.internal.util.collections.CollectionHelper.toSmallList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Access to the members of a {@linkplain ClassDetails class} which define a persistent attribute
@@ -88,6 +90,7 @@ public class PropertyContainer {
 		attributeMembers = resolveAttributeMembers( classDetails, typeAtStake, classLevelAccessType );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static List<MemberDetails> resolveAttributeMembers(
 			ClassDetails classDetails,
 			TypeVariableScope typeAtStake,
@@ -124,6 +127,7 @@ public class PropertyContainer {
 		return verifyAndInitializePersistentAttributes( classDetails, typeAtStake, attributeMemberMap );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Map<String, MemberDetails> buildAttributeMemberMap(
 			List<RecordComponentDetails> recordComponents,
 			List<FieldDetails> fields,
@@ -139,6 +143,7 @@ public class PropertyContainer {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static <E extends MemberDetails> List<E> collectPotentialAttributeMembers(List<E> source) {
 		final List<E> results = new ArrayList<>();
 		for ( int i = 0; i < source.size(); i++ ) {
@@ -155,6 +160,7 @@ public class PropertyContainer {
 	/**
 	 * Collects members "backing" an attribute based on any local `@Access` annotation
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static void collectPersistentAttributesUsingLocalAccessType(
 			ClassDetails classDetails,
 			Map<String, MemberDetails> persistentAttributeMap,
@@ -203,6 +209,7 @@ public class PropertyContainer {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void throwAmbiguousPropertyException(
 			ClassDetails classDetails, MethodDetails previous, MethodDetails getterDetails) {
 		throw new MappingException(
@@ -219,6 +226,7 @@ public class PropertyContainer {
 	/**
 	 * Collects members "backing" an attribute based on the Class's "default" access-type
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static void collectPersistentAttributesUsingClassLevelAccessType(
 			ClassDetails classDetails,
 			AccessType classLevelAccessType,
@@ -269,22 +277,27 @@ public class PropertyContainer {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ClassDetails getDeclaringClass() {
 		return classDetails;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TypeVariableScope getTypeAtStake() {
 		return typeAtStake;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AccessType getClassLevelAccessType() {
 		return classLevelAccessType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Iterable<MemberDetails> propertyIterator() {
 		return attributeMembers;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static List<MemberDetails> verifyAndInitializePersistentAttributes(
 			ClassDetails classDetails,
 			TypeVariableScope typeAtStake,
@@ -303,11 +316,13 @@ public class PropertyContainer {
 		return toSmallList( output );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private AccessType determineLocalClassDefinedAccessStrategy() {
 		final var access = classDetails.getDirectAnnotationUsage( Access.class );
 		return access == null ? AccessType.DEFAULT : AccessType.getAccessStrategy( access.value() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean discoverTypeWithoutReflection(MemberDetails memberDetails) {
 		if ( memberDetails.hasDirectAnnotationUsage( TargetEmbeddable.class ) ) {
 			return true;
@@ -367,6 +382,7 @@ public class PropertyContainer {
 		return false;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean mustBeSkipped(MemberDetails memberDetails) {
 		//TODO make those hardcoded tests more portable (through the bytecode provider?)
 		return memberDetails.hasDirectAnnotationUsage( Transient.class )

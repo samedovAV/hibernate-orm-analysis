@@ -9,6 +9,8 @@ import java.util.function.Function;
 
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -27,6 +29,7 @@ public class TemplatedViolatedConstraintNameExtractor implements ViolatedConstra
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nullable String extractConstraintName(SQLException exception) {
 		try {
 			while (true) {
@@ -54,6 +57,7 @@ public class TemplatedViolatedConstraintNameExtractor implements ViolatedConstra
 	 * @param message       The templated error message containing the constraint name.
 	 * @return The found constraint name, or null.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static @Nullable String extractUsingTemplate(String templateStart, String templateEnd, String message) {
 		final int templateStartPosition = message.indexOf( templateStart );
 		if ( templateStartPosition < 0 ) {

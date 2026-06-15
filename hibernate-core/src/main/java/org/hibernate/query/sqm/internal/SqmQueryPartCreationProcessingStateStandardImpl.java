@@ -7,6 +7,8 @@ package org.hibernate.query.sqm.internal;
 import org.hibernate.query.hql.spi.SqmCreationProcessingState;
 import org.hibernate.query.hql.spi.SqmCreationState;
 import org.hibernate.query.sqm.tree.SqmQuery;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Models the state related to parsing a sqm spec.  As a "linked list" to account for
@@ -28,6 +30,7 @@ public class SqmQueryPartCreationProcessingStateStandardImpl extends SqmCreation
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmCreationProcessingState getParentProcessingState() {
 		return parentState;
 	}

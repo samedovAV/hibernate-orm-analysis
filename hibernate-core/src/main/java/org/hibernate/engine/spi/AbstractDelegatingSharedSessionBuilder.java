@@ -23,6 +23,8 @@ import org.hibernate.SessionEventListener;
 import org.hibernate.SharedSessionBuilder;
 import org.hibernate.resource.jdbc.spi.PhysicalConnectionHandlingMode;
 import org.hibernate.resource.jdbc.spi.StatementInspector;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base class for {@link SharedSessionBuilder} implementations that wish to implement only parts of that contract
@@ -39,29 +41,34 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 	}
 
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected SharedSessionBuilder getThis() {
 		return this;
 	}
 
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SharedSessionBuilder delegate() {
 		return delegate;
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Session openSession() {
 		return delegate.openSession();
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Session open() {
 		return delegate.open();
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder interceptor() {
 		delegate.interceptor();
 		return this;
@@ -69,6 +76,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder connection() {
 		delegate.connection();
 		return this;
@@ -76,6 +84,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder connectionHandlingMode() {
 		delegate.connectionHandlingMode();
 		return this;
@@ -83,6 +92,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder autoJoinTransactions() {
 		delegate.autoJoinTransactions();
 		return this;
@@ -90,6 +100,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder autoClose() {
 		delegate.autoClose();
 		return this;
@@ -97,6 +108,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder interceptor(@Nullable Interceptor interceptor) {
 		delegate.interceptor( interceptor );
 		return this;
@@ -104,6 +116,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder noInterceptor() {
 		delegate.noInterceptor();
 		return this;
@@ -111,6 +124,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder noSessionInterceptorCreation() {
 		delegate.noSessionInterceptorCreation();
 		return this;
@@ -119,6 +133,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 	@Override
 	@Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder statementInspector(@Nonnull StatementInspector statementInspector) {
 		delegate.statementInspector( statementInspector );
 		return this;
@@ -126,6 +141,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder statementInspector(@Nullable UnaryOperator<String> operator) {
 		delegate.statementInspector( operator );
 		return this;
@@ -133,6 +149,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder statementInspector() {
 		delegate.statementInspector();
 		return this;
@@ -140,6 +157,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder noStatementInspector() {
 		delegate.noStatementInspector();
 		return this;
@@ -147,6 +165,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder connection(@Nonnull Connection connection) {
 		delegate.connection( connection );
 		return this;
@@ -154,6 +173,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder autoJoinTransactions(boolean autoJoinTransactions) {
 		delegate.autoJoinTransactions( autoJoinTransactions );
 		return this;
@@ -161,6 +181,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder autoClose(boolean autoClose) {
 		delegate.autoClose( autoClose );
 		return this;
@@ -168,6 +189,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder tenantIdentifier(Object tenantIdentifier) {
 		delegate.tenantIdentifier( tenantIdentifier );
 		return this;
@@ -175,6 +197,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder readOnly(boolean readOnly) {
 		delegate.readOnly( readOnly );
 		return this;
@@ -182,6 +205,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder initialCacheMode(@Nonnull CacheMode cacheMode) {
 		delegate.initialCacheMode( cacheMode );
 		return this;
@@ -189,6 +213,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder jdbcBatchSize(int batchSize) {
 		delegate.jdbcBatchSize( batchSize );
 		return this;
@@ -196,6 +221,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder cacheStoreMode(@Nullable CacheStoreMode cacheStoreMode) {
 		delegate.cacheStoreMode( cacheStoreMode );
 		return this;
@@ -203,6 +229,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder cacheRetrieveMode(@Nullable CacheRetrieveMode cacheRetrieveMode) {
 		delegate.cacheRetrieveMode( cacheRetrieveMode );
 		return this;
@@ -210,6 +237,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder eventListeners(@Nonnull SessionEventListener... listeners) {
 		delegate.eventListeners( listeners );
 		return this;
@@ -217,6 +245,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder clearEventListeners() {
 		delegate.clearEventListeners();
 		return this;
@@ -225,6 +254,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 	@Override
 	@Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder connectionHandlingMode(PhysicalConnectionHandlingMode mode) {
 		delegate.connectionHandlingMode( mode );
 		return this;
@@ -232,6 +262,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder connectionHandling(@Nonnull ConnectionAcquisitionMode acquisitionMode, @Nonnull ConnectionReleaseMode releaseMode) {
 		delegate.connectionHandling( acquisitionMode, releaseMode );
 		return this;
@@ -239,6 +270,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder autoClear(boolean autoClear) {
 		delegate.autoClear( autoClear );
 		return this;
@@ -246,6 +278,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder flushMode(@Nonnull FlushMode flushMode) {
 		delegate.flushMode( flushMode );
 		return this;
@@ -253,6 +286,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder flushMode() {
 		delegate.flushMode();
 		return this;
@@ -260,6 +294,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder jdbcTimeZone(@Nullable TimeZone timeZone) {
 		delegate.jdbcTimeZone( timeZone );
 		return this;
@@ -267,6 +302,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder identifierRollback(boolean identifierRollback) {
 		delegate.identifierRollback( identifierRollback );
 		return this;
@@ -274,6 +310,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder defaultBatchFetchSize(int defaultBatchFetchSize) {
 		delegate.defaultBatchFetchSize( defaultBatchFetchSize );
 		return this;
@@ -281,6 +318,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder subselectFetchEnabled(boolean subselectFetchEnabled) {
 		delegate.subselectFetchEnabled( subselectFetchEnabled );
 		return this;
@@ -288,6 +326,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder asOf(@Nullable Instant instant) {
 		delegate.asOf( instant );
 		return this;
@@ -295,6 +334,7 @@ public abstract class AbstractDelegatingSharedSessionBuilder implements SharedSe
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionBuilder atChangeset(@Nullable Object changesetId) {
 		delegate.atChangeset( changesetId );
 		return this;

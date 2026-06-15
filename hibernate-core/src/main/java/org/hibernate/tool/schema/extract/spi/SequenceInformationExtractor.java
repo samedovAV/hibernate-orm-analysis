@@ -5,6 +5,8 @@
 package org.hibernate.tool.schema.extract.spi;
 
 import java.sql.SQLException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Because JDBC (at least up to and including Java 7, JDBC 4) still does not have support for obtaining information
@@ -23,5 +25,6 @@ public interface SequenceInformationExtractor {
 	 * @throws SQLException Don't bother handling SQLExceptions (unless you want to), we will deal with them in the
 	 * caller.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Iterable<SequenceInformation> extractMetadata(ExtractionContext extractionContext) throws SQLException;
 }

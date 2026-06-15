@@ -22,6 +22,8 @@ import org.hibernate.spi.NavigablePath;
 
 import java.util.Collection;
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -49,6 +51,7 @@ public class SqmBagJoin<O, E> extends AbstractSqmPluralJoin<O,Collection<E>, E> 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmBagJoin<O, E> copy(SqmCopyContext context) {
 		final var existing = context.getCopy( this );
 		if ( existing != null ) {
@@ -73,47 +76,55 @@ public class SqmBagJoin<O, E> extends AbstractSqmPluralJoin<O,Collection<E>, E> 
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmBagPersistentAttribute<O,E> getModel() {
 		return (SqmBagPersistentAttribute<O, E>) super.getModel();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> X accept(SemanticQueryWalker<X> walker) {
 		return walker.visitBagJoin( this );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmBagPersistentAttribute<O,E> getAttribute() {
 		return getModel();
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmBagJoin<O, E> on(@Nullable JpaExpression<Boolean> restriction) {
 		return (SqmBagJoin<O, E>) super.on( restriction );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmBagJoin<O, E> on(@Nonnull BooleanExpression... restrictions) {
 		return (SqmBagJoin<O, E>) super.on( restrictions );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmBagJoin<O, E> on(@Nonnull Expression<Boolean> restriction) {
 		return (SqmBagJoin<O, E>) super.on( restriction );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmBagJoin<O, E> on(@Nullable JpaPredicate... restrictions) {
 		return (SqmBagJoin<O, E>) super.on( restrictions );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmBagJoin<O, E> on(@Nonnull List<? extends Expression<Boolean>> restrictions) {
 		return (SqmBagJoin<O, E>) super.on( restrictions );
 	}
@@ -122,42 +133,49 @@ public class SqmBagJoin<O, E> extends AbstractSqmPluralJoin<O,Collection<E>, E> 
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmCorrelatedBagJoin<O, E> createCorrelation() {
 		return new SqmCorrelatedBagJoin<>( this );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S extends E> SqmTreatedBagJoin<O, E, S> treatAs(@Nonnull Class<S> treatJavaType) {
 		return treatAs( treatJavaType, null );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends E> SqmBagJoin<O, S> treat(@Nonnull Class<S> treatJavaType) {
 		return treatAs( treatJavaType );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S extends E> SqmTreatedBagJoin<O,E,S> treatAs(@Nonnull EntityDomainType<S> treatTarget) {
 		return treatAs( treatTarget, null );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S extends E> SqmTreatedBagJoin<O,E,S> treatAs(@Nonnull Class<S> treatJavaType, @Nullable String alias) {
 		return treatAs( treatJavaType, alias, false );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S extends E> SqmTreatedBagJoin<O,E,S> treatAs(@Nonnull EntityDomainType<S> treatTarget, @Nullable String alias) {
 		return treatAs( treatTarget, alias, false );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends E> SqmTreatedBagJoin<O, E, S> treatAs(@Nonnull Class<S> treatJavaType, @Nullable String alias, boolean fetch) {
 		final var treatTarget = nodeBuilder().getDomainModel().managedType( treatJavaType );
 		final var treat = (SqmTreatedBagJoin<O, E, S>) findTreat( treatTarget, alias );
@@ -174,6 +192,7 @@ public class SqmBagJoin<O, E> extends AbstractSqmPluralJoin<O,Collection<E>, E> 
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends E> SqmTreatedBagJoin<O,E,S> treatAs(@Nonnull EntityDomainType<S> treatTarget, @Nullable String alias, boolean fetch) {
 		final var treat = (SqmTreatedBagJoin<O, E, S>) findTreat( treatTarget, alias );
 		if ( treat == null ) {

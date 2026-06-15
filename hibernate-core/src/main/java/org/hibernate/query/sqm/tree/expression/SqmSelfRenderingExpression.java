@@ -13,6 +13,8 @@ import org.hibernate.query.sqm.SqmBindableType;
 import org.hibernate.query.sqm.tree.SqmCopyContext;
 import org.hibernate.query.sqm.tree.SqmRenderContext;
 import org.hibernate.sql.ast.tree.expression.Expression;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -29,6 +31,7 @@ public class SqmSelfRenderingExpression<T> extends AbstractSqmExpression<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmSelfRenderingExpression<T> copy(SqmCopyContext context) {
 		final var existing = context.getCopy( this );
 		if ( existing != null ) {
@@ -43,12 +46,14 @@ public class SqmSelfRenderingExpression<T> extends AbstractSqmExpression<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> X accept(SemanticQueryWalker<X> walker) {
 		//noinspection unchecked
 		return (X) renderer.apply( walker );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void appendHqlString(StringBuilder hql, SqmRenderContext context) {
 		throw new UnsupportedOperationException();
 	}
@@ -58,11 +63,13 @@ public class SqmSelfRenderingExpression<T> extends AbstractSqmExpression<T> {
 	// so basing equality on the object identity is fine
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCompatible(Object object) {
 		return this == object;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int cacheHashCode() {
 		return System.identityHashCode( this );
 	}

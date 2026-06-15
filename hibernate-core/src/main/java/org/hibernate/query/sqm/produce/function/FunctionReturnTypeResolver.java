@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Pluggable strategy for resolving a function return type for a specific call.
@@ -38,6 +40,7 @@ public interface FunctionReturnTypeResolver {
 	 * @deprecated Use {@link #resolveFunctionReturnType(ReturnableType, SqmToSqlAstConverter, List, TypeConfiguration)} instead
 	 */
 	@Deprecated(forRemoval = true)
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default @Nullable ReturnableType<?> resolveFunctionReturnType(
 			@Nullable ReturnableType<?> impliedType,
 			Supplier<MappingModelExpressible<?>> inferredTypeSupplier,
@@ -45,6 +48,7 @@ public interface FunctionReturnTypeResolver {
 			TypeConfiguration typeConfiguration) {
 		return resolveFunctionReturnType( impliedType, new FakeSqmToSqlAstConverter( null ) {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public MappingModelExpressible<?> resolveFunctionImpliedReturnType() {
 				return inferredTypeSupplier.get();
 			}
@@ -62,6 +66,7 @@ public interface FunctionReturnTypeResolver {
 	 *
 	 * @return The resolved type.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default @Nullable ReturnableType<?> resolveFunctionReturnType(
 			@Nullable ReturnableType<?> impliedType,
 			@Nullable SqmToSqlAstConverter converter,
@@ -86,12 +91,14 @@ public interface FunctionReturnTypeResolver {
 	 *
 	 * @return The resolved type.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	BasicValuedMapping resolveFunctionReturnType(
 			Supplier<BasicValuedMapping> impliedTypeAccess,
 			List<? extends SqlAstNode> arguments);
 	/**
 	 * The return type in a format suitable for display to the user.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String getReturnType() {
 		return "";
 	}

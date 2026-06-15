@@ -21,6 +21,8 @@ import org.hibernate.sql.ast.tree.SqlAstNode;
 import org.hibernate.sql.ast.tree.expression.QueryLiteral;
 import org.hibernate.type.JavaObjectType;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A function to pass through a SQL fragment.
@@ -36,6 +38,7 @@ public class SqlFunction
 				StandardArgumentsValidators.min( 1 ),
 				new FunctionReturnTypeResolver() {
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public ReturnableType<?> resolveFunctionReturnType(
 							ReturnableType<?> impliedType,
 							@Nullable SqmToSqlAstConverter converter,
@@ -47,6 +50,7 @@ public class SqlFunction
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public BasicValuedMapping resolveFunctionReturnType(Supplier<BasicValuedMapping> impliedTypeAccess, List<? extends SqlAstNode> arguments) {
 						final BasicValuedMapping impliedType = impliedTypeAccess.get();
 						return impliedType != null ? impliedType : JavaObjectType.INSTANCE;
@@ -57,6 +61,7 @@ public class SqlFunction
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> arguments,
@@ -85,6 +90,7 @@ public class SqlFunction
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getArgumentListSignature() {
 		return "";
 	}

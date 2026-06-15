@@ -10,6 +10,8 @@ import org.hibernate.cache.spi.DomainDataRegion;
 import org.hibernate.cache.spi.access.AccessType;
 import org.hibernate.cache.spi.access.SoftLock;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard support for {@link org.hibernate.cache.spi.access.CollectionDataAccess}
@@ -27,11 +29,13 @@ public class CollectionNonStrictReadWriteAccess extends AbstractCollectionDataAc
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AccessType getAccessType() {
 		return AccessType.READ_WRITE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void unlockItem(SharedSessionContractImplementor session, Object key, SoftLock lock) {
 		getStorageAccess().removeFromCache( key, session );
 	}

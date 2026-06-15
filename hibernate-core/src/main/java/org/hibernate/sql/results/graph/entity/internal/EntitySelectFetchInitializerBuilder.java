@@ -20,9 +20,12 @@ import org.hibernate.sql.results.graph.entity.EntityInitializer;
 import static org.hibernate.sql.results.graph.entity.internal.EntitySelectFetchInitializerBuilder.BatchMode.BATCH_INITIALIZE;
 import static org.hibernate.sql.results.graph.entity.internal.EntitySelectFetchInitializerBuilder.BatchMode.BATCH_LOAD;
 import static org.hibernate.sql.results.graph.entity.internal.EntitySelectFetchInitializerBuilder.BatchMode.NONE;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class EntitySelectFetchInitializerBuilder {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static EntityInitializer<?> createInitializer(
 			InitializerParent<?> parent,
 			ToOneAttributeMapping fetchedAttribute,
@@ -110,6 +113,7 @@ public class EntitySelectFetchInitializerBuilder {
 		throw new IllegalStateException( "Should be unreachable" );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static BatchMode determineBatchMode(
 			EntityPersister entityPersister,
 			InitializerParent<?> parent,
@@ -167,6 +171,7 @@ public class EntitySelectFetchInitializerBuilder {
 		return BATCH_LOAD;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean canBatchInitializeBeUsed(EntityPersister entityPersister) {
 		//  we need to create a Proxy in order to use batch initialize
 		return entityPersister.getRepresentationStrategy().getProxyFactory() != null;

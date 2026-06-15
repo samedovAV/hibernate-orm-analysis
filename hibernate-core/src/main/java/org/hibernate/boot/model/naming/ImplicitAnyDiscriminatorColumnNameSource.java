@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.naming;
 
 import org.hibernate.boot.model.source.spi.AttributePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Context for determining the implicit name for an ANY mapping's discriminator
@@ -18,5 +20,6 @@ public interface ImplicitAnyDiscriminatorColumnNameSource extends ImplicitNameSo
 	 *
 	 * @return The AttributePath to the ANY mapping
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	AttributePath getAttributePath();
 }

@@ -4,6 +4,8 @@
  */
 package org.hibernate.type.descriptor.jdbc;
 import java.sql.Types;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Descriptor for {@link Types#BINARY BINARY} handling.
@@ -17,6 +19,7 @@ public class BinaryJdbcType extends VarbinaryJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getJdbcTypeCode() {
 		return Types.BINARY;
 	}

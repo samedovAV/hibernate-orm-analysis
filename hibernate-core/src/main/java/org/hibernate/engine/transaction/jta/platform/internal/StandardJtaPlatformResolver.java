@@ -14,6 +14,8 @@ import org.hibernate.engine.transaction.jta.platform.spi.JtaPlatformResolver;
 import org.hibernate.service.spi.ServiceRegistryImplementor;
 
 import org.jboss.logging.Logger;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -24,6 +26,7 @@ public class StandardJtaPlatformResolver implements JtaPlatformResolver {
 	private static final Logger LOG = Logger.getLogger( StandardJtaPlatformResolver.class );
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JtaPlatform resolveJtaPlatform(Map<?,?> configurationValues, ServiceRegistryImplementor registry) {
 		final ClassLoaderService classLoaderService = registry.requireService( ClassLoaderService.class );
 

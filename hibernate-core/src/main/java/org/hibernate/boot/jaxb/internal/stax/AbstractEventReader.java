@@ -20,6 +20,8 @@ import javax.xml.stream.util.EventReaderDelegate;
 
 import org.hibernate.boot.xsd.XsdDescriptor;
 import org.hibernate.boot.xsd.XsdHelper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -43,15 +45,18 @@ public abstract class AbstractEventReader extends EventReaderDelegate {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public XMLEvent peek() throws XMLStreamException {
 		return wrap( super.peek() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public XMLEvent nextEvent() throws XMLStreamException {
 		return wrap( super.nextEvent() );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private XMLEvent wrap(XMLEvent event) {
 		if ( event != null ) {
 			if ( event.isStartElement() ) {
@@ -64,6 +69,7 @@ public abstract class AbstractEventReader extends EventReaderDelegate {
 		return event;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private StartElement wrap(StartElement startElement) {
 		final List<Attribute> newElementAttributeList = mapAttributes( startElement );
 		final List<Namespace> newNamespaceList = mapNamespaces( startElement );
@@ -78,10 +84,12 @@ public abstract class AbstractEventReader extends EventReaderDelegate {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Iterator<Attribute> existingXmlAttributesIterator(StartElement startElement) {
 		return startElement.getAttributes();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private List<Attribute> mapAttributes(StartElement startElement) {
 		final List<Attribute> mappedAttributes = new ArrayList<>();
 
@@ -95,6 +103,7 @@ public abstract class AbstractEventReader extends EventReaderDelegate {
 		return mappedAttributes;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Attribute mapAttribute(StartElement startElement, Attribute originalAttribute) {
 		// Here we look to see if this attribute is the JPA version attribute, and if so do the following:
 		//		1) validate its version attribute is valid per our "latest XSD"
@@ -119,10 +128,12 @@ public abstract class AbstractEventReader extends EventReaderDelegate {
 		return originalAttribute;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private List<Namespace> mapNamespaces(StartElement startElement) {
 		return mapNamespaces( existingXmlNamespacesIterator( startElement ) );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private List<Namespace> mapNamespaces(Iterator<Namespace> originalNamespaceIterator ) {
 		final List<Namespace> mappedNamespaces = new ArrayList<>();
 
@@ -139,10 +150,12 @@ public abstract class AbstractEventReader extends EventReaderDelegate {
 		return mappedNamespaces;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Iterator<Namespace> existingXmlNamespacesIterator(StartElement startElement) {
 		return startElement.getNamespaces();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Namespace mapNamespace(Namespace originalNamespace) {
 		if ( shouldBeMappedToLatestJpaDescriptor( originalNamespace.getNamespaceURI() ) ) {
 			// this is a namespace "to map" so map it
@@ -152,8 +165,10 @@ public abstract class AbstractEventReader extends EventReaderDelegate {
 		return originalNamespace;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract boolean shouldBeMappedToLatestJpaDescriptor(String uri);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private XMLEvent wrap(EndElement endElement) {
 		final List<Namespace> targetNamespaces = mapNamespaces( existingXmlNamespacesIterator( endElement ) );
 
@@ -166,6 +181,7 @@ public abstract class AbstractEventReader extends EventReaderDelegate {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Iterator<Namespace> existingXmlNamespacesIterator(EndElement endElement) {
 		return endElement.getNamespaces();
 	}
@@ -177,6 +193,7 @@ public abstract class AbstractEventReader extends EventReaderDelegate {
 			this.requestedVersion = requestedVersion;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getRequestedVersion() {
 			return requestedVersion;
 		}

@@ -11,6 +11,8 @@ import org.hibernate.sql.ast.spi.SqlAppender;
 import org.hibernate.sql.ast.spi.StringBuilderSqlAppender;
 import org.hibernate.type.descriptor.WrapperOptions;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A formatter object for rendering values of a given {@linkplain JavaType Java type}
@@ -30,6 +32,7 @@ public interface JdbcLiteralFormatter<T> extends Serializable {
 	 * @param dialect the SQL dialect
 	 * @return the SQL literal as a string
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String toJdbcLiteral(T value, Dialect dialect, WrapperOptions wrapperOptions) {
 		final StringBuilder result = new StringBuilder();
 		appendJdbcLiteral( new StringBuilderSqlAppender( result ), value, dialect, wrapperOptions );
@@ -44,5 +47,6 @@ public interface JdbcLiteralFormatter<T> extends Serializable {
 	 * @param value a Java object whose value can be represented as a SQL literal
 	 * @param dialect the SQL dialect
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void appendJdbcLiteral(SqlAppender appender, T value, Dialect dialect, WrapperOptions wrapperOptions);
 }

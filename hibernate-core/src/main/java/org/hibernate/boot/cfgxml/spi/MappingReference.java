@@ -10,6 +10,8 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.jaxb.cfg.spi.JaxbCfgMappingReferenceType;
 import org.hibernate.internal.util.StringHelper;
 import org.hibernate.internal.util.config.ConfigurationException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents a {@code <mapping/>} element within a {@code cfg.xml} file.
@@ -33,14 +35,17 @@ public class MappingReference {
 		this.reference = reference;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Type getType() {
 		return type;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getReference() {
 		return reference;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static MappingReference consume(JaxbCfgMappingReferenceType jaxbMapping) {
 		if ( StringHelper.isNotEmpty( jaxbMapping.getClazz() ) ) {
 			return new MappingReference( Type.CLASS, jaxbMapping.getClazz() );
@@ -62,6 +67,7 @@ public class MappingReference {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void apply(MetadataSources metadataSources) {
 		switch ( getType() ) {
 			case RESOURCE: {

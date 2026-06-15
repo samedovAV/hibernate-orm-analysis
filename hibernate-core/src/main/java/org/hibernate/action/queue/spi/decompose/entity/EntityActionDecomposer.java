@@ -12,6 +12,8 @@ import org.hibernate.action.spi.Executable;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 
 import java.util.function.Consumer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Handles decomposing for a single [action][Executable] type (delegation).
 ///
@@ -43,6 +45,7 @@ public interface EntityActionDecomposer<A extends Executable> {
 	/// @param session The session from which this request originates.
 	/// @param decompositionContext The decomposition context tracking entities being inserted (might be null)
 	/// @param operationConsumer Consumer for any [table operations][FlushOperation] produced
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void decompose(
 			A action,
 			int ordinalBase,

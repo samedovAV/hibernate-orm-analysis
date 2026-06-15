@@ -14,6 +14,8 @@ import org.hibernate.internal.util.StringHelper;
 import org.hibernate.models.spi.ModelsContext;
 
 import jakarta.persistence.OrderColumn;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -69,80 +71,96 @@ public class OrderColumnJpaAnnotation implements OrderColumn,
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return OrderColumn.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String name() {
 		return name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void name(String value) {
 		this.name = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean nullable() {
 		return nullable;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void nullable(boolean value) {
 		this.nullable = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean insertable() {
 		return insertable;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void insertable(boolean value) {
 		this.insertable = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean updatable() {
 		return updatable;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void updatable(boolean value) {
 		this.updatable = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String columnDefinition() {
 		return columnDefinition;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void columnDefinition(String value) {
 		this.columnDefinition = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String comment() {
 		return comment;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void comment(String comment) {
 		this.comment = comment;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String options() {
 		return options;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void options(String value) {
 		this.options = value;
 	}
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void apply(JaxbOrderColumnImpl jaxbColumn, XmlDocumentContext xmlDocumentContext) {
 		if ( StringHelper.isNotEmpty( jaxbColumn.getName() ) ) {
 			name( jaxbColumn.getName() );

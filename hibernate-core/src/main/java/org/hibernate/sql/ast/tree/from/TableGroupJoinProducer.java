@@ -14,18 +14,22 @@ import org.hibernate.sql.ast.spi.SqlAstCreationState;
 import org.hibernate.sql.ast.tree.predicate.Predicate;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
  */
 public interface TableGroupJoinProducer extends TableGroupProducer {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqlAstJoinType getDefaultSqlAstJoinType(TableGroup parentTableGroup);
 
 	/**
 	 * Returns whether the given predicate is a simple join predicate for this attribute.
 	 * This is useful to understand if a predicate has additional conjunctions other than the FK related predicate.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isSimpleJoinPredicate(Predicate predicate);
 
 	/**
@@ -37,6 +41,7 @@ public interface TableGroupJoinProducer extends TableGroupProducer {
 	 * @param sqlAstJoinType An explicit join-type. May be null to signal that the join is for an implicit path.
 	 * @param addsPredicate Indicates there are explicit, additional predicates (from an SQM tree ON/WITH clause)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TableGroupJoin createTableGroupJoin(
 			NavigablePath navigablePath,
 			TableGroup lhs,
@@ -66,6 +71,7 @@ public interface TableGroupJoinProducer extends TableGroupProducer {
 	 * @param sqlAstJoinType An explicit join-type. May be null to signal that the join is for an implicit path.
 	 * @param predicateConsumer Consumer for additional predicates from the producer's mapping.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TableGroup createRootTableGroupJoin(
 			NavigablePath navigablePath,
 			TableGroup lhs,
@@ -76,6 +82,7 @@ public interface TableGroupJoinProducer extends TableGroupProducer {
 			@Nullable Consumer<Predicate> predicateConsumer,
 			SqlAstCreationState creationState);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SqlAstJoinType determineSqlJoinType(TableGroup lhs, @Nullable SqlAstJoinType requestedJoinType, boolean fetched) {
 		if ( requestedJoinType != null ) {
 			return requestedJoinType;

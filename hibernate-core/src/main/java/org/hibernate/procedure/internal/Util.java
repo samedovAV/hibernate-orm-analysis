@@ -14,6 +14,8 @@ import org.hibernate.query.results.spi.ResultSetMapping;
 
 import static org.hibernate.internal.util.collections.ArrayHelper.isEmpty;
 import static org.hibernate.query.results.spi.ResultSetMapping.resolveResultSetMapping;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Utilities used to implement procedure call support.
@@ -25,6 +27,7 @@ public class Util {
 	private Util() {
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static List<ResultSetMapping> resolveResultSetMappings(
 			String procedureName,
 			String[] resultSetMappingNames,
@@ -46,6 +49,7 @@ public class Util {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void resolveResultSetMappings(
 			String[] resultSetMappingNames,
 			Class<?>[] resultSetMappingClasses,
@@ -66,6 +70,7 @@ public class Util {
 		// otherwise, nothing to resolve
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void resolveResultSetMappingNames(
 			String[] resultSetMappingNames,
 			ResultSetMapping resultSetMapping,
@@ -82,6 +87,7 @@ public class Util {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static List<ResultSetMapping> resolveResultSetMappings(
 			String procedureName,
 			String[] resultSetMappingNames,
@@ -105,6 +111,7 @@ public class Util {
 		return resultMappings;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static ResultSetMapping makeResultSetMapping(
 			String procedureName,
 			Class<?> resultClass,
@@ -118,6 +125,7 @@ public class Util {
 		return clazzMapping;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static List<ResultSetMapping> resolveResultSetMappings(
 			String procedureName,
 			Class<?>[] resultSetMappingClasses,
@@ -135,6 +143,7 @@ public class Util {
 		return resultMappings;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static void applyResultClass(
 			Class<?> clazz,
 			ResultSetMapping resultSetMapping,
@@ -168,6 +177,7 @@ public class Util {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public static void resolveResultSetMappingClasses(
 			Class<?>[] resultSetMappingClasses,
 			ResultSetMapping resultSetMapping,

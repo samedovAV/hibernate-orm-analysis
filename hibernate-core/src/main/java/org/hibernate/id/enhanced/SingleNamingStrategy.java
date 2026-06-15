@@ -14,6 +14,8 @@ import org.hibernate.engine.jdbc.env.spi.JdbcEnvironment;
 import org.hibernate.service.ServiceRegistry;
 
 import static org.hibernate.id.enhanced.TableGenerator.DEF_TABLE;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An {@link ImplicitDatabaseObjectNamingStrategy} using a single structure for all
@@ -29,6 +31,7 @@ public class SingleNamingStrategy implements ImplicitDatabaseObjectNamingStrateg
 	public static final String STRATEGY_NAME = "single";
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QualifiedName determineSequenceName(
 			Identifier catalogName,
 			Identifier schemaName,
@@ -44,6 +47,7 @@ public class SingleNamingStrategy implements ImplicitDatabaseObjectNamingStrateg
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QualifiedName determineTableName(
 			Identifier catalogName,
 			Identifier schemaName,

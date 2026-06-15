@@ -13,6 +13,8 @@ import org.hibernate.sql.results.jdbc.internal.StandardJdbcValuesMapping;
 
 import java.util.List;
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * JdbcValuesMapping implementation used while building
@@ -35,11 +37,13 @@ public class JdbcValuesMappingImpl extends StandardJdbcValuesMapping {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getRowSize() {
 		return rowSize;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LockMode determineDefaultLockMode(String alias, LockMode defaultLockMode) {
 		return registeredLockModes == null
 				? defaultLockMode

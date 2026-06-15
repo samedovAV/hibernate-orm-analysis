@@ -24,6 +24,8 @@ import org.hibernate.sql.results.internal.RowTransformerStandardImpl;
 import org.hibernate.sql.results.spi.ListResultsConsumer;
 
 import static org.hibernate.internal.util.collections.CollectionHelper.arrayList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A one-time use {@link CollectionLoader} for applying a subselect fetch.
@@ -68,15 +70,18 @@ public class CollectionLoaderSubSelectFetch implements CollectionLoader {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PluralAttributeMapping getLoadable() {
 		return attributeMapping;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected SelectStatement getSqlAst() {
 		return sqlAst;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public PersistentCollection<?> load(Object triggerKey, SharedSessionContractImplementor session) {
 		final var collectionKey = session.generateCollectionKey( attributeMapping.getCollectionDescriptor(), triggerKey );
 
@@ -152,6 +157,7 @@ public class CollectionLoaderSubSelectFetch implements CollectionLoader {
 		return collection;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private CollectionKey collectionKey(EntityKey key, SharedSessionContractImplementor session) {
 		return session.generateCollectionKey( attributeMapping.getCollectionDescriptor(), key.getIdentifier() );
 	}

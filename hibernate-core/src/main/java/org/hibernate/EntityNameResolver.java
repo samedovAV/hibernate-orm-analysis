@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * An object capable of determining the entity name for a given entity instance.
@@ -38,5 +41,6 @@ public interface EntityNameResolver {
 	 * @return The corresponding entity name, or {@code null} if this implementation
 	 *         does not know how to perform resolution for the given entity instance.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String resolveEntityName(Object entity);
 }

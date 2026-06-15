@@ -7,6 +7,8 @@ package org.hibernate.boot.model.source.spi;
 import java.util.Map;
 
 import org.hibernate.boot.model.JavaTypeDescriptor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Source-agnostic descriptor for explicit user-supplied Hibernate type information
@@ -19,6 +21,7 @@ public interface HibernateTypeSource {
 	 *
 	 * @return The Hibernate type name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getName();
 
 	/**
@@ -26,6 +29,7 @@ public interface HibernateTypeSource {
 	 *
 	 * @return The Hibernate type parameters.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Map<String,String> getParameters();
 
 	/**
@@ -33,5 +37,6 @@ public interface HibernateTypeSource {
 	 *
 	 * @return The java type of the attribute or {@code null}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JavaTypeDescriptor getJavaType();
 }

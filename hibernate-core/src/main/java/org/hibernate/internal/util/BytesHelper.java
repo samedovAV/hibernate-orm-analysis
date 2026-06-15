@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.internal.util;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 
 public final class BytesHelper {
@@ -19,6 +22,7 @@ public final class BytesHelper {
 	 *
 	 * @return The generated int.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static int toInt(byte[] bytes) {
 		int result = 0;
 		for ( int i = 0; i < 4; i++ ) {
@@ -34,6 +38,7 @@ public final class BytesHelper {
 	 *
 	 * @return The binary
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static byte[] fromShort(int shortValue) {
 		byte[] bytes = new byte[2];
 		bytes[0] = (byte) ( shortValue >> 8 );
@@ -48,6 +53,7 @@ public final class BytesHelper {
 	 *
 	 * @return The binary
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static byte[] fromInt(int intValue) {
 		byte[] bytes = new byte[4];
 		bytes[0] = (byte) ( intValue >> 24 );
@@ -64,6 +70,7 @@ public final class BytesHelper {
 	 *
 	 * @return The binary
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static byte[] fromLong(long longValue) {
 		byte[] bytes = new byte[8];
 		fromLong(longValue, bytes, 0);
@@ -77,6 +84,7 @@ public final class BytesHelper {
 	 * @param dest the destination array.
 	 * @param destPos starting position in the destination array.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void fromLong(long longValue, byte[] dest, int destPos) {
 
 		dest[destPos] = (byte) ( longValue >> 56 );
@@ -96,6 +104,7 @@ public final class BytesHelper {
 	 *
 	 * @return The long
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static long asLong(byte[] bytes) {
 		return asLong(bytes, 0);
 	}
@@ -108,6 +117,7 @@ public final class BytesHelper {
 	 *
 	 * @return The long
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static long asLong(byte[] bytes, int srcPos) {
 		if ( bytes == null ) {
 			return 0;
@@ -123,6 +133,7 @@ public final class BytesHelper {
 		return value;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String toBinaryString(byte value) {
 		String formatted = Integer.toBinaryString( value );
 		if ( formatted.length() > 8 ) {
@@ -133,6 +144,7 @@ public final class BytesHelper {
 		return buf.toString();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String toBinaryString(int value) {
 		String formatted = Long.toBinaryString( value );
 		StringBuilder buf = new StringBuilder( StringHelper.repeat( '0', 32 ) );
@@ -140,6 +152,7 @@ public final class BytesHelper {
 		return buf.toString();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String toBinaryString(long value) {
 		String formatted = Long.toBinaryString( value );
 		StringBuilder buf = new StringBuilder( StringHelper.repeat( '0', 64 ) );

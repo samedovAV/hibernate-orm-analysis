@@ -7,6 +7,8 @@ package org.hibernate.graph.internal;
 import jakarta.annotation.Nonnull;
 import org.hibernate.graph.spi.SubGraphImplementor;
 import org.hibernate.metamodel.model.domain.ManagedDomainType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Implementation of the JPA-defined {@link jakarta.persistence.Subgraph} interface.
@@ -25,6 +27,7 @@ public class SubGraphImpl<J> extends GraphImpl<J> implements SubGraphImplementor
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SubGraphImplementor<J> makeCopy(boolean mutable) {
 		return !mutable && !isMutable() ? this : new SubGraphImpl<>( this, mutable );
 	}

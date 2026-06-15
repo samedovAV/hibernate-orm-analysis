@@ -8,6 +8,8 @@ import jakarta.persistence.PessimisticLockScope;
 import org.hibernate.Internal;
 import org.hibernate.LockMode;
 import org.hibernate.LockOptions;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  *  Defines an event class for the loading of an entity.
@@ -78,6 +80,7 @@ public class LoadEvent extends AbstractSessionEvent {
 	}
 
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void validate() {
 		if ( entityId == null ) {
 			throw new IllegalArgumentException( "Identifier may not be null" );
@@ -92,64 +95,78 @@ public class LoadEvent extends AbstractSessionEvent {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getEntityId() {
 		return entityId;
 	}
 
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setEntityId(Object entityId) {
 		this.entityId = entityId;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getEntityClassName() {
 		return entityClassName;
 	}
 
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setEntityClassName(String entityClassName) {
 		this.entityClassName = entityClassName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isAssociationFetch() {
 		return isAssociationFetch;
 	}
 
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setAssociationFetch(boolean associationFetch) {
 		isAssociationFetch = associationFetch;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getInstanceToLoad() {
 		return instanceToLoad;
 	}
 
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setInstanceToLoad(Object instanceToLoad) {
 		this.instanceToLoad = instanceToLoad;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LockOptions getLockOptions() {
 		return lockOptions;
 	}
 
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setLockOptions(LockOptions lockOptions) {
 		this.lockOptions = lockOptions;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getResult() {
 		return result;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setResult(Object result) {
 		this.result = result;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Boolean getReadOnly() {
 		return readOnly;
 	}
 
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setReadOnly(Boolean readOnly) {
 		this.readOnly = readOnly;
 	}
@@ -158,6 +175,7 @@ public class LoadEvent extends AbstractSessionEvent {
 	 * @deprecated Use {@linkplain #getLockOptions()} instead.
 	 */
 	@Deprecated(since = "7.1")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public LockMode getLockMode() {
 		return lockOptions.getLockMode();
 	}
@@ -166,6 +184,7 @@ public class LoadEvent extends AbstractSessionEvent {
 	 * @deprecated Use {@linkplain #getLockOptions()} instead.
 	 */
 	@Deprecated(since = "7.1")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getLockTimeout() {
 		return lockOptions.getTimeout().milliseconds();
 	}
@@ -174,6 +193,7 @@ public class LoadEvent extends AbstractSessionEvent {
 	 * @deprecated Use {@linkplain #getLockOptions()} instead.
 	 */
 	@Deprecated(since = "7.1")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean getLockScope() {
 		return lockOptions.getLockScope() != PessimisticLockScope.NORMAL;
 	}

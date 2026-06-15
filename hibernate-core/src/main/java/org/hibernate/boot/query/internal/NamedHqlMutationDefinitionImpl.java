@@ -16,6 +16,8 @@ import org.hibernate.query.named.NamedSqmQueryMemento;
 import org.hibernate.query.named.internal.HqlMutationMementoImpl;
 
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Models a {@linkplain jakarta.persistence.NamedStatement}.
@@ -37,16 +39,19 @@ public class NamedHqlMutationDefinitionImpl<T>
 		this.targetType = targetType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getHqlString() {
 		return hql;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getStatementString() {
 		return getHqlString();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NamedSqmQueryMemento<T> resolve(SessionFactoryImplementor factory) {
 		return new HqlMutationMementoImpl<>(
 				getRegistrationName(),
@@ -60,6 +65,7 @@ public class NamedHqlMutationDefinitionImpl<T>
 	///
 	/// @param annotation The annotation.
 	/// @param target Where the annotation was found.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static NamedHqlMutationDefinitionImpl<?> from(jakarta.persistence.NamedStatement annotation, AnnotationTarget target) {
 		return new NamedHqlMutationDefinitionImpl<>(
 				annotation.name(),

@@ -15,6 +15,8 @@ import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.service.Service;
 import org.hibernate.service.spi.Stoppable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for building second-level cache regions, including
@@ -60,6 +62,7 @@ public interface RegionFactory extends Service, Stoppable {
 	 * considered as a sign to stop {@link org.hibernate.SessionFactory}
 	 * building.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void start(SessionFactoryOptions settings, Map<String,Object> configValues) throws CacheException;
 
 	/**
@@ -69,15 +72,19 @@ public interface RegionFactory extends Service, Stoppable {
 	 * @return True if "minimal puts" should be performed by default; false
 	 *         otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isMinimalPutsEnabledByDefault();
 
 	/**
 	 * Get the default access type for any "user model" data.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	AccessType getDefaultAccessType();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String qualify(String regionName);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default CacheTransactionSynchronization createTransactionContext(SharedSessionContractImplementor session) {
 		return new StandardCacheTransactionSynchronization( this );
 	}
@@ -93,8 +100,10 @@ public interface RegionFactory extends Service, Stoppable {
 	 * {@link java.util.Date#getTime()}/{@link System#currentTimeMillis()}
 	 * sense.  It just needs to be an incrementing value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	long nextTimestamp();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default long getTimeout() {
 		// most existing providers defined this as 60 seconds.
 		return 60000;
@@ -106,6 +115,7 @@ public interface RegionFactory extends Service, Stoppable {
 	 * @param regionConfig The user requested caching configuration for this Region
 	 * @param buildingContext Access to delegates useful in building the Region
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	DomainDataRegion buildDomainDataRegion(
 			DomainDataRegionConfig regionConfig,
 			DomainDataRegionBuildingContext buildingContext);
@@ -114,11 +124,13 @@ public interface RegionFactory extends Service, Stoppable {
 	/**
 	 * Create a named {@link Region} for holding query result sets.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	QueryResultsRegion buildQueryResultsRegion(String regionName, SessionFactoryImplementor sessionFactory);
 
 	/**
 	 * Create a named {@link Region} for holding timestamps used to
 	 * determine when a cached query result set is stale.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TimestampsRegion buildTimestampsRegion(String regionName, SessionFactoryImplementor sessionFactory);
 }

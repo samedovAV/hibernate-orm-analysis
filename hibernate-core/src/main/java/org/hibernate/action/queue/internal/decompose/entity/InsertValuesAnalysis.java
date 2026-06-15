@@ -12,6 +12,8 @@ import org.hibernate.internal.util.collections.IdentitySet;
 import org.hibernate.sql.model.ValuesAnalysis;
 
 import java.util.Set;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Lightweight values analysis that only tracks which tables have non-null values.
 /// Used when expensive column-value extraction is not needed.
@@ -34,11 +36,13 @@ public class InsertValuesAnalysis implements ValuesAnalysis, TableInclusionCheck
 		} );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasNonNullBindings(TableDescriptor tableDescriptor) {
 		return tablesWithNonNullValues.contains( tableDescriptor );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean include(TableDescriptor tableDescriptor) {
 		// we want to actually do an insert into the table if either -
 		// 		* the table is non-optional

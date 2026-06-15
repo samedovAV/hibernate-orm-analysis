@@ -9,6 +9,8 @@ import org.hibernate.query.KeyedPage.KeyInterpretation;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Intermediate holder class for results of queries
@@ -25,14 +27,17 @@ public class KeyedResult<R> {
 		this.key = key;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public R getResult() {
 		return result;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<Comparable<?>> getKey() {
 		return key;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static <R> List<R> collectResults(List<KeyedResult<R>> executed, int pageSize, KeyInterpretation interpretation) {
 		//note: given list probably has one more result than needed
 		final int size = executed.size();
@@ -58,6 +63,7 @@ public class KeyedResult<R> {
 		return resultList;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static List<List<?>> collectKeys(List<? extends KeyedResult<?>> executed, int pageSize) {
 		final int size = executed.size();
 		final List<List<?>> resultList = new ArrayList<>( size );

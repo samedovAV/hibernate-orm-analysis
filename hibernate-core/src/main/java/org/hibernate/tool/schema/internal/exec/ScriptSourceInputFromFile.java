@@ -14,6 +14,8 @@ import java.net.URL;
 import org.hibernate.tool.schema.spi.SchemaManagementException;
 
 import org.jboss.logging.Logger;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * ScriptSourceInput implementation for File references.
@@ -38,25 +40,30 @@ public class ScriptSourceInputFromFile extends AbstractScriptSourceInput {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getScriptDescription() {
 		return file.getAbsolutePath();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Reader prepareReader() {
 		return toReader( file, charsetName );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Reader toReader(File file, String charsetName) {
 		if ( ! file.exists() ) {
 			LOG.warnf( "Specified schema generation script file [%s] did not exist for reading", file );
 			return new Reader() {
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				public int read(char[] cbuf, int off, int len) {
 					return -1;
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				public void close() {
 				}
 			};
@@ -77,6 +84,7 @@ public class ScriptSourceInputFromFile extends AbstractScriptSourceInput {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void releaseReader(Reader reader) {
 		try {
 			reader.close();
@@ -87,11 +95,13 @@ public class ScriptSourceInputFromFile extends AbstractScriptSourceInput {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean containsScript(URL url) {
 		return file.getAbsolutePath().equals( url.getPath() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "ScriptSourceInputFromFile(" + file.getAbsolutePath() + ")";
 	}

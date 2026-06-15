@@ -14,6 +14,8 @@ import org.hibernate.models.spi.ModelsContext;
 
 import static org.hibernate.boot.models.HibernateAnnotations.JOIN_COLUMN_OR_FORMULA;
 import static org.hibernate.boot.models.internal.OrmAnnotationHelper.extractJdkValue;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -46,25 +48,30 @@ public class JoinColumnOrFormulaAnnotation implements JoinColumnOrFormula {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return JoinColumnOrFormula.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public org.hibernate.annotations.JoinFormula formula() {
 		return formula;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void formula(org.hibernate.annotations.JoinFormula value) {
 		this.formula = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.JoinColumn column() {
 		return column;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void column(jakarta.persistence.JoinColumn value) {
 		this.column = value;
 	}

@@ -12,6 +12,8 @@ import org.hibernate.models.spi.ModelsContext;
 
 import java.lang.annotation.Annotation;
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -52,24 +54,29 @@ public class NativeGeneratorAnnotation implements NativeGenerator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SequenceGenerator sequenceForm() {
 		return sequenceForm;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void sequenceForm(SequenceGenerator sequenceForm) {
 		this.sequenceForm = sequenceForm;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableGenerator tableForm() {
 		return tableForm;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void tableForm(TableGenerator tableForm) {
 		this.tableForm = tableForm;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return NativeGenerator.class;
 	}

@@ -12,6 +12,8 @@ import org.hibernate.query.sqm.tree.SqmCopyContext;
 import org.hibernate.query.sqm.tree.SqmVisitableNode;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base support for {@link JpaTupleElement} impls
@@ -30,11 +32,13 @@ public abstract class AbstractJpaTupleElement<T>
 		setExpressibleType( expressibleType );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void copyTo(AbstractJpaTupleElement<T> target, SqmCopyContext context) {
 		target.alias = alias;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable String getAlias() {
 		return alias;
 	}
@@ -42,14 +46,17 @@ public abstract class AbstractJpaTupleElement<T>
 	/**
 	 * Protected access to set the alias.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void setAlias(@Nullable String alias) {
 		this.alias = alias;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable SqmBindableType<T> getNodeType() {
 		return expressibleType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected final void setExpressibleType(
 			// This is fine, since this method is final
 			AbstractJpaTupleElement<T> this,

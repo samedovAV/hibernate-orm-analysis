@@ -22,6 +22,8 @@ import org.hibernate.spi.NavigablePath;
 import org.hibernate.sql.results.graph.DomainResultCreationState;
 import org.hibernate.sql.results.graph.Fetch;
 import org.hibernate.sql.results.graph.FetchParent;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Each instance of this interface describes the semantics of some sort of
@@ -44,16 +46,19 @@ public interface CollectionSemantics<CE, E> {
 	/**
 	 * The classification handled by this semantic
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CollectionClassification getCollectionClassification();
 
 	/**
 	 * The collection's Java type
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Class<?> getCollectionJavaType();
 
 	/**
 	 * Create a raw (unwrapped) version of the collection
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CE instantiateRaw(
 			int anticipatedSize,
 			CollectionPersister collectionDescriptor);
@@ -62,6 +67,7 @@ public interface CollectionSemantics<CE, E> {
 	 * Create a raw (unwrapped) version of the collection and populate it
 	 * with the given elements.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <X> Object instantiateWithElements(
 			int anticipatedSize,
 			CollectionPersister collectionDescriptor,
@@ -73,6 +79,7 @@ public interface CollectionSemantics<CE, E> {
 	 * Create a raw (unwrapped) version of the collection and populate it
 	 * with the given map entries.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <K, V> Map<K, V> instantiateWithElements(
 			int anticipatedSize,
 			CollectionPersister collectionDescriptor,
@@ -83,11 +90,13 @@ public interface CollectionSemantics<CE, E> {
 	/**
 	 * Determine the size of the given raw collection.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int collectionSize(Object rawCollection);
 
 	/**
 	 * Create a raw (unwrapped) copy of the given collection.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object copy(
 			Object rawCollection,
 			CollectionPersister collectionDescriptor);
@@ -95,6 +104,7 @@ public interface CollectionSemantics<CE, E> {
 	/**
 	 * Create a detached copy of a collection part.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Set<?> copyPart(
 			Object rawCollection,
 			CollectionPersister collectionDescriptor,
@@ -103,6 +113,7 @@ public interface CollectionSemantics<CE, E> {
 	/**
 	 * Create a wrapper for the collection
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PersistentCollection<E> instantiateWrapper(
 			Object key,
 			CollectionPersister collectionDescriptor,
@@ -111,6 +122,7 @@ public interface CollectionSemantics<CE, E> {
 	/**
 	 * Wrap a raw collection in wrapper
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PersistentCollection<E> wrap(
 			CE rawCollection,
 			CollectionPersister collectionDescriptor,
@@ -119,11 +131,13 @@ public interface CollectionSemantics<CE, E> {
 	/**
 	 * Obtain an iterator over the collection elements
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Iterator<E> getElementIterator(CE rawCollection);
 
 	/**
 	 * Visit the elements of the collection
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitElements(CE rawCollection, Consumer<? super E> action);
 
 	/**
@@ -132,6 +146,7 @@ public interface CollectionSemantics<CE, E> {
 	 *
 	 * @see InitializerProducerBuilder
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default CollectionInitializerProducer createInitializerProducer(
 			NavigablePath navigablePath,
 			PluralAttributeMapping attributeMapping,
@@ -150,6 +165,7 @@ public interface CollectionSemantics<CE, E> {
 	 *
 	 * @see InitializerProducerBuilder
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default CollectionInitializerProducer createInitializerProducer(
 			NavigablePath navigablePath,
 			PluralAttributeMapping attributeMapping,

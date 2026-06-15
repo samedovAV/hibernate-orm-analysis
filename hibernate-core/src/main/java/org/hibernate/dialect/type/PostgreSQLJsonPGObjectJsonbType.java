@@ -7,6 +7,8 @@ package org.hibernate.dialect.type;
 import org.hibernate.metamodel.mapping.EmbeddableMappingType;
 import org.hibernate.metamodel.spi.RuntimeModelCreationContext;
 import org.hibernate.type.descriptor.jdbc.AggregateJdbcType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -21,6 +23,7 @@ public class PostgreSQLJsonPGObjectJsonbType extends AbstractPostgreSQLJsonPGObj
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AggregateJdbcType resolveAggregateJdbcType(
 			EmbeddableMappingType mappingType,
 			String sqlType,

@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.boot.model.source.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Contact to define if the source of plural attribute is sortable or not.
@@ -15,6 +18,7 @@ public interface Sortable {
 	 *
 	 * @return <code>true</code> the attribute will be sortable or <code>false</code> means not.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isSorted();
 
 	/**
@@ -22,6 +26,7 @@ public interface Sortable {
 	 *
 	 * @return Qualified class name which implements {@link java.util.Comparator} contact.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getComparatorName();
 
 }

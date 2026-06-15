@@ -13,6 +13,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.Incubating;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.persister.collection.BasicCollectionPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A persistent wrapper for a {@link java.util.SortedSet}. Underlying
@@ -58,6 +60,7 @@ public class PersistentSortedSet<E> extends PersistentSet<E> implements SortedSe
 	}
 
 	@SuppressWarnings("UnusedParameters")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected Serializable snapshot(BasicCollectionPersister persister)
 			throws HibernateException {
 		final TreeMap<E,E> clonedSet = new TreeMap<>( comparator );
@@ -68,16 +71,19 @@ public class PersistentSortedSet<E> extends PersistentSet<E> implements SortedSe
 		return clonedSet;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setComparator(Comparator<? super E> comparator) {
 		this.comparator = comparator;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Comparator<? super E> comparator() {
 		return comparator;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SortedSet<E> subSet(E fromElement, E toElement) {
 		read();
 		final SortedSet<E> subSet = ( (SortedSet<E>) set ).subSet( fromElement, toElement );
@@ -85,6 +91,7 @@ public class PersistentSortedSet<E> extends PersistentSet<E> implements SortedSe
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SortedSet<E> headSet(E toElement) {
 		read();
 		final SortedSet<E> headSet = ( (SortedSet<E>) set ).headSet( toElement );
@@ -92,6 +99,7 @@ public class PersistentSortedSet<E> extends PersistentSet<E> implements SortedSe
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SortedSet<E> tailSet(E fromElement) {
 		read();
 		final SortedSet<E> tailSet = ( (SortedSet<E>) set ).tailSet( fromElement );
@@ -99,12 +107,14 @@ public class PersistentSortedSet<E> extends PersistentSet<E> implements SortedSe
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public E first() {
 		read();
 		return ( (SortedSet<E>) set ).first();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public E last() {
 		read();
 		return ( (SortedSet<E>) set ).last();
@@ -119,31 +129,37 @@ public class PersistentSortedSet<E> extends PersistentSet<E> implements SortedSe
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public Comparator<? super E> comparator() {
 			return ( (SortedSet<E>) this.set ).comparator();
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public E first() {
 			return ( (SortedSet<E>) this.set ).first();
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public SortedSet<E> headSet(E toValue) {
 			return new SubSetProxy( ( (SortedSet<E>) this.set ).headSet( toValue ) );
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public E last() {
 			return ( (SortedSet<E>) this.set ).last();
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public SortedSet<E> subSet(E fromValue, E toValue) {
 			return new SubSetProxy( ( (SortedSet<E>) this.set ).subSet( fromValue, toValue ) );
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public SortedSet<E> tailSet(E fromValue) {
 			return new SubSetProxy( ( (SortedSet<E>) this.set ).tailSet( fromValue ) );
 		}

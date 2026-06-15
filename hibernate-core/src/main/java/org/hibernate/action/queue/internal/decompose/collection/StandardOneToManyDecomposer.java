@@ -16,6 +16,8 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.persister.collection.OneToManyPersister;
 
 import java.util.function.Consumer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Standard one-to-many decomposer for single-table and simple joined inheritance
 /// @author Steve Ebersole
@@ -31,11 +33,13 @@ public class StandardOneToManyDecomposer extends AbstractOneToManyDecomposer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected CollectionJdbcOperations selectJdbcOperations(Object entry, SharedSessionContractImplementor session) {
 		return jdbcOperations;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void decomposeRemove(
 			CollectionRemoveAction action,
 			int ordinalBase,

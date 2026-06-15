@@ -18,6 +18,8 @@ import org.hibernate.persister.collection.CollectionPersister;
 
 import static org.hibernate.internal.util.StringHelper.unqualify;
 import static org.hibernate.pretty.MessageHelper.infoString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Any action relating to insert/update/delete of a collection
@@ -50,6 +52,7 @@ public abstract class CollectionAction implements ComparableExecutable {
 	 *
 	 * @return The collection
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistentCollection<?> getCollection() {
 		return collection;
 	}
@@ -59,6 +62,7 @@ public abstract class CollectionAction implements ComparableExecutable {
 	 *
 	 * @return The collection key
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getKey() {
 		return key instanceof DelayedPostInsertIdentifier
 				? session.getPersistenceContextInternal().getEntry( collection.getOwner() ).getId()
@@ -70,6 +74,7 @@ public abstract class CollectionAction implements ComparableExecutable {
 	 *
 	 * @param session The session being deserialized
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void afterDeserialize(EventSource session) {
 		if ( this.session != null || this.persister != null ) {
 			throw new IllegalStateException( "already attached to a session." );
@@ -83,6 +88,7 @@ public abstract class CollectionAction implements ComparableExecutable {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final void beforeExecutions() throws CacheException {
 		// We need to obtain the lock before any actions are executed, since this may be an inverse="true"
 		// bidirectional association, and it is one of the earlier entity actions which actually updates
@@ -102,6 +108,7 @@ public abstract class CollectionAction implements ComparableExecutable {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BeforeTransactionCompletionProcess getBeforeTransactionCompletionProcess() {
 		return null;
 	}
@@ -109,33 +116,40 @@ public abstract class CollectionAction implements ComparableExecutable {
 	private AfterTransactionCompletionProcess afterTransactionProcess;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AfterTransactionCompletionProcess getAfterTransactionCompletionProcess() {
 		return afterTransactionProcess;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getPropertySpaces() {
 		return persister.getCollectionSpaces();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final CollectionPersister getPersister() {
 		return persister;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getPrimarySortClassifier() {
 		return collectionRole;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getSecondarySortIndex() {
 		return key;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected final EventSource getSession() {
 		return session;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final void evict() throws CacheException {
 		if ( persister.hasCache() ) {
 			final var cache = persister.getCacheAccessStrategy();
@@ -150,12 +164,14 @@ public abstract class CollectionAction implements ComparableExecutable {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return unqualify( getClass().getName() )
 				+ infoString( collectionRole, key );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int compareTo(ComparableExecutable executable) {
 		// sort first by role name
 		final int roleComparison = collectionRole.compareTo( executable.getPrimarySortClassifier() );
@@ -166,6 +182,7 @@ public abstract class CollectionAction implements ComparableExecutable {
 						.compare( key, executable.getSecondarySortIndex() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getLoggableDetails() {
 		// for now...
 		return getClass().getSimpleName() + "(" + collectionRole + ")";
@@ -183,6 +200,7 @@ public abstract class CollectionAction implements ComparableExecutable {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void doAfterTransactionCompletion(boolean success, SharedSessionContractImplementor session) {
 			final var cache = persister.getCacheAccessStrategy();
 			final Object cacheKey = cache.generateCacheKey(
@@ -195,6 +213,7 @@ public abstract class CollectionAction implements ComparableExecutable {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected EventSource eventSource() {
 		return getSession();
 	}
@@ -203,6 +222,7 @@ public abstract class CollectionAction implements ComparableExecutable {
 	 * Convenience method for all subclasses.
 	 * @return the {@link EventListenerGroups} instance from the {@code SessionFactory}.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected EventListenerGroups getEventListenerGroups() {
 		return session.getFactory().getEventListenerGroups();
 	}

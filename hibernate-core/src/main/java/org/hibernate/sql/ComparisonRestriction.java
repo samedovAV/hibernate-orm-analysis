@@ -5,6 +5,8 @@
 package org.hibernate.sql;
 
 import org.hibernate.Internal;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A binary-comparison restriction
@@ -32,6 +34,7 @@ public class ComparisonRestriction implements Restriction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void render(StringBuilder sqlBuffer, RestrictionRenderingContext context) {
 		sqlBuffer.append( lhs );
 		sqlBuffer.append( operator.getSqlText() );
@@ -55,6 +58,7 @@ public class ComparisonRestriction implements Restriction {
 			this.sqlText = sqlText;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getSqlText() {
 			return sqlText;
 		}

@@ -25,6 +25,8 @@ import org.hibernate.sql.results.jdbc.spi.JdbcValuesMapping;
 import org.hibernate.sql.results.jdbc.spi.RowProcessingState;
 
 import static java.util.Arrays.copyOf;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * {@link AbstractJdbcValues} implementation for a JDBC {@link ResultSet} as the source
@@ -103,6 +105,7 @@ public class JdbcValuesResultSetImpl extends AbstractJdbcValues {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private int determineResultCountEstimate(
 			ResultSetAccess resultSetAccess,
 			QueryOptions queryOptions,
@@ -119,6 +122,7 @@ public class JdbcValuesResultSetImpl extends AbstractJdbcValues {
 		return -1;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static QueryCachePutManager resolveQueryCachePutManager(
 			ExecutionContext executionContext,
 			QueryOptions queryOptions,
@@ -142,20 +146,24 @@ public class JdbcValuesResultSetImpl extends AbstractJdbcValues {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected final boolean processNext(RowProcessingState rowProcessingState) {
 		return advance( advanceNext() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean processPrevious(RowProcessingState rowProcessingState) {
 		return advance( advancePrevious() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean processScroll(int numberOfRows, RowProcessingState rowProcessingState) {
 		return advance( scrollRows( numberOfRows ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean scrollRows(final int numberOfRows) {
 		try {
 			return resultSet.relative( numberOfRows );
@@ -166,6 +174,7 @@ public class JdbcValuesResultSetImpl extends AbstractJdbcValues {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getPosition() {
 		try {
 			return resultSet.getRow();
@@ -176,10 +185,12 @@ public class JdbcValuesResultSetImpl extends AbstractJdbcValues {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean processPosition(int position, RowProcessingState rowProcessingState) {
 		return advance( advanceToPosition( position ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean advanceToPosition(final int position) {
 		try {
 			return resultSet.absolute( position );
@@ -190,6 +201,7 @@ public class JdbcValuesResultSetImpl extends AbstractJdbcValues {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isBeforeFirst(RowProcessingState rowProcessingState) {
 		try {
 			return resultSet.isBeforeFirst();
@@ -200,6 +212,7 @@ public class JdbcValuesResultSetImpl extends AbstractJdbcValues {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void beforeFirst(RowProcessingState rowProcessingState) {
 		try {
 			resultSet.beforeFirst();
@@ -211,6 +224,7 @@ public class JdbcValuesResultSetImpl extends AbstractJdbcValues {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isFirst(RowProcessingState rowProcessingState) {
 		try {
 			return resultSet.isFirst();
@@ -221,11 +235,13 @@ public class JdbcValuesResultSetImpl extends AbstractJdbcValues {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean first(RowProcessingState rowProcessingState) {
 		return advance( advanceToFirst() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isAfterLast(RowProcessingState rowProcessingState) {
 		try {
 			return resultSet.isAfterLast();
@@ -236,6 +252,7 @@ public class JdbcValuesResultSetImpl extends AbstractJdbcValues {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void afterLast(RowProcessingState rowProcessingState) {
 		try {
 			resultSet.afterLast();
@@ -247,6 +264,7 @@ public class JdbcValuesResultSetImpl extends AbstractJdbcValues {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isLast(RowProcessingState rowProcessingState) {
 		try {
 			return resultSet.isLast();
@@ -257,10 +275,12 @@ public class JdbcValuesResultSetImpl extends AbstractJdbcValues {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean last(RowProcessingState rowProcessingState) {
 		return advance( advanceToLast() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean advanceNext() {
 		try {
 			return resultSet.next();
@@ -270,6 +290,7 @@ public class JdbcValuesResultSetImpl extends AbstractJdbcValues {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean advanceToLast() {
 		try {
 			return resultSet.last();
@@ -279,6 +300,7 @@ public class JdbcValuesResultSetImpl extends AbstractJdbcValues {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean advanceToFirst() {
 		try {
 			return resultSet.first();
@@ -288,6 +310,7 @@ public class JdbcValuesResultSetImpl extends AbstractJdbcValues {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean advancePrevious() {
 		try {
 			return resultSet.previous();
@@ -297,6 +320,7 @@ public class JdbcValuesResultSetImpl extends AbstractJdbcValues {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean advance(final boolean hasResult) {
 		if ( hasResult ) {
 			readCurrentRowValues();
@@ -304,6 +328,7 @@ public class JdbcValuesResultSetImpl extends AbstractJdbcValues {
 		return hasResult;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private ExecutionException makeExecutionException(String message, SQLException cause) {
 		final var jdbcException =
 				executionContext.getSession().getJdbcServices()
@@ -318,11 +343,13 @@ public class JdbcValuesResultSetImpl extends AbstractJdbcValues {
 		return new ExecutionException( message + " [" + cause.getMessage() + "]", jdbcException );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void readCurrentRowValues() {
 		initializedIndexes.clear();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final void finishUp(SharedSessionContractImplementor session) {
 		if ( queryCachePutManager != null ) {
 			queryCachePutManager.finishUp( resultCount, session );
@@ -331,16 +358,19 @@ public class JdbcValuesResultSetImpl extends AbstractJdbcValues {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcValuesMapping getValuesMapping() {
 		return valuesMapping;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean usesFollowOnLocking() {
 		return usesFollowOnLocking;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void finishRowProcessing(RowProcessingState rowProcessingState, boolean wasAdded) {
 		if ( queryCachePutManager != null ) {
 			if ( wasAdded ) {
@@ -372,6 +402,7 @@ public class JdbcValuesResultSetImpl extends AbstractJdbcValues {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getCurrentRowValue(int valueIndex) {
 		if ( !initializedIndexes.get( valueIndex ) ) {
 			initializedIndexes.set( valueIndex );
@@ -394,6 +425,7 @@ public class JdbcValuesResultSetImpl extends AbstractJdbcValues {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void setFetchSize(int fetchSize) {
 		try {
 			resultSet.setFetchSize( fetchSize );
@@ -404,6 +436,7 @@ public class JdbcValuesResultSetImpl extends AbstractJdbcValues {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getResultCountEstimate() {
 		return resultCountEstimate;
 	}

@@ -19,6 +19,8 @@ import org.hibernate.sql.model.MutationType;
 
 import static org.hibernate.sql.model.internal.MutationOperationGroupFactory.noOperations;
 import static org.hibernate.sql.model.internal.MutationOperationGroupFactory.singleOperation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * UpdateRowsCoordinator implementation for cases with a separate collection table
@@ -42,6 +44,7 @@ public class UpdateRowsCoordinatorStandard extends AbstractUpdateRowsCoordinator
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected int doUpdate(Object key, PersistentCollection<?> collection, SharedSessionContractImplementor session) {
 		final var operationGroup = getOperationGroup();
 
@@ -104,6 +107,7 @@ public class UpdateRowsCoordinatorStandard extends AbstractUpdateRowsCoordinator
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean processRow(
 			Object key,
 			PersistentCollection<?> collection,
@@ -143,6 +147,7 @@ public class UpdateRowsCoordinatorStandard extends AbstractUpdateRowsCoordinator
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected MutationOperationGroup getOperationGroup() {
 		if ( operationGroup == null ) {
 			final var updateRowOperation = rowMutationOperations.getUpdateRowOperation();

@@ -5,6 +5,8 @@
 package org.hibernate.query.sqm;
 
 import org.hibernate.query.SemanticException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Indicates a failure to resolve an entity name in HQL to a known mapped
@@ -37,6 +39,7 @@ public class UnknownEntityException extends SemanticException {
 		this.entityName = entityName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getEntityName() {
 		return entityName;
 	}

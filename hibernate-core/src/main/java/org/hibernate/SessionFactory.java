@@ -35,6 +35,8 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 import static org.hibernate.internal.TransactionManagement.manageTransaction;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@code SessionFactory} represents an "instance" of Hibernate: it maintains
@@ -150,6 +152,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	/**
 	 * The JNDI name, used to bind the {@code SessionFactory} to JNDI.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getJndiName();
 
 	/**
@@ -160,6 +163,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 * @return The session builder
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionBuilder withOptions();
 
 	/**
@@ -178,6 +182,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 *                            pretty rare here.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Session openSession() throws HibernateException;
 
 	/**
@@ -206,6 +211,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 * @see org.hibernate.cfg.AvailableSettings#CURRENT_SESSION_CONTEXT_CLASS
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Session getCurrentSession() throws HibernateException;
 
 	/**
@@ -214,6 +220,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 * @return The stateless session builder
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StatelessSessionBuilder withStatelessOptions();
 
 	/**
@@ -226,6 +233,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 *
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StatelessSession openStatelessSession();
 
 	/**
@@ -237,6 +245,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 * @return The new stateless session.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StatelessSession openStatelessSession(@Nonnull Connection connection);
 
 	/**
@@ -254,6 +263,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 *
 	 * @see #inTransaction(Consumer)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void inSession(@Nonnull Consumer<? super Session> action) {
 		try ( Session session = openSession() ) {
 			action.accept( session );
@@ -278,6 +288,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 *
 	 * @since 6.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void inStatelessSession(@Nonnull Consumer<? super StatelessSession> action) {
 		try ( var session = openStatelessSession() ) {
 			action.accept( session );
@@ -291,6 +302,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 * @apiNote This method competes with the JPA-defined method
 	 *          {@link #runInTransaction}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void inTransaction(@Nonnull Consumer<? super Session> action) {
 		inSession( session -> manageTransaction( session, session.beginTransaction(), action ) );
 	}
@@ -301,6 +313,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 *
 	 * @since 6.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void inStatelessTransaction(@Nonnull Consumer<? super StatelessSession> action) {
 		inStatelessSession( session -> manageTransaction( session, session.beginTransaction(), action ) );
 	}
@@ -320,6 +333,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 *
 	 * @see #fromTransaction(Function)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <R> R fromSession(@Nonnull Function<? super Session,R> action) {
 		try ( var session = openSession() ) {
 			return action.apply( session );
@@ -343,6 +357,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 *
 	 * @since 6.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <R> R fromStatelessSession(@Nonnull Function<? super StatelessSession,R> action) {
 		try ( var session = openStatelessSession() ) {
 			return action.apply( session );
@@ -356,6 +371,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 * @apiNote This method competes with the JPA-defined method
 	 *          {@link #callInTransaction}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <R> R fromTransaction(@Nonnull Function<? super Session,R> action) {
 		return fromSession( session -> manageTransaction( session, session.beginTransaction(), action ) );
 	}
@@ -366,6 +382,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 *
 	 * @since 6.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <R> R fromStatelessTransaction(@Nonnull Function<? super StatelessSession,R> action) {
 		return fromStatelessSession( session -> manageTransaction( session, session.beginTransaction(), action ) );
 	}
@@ -377,6 +394,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Session createEntityManager(@Nullable EntityManager.CreationOption... options);
 
 	/**
@@ -385,6 +403,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Session createEntityManager(@Nullable Map<?, ?> map);
 
 	/**
@@ -396,6 +415,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 * resource-local} transaction management
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Session createEntityManager(@Nonnull SynchronizationType synchronizationType);
 
 	/**
@@ -409,10 +429,12 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Session createEntityManager(@Nonnull SynchronizationType synchronizationType, @Nullable Map<?, ?> map);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StatelessSession createEntityAgent(@Nullable EntityAgent.CreationOption... options);
 
 	/**
@@ -421,6 +443,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 * @return The statistics.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Statistics getStatistics();
 
 	/**
@@ -432,6 +455,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SchemaManager getSchemaManager();
 
 	/**
@@ -444,6 +468,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	HibernateCriteriaBuilder getCriteriaBuilder();
 
 	/**
@@ -459,6 +484,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 * @throws HibernateException Indicates an issue closing the factory.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void close() throws HibernateException;
 
 	/**
@@ -466,6 +492,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 *
 	 * @return True if this factory is already closed; false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isClosed();
 
 	/**
@@ -476,6 +503,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Cache getCache();
 
 	/**
@@ -484,6 +512,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 * @see #addNamedEntityGraph
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> List<EntityGraph<? super T>> findEntityGraphsByType(@Nonnull Class<T> entityClass);
 
 	/**
@@ -496,6 +525,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 * @see #addNamedEntityGraph
 	 */
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	RootGraph<?> findEntityGraphByName(@Nonnull String name);
 
 	/**
@@ -509,6 +539,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 * @since 7.0
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <T> RootGraph<T> createEntityGraph(@Nonnull Class<T> entityType) {
 		return new RootGraphImpl<>( null, (EntityDomainType<T>) getMetamodel().entity( entityType ) );
 	}
@@ -534,6 +565,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 * @see #createEntityGraph(Class)
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	RootGraph<Map<String,?>> createGraphForDynamicEntity(@Nonnull String entityName);
 
 	/**
@@ -554,6 +586,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 * @since 7.0
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> RootGraph<T> parseEntityGraph(@Nonnull Class<T> rootEntityClass, @Nonnull CharSequence graphText);
 
 	/**
@@ -575,6 +608,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 */
 	@Incubating
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> RootGraph<T> parseEntityGraph(@Nonnull String rootEntityName, @Nonnull CharSequence graphText);
 
 	/**
@@ -592,6 +626,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 */
 	@Incubating
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> RootGraph<T> parseEntityGraph(@Nonnull CharSequence graphText);
 
 	/**
@@ -602,6 +637,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 *         {@link org.hibernate.annotations.FilterDef} annotations
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Set<String> getDefinedFilterNames();
 
 	/**
@@ -617,6 +653,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 */
 	@Deprecated(since = "6.2")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	FilterDefinition getFilterDefinition(@Nonnull String filterName) throws HibernateException;
 
 	/**
@@ -629,6 +666,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 * @since 6.2
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Set<String> getDefinedFetchProfileNames();
 
 	/**
@@ -637,6 +675,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 * @param name The name to check
 	 * @return True if there is such a fetch profile; false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean containsFetchProfileDefinition(@Nonnull String name) {
 		return getDefinedFilterNames().contains( name );
 	}
@@ -661,6 +700,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 */
 	@Incubating
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R> TypedQueryReference<R> addNamedQuery(@Nonnull String name, @Nonnull TypedQuery<R> query);
 
 	/**
@@ -681,6 +721,7 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 * @see jakarta.persistence.spi.PersistenceUnitInfo#getPersistenceUnitName
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getName();
 
 	/**
@@ -694,5 +735,6 @@ public interface SessionFactory extends EntityManagerFactory, Referenceable, Ser
 	 */
 	@Deprecated(since = "6.2")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryOptions getSessionFactoryOptions();
 }

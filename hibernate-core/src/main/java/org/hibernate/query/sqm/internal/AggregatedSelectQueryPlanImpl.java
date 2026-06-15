@@ -15,6 +15,8 @@ import org.hibernate.query.spi.DomainQueryExecutionContext;
 import org.hibernate.query.spi.Limit;
 import org.hibernate.query.spi.SelectQueryPlan;
 import org.hibernate.sql.results.spi.ResultsConsumer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -27,11 +29,13 @@ public class AggregatedSelectQueryPlanImpl<R> implements SelectQueryPlan<R> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> T executeQuery(DomainQueryExecutionContext executionContext, ResultsConsumer<T, R> resultsConsumer) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public List<R> performList(DomainQueryExecutionContext executionContext) {
 		final Limit effectiveLimit = executionContext.getQueryOptions().getEffectiveLimit();
 		final int maxRowsJpa = effectiveLimit.getMaxRowsJpa();
@@ -74,6 +78,7 @@ public class AggregatedSelectQueryPlanImpl<R> implements SelectQueryPlan<R> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ScrollableResults<R> performScroll(ScrollMode scrollMode, DomainQueryExecutionContext executionContext) {
 		if ( executionContext.getQueryOptions().getEffectiveLimit().getMaxRowsJpa() == 0 ) {
 			return EmptyScrollableResults.instance();

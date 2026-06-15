@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.hibernate.annotations.View;
 import org.hibernate.models.spi.ModelsContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -37,15 +39,18 @@ public class ViewAnnotation implements View {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return View.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String query() {
 		return query;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void query(String value) {
 		this.query = value;
 	}

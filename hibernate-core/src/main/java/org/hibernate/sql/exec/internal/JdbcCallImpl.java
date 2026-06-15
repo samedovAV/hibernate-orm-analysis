@@ -25,6 +25,8 @@ import org.hibernate.sql.results.jdbc.spi.JdbcValuesMappingProducer;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.emptyMap;
 import static java.util.Collections.unmodifiableList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Models the actual call, allowing iterative building of the parts.
@@ -75,57 +77,68 @@ public class JdbcCallImpl implements JdbcOperationQueryCall {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSqlString() {
 		return callableName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcCallFunctionReturn getFunctionReturn() {
 		return functionReturn;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<JdbcCallParameterRegistration> getParameterRegistrations() {
 		return parameterRegistrations == null ? emptyList() : parameterRegistrations;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<JdbcParameterBinder> getParameterBinders() {
 		return parameterBinders == null ? emptyList() : parameterBinders;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Set<String> getAffectedTableNames() {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean dependsOnParameterBindings() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<JdbcParameter, JdbcParameterBinding> getAppliedParameters() {
 		return emptyMap();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCompatibleWith(
 			JdbcParameterBindings jdbcParameterBindings, QueryOptions queryOptions) {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<JdbcCallParameterExtractor<?>> getParameterExtractors() {
 		return parameterExtractors == null ? emptyList() : parameterExtractors;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<JdbcCallRefCursorExtractor> getCallRefCursorExtractors() {
 		return refCursorExtractors == null ? emptyList() : refCursorExtractors;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcValuesMappingProducer getJdbcValuesMappingProducer() {
 		return null;
 	}
@@ -142,18 +155,22 @@ public class JdbcCallImpl implements JdbcOperationQueryCall {
 		public Builder() {
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public JdbcOperationQueryCall buildJdbcCall() {
 			return new JdbcCallImpl( this );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void setCallableName(String callableName) {
 			this.callableName = callableName;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void setFunctionReturn(JdbcCallFunctionReturn functionReturn) {
 			this.functionReturn = functionReturn;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void addParameterRegistration(JdbcCallParameterRegistration registration) {
 			if ( parameterRegistrations == null ) {
 				parameterRegistrations = new ArrayList<>();
@@ -189,6 +206,7 @@ public class JdbcCallImpl implements JdbcOperationQueryCall {
 			}
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void addParameterBinder(JdbcParameterBinder binder) {
 			if ( parameterBinders == null ) {
 				parameterBinders = new ArrayList<>();
@@ -196,6 +214,7 @@ public class JdbcCallImpl implements JdbcOperationQueryCall {
 			parameterBinders.add( binder );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void addParameterExtractor(JdbcCallParameterExtractor<?> extractor) {
 			if ( parameterExtractors == null ) {
 				parameterExtractors = new ArrayList<>();
@@ -203,6 +222,7 @@ public class JdbcCallImpl implements JdbcOperationQueryCall {
 			parameterExtractors.add( extractor );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void addRefCursorExtractor(JdbcCallRefCursorExtractor extractor) {
 			if ( refCursorExtractors == null ) {
 				refCursorExtractors = new ArrayList<>();

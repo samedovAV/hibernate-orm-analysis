@@ -11,6 +11,8 @@ import org.hibernate.TransactionException;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 
 import static org.hibernate.resource.transaction.backend.jta.internal.JtaLogging.JTA_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * JtaTransactionAdapter for coordinating with the JTA TransactionManager
@@ -28,6 +30,7 @@ public class JtaTransactionAdapterTransactionManagerImpl implements JtaTransacti
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void begin() {
 		try {
 			if ( getStatus() == TransactionStatus.NOT_ACTIVE ) {
@@ -46,6 +49,7 @@ public class JtaTransactionAdapterTransactionManagerImpl implements JtaTransacti
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void commit() {
 		try {
 			if ( initiator ) {
@@ -64,6 +68,7 @@ public class JtaTransactionAdapterTransactionManagerImpl implements JtaTransacti
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void rollback() {
 		try {
 			if ( initiator ) {
@@ -82,6 +87,7 @@ public class JtaTransactionAdapterTransactionManagerImpl implements JtaTransacti
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public TransactionStatus getStatus() {
 		try {
 			final TransactionStatus status = StatusTranslator.translate( transactionManager.getStatus() );
@@ -96,6 +102,7 @@ public class JtaTransactionAdapterTransactionManagerImpl implements JtaTransacti
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void markRollbackOnly() {
 		try {
 			transactionManager.setRollbackOnly();
@@ -106,6 +113,7 @@ public class JtaTransactionAdapterTransactionManagerImpl implements JtaTransacti
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setTimeOut(int seconds) {
 		if ( seconds > 0 ) {
 			try {

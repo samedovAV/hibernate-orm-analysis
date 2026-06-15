@@ -10,6 +10,8 @@ import jakarta.annotation.Nonnull;
 import org.hibernate.boot.registry.StandardServiceInitiator;
 import org.hibernate.engine.jdbc.spi.JdbcServices;
 import org.hibernate.service.spi.ServiceRegistryImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard initiator for the standard {@link JdbcServices} service
@@ -26,11 +28,13 @@ public class JdbcServicesInitiator implements StandardServiceInitiator<JdbcServi
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<JdbcServices> getServiceInitiated() {
 		return JdbcServices.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcServices initiateService(@Nonnull Map<String, Object> configurationValues, @Nonnull ServiceRegistryImplementor registry) {
 		return new JdbcServicesImpl();
 	}

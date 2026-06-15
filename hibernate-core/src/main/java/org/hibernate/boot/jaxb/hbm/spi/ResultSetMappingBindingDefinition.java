@@ -5,6 +5,8 @@
 package org.hibernate.boot.jaxb.hbm.spi;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -16,6 +18,7 @@ public interface ResultSetMappingBindingDefinition {
 	 *
 	 * @return The name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getName();
 
 	/**
@@ -27,5 +30,6 @@ public interface ResultSetMappingBindingDefinition {
 	 *
 	 * @return The value return JAXB mappings.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List getValueMappingSources();
 }

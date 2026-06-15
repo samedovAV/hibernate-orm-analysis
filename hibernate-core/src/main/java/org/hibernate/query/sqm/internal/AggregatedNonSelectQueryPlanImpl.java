@@ -6,6 +6,8 @@ package org.hibernate.query.sqm.internal;
 
 import org.hibernate.query.spi.DomainQueryExecutionContext;
 import org.hibernate.query.spi.NonSelectQueryPlan;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -18,6 +20,7 @@ public class AggregatedNonSelectQueryPlanImpl implements NonSelectQueryPlan {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public int executeUpdate(DomainQueryExecutionContext executionContext) {
 		int updated = 0;
 		for ( NonSelectQueryPlan aggregatedQueryPlan : aggregatedQueryPlans ) {

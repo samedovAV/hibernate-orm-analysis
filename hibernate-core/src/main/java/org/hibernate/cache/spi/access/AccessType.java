@@ -7,6 +7,8 @@ package org.hibernate.cache.spi.access;
 import java.util.Locale;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Enumerates the policies for managing concurrent access to the shared
@@ -52,11 +54,13 @@ public enum AccessType {
 	 *
 	 * @return The corresponding externalized name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getExternalName() {
 		return super.toString().toLowerCase(Locale.ROOT).replace('_','-');
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "AccessType[" + getExternalName() + "]";
 	}
@@ -70,6 +74,7 @@ public enum AccessType {
 	 *
 	 * @see #getExternalName()
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static AccessType fromExternalName(@Nullable String externalName) {
 		if ( externalName == null ) {
 			return null;

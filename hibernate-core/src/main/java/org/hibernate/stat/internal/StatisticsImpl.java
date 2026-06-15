@@ -29,6 +29,8 @@ import org.hibernate.stat.spi.StatisticsImplementor;
 import jakarta.annotation.Nullable;
 
 import static org.hibernate.internal.log.StatisticsLogger.STATISTICS_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Implementation of {@link Statistics} based on the {@link java.util.concurrent} package.
@@ -145,6 +147,7 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 	/**
 	 * reset all statistics
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void clear() {
 		secondLevelCacheHitCount.reset();
 		secondLevelCacheMissCount.reset();
@@ -209,21 +212,25 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 		STATISTICS_LOGGER.statisticsReset();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void resetStart(StatisticsImpl this) {
 		startTime = Instant.now();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Instant getStart() {
 		return startTime;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isStatisticsEnabled() {
 		return isStatisticsEnabled;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setStatisticsEnabled(boolean enabled) {
 		isStatisticsEnabled = enabled;
 		if ( enabled ) {
@@ -240,11 +247,13 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 	// Entity stats
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getEntityNames() {
 		return allEntityNames;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityStatisticsImpl getEntityStatistics(String entityName) {
 		return NullnessUtil.castNonNull(
 					entityStatsMap.getOrCompute(
@@ -255,83 +264,98 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getEntityLoadCount() {
 		return entityLoadCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getEntityFetchCount() {
 		return entityFetchCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getEntityDeleteCount() {
 		return entityDeleteCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getEntityInsertCount() {
 		return entityInsertCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getEntityUpdateCount() {
 		return entityUpdateCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getEntityUpsertCount() {
 		return entityUpsertCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getOptimisticFailureCount() {
 		return optimisticFailureCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void loadEntity(String entityName) {
 		entityLoadCount.increment();
 		getEntityStatistics( entityName ).incrementLoadCount();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void fetchEntity(String entityName) {
 		entityFetchCount.increment();
 		getEntityStatistics( entityName ).incrementFetchCount();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void updateEntity(String entityName) {
 		entityUpdateCount.increment();
 		getEntityStatistics( entityName ).incrementUpdateCount();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void upsertEntity(String entityName) {
 		entityUpsertCount.increment();
 		getEntityStatistics( entityName ).incrementUpsertCount();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void insertEntity(String entityName) {
 		entityInsertCount.increment();
 		getEntityStatistics( entityName ).incrementInsertCount();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void deleteEntity(String entityName) {
 		entityDeleteCount.increment();
 		getEntityStatistics( entityName ).incrementDeleteCount();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void optimisticFailure(String entityName) {
 		optimisticFailureCount.increment();
 		getEntityStatistics( entityName ).incrementOptimisticFailureCount();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void entityCachePut(NavigableRole entityName, String regionName) {
 		secondLevelCachePutCount.increment();
 		getDomainDataRegionStatistics( regionName ).incrementPutCount();
@@ -339,6 +363,7 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void entityCacheHit(NavigableRole entityName, String regionName) {
 		secondLevelCacheHitCount.increment();
 		getDomainDataRegionStatistics( regionName ).incrementHitCount();
@@ -346,6 +371,7 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void entityCacheMiss(NavigableRole entityName, String regionName) {
 		secondLevelCacheMissCount.increment();
 		getDomainDataRegionStatistics( regionName ).incrementMissCount();
@@ -353,6 +379,7 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void entityCacheRemove(NavigableRole entityName, String regionName) {
 		secondLevelCacheMissCount.increment();
 		getDomainDataRegionStatistics( regionName ).incrementRemoveCount();
@@ -364,11 +391,13 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 	// Collection stats
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getCollectionRoleNames() {
 		return allCollectionRoles;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionStatisticsImpl getCollectionStatistics(String role) {
 		return NullnessUtil.castNonNull(
 					collectionStatsMap.getOrCompute(
@@ -379,61 +408,72 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getCollectionLoadCount() {
 		return collectionLoadCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getCollectionFetchCount() {
 		return collectionFetchCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getCollectionUpdateCount() {
 		return collectionUpdateCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getCollectionRemoveCount() {
 		return collectionRemoveCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getCollectionRecreateCount() {
 		return collectionRecreateCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void loadCollection(String role) {
 		collectionLoadCount.increment();
 		getCollectionStatistics( role ).incrementLoadCount();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void fetchCollection(String role) {
 		collectionFetchCount.increment();
 		getCollectionStatistics( role ).incrementFetchCount();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void updateCollection(String role) {
 		collectionUpdateCount.increment();
 		getCollectionStatistics( role ).incrementUpdateCount();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void recreateCollection(String role) {
 		collectionRecreateCount.increment();
 		getCollectionStatistics( role ).incrementRecreateCount();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void removeCollection(String role) {
 		collectionRemoveCount.increment();
 		getCollectionStatistics( role ).incrementRemoveCount();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectionCachePut(NavigableRole collectionRole, String regionName) {
 		secondLevelCachePutCount.increment();
 		getDomainDataRegionStatistics( regionName ).incrementPutCount();
@@ -441,6 +481,7 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectionCacheHit(NavigableRole collectionRole, String regionName) {
 		secondLevelCacheHitCount.increment();
 		getDomainDataRegionStatistics( regionName ).incrementHitCount();
@@ -448,6 +489,7 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectionCacheMiss(NavigableRole collectionRole, String regionName) {
 		secondLevelCacheMissCount.increment();
 		getDomainDataRegionStatistics( regionName ).incrementMissCount();
@@ -459,6 +501,7 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 	// Natural-id stats
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NaturalIdStatisticsImpl getNaturalIdStatistics(String rootEntityName) {
 		return NullnessUtil.castNonNull(
 					naturalIdQueryStatsMap.getOrCompute(
@@ -469,41 +512,49 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getNaturalIdQueryExecutionCount() {
 		return naturalIdQueryExecutionCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getNaturalIdQueryExecutionMaxTime() {
 		return naturalIdQueryExecutionMaxTime.get();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable String getNaturalIdQueryExecutionMaxTimeRegion() {
 		return naturalIdQueryExecutionMaxTimeRegion;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable String getNaturalIdQueryExecutionMaxTimeEntity() {
 		return naturalIdQueryExecutionMaxTimeEntity;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getNaturalIdCacheHitCount() {
 		return naturalIdCacheHitCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getNaturalIdCacheMissCount() {
 		return naturalIdCacheMissCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getNaturalIdCachePutCount() {
 		return naturalIdCachePutCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void naturalIdCachePut(
 			NavigableRole rootEntityName,
 			String regionName) {
@@ -515,6 +566,7 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void naturalIdCacheHit(
 			NavigableRole rootEntityName,
 			String regionName) {
@@ -526,6 +578,7 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void naturalIdCacheMiss(
 			NavigableRole rootEntityName,
 			String regionName) {
@@ -537,6 +590,7 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void naturalIdQueryExecuted(String rootEntityName, long time) {
 		naturalIdQueryExecutionCount.increment();
 
@@ -567,11 +621,13 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 	// Second-level cache region stats
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getSecondLevelCacheRegionNames() {
 		return cache.getCacheRegionNames().toArray( new String[0] );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CacheRegionStatisticsImpl getDomainDataRegionStatistics(String regionName) {
 		return NullnessUtil.castNonNull(
 					l2CacheStatsMap.getOrCompute(
@@ -582,11 +638,13 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable CacheRegionStatisticsImpl getQueryRegionStatistics(final String regionName) {
 		return l2CacheStatsMap.getOrCompute(
 				regionName,
 				new Function<>() {
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public @Nullable CacheRegionStatisticsImpl apply(String regionName1) {
 						return StatisticsImpl.this.computeQueryRegionStatistics( regionName1 );
 					}
@@ -594,6 +652,7 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private @Nullable CacheRegionStatisticsImpl computeQueryRegionStatistics(final String regionName) {
 		final var regionAccess = cache.getQueryResultsCacheStrictly( regionName );
 		return regionAccess == null
@@ -603,6 +662,7 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable CacheRegionStatisticsImpl getCacheRegionStatistics(String regionName) {
 		if ( ! secondLevelCacheEnabled ) {
 			return null;
@@ -612,6 +672,7 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 				regionName,
 				new Function<>() {
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public @Nullable CacheRegionStatisticsImpl apply(String regionName1) {
 						return StatisticsImpl.this.createCacheRegionStatistics( regionName1 );
 					}
@@ -620,46 +681,55 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getSecondLevelCacheHitCount() {
 		return secondLevelCacheHitCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getSecondLevelCacheMissCount() {
 		return secondLevelCacheMissCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getSecondLevelCachePutCount() {
 		return secondLevelCachePutCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getUpdateTimestampsCacheHitCount() {
 		return updateTimestampsCacheHitCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getUpdateTimestampsCacheMissCount() {
 		return updateTimestampsCacheMissCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getUpdateTimestampsCachePutCount() {
 		return updateTimestampsCachePutCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void updateTimestampsCacheHit() {
 		updateTimestampsCacheHitCount.increment();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void updateTimestampsCacheMiss() {
 		updateTimestampsCacheMissCount.increment();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void updateTimestampsCachePut() {
 		updateTimestampsCachePutCount.increment();
 	}
@@ -669,11 +739,13 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 	// Query statistics
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getQueries() {
 		return queryStatsMap.keysAsArray();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QueryStatisticsImpl getQueryStatistics(String queryString) {
 		return NullnessUtil.castNonNull(
 					queryStatsMap.getOrCompute(
@@ -684,36 +756,43 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getQueryExecutionCount() {
 		return queryExecutionCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getQueryCacheHitCount() {
 		return queryCacheHitCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getQueryCacheMissCount() {
 		return queryCacheMissCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getQueryCachePutCount() {
 		return queryCachePutCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable String getQueryExecutionMaxTimeQueryString() {
 		return queryExecutionMaxTimeQueryString;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getQueryExecutionMaxTime() {
 		return queryExecutionMaxTime.get();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void queryExecuted(String query, int rows, long time) {
 		queryExecutionCount.increment();
 
@@ -734,6 +813,7 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void queryCacheHit(String hql, String regionName) {
 		queryCacheHitCount.increment();
 
@@ -745,6 +825,7 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void queryCacheMiss(String hql, String regionName) {
 		queryCacheMissCount.increment();
 
@@ -756,6 +837,7 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void queryCachePut(String hql, String regionName) {
 		queryCachePutCount.increment();
 
@@ -767,16 +849,19 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getQueryPlanCacheHitCount() {
 		return queryPlanCacheHitCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getQueryPlanCacheMissCount() {
 		return queryPlanCacheMissCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void queryCompiled(String hql, long microseconds) {
 		queryPlanCacheMissCount.increment();
 
@@ -786,6 +871,7 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void queryPlanCacheHit(String query) {
 		queryPlanCacheHitCount.increment();
 
@@ -795,6 +881,7 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void queryPlanCacheMiss(String query) {
 		queryPlanCacheMissCount.increment();
 
@@ -803,6 +890,7 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private CacheRegionStatisticsImpl getQueryRegionStats(String regionName) {
 		return NullnessUtil.castNonNull(
 					l2CacheStatsMap.getOrCompute(
@@ -816,76 +904,91 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 	// Session/misc stats
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getSessionOpenCount() {
 		return sessionOpenCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getSessionCloseCount() {
 		return sessionCloseCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getFlushCount() {
 		return flushCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getConnectCount() {
 		return connectCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getSuccessfulTransactionCount() {
 		return committedTransactionCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getTransactionCount() {
 		return transactionCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getCloseStatementCount() {
 		return closeStatementCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getPrepareStatementCount() {
 		return prepareStatementCount.sum();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void openSession() {
 		sessionOpenCount.increment();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void closeSession() {
 		sessionCloseCount.increment();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void flush() {
 		flushCount.increment();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void connect() {
 		connectCount.increment();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void prepareStatement() {
 		prepareStatementCount.increment();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void closeStatement() {
 		closeStatementCount.increment();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void endTransaction(boolean success) {
 		transactionCount.increment();
 		if ( success ) {
@@ -894,6 +997,7 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void logSummary() {
 		STATISTICS_LOGGER.logStatistics(
 				startTime.toEpochMilli(),
@@ -939,6 +1043,7 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "Statistics[" +
 				"start time=" + startTime +
@@ -983,14 +1088,17 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 				']';
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private EntityStatisticsImpl instantiateEntityStatistics(final String entityName) {
 		return new EntityStatisticsImpl( metamodel.getEntityDescriptor( entityName ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private CollectionStatisticsImpl instantiateCollectionStatistics(final String role) {
 		return new CollectionStatisticsImpl( metamodel.getCollectionDescriptor( role ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private NaturalIdStatisticsImpl instantiateNaturalStatistics(final String entityName) {
 		final EntityPersister entityDescriptor = metamodel.getEntityDescriptor( entityName );
 		if ( !entityDescriptor.hasNaturalIdentifier() ) {
@@ -999,6 +1107,7 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 		return new NaturalIdStatisticsImpl( entityDescriptor );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private CacheRegionStatisticsImpl instantiateCacheRegionStatistics(final String regionName) {
 		final Region region = cache.getRegion( regionName );
 		if ( region == null ) {
@@ -1012,10 +1121,12 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 		return new CacheRegionStatisticsImpl( region );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private CacheRegionStatisticsImpl instantiateCacheRegionStatsForQueryResults(final String regionName) {
 		return new CacheRegionStatisticsImpl( cache.getQueryResultsCache( regionName ).getRegion() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private @Nullable CacheRegionStatisticsImpl createCacheRegionStatistics(final String regionName) {
 		Region region = cache.getRegion( regionName );
 		if ( region == null ) {
@@ -1030,16 +1141,19 @@ public class StatisticsImpl implements StatisticsImplementor, Service {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, Long> getSlowQueries() {
 		return slowQueries;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void slowQuery(String sql, long executionTime) {
 		slowQueries.merge( sql, executionTime, Math::max );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void normalizeNaturalId(String entityName) {
 		getNaturalIdStatistics( entityName ).valueNormalized();
 	}

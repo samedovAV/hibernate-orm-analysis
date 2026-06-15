@@ -5,6 +5,8 @@
 package org.hibernate.procedure;
 
 import org.hibernate.Incubating;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Describes the function return value of a {@link ProcedureCall}
@@ -21,5 +23,6 @@ public interface FunctionReturn<T> extends ProcedureParameter<T> {
 	 * The {@linkplain org.hibernate.type.SqlTypes JDBC type code}
 	 * representing the SQL type of the function return value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getJdbcTypeCode();
 }

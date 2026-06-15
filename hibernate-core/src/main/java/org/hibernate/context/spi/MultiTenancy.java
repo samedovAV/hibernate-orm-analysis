@@ -17,6 +17,8 @@ import java.util.Map;
 import static org.hibernate.cfg.MultiTenancySettings.MULTI_TENANT_CREDENTIALS_MAPPER;
 import static org.hibernate.cfg.MultiTenancySettings.MULTI_TENANT_IDENTIFIER_RESOLVER;
 import static org.hibernate.cfg.MultiTenancySettings.MULTI_TENANT_SCHEMA_MAPPER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Exposes useful multitenancy-related strategy objects to user-written components.
@@ -35,6 +37,7 @@ public class MultiTenancy {
 	/**
 	 * Is a {@link MultiTenantConnectionProvider} available?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isMultiTenancyEnabled(ServiceRegistry serviceRegistry) {
 		return serviceRegistry.getService( MultiTenantConnectionProvider.class ) != null;
 	}
@@ -44,6 +47,7 @@ public class MultiTenancy {
 	 */
 	@SuppressWarnings("unchecked")
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static CurrentTenantIdentifierResolver<Object> getTenantIdentifierResolver(
 			Map<String,Object> settings, StandardServiceRegistry registry) {
 		final var currentTenantIdentifierResolver =
@@ -69,6 +73,7 @@ public class MultiTenancy {
 	 */
 	@SuppressWarnings("unchecked")
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static TenantSchemaMapper<Object> getTenantSchemaMapper(
 			Map<String,Object> settings, StandardServiceRegistry registry) {
 		final var tenantSchemaMapper =
@@ -92,6 +97,7 @@ public class MultiTenancy {
 	 */
 	@SuppressWarnings("unchecked")
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static TenantCredentialsMapper<Object> getTenantCredentialsMapper(
 			Map<String,Object> settings, StandardServiceRegistry registry) {
 		final var tenantCredentialsMapper =

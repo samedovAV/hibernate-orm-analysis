@@ -7,6 +7,8 @@ package org.hibernate.engine.jdbc.connections.spi;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.SQLException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Provides centralized access to JDBC connections.  Centralized to hide the complexity of accounting for contextual
@@ -22,6 +24,7 @@ public interface JdbcConnectionAccess extends Serializable {
 	 *
 	 * @throws SQLException Indicates a problem getting the connection
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Connection obtainConnection() throws SQLException;
 
 	/**
@@ -31,6 +34,7 @@ public interface JdbcConnectionAccess extends Serializable {
 	 *
 	 * @throws SQLException Indicates a problem releasing the connection
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void releaseConnection(Connection connection) throws SQLException;
 
 	/**
@@ -42,5 +46,6 @@ public interface JdbcConnectionAccess extends Serializable {
 	 * @see ConnectionProvider#supportsAggressiveRelease()
 	 * @see MultiTenantConnectionProvider#supportsAggressiveRelease()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean supportsAggressiveRelease();
 }

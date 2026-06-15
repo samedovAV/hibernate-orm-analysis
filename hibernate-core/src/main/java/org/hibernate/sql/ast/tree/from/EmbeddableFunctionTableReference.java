@@ -16,6 +16,8 @@ import org.hibernate.sql.ast.SqlAstWalker;
 import org.hibernate.sql.ast.tree.expression.Expression;
 
 import static org.hibernate.internal.util.StringHelper.isEmpty;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A table reference for functions that produce embeddable typed results.
@@ -34,51 +36,61 @@ public class EmbeddableFunctionTableReference extends AbstractTableReference {
 		this.expression = expression;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression getExpression() {
 		return expression;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isEmbeddableFunctionTableReference() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableFunctionTableReference asEmbeddableFunctionTableReference() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void accept(SqlAstWalker sqlTreeWalker) {
 		expression.accept( sqlTreeWalker );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<String> getAffectedTableNames() {
 		return Collections.singletonList( tableExpression );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean containsAffectedTableName(String requestedName) {
 		return isEmpty( requestedName ) || tableExpression.equals( requestedName );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applyAffectedTableNames(Consumer<String> nameCollector) {
 		nameCollector.accept( tableExpression );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getTableId() {
 		return tableExpression;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Boolean visitAffectedTableNames(Function<String, Boolean> nameCollector) {
 		return nameCollector.apply( tableExpression );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableReference resolveTableReference(
 			NavigablePath navigablePath,
 			String tableExpression) {
@@ -98,6 +110,7 @@ public class EmbeddableFunctionTableReference extends AbstractTableReference {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableReference getTableReference(
 			NavigablePath navigablePath,
 			String tableExpression,
@@ -106,6 +119,7 @@ public class EmbeddableFunctionTableReference extends AbstractTableReference {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return identificationVariable;
 	}

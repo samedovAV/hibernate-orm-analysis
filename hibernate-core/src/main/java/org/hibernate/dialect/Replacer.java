@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.internal.util.StringHelper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gavin King
@@ -31,6 +33,7 @@ public class Replacer {
 //			return string.indexOf( placeholder, position ) >= 0;
 //		}
 //
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		int apply(StringBuilder string, int position) {
 			if ( position + placeholder.length() > string.length() ) {
 				return -1;
@@ -51,6 +54,7 @@ public class Replacer {
 		this.quote = quote;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Replacer replace(String placeholder, String replacement) {
 		for ( Replacement old : replacements ) {
 			if ( old.placeholder.equals( placeholder ) ) {
@@ -62,6 +66,7 @@ public class Replacer {
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_N3, n = "", count = {})
 	public String result() {
 		for ( int i=0; i<chunks.length; i+=2 ) {
 			StringBuilder chunk = new StringBuilder( chunks[i] );

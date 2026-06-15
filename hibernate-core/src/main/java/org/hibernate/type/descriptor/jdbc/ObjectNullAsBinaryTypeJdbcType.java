@@ -13,6 +13,8 @@ import java.sql.Types;
 import org.hibernate.type.descriptor.ValueBinder;
 import org.hibernate.type.descriptor.WrapperOptions;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Descriptor for binding objects, but binding nulls with Types.VARBINARY
@@ -30,6 +32,7 @@ public class ObjectNullAsBinaryTypeJdbcType extends ObjectJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <X> ValueBinder<X> getBinder(JavaType<X> javaType) {
 		if ( Serializable.class.isAssignableFrom( javaType.getJavaTypeClass() ) ) {
 			return VarbinaryJdbcType.INSTANCE.getBinder( javaType );
@@ -38,24 +41,28 @@ public class ObjectNullAsBinaryTypeJdbcType extends ObjectJdbcType {
 		return new BasicBinder<>( javaType, this ) {
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBindNull(PreparedStatement st, int index, WrapperOptions options)
 					throws SQLException {
 				st.setNull( index, Types.VARBINARY );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBindNull(CallableStatement st, String name, WrapperOptions options)
 					throws SQLException {
 				st.setNull( name, Types.VARBINARY );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBind(PreparedStatement st, X value, int index, WrapperOptions options)
 					throws SQLException {
 				st.setObject( index, value, getJdbcTypeCode() );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBind(CallableStatement st, X value, String name, WrapperOptions options)
 					throws SQLException {
 				st.setObject( name, value, getJdbcTypeCode() );

@@ -13,6 +13,8 @@ import org.hibernate.sql.results.graph.InitializerParent;
 
 
 import static org.hibernate.internal.log.LoggingHelper.toLoggableString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -38,27 +40,32 @@ public class DelayedCollectionInitializer extends AbstractNonJoinCollectionIniti
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void resolveInstance(CollectionInitializerData data) {
 		resolveInstance( data, false );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void resolveInstance(Object instance, CollectionInitializerData data) {
 		resolveInstance( instance, data, false );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isEager() {
 		// No need to call resolve on this initializer if parent is initialized
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasLazySubInitializers() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "DelayedCollectionInitializer(" + toLoggableString( getNavigablePath() ) + ")";
 	}

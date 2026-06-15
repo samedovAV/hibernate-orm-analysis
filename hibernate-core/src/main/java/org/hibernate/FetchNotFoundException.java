@@ -6,6 +6,8 @@ package org.hibernate;
 
 import java.util.Locale;
 import jakarta.persistence.EntityNotFoundException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Exception for {@link org.hibernate.annotations.NotFoundAction#EXCEPTION}.
@@ -31,10 +33,12 @@ public class FetchNotFoundException extends EntityNotFoundException {
 		this.identifier = identifier;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getEntityName() {
 		return entityName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getIdentifier() {
 		return identifier;
 	}

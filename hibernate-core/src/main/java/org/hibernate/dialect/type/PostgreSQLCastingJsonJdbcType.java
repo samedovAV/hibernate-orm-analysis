@@ -13,6 +13,8 @@ import org.hibernate.sql.ast.spi.SqlAppender;
 import org.hibernate.type.SqlTypes;
 import org.hibernate.type.descriptor.jdbc.AggregateJdbcType;
 import org.hibernate.type.descriptor.jdbc.JsonJdbcType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -30,11 +32,13 @@ public class PostgreSQLCastingJsonJdbcType extends JsonJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getDdlTypeCode() {
 		return SqlTypes.JSON;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AggregateJdbcType resolveAggregateJdbcType(
 			EmbeddableMappingType mappingType,
 			String sqlType,
@@ -43,6 +47,7 @@ public class PostgreSQLCastingJsonJdbcType extends JsonJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void appendWriteExpression(
 			String writeExpression,
 			@Nullable Size size,
@@ -60,6 +65,7 @@ public class PostgreSQLCastingJsonJdbcType extends JsonJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isWriteExpressionTyped(Dialect dialect) {
 		return true;
 	}

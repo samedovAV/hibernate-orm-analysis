@@ -26,6 +26,8 @@ import org.hibernate.type.spi.CompositeTypeImplementor;
 import jakarta.annotation.Nullable;
 
 import static org.hibernate.metamodel.mapping.NonAggregatedIdentifierMapping.IdentifierValueMapper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Embeddable describing the virtual-id aspect of a non-aggregated composite id
@@ -98,16 +100,19 @@ public class VirtualIdEmbeddable extends AbstractEmbeddableMapping implements Id
 	// IdentifierValueMapper
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableValuedModelPart getEmbeddedPart() {
 		return idMapping;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getIdentifier(Object entity, SharedSessionContractImplementor session) {
 		return representationStrategy.getInstantiator().instantiate( () -> getValues( entity ) );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setIdentifier(Object entity, Object id, SharedSessionContractImplementor session) {
 		if ( entity != id ) {
 			setValues( entity, getValues( id ) );
@@ -119,36 +124,43 @@ public class VirtualIdEmbeddable extends AbstractEmbeddableMapping implements Id
 	// EmbeddableMappingType
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigableRole getNavigableRole() {
 		return navigableRole;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getPartName() {
 		return idMapping.getPartName();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableValuedModelPart getEmbeddedValueMapping() {
 		return getEmbeddedPart();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public VirtualIdRepresentationStrategy getRepresentationStrategy() {
 		return representationStrategy;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public EntityMappingType findContainingEntityMapping() {
 		return idMapping.findContainingEntityMapping();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> DomainResult<T> createDomainResult(NavigablePath navigablePath, TableGroup tableGroup, String resultVariable, DomainResultCreationState creationState) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public <X, Y> int decompose(
 			Object domainValue,
 			int offset,
@@ -178,6 +190,7 @@ public class VirtualIdEmbeddable extends AbstractEmbeddableMapping implements Id
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableMappingType createInverseMappingType(
 			EmbeddedAttributeMapping valueMapping,
 			TableGroupProducer declaringTableGroupProducer,
@@ -196,6 +209,7 @@ public class VirtualIdEmbeddable extends AbstractEmbeddableMapping implements Id
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// init
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private boolean finishInitialization(
 			Component bootDescriptor,
 			CompositeType compositeType,
@@ -236,6 +250,7 @@ public class VirtualIdEmbeddable extends AbstractEmbeddableMapping implements Id
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public boolean areEqual(@Nullable Object one, @Nullable Object other, SharedSessionContractImplementor session) {
 		final var idClassEmbeddable = idMapping.getIdClassEmbeddable();
 		if ( idClassEmbeddable != null ) {
@@ -255,6 +270,7 @@ public class VirtualIdEmbeddable extends AbstractEmbeddableMapping implements Id
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public int compare(Object value1, Object value2) {
 		final var idClassEmbeddable = idMapping.getIdClassEmbeddable();
 		if ( idClassEmbeddable != null ) {

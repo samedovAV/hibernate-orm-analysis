@@ -16,6 +16,8 @@ import org.hibernate.type.AssociationType;
 import org.hibernate.type.CollectionType;
 import org.hibernate.type.ForeignKeyDirection;
 import org.hibernate.type.Type;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A session action that may be cascaded from parent entity to its children
@@ -40,6 +42,7 @@ public interface CascadingAction<T> {
 	 * @param isCascadeDeleteEnabled Whether the foreign key is declared with
 	 *        {@link org.hibernate.annotations.OnDeleteAction#CASCADE on delete cascade}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void cascade(
 			EventSource session,
 			Object child,
@@ -54,6 +57,7 @@ public interface CascadingAction<T> {
 	 * @deprecated No longer called. Will be removed.
 	 */
 	@Deprecated(since = "7", forRemoval = true)
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void cascade(
 			EventSource session,
 			Object child,
@@ -74,6 +78,7 @@ public interface CascadingAction<T> {
 	 * @param collection The collection instance.
 	 * @return The children iterator.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Iterator<?> getCascadableChildrenIterator(
 			EventSource session,
 			CollectionType collectionType,
@@ -84,11 +89,13 @@ public interface CascadingAction<T> {
 	 *
 	 * @return True if this action can lead to deletions of orphans.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean deleteOrphans();
 
 	/**
 	 * Should this action be performed (or noCascade consulted) in the case of lazy properties.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean performOnLazyProperty();
 
 	/**
@@ -96,6 +103,7 @@ public interface CascadingAction<T> {
 	 *
 	 * @since 7
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean anythingToCascade(EntityPersister persister);
 
 	/**
@@ -104,6 +112,7 @@ public interface CascadingAction<T> {
 	 *
 	 * @since 7
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean appliesTo(Type type, CascadeStyle style);
 
 	/**
@@ -111,6 +120,7 @@ public interface CascadingAction<T> {
 	 *
 	 * @since 7
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean cascadeNow(
 			CascadePoint cascadePoint,
 			AssociationType associationType,
@@ -127,5 +137,6 @@ public interface CascadingAction<T> {
 	 * @since 7
 	 */
 	@Incubating @Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ForeignKeyDirection directionAffectedByCascadeDelete();
 }

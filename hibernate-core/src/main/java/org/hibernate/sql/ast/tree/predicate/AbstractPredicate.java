@@ -5,6 +5,8 @@
 package org.hibernate.sql.ast.tree.predicate;
 
 import org.hibernate.metamodel.mapping.JdbcMappingContainer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -22,16 +24,19 @@ public abstract class AbstractPredicate implements Predicate {
 		this.negated = negated;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isNegated() {
 		return negated;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isEmpty() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcMappingContainer getExpressionType() {
 		return expressionType;
 	}

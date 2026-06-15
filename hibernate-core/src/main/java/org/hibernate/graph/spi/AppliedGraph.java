@@ -7,6 +7,8 @@ package org.hibernate.graph.spi;
 import org.hibernate.graph.GraphSemantic;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for anything a fetch/load graph can be applied
@@ -17,10 +19,12 @@ public interface AppliedGraph {
 	/**
 	 * The applied graph
 	 */
-	@Nullable RootGraphImplementor<?> getGraph();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	RootGraphImplementor<?> getGraph();
 
 	/**
 	 * The semantic (fetch/load) under which the graph should be applied
 	 */
-	@Nullable GraphSemantic getSemantic();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	GraphSemantic getSemantic();
 }

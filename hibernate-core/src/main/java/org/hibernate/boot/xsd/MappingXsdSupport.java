@@ -5,6 +5,8 @@
 package org.hibernate.boot.xsd;
 
 import org.hibernate.Internal;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Support for XSD handling related to Hibernate's `hbm.xml` and
@@ -103,14 +105,17 @@ public class MappingXsdSupport {
 		//Do not construct new instances
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static XsdDescriptor latestDescriptor() {
 		return _80;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static XsdDescriptor latestJpaDescriptor() {
 		return jpa40;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public XsdDescriptor jpaXsd(String version) {
 		switch ( version ) {
 			case "1.0": {
@@ -143,6 +148,7 @@ public class MappingXsdSupport {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public XsdDescriptor hbmXsd() {
 		return hbmXml;
 	}

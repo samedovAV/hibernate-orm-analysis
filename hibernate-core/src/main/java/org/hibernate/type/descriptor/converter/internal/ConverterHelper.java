@@ -19,12 +19,15 @@ import org.hibernate.type.spi.TypeConfiguration;
 
 import static org.hibernate.internal.util.GenericsHelper.erasedType;
 import static org.hibernate.internal.util.GenericsHelper.typeArguments;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gavin King
  * @since 7.0
  */
 public class ConverterHelper {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <X, Y> BasicValueConverter<X, Y> createValueConverter(
 			AttributeConverter<X,Y> converter, JavaTypeRegistry registry) {
 		final var typeArguments =
@@ -41,6 +44,7 @@ public class ConverterHelper {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <X, Y> JpaAttributeConverter<X, Y> createJpaAttributeConverter(
 			ManagedBean<? extends AttributeConverter<X,Y>> bean, JavaTypeRegistry registry) {
 		final var typeArguments =
@@ -58,6 +62,7 @@ public class ConverterHelper {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static <X, Y> JpaAttributeConverter<X, Y> createJpaAttributeConverter(
 			Class<? extends AttributeConverter<X,Y>> converterClass,
 			ServiceRegistry serviceRegistry,
@@ -66,6 +71,7 @@ public class ConverterHelper {
 		return createJpaAttributeConverter( converterBean, typeConfiguration.getJavaTypeRegistry() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <X> BasicType<X> createConvertedParameterType(
 			Class<? extends AttributeConverter<X,?>> converterClass,
 			ServiceRegistry serviceRegistry,

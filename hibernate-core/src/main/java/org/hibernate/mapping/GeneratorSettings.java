@@ -8,6 +8,8 @@ package org.hibernate.mapping;
 import org.hibernate.Incubating;
 import org.hibernate.boot.model.relational.SqlStringGenerationContext;
 import org.hibernate.dialect.Dialect;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Exposes the default catalog and schema to the
@@ -27,7 +29,10 @@ import org.hibernate.dialect.Dialect;
  */
 @Incubating
 public interface GeneratorSettings {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getDefaultCatalog();
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getDefaultSchema();
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqlStringGenerationContext getSqlStringGenerationContext();
 }

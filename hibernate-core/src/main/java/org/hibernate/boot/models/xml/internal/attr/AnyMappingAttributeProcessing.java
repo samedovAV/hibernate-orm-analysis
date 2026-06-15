@@ -43,12 +43,15 @@ import static org.hibernate.boot.models.xml.internal.attr.CommonAttributeProcess
 import static org.hibernate.boot.models.xml.internal.attr.CommonAttributeProcessing.applyOptimisticLock;
 import static org.hibernate.boot.models.xml.internal.attr.CommonAttributeProcessing.applyOptionality;
 import static org.hibernate.internal.util.NullnessHelper.coalesce;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
  */
 public class AnyMappingAttributeProcessing {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static MutableMemberDetails processAnyMappingAttribute(
 			JaxbAnyMappingImpl jaxbHbmAnyMapping,
 			MutableClassDetails declarer,
@@ -79,6 +82,7 @@ public class AnyMappingAttributeProcessing {
 		return memberDetails;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static void applyDiscriminator(
 			MutableMemberDetails memberDetails,
 			JaxbAnyMapping jaxbHbmAnyMapping,
@@ -121,6 +125,7 @@ public class AnyMappingAttributeProcessing {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static AnyDiscriminatorValue[] collectDiscriminatorValues(
 			List<? extends JaxbDiscriminatorMapping> jaxbValueMappings,
 			XmlDocumentContext xmlDocumentContext) {
@@ -143,6 +148,7 @@ public class AnyMappingAttributeProcessing {
 		return values;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static void applyKey(
 			MutableMemberDetails memberDetails,
 			JaxbAnyMapping jaxbHbmAnyMapping,
@@ -186,6 +192,7 @@ public class AnyMappingAttributeProcessing {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Class<?> resolveKeyType(String name, XmlDocumentContext xmlDocumentContext) {
 		final SimpleTypeInterpretation simpleTypeInterpretation = SimpleTypeInterpretation.interpret( name );
 		if ( simpleTypeInterpretation != null ) {

@@ -9,6 +9,8 @@ import org.hibernate.boot.model.source.spi.AttributeSourceContainer;
 import org.hibernate.boot.model.source.spi.PluralAttributeIndexSource;
 import org.hibernate.boot.model.source.spi.PluralAttributeNature;
 import org.hibernate.boot.model.source.spi.PluralAttributeSequentialIndexSource;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class PluralAttributeSourceListImpl extends AbstractPluralAttributeSourceImpl implements IndexedPluralAttributeSource {
 	private final JaxbHbmListType jaxbListMapping;
@@ -29,21 +31,25 @@ public class PluralAttributeSourceListImpl extends AbstractPluralAttributeSource
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PluralAttributeIndexSource getIndexSource() {
 		return indexSource;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PluralAttributeNature getNature() {
 		return PluralAttributeNature.LIST;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public XmlElementMetadata getSourceType() {
 		return XmlElementMetadata.LIST;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getXmlNodeName() {
 		return jaxbListMapping.getNode();
 	}

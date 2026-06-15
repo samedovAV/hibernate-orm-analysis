@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.boot.registry.selector.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Target for {@linkplain NamedStrategyContributor}
@@ -21,6 +24,7 @@ public interface NamedStrategyContributions {
 	 *
 	 * @param <T> The strategy type.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> void contributeStrategyImplementor(Class<T> strategy, Class<? extends T> implementation, String... names);
 
 	/**
@@ -32,5 +36,6 @@ public interface NamedStrategyContributions {
 	 *
 	 * @param <T> The strategy type.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> void removeStrategyImplementor(Class<T> strategy, Class<? extends T> implementation);
 }

@@ -5,6 +5,8 @@
 package org.hibernate.boot.registry.selector;
 
 import java.util.Arrays;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A simple implementation of StrategyRegistration.
@@ -49,16 +51,19 @@ public class SimpleStrategyRegistrationImpl<T> implements StrategyRegistration<T
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<T> getStrategyRole() {
 		return strategyRole;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Iterable<String> getSelectorNames() {
 		return selectorNames;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends T> getStrategyImplementation() {
 		return strategyImplementation;
 	}

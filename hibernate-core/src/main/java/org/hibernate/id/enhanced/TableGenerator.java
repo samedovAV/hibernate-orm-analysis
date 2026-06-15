@@ -60,6 +60,8 @@ import static org.hibernate.internal.util.StringHelper.isNotEmpty;
 import static org.hibernate.internal.util.config.ConfigurationHelper.getBoolean;
 import static org.hibernate.internal.util.config.ConfigurationHelper.getInt;
 import static org.hibernate.internal.util.config.ConfigurationHelper.getString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An enhanced version of table-based id generation.
@@ -220,11 +222,13 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 	 *
 	 * @return The identifier type mapping.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final Type getIdentifierType() {
 		return identifierType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getGeneratedType() {
 		return identifierType == null ? null : identifierType.getReturnedClass();
 	}
@@ -234,6 +238,7 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 	 *
 	 * @return The table name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final String getTableName() {
 		return qualifiedTableName.render();
 	}
@@ -244,6 +249,7 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 	 *
 	 * @return The segment column name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final String getSegmentColumnName() {
 		return segmentColumnName;
 	}
@@ -255,6 +261,7 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 	 *
 	 * @return The segment value for this generator instance.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final String getSegmentValue() {
 		return segmentValue;
 	}
@@ -268,6 +275,7 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 	 *
 	 * @return the column size.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final int getSegmentValueLength() {
 		return segmentValueLength;
 	}
@@ -277,6 +285,7 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 	 *
 	 * @return The name of the value column.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final String getValueColumnName() {
 		return valueColumnName;
 	}
@@ -287,6 +296,7 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 	 *
 	 * @return The initial value to use.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final int getInitialValue() {
 		return initialValue;
 	}
@@ -297,6 +307,7 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 	 *
 	 * @return The increment amount.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final int getIncrementSize() {
 		return incrementSize;
 	}
@@ -307,6 +318,7 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 	 * @return Out optimizer.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final Optimizer getOptimizer() {
 		return optimizer;
 	}
@@ -317,6 +329,7 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 	 *
 	 * @return Value for property 'tableAccessCount'.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final long getTableAccessCount() {
 		return accessCount;
 	}
@@ -325,11 +338,13 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 	 * @deprecated Exposed for tests only.
 	 */
 	@Deprecated
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getAllSqlForTests() {
 		return new String[] { selectQuery, insertQuery, updateQuery };
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void configure(GeneratorCreationContext creationContext, Properties parameters) throws MappingException {
 		final var serviceRegistry = creationContext.getServiceRegistry();
 		storeLastUsedValue =
@@ -365,6 +380,7 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 		options = parameters.getProperty( OPTIONS );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static OptimizerDescriptor determineOptimizationStrategy(Properties parameters, int incrementSize) {
 		return StandardOptimizerDescriptor.fromExternalName(
 				getString( OPT_PARAM, parameters, determineImplicitOptimizerName( incrementSize, parameters ) )
@@ -381,6 +397,7 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 	 * @param jdbcEnvironment The JDBC environment
 	 * @return The table name to use.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected QualifiedName determineGeneratorTableName(
 			Properties params,
 			JdbcEnvironment jdbcEnvironment,
@@ -392,6 +409,7 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 		return tableName( params, serviceRegistry, tableName, catalog, schema, identifierHelper );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static QualifiedName tableName(
 			Properties params,
 			ServiceRegistry serviceRegistry,
@@ -421,6 +439,7 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 	 * @param jdbcEnvironment The JDBC environment
 	 * @return The name of the segment column
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String determineSegmentColumnName(Properties params, JdbcEnvironment jdbcEnvironment) {
 		final String name = getString( SEGMENT_COLUMN_PARAM, params, DEF_SEGMENT_COLUMN );
 		return jdbcEnvironment.getIdentifierHelper().toIdentifier( name ).render( jdbcEnvironment.getDialect() );
@@ -436,6 +455,7 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 	 * @param jdbcEnvironment The JDBC environment
 	 * @return The name of the value column
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String determineValueColumnName(Properties params, JdbcEnvironment jdbcEnvironment) {
 		final String name = getString( VALUE_COLUMN_PARAM, params, DEF_VALUE_COLUMN );
 		return jdbcEnvironment.getIdentifierHelper().toIdentifier( name ).render( jdbcEnvironment.getDialect() );
@@ -450,6 +470,7 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 	 * @param params The params supplied in the generator config (plus some standard useful extras).
 	 * @return The name of the value column
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String determineSegmentValue(Properties params) {
 		final String segmentValue = params.getProperty( SEGMENT_VALUE_PARAM );
 		return isEmpty( segmentValue ) ? determineDefaultSegmentValue( params ) : segmentValue;
@@ -462,6 +483,7 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 	 * @param params The params supplied in the generator config (plus some standard useful extras).
 	 * @return The default segment value to use.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String determineDefaultSegmentValue(Properties params) {
 		final boolean preferSegmentPerEntity = getBoolean( CONFIG_PREFER_SEGMENT_PER_ENTITY, params );
 		final String defaultToUse = preferSegmentPerEntity ? params.getProperty( TABLE ) : DEF_SEGMENT_VALUE;
@@ -479,18 +501,22 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 	 * @param params The params supplied in the generator config (plus some standard useful extras).
 	 * @return The size of the segment column
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected int determineSegmentColumnSize(Properties params) {
 		return getInt( SEGMENT_LENGTH_PARAM, params, DEF_SEGMENT_LENGTH );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected int determineInitialValue(Properties params) {
 		return getInt( INITIAL_PARAM, params, DEFAULT_INITIAL_VALUE );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected int determineIncrementSize(Properties params) {
 		return getInt( INCREMENT_PARAM, params, DEFAULT_INCREMENT_SIZE );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String buildSelectQuery(SqlStringGenerationContext context) {
 		return new SimpleSelect( context.getDialect() )
 				.addColumn( valueColumnName )
@@ -500,17 +526,20 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 				.toStatementString();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String buildUpdateQuery(SqlStringGenerationContext context) {
 		return "update " + context.format( physicalTableName )
 				+ " set " + valueColumnName + "=? "
 				+ " where " + valueColumnName + "=? and " + segmentColumnName + "=?";
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String buildInsertQuery(SqlStringGenerationContext context) {
 		return "insert into " + context.format( physicalTableName )
 				+ " (" + segmentColumnName + ", " + valueColumnName + ") " + " values (?,?)";
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected InitCommand generateInsertInitCommand(SqlStringGenerationContext context) {
 		final String tableName = context.format( physicalTableName );
 		final int value = storeLastUsedValue ? initialValue - 1 : initialValue;
@@ -520,6 +549,7 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object generate(final SharedSessionContractImplementor session, final Object object) {
 		return optimizer.generate( new NextValueCallback( session ) );
 	}
@@ -532,21 +562,25 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 			this.session = session;
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public long getNextValue() {
 			return session.getTransactionCoordinator().createIsolationDelegate()
 					.delegateWork( this, true );
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Long execute(Connection connection)
 				throws SQLException {
 			return nextValue( connection, session );
 		}
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public String getTenantIdentifier() {
 			return session.getTenantIdentifier();
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private long nextValue(
 			Connection connection,
 			SharedSessionContractImplementor session)
@@ -569,6 +603,7 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 		return storeLastUsedValue ? value + 1 : value;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private int updateValue(
 			Connection connection,
 			SqlStatementLogger logger,
@@ -590,6 +625,7 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private long retrieveCurrentValue(
 			Connection connection,
 			SqlStatementLogger logger,
@@ -629,6 +665,7 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private PreparedStatement prepareStatement(
 			Connection connection,
 			String sql,
@@ -656,6 +693,7 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private int executeUpdate(
 			PreparedStatement ps,
 			SessionEventListenerManager listener,
@@ -674,6 +712,7 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private ResultSet executeQuery(
 			PreparedStatement ps,
 			SessionEventListenerManager listener,
@@ -693,6 +732,7 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void registerExportables(Database database) {
 		final var namespace = database.locateNamespace(
 				qualifiedTableName.getCatalogName(),
@@ -707,6 +747,7 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 		table.addResetCommand( this::generateResetCommand );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private InitCommand generateResyncCommand(SqlStringGenerationContext context, DdlTransactionIsolator isolator) {
 		final String sequenceTableName = context.format( physicalTableName );
 		final String tableName = context.format( table.getQualifiedTableName() );
@@ -729,6 +770,7 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private InitCommand generateResetCommand(SqlStringGenerationContext context) {
 		optimizer.reset();
 		final String update =
@@ -738,6 +780,7 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 		return new InitCommand( update );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private Table createTable(Database database, Namespace namespace) {
 		final var table =
 				namespace.createTable( qualifiedTableName.getObjectName(),
@@ -764,6 +807,7 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 		return table;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Column segmentColumn(Database database, Table table, TypeConfiguration typeConfiguration) {
 		final var stringBasicType =
 				typeConfiguration.getBasicTypeRegistry()
@@ -778,12 +822,14 @@ public class TableGenerator implements PersistentIdentifierGenerator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void initialize(SqlStringGenerationContext context) {
 		selectQuery = buildSelectQuery( context );
 		updateQuery = buildUpdateQuery( context );
 		insertQuery = buildInsertQuery( context );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void applyConfiguration(
 			jakarta.persistence.TableGenerator generatorConfig,
 			BiConsumer<String, String> configurationCollector) {

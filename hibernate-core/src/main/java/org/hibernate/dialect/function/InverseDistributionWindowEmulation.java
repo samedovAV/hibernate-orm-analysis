@@ -27,6 +27,8 @@ import org.hibernate.sql.ast.tree.expression.Over;
 import org.hibernate.sql.ast.tree.predicate.Predicate;
 import org.hibernate.sql.ast.tree.select.SortSpecification;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -42,6 +44,7 @@ public class InverseDistributionWindowEmulation extends InverseDistributionFunct
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> SelfRenderingSqmOrderedSetAggregateFunction<T> generateSqmOrderedSetAggregateFunctionExpression(
 			List<? extends SqmTypedNode<?>> arguments,
 			SqmPredicate filter,
@@ -57,6 +60,7 @@ public class InverseDistributionWindowEmulation extends InverseDistributionFunct
 		) {
 
 			@Override
+			@Prove(complexity = Complexity.O_N2, n = "", count = {})
 			public Expression convertToSqlAst(SqmToSqlAstConverter walker) {
 				final Clause currentClause = walker.getCurrentClauseStack().getCurrent();
 				if ( currentClause == Clause.OVER ) {

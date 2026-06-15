@@ -16,6 +16,8 @@ import org.hibernate.query.sqm.tree.SqmCopyContext;
 import org.hibernate.query.sqm.tree.SqmRenderContext;
 import org.hibernate.query.sqm.tree.from.SqmCrossJoin;
 import org.hibernate.spi.NavigablePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A TREAT form of {@linkplain SqmCrossJoin}
@@ -58,6 +60,7 @@ public class SqmTreatedCrossJoin<L, T, S extends T>
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmTreatedCrossJoin<L, T, S> copy(SqmCopyContext context) {
 		final var existing = context.getCopy( this );
 		if ( existing != null ) {
@@ -76,43 +79,51 @@ public class SqmTreatedCrossJoin<L, T, S extends T>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setExplicitAlias(@Nullable String explicitAlias) {
 		throw new UnsupportedOperationException("Treated cross joins doesn't support explicit alias");
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmEntityDomainType<S> getTreatTarget() {
 		return treatTarget;
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmEntityDomainType<S> getModel() {
 		return treatTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmCrossJoin<L, T> getWrappedPath() {
 		return wrappedPath;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nonnull SqmBindableType<S> getNodeType() {
 		return treatTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmEntityDomainType<S> getReferencedPathSource() {
 		return treatTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPathSource<S> getResolvedModel() {
 		return treatTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void appendHqlString(StringBuilder hql, SqmRenderContext context) {
 		hql.append( "treat(" );
 		wrappedPath.appendHqlString( hql, context );
@@ -123,24 +134,28 @@ public class SqmTreatedCrossJoin<L, T, S extends T>
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmTreatedCrossJoin<L, T, S> on(@Nullable JpaPredicate ... restrictions) {
 		return (SqmTreatedCrossJoin<L, T, S>) super.on( restrictions );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmTreatedCrossJoin<L, T, S> on(@Nonnull Expression<Boolean> restriction) {
 		return (SqmTreatedCrossJoin<L, T, S>) super.on( restriction );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmTreatedCrossJoin<L, T, S> on(@Nullable JpaExpression<Boolean> restriction) {
 		return (SqmTreatedCrossJoin<L, T, S>) super.on( restriction );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S1 extends S> SqmTreatedCrossJoin<L, S, S1> treatAs(
 			@Nonnull EntityDomainType<S1> treatTarget,
 			@Nullable String alias,

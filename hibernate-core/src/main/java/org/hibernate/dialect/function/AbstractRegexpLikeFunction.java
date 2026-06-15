@@ -13,6 +13,8 @@ import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.type.spi.TypeConfiguration;
 
 import static org.hibernate.query.sqm.produce.function.FunctionParameterType.STRING;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base implementation for the regexp_like predicate.
@@ -30,11 +32,13 @@ public abstract class AbstractRegexpLikeFunction extends AbstractSqmSelfRenderin
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSignature(String name) {
 		return "(STRING string, STRING pattern[, STRING flags])";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isPredicate() {
 		return true;
 	}

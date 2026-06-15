@@ -12,6 +12,8 @@ import jakarta.persistence.criteria.Expression;
 import jakarta.persistence.criteria.Path;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.metamodel.SingularAttribute;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The update action that should happen on a unique constraint violation for an insert statement.
@@ -28,6 +30,7 @@ public interface JpaConflictUpdateAction<T> {
 	 * @return  the modified update query
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<Y, X extends Y> JpaConflictUpdateAction<T> set(@Nonnull SingularAttribute<? super T, Y> attribute, @Nullable X value);
 
 	/**
@@ -37,6 +40,7 @@ public interface JpaConflictUpdateAction<T> {
 	 * @return  the modified update query
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<Y> JpaConflictUpdateAction<T> set(@Nonnull SingularAttribute<? super T, Y> attribute, @Nonnull Expression<? extends Y> value);
 
 	/**
@@ -46,6 +50,7 @@ public interface JpaConflictUpdateAction<T> {
 	 * @return  the modified update query
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<Y, X extends Y> JpaConflictUpdateAction<T> set(@Nonnull Path<Y> attribute, @Nullable X value);
 
 	/**
@@ -55,6 +60,7 @@ public interface JpaConflictUpdateAction<T> {
 	 * @return  the modified update query
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<Y> JpaConflictUpdateAction<T> set(@Nonnull Path<Y> attribute, @Nonnull Expression<? extends Y> value);
 
 	/**
@@ -64,6 +70,7 @@ public interface JpaConflictUpdateAction<T> {
 	 * @return  the modified update query
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaConflictUpdateAction<T> set(@Nonnull String attributeName, @Nullable Object value);
 
 	/**
@@ -74,6 +81,7 @@ public interface JpaConflictUpdateAction<T> {
 	 * @return the modified update query
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaConflictUpdateAction<T> where(@Nullable Expression<Boolean> restriction);
 
 	/**
@@ -87,6 +95,7 @@ public interface JpaConflictUpdateAction<T> {
 	 * @return the modified update query
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaConflictUpdateAction<T> where(@Nonnull Predicate... restrictions);
 
 	/**
@@ -95,5 +104,6 @@ public interface JpaConflictUpdateAction<T> {
 	 * specified.
 	 * @return where clause predicate
 	 */
-	@Nullable JpaPredicate getRestriction();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	JpaPredicate getRestriction();
 }

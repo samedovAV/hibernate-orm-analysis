@@ -6,6 +6,8 @@ package org.hibernate.engine.transaction.jta.platform.internal;
 
 import jakarta.transaction.TransactionManager;
 import jakarta.transaction.UserTransaction;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * {@link org.hibernate.engine.transaction.jta.platform.spi.JtaPlatform} implementation for Sun ONE Application Server 7 and above
@@ -20,11 +22,13 @@ public class GlassFishJtaPlatform extends AbstractJtaPlatform {
 	public static final String UT_NAME = "java:comp/UserTransaction";
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected TransactionManager locateTransactionManager() {
 		return (TransactionManager) jndiService().locate( TM_NAME );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected UserTransaction locateUserTransaction() {
 		return (UserTransaction) jndiService().locate( UT_NAME );
 	}

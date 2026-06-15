@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.source.spi;
 
 import java.util.Set;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Defines the steps in processing metadata sources.  The steps are performed
@@ -19,18 +21,21 @@ public interface MetadataSourceProcessor {
 	/**
 	 * A general preparation step.  Called first.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void prepare();
 
 	/**
 	 * Process all custom Type definitions.  This step has no
 	 * prerequisites.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void processTypeDefinitions();
 
 	/**
 	 * Process all explicit query renames (imports).  This step has no
 	 * prerequisites.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void processQueryRenames();
 
 	/**
@@ -42,6 +47,7 @@ public interface MetadataSourceProcessor {
 	 * queries can depend on entity binding being complete, but those are handled
 	 * later during {@link #processResultSetMappings()}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void processNamedQueries();
 
 	/**
@@ -49,6 +55,7 @@ public interface MetadataSourceProcessor {
 	 * <p>
 	 * This step has no prerequisites.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void processAuxiliaryDatabaseObjectDefinitions();
 
 	/**
@@ -56,6 +63,7 @@ public interface MetadataSourceProcessor {
 	 * <p>
 	 * Depends on {@link #processTypeDefinitions()}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void processIdentifierGenerators();
 
 	/**
@@ -63,6 +71,7 @@ public interface MetadataSourceProcessor {
 	 * <p>
 	 * This step depends on {@link #processTypeDefinitions()}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void processFilterDefinitions();
 
 	/**
@@ -70,12 +79,16 @@ public interface MetadataSourceProcessor {
 	 * <p>
 	 * todo : does this step depend on any others??
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void processFetchProfiles();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void prepareForEntityHierarchyProcessing();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void processEntityHierarchies(Set<String> processedEntityNames);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void postProcessEntityHierarchies();
 
 	/**
@@ -83,10 +96,12 @@ public interface MetadataSourceProcessor {
 	 * step has {@link #processEntityHierarchies} as a prerequisite because
 	 * the parsing of the returns access the entity bindings.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void processResultSetMappings();
 
 	/**
 	 * General finish up step.  Called last.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void finishUp();
 }

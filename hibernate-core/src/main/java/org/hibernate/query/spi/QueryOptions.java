@@ -19,6 +19,8 @@ import org.hibernate.sql.results.spi.ListResultsConsumer;
 import java.sql.Statement;
 import java.util.List;
 import java.util.Set;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Encapsulates options for the execution of query.
@@ -36,35 +38,41 @@ public interface QueryOptions {
 	 * The timeout to apply to the query.  May also be defined at the transaction
 	 * level using {@link org.hibernate.Transaction#getTimeout}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Timeout getTimeout();
 
 	/**
 	 * The flush mode to use for the query execution
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	FlushMode getFlushMode();
 
 	/**
 	 * Should entities returned from the query be marked read-only.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Boolean isReadOnly();
 
 	/**
 	 * JPA {@link jakarta.persistence.EntityGraph} explicitly applied to the
 	 * query.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	AppliedGraph getAppliedGraph();
 
 	/**
 	 * Transformer applied to the query to transform the structure of each "row"
 	 * in the results
 	 */
-	@Nullable TupleTransformer<?> getTupleTransformer();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	TupleTransformer<?> getTupleTransformer();
 
 	/**
 	 * Transformer applied to the query to transform the structure of the
 	 * overall results
 	 */
-	@Nullable ResultListTransformer<?> getResultListTransformer();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	ResultListTransformer<?> getResultListTransformer();
 
 	/**
 	 * Should results from the query be cached?
@@ -72,6 +80,7 @@ public interface QueryOptions {
 	 * @see #getCacheMode
 	 * @see #getResultCacheRegionName
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Boolean isResultCachingEnabled();
 
 	/**
@@ -81,6 +90,7 @@ public interface QueryOptions {
 	 *
 	 * @see CacheMode
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CacheRetrieveMode getCacheRetrieveMode();
 
 	/**
@@ -90,8 +100,10 @@ public interface QueryOptions {
 	 *
 	 * @see CacheMode
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CacheStoreMode getCacheStoreMode();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default CacheMode getCacheMode() {
 		return CacheMode.fromJpaModes( getCacheRetrieveMode(), getCacheStoreMode() );
 	}
@@ -100,17 +112,20 @@ public interface QueryOptions {
 	 * The query cache region in which the results should be cached.  No
 	 * effect unless {@link #isResultCachingEnabled} returns {@code true}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getResultCacheRegionName();
 
 	/**
 	 * Should the query plan of the query be cached?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Boolean getQueryPlanCachingEnabled();
 
 	/**
 	 * Whether top-level HQL/criteria pagination should be applied in memory
 	 * instead of by SQL.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Boolean isLimitInMemoryEnabled() {
 		return null;
 	}
@@ -118,11 +133,13 @@ public interface QueryOptions {
 	/**
 	 * The explicitly enabled profiles for this query
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Set<String> getEnabledFetchProfiles();
 
 	/**
 	 * The explicitly disabled profiles for this query
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Set<String> getDisabledFetchProfiles();
 
 
@@ -132,17 +149,20 @@ public interface QueryOptions {
 	/**
 	 * Describes the locking to apply to the query results
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	LockOptions getLockOptions();
 
 	/**
 	 * The SQL comment to apply to the interpreted SQL query, for dialects which
 	 * support SQL comments
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getComment();
 
 	/**
 	 * Hints to apply to the interpreted SQL query
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<String> getDatabaseHints();
 
 	/**
@@ -150,12 +170,14 @@ public interface QueryOptions {
 	 *
 	 * @see Statement#getFetchSize
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Integer getFetchSize();
 
 	/**
 	 * The limit to the query results.  May also be accessed via
 	 * {@link #getFirstRow} and {@link #getMaxRows}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Limit getLimit();
 
 	/**
@@ -166,6 +188,7 @@ public interface QueryOptions {
 	 * SQL AST so they can bind the original value even when {@link #getLimit()}
 	 * has been intentionally suppressed for SQL rendering.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Limit peekOriginalLimit() {
 		return getLimit();
 	}
@@ -175,6 +198,7 @@ public interface QueryOptions {
 	 *
 	 * @see #getLimit
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default Integer getFirstRow() {
 		return getLimit().getFirstRow();
 	}
@@ -184,6 +208,7 @@ public interface QueryOptions {
 	 *
 	 * @see #getLimit
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default Integer getMaxRows() {
 		return getLimit().getMaxRows();
 	}
@@ -195,6 +220,7 @@ public interface QueryOptions {
 	 *
 	 * @see #getLimit
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Limit getEffectiveLimit() {
 		final Limit explicit = getLimit();
 		return explicit != null ? explicit : Limit.NONE;
@@ -205,12 +231,14 @@ public interface QueryOptions {
 	 *
 	 * @see #getLimit
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean hasLimit() {
 		final Limit limit = getLimit();
 		return limit != null
 			&& (limit.getFirstRow() != null || limit.getMaxRows() != null);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default ListResultsConsumer.UniqueSemantic getUniqueSemantic(){
 		return null;
 	}
@@ -220,6 +248,7 @@ public interface QueryOptions {
 	 * {@code getResultStream()} and therefore needs SQL row ordering stable
 	 * enough for scroll-style result grouping.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isScrollExecution() {
 		return false;
 	}
@@ -232,6 +261,7 @@ public interface QueryOptions {
 
 	QueryOptions READ_WRITE = new QueryOptionsAdapter() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Boolean isReadOnly() {
 			return Boolean.FALSE;
 		}
@@ -239,6 +269,7 @@ public interface QueryOptions {
 
 	QueryOptions READ_ONLY = new QueryOptionsAdapter() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Boolean isReadOnly() {
 			return Boolean.TRUE;
 		}

@@ -14,6 +14,8 @@ import org.hibernate.type.descriptor.java.JavaType;
 
 import static org.hibernate.engine.internal.ManagedTypeHelper.asPersistentAttributeInterceptable;
 import static org.hibernate.engine.internal.ManagedTypeHelper.isPersistentAttributeInterceptableType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base support for instantiating entity values as POJO representation
@@ -46,6 +48,7 @@ public abstract class AbstractEntityInstantiatorPojo extends AbstractPojoInstant
 						: null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Object applyInterception(Object entity) {
 		if ( applyBytecodeInterception ) {
 			asPersistentAttributeInterceptable( entity )
@@ -59,6 +62,7 @@ public abstract class AbstractEntityInstantiatorPojo extends AbstractPojoInstant
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isInstance(Object object) {
 		return super.isInstance( object )
 			// this one needed only for guessEntityMode()
@@ -68,6 +72,7 @@ public abstract class AbstractEntityInstantiatorPojo extends AbstractPojoInstant
 	/*
 	 * Used by Hibernate Reactive
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean isApplyBytecodeInterception() {
 		return applyBytecodeInterception;
 	}
@@ -75,6 +80,7 @@ public abstract class AbstractEntityInstantiatorPojo extends AbstractPojoInstant
 	/*
 	 * Used by Hibernate Reactive
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected LazyAttributeLoadingInterceptor.EntityRelatedState getLoadingInterceptorState() {
 		return loadingInterceptorState;
 	}

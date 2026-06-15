@@ -13,6 +13,8 @@ import org.hibernate.tool.schema.internal.exec.JdbcContext;
 import org.hibernate.tool.schema.spi.SchemaManagementException;
 
 import static org.hibernate.engine.jdbc.JdbcLogging.JDBC_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specialized DdlTransactionIsolator for cases where we have a user provided Connection
@@ -29,16 +31,19 @@ class DdlTransactionIsolatorProvidedConnectionImpl implements DdlTransactionIsol
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcContext getJdbcContext() {
 		return jdbcContext;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Connection getIsolatedConnection() {
 		return getIsolatedConnection(true);
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Connection getIsolatedConnection(boolean autocommit) {
 		try {
 			Connection connection = jdbcContext.getJdbcConnectionAccess().obtainConnection();
@@ -54,6 +59,7 @@ class DdlTransactionIsolatorProvidedConnectionImpl implements DdlTransactionIsol
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void release() {
 		final var connectionAccess = jdbcContext.getJdbcConnectionAccess();
 		if( !( connectionAccess instanceof JdbcConnectionAccessProvidedConnectionImpl ) ) {

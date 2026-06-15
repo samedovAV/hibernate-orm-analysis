@@ -15,6 +15,8 @@ import org.hibernate.dialect.identity.IdentityColumnSupport;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.generator.OnExecutionGenerator;
 import org.hibernate.sql.ast.spi.ParameterMarkerStrategy;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -46,23 +48,28 @@ public class Insert {
 		this.parameterMarkerStrategy = parameterMarkerStrategy;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Dialect getDialect() {
 		return dialect;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Insert setComment(String comment) {
 		this.comment = comment;
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, String> getColumns() {
 		return columns;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Insert addColumn(String columnName) {
 		return addColumn( columnName, "?" );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Insert addColumns(String[] columnNames) {
 		for ( String columnName : columnNames ) {
 			addColumn( columnName );
@@ -70,6 +77,7 @@ public class Insert {
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Insert addColumns(String[] columnNames, boolean[] insertable) {
 		for ( int i=0; i<columnNames.length; i++ ) {
 			if ( insertable[i] ) {
@@ -79,6 +87,7 @@ public class Insert {
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Insert addColumns(String[] columnNames, boolean[] insertable, String[] valueExpressions) {
 		for ( int i=0; i<columnNames.length; i++ ) {
 			if ( insertable[i] ) {
@@ -88,11 +97,13 @@ public class Insert {
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Insert addColumn(String columnName, String valueExpression) {
 		columns.put( columnName, valueExpression );
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Insert addIdentityColumn(String columnName) {
 		final IdentityColumnSupport identityColumnSupport = dialect.getIdentityColumnSupport();
 		if ( identityColumnSupport.hasIdentityInsertKeyword() ) {
@@ -101,6 +112,7 @@ public class Insert {
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Insert addGeneratedColumns(String[] columnNames, OnExecutionGenerator generator) {
 		if ( generator.referenceColumnsInSql( dialect ) ) {
 			String[] columnValues = generator.getReferencedColumnValues( dialect );
@@ -114,11 +126,13 @@ public class Insert {
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Insert setTableName(String tableName) {
 		this.tableName = tableName;
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toStatementString() {
 		final StringBuilder buf = new StringBuilder( columns.size()*15 + tableName.length() + 10 );
 
@@ -153,6 +167,7 @@ public class Insert {
 	}
 
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void renderInsertionSpec(StringBuilder buf) {
 		final Iterator<String> itr = columns.keySet().iterator();
 		while ( itr.hasNext() ) {
@@ -163,6 +178,7 @@ public class Insert {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void renderRowValues(StringBuilder buf) {
 		final Iterator<String> itr = columns.values().iterator();
 		while ( itr.hasNext() ) {
@@ -173,6 +189,7 @@ public class Insert {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String normalizeExpressionFragment(String rhs) {
 		return rhs.equals( "?" )
 				? parameterMarkerStrategy.createMarker( ++parameterCount, null )

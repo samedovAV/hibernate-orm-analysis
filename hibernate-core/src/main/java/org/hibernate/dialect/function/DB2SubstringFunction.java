@@ -21,6 +21,8 @@ import org.hibernate.type.spi.TypeConfiguration;
 
 import static org.hibernate.query.sqm.produce.function.FunctionParameterType.INTEGER;
 import static org.hibernate.query.sqm.produce.function.FunctionParameterType.STRING;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * DB2's substring() function requires a code unit and substr() can't optionally take it,
@@ -46,6 +48,7 @@ public class DB2SubstringFunction extends AbstractSqmSelfRenderingFunctionDescri
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> arguments,
@@ -65,6 +68,7 @@ public class DB2SubstringFunction extends AbstractSqmSelfRenderingFunctionDescri
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSignature(String name) {
 		return "(STRING string, INTEGER start[, INTEGER length[, units]])";
 	}

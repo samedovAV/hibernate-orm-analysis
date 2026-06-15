@@ -11,6 +11,8 @@ import org.hibernate.Filter;
 import org.hibernate.sql.ast.spi.SqlAstCreationState;
 import org.hibernate.sql.ast.tree.from.TableGroup;
 import org.hibernate.sql.ast.tree.predicate.Predicate;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Things that can have associated {@link org.hibernate.annotations.Filter} declarations.
@@ -23,6 +25,7 @@ public interface FilterRestrictable {
 	 * Applies just the {@link org.hibernate.annotations.Filter}
 	 * values enabled for the associated entity
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void applyFilterRestrictions(
 			Consumer<Predicate> predicateConsumer,
 			TableGroup tableGroup,

@@ -14,6 +14,8 @@ import org.hibernate.collection.spi.PersistentCollection;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.metamodel.CollectionClassification;
 import org.hibernate.persister.collection.CollectionPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 public class MapType extends CollectionType {
@@ -23,11 +25,13 @@ public class MapType extends CollectionType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionClassification getCollectionClassification() {
 		return CollectionClassification.MAP;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistentCollection<?> instantiate(
 			SharedSessionContractImplementor session,
 			CollectionPersister persister,
@@ -36,21 +40,25 @@ public class MapType extends CollectionType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getReturnedClass() {
 		return Map.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Iterator<?> getElementsIterator(Object collection) {
 		return ( (Map<?,?>) collection ).values().iterator();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistentCollection<?> wrap(SharedSessionContractImplementor session, Object collection) {
 		return new PersistentMap<>( session, (Map<?,?>) collection );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object instantiate(int anticipatedSize) {
 		return anticipatedSize <= 0
 				? new HashMap<>()
@@ -58,6 +66,7 @@ public class MapType extends CollectionType {
 	}
 
 	@Override @SuppressWarnings({"rawtypes", "unchecked"})
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object replaceElements(
 			final Object original,
 			final Object target,
@@ -83,6 +92,7 @@ public class MapType extends CollectionType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object indexOf(Object collection, Object element) {
 		final var map = (Map<?,?>) collection;
 		for ( var entry : map.entrySet() ) {

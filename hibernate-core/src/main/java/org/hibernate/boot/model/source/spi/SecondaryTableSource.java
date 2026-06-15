@@ -8,6 +8,8 @@ import java.util.List;
 
 import org.hibernate.boot.model.CustomSql;
 import org.hibernate.engine.FetchStyle;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -18,6 +20,7 @@ public interface SecondaryTableSource extends ForeignKeyContributingSource {
 	 *
 	 * @return The joined table.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TableSpecificationSource getTableSource();
 
 	/**
@@ -27,18 +30,25 @@ public interface SecondaryTableSource extends ForeignKeyContributingSource {
 	 *
 	 * @return The columns defining the primary key for this secondary table
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<ColumnSource> getPrimaryKeyColumnSources();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getLogicalTableNameForContainedColumns();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getComment();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	FetchStyle getFetchStyle();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isInverse();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isOptional();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isCascadeDeleteEnabled();
 
 	/**
@@ -46,6 +56,7 @@ public interface SecondaryTableSource extends ForeignKeyContributingSource {
 	 *
 	 * @return The custom insert SQL
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CustomSql getCustomSqlInsert();
 
 	/**
@@ -53,6 +64,7 @@ public interface SecondaryTableSource extends ForeignKeyContributingSource {
 	 *
 	 * @return The custom update SQL
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CustomSql getCustomSqlUpdate();
 
 	/**
@@ -60,5 +72,6 @@ public interface SecondaryTableSource extends ForeignKeyContributingSource {
 	 *
 	 * @return The custom delete SQL
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CustomSql getCustomSqlDelete();
 }

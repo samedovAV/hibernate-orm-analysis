@@ -9,6 +9,8 @@ import java.util.Set;
 
 import static org.hibernate.generator.EventType.INSERT;
 import static org.hibernate.generator.EventType.UPDATE;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * For convenience, enumerates the possible combinations of {@link EventType}.
@@ -24,6 +26,7 @@ public class EventTypeSets {
 	public static final EnumSet<EventType> INSERT_AND_UPDATE = EnumSet.of(INSERT, UPDATE);
 	public static final EnumSet<EventType> ALL = EnumSet.allOf(EventType.class);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static EnumSet<EventType> fromArray(EventType[] types) {
 		return EnumSet.copyOf( Set.of(types) );
 	}

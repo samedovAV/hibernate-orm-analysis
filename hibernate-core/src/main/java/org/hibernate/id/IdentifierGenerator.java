@@ -21,6 +21,8 @@ import org.hibernate.generator.BeforeExecutionGenerator;
 import org.hibernate.type.Type;
 
 import static org.hibernate.generator.EventTypeSets.INSERT_ONLY;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A classic extension point from the very earliest days of Hibernate,
@@ -98,6 +100,7 @@ public interface IdentifierGenerator extends BeforeExecutionGenerator, Exportabl
 	 */
 	@SuppressWarnings("removal")
 	@Override @Deprecated( since = "7.0", forRemoval = true )
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void configure(Type type, Properties parameters, ServiceRegistry serviceRegistry) {}
 
 	/**
@@ -110,6 +113,7 @@ public interface IdentifierGenerator extends BeforeExecutionGenerator, Exportabl
 	 * @param database The database instance
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void registerExportables(Database database) {}
 
 	/**
@@ -122,6 +126,7 @@ public interface IdentifierGenerator extends BeforeExecutionGenerator, Exportabl
 	 *
 	 * @throws HibernateException Indicates trouble generating the identifier
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object generate(SharedSessionContractImplementor session, Object object);
 
 	/**
@@ -130,6 +135,7 @@ public interface IdentifierGenerator extends BeforeExecutionGenerator, Exportabl
 	 * The {@code currentValue} is usually null for id generation.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default Object generate(SharedSessionContractImplementor session, Object owner, Object currentValue, EventType eventType) {
 		return generate( session, owner );
 	}
@@ -138,6 +144,7 @@ public interface IdentifierGenerator extends BeforeExecutionGenerator, Exportabl
 	 * @return {@link EventTypeSets#INSERT_ONLY}
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default EnumSet<EventType> getEventTypes() {
 		return INSERT_ONLY;
 	}

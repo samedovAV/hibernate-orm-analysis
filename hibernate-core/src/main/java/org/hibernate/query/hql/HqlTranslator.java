@@ -8,6 +8,8 @@ import org.hibernate.Incubating;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.query.spi.QueryEngine;
 import org.hibernate.query.sqm.tree.SqmStatement;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Main entry point into building semantic queries.
@@ -27,5 +29,6 @@ public interface HqlTranslator {
 	 *
 	 * @return The semantic representation of the incoming query.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R> SqmStatement<R> translate(String hql, Class<R> expectedResultType);
 }

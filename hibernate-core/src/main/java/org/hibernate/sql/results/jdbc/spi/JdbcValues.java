@@ -5,6 +5,8 @@
 package org.hibernate.sql.results.jdbc.spi;
 
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Provides unified access to query results (JDBC values - see
@@ -15,8 +17,10 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
  * @author Steve Ebersole
  */
 public interface JdbcValues {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcValuesMapping getValuesMapping();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean usesFollowOnLocking();
 
 	/**
@@ -25,6 +29,7 @@ public interface JdbcValues {
 	 *
 	 * @return {@code true} if there are results
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean next(RowProcessingState rowProcessingState);
 
 	/**
@@ -33,6 +38,7 @@ public interface JdbcValues {
 	 *
 	 * @return {@code true} if there are results available
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean previous(RowProcessingState rowProcessingState);
 
 	/**
@@ -44,25 +50,36 @@ public interface JdbcValues {
 	 *
 	 * @return {@code true} if there are results available
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean scroll(int numberOfRows, RowProcessingState rowProcessingState);
 
 	/**
 	 * Moves the "cursor position" to the specified position
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean position(int position, RowProcessingState rowProcessingState);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getPosition();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isBeforeFirst(RowProcessingState rowProcessingState);
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void beforeFirst(RowProcessingState rowProcessingState);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isFirst(RowProcessingState rowProcessingState);
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean first(RowProcessingState rowProcessingState);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isAfterLast(RowProcessingState rowProcessingState);
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void afterLast(RowProcessingState rowProcessingState);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isLast(RowProcessingState rowProcessingState);
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean last(RowProcessingState rowProcessingState);
 
 	/**
@@ -72,15 +89,19 @@ public interface JdbcValues {
 	 * @return The current row's JDBC values, or {@code null} if the position
 	 * is beyond the end of the available results.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getCurrentRowValue(int valueIndex);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void finishRowProcessing(RowProcessingState rowProcessingState, boolean wasAdded);
 
 	/**
 	 * Give implementations a chance to finish processing
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void finishUp(SharedSessionContractImplementor session);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setFetchSize(int fetchSize);
 
 	/**
@@ -88,5 +109,6 @@ public interface JdbcValues {
 	 * May return zero or negative values if the count can not be reasonably estimated.
 	 * @since 6.6
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getResultCountEstimate();
 }

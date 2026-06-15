@@ -34,6 +34,8 @@ import jakarta.annotation.Nullable;
 
 import static org.hibernate.internal.log.LoggingHelper.toLoggableString;
 import static org.hibernate.proxy.HibernateProxy.extractLazyInitializer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Andrea Boriero
@@ -100,25 +102,30 @@ public class EntitySelectFetchInitializer<Data extends EntitySelectFetchInitiali
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected InitializerData createInitializerData(RowProcessingState rowProcessingState) {
 		return new EntitySelectFetchInitializerData( this, rowProcessingState );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ModelPart getInitializedPart(){
 		return toOneMapping;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable InitializerParent<?> getParent() {
 		return parent;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigablePath getNavigablePath() {
 		return navigablePath;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void resolveFromPreviousRow(Data data) {
 		if ( data.getState() == State.UNINITIALIZED ) {
 			if ( data.getInstance() == null ) {
@@ -135,6 +142,7 @@ public class EntitySelectFetchInitializer<Data extends EntitySelectFetchInitiali
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void resolveInstance(Data data) {
 		if ( data.getState() == State.KEY_RESOLVED ) {
 			final var rowProcessingState = data.getRowProcessingState();
@@ -152,6 +160,7 @@ public class EntitySelectFetchInitializer<Data extends EntitySelectFetchInitiali
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void resolveInstance(Object instance, Data data) {
 		if ( instance == null ) {
 			data.setState(  State.MISSING );
@@ -212,6 +221,7 @@ public class EntitySelectFetchInitializer<Data extends EntitySelectFetchInitiali
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void initializeInstance(Data data) {
 		if ( data.getState() == State.RESOLVED ) {
 			data.setState( State.INITIALIZED );
@@ -219,6 +229,7 @@ public class EntitySelectFetchInitializer<Data extends EntitySelectFetchInitiali
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void initialize(EntitySelectFetchInitializerData data) {
 		final var rowProcessingState = data.getRowProcessingState();
 		final var session = rowProcessingState.getSession();
@@ -227,6 +238,7 @@ public class EntitySelectFetchInitializer<Data extends EntitySelectFetchInitiali
 		initialize( data, persistenceContext.getEntityHolder( entityKey ), session, persistenceContext );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void initialize(
 			EntitySelectFetchInitializerData data,
 			@Nullable EntityHolder holder,
@@ -286,12 +298,14 @@ public class EntitySelectFetchInitializer<Data extends EntitySelectFetchInitiali
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	void checkNotFound(EntitySelectFetchInitializerData data) {
 		checkNotFound( toOneMapping, affectedByFilter,
 				concreteDescriptor.getEntityName(),
 				data.entityIdentifier );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static void checkNotFound(
 			ToOneAttributeMapping toOneMapping,
 			boolean affectedByFilter,
@@ -309,6 +323,7 @@ public class EntitySelectFetchInitializer<Data extends EntitySelectFetchInitiali
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void initializeInstanceFromParent(Object parentInstance, Data data) {
 		final var attributeMapping = getInitializedPart().asAttributeMapping();
 		final Object instance =
@@ -330,6 +345,7 @@ public class EntitySelectFetchInitializer<Data extends EntitySelectFetchInitiali
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void forEachSubInitializer(BiConsumer<Initializer<?>, RowProcessingState> consumer, InitializerData data) {
 		final var initializer = keyAssembler.getInitializer();
 		if ( initializer != null ) {
@@ -338,55 +354,66 @@ public class EntitySelectFetchInitializer<Data extends EntitySelectFetchInitiali
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityPersister getEntityDescriptor() {
 		return concreteDescriptor;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityPersister getConcreteDescriptor(Data data) {
 		return concreteDescriptor;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable Object getEntityIdentifier(Data data) {
 		return data.entityIdentifier;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isPartOfKey() {
 		return isPartOfKey;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isEager() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void resolveState(EntitySelectFetchInitializerData data) {
 		keyAssembler.resolveState( data.getRowProcessingState() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasLazySubInitializers() {
 		return hasLazySubInitializer;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isResultInitializer() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "EntitySelectFetchInitializer("
 				+ toLoggableString( getNavigablePath() ) + ")";
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResultAssembler<?> getKeyAssembler() {
 		return keyAssembler;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected <T> T withFetchOptions(SharedSessionContractImplementor session, Supplier<T> action) {
 		return session.getLoadQueryInfluencers()
 				.withFetchOptions( session, fetchOptions, action);

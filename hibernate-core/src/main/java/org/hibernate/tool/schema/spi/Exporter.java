@@ -9,6 +9,8 @@ import org.hibernate.boot.Metadata;
 import org.hibernate.boot.model.relational.Exportable;
 import org.hibernate.boot.model.relational.SqlStringGenerationContext;
 import org.hibernate.internal.util.collections.ArrayHelper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Defines a contract for exporting of database objects (tables, sequences, etc)
@@ -26,6 +28,7 @@ public interface Exporter<T extends Exportable> {
 	 *
 	 * @return The commands needed for creation scripting.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String[] getSqlCreateStrings(T exportable, Metadata metadata, SqlStringGenerationContext context);
 
 	/**
@@ -33,5 +36,6 @@ public interface Exporter<T extends Exportable> {
 	 *
 	 * @return The commands needed for drop scripting.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String[] getSqlDropStrings(T exportable, Metadata metadata, SqlStringGenerationContext context);
 }

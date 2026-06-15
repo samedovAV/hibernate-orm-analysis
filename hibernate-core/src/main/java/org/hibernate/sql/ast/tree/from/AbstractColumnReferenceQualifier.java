@@ -8,21 +8,27 @@ import java.util.List;
 
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.spi.NavigablePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
  */
 public abstract class AbstractColumnReferenceQualifier implements ColumnReferenceQualifier {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract TableReference getPrimaryTableReference();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract List<TableReferenceJoin> getTableReferenceJoins();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract SessionFactoryImplementor getSessionFactory();
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// TableReference handling
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public TableReference getTableReference(
 			NavigablePath navigablePath,
 			String tableExpression,

@@ -22,6 +22,8 @@ import org.hibernate.sql.ast.tree.update.Assignable;
 import org.hibernate.sql.results.graph.DomainResult;
 import org.hibernate.sql.results.graph.DomainResultCreationState;
 import org.hibernate.sql.results.graph.embeddable.internal.EmbeddableExpressionResultImpl;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A computed expression that produces an embeddable valued model part.
@@ -46,11 +48,13 @@ public class EmbeddableValuedExpression<T> implements Expression, DomainResultPr
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ModelPart getExpressionType() {
 		return mapping;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResult<T> createDomainResult(
 			String resultVariable,
 			DomainResultCreationState creationState) {
@@ -64,6 +68,7 @@ public class EmbeddableValuedExpression<T> implements Expression, DomainResultPr
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void applySqlSelections(DomainResultCreationState creationState) {
 		final var mappingType = mapping.getEmbeddableTypeDescriptor();
 		final int numberOfAttributeMappings = mappingType.getNumberOfAttributeMappings();
@@ -83,6 +88,7 @@ public class EmbeddableValuedExpression<T> implements Expression, DomainResultPr
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void visitColumnReferences(Consumer<ColumnReference> columnReferenceConsumer) {
 		for ( var expression : sqlExpression.getExpressions() ) {
 			if ( !( expression instanceof ColumnReference ) ) {
@@ -93,6 +99,7 @@ public class EmbeddableValuedExpression<T> implements Expression, DomainResultPr
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<ColumnReference> getColumnReferences() {
 		final List<ColumnReference> results = new ArrayList<>();
 		visitColumnReferences( results::add );
@@ -100,11 +107,13 @@ public class EmbeddableValuedExpression<T> implements Expression, DomainResultPr
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqlTuple getSqlTuple() {
 		return sqlExpression;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void accept(SqlAstWalker sqlTreeWalker) {
 		sqlExpression.accept( sqlTreeWalker );
 	}

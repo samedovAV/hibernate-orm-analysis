@@ -6,6 +6,8 @@ package org.hibernate.metamodel.model.domain.internal;
 
 import java.lang.reflect.Member;
 import java.lang.reflect.Modifier;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Acts as a virtual Member definition for dynamic (Map-based) models.
@@ -21,22 +23,27 @@ public class MapMember implements Member {
 		this.type = type;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getType() {
 		return type;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getModifiers() {
 		return Modifier.PUBLIC;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isSynthetic() {
 		return false;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getDeclaringClass() {
 		return null;
 	}

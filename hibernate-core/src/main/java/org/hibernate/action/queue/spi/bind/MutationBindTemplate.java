@@ -13,6 +13,8 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.WeakHashMap;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Ordered binding slots for a mutation operation.
 ///
@@ -36,6 +38,7 @@ public final class MutationBindTemplate {
 	///
 	/// @return the cached template, or `null` when the operation contains a
 	/// non-column-value parameter binder and must use descriptor-based binding
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static MutationBindTemplate forOperation(PreparableMutationOperation operation) {
 		if ( !hasColumnValueParameters( operation ) ) {
 			return null;
@@ -45,6 +48,7 @@ public final class MutationBindTemplate {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static boolean hasColumnValueParameters(PreparableMutationOperation operation) {
 		final var parameterBinders = operation.getParameterBinders();
 		for ( int i = 0; i < parameterBinders.size(); i++ ) {
@@ -82,6 +86,7 @@ public final class MutationBindTemplate {
 	///
 	/// The returned array is owned by this immutable template.  Callers use the
 	/// array indexes as stable positions in their per-row value storage.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BindSlot[] slots() {
 		return slots;
 	}
@@ -90,6 +95,7 @@ public final class MutationBindTemplate {
 	///
 	/// @return the matching slot, or `null` if the mutation operation does not
 	/// contain a parameter for the requested column and usage
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BindSlot findSlot(String columnName, ParameterUsage usage) {
 		final Map<String, BindSlot> slotsByColumn = slotsByUsage.get( usage );
 		return slotsByColumn == null ? null : slotsByColumn.get( columnName );

@@ -10,6 +10,8 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.internal.util.collections.CollectionHelper;
 import org.hibernate.metamodel.CollectionClassification;
 import org.hibernate.persister.collection.CollectionPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class SetType extends CollectionType {
 
@@ -18,26 +20,31 @@ public class SetType extends CollectionType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionClassification getCollectionClassification() {
 		return CollectionClassification.SET;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getReturnedClass() {
 		return java.util.Set.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistentCollection<?> instantiate(SharedSessionContractImplementor session, CollectionPersister persister, Object key) {
 		return new PersistentSet<>( session );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistentCollection<?> wrap(SharedSessionContractImplementor session, Object collection) {
 		return new PersistentSet<>( session, (java.util.Set<?>) collection );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object instantiate(int anticipatedSize) {
 		return anticipatedSize <= 0
 				? CollectionHelper.set()

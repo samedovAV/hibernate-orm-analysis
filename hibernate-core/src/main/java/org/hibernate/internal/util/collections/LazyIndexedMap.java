@@ -6,6 +6,8 @@ package org.hibernate.internal.util.collections;
 
 import java.util.Arrays;
 import java.util.function.Function;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * This is an internal data structure designed for very specific needs;
@@ -52,6 +54,7 @@ public abstract class LazyIndexedMap<K,V> {
 	 * associate a new value and store it into the internal array at the provided index.
 	 * @return the associated value to this index/key.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected <K1 extends K> V computeIfAbsent(final int index, final K1 originalKey, final Function<K1,V> valueGenerator) {
 		final Object value = this.values[index];
 		if ( value != NOT_INITIALIZED ) {
@@ -62,6 +65,7 @@ public abstract class LazyIndexedMap<K,V> {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private synchronized <K1 extends K> V lockedComputeIfAbsent(final int index, final K1 originalKey, final Function<K1,V> valueGenerator) {
 		//Get a fresh copy from the volatile read, while holding the global pessimistic lock in this:
 		final Object[] values = this.values;

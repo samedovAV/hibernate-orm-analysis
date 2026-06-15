@@ -16,6 +16,8 @@ import org.hibernate.query.sqm.produce.function.StandardFunctionArgumentTypeReso
 import org.hibernate.query.sqm.tree.SqmTypedNode;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @since 7.0
@@ -53,32 +55,39 @@ public abstract class AbstractSqmSetReturningFunctionDescriptor implements SqmSe
 				: argumentTypeResolver;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSignature(String name) {
 		return name + getArgumentListSignature();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ArgumentsValidator getArgumentsValidator() {
 		return argumentsValidator;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SetReturningFunctionTypeResolver getSetReturningTypeResolver() {
 		return setReturningTypeResolver;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FunctionArgumentTypeResolver getArgumentTypeResolver() {
 		return functionArgumentTypeResolver;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getArgumentListSignature() {
 		return argumentsValidator.getSignature();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final <T> SelfRenderingSqmSetReturningFunction<T> generateSqmExpression(
 			List<? extends SqmTypedNode<?>> arguments,
 			QueryEngine queryEngine) {
@@ -94,6 +103,7 @@ public abstract class AbstractSqmSetReturningFunctionDescriptor implements SqmSe
 	 *
 	 * @param arguments the arguments of the function invocation
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract <T> SelfRenderingSqmSetReturningFunction<T> generateSqmSetReturningFunctionExpression(
 			List<? extends SqmTypedNode<?>> arguments,
 			QueryEngine queryEngine);

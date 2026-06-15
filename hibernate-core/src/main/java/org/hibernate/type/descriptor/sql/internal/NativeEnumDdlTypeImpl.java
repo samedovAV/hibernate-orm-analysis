@@ -13,6 +13,8 @@ import org.hibernate.type.descriptor.sql.DdlType;
 import org.hibernate.type.descriptor.sql.spi.DdlTypeRegistry;
 
 import static org.hibernate.type.SqlTypes.ENUM;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link DdlType} representing a SQL {@code enum} type that
@@ -33,11 +35,13 @@ public class NativeEnumDdlTypeImpl implements DdlType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getSqlTypeCode() {
 		return ENUM;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getTypeName(Size columnSize, Type type, DdlTypeRegistry ddlTypeRegistry) {
 		return type == null
 				? "varchar(" + columnSize.getLength() + ")"
@@ -48,15 +52,18 @@ public class NativeEnumDdlTypeImpl implements DdlType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getRawTypeNames() {
 		return ENUM_KEYWORD;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getCastTypeName(Size columnSize, SqlExpressible type, DdlTypeRegistry ddlTypeRegistry) {
 		return castTypeName( columnSize.getLength() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String castTypeName(Long length) {
 		return length == null ? "varchar" : "varchar(" + length + ")";
 	}

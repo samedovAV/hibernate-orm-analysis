@@ -35,6 +35,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hibernate.query.sqm.ComparisonOperator.NOT_EQUAL;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Pre-built SQL AST load plan for {@code AuditLog.find()}.
@@ -116,6 +118,7 @@ public class AuditEntityLoaderImpl implements AuditEntityLoader {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> T find(
 			Object id,
 			Object changesetId,
@@ -125,6 +128,7 @@ public class AuditEntityLoaderImpl implements AuditEntityLoader {
 		return execute( select, id, changesetId, session );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static JdbcSelect translate(SelectStatement sqlAst, SessionFactoryImplementor sessionFactory) {
 		return sessionFactory.getJdbcServices().getJdbcEnvironment()
 				.getSqlAstTranslatorFactory()
@@ -134,6 +138,7 @@ public class AuditEntityLoaderImpl implements AuditEntityLoader {
 
 	// --- execution ---
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private <T> T execute(
 			JdbcSelect select,
 			Object id,
@@ -156,16 +161,19 @@ public class AuditEntityLoaderImpl implements AuditEntityLoader {
 				bindings,
 				new BaseExecutionContext( session ) {
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public Object getEntityId() {
 						return id;
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public EntityMappingType getRootEntityDescriptor() {
 						return entityMappingType.getRootEntityDescriptor();
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public Callback getCallback() {
 						return callback;
 					}

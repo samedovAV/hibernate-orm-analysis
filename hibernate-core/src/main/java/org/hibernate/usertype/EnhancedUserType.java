@@ -5,6 +5,8 @@
 package org.hibernate.usertype;
 
 import org.hibernate.HibernateException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A custom type that may function as an identifier or discriminator type
@@ -16,6 +18,7 @@ public interface EnhancedUserType<J> extends UserType<J> {
 	/**
 	 * Return an SQL literal representation of the value
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String toSqlLiteral(J value);
 
 	/**
@@ -27,6 +30,7 @@ public interface EnhancedUserType<J> extends UserType<J> {
 	 *
 	 * @throws HibernateException Problem rendering
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String toString(J value) throws HibernateException;
 
 	/**
@@ -38,6 +42,7 @@ public interface EnhancedUserType<J> extends UserType<J> {
 	 *
 	 * @throws HibernateException Problem consuming
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	J fromStringValue(CharSequence sequence) throws HibernateException;
 
 }

@@ -11,6 +11,8 @@ import org.hibernate.mapping.Value;
 import org.hibernate.metamodel.mapping.AttributeMetadata;
 import org.hibernate.property.access.spi.PropertyAccess;
 import org.hibernate.type.descriptor.java.MutabilityPlan;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public final class SimpleAttributeMetadata implements AttributeMetadata {
 
@@ -80,47 +82,56 @@ public final class SimpleAttributeMetadata implements AttributeMetadata {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PropertyAccess getPropertyAccess() {
 		return propertyAccess;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutabilityPlan getMutabilityPlan() {
 		return mutabilityPlan;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isNullable() {
 		return nullable;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isInsertable() {
 		return insertable;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isUpdatable() {
 		return updateable;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isSelectable(){
 		return selectable;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isIncludedInDirtyChecking() {
 		// todo (6.0) : do not believe this is correct
 		return updateable;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isIncludedInOptimisticLocking() {
 		return includeInOptimisticLocking;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CascadeStyle getCascadeStyle() {
 		return cascadeStyle;
 	}

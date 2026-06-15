@@ -14,6 +14,8 @@ import java.util.function.Function;
 import org.hibernate.tool.schema.spi.ScriptSourceInput;
 
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A script source input that aggregates over multiple other {@link ScriptSourceInput}.
@@ -34,6 +36,7 @@ public class ScriptSourceInputAggregate implements ScriptSourceInput {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public List<String> extract(Function<Reader, List<String>> extractor) {
 
 		final List<String>[] lists = new List[inputs.length];
@@ -61,6 +64,7 @@ public class ScriptSourceInputAggregate implements ScriptSourceInput {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public boolean containsScript(URL url) {
 		for ( var input : inputs ) {
 			if ( input.containsScript( url ) ) {
@@ -71,6 +75,7 @@ public class ScriptSourceInputAggregate implements ScriptSourceInput {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String toString() {
 		return "ScriptSourceInputAggregate(" + Arrays.toString( inputs ) + ")";
 	}

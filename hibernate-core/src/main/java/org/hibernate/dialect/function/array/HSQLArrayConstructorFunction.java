@@ -12,6 +12,8 @@ import org.hibernate.sql.ast.spi.SqlAppender;
 import org.hibernate.sql.ast.tree.SqlAstNode;
 import org.hibernate.sql.ast.tree.expression.Expression;
 import org.hibernate.type.BottomType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class HSQLArrayConstructorFunction extends ArrayConstructorFunction {
 
@@ -20,6 +22,7 @@ public class HSQLArrayConstructorFunction extends ArrayConstructorFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> arguments,
@@ -58,6 +61,7 @@ public class HSQLArrayConstructorFunction extends ArrayConstructorFunction {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private boolean hasOnlyBottomArguments(List<? extends SqlAstNode> arguments) {
 		for ( int i = 0; i < arguments.size(); i++ ) {
 			final Expression argument = (Expression) arguments.get( i );

@@ -28,6 +28,8 @@ import org.hibernate.sql.results.jdbc.spi.RowProcessingState;
 import org.hibernate.type.Type;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base support for CollectionInitializer implementations
@@ -59,10 +61,12 @@ public abstract class AbstractCollectionInitializer<Data extends AbstractCollect
 			super( rowProcessingState );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public @Nullable PersistentCollection<?> getCollectionInstance() {
 			return (PersistentCollection<?>) getInstance();
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void setCollectionInstance(@Nullable PersistentCollection<?> collectionInstance) {
 			setInstance( collectionInstance );
 		}
@@ -95,11 +99,13 @@ public abstract class AbstractCollectionInitializer<Data extends AbstractCollect
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected InitializerData createInitializerData(RowProcessingState rowProcessingState) {
 		return new CollectionInitializerData( rowProcessingState );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void resolveKey(Data data) {
 		if ( data.getState() != State.UNINITIALIZED ) {
 			// already resolved
@@ -129,6 +135,7 @@ public abstract class AbstractCollectionInitializer<Data extends AbstractCollect
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void resolveState(Data data) {
 		if ( collectionKeyResultAssembler != null ) {
 			collectionKeyResultAssembler.resolveState( data.getRowProcessingState() );
@@ -136,6 +143,7 @@ public abstract class AbstractCollectionInitializer<Data extends AbstractCollect
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void resolveFromPreviousRow(Data data) {
 		if ( data.getState() == State.UNINITIALIZED ) {
 			if ( data.collectionKey == null ) {
@@ -154,6 +162,7 @@ public abstract class AbstractCollectionInitializer<Data extends AbstractCollect
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void setMissing(Data data) {
 		data.setState( State.MISSING );
 		data.collectionKey = null;
@@ -161,6 +170,7 @@ public abstract class AbstractCollectionInitializer<Data extends AbstractCollect
 		data.setCollectionInstance( null );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void resolveCollectionKey(Data data, boolean checkPreviousRow) {
 		final var oldKey = data.collectionKey;
 		final var oldCollectionInstance = data.getCollectionInstance();
@@ -197,6 +207,7 @@ public abstract class AbstractCollectionInitializer<Data extends AbstractCollect
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean areKeysEqual(CollectionKey oldKey, Data data) {
 		final var oldFk = oldKey.getKey();
 		final var newFk = data.collectionKeyValue;
@@ -213,6 +224,7 @@ public abstract class AbstractCollectionInitializer<Data extends AbstractCollect
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PersistentCollection<?> getCollection(CollectionInitializerData data, Object instance) {
 		return collectionAttributeMapping.getCollectionDescriptor().isArray()
 				? data.getRowProcessingState().getSession().getPersistenceContextInternal()
@@ -221,6 +233,7 @@ public abstract class AbstractCollectionInitializer<Data extends AbstractCollect
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void forEachSubInitializer(BiConsumer<Initializer<?>, RowProcessingState> consumer, InitializerData data) {
 		if ( collectionKeyResultAssembler != null ) {
 			final var initializer = collectionKeyResultAssembler.getInitializer();
@@ -231,6 +244,7 @@ public abstract class AbstractCollectionInitializer<Data extends AbstractCollect
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nullable PersistentCollection<?> getCollectionInstance(Data data) {
 		return data.getState() == State.UNINITIALIZED || data.getState() == State.MISSING
 				? null
@@ -238,55 +252,66 @@ public abstract class AbstractCollectionInitializer<Data extends AbstractCollect
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigablePath getNavigablePath() {
 		return collectionPath;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PluralAttributeMapping getCollectionAttributeMapping() {
 		return collectionAttributeMapping;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PluralAttributeMapping getInitializedPart() {
 		return getCollectionAttributeMapping();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable InitializerParent<?> getParent() {
 		return parent;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchOptions getFetchOptions() {
 		return fetchOptions;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void withFetchOptions(SharedSessionContractImplementor session, Supplier<?> action) {
 		session.getLoadQueryInfluencers()
 				.withFetchOptions( session, fetchOptions, action );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isPartOfKey() {
 		// A collection can never be part of a key
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isEager() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasLazySubInitializers() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isResultInitializer() {
 		return isResultInitializer;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	boolean isReadOnly(
 			CollectionKey collectionKey,
 			RowProcessingState rowProcessingState,

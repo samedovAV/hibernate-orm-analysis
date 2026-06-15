@@ -19,6 +19,8 @@ import org.hibernate.models.spi.ModelsContext;
 import jakarta.persistence.NamedNativeQuery;
 
 import static org.hibernate.boot.models.internal.OrmAnnotationHelper.extractJdkValue;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -77,98 +79,118 @@ public class NamedNativeQueryJpaAnnotation implements NamedNativeQuery {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return NamedNativeQuery.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String name() {
 		return name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void name(String value) {
 		this.name = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String query() {
 		return query;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void query(String value) {
 		this.query = value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QueryFlushMode flush() {
 		return flush;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void flush(QueryFlushMode flush) {
 		this.flush = flush;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.QueryHint[] hints() {
 		return hints;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void hints(jakarta.persistence.QueryHint[] value) {
 		this.hints = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public java.lang.Class<?> resultClass() {
 		return resultClass;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void resultClass(java.lang.Class<?> value) {
 		this.resultClass = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String resultSetMapping() {
 		return resultSetMapping;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void resultSetMapping(String value) {
 		this.resultSetMapping = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.EntityResult[] entities() {
 		return entities;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void entities(jakarta.persistence.EntityResult[] value) {
 		this.entities = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.ConstructorResult[] classes() {
 		return classes;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void classes(jakarta.persistence.ConstructorResult[] value) {
 		this.classes = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.ColumnResult[] columns() {
 		return columns;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void columns(jakarta.persistence.ColumnResult[] value) {
 		this.columns = value;
 	}
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void apply(JaxbNamedNativeQueryImpl jaxbNamedQuery, XmlDocumentContext xmlDocumentContext) {
 		name( jaxbNamedQuery.getName() );
 		query( jaxbNamedQuery.getQuery() );

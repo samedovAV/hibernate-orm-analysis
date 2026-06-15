@@ -12,6 +12,8 @@ import org.hibernate.boot.model.relational.SqlStringGenerationContext;
 import org.hibernate.generator.GeneratorCreationContext;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.type.Type;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link org.hibernate.generator.Generator} that supports "configuration".
@@ -24,6 +26,7 @@ public interface Configurable {
 	 * @deprecated Use {@link #configure(GeneratorCreationContext, Properties)} instead
 	 */
 	@Deprecated( since = "7.0", forRemoval = true )
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void configure(Type type, Properties parameters, ServiceRegistry serviceRegistry) throws MappingException {
 	}
 
@@ -43,6 +46,7 @@ public interface Configurable {
 	 *
 	 * @throws MappingException when there's something wrong with the given parameters
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void configure(GeneratorCreationContext creationContext, Properties parameters) throws MappingException {
 		configure( creationContext.getType(), parameters, creationContext.getServiceRegistry() );
 	}
@@ -57,5 +61,6 @@ public interface Configurable {
 	 *
 	 * @param context A context to help generate SQL strings
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void initialize(SqlStringGenerationContext context) {}
 }

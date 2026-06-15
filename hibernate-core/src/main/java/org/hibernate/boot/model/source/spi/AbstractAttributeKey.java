@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.source.spi;
 
 import org.hibernate.internal.util.StringHelper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -59,10 +61,12 @@ public abstract class AbstractAttributeKey {
 	 *
 	 * @return The number of parts.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getDepth() {
 		return depth;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract char getDelimiter();
 
 	/**
@@ -72,6 +76,7 @@ public abstract class AbstractAttributeKey {
 	 *
 	 * @return The new AbstractAttributeKey
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public abstract AbstractAttributeKey append(String property);
 
 	/**
@@ -79,6 +84,7 @@ public abstract class AbstractAttributeKey {
 	 *
 	 * @return the parent part
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AbstractAttributeKey getParent() {
 		return parent;
 	}
@@ -88,6 +94,7 @@ public abstract class AbstractAttributeKey {
 	 *
 	 * @return the end path part
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getProperty() {
 		return property;
 	}
@@ -97,6 +104,7 @@ public abstract class AbstractAttributeKey {
 	 *
 	 * @return The full path as a String
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getFullPath() {
 		return fullPath;
 	}
@@ -106,6 +114,7 @@ public abstract class AbstractAttributeKey {
 	 *
 	 * @return {@code true} if this part is a root.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isRoot() {
 		return parent == null;
 	}
@@ -116,16 +125,19 @@ public abstract class AbstractAttributeKey {
 	 * @return {@code true} if the current property is a collection element
 	 *         marker {@value #COLLECTION_ELEMENT}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCollectionElement() {
 		return COLLECTION_ELEMENT.equals( property );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return getFullPath();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean equals(Object o) {
 		if ( this == o ) {
 			return true;
@@ -140,6 +152,7 @@ public abstract class AbstractAttributeKey {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int hashCode() {
 		return fullPath.hashCode();
 	}

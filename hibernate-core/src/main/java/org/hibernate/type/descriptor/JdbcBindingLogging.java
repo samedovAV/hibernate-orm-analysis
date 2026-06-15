@@ -8,6 +8,8 @@ import org.hibernate.Internal;
 import org.hibernate.internal.log.SubSystemLogging;
 
 import org.jboss.logging.Logger;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SubSystemLogging(
 		name = JdbcBindingLogging.NAME,
@@ -19,6 +21,7 @@ public interface JdbcBindingLogging {
 
 	Logger LOGGER = Logger.getLogger( NAME );
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static void logBinding(int jdbcPosition, int typeCode, Object value) {
 		if ( LOGGER.isTraceEnabled() ) {
 			LOGGER.tracef(
@@ -30,6 +33,7 @@ public interface JdbcBindingLogging {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static void logNullBinding(int jdbcPosition, int typeCode) {
 		if ( LOGGER.isTraceEnabled() ) {
 			LOGGER.tracef(
@@ -40,6 +44,7 @@ public interface JdbcBindingLogging {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static void logBinding(String callableParameterName, int typeCode, Object value) {
 		if ( LOGGER.isTraceEnabled() ) {
 			LOGGER.tracef(
@@ -51,6 +56,7 @@ public interface JdbcBindingLogging {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static void logNullBinding(String callableParameterName, int typeCode) {
 		if ( LOGGER.isTraceEnabled() ) {
 			LOGGER.tracef(

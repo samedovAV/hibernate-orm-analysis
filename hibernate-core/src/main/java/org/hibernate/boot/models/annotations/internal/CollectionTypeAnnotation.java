@@ -12,6 +12,8 @@ import org.hibernate.models.spi.ModelsContext;
 
 import static org.hibernate.boot.models.HibernateAnnotations.COLLECTION_TYPE;
 import static org.hibernate.boot.models.internal.OrmAnnotationHelper.extractJdkValue;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -43,25 +45,30 @@ public class CollectionTypeAnnotation implements CollectionType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return CollectionType.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public java.lang.Class<? extends org.hibernate.usertype.UserCollectionType> type() {
 		return type;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void type(java.lang.Class<? extends org.hibernate.usertype.UserCollectionType> value) {
 		this.type = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public org.hibernate.annotations.Parameter[] parameters() {
 		return parameters;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void parameters(org.hibernate.annotations.Parameter[] value) {
 		this.parameters = value;
 	}

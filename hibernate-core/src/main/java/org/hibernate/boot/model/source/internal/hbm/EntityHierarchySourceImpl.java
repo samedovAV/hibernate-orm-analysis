@@ -33,6 +33,8 @@ import org.hibernate.boot.model.source.spi.VersionAttributeSource;
 import org.hibernate.boot.spi.MetadataBuildingContext;
 import org.hibernate.engine.OptimisticLockStyle;
 import org.hibernate.internal.util.StringHelper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Models an entity hierarchy as defined by {@code hbm.xml} documents
@@ -75,10 +77,12 @@ public class EntityHierarchySourceImpl implements EntityHierarchySource {
 		collectedEntityNames.add( rootEntitySource.getEntityNamingSource().getEntityName() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MappingDocument getRootEntityMappingDocument() {
 		return rootEntityMappingDocument;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static IdentifierSource interpretIdentifierSource(RootEntitySourceImpl rootEntitySource) {
 		final JaxbHbmSimpleIdType simpleId = rootEntitySource.jaxbEntityMapping().getId();
 		final JaxbHbmCompositeIdType compositeId = rootEntitySource.jaxbEntityMapping().getCompositeId();
@@ -131,6 +135,7 @@ public class EntityHierarchySourceImpl implements EntityHierarchySource {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static VersionAttributeSource interpretVersionSource(RootEntitySourceImpl rootEntitySource) {
 		final JaxbHbmRootEntityType entityElement = rootEntitySource.jaxbEntityMapping();
 		if ( entityElement.getVersion() != null ) {
@@ -150,6 +155,7 @@ public class EntityHierarchySourceImpl implements EntityHierarchySource {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static DiscriminatorSource interpretDiscriminatorSource(final RootEntitySourceImpl rootEntitySource) {
 		final JaxbHbmEntityDiscriminatorType jaxbDiscriminatorMapping =
 				rootEntitySource.jaxbEntityMapping().getDiscriminator();
@@ -163,16 +169,19 @@ public class EntityHierarchySourceImpl implements EntityHierarchySource {
 				null,
 				new RelationalValueSourceHelper.AbstractColumnsAndFormulasSource() {
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public XmlElementMetadata getSourceType() {
 						return XmlElementMetadata.DISCRIMINATOR;
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public String getSourceName() {
 						return null;
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public SizeSource getSizeSource() {
 						return Helper.interpretSizeSource(
 								jaxbDiscriminatorMapping.getLength(),
@@ -182,17 +191,20 @@ public class EntityHierarchySourceImpl implements EntityHierarchySource {
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public String getFormulaAttribute() {
 						return jaxbDiscriminatorMapping.getFormulaAttribute();
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public String getColumnAttribute() {
 						return jaxbDiscriminatorMapping.getColumnAttribute();
 					}
 
 					private List columnOrFormulas;
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public List getColumnOrFormulaElements() {
 						if ( columnOrFormulas == null ) {
 							if ( jaxbDiscriminatorMapping.getColumn() != null ) {
@@ -223,6 +235,7 @@ public class EntityHierarchySourceImpl implements EntityHierarchySource {
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public Boolean isNullable() {
 						return !jaxbDiscriminatorMapping.isNotNull();
 					}
@@ -231,37 +244,44 @@ public class EntityHierarchySourceImpl implements EntityHierarchySource {
 
 		return new DiscriminatorSource() {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public EntityNaming getEntityNaming() {
 				return rootEntitySource.getEntityNamingSource();
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public MetadataBuildingContext getBuildingContext() {
 				return rootEntitySource.metadataBuildingContext();
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public RelationalValueSource getDiscriminatorRelationalValueSource() {
 				return relationalValueSource;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public String getExplicitHibernateTypeName() {
 				return jaxbDiscriminatorMapping.getType();
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public boolean isForced() {
 				return jaxbDiscriminatorMapping.isForce();
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public boolean isInserted() {
 				return jaxbDiscriminatorMapping.isInsert();
 			}
 		};
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static MultiTenancySource interpretMultiTenancySource(final RootEntitySourceImpl rootEntitySource) {
 		final JaxbHbmMultiTenancyType jaxbMultiTenancy = rootEntitySource.jaxbEntityMapping().getMultiTenancy();
 		if ( jaxbMultiTenancy == null ) {
@@ -273,26 +293,31 @@ public class EntityHierarchySourceImpl implements EntityHierarchySource {
 				null,
 				new RelationalValueSourceHelper.AbstractColumnsAndFormulasSource() {
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public XmlElementMetadata getSourceType() {
 						return XmlElementMetadata.MULTI_TENANCY;
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public String getSourceName() {
 						return null;
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public String getFormulaAttribute() {
 						return jaxbMultiTenancy.getFormulaAttribute();
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public String getColumnAttribute() {
 						return jaxbMultiTenancy.getColumnAttribute();
 					}
 					private List columnOrFormulas;
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public List getColumnOrFormulaElements() {
 						if ( columnOrFormulas == null ) {
 							if ( jaxbMultiTenancy.getColumn() != null ) {
@@ -323,6 +348,7 @@ public class EntityHierarchySourceImpl implements EntityHierarchySource {
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public Boolean isNullable() {
 						return false;
 					}
@@ -331,16 +357,19 @@ public class EntityHierarchySourceImpl implements EntityHierarchySource {
 
 		return new MultiTenancySource() {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public RelationalValueSource getRelationalValueSource() {
 				return relationalValueSource;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public boolean isShared() {
 				return jaxbMultiTenancy.isShared();
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public boolean bindAsParameter() {
 				return jaxbMultiTenancy.isBindAsParam();
 			}
@@ -348,15 +377,18 @@ public class EntityHierarchySourceImpl implements EntityHierarchySource {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public InheritanceType getHierarchyInheritanceType() {
 		return hierarchyInheritanceType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public RootEntitySourceImpl getRoot() {
 		return rootEntitySource;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void processSubclass(SubclassEntitySourceImpl subclassEntitySource) {
 		final InheritanceType inheritanceType = Helper.interpretInheritanceType( subclassEntitySource.jaxbEntityMapping() );
 		if ( hierarchyInheritanceType == InheritanceType.NO_INHERITANCE ) {
@@ -370,61 +402,73 @@ public class EntityHierarchySourceImpl implements EntityHierarchySource {
 	}
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected JaxbHbmRootEntityType entityElement() {
 		return rootEntitySource.jaxbEntityMapping();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public IdentifierSource getIdentifierSource() {
 		return identifierSource;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public VersionAttributeSource getVersionAttributeSource() {
 		return versionAttributeSource;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isMutable() {
 		return entityElement().isMutable();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isExplicitPolymorphism() {
 		return JaxbHbmPolymorphismEnum.EXPLICIT == entityElement().getPolymorphism();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getWhere() {
 		return entityElement().getWhere();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getRowId() {
 		return entityElement().getRowid();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public OptimisticLockStyle getOptimisticLockStyle() {
 		return entityElement().getOptimisticLock();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Caching getCaching() {
 		return caching;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Caching getNaturalIdCaching() {
 		return naturalIdCaching;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DiscriminatorSource getDiscriminatorSource() {
 		return discriminatorSource;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MultiTenancySource getMultiTenancySource() {
 		return multiTenancySource;
 	}
@@ -438,6 +482,7 @@ public class EntityHierarchySourceImpl implements EntityHierarchySource {
 	 *
 	 * @return The collected information.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static IdentifierGeneratorDefinition interpretGeneratorDefinition(
 			MappingDocument mappingDocument,
 			EntityNamingSource entityNaming,
@@ -459,6 +504,7 @@ public class EntityHierarchySourceImpl implements EntityHierarchySource {
 		return identifierGeneratorDefinition;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Set<String> getContainedEntityNames() {
 		return collectedEntityNames;
 	}

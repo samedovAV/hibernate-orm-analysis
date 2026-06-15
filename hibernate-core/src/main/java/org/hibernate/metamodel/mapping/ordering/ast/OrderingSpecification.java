@@ -6,6 +6,8 @@ package org.hibernate.metamodel.mapping.ordering.ast;
 
 import jakarta.persistence.criteria.Nulls;
 import org.hibernate.query.SortDirection;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An individual sort specification in an order-by fragment
@@ -25,38 +27,47 @@ public class OrderingSpecification implements Node {
 		this.orderByValue = orderByValue;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public OrderingExpression getExpression() {
 		return orderingExpression;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getCollation() {
 		return collation;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setCollation(String collation) {
 		this.collation = collation;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SortDirection getSortOrder() {
 		return sortOrder;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setSortOrder(SortDirection sortOrder) {
 		this.sortOrder = sortOrder;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Nulls getNullPrecedence() {
 		return nullPrecedence;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setNullPrecedence(Nulls nullPrecedence) {
 		this.nullPrecedence = nullPrecedence;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getOrderByValue() {
 		return orderByValue;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setOrderByValue(String orderByValue) {
 		this.orderByValue = orderByValue;
 	}

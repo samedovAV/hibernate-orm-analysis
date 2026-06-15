@@ -13,6 +13,8 @@ import org.hibernate.SessionEventListener;
 import org.hibernate.engine.jdbc.connections.spi.JdbcConnectionAccess;
 import org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -39,6 +41,7 @@ class ContextualJdbcConnectionAccess implements JdbcConnectionAccess, Serializab
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Connection obtainConnection() throws SQLException {
 		if ( tenantIdentifier == null ) {
 			throw new HibernateException( "Tenant identifier required" );
@@ -59,6 +62,7 @@ class ContextualJdbcConnectionAccess implements JdbcConnectionAccess, Serializab
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void releaseConnection(Connection connection) throws SQLException {
 		if ( tenantIdentifier == null ) {
 			throw new HibernateException( "Tenant identifier required" );
@@ -82,6 +86,7 @@ class ContextualJdbcConnectionAccess implements JdbcConnectionAccess, Serializab
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean supportsAggressiveRelease() {
 		return connectionProvider.supportsAggressiveRelease();
 	}

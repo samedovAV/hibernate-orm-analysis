@@ -5,6 +5,8 @@
 package org.hibernate.engine.creation.internal;
 
 import org.hibernate.engine.creation.CommonSharedBuilder;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Allows observation of flush and closure events of a parent session from a
@@ -18,10 +20,12 @@ public interface ParentSessionObserver {
 	/**
 	 * Callback when the parent is flushed.  Used to flush the child session.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void onParentFlush();
 
 	/**
 	 * Callback when the parent is closed.  Used to close the child session.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void onParentClose();
 }

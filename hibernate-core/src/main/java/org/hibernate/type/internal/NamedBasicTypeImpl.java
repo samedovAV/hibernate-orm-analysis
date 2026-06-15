@@ -6,6 +6,8 @@ package org.hibernate.type.internal;
 
 import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -20,6 +22,7 @@ public class NamedBasicTypeImpl<J> extends BasicTypeImpl<J> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return name;
 	}

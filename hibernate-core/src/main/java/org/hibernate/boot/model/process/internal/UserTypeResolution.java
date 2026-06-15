@@ -14,6 +14,8 @@ import org.hibernate.type.CustomType;
 import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.descriptor.java.MutabilityPlan;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -40,21 +42,25 @@ public class UserTypeResolution<T> implements BasicValue.Resolution<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<T> getDomainJavaType() {
 		return userTypeAdapter.getJavaTypeDescriptor();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<?> getRelationalJavaType() {
 		return userTypeAdapter.getJavaTypeDescriptor();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcType getJdbcType() {
 		return userTypeAdapter.getJdbcType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BasicValueConverter<T,?> getValueConverter() {
 		// Even though we could expose the value converter of the user type here,
 		// we can not do it, as the conversion is done behind the scenes in the binder/extractor,
@@ -63,21 +69,25 @@ public class UserTypeResolution<T> implements BasicValue.Resolution<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutabilityPlan<T> getMutabilityPlan() {
 		return mutabilityPlan;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BasicType<T> getLegacyResolvedBasicType() {
 		return userTypeAdapter;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Properties getCombinedTypeParameters() {
 		return combinedTypeParameters;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcMapping getJdbcMapping() {
 		return userTypeAdapter;
 	}

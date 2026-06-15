@@ -12,6 +12,8 @@ import org.hibernate.type.descriptor.WrapperOptions;
 import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.descriptor.jdbc.BasicBinder;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Support for binding values directly through `setObject` JDBC driver calls.
@@ -33,25 +35,30 @@ public class SetObjectBinder<T> extends BasicBinder<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void doBind(PreparedStatement st, T value, int index, WrapperOptions options) throws SQLException {
 		st.setObject( index, normalize( value, options ), jdbcTypeCode );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Object normalize(T value, WrapperOptions options) {
 		return getJavaType().unwrap( value, baseClass, options );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void doBind(CallableStatement st, T value, String name, WrapperOptions options) throws SQLException {
 		st.setObject( name, normalize( value, options ), jdbcTypeCode );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void doBindNull(PreparedStatement st, int index, WrapperOptions options) throws SQLException {
 		st.setNull( index, jdbcTypeCode );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void doBindNull(CallableStatement st, String name, WrapperOptions options) throws SQLException {
 		st.setNull( name, jdbcTypeCode );
 	}

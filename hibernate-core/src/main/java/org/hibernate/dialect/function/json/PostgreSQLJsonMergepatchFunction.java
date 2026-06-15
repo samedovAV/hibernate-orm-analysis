@@ -13,6 +13,8 @@ import org.hibernate.sql.ast.spi.SqlAppender;
 import org.hibernate.sql.ast.tree.SqlAstNode;
 import org.hibernate.sql.ast.tree.expression.Expression;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * PostgreSQL json_mergepatch function.
@@ -24,6 +26,7 @@ public class PostgreSQLJsonMergepatchFunction extends AbstractJsonMergepatchFunc
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> arguments,
@@ -159,10 +162,12 @@ public class PostgreSQLJsonMergepatchFunction extends AbstractJsonMergepatchFunc
 		sqlAppender.appendSql( "select r.v from res r where r.l=0)" );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void renderColumnList(SqlAppender sqlAppender, String column, int size) {
 		renderColumnList( sqlAppender, column, size, 0 );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void renderColumnList(SqlAppender sqlAppender, String column, int size, int end) {
 		sqlAppender.appendSql( "v" );
 		sqlAppender.appendSql( size - 1 );
@@ -176,6 +181,7 @@ public class PostgreSQLJsonMergepatchFunction extends AbstractJsonMergepatchFunc
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void renderKeyValueCte(String cteName, String columnName, SqlAppender sqlAppender) {
 		sqlAppender.appendSql( cteName );
 		sqlAppender.appendSql( "(p,k,v) as (");
@@ -192,6 +198,7 @@ public class PostgreSQLJsonMergepatchFunction extends AbstractJsonMergepatchFunc
 		sqlAppender.appendSql( ")," );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void renderJsonDocumentExpression(SqlAppender sqlAppender, SqlAstTranslator<?> translator, Expression json) {
 		final boolean needsCast = !isJsonType( json );
 		if ( needsCast ) {
@@ -203,6 +210,7 @@ public class PostgreSQLJsonMergepatchFunction extends AbstractJsonMergepatchFunc
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean isJsonType(Expression expression) {
 		final JdbcMappingContainer expressionType = expression.getExpressionType();
 		return expressionType != null && expressionType.getSingleJdbcMapping().getJdbcType().isJson();

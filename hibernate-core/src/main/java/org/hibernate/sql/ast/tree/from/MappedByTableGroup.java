@@ -12,6 +12,8 @@ import java.util.function.Consumer;
 import org.hibernate.metamodel.mapping.ModelPartContainer;
 import org.hibernate.metamodel.mapping.ValuedModelPart;
 import org.hibernate.spi.NavigablePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -41,37 +43,44 @@ public class MappedByTableGroup extends DelegatingTableGroup implements VirtualT
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected TableGroup getTableGroup() {
 		return underlyingTableGroup;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableGroup getUnderlyingTableGroup() {
 		return underlyingTableGroup;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigablePath getNavigablePath() {
 		return navigablePath;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ModelPartContainer getExpressionType() {
 		return getModelPart();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getGroupAlias() {
 		// none, although we could also delegate to the underlyingTableGroup's group-alias
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isFetched() {
 		return fetched;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ModelPartContainer getModelPart() {
 		return producer;
 	}
@@ -80,41 +89,49 @@ public class MappedByTableGroup extends DelegatingTableGroup implements VirtualT
 	// The underlying table group contains the joins and will render them
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isRealTableGroup() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isLateral() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<TableGroupJoin> getTableGroupJoins() {
 		return Collections.emptyList();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<TableGroupJoin> getNestedTableGroupJoins() {
 		return Collections.emptyList();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void visitTableGroupJoins(Consumer<TableGroupJoin> consumer) {
 		// No-op
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void visitNestedTableGroupJoins(Consumer<TableGroupJoin> consumer) {
 		// No-op
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<TableReferenceJoin> getTableReferenceJoins() {
 		return Collections.emptyList();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableReference resolveTableReference(
 			NavigablePath navigablePath,
 			String tableExpression) {
@@ -140,6 +157,7 @@ public class MappedByTableGroup extends DelegatingTableGroup implements VirtualT
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableReference resolveTableReference(
 			NavigablePath navigablePath,
 			ValuedModelPart modelPart,
@@ -169,6 +187,7 @@ public class MappedByTableGroup extends DelegatingTableGroup implements VirtualT
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public TableReference getTableReference(
 			NavigablePath navigablePath,
 			String tableExpression,
@@ -181,6 +200,7 @@ public class MappedByTableGroup extends DelegatingTableGroup implements VirtualT
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public TableReference getTableReference(
 			NavigablePath navigablePath,
 			ValuedModelPart modelPart,

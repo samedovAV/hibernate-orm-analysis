@@ -17,11 +17,14 @@ import org.hibernate.graph.spi.GraphImplementor;
 import org.hibernate.graph.spi.GraphParserEntityNameResolver;
 import org.hibernate.graph.spi.RootGraphImplementor;
 import org.hibernate.metamodel.model.domain.EntityDomainType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @Deprecated(forRemoval = true)
 public class LegacyGraphParsingStrategy implements GraphParsingStrategy {
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> RootGraphImplementor<T> parse(EntityDomainType<T> entityDomainType, String graphText, SessionFactoryImplementor sessionFactory) {
 		if ( graphText == null ) {
 			return null;
@@ -37,6 +40,7 @@ public class LegacyGraphParsingStrategy implements GraphParsingStrategy {
 
 	@Override
 	@Deprecated(forRemoval = true)
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> RootGraphImplementor<T> parse(String graphText, SessionFactoryImplementor sessionFactory) {
 		if ( graphText == null ) {
 			return null;
@@ -55,6 +59,7 @@ public class LegacyGraphParsingStrategy implements GraphParsingStrategy {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void parseInto(GraphImplementor<?> graph, String graphText, SessionFactoryImplementor sessionFactory) {
 		final var lexer = new GraphLanguageLexer( CharStreams.fromString( graphText ) );
 		final var parser = new LegacyGraphLanguageParser( new CommonTokenStream( lexer ) );
@@ -80,10 +85,12 @@ public class LegacyGraphParsingStrategy implements GraphParsingStrategy {
 
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static <T> RootGraphImplementor<T> parse(EntityDomainType<T> rootType, LegacyGraphLanguageParser.AttributeListContext graphElementListContext, SessionFactoryImplementor sessionFactory) {
 		return parse( null, rootType, graphElementListContext, sessionFactory.getJpaMetamodel()::findEntityType );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <T> RootGraphImplementor<T> parse(@Nullable String name, EntityDomainType<T> rootType, LegacyGraphLanguageParser.AttributeListContext graphElementListContext, GraphParserEntityNameResolver entityNameResolver) {
 		final RootGraphImpl<T> targetGraph = new RootGraphImpl<>( name, rootType );
 

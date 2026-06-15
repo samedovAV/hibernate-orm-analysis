@@ -37,6 +37,8 @@ import static org.hibernate.cfg.SchemaToolingSettings.INDEX_VALIDATION;
 import static org.hibernate.cfg.SchemaToolingSettings.UNIQUE_KEY_VALIDATION;
 import static org.hibernate.tool.schema.internal.ColumnDefinitions.hasMatchingType;
 import static org.hibernate.tool.schema.internal.Helper.buildDatabaseInformation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base implementation of {@link SchemaValidator}.
@@ -57,6 +59,7 @@ public abstract class AbstractSchemaValidator implements SchemaValidator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void doValidation(
 			Metadata metadata,
 			ExecutionOptions options,
@@ -85,6 +88,7 @@ public abstract class AbstractSchemaValidator implements SchemaValidator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void performValidation(
 			Metadata metadata,
 			DatabaseInformation databaseInformation,
@@ -110,6 +114,7 @@ public abstract class AbstractSchemaValidator implements SchemaValidator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract void validateTables(
 			Metadata metadata,
 			DatabaseInformation databaseInformation,
@@ -117,6 +122,7 @@ public abstract class AbstractSchemaValidator implements SchemaValidator {
 			ContributableMatcher contributableInclusionFilter,
 			Dialect dialect, Namespace namespace);
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void validateTable(
 			Table table,
 			TableInformation tableInformation,
@@ -152,6 +158,7 @@ public abstract class AbstractSchemaValidator implements SchemaValidator {
 		validateUniqueKeys( table, tableInformation, metadata, options, dialect );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void validateColumnType(
 			Table table,
 			Column column,
@@ -174,6 +181,7 @@ public abstract class AbstractSchemaValidator implements SchemaValidator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void validateIndexes(
 			Table table,
 			TableInformation tableInformation,
@@ -240,6 +248,7 @@ public abstract class AbstractSchemaValidator implements SchemaValidator {
 		} );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void validateUniqueKeys(
 			Table table,
 			TableInformation tableInformation,
@@ -306,6 +315,7 @@ public abstract class AbstractSchemaValidator implements SchemaValidator {
 		} );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void validateSequence(Sequence sequence, SequenceInformation sequenceInformation) {
 		if ( sequenceInformation == null ) {
 			throw new SchemaManagementException(

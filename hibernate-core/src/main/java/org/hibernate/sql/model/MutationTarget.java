@@ -6,6 +6,8 @@ package org.hibernate.sql.model;
 
 import org.hibernate.Incubating;
 import org.hibernate.action.queue.spi.meta.TableDescriptor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Bridge interface combining legacy and graph-based mutation target contracts.
@@ -31,6 +33,7 @@ public interface MutationTarget<T extends TableMapping, TD extends TableDescript
 	// Bridge interface - all methods inherited from LegacyMutationTarget and GraphMutationTarget
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String getRolePath() {
 		return getNavigableRole().getFullPath();
 	}

@@ -7,6 +7,8 @@ package org.hibernate.property.access.internal;
 import org.hibernate.PropertyNotFoundException;
 import org.hibernate.property.access.spi.PropertyAccess;
 import org.hibernate.property.access.spi.PropertyAccessStrategy;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Max Andersen
@@ -20,6 +22,7 @@ public class PropertyAccessStrategyChainedImpl implements PropertyAccessStrategy
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public PropertyAccess buildPropertyAccess(Class<?> containerJavaType, String propertyName, boolean setterRequired) {
 		for ( var candidate : chain ) {
 			try {

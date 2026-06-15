@@ -19,6 +19,8 @@ import org.hibernate.sql.ast.tree.expression.Literal;
 import org.hibernate.sql.ast.tree.from.NamedTableReference;
 import org.hibernate.sql.ast.tree.from.StandardTableGroup;
 import org.hibernate.sql.ast.tree.select.QuerySpec;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A SQM to SQL AST translator for Sybase ASE.
@@ -49,6 +51,7 @@ public class SybaseSqmToSqlAstConverter<T extends Statement> extends BaseSqmToSq
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public QuerySpec visitQuerySpec(SqmQuerySpec<?> sqmQuerySpec) {
 		final boolean needsDummy = this.needsDummyTableGroup;
 		this.needsDummyTableGroup = false;
@@ -75,6 +78,7 @@ public class SybaseSqmToSqlAstConverter<T extends Statement> extends BaseSqmToSq
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected Expression resolveGroupOrOrderByExpression(SqmExpression<?> groupByClauseExpression) {
 		final Expression expression = super.resolveGroupOrOrderByExpression( groupByClauseExpression );
 		if ( expression instanceof Literal ) {

@@ -11,6 +11,8 @@ import org.hibernate.query.sqm.SqmBindableType;
 import org.hibernate.type.descriptor.converter.spi.BasicValueConverter;
 
 import static jakarta.persistence.metamodel.Type.PersistenceType.BASIC;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A basic type reference.
@@ -63,36 +65,44 @@ public final class BasicTypeReference<T> implements BindableType<T>, Serializabl
 		this.forceImmutable = forceImmutable;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return name;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<T> getJavaType() {
 		return javaType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistenceType getPersistenceType() {
 		return BASIC;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getSqlTypeCode() {
 		return sqlTypeCode;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BasicValueConverter<T, ?> getConverter() {
 		return converter;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TemporalType getPrecision() {
 		return precision;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isForceImmutable() {
 		return forceImmutable;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BasicTypeReference<T> asImmutable() {
 		return forceImmutable ? this : new BasicTypeReference<>(
 				"imm_" + name,
@@ -105,6 +115,7 @@ public final class BasicTypeReference<T> implements BindableType<T>, Serializabl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmBindableType<T> resolveExpressible(BindingContext bindingContext) {
 		return bindingContext.getTypeConfiguration().getBasicTypeRegistry().resolve( this );
 	}

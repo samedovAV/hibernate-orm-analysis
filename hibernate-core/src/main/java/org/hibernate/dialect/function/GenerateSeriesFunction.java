@@ -20,6 +20,8 @@ import org.hibernate.type.spi.TypeConfiguration;
 
 import java.time.Duration;
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard generate_series function.
@@ -55,6 +57,7 @@ public class GenerateSeriesFunction extends AbstractSqmSelfRenderingSetReturning
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,
@@ -67,6 +70,7 @@ public class GenerateSeriesFunction extends AbstractSqmSelfRenderingSetReturning
 		renderGenerateSeries( sqlAppender, start, stop, step, tupleType, tableIdentifierVariable, walker );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderGenerateSeries(
 			SqlAppender sqlAppender,
 			Expression start,

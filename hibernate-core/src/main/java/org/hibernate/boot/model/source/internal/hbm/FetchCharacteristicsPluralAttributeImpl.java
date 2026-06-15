@@ -11,6 +11,8 @@ import org.hibernate.boot.model.source.spi.FetchCharacteristicsPluralAttribute;
 import org.hibernate.boot.spi.EffectiveMappingDefaults;
 import org.hibernate.engine.FetchStyle;
 import org.hibernate.engine.FetchTiming;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -34,21 +36,25 @@ public class FetchCharacteristicsPluralAttributeImpl implements FetchCharacteris
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchTiming getFetchTiming() {
 		return fetchTiming;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchStyle getFetchStyle() {
 		return fetchStyle;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Integer getBatchSize() {
 		return batchSize;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isExtraLazy() {
 		return getFetchTiming() == FetchTiming.DELAYED && extraLazy;
 	}
@@ -73,25 +79,30 @@ public class FetchCharacteristicsPluralAttributeImpl implements FetchCharacteris
 			}
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder setFetchTiming(FetchTiming fetchTiming) {
 			this.fetchTiming = fetchTiming;
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder setFetchStyle(FetchStyle fetchStyle) {
 			this.fetchStyle = fetchStyle;
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder setBatchSize(Integer batchSize) {
 			this.batchSize = batchSize;
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void setExtraLazy(boolean extraLazy) {
 			this.extraLazy = extraLazy;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public FetchCharacteristicsPluralAttributeImpl createPluralAttributeFetchCharacteristics() {
 			return new FetchCharacteristicsPluralAttributeImpl( fetchTiming, fetchStyle, batchSize, extraLazy );
 		}
@@ -101,6 +112,7 @@ public class FetchCharacteristicsPluralAttributeImpl implements FetchCharacteris
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Static builder methods
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static FetchCharacteristicsPluralAttributeImpl interpret(
 			EffectiveMappingDefaults mappingDefaults,
 			JaxbHbmFetchStyleWithSubselectEnum fetch,

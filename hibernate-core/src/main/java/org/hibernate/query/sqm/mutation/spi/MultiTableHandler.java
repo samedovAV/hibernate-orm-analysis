@@ -7,6 +7,8 @@ package org.hibernate.query.sqm.mutation.spi;
 import org.hibernate.query.spi.DomainQueryExecutionContext;
 import org.hibernate.query.spi.QueryOptions;
 import org.hibernate.sql.exec.spi.JdbcParameterBindings;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Simply as a matter of code structuring, it is often worthwhile to put all of the execution code into a separate
@@ -26,14 +28,17 @@ public interface MultiTableHandler {
 	 * @param executionContext Contextual information needed for execution
 	 * @return The built parameter bindings
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcParameterBindings createJdbcParameterBindings(DomainQueryExecutionContext executionContext);
 
 	/**
 	 * Signals that the SQL depends on the parameter bindings e.g. due to the need for inlining
 	 * of parameter values or multiValued parameters.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean dependsOnParameterBindings();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isCompatibleWith(JdbcParameterBindings jdbcParameterBindings, QueryOptions queryOptions);
 
 	/**
@@ -44,5 +49,6 @@ public interface MultiTableHandler {
 	 * @param executionContext Contextual information needed for execution
 	 * @return The "number of rows affected" count
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int execute(JdbcParameterBindings jdbcParameterBindings, DomainQueryExecutionContext executionContext);
 }

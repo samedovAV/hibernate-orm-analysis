@@ -11,6 +11,8 @@ import org.hibernate.boot.jaxb.hbm.spi.TypeContainer;
 import org.hibernate.boot.model.JavaTypeDescriptor;
 import org.hibernate.boot.model.source.spi.HibernateTypeSource;
 import org.hibernate.boot.model.source.spi.JavaTypeDescriptorResolvable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -54,21 +56,25 @@ public class HibernateTypeSourceImpl implements HibernateTypeSource, JavaTypeDes
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return name;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, String> getParameters() {
 		return parameters;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaTypeDescriptor getJavaType() {
 		return javaTypeDescriptor;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void resolveJavaTypeDescriptor(JavaTypeDescriptor descriptor) {
 		if ( this.javaTypeDescriptor != null ) {
 			if ( this.javaTypeDescriptor != descriptor ) {

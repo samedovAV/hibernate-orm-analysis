@@ -13,6 +13,8 @@ import org.hibernate.models.spi.ModelsContext;
 import jakarta.persistence.AttributeOverride;
 
 import static org.hibernate.boot.models.internal.OrmAnnotationHelper.extractJdkValue;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -44,25 +46,30 @@ public class AttributeOverrideJpaAnnotation implements AttributeOverride {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return AttributeOverride.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String name() {
 		return name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void name(String value) {
 		this.name = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.Column column() {
 		return column;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void column(jakarta.persistence.Column value) {
 		this.column = value;
 	}

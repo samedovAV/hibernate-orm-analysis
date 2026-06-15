@@ -7,6 +7,8 @@ package org.hibernate.tool.schema.spi;
 import java.util.Map;
 
 import org.hibernate.Incubating;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Parameter object representing options for schema management tool execution
@@ -15,9 +17,12 @@ import org.hibernate.Incubating;
  */
 @Incubating
 public interface ExecutionOptions {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Map<String,Object> getConfigurationValues();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean shouldManageNamespaces();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ExceptionHandler getExceptionHandler();
 }

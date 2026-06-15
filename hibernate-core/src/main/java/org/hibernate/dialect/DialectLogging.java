@@ -17,6 +17,8 @@ import java.lang.invoke.MethodHandles;
 import java.util.Locale;
 
 import static org.jboss.logging.Logger.Level.DEBUG;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Logging related to Hibernate dialects
@@ -35,5 +37,6 @@ public interface DialectLogging {
 
 	@LogMessage(level = DEBUG)
 	@Message(value = "Using dialect: %s", id = 35001)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void usingDialect(Dialect dialect);
 }

@@ -66,6 +66,8 @@ import static org.hibernate.query.sqm.mutation.internal.temptable.ExecuteWithTem
 import static org.hibernate.query.sqm.mutation.internal.temptable.ExecuteWithTemporaryTableHelper.performBeforeTemporaryTableUseActions;
 import static org.hibernate.query.sqm.mutation.internal.temptable.ExecuteWithTemporaryTableHelper.saveIntoTemporaryTable;
 import static org.hibernate.query.sqm.mutation.internal.temptable.ExecuteWithoutIdTableHelper.createIdMatchingSubQuerySpec;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
 * @author Steve Ebersole
@@ -181,6 +183,7 @@ public class TableBasedDeleteHandler
 				jdbcParamsXref,
 				new SqmParameterMappingModelResolutionAccess() {
 					@Override @SuppressWarnings("unchecked")
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public <T> MappingModelExpressible<T> getResolvedMappingModelType(SqmParameter<T> parameter) {
 						return (MappingModelExpressible<T>) resolvedParameterMappingModelTypes.get( parameter );
 					}
@@ -390,6 +393,7 @@ public class TableBasedDeleteHandler
 		firstJdbcParameterBindingsConsumer.set( jdbcParameterBindings );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private JdbcOperationQueryMutation createTableDeleteUsingIdTable(
 			String tableExpression,
 			Supplier<Consumer<SelectableConsumer>> tableKeyColumnVisitationSupplier,
@@ -421,6 +425,7 @@ public class TableBasedDeleteHandler
 	}
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private JdbcOperationQueryMutation createRootTableDeleteWithoutIdTable(
 			NamedTableReference rootTableReference,
 			Predicate predicate,
@@ -432,6 +437,7 @@ public class TableBasedDeleteHandler
 				.translate( jdbcParameterBindings, executionContext.getQueryOptions() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private JdbcOperationQueryMutation createNonRootTableDeleteWithoutIdTable(
 			NamedTableReference targetTableReference,
 			Supplier<Consumer<SelectableConsumer>> tableKeyColumnVisitationSupplier,
@@ -456,6 +462,7 @@ public class TableBasedDeleteHandler
 				.translate( jdbcParameterBindings, executionContext.getQueryOptions() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private @Nullable Predicate tableDeletePredicate(
 			Supplier<Consumer<SelectableConsumer>> tableKeyColumnVisitationSupplier,
 			SqlExpressionResolver sqlExpressionResolver,
@@ -497,6 +504,7 @@ public class TableBasedDeleteHandler
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcParameterBindings createJdbcParameterBindings(DomainQueryExecutionContext context) {
 		final var jdbcParameterBindings = SqmUtil.createJdbcParameterBindings(
 				context.getQueryParameterBindings(),
@@ -505,6 +513,7 @@ public class TableBasedDeleteHandler
 				new SqmParameterMappingModelResolutionAccess() {
 					@Override
 					@SuppressWarnings("unchecked")
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public <T> MappingModelExpressible<T> getResolvedMappingModelType(SqmParameter<T> parameter) {
 						return (MappingModelExpressible<T>) resolvedParameterMappingModelTypes.get( parameter );
 					}
@@ -524,6 +533,7 @@ public class TableBasedDeleteHandler
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public boolean dependsOnParameterBindings() {
 		if ( idTableInsert != null && idTableInsert.jdbcOperation().dependsOnParameterBindings() ) {
 			return true;
@@ -542,6 +552,7 @@ public class TableBasedDeleteHandler
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public boolean isCompatibleWith(JdbcParameterBindings jdbcParameterBindings, QueryOptions queryOptions) {
 		if ( idTableInsert != null
 			&& !idTableInsert.jdbcOperation().isCompatibleWith( jdbcParameterBindings, queryOptions ) ) {
@@ -561,6 +572,7 @@ public class TableBasedDeleteHandler
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public int execute(JdbcParameterBindings jdbcParameterBindings, DomainQueryExecutionContext context) {
 		if ( LOG.isTraceEnabled() ) {
 			LOG.tracef(
@@ -677,41 +689,49 @@ public class TableBasedDeleteHandler
 	}
 
 	// For Hibernate Reactive
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable CacheableSqmInterpretation<InsertSelectStatement, JdbcOperationQueryMutation> getIdTableInsert() {
 		return idTableInsert;
 	}
 
 	// For Hibernate Reactive
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected ArrayList<JdbcOperationQueryMutation> getDeletes() {
 		return deletes;
 	}
 
 	// For Hibernate Reactive
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected ArrayList<JdbcOperationQueryMutation> getCollectionTableDeletes() {
 		return collectionTableDeletes;
 	}
 
 	// For Hibernate Reactive
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected AfterUseAction getAfterUseAction() {
 		return forceDropAfterUse ? AfterUseAction.DROP : temporaryTableStrategy.getTemporaryTableAfterUseAction();
 	}
 
 	// For Hibernate Reactive
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected TemporaryTable getIdTable() {
 		return idTable;
 	}
 
 	// For Hibernate Reactive
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected TemporaryTableStrategy getTemporaryTableStrategy() {
 		return temporaryTableStrategy;
 	}
 
 	// For Hibernate Reactive
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Function<SharedSessionContractImplementor, String> getSessionUidAccess() {
 		return sessionUidAccess;
 	}
 
 	// For Hibernate Reactive
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected @Nullable JdbcParameter getSessionUidParameter() {
 		return sessionUidParameter;
 	}

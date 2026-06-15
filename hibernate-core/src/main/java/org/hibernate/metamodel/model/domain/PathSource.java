@@ -6,6 +6,8 @@ package org.hibernate.metamodel.model.domain;
 
 import jakarta.annotation.Nullable;
 import org.hibernate.spi.NavigablePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Any element of the domain model which can be used to create an
@@ -23,11 +25,13 @@ public interface PathSource<J> {
 	 *
 	 * @apiNote Mainly used in logging and when creating a {@link NavigablePath}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getPathName();
 
 	/**
 	 * The type of path this source creates.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	DomainType<J> getPathType();
 
 	/**
@@ -37,7 +41,8 @@ public interface PathSource<J> {
 	 * @return null if the subPathSource is not found
 	 * @throws IllegalStateException to indicate that this source cannot be de-referenced
 	 */
-	@Nullable PathSource<?> findSubPathSource(String name);
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	PathSource<?> findSubPathSource(String name);
 
 	/**
 	 * Find a {@link PathSource} by name relative to this source. If {@code includeSubtypes} is set
@@ -48,5 +53,6 @@ public interface PathSource<J> {
 	 * @return null if the subPathSource is not found
 	 * @throws IllegalStateException to indicate that this source cannot be de-referenced
 	 */
-	@Nullable PathSource<?> findSubPathSource(String name, boolean includeSubtypes);
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	PathSource<?> findSubPathSource(String name, boolean includeSubtypes);
 }

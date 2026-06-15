@@ -12,6 +12,8 @@ import org.hibernate.type.format.FormatMapper;
 import org.hibernate.type.spi.TypeConfiguration;
 
 import java.util.TimeZone;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Options for {@linkplain ValueBinder#bind(java.sql.PreparedStatement, Object, int, WrapperOptions)
@@ -28,11 +30,13 @@ public interface WrapperOptions {
 	/**
 	 * Access to the current session.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionContractImplementor getSession();
 
 	/**
 	 * Access to the current session factory.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default SessionFactoryImplementor getSessionFactory() {
 		return getSession().getSessionFactory();
 	}
@@ -40,6 +44,7 @@ public interface WrapperOptions {
 	/**
 	 * Access to the current dialect.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default Dialect getDialect() {
 		return getSessionFactory().getJdbcServices().getDialect();
 	}
@@ -51,6 +56,7 @@ public interface WrapperOptions {
 	 *
 	 * @see org.hibernate.dialect.Dialect#useInputStreamToInsertBlob()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean useStreamForLobBinding() {
 		return getDialect().useInputStreamToInsertBlob();
 	}
@@ -61,6 +67,7 @@ public interface WrapperOptions {
 	 * @see org.hibernate.cfg.MappingSettings#PREFERRED_BOOLEAN_JDBC_TYPE
 	 * @see org.hibernate.dialect.Dialect#getPreferredSqlTypeCodeForBoolean()
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default int getPreferredSqlTypeCodeForBoolean() {
 		return getSessionFactory().getSessionFactoryOptions().getPreferredSqlTypeCodeForBoolean();
 	}
@@ -70,6 +77,7 @@ public interface WrapperOptions {
 	 *
 	 * @return {@code true}/{@code false}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean useLanguageTagForLocale() {
 		return getSessionFactory().getSessionFactoryOptions().isPreferLocaleLanguageTagEnabled();
 	}
@@ -82,6 +90,7 @@ public interface WrapperOptions {
 	 * @see org.hibernate.cfg.JdbcSettings#NON_CONTEXTUAL_LOB_CREATION
 	 * @see org.hibernate.dialect.Dialect#getDefaultNonContextualLobCreation()
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default LobCreator getLobCreator() {
 		return getSession().getLobCreator();
 	}
@@ -109,6 +118,7 @@ public interface WrapperOptions {
 	 *
 	 * @see org.hibernate.cfg.JdbcSettings#JDBC_TIME_ZONE
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default TimeZone getJdbcTimeZone() {
 		return getSessionFactory().getSessionFactoryOptions().getJdbcTimeZone();
 	}
@@ -118,6 +128,7 @@ public interface WrapperOptions {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default TypeConfiguration getTypeConfiguration() {
 		return getSessionFactory().getTypeConfiguration();
 	}
@@ -127,6 +138,7 @@ public interface WrapperOptions {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	FormatMapper getXmlFormatMapper();
 
 	/**
@@ -134,5 +146,6 @@ public interface WrapperOptions {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	FormatMapper getJsonFormatMapper();
 }

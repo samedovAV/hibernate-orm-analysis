@@ -9,6 +9,8 @@ import java.sql.Clob;
 import java.sql.NClob;
 
 import org.hibernate.type.SqlTypes;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Enumeration of the JDBC LOB locator types
@@ -28,10 +30,12 @@ public enum LobTypes {
 		this.jdbcTypeClass = jdbcTypeClass;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getJdbcTypeCode() {
 		return jdbcTypeCode;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getJdbcTypeClass() {
 		return jdbcTypeClass;
 	}

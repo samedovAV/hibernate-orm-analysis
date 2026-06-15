@@ -12,6 +12,8 @@ import org.hibernate.sql.ast.tree.expression.JsonPathPassingClause;
 import org.hibernate.sql.ast.tree.expression.JsonValueEmptyBehavior;
 import org.hibernate.sql.ast.tree.expression.JsonValueErrorBehavior;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * SQL Server json_value function.
@@ -23,6 +25,7 @@ public class SQLServerJsonValueFunction extends JsonValueFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void render(
 			SqlAppender sqlAppender,
 			JsonValueArguments arguments,

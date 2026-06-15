@@ -53,6 +53,8 @@ import static org.hibernate.internal.util.StringHelper.EMPTY_STRINGS;
 import static org.hibernate.internal.util.StringHelper.isBlank;
 import static org.hibernate.internal.util.StringHelper.splitTrimmingTokens;
 import static org.hibernate.internal.util.config.ConfigurationHelper.getBoolean;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public abstract class AbstractInformationExtractorImpl implements InformationExtractor {
 
@@ -95,6 +97,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 		tableTypes = getTableTypes( configService, dialect );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String[] getPhysicalTableTypes(String extraPhysicalTableTypesConfig, Dialect dialect) {
 		final List<String> physicalTableTypesList = new ArrayList<>();
 		if ( !isBlank( extraPhysicalTableTypesConfig ) ) {
@@ -105,6 +108,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 		return physicalTableTypesList.toArray( EMPTY_STRINGS );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String[] getTableTypes(ConfigurationService configService, Dialect dialect) {
 		final List<String> tableTypesList = new ArrayList<>();
 		tableTypesList.add( "TABLE" );
@@ -120,22 +124,27 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 		return tableTypesList.toArray( EMPTY_STRINGS );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private IdentifierHelper getIdentifierHelper() {
 		return getJdbcEnvironment().getIdentifierHelper();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected JDBCException convertSQLException(SQLException sqlException, String message) {
 		return getJdbcEnvironment().getSqlExceptionHelper().convert( sqlException, message );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected String toMetaDataObjectName(Identifier identifier) {
 		return getIdentifierHelper().toMetaDataObjectName( identifier );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected ExtractionContext getExtractionContext() {
 		return extractionContext;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected JdbcEnvironment getJdbcEnvironment() {
 		return extractionContext.getJdbcEnvironment();
 	}
@@ -144,75 +153,99 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 	// DatabaseMetaData methods that return a ResultSet. Subclasses that do not rely
 	// on DatabaseMetaData may override these methods to use different column labels.
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getResultSetCatalogLabel() {
 		return "TABLE_CAT";
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getResultSetSchemaLabel() {
 		return "TABLE_SCHEM";
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getResultSetTableNameLabel() {
 		return "TABLE_NAME";
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getResultSetTableTypeLabel() {
 		return "TABLE_TYPE";
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getResultSetRemarksLabel() {
 		return "REMARKS";
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getResultSetPrimaryKeyCatalogLabel() {
 		return "PKTABLE_CAT";
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getResultSetPrimaryKeySchemaLabel() {
 		return "PKTABLE_SCHEM";
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getResultSetPrimaryKeyTableLabel() {
 		return "PKTABLE_NAME";
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getResultSetForeignKeyCatalogLabel() {
 		return "FKTABLE_CAT";
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getResultSetForeignKeySchemaLabel() {
 		return "FKTABLE_SCHEM";
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getResultSetForeignKeyTableLabel() {
 		return "FKTABLE_NAME";
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getResultSetColumnNameLabel() {
 		return "COLUMN_NAME";
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getResultSetSqlTypeCodeLabel() {
 		return "DATA_TYPE";
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getResultSetTypeNameLabel() {
 		return "TYPE_NAME";
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getResultSetColumnSizeLabel() {
 		return "COLUMN_SIZE";
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getResultSetDecimalDigitsLabel() {
 		return "DECIMAL_DIGITS";
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getResultSetIsNullableLabel() {
 		return "IS_NULLABLE";
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getResultSetIndexTypeLabel() {
 		return "TYPE";
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getResultSetIndexNameLabel() {
 		return "INDEX_NAME";
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getResultSetForeignKeyLabel() {
 		return "FK_NAME";
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getResultSetPrimaryKeyNameLabel() {
 		return "PK_NAME";
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getResultSetColumnPositionColumn() {
 		return "KEY_SEQ" ;
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getResultSetPrimaryKeyColumnNameLabel() {
 		return "PKCOLUMN_NAME" ;
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getResultSetForeignKeyColumnNameLabel() {
 		return "FKCOLUMN_NAME" ;
 	}
@@ -236,9 +269,11 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 	 * @return - defined by {@code processor}
 	 * @throws SQLException - if a database error occurs
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract <T> T processCatalogsResultSet(ExtractionContext.ResultSetProcessor<T> processor) throws SQLException;
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean catalogExists(Identifier catalog) {
 		try {
 			return processCatalogsResultSet( resultSet -> {
@@ -290,6 +325,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 	 * @return - defined by {@code processor}
 	 * @throws SQLException - if a database error occurs
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract <T> T processSchemaResultSet(
 			String catalog,
 			String schemaPattern,
@@ -297,6 +333,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 					throws SQLException;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean schemaExists(Identifier catalog, Identifier schema) {
 		final var helper = getIdentifierHelper();
 		final String catalogFilter =
@@ -329,6 +366,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private TableInformation extractTableInformation(ResultSet resultSet) throws SQLException {
 		return new TableInformationImpl(
 				this,
@@ -339,11 +377,13 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Connection getConnection() {
 		return extractionContext.getJdbcConnection();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableInformation getTable(Identifier catalog, Identifier schema, Identifier tableName) {
 		if ( catalog != null || schema != null ) {
 			// The table defined an explicit namespace.  In such cases we only ever want to look
@@ -392,6 +432,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private Identifier getCurrentSchema() {
 		if ( getNameQualifierSupport() == NameQualifierSupport.CATALOG ) {
 			return null;
@@ -421,6 +462,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private Identifier getCurrentCatalog() {
 		if ( getNameQualifierSupport() == NameQualifierSupport.SCHEMA ) {
 			return null;
@@ -447,6 +489,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String getCurrentCatalogFilter(JdbcEnvironment jdbcEnvironment) {
 		if ( currentCatalogFilter != null ) {
 			return currentCatalogFilter;
@@ -466,6 +509,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 		return currentCatalogFilter;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String getCurrentSchemaFilter(JdbcEnvironment jdbcEnvironment) {
 		if ( currentSchemaFilter != null ) {
 			return currentSchemaFilter;
@@ -489,6 +533,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NameSpaceTablesInformation getTables(Identifier catalog, Identifier schema) {
 		final String catalogFilter = getCatalogFilter( catalog );
 		final String schemaFilter = getSchemaFilter( schema );
@@ -509,6 +554,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String getCatalogFilter(Identifier catalog) {
 		if ( supportsCatalogs() ) {
 			if ( catalog == null ) {
@@ -532,6 +578,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String getSchemaFilter(Identifier schema) {
 		if ( supportsSchemas() ) {
 			if ( schema == null ) {
@@ -606,6 +653,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 	 * @return - defined by {@code processor}
 	 * @throws SQLException - if a database error occurs
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract <T> T processColumnsResultSet(
 			String catalog,
 			String schemaPattern,
@@ -614,6 +662,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 			ExtractionContext.ResultSetProcessor<T> processor)
 					throws SQLException;
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void populateTablesWithColumns(
 			String catalogFilter,
 			String schemaFilter,
@@ -648,6 +697,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 	/*
 	 * Hibernate Reactive overrides this
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected ColumnInformationImpl columnInformation(TableInformation tableInformation, ResultSet resultSet)
 			throws SQLException {
 		return new ColumnInformationImpl(
@@ -661,6 +711,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private NameSpaceTablesInformation extractNameSpaceTablesInformation(ResultSet resultSet)
 			throws SQLException {
 		final var tables = new NameSpaceTablesInformation( getIdentifierHelper() );
@@ -714,6 +765,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 	 * @return - defined by {@code processor}
 	 * @throws SQLException - if a database error occurs
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract <T> T processTableResultSet(
 			String catalog,
 			String schemaPattern,
@@ -722,6 +774,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 			ExtractionContext.ResultSetProcessor<T> processor)
 					throws SQLException;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private TableInformation locateTableInNamespace(
 			Identifier catalog,
 			Identifier schema,
@@ -746,6 +799,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String catalogFilter(Identifier catalog) {
 		if ( supportsCatalogs() ) {
 			if ( catalog == null ) {
@@ -765,6 +819,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String schemaFilter(Identifier schema) {
 		if ( supportsSchemas() ) {
 			return schema == null ? "" : toMetaDataObjectName( schema );
@@ -774,18 +829,22 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private NameQualifierSupport getNameQualifierSupport() {
 		return getJdbcEnvironment().getNameQualifierSupport();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private boolean supportsCatalogs() {
 		return getNameQualifierSupport().supportsCatalogs();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private boolean supportsSchemas() {
 		return getNameQualifierSupport().supportsSchemas();
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private TableInformation extractTableInformation(
 			Identifier catalog,
 			Identifier schema,
@@ -825,8 +884,10 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 		return tableInformation;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract String getResultSetTableTypesPhysicalTableConstant();
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected boolean isPhysicalTableType(String tableType) {
 		final boolean isTableType =
 				getResultSetTableTypesPhysicalTableConstant()
@@ -849,6 +910,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void addColumns(TableInformation tableInformation) {
 		final var tableName = tableInformation.getName();
 		final Identifier catalog = tableName.getCatalogName();
@@ -876,6 +938,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 	/*
 	 * Used by Hibernate Reactive
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Boolean interpretTruthValue(String nullable) {
 		if ( "yes".equalsIgnoreCase( nullable ) ) {
 			return Boolean.TRUE;
@@ -889,6 +952,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 	}
 
 	// This method is not currently used.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract <T> T processPrimaryKeysResultSet(
 			String catalogFilter,
 			String schemaFilter,
@@ -896,6 +960,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 			ExtractionContext.ResultSetProcessor<T> processor)
 					throws SQLException;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract <T> T processPrimaryKeysResultSet(
 			String catalogFilter,
 			String schemaFilter,
@@ -904,6 +969,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 			throws SQLException;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable PrimaryKeyInformation getPrimaryKey(TableInformation tableInformation) {
 		final var databaseObjectAccess = extractionContext.getDatabaseObjectAccess();
 		if ( databaseObjectAccess.isCaching() && supportsBulkPrimaryKeyRetrieval() ) {
@@ -928,6 +994,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private PrimaryKeyInformation extractPrimaryKeyInformation(TableInformation tableInformation, ResultSet resultSet)
 			throws SQLException {
 
@@ -977,6 +1044,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NameSpacePrimaryKeysInformation getPrimaryKeys(Identifier catalog, Identifier schema) {
 		if ( !supportsBulkPrimaryKeyRetrieval() ) {
 			throw new UnsupportedOperationException( "Database doesn't support extracting all primary keys at once" );
@@ -998,6 +1066,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private TableInformation getTableInformation(
 			@Nullable String catalogName,
 			@Nullable String schemaName,
@@ -1015,6 +1084,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 		return tableInformation;
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	protected NameSpacePrimaryKeysInformation extractNameSpacePrimaryKeysInformation(ResultSet resultSet)
 			throws SQLException {
 		final var primaryKeysInformation = new NameSpacePrimaryKeysInformation( getIdentifierHelper() );
@@ -1128,6 +1198,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 	 * @return - defined by {@code processor}
 	 * @throws SQLException - if a database error occurs
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract <T> T processIndexInfoResultSet(
 			String catalog,
 			String schema,
@@ -1138,6 +1209,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 					throws SQLException;
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Iterable<IndexInformation> getIndexes(TableInformation tableInformation) {
 		final var databaseObjectAccess = extractionContext.getDatabaseObjectAccess();
 		if ( databaseObjectAccess.isCaching() && supportsBulkIndexRetrieval() ) {
@@ -1196,6 +1268,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 		return indexes;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static IndexInformationImpl.Builder indexInformationBuilder(
 			Map<Identifier, IndexInformationImpl.Builder> builders,
 			Identifier indexIdentifier) {
@@ -1211,6 +1284,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NameSpaceIndexesInformation getIndexes(Identifier catalog, Identifier schema) {
 		if ( !supportsBulkIndexRetrieval() ) {
 			throw new UnsupportedOperationException( "Database doesn't support extracting all indexes at once" );
@@ -1234,6 +1308,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected NameSpaceIndexesInformation extractNameSpaceIndexesInformation(ResultSet resultSet)
 			throws SQLException {
 		final var indexesInformation = new NameSpaceIndexesInformation( getIdentifierHelper() );
@@ -1265,6 +1340,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 		return indexesInformation;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private IndexInformation getOrCreateIndexInformation(
 			NameSpaceIndexesInformation indexesInformation,
 			Identifier indexIdentifier,
@@ -1349,6 +1425,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 	 * @return - defined by {@code processor}
 	 * @throws SQLException - if a database error occurs
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract <T> T processImportedKeysResultSet(
 			String catalog,
 			String schema,
@@ -1431,6 +1508,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 	 * @see #processImportedKeysResultSet(String, String, String,
 	 * ExtractionContext.ResultSetProcessor)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract <T> T processCrossReferenceResultSet(
 			String parentCatalog,
 			String parentSchema,
@@ -1443,6 +1521,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Iterable<ForeignKeyInformation> getForeignKeys(TableInformation tableInformation) {
 		final var databaseObjectAccess = extractionContext.getDatabaseObjectAccess();
 		if ( databaseObjectAccess.isCaching() && supportsBulkForeignKeyRetrieval() ) {
@@ -1492,6 +1571,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NameSpaceForeignKeysInformation getForeignKeys(Identifier catalog, Identifier schema) {
 		if ( !supportsBulkForeignKeyRetrieval() ) {
 			throw new UnsupportedOperationException( "Database doesn't support extracting all foreign keys at once" );
@@ -1513,6 +1593,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected NameSpaceForeignKeysInformation extractNameSpaceForeignKeysInformation(ResultSet resultSet)
 			throws SQLException {
 		final var foreignKeysInformation = new NameSpaceForeignKeysInformation( getIdentifierHelper() );
@@ -1549,6 +1630,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 		return foreignKeysInformation;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private ForeignKeyInformation getOrCreateForeignKeyInformation(
 			NameSpaceForeignKeysInformation foreignKeysInformation,
 			Identifier foreignKeyIdentifier,
@@ -1567,6 +1649,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 		return foreignKeyInformation;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void process(
 			TableInformation tableInformation,
 			ResultSet resultSet,
@@ -1598,6 +1681,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private ForeignKeyBuilder getForeignKeyBuilder(
 			Map<Identifier, ForeignKeyBuilder> builders, Identifier foreignKeyIdentifier) {
 		var foreignKeyBuilder = builders.get( foreignKeyIdentifier );
@@ -1608,12 +1692,15 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 		return foreignKeyBuilder;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private ForeignKeyBuilder generateForeignKeyBuilder(Identifier fkIdentifier) {
 		return new ForeignKeyBuilderImpl( fkIdentifier );
 	}
 
 	protected interface ForeignKeyBuilder {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		ForeignKeyBuilder addColumnMapping(ColumnInformation referencing, ColumnInformation referenced);
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		ForeignKeyInformation build();
 	}
 
@@ -1626,12 +1713,14 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public ForeignKeyBuilder addColumnMapping(ColumnInformation referencing, ColumnInformation referenced) {
 			columnMappingList.add( new ColumnReferenceMappingImpl( referencing, referenced ) );
 			return this;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public ForeignKeyInformationImpl build() {
 			if ( columnMappingList.isEmpty() ) {
 				throw new SchemaManagementException(
@@ -1643,6 +1732,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private QualifiedTableName extractPrimaryKeyTableName(ResultSet resultSet) throws SQLException {
 		return new QualifiedTableName(
 				toIdentifier( resultSet.getString( getResultSetPrimaryKeyCatalogLabel() ) ),
@@ -1650,6 +1740,7 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 				toIdentifier( resultSet.getString( getResultSetPrimaryKeyTableLabel() ) ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private QualifiedTableName extractTableName(ResultSet resultSet) throws SQLException {
 		return new QualifiedTableName(
 				toIdentifier( resultSet.getString( getResultSetCatalogLabel() ) ),
@@ -1659,16 +1750,19 @@ public abstract class AbstractInformationExtractorImpl implements InformationExt
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsBulkPrimaryKeyRetrieval() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsBulkForeignKeyRetrieval() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsBulkIndexRetrieval() {
 		return false;
 	}

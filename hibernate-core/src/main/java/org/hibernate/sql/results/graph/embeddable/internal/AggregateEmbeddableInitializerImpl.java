@@ -10,6 +10,8 @@ import org.hibernate.sql.results.graph.InitializerParent;
 import org.hibernate.sql.results.graph.basic.BasicFetch;
 import org.hibernate.sql.results.graph.embeddable.AggregateEmbeddableResultGraphNode;
 import org.hibernate.sql.results.jdbc.spi.RowProcessingState;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An initializer for an embeddable that is mapped as aggregate e.g. STRUCT, JSON or XML.
@@ -31,11 +33,13 @@ public class AggregateEmbeddableInitializerImpl extends EmbeddableInitializerImp
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void startLoading(RowProcessingState rowProcessingState) {
 		super.startLoading( NestedRowProcessingState.wrap( this, rowProcessingState ) );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void extractRowState(EmbeddableInitializerData data) {
 		super.extractRowState( data );
 		if ( data.getState() == State.MISSING
@@ -46,10 +50,12 @@ public class AggregateEmbeddableInitializerImpl extends EmbeddableInitializerImp
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int[] getAggregateValuesArrayPositions() {
 		return aggregateValuesArrayPositions;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object[] getJdbcValues(RowProcessingState processingState) {
 		final int[] aggregateValuesArrayPositions = getAggregateValuesArrayPositions();
 		Object[] jdbcValue = (Object[]) processingState.getJdbcValue( aggregateValuesArrayPositions[0] );

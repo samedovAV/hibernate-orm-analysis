@@ -16,6 +16,8 @@ import java.util.function.Supplier;
 
 import static org.hibernate.cfg.ManagedBeanSettings.ALLOW_EXTENSIONS_IN_CDI;
 import static org.hibernate.engine.config.spi.StandardConverters.BOOLEAN;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -25,20 +27,24 @@ public final class Helper {
 	private Helper() {
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String determineBeanCacheKey(Class<?> beanType) {
 		return beanType.getName();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String determineBeanCacheKey(String name, Class<?> beanType) {
 		return beanType.getName() + ':' + name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean allowExtensionsInCdi(ServiceRegistry serviceRegistry) {
 		return serviceRegistry.requireService( ConfigurationService.class )
 				.getSetting( ALLOW_EXTENSIONS_IN_CDI, BOOLEAN, false );
 	}
 
 	@Nullable
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static BeanContainer getBeanContainer(ServiceRegistry serviceRegistry) {
 		return allowExtensionsInCdi( serviceRegistry )
 				? serviceRegistry.requireService( ManagedBeanRegistry.class ).getBeanContainer()
@@ -46,6 +52,7 @@ public final class Helper {
 	}
 
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <T> T getBean(
 			@Nullable BeanContainer container,
 			Class<T> beanType,
@@ -57,6 +64,7 @@ public final class Helper {
 						.getBeanInstance();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static <T> ContainedBean<T> containedBean(
 			BeanContainer container,
 			Class<T> beanType,
@@ -67,17 +75,20 @@ public final class Helper {
 				beanType,
 				new BeanContainer.LifecycleOptions() {
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public boolean canUseCachedReferences() {
 						return canUseCachedReferences;
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public boolean useJpaCompliantCreation() {
 						return useJpaCompliantCreation;
 					}
 				},
 				new BeanInstanceProducer() {
 					@Override @SuppressWarnings( "unchecked" )
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public <B> B produceBeanInstance(Class<B> beanType) {
 						return fallbackSupplier != null
 								? (B) fallbackSupplier.get()
@@ -85,6 +96,7 @@ public final class Helper {
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public <B> B produceBeanInstance(String name, Class<B> beanType) {
 						throw new UnsupportedOperationException( "The method shouldn't be called" );
 					}

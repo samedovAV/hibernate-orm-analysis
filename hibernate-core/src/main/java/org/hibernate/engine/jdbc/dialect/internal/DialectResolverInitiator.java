@@ -16,6 +16,8 @@ import org.hibernate.engine.jdbc.dialect.spi.DialectResolver;
 import org.hibernate.internal.util.StringHelper;
 import org.hibernate.service.spi.ServiceException;
 import org.hibernate.service.spi.ServiceRegistryImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard initiator for the {@link DialectResolver} service
@@ -30,11 +32,13 @@ public class DialectResolverInitiator implements StandardServiceInitiator<Dialec
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<DialectResolver> getServiceInitiated() {
 		return DialectResolver.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DialectResolver initiateService(@Nonnull Map<String, Object> configurationValues, @Nonnull ServiceRegistryImplementor registry) {
 		final DialectResolverSet resolverSet = new DialectResolverSet();
 
@@ -44,6 +48,7 @@ public class DialectResolverInitiator implements StandardServiceInitiator<Dialec
 		return resolverSet;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void applyCustomerResolvers(
 			DialectResolverSet resolverSet,
 			ServiceRegistryImplementor registry,

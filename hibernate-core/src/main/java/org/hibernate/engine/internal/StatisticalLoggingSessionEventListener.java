@@ -7,6 +7,8 @@ package org.hibernate.engine.internal;
 import org.hibernate.SessionEventListener;
 
 import static org.hibernate.engine.internal.SessionMetricsLogger.SESSION_METRICS_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Tracks and logs certain session-level metrics.
@@ -20,6 +22,7 @@ public class StatisticalLoggingSessionEventListener implements SessionEventListe
 	 *
 	 * @return {@code true} if logging is enabled for this listener.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isLoggingEnabled() {
 		return SESSION_METRICS_LOGGER.isDebugEnabled();
 	}
@@ -69,12 +72,14 @@ public class StatisticalLoggingSessionEventListener implements SessionEventListe
 	private long jdbcConnectionAcquisitionStart = -1;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jdbcConnectionAcquisitionStart() {
 		assert jdbcConnectionAcquisitionStart < 0 : "Nested calls to jdbcConnectionAcquisitionStart";
 		jdbcConnectionAcquisitionStart = System.nanoTime();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jdbcConnectionAcquisitionEnd() {
 		assert jdbcConnectionAcquisitionStart > 0:
 				"Unexpected call to jdbcConnectionAcquisitionEnd; expecting jdbcConnectionAcquisitionStart";
@@ -90,12 +95,14 @@ public class StatisticalLoggingSessionEventListener implements SessionEventListe
 	private long jdbcConnectionReleaseStart = -1;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jdbcConnectionReleaseStart() {
 		assert jdbcConnectionReleaseStart < 0 : "Nested calls to jdbcConnectionReleaseStart";
 		jdbcConnectionReleaseStart = System.nanoTime();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jdbcConnectionReleaseEnd() {
 		assert jdbcConnectionReleaseStart > 0:
 				"Unexpected call to jdbcConnectionReleaseEnd; expecting jdbcConnectionReleaseStart";
@@ -111,12 +118,14 @@ public class StatisticalLoggingSessionEventListener implements SessionEventListe
 	private long jdbcPrepStart = -1;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jdbcPrepareStatementStart() {
 		assert jdbcPrepStart < 0 : "Nested calls to jdbcPrepareStatementStart";
 		jdbcPrepStart = System.nanoTime();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jdbcPrepareStatementEnd() {
 		assert jdbcPrepStart > 0 : "Unexpected call to jdbcPrepareStatementEnd; expecting jdbcPrepareStatementStart";
 
@@ -131,12 +140,14 @@ public class StatisticalLoggingSessionEventListener implements SessionEventListe
 	private long jdbcExecutionStart = -1;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jdbcExecuteStatementStart() {
 		assert jdbcExecutionStart < 0 : "Nested calls to jdbcExecuteStatementStart";
 		jdbcExecutionStart = System.nanoTime();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jdbcExecuteStatementEnd() {
 		assert jdbcExecutionStart > 0 : "Unexpected call to jdbcExecuteStatementEnd; expecting jdbcExecuteStatementStart";
 
@@ -151,12 +162,14 @@ public class StatisticalLoggingSessionEventListener implements SessionEventListe
 	private long jdbcBatchExecutionStart = -1;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jdbcExecuteBatchStart() {
 		assert jdbcBatchExecutionStart < 0 : "Nested calls to jdbcExecuteBatchStart";
 		jdbcBatchExecutionStart = System.nanoTime();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jdbcExecuteBatchEnd() {
 		assert jdbcBatchExecutionStart > 0 : "Unexpected call to jdbcExecuteBatchEnd; expecting jdbcExecuteBatchStart";
 
@@ -171,12 +184,14 @@ public class StatisticalLoggingSessionEventListener implements SessionEventListe
 	private long cachePutStart = -1;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void cachePutStart() {
 		assert cachePutStart < 0 : "Nested calls to cachePutStart";
 		cachePutStart = System.nanoTime();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void cachePutEnd() {
 		assert cachePutStart > 0 : "Unexpected call to cachePutEnd; expecting cachePutStart";
 
@@ -191,12 +206,14 @@ public class StatisticalLoggingSessionEventListener implements SessionEventListe
 	private long cacheGetStart = -1;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void cacheGetStart() {
 		assert cacheGetStart < 0 : "Nested calls to cacheGetStart";
 		cacheGetStart = System.nanoTime();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void cacheGetEnd(boolean hit) {
 		assert cacheGetStart > 0 : "Unexpected call to cacheGetEnd; expecting cacheGetStart";
 
@@ -217,12 +234,14 @@ public class StatisticalLoggingSessionEventListener implements SessionEventListe
 	private long flushStart = -1;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void flushStart() {
 		assert flushStart < 0 : "Nested calls to flushStart";
 		flushStart = System.nanoTime();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void flushEnd(int numberOfEntities, int numberOfCollections) {
 		assert flushStart > 0 : "Unexpected call to flushEnd; expecting flushStart";
 
@@ -240,12 +259,14 @@ public class StatisticalLoggingSessionEventListener implements SessionEventListe
 	private long prePartialFlushStart = -1;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void prePartialFlushStart() {
 		assert prePartialFlushStart < 0 : "Nested calls to prePartialFlushStart";
 		prePartialFlushStart = System.nanoTime();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void prePartialFlushEnd() {
 		assert prePartialFlushStart > 0 : "Unexpected call to prePartialFlushEnd; expecting prePartialFlushStart";
 
@@ -255,12 +276,14 @@ public class StatisticalLoggingSessionEventListener implements SessionEventListe
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void partialFlushStart() {
 		assert partialFlushStart < 0 : "Nested calls to partialFlushStart";
 		partialFlushStart = System.nanoTime();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void partialFlushEnd(int numberOfEntities, int numberOfCollections) {
 		assert partialFlushStart > 0 : "Unexpected call to partialFlushEnd; expecting partialFlushStart";
 
@@ -272,6 +295,7 @@ public class StatisticalLoggingSessionEventListener implements SessionEventListe
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void end() {
 		if ( isLoggingEnabled() ) {
 			SESSION_METRICS_LOGGER.sessionMetrics(

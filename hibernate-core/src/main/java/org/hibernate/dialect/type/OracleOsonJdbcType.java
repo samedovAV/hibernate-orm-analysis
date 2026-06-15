@@ -32,6 +32,8 @@ import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
 
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Type mapping JSON SQL data type for Oracle database.
@@ -49,11 +51,13 @@ public class OracleOsonJdbcType extends OracleJsonJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "OracleOsonJdbcType";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AggregateJdbcType resolveAggregateJdbcType(
 			EmbeddableMappingType mappingType,
 			String sqlType,
@@ -62,6 +66,7 @@ public class OracleOsonJdbcType extends OracleJsonJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <X> ValueBinder<X> getBinder(JavaType<X> javaType) {
 
 		if ( javaType.getJavaType() == String.class || javaType.getJavaType() == Object.class ) {
@@ -70,6 +75,7 @@ public class OracleOsonJdbcType extends OracleJsonJdbcType {
 
 		return new BasicBinder<>( javaType, this ) {
 
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			private <T> byte[] toOson(T value, JavaType<T> javaType, WrapperOptions options) throws Exception {
 				final var out = new ByteArrayOutputStream();
 				if ( getEmbeddableMappingType() != null ) {
@@ -91,12 +97,14 @@ public class OracleOsonJdbcType extends OracleJsonJdbcType {
 				return out.toByteArray();
 			}
 
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			private boolean useUtf8(WrapperOptions options) {
 				return getEmbeddableMappingType() == null
 					&& !options.getJsonFormatMapper().supportsTargetType( OracleOsonJacksonHelper.WRITER_CLASS );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBind(PreparedStatement st, X value, int index, WrapperOptions options)
 					throws SQLException {
 				try {
@@ -118,6 +126,7 @@ public class OracleOsonJdbcType extends OracleJsonJdbcType {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBind(CallableStatement st, X value, String name, WrapperOptions options)
 					throws SQLException {
 				try {
@@ -141,6 +150,7 @@ public class OracleOsonJdbcType extends OracleJsonJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <X> ValueExtractor<X> getExtractor(JavaType<X> javaType) {
 
 		if ( javaType.getJavaType() == String.class || javaType.getJavaType() == Object.class ) {
@@ -149,6 +159,7 @@ public class OracleOsonJdbcType extends OracleJsonJdbcType {
 
 		return new BasicExtractor<>( javaType, this ) {
 
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			private X fromOson(InputStream osonBytes, WrapperOptions options) throws Exception {
 				if ( getEmbeddableMappingType() != null ) {
 					return JsonHelper.deserialize(
@@ -165,11 +176,13 @@ public class OracleOsonJdbcType extends OracleJsonJdbcType {
 				}
 			}
 
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			private boolean useUtf8(WrapperOptions options) {
 				return getEmbeddableMappingType() == null
 					&& !options.getJsonFormatMapper().supportsSourceType( OracleOsonJacksonHelper.READER_CLASS );
 			}
 
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			private X doExtraction(OracleJsonDatum datum, WrapperOptions options) throws SQLException {
 				if ( datum == null ) {
 					return null;
@@ -183,6 +196,7 @@ public class OracleOsonJdbcType extends OracleJsonJdbcType {
 				}
 			}
 
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			private X fromString(byte[] json, WrapperOptions options) throws SQLException {
 				if ( json == null ) {
 					return null;
@@ -194,6 +208,7 @@ public class OracleOsonJdbcType extends OracleJsonJdbcType {
 				);
 			}
 
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			private byte[] getBytesFromResultSetByIndex(ResultSet rs, int index) throws SQLException {
 				// This can be a BLOB or a CLOB. getBytes is not supported on CLOB
 				// and getString is not supported on BLOB. W have to try both
@@ -205,6 +220,7 @@ public class OracleOsonJdbcType extends OracleJsonJdbcType {
 				}
 			}
 
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			private byte[] getBytesFromStatementByIndex(CallableStatement st, int index) throws SQLException {
 				// This can be a BLOB or a CLOB. getBytes is not supported on CLOB
 				// and getString is not supported on BLOB. W have to try both
@@ -217,6 +233,7 @@ public class OracleOsonJdbcType extends OracleJsonJdbcType {
 				}
 			}
 
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			private byte[] getBytesFromStatementByName(CallableStatement st, String columnName) throws SQLException {
 				// This can be a BLOB or a CLOB. getBytes is not supported on CLOB
 				// and getString is not supported on BLOB. W have to try both
@@ -229,6 +246,7 @@ public class OracleOsonJdbcType extends OracleJsonJdbcType {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(ResultSet rs, int paramIndex, WrapperOptions options) throws SQLException {
 				if ( useUtf8( options ) ) {
 					return fromString( getBytesFromResultSetByIndex( rs, paramIndex ), options );
@@ -254,6 +272,7 @@ public class OracleOsonJdbcType extends OracleJsonJdbcType {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(CallableStatement statement, int index, WrapperOptions options) throws SQLException {
 				if ( useUtf8( options ) ) {
 					return fromString( getBytesFromStatementByIndex( statement, index ), options );
@@ -279,6 +298,7 @@ public class OracleOsonJdbcType extends OracleJsonJdbcType {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(CallableStatement statement, String name, WrapperOptions options)
 					throws SQLException {
 				if ( useUtf8( options ) ) {

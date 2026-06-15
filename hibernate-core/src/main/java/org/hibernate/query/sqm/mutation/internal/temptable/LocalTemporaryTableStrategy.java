@@ -16,6 +16,8 @@ import org.hibernate.metamodel.mapping.internal.MappingModelCreationProcess;
 import java.util.Objects;
 
 import static org.hibernate.internal.util.NullnessUtil.castNonNull;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Strategy based on ANSI SQL's definition of a "local temporary table" (local to each db session).
@@ -37,15 +39,18 @@ public class LocalTemporaryTableStrategy {
 		this.sessionFactory = sessionFactory;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected static TemporaryTableStrategy requireLocalTemporaryTableStrategy(Dialect dialect) {
 		return Objects.requireNonNull( dialect.getLocalTemporaryTableStrategy(),
 				"Dialect does not define a local temporary table strategy: " + dialect.getClass().getSimpleName() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TemporaryTableStrategy getTemporaryTableStrategy() {
 		return castNonNull( sessionFactory.getJdbcServices().getDialect().getLocalTemporaryTableStrategy() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void prepare(MappingModelCreationProcess mappingModelCreationProcess, JdbcConnectionAccess connectionAccess) {
 		final ConfigurationService configService =
 				mappingModelCreationProcess.getCreationContext()
@@ -54,18 +59,22 @@ public class LocalTemporaryTableStrategy {
 		dropIdTables = configService.getSetting( DROP_ID_TABLES, StandardConverters.BOOLEAN, false );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void release(SessionFactoryImplementor sessionFactory, JdbcConnectionAccess connectionAccess) {
 		// Nothing to do here. This happens through ExecuteWithTemporaryTableHelper.performAfterTemporaryTableUseActions
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TemporaryTable getTemporaryTable() {
 		return temporaryTable;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isDropIdTables() {
 		return dropIdTables;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SessionFactoryImplementor getSessionFactory() {
 		return sessionFactory;
 	}

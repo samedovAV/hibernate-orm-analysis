@@ -18,6 +18,8 @@ import jakarta.annotation.Nullable;
 import static org.hibernate.engine.FetchStyle.JOIN;
 import static org.hibernate.engine.FetchStyle.SUBSELECT;
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The runtime representation of a Hibernate
@@ -64,6 +66,7 @@ public class FetchProfile {
 	 * @param fetch The fetch override to add.
 	 */
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addFetch(final Fetch fetch) {
 		final Association association = fetch.getAssociation();
 		final String role = association.getRole();
@@ -106,6 +109,7 @@ public class FetchProfile {
 	/**
 	 * The name of this fetch profile
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return name;
 	}
@@ -113,6 +117,7 @@ public class FetchProfile {
 	/**
 	 * A map of {@link Fetch} instances, keyed by association role
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String,Fetch> getFetches() {
 		return fetches;
 	}
@@ -126,15 +131,18 @@ public class FetchProfile {
 	 * @return The {@code Fetch}, or {@code null} if there was
 	 *         no {@code Fetch} for the given association
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable Fetch getFetchByRole(String role) {
 		return fetches.get( role );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "FetchProfile[" + name + "]";
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean hasSubselectLoadableCollectionsEnabled(EntityPersister persister) {
 		for ( Fetch fetch : getFetches().values() ) {
 			if ( fetch.getMethod() == SUBSELECT

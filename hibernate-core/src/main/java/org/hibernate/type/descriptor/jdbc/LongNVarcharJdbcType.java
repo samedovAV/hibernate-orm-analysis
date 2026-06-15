@@ -9,6 +9,8 @@ import java.sql.Types;
 import org.hibernate.type.SqlTypes;
 import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.descriptor.jdbc.spi.JdbcTypeRegistry;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Descriptor for {@link Types#LONGNVARCHAR LONGNVARCHAR} handling.
@@ -35,26 +37,31 @@ public class LongNVarcharJdbcType extends NVarcharJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "LongNVarcharTypeDescriptor";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getJdbcTypeCode() {
 		return Types.LONGNVARCHAR;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getDdlTypeCode() {
 		return ddlTypeCode;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getDefaultSqlTypeCode() {
 		return defaultSqlTypeCode;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcType resolveIndicatedType(
 			JdbcTypeIndicators indicators,
 			JavaType<?> domainJtd) {

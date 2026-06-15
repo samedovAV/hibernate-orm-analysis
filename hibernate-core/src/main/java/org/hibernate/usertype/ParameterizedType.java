@@ -5,6 +5,8 @@
 package org.hibernate.usertype;
 
 import java.util.Properties;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Support for parameterizable types. A {@link UserType} or {@link UserCollectionType}
@@ -60,5 +62,6 @@ public interface ParameterizedType {
 	 * specified in the XML mapping file or by
 	 * {@link org.hibernate.annotations.Type#parameters}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setParameterValues(Properties parameters);
 }

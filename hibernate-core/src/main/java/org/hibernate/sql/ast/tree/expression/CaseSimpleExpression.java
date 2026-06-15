@@ -17,6 +17,8 @@ import org.hibernate.sql.ast.spi.SqlExpressionResolver;
 import org.hibernate.sql.results.graph.DomainResult;
 import org.hibernate.sql.results.graph.DomainResultCreationState;
 import org.hibernate.sql.results.graph.basic.BasicResult;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -40,21 +42,25 @@ public class CaseSimpleExpression implements Expression, DomainResultProducer {
 		this.otherwise = otherwise;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression getFixture() {
 		return fixture;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MappingModelExpressible getExpressionType() {
 		return type;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker walker) {
 		walker.visitCaseSimpleExpression( this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResult createDomainResult(
 			String resultVariable,
 			DomainResultCreationState creationState) {
@@ -72,6 +78,7 @@ public class CaseSimpleExpression implements Expression, DomainResultProducer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applySqlSelections(DomainResultCreationState creationState) {
 		final SqlAstCreationState sqlAstCreationState = creationState.getSqlAstCreationState();
 		final SqlExpressionResolver sqlExpressionResolver = sqlAstCreationState.getSqlExpressionResolver();
@@ -84,18 +91,22 @@ public class CaseSimpleExpression implements Expression, DomainResultProducer {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<WhenFragment> getWhenFragments() {
 		return whenFragments;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression getOtherwise() {
 		return otherwise;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void otherwise(Expression otherwiseExpression) {
 		this.otherwise = otherwiseExpression;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void when(Expression test, Expression result) {
 		whenFragments.add( new WhenFragment( test, result ) );
 	}
@@ -109,10 +120,12 @@ public class CaseSimpleExpression implements Expression, DomainResultProducer {
 			this.result = result;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Expression getCheckValue() {
 			return checkValue;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Expression getResult() {
 			return result;
 		}

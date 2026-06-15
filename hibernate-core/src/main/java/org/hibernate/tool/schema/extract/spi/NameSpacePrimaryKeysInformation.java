@@ -10,6 +10,8 @@ import org.hibernate.mapping.Table;
 
 import java.util.HashMap;
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @since 7.2
@@ -22,18 +24,22 @@ public class NameSpacePrimaryKeysInformation {
 		this.identifierHelper = identifierHelper;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addPrimaryKeyInformation(TableInformation tableInformation, PrimaryKeyInformation primaryKeyInformation) {
 		primaryKeys.put( tableInformation.getName().getTableName().getText(), primaryKeyInformation );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable PrimaryKeyInformation getPrimaryKeyInformation(Table table) {
 		return primaryKeys.get( identifierHelper.toMetaDataObjectName( table.getQualifiedTableName().getTableName() ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable PrimaryKeyInformation getPrimaryKeyInformation(String tableName) {
 		return primaryKeys.get( tableName );
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void validate() {
 		for ( Map.Entry<String, PrimaryKeyInformation> entry : primaryKeys.entrySet() ) {
 			final var tableName = entry.getKey();

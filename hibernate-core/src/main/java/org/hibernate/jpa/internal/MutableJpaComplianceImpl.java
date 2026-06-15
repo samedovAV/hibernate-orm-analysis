@@ -21,6 +21,8 @@ import static org.hibernate.cfg.JpaComplianceSettings.JPA_QUERY_COMPLIANCE;
 import static org.hibernate.cfg.JpaComplianceSettings.JPA_TRANSACTION_COMPLIANCE;
 import static org.hibernate.internal.util.config.ConfigurationHelper.getBoolean;
 import static org.hibernate.internal.util.config.ConfigurationHelper.toBoolean;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -87,41 +89,49 @@ public class MutableJpaComplianceImpl implements MutableJpaCompliance {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isJpaQueryComplianceEnabled() {
 		return queryCompliance;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isJpaTransactionComplianceEnabled() {
 		return transactionCompliance;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isJpaClosedComplianceEnabled() {
 		return closedCompliance;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isJpaProxyComplianceEnabled() {
 		return proxyCompliance;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isJpaCacheComplianceEnabled() {
 		return cachingCompliance;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isGlobalGeneratorScopeEnabled() {
 		return generatorNameScopeCompliance;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isJpaOrderByMappingComplianceEnabled() {
 		return orderByMappingCompliance;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isLoadByIdComplianceEnabled() {
 		return loadByIdCompliance;
 	}
@@ -130,45 +140,54 @@ public class MutableJpaComplianceImpl implements MutableJpaCompliance {
 	// Mutators
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setOrderByMappingCompliance(boolean orderByMappingCompliance) {
 		this.orderByMappingCompliance = orderByMappingCompliance;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setProxyCompliance(boolean proxyCompliance) {
 		this.proxyCompliance = proxyCompliance;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setGeneratorNameScopeCompliance(boolean enabled) {
 		this.generatorNameScopeCompliance = enabled;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setQueryCompliance(boolean queryCompliance) {
 		this.queryCompliance = queryCompliance;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setTransactionCompliance(boolean transactionCompliance) {
 		this.transactionCompliance = transactionCompliance;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setClosedCompliance(boolean closedCompliance) {
 		this.closedCompliance = closedCompliance;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setCachingCompliance(boolean cachingCompliance) {
 		this.cachingCompliance = cachingCompliance;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setLoadByIdCompliance(boolean enabled) {
 		this.loadByIdCompliance = enabled;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JpaCompliance immutableCopy() {
 		return new JpaComplianceImpl.JpaComplianceBuilder()
 				.setProxyCompliance( proxyCompliance )

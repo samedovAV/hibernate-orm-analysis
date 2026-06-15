@@ -12,6 +12,8 @@ import org.hibernate.internal.util.NullnessUtil;
 import org.hibernate.stat.CacheableDataStatistics;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -42,11 +44,13 @@ public abstract class AbstractCacheableDataStatistics implements CacheableDataSt
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable String getCacheRegionName() {
 		return cacheRegionName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getCacheHitCount() {
 		return cacheRegionName == null
 				? NOT_CACHED_COUNT
@@ -55,6 +59,7 @@ public abstract class AbstractCacheableDataStatistics implements CacheableDataSt
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getCachePutCount() {
 		return cacheRegionName == null
 				? NOT_CACHED_COUNT
@@ -63,6 +68,7 @@ public abstract class AbstractCacheableDataStatistics implements CacheableDataSt
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getCacheMissCount() {
 		return cacheRegionName == null
 				? NOT_CACHED_COUNT
@@ -71,6 +77,7 @@ public abstract class AbstractCacheableDataStatistics implements CacheableDataSt
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getCacheRemoveCount() {
 		return cacheRegionName == null
 				? NOT_CACHED_COUNT
@@ -78,6 +85,7 @@ public abstract class AbstractCacheableDataStatistics implements CacheableDataSt
 
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void incrementCacheHitCount() {
 		if ( cacheRegionName == null ) {
 			throw new IllegalStateException( "Illegal attempt to increment cache hit count for non-cached data" );
@@ -86,6 +94,7 @@ public abstract class AbstractCacheableDataStatistics implements CacheableDataSt
 		NullnessUtil.castNonNull( cacheHitCount ).increment();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void incrementCacheMissCount() {
 		if ( cacheRegionName == null ) {
 			throw new IllegalStateException( "Illegal attempt to increment cache miss count for non-cached data" );
@@ -94,6 +103,7 @@ public abstract class AbstractCacheableDataStatistics implements CacheableDataSt
 		NullnessUtil.castNonNull( cacheMissCount ).increment();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void incrementCachePutCount() {
 		if ( cacheRegionName == null ) {
 			throw new IllegalStateException( "Illegal attempt to increment cache put count for non-cached data" );
@@ -102,6 +112,7 @@ public abstract class AbstractCacheableDataStatistics implements CacheableDataSt
 		NullnessUtil.castNonNull( cachePutCount ).increment();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void incrementCacheRemoveCount() {
 		if ( cacheRegionName == null ) {
 			throw new IllegalStateException( "Illegal attempt to increment cache put count for non-cached data" );
@@ -110,6 +121,7 @@ public abstract class AbstractCacheableDataStatistics implements CacheableDataSt
 		NullnessUtil.castNonNull( cacheRemoveCount ).increment();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void appendCacheStats(StringBuilder text) {
 		text.append( ",cacheRegion=" ).append( cacheRegionName );
 		if ( cacheRegionName != null ) {

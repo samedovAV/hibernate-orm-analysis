@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.action.queue.internal.decompose.collection;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 
 
@@ -86,6 +89,7 @@ public final class CollectionOrdinalSupport {
 			this.offset = offset;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public int offset() {
 			return offset;
 		}
@@ -102,6 +106,7 @@ public final class CollectionOrdinalSupport {
 	/// @param collectionOrdinalBase the base ordinal for this collection (from ActionQueue, 0-based sequential)
 	/// @param slot the operation type slot (DELETE, UPDATE, INSERT, or WRITEINDEX)
 	/// @return the calculated ordinal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static int calculateOrdinal(int collectionOrdinalBase, Slot slot) {
 		return (collectionOrdinalBase * SLOT_SIZE) + slot.offset();
 	}
@@ -114,6 +119,7 @@ public final class CollectionOrdinalSupport {
 	///
 	/// @param ordinal a calculated ordinal from [#calculate]
 	/// @return the collection ordinalBase that was used to calculate this ordinal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static int extractCollectionOrdinal(int ordinal) {
 		return ordinal / SLOT_SIZE;
 	}

@@ -15,6 +15,8 @@ import org.hibernate.query.restriction.Path;
 import org.hibernate.query.specification.internal.ProjectionSpecificationImpl;
 
 import java.util.function.Function;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Allows a {@link SelectionSpecification} to be augmented with the specification
@@ -56,6 +58,7 @@ public interface ProjectionSpecification<T> extends QuerySpecification<Object[]>
 	 * Create a new {@code ProjectionSpecification} which augments the given
 	 * {@link SelectionSpecification}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <T> ProjectionSpecification<T> create(SelectionSpecification<T> selectionSpecification) {
 		return new ProjectionSpecificationImpl<>( selectionSpecification );
 	}
@@ -68,9 +71,11 @@ public interface ProjectionSpecification<T> extends QuerySpecification<Object[]>
 	 */
 	@FunctionalInterface
 	interface Element<X> extends Function<Object[],X> {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		X in(Object[] tuple);
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		default X apply(Object[] tuple) {
 			return in(tuple);
 		}
@@ -82,6 +87,7 @@ public interface ProjectionSpecification<T> extends QuerySpecification<Object[]>
 	 * @param attribute An attribute of the root entity
 	 * @return An {@link Element} allowing typesafe access to the results
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> Element<X> select(SingularAttribute<T,X> attribute);
 
 	/**
@@ -91,17 +97,22 @@ public interface ProjectionSpecification<T> extends QuerySpecification<Object[]>
 	 * @param path A path from the root entity
 	 * @return An {@link Element} allowing typesafe access to the results
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> Element<X> select(Path<T,X> path);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<Object[]> createQuery(EntityHandler entityHandler);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CriteriaQuery<Object[]> buildCriteria(CriteriaBuilder builder);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TypedQueryReference<Object[]> reference();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProjectionSpecification<T> validate(CriteriaBuilder builder);
 }

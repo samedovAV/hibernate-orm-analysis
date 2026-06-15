@@ -12,6 +12,8 @@ import org.hibernate.sql.ast.SqlAstTranslator;
 import org.hibernate.sql.ast.spi.SqlAppender;
 import org.hibernate.sql.ast.tree.SqlAstNode;
 import org.hibernate.sql.ast.tree.from.FunctionTableGroup;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Support for {@link SqmSetReturningFunctionDescriptor}s that ultimately want
@@ -26,6 +28,7 @@ import org.hibernate.sql.ast.tree.from.FunctionTableGroup;
 @FunctionalInterface
 public interface SetReturningFunctionRenderer {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,
@@ -33,6 +36,7 @@ public interface SetReturningFunctionRenderer {
 			String tableIdentifierVariable,
 			SqlAstTranslator<?> walker);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean rendersIdentifierVariable(List<SqlAstNode> arguments, SessionFactoryImplementor sessionFactory) {
 		return false;
 	}

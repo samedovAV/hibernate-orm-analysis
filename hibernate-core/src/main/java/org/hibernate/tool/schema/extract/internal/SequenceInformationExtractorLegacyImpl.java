@@ -14,6 +14,8 @@ import org.hibernate.engine.jdbc.env.spi.IdentifierHelper;
 import org.hibernate.tool.schema.extract.spi.ExtractionContext;
 import org.hibernate.tool.schema.extract.spi.SequenceInformation;
 import org.hibernate.tool.schema.extract.spi.SequenceInformationExtractor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -25,6 +27,7 @@ public class SequenceInformationExtractorLegacyImpl implements SequenceInformati
 	public static final SequenceInformationExtractorLegacyImpl INSTANCE = new SequenceInformationExtractorLegacyImpl();
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public Iterable<SequenceInformation> extractMetadata(ExtractionContext extractionContext) throws SQLException {
 		final String lookupSql = extractionContext.getJdbcEnvironment().getDialect().getQuerySequencesString();
 
@@ -60,63 +63,77 @@ public class SequenceInformationExtractorLegacyImpl implements SequenceInformati
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String sequenceNameColumn() {
 		return "sequence_name";
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String sequenceCatalogColumn() {
 		return "sequence_catalog";
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String sequenceSchemaColumn() {
 		return "sequence_schema";
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String sequenceStartValueColumn() {
 		return "start_value";
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String sequenceMinValueColumn() {
 		return "minimum_value";
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String sequenceMaxValueColumn() {
 		return "maximum_value";
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String sequenceIncrementColumn() {
 		return "increment";
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String resultSetSequenceName(ResultSet resultSet) throws SQLException {
 		return resultSet.getString( sequenceNameColumn() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String resultSetCatalogName(ResultSet resultSet) throws SQLException {
 		String column = sequenceCatalogColumn();
 		return column != null ? resultSet.getString( column ) : null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String resultSetSchemaName(ResultSet resultSet) throws SQLException {
 		String column = sequenceSchemaColumn();
 		return column != null ? resultSet.getString( column ) : null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Number resultSetStartValueSize(ResultSet resultSet) throws SQLException {
 		String column = sequenceStartValueColumn();
 		return column != null ? resultSet.getLong( column ) : null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Number resultSetMinValue(ResultSet resultSet) throws SQLException {
 		String column = sequenceMinValueColumn();
 		return column != null ? resultSet.getLong( column ) : null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Number resultSetMaxValue(ResultSet resultSet) throws SQLException {
 		String column = sequenceMaxValueColumn();
 		return column != null ? resultSet.getLong( column ) : null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Number resultSetIncrementValue(ResultSet resultSet) throws SQLException {
 		String column = sequenceIncrementColumn();
 		return column != null ? resultSet.getLong( column ) : null;

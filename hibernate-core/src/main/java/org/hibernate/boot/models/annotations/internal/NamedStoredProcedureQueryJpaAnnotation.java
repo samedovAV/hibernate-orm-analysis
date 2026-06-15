@@ -16,6 +16,8 @@ import org.hibernate.models.spi.ModelsContext;
 import jakarta.persistence.NamedStoredProcedureQuery;
 
 import static org.hibernate.boot.models.internal.OrmAnnotationHelper.extractJdkValue;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -71,70 +73,84 @@ public class NamedStoredProcedureQueryJpaAnnotation implements NamedStoredProced
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return NamedStoredProcedureQuery.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String name() {
 		return name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void name(String value) {
 		this.name = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String procedureName() {
 		return procedureName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void procedureName(String value) {
 		this.procedureName = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.StoredProcedureParameter[] parameters() {
 		return parameters;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void parameters(jakarta.persistence.StoredProcedureParameter[] value) {
 		this.parameters = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public java.lang.Class[] resultClasses() {
 		return resultClasses;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void resultClasses(java.lang.Class[] value) {
 		this.resultClasses = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] resultSetMappings() {
 		return resultSetMappings;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void resultSetMappings(String[] value) {
 		this.resultSetMappings = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.QueryHint[] hints() {
 		return hints;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void hints(jakarta.persistence.QueryHint[] value) {
 		this.hints = value;
 	}
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void apply(JaxbNamedStoredProcedureQueryImpl jaxbQuery, XmlDocumentContext xmlDocumentContext) {
 		name( jaxbQuery.getName() );
 		procedureName( jaxbQuery.getProcedureName() );

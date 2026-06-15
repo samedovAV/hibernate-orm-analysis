@@ -9,6 +9,8 @@ import java.lang.reflect.Member;
 import org.hibernate.mapping.Property;
 import org.hibernate.metamodel.AttributeClassification;
 import org.hibernate.metamodel.model.domain.ManagedDomainType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Basic contract for describing an attribute.
@@ -22,6 +24,7 @@ public interface AttributeMetadata<X, Y> {
 	 *
 	 * @return The attribute name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getName();
 
 	/**
@@ -29,6 +32,7 @@ public interface AttributeMetadata<X, Y> {
 	 *
 	 * @return The attribute member
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Member getMember();
 
 	/**
@@ -36,11 +40,13 @@ public interface AttributeMetadata<X, Y> {
 	 *
 	 * @return The java type of the attribute.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Class<Y> getJavaType();
 
 	/**
 	 * Get the classification for this attribute
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	AttributeClassification getAttributeClassification();
 
 	/**
@@ -48,6 +54,7 @@ public interface AttributeMetadata<X, Y> {
 	 *
 	 * @return The metamodel information for the attribute owner
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ManagedDomainType<X> getOwnerType();
 
 	/**
@@ -55,6 +62,7 @@ public interface AttributeMetadata<X, Y> {
 	 *
 	 * @return The Hibernate property mapping
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Property getPropertyMapping();
 
 	/**
@@ -62,5 +70,6 @@ public interface AttributeMetadata<X, Y> {
 	 *
 	 * @return True if it is plural, false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isPlural();
 }

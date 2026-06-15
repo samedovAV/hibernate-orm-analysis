@@ -8,6 +8,8 @@ import org.hibernate.boot.model.source.spi.EntityNamingSource;
 import org.hibernate.mapping.PersistentClass;
 
 import static org.hibernate.internal.util.StringHelper.isNotEmpty;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Implementation of EntityNamingSource
@@ -35,21 +37,25 @@ class EntityNamingSourceImpl implements EntityNamingSource {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getEntityName() {
 		return entityName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getClassName() {
 		return className;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getJpaEntityName() {
 		return jpaEntityName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getTypeName() {
 		return typeName;
 	}

@@ -5,6 +5,8 @@
 package org.hibernate.boot.jaxb.hbm.internal;
 
 import org.hibernate.boot.jaxb.ResultCheckStyle;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * JAXB marshaling for the ExecuteUpdateResultCheckStyle enum
@@ -12,10 +14,12 @@ import org.hibernate.boot.jaxb.ResultCheckStyle;
  * @author Steve Ebersole
  */
 public class ResultCheckStyleConverter {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static ResultCheckStyle fromXml(String name) {
 		return ResultCheckStyle.fromExternalName( name );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String toXml(ResultCheckStyle style) {
 		return style.externalName();
 	}

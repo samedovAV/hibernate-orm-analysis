@@ -23,6 +23,8 @@ import org.hibernate.resource.jdbc.spi.LogicalConnectionImplementor;
 import org.hibernate.resource.transaction.backend.jdbc.spi.JdbcResourceTransactionAccess;
 import org.hibernate.resource.transaction.spi.TransactionCoordinatorOwner;
 import org.hibernate.sql.model.PreparableMutationOperation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Coordinates JDBC-related activities.
@@ -37,6 +39,7 @@ public interface JdbcCoordinator extends Serializable, TransactionCoordinatorOwn
 	 *
 	 * @return The logical connection
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	LogicalConnectionImplementor getLogicalConnection();
 
 	/**
@@ -44,6 +47,7 @@ public interface JdbcCoordinator extends Serializable, TransactionCoordinatorOwn
 	 * mutation operations (insert, update and delete) originating
 	 * from persistent context events, as opposed to Query handling
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationStatementPreparer getMutationStatementPreparer();
 
 	/**
@@ -52,6 +56,7 @@ public interface JdbcCoordinator extends Serializable, TransactionCoordinatorOwn
 	 *
 	 * @implNote Any previous Batch is executed and released prior to returning
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	GroupedBatch getGroupedBatch(
 			BatchKey key,
 			Integer batchSize,
@@ -62,6 +67,7 @@ public interface JdbcCoordinator extends Serializable, TransactionCoordinatorOwn
 	 *
 	 * @implNote Any previous Batch is executed and released prior to returning
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	GroupedBatch getGroupedBatch(
 			BatchKey key,
 			Integer batchSize,
@@ -72,6 +78,7 @@ public interface JdbcCoordinator extends Serializable, TransactionCoordinatorOwn
 	 *
 	 * @implNote Any previous Batch is executed and released prior to returning
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SingleStatementBatch getSingleStatementBatch(
 			BatchKey key,
 			Integer batchSize,
@@ -80,17 +87,20 @@ public interface JdbcCoordinator extends Serializable, TransactionCoordinatorOwn
 	/**
 	 * Execute the currently managed batch (if any)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void executeBatch();
 
 	/**
 	 * Conditionally execute the currently managed batch (if any), if the
 	 * keys do not match
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void conditionallyExecuteBatch(BatchKey key);
 
 	/**
 	 * Abort the currently managed batch (if any)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void abortBatch();
 
 	/**
@@ -98,6 +108,7 @@ public interface JdbcCoordinator extends Serializable, TransactionCoordinatorOwn
 	 *
 	 * @return This coordinator's statement preparer
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StatementPreparer getStatementPreparer();
 
 	/**
@@ -105,6 +116,7 @@ public interface JdbcCoordinator extends Serializable, TransactionCoordinatorOwn
 	 *
 	 * @return This coordinator's resultset extractor
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ResultSetReturn getResultSetReturn();
 
 	/**
@@ -112,12 +124,14 @@ public interface JdbcCoordinator extends Serializable, TransactionCoordinatorOwn
 	 * to temporarily circumvent aggressive connection releasing until after
 	 * the flush cycle is complete {@link #flushEnding()}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void flushBeginning();
 
 	/**
 	 * Callback to let us know that a flush is ending.  We use this fact to
 	 * stop circumventing aggressive releasing connections.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void flushEnding();
 
 	/**
@@ -127,6 +141,7 @@ public interface JdbcCoordinator extends Serializable, TransactionCoordinatorOwn
 	 *
 	 * @see LogicalConnectionImplementor#close
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Connection close();
 
 	/**
@@ -135,6 +150,7 @@ public interface JdbcCoordinator extends Serializable, TransactionCoordinatorOwn
 	 * Intended for use from the transaction coordinator, after local transaction completion.  Used to conditionally
 	 * release the JDBC connection aggressively if the configured release mode indicates.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void afterTransaction();
 
 	/**
@@ -142,6 +158,7 @@ public interface JdbcCoordinator extends Serializable, TransactionCoordinatorOwn
 	 * might indicate that the logical connection should perform an
 	 * aggressive release of its physical connection.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void afterStatementExecution();
 
 	/**
@@ -149,6 +166,7 @@ public interface JdbcCoordinator extends Serializable, TransactionCoordinatorOwn
 	 * might mean that the database has marked the transaction for
 	 * rollback.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void afterFailedStatementExecution(SQLException sqlException);
 
 	/**
@@ -158,11 +176,13 @@ public interface JdbcCoordinator extends Serializable, TransactionCoordinatorOwn
 	 * @param <T> The result type.
 	 * @return The work result.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T coordinateWork(WorkExecutorVisitable<T> work);
 
 	/**
 	 * Attempt to cancel the last query sent to the JDBC driver.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void cancelLastQuery();
 
 	/**
@@ -173,16 +193,19 @@ public interface JdbcCoordinator extends Serializable, TransactionCoordinatorOwn
 	 *
 	 * @throws org.hibernate.TransactionException Indicates the timeout period has already been exceeded.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int determineRemainingTransactionTimeOutPeriod();
 
 	/**
 	 * Enable connection releases
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void enableReleases();
 
 	/**
 	 * Disable connection releases
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void disableReleases();
 
 	/**
@@ -190,6 +213,7 @@ public interface JdbcCoordinator extends Serializable, TransactionCoordinatorOwn
 	 *
 	 * @param statement The cancel-able query statement.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void registerLastQuery(Statement statement);
 
 	/**
@@ -197,8 +221,10 @@ public interface JdbcCoordinator extends Serializable, TransactionCoordinatorOwn
 	 *
 	 * @return {@code true} indicates the coordinator can be serialized.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isReadyForSerialization();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void serialize(ObjectOutputStream objectOutputStream) throws IOException;
 
 }

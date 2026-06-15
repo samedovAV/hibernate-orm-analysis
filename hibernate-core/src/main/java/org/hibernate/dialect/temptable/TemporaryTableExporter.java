@@ -7,6 +7,8 @@ package org.hibernate.dialect.temptable;
 import java.util.function.Function;
 
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An exporter for temporary tables.
@@ -17,10 +19,13 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
  * @author Steve Ebersole
  */
 public interface TemporaryTableExporter {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getSqlCreateCommand(TemporaryTable idTable);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getSqlDropCommand(TemporaryTable idTable);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getSqlTruncateCommand(
 			TemporaryTable idTable,
 			Function<SharedSessionContractImplementor, String> sessionUidAccess,

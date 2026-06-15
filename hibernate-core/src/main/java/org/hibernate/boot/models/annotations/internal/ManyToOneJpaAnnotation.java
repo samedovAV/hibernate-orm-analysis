@@ -11,6 +11,8 @@ import org.hibernate.boot.models.annotations.spi.AttributeMarker;
 import org.hibernate.models.spi.ModelsContext;
 
 import jakarta.persistence.ManyToOne;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -55,45 +57,54 @@ public class ManyToOneJpaAnnotation implements ManyToOne,
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return ManyToOne.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public java.lang.Class<?> targetEntity() {
 		return targetEntity;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void targetEntity(java.lang.Class<?> value) {
 		this.targetEntity = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.CascadeType[] cascade() {
 		return cascade;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void cascade(jakarta.persistence.CascadeType[] value) {
 		this.cascade = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.FetchType fetch() {
 		return fetch;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void fetch(jakarta.persistence.FetchType value) {
 		this.fetch = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean optional() {
 		return optional;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void optional(boolean value) {
 		this.optional = value;
 	}

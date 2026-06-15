@@ -5,6 +5,8 @@
 package org.hibernate.sql.ast.tree.cte;
 
 import org.hibernate.metamodel.mapping.JdbcMapping;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Information about a column in the CTE table
@@ -20,10 +22,12 @@ public class CteColumn {
 		this.jdbcMapping = jdbcMapping;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getColumnExpression() {
 		return columnExpression;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcMapping getJdbcMapping() {
 		return jdbcMapping;
 	}

@@ -5,6 +5,8 @@
 package org.hibernate.event.spi;
 
 import org.hibernate.engine.spi.EntityEntry;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gavin King
@@ -28,51 +30,67 @@ public class FlushEntityEvent extends AbstractSessionEvent {
 		this.entityEntry = entry;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityEntry getEntityEntry() {
 		return entityEntry;
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object[] getDatabaseSnapshot() {
 		return databaseSnapshot;
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setDatabaseSnapshot(Object[] databaseSnapshot) {
 		this.databaseSnapshot = databaseSnapshot;
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasDatabaseSnapshot() {
 		return databaseSnapshot!=null;
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isDirtyCheckHandledByInterceptor() {
 		return dirtyCheckHandledByInterceptor;
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setDirtyCheckHandledByInterceptor(boolean dirtyCheckHandledByInterceptor) {
 		this.dirtyCheckHandledByInterceptor = dirtyCheckHandledByInterceptor;
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isDirtyCheckPossible() {
 		return dirtyCheckPossible;
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setDirtyCheckPossible(boolean dirtyCheckPossible) {
 		this.dirtyCheckPossible = dirtyCheckPossible;
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int[] getDirtyProperties() {
 		return dirtyProperties;
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setDirtyProperties(int[] dirtyProperties) {
 		this.dirtyProperties = dirtyProperties;
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasDirtyProperties() {
 		return dirtyProperties != null && dirtyProperties.length != 0;
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasDirtyCollection() {
 		return hasDirtyCollection;
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setHasDirtyCollection(boolean hasDirtyCollection) {
 		this.hasDirtyCollection = hasDirtyCollection;
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object[] getPropertyValues() {
 		return propertyValues;
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setPropertyValues(Object[] propertyValues) {
 		this.propertyValues = propertyValues;
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getEntity() {
 		return entity;
 	}
@@ -89,6 +107,7 @@ public class FlushEntityEvent extends AbstractSessionEvent {
 	 * @param entity same as constructor parameter
 	 * @param entry same as constructor parameter
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void resetAndReuseEventInstance(Object entity, EntityEntry entry) {
 		this.entity = entity;
 		this.entityEntry = entry;
@@ -102,18 +121,22 @@ public class FlushEntityEvent extends AbstractSessionEvent {
 		this.dirtyCheckHandledByInterceptor = false;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isAllowedToReuse() {
 		return this.allowedToReuse;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setAllowedToReuse(final boolean allowedToReuse) {
 		this.allowedToReuse = allowedToReuse;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getInstanceGenerationId() {
 		return this.instanceGenerationId;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setInstanceGenerationId(final int instanceGenerationId) {
 		this.instanceGenerationId = instanceGenerationId;
 	}

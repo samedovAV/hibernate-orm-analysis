@@ -6,6 +6,8 @@ package org.hibernate.resource.beans.spi;
 
 import org.hibernate.resource.beans.container.spi.BeanContainer;
 import org.hibernate.service.Service;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A registry for {@link ManagedBean} instances. Responsible for managing the lifecycle.
@@ -19,21 +21,25 @@ public interface ManagedBeanRegistry extends Service {
 	/**
 	 * Get a bean reference by class.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> ManagedBean<T> getBean(Class<T> beanClass);
 
 	/**
 	 * Get a bean reference by name and contract.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> ManagedBean<? extends T> getBean(String beanName, Class<T> beanContract);
 
 	/**
 	 * Get a bean reference by class with an explicit fallback bean instance producer.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> ManagedBean<T> getBean(Class<T> beanClass, BeanInstanceProducer fallbackBeanInstanceProducer);
 
 	/**
 	 * Get a bean reference by name and contract with an explicit fallback bean instance producer.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> ManagedBean<? extends T> getBean(
 			String beanName,
 			Class<T> beanContract,
@@ -43,5 +49,6 @@ public interface ManagedBeanRegistry extends Service {
 	 * Get a reference to the underlying {@link BeanContainer}.
 	 * May return {@code null}, indicating that no back-end container has been configured
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	BeanContainer getBeanContainer();
 }

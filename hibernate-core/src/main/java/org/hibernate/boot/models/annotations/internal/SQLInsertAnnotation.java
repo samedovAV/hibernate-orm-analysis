@@ -10,6 +10,8 @@ import org.hibernate.models.spi.ModelsContext;
 
 import java.lang.annotation.Annotation;
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -50,45 +52,54 @@ public class SQLInsertAnnotation implements SQLInsert, CustomSqlDetails {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return SQLInsert.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String sql() {
 		return sql;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void sql(String value) {
 		this.sql = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean callable() {
 		return callable;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void callable(boolean value) {
 		this.callable = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public java.lang.Class<? extends org.hibernate.jdbc.Expectation> verify() {
 		return verify;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void verify(java.lang.Class<? extends org.hibernate.jdbc.Expectation> value) {
 		this.verify = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String table() {
 		return table;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void table(String value) {
 		this.table = value;
 	}

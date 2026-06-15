@@ -12,6 +12,8 @@ import org.jboss.logging.Logger;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class ExtensionIntegrationServiceImpl implements ExtensionIntegrationService {
 
@@ -23,6 +25,7 @@ public class ExtensionIntegrationServiceImpl implements ExtensionIntegrationServ
 	}
 
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static ExtensionIntegrationServiceImpl create(@Nonnull Set<ExtensionIntegration<?>> integrations, @Nonnull ClassLoaderService classLoaderService) {
 		final var instance = new ExtensionIntegrationServiceImpl();
 		// register provided integrators
@@ -35,6 +38,7 @@ public class ExtensionIntegrationServiceImpl implements ExtensionIntegrationServ
 		return instance;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void addExtensionIntegration(ExtensionIntegration<?> integration) {
 		if ( LOG.isDebugEnabled() ) {
 			LOG.debugf( "Adding extension integration for [%s]", integration.getExtensionType().getName() );
@@ -43,6 +47,7 @@ public class ExtensionIntegrationServiceImpl implements ExtensionIntegrationServ
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Iterable<ExtensionIntegration<?>> extensionIntegrations() {
 		return integrators;
 	}

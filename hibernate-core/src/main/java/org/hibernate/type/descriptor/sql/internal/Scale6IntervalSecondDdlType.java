@@ -9,6 +9,8 @@ import org.hibernate.engine.jdbc.Size;
 import org.hibernate.type.SqlTypes;
 import org.hibernate.type.Type;
 import org.hibernate.type.descriptor.sql.spi.DdlTypeRegistry;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class Scale6IntervalSecondDdlType extends DdlTypeImpl {
 
@@ -21,6 +23,7 @@ public class Scale6IntervalSecondDdlType extends DdlTypeImpl {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getTypeName(Size columnSize, Type type, DdlTypeRegistry ddlTypeRegistry) {
 		final Integer scale = columnSize.getScale();
 		// The maximum scale for `interval second` is 6 unfortunately

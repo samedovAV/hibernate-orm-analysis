@@ -13,6 +13,8 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.sql.results.caching.QueryCachePutManager;
 import org.hibernate.sql.results.jdbc.internal.CachedJdbcValuesMetadata;
 import org.hibernate.stat.spi.StatisticsImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * QueryCachePutManager implementation for cases where we will be putting
@@ -43,11 +45,13 @@ public class QueryCachePutManagerEnabledImpl implements QueryCachePutManager {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void registerJdbcRow(Object values) {
 		dataToCache.add( values );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void finishUp(int resultCount, SharedSessionContractImplementor session) {
 		if ( !dataToCache.isEmpty() ) {
 			dataToCache.add( resultCount );

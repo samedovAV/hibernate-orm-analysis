@@ -5,6 +5,8 @@
 package org.hibernate.engine.internal;
 
 import org.hibernate.engine.spi.EntityEntryExtraState;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contains optional state from {@link org.hibernate.engine.spi.EntityEntry}.
@@ -15,10 +17,12 @@ class EntityEntryExtraStateHolder implements EntityEntryExtraState {
 	private EntityEntryExtraState next;
 	private Object[] deletedState;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object[] getDeletedState() {
 		return deletedState;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setDeletedState(Object[] deletedState) {
 		this.deletedState = deletedState;
 	}
@@ -27,6 +31,7 @@ class EntityEntryExtraStateHolder implements EntityEntryExtraState {
 	//they are not shared by a common superclass to avoid alignment padding
 	//we are trading off duplication for padding efficiency
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void addExtraState(EntityEntryExtraState extraState) {
 		if ( next == null ) {
 			next = extraState;
@@ -37,6 +42,7 @@ class EntityEntryExtraStateHolder implements EntityEntryExtraState {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T extends EntityEntryExtraState> T getExtraState(Class<T> extraStateType) {
 		if ( next == null ) {
 			return null;

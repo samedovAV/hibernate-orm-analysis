@@ -25,6 +25,8 @@ import org.hibernate.sql.exec.spi.JdbcOperation;
 import jakarta.persistence.TemporalType;
 
 import static org.hibernate.query.sqm.produce.function.StandardFunctionArgumentTypeResolvers.ARGUMENT_OR_IMPLIED_RESULT_TYPE;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An SQL dialect for Postgres Plus
@@ -49,6 +51,7 @@ public class PostgresPlusDialect extends PostgreSQLDialect {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void initializeFunctionRegistry(FunctionContributions functionContributions) {
 		super.initializeFunctionRegistry( functionContributions );
 
@@ -75,6 +78,7 @@ public class PostgresPlusDialect extends PostgreSQLDialect {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String castPattern(CastType from, CastType to) {
 		if ( to == CastType.STRING ) {
 			switch ( from ) {
@@ -94,11 +98,13 @@ public class PostgresPlusDialect extends PostgreSQLDialect {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String currentTimestamp() {
 		return "current_timestamp";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String timestampdiffPattern(TemporalUnit unit, TemporalType fromTemporalType, TemporalType toTemporalType) {
 		if ( toTemporalType == TemporalType.DATE && fromTemporalType == TemporalType.DATE ) {
 			// special case: subtraction of two dates results in an INTERVAL on Postgres Plus
@@ -109,11 +115,13 @@ public class PostgresPlusDialect extends PostgreSQLDialect {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isEmptyStringTreatedAsNull() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int registerResultSetOutParameter(CallableStatement statement, int col) throws SQLException {
 		statement.registerOutParameter( col, Types.REF );
 		col++;
@@ -121,18 +129,22 @@ public class PostgresPlusDialect extends PostgreSQLDialect {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSelectGUIDString() {
 		return "select uuid_generate_v1";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqlAstTranslatorFactory getSqlAstTranslatorFactory() {
 		return new StandardSqlAstTranslatorFactory() {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected <T extends JdbcOperation> SqlAstTranslator<T> buildTranslator(
 					SessionFactoryImplementor sessionFactory, Statement statement) {
 				return new PostgreSQLSqlAstTranslator<>( sessionFactory, statement ) {
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public void visitBinaryArithmeticExpression(BinaryArithmeticExpression arithmeticExpression) {
 						if ( isIntegerDivisionEmulationRequired( arithmeticExpression ) ) {
 							appendSql( "floor" );

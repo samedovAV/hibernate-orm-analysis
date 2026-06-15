@@ -7,6 +7,8 @@ package org.hibernate.type;
 import java.lang.reflect.Method;
 
 import org.hibernate.mapping.Component;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gavin King
@@ -18,11 +20,13 @@ public class EmbeddedComponentType extends ComponentType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isEmbedded() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isMethodOf(Method method) {
 		if ( mappingModelPart() == null ) {
 			throw new IllegalStateException( "EmbeddableValuedModelPart not known yet" );

@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.hibernate.annotations.ParamDef;
 import org.hibernate.models.spi.ModelsContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -43,35 +45,42 @@ public class ParamDefAnnotation implements ParamDef {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return ParamDef.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String name() {
 		return name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void name(String value) {
 		this.name = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public java.lang.Class<?> type() {
 		return type;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void type(java.lang.Class<?> value) {
 		this.type = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public java.lang.Class<? extends java.util.function.Supplier> resolver() {
 		return resolver;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void resolver(java.lang.Class<? extends java.util.function.Supplier> value) {
 		this.resolver = value;
 	}

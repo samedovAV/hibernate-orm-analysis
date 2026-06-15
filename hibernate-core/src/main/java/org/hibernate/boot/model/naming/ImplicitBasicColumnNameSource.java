@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.naming;
 
 import org.hibernate.boot.model.source.spi.AttributePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Context for determining the implicit name related to basic values.
@@ -19,6 +21,7 @@ public interface ImplicitBasicColumnNameSource extends ImplicitNameSource {
 	 *
 	 * @return The AttributePath for the basic value
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	AttributePath getAttributePath();
 
 	/**
@@ -30,5 +33,6 @@ public interface ImplicitBasicColumnNameSource extends ImplicitNameSource {
 	 * @return {@code true} if the column being named is the collection element
 	 * column; {@code false} otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isCollectionElement();
 }

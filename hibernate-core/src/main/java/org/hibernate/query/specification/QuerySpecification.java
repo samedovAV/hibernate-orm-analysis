@@ -13,6 +13,8 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import org.hibernate.Incubating;
 import org.hibernate.query.CommonQueryContract;
 import org.hibernate.query.restriction.Restriction;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Commonality for all query specifications which allow iterative,
@@ -51,11 +53,13 @@ public interface QuerySpecification<T> {
 	 *
 	 * @return {@code this} for method chaining.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	QuerySpecification<T> restrict(Restriction<? super T> restriction);
 
 	/**
 	 * Finalize the building and create executable query instance.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonQueryContract createQuery(EntityHandler entityHandler);
 
 	/**
@@ -68,6 +72,7 @@ public interface QuerySpecification<T> {
 	 *
 	 * @return a new criteria query
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonAbstractCriteria buildCriteria(CriteriaBuilder builder);
 
 	/**
@@ -76,6 +81,7 @@ public interface QuerySpecification<T> {
 	 * @return {@code this} if everything is fine
 	 * @throws RuntimeException if it ain't all good
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	QuerySpecification<T> validate(CriteriaBuilder builder);
 
 	/**
@@ -83,5 +89,6 @@ public interface QuerySpecification<T> {
 	 * to this specification which may be passed along to
 	 * {@link EntityManager#createQuery(TypedQueryReference)}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Reference reference();
 }

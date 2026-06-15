@@ -22,11 +22,14 @@ import static org.hibernate.boot.models.xml.internal.attr.CommonAttributeProcess
 import static org.hibernate.boot.models.xml.internal.attr.CommonAttributeProcessing.applyAttributeAccessor;
 import static org.hibernate.boot.models.xml.internal.attr.CommonAttributeProcessing.applyOptimisticLock;
 import static org.hibernate.internal.util.NullnessHelper.coalesce;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
  */
 public class EmbeddedAttributeProcessing {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static MutableMemberDetails processEmbeddedAttribute(
 			JaxbEmbeddedImpl jaxbEmbedded,
 			MutableClassDetails declarer,

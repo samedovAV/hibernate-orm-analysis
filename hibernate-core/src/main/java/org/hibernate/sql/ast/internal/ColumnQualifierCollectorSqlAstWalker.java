@@ -10,11 +10,14 @@ import java.util.Set;
 import org.hibernate.sql.ast.spi.AbstractSqlAstWalker;
 import org.hibernate.sql.ast.tree.SqlAstNode;
 import org.hibernate.sql.ast.tree.expression.ColumnReference;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class ColumnQualifierCollectorSqlAstWalker extends AbstractSqlAstWalker {
 
 	private final Set<String> columnQualifiers = new HashSet<>();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Set<String> determineColumnQualifiers(SqlAstNode node) {
 		final ColumnQualifierCollectorSqlAstWalker walker = new ColumnQualifierCollectorSqlAstWalker();
 		node.accept( walker );
@@ -22,6 +25,7 @@ public class ColumnQualifierCollectorSqlAstWalker extends AbstractSqlAstWalker {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void visitColumnReference(ColumnReference columnReference) {
 		if ( columnReference.getQualifier() != null ) {
 			columnQualifiers.add( columnReference.getQualifier() );

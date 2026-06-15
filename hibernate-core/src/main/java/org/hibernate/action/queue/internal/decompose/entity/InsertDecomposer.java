@@ -27,6 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /// [Decomposer][org.hibernate.action.queue.spi.decompose.entity.EntityActionDecomposer] for entity insert operations.
@@ -62,14 +64,17 @@ public class InsertDecomposer extends AbstractDecomposer<AbstractEntityInsertAct
 	}
 
 	/// Static set of table mutations used to perform the entity creation.
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Map<String, TableInsert> getStaticInsertOperations() {
 		return insertMutationPlanner.getStaticInsertOperations();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean[] resolveInsertability(Object[] state) {
 		return insertMutationPlanner.resolveInsertability( state );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Map<String, TableInsert> resolveInsertOperations(
 			boolean[] effectiveInsertability,
 			Object entity,
@@ -86,6 +91,7 @@ public class InsertDecomposer extends AbstractDecomposer<AbstractEntityInsertAct
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void decompose(
 			AbstractEntityInsertAction action,
 			int ordinalBase,
@@ -219,6 +225,7 @@ public class InsertDecomposer extends AbstractDecomposer<AbstractEntityInsertAct
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void emitTailOperation(
 			FlushOperation previousOperation,
 			PostExecutionCallback postExecutionCallback,
@@ -229,6 +236,7 @@ public class InsertDecomposer extends AbstractDecomposer<AbstractEntityInsertAct
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void emitTailOperations(
 			FlushOperation previousOperation,
 			List<FlushOperation> additionalOperations,
@@ -253,6 +261,7 @@ public class InsertDecomposer extends AbstractDecomposer<AbstractEntityInsertAct
 		operationConsumer.accept( lastOperation );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void registerAfterTransactionCompletion(
 			AbstractEntityInsertAction action,
 			InsertCacheHandling.CacheInsert cacheInsert,
@@ -263,6 +272,7 @@ public class InsertDecomposer extends AbstractDecomposer<AbstractEntityInsertAct
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void nullifyTransientReferencesIfNotAlready(
 			AbstractEntityInsertAction action,
 			SharedSessionContractImplementor session,
@@ -278,6 +288,7 @@ public class InsertDecomposer extends AbstractDecomposer<AbstractEntityInsertAct
 				.checkNullability( action.getState(), entityPersister );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected boolean preInsert(AbstractEntityInsertAction action, SharedSessionContractImplementor session) {
 		action.executePreInsertCallbacks( session );
 
@@ -301,6 +312,7 @@ public class InsertDecomposer extends AbstractDecomposer<AbstractEntityInsertAct
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean preInsertInMemoryValueGeneration(Object[] values, Object entity, SharedSessionContractImplementor session) {
 		return insertMutationPlanner.preInsertInMemoryValueGeneration( values, entity, session );
 	}

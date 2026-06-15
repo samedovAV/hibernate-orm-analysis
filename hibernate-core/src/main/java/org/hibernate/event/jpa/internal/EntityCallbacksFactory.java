@@ -11,11 +11,14 @@ import org.hibernate.resource.beans.spi.ManagedBeanRegistry;
 import org.hibernate.service.ServiceRegistry;
 
 import static org.hibernate.internal.util.collections.CollectionHelper.isNotEmpty;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Builds Jakarta Persistence callbacks for an entity
 ///
 /// @author Steve Ebersole
 public class EntityCallbacksFactory {
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static EntityCallbacks<Object> buildCallbacks(
 			PersistentClass persistentClass,
 			SessionFactoryOptions options,

@@ -40,6 +40,8 @@ import static java.util.Arrays.asList;
 import static org.hibernate.query.sqm.produce.function.FunctionParameterType.TEMPORAL;
 import static org.hibernate.query.sqm.produce.function.FunctionParameterType.TEMPORAL_UNIT;
 import static org.hibernate.type.spi.TypeConfiguration.getSqlTemporalType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The {@code timestampdiff()} or {@code datediff()} function has a funny
@@ -78,6 +80,7 @@ public class TimestampdiffFunction
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> arguments,
@@ -91,12 +94,14 @@ public class TimestampdiffFunction
 		patternRenderer( field == null ? null : field.getUnit(), from, to ).render( sqlAppender, arguments, walker );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private PatternRenderer patternRenderer(TemporalUnit unit, Expression from, Expression to) {
 		TemporalType lhsTemporalType = getSqlTemporalType( from.getExpressionType() );
 		TemporalType rhsTemporalType = getSqlTemporalType( to.getExpressionType() );
 		return new PatternRenderer( dialect.timestampdiffPattern( unit, lhsTemporalType, rhsTemporalType ), renderingModes );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SelfRenderingFunctionSqlAstExpression expression(
 			ReturnableType<?> impliedResultType,
 			SqlAstNode... sqlAstArguments) {
@@ -115,6 +120,7 @@ public class TimestampdiffFunction
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getArgumentListSignature() {
 		return "(TEMPORAL_UNIT field, TEMPORAL start, TEMPORAL end)";
 	}
@@ -133,6 +139,7 @@ public class TimestampdiffFunction
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public ReturnableType<?> resolveFunctionReturnType(
 				ReturnableType<?> impliedType,
 				@Nullable SqmToSqlAstConverter converter,
@@ -150,6 +157,7 @@ public class TimestampdiffFunction
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public BasicValuedMapping resolveFunctionReturnType(
 				Supplier<BasicValuedMapping> impliedTypeAccess,
 				List<? extends SqlAstNode> arguments) {
@@ -164,6 +172,7 @@ public class TimestampdiffFunction
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getReturnType() {
 			return longType.getJavaType().getSimpleName()
 				+ "|" + doubleType.getJavaType().getSimpleName();

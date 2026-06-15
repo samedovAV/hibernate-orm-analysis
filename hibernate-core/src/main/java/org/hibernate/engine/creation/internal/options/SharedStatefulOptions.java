@@ -5,6 +5,8 @@
 package org.hibernate.engine.creation.internal.options;
 
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Mutable collector for creating a stateful child session from an existing
 /// session.
@@ -31,16 +33,19 @@ public class SharedStatefulOptions extends StatefulOptions implements CommonShar
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SharedSessionContractImplementor getOriginalSession() {
 		return original;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isTransactionCoordinatorShared() {
 		return shareTransactionContext;
 	}
 
 	/// Enable sharing of the original session's transaction/JDBC context.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void shareTransactionContext() {
 		shareTransactionContext = true;
 	}

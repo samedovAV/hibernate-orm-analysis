@@ -16,6 +16,8 @@ import org.hibernate.sql.results.graph.basic.BasicResult;
 import org.hibernate.type.BasicType;
 import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class AsWrappedExpression<B> implements Expression, DomainResultProducer<B> {
 	private final Expression wrappedExpression;
@@ -28,16 +30,19 @@ public class AsWrappedExpression<B> implements Expression, DomainResultProducer<
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcMappingContainer getExpressionType() {
 		return expressionType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public ColumnReference getColumnReference() {
 		return wrappedExpression.getColumnReference();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqlSelection createSqlSelection(
 			int jdbcPosition,
 			int valuesArrayPosition,
@@ -54,6 +59,7 @@ public class AsWrappedExpression<B> implements Expression, DomainResultProducer<
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqlSelection createDomainResultSqlSelection(
 			int jdbcPosition,
 			int valuesArrayPosition,
@@ -70,11 +76,13 @@ public class AsWrappedExpression<B> implements Expression, DomainResultProducer<
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void accept(SqlAstWalker sqlTreeWalker) {
 		wrappedExpression.accept( sqlTreeWalker );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResult<B> createDomainResult(String resultVariable, DomainResultCreationState creationState) {
 		final SqlAstCreationState sqlAstCreationState = creationState.getSqlAstCreationState();
 		final SqlSelection sqlSelection = sqlAstCreationState.getSqlExpressionResolver()
@@ -97,6 +105,7 @@ public class AsWrappedExpression<B> implements Expression, DomainResultProducer<
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void applySqlSelections(DomainResultCreationState creationState) {
 		//noinspection unchecked
 		( (DomainResultProducer<B>) wrappedExpression ).applySqlSelections( creationState );

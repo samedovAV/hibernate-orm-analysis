@@ -12,6 +12,8 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.hibernate.HibernateException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Enumeration of the recognized types of events, including meta-information about each.
@@ -78,6 +80,7 @@ public final class EventType<T> {
 	 */
 	private static final Map<String,EventType<?>> STANDARD_TYPE_BY_NAME_MAP = initStandardTypeNameMap();
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static Map<String, EventType<?>> initStandardTypeNameMap() {
 		final Map<String, EventType<?>> typeByNameMap = new HashMap<>();
 		for ( Field field : EventType.class.getDeclaredFields() ) {
@@ -94,10 +97,12 @@ public final class EventType<T> {
 		return Collections.unmodifiableMap( typeByNameMap );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static <T> EventType<T> create(String name, Class<T> listenerRole) {
 		return new EventType<>( name, listenerRole, STANDARD_TYPE_COUNTER.getAndIncrement(), true );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <T> EventType<T> create(String name, Class<T> listenerRole, int ordinal) {
 		return new EventType<>( name, listenerRole, ordinal, false );
 	}
@@ -111,6 +116,7 @@ public final class EventType<T> {
 	 *
 	 * @throws HibernateException If eventName is null, or if eventName does not correlate to any known event type.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static EventType<?> resolveEventTypeByName(final String eventName) {
 		if ( eventName == null ) {
 			throw new HibernateException( "event name to resolve cannot be null" );
@@ -125,6 +131,7 @@ public final class EventType<T> {
 	/**
 	 * Get a collection of all the standard {@link EventType} instances.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static Collection<EventType<?>> values() {
 		return STANDARD_TYPE_BY_NAME_MAP.values();
 	}
@@ -134,6 +141,7 @@ public final class EventType<T> {
 	 *
 	 * Simply copy the values into its (passed) Map
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static void registerStandardTypes(Map<String, EventType<?>> eventTypes) {
 		eventTypes.putAll( STANDARD_TYPE_BY_NAME_MAP );
 	}
@@ -150,10 +158,12 @@ public final class EventType<T> {
 		this.isStandardEvent = isStandardEvent;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String eventName() {
 		return eventName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<T> baseListenerInterface() {
 		return baseListenerInterface;
 	}
@@ -166,6 +176,7 @@ public final class EventType<T> {
 	 *
 	 * @return A unique ordinal for this {@link EventType}, starting at 0 and up to the number of distinct events
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int ordinal() {
 		return ordinal;
 	}
@@ -173,11 +184,13 @@ public final class EventType<T> {
 	/**
 	 * Is this event-type one of the standard event-types?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isStandardEvent() {
 		return isStandardEvent;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return eventName();
 	}

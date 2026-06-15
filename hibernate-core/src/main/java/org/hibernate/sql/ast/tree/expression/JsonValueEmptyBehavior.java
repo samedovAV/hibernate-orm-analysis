@@ -8,6 +8,8 @@ import org.hibernate.sql.ast.SqlAstWalker;
 import org.hibernate.sql.ast.tree.SqlAstNode;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @since 7.0
@@ -22,15 +24,18 @@ public class JsonValueEmptyBehavior implements SqlAstNode {
 		this.defaultExpression = defaultExpression;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static JsonValueEmptyBehavior defaultOnEmpty(Expression defaultExpression) {
 		return new JsonValueEmptyBehavior( defaultExpression );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable Expression getDefaultExpression() {
 		return defaultExpression;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker sqlTreeWalker) {
 		throw new UnsupportedOperationException("JsonValueEmptyBehavior doesn't support walking");
 	}

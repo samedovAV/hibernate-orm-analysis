@@ -8,6 +8,8 @@ import org.hibernate.bytecode.spi.ReflectionOptimizer.InstantiationOptimizer;
 import org.hibernate.mapping.PersistentClass;
 import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Support for instantiating entity values as POJO representation using
@@ -28,6 +30,7 @@ public class EntityInstantiatorPojoOptimized extends AbstractEntityInstantiatorP
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object instantiate() {
 		return applyInterception( instantiationOptimizer.newInstance() );
 	}

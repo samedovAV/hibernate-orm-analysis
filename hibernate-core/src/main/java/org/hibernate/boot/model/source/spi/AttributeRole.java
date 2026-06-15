@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.boot.model.source.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * An attribute role is, generally speaking, the path of attribute names back
@@ -19,16 +22,19 @@ public class AttributeRole extends AbstractAttributeKey {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected char getDelimiter() {
 		return DELIMITER;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AttributeRole append(String property) {
 		return new AttributeRole( this, property );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public AttributeRole getParent() {
 		return (AttributeRole) super.getParent();
 	}

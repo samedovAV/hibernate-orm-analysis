@@ -129,6 +129,8 @@ import static org.hibernate.internal.util.StringHelper.unqualify;
 import static org.hibernate.internal.util.collections.CollectionHelper.isEmpty;
 import static org.hibernate.internal.util.collections.CollectionHelper.isNotEmpty;
 import static org.hibernate.internal.util.collections.CollectionHelper.setOfSize;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -171,121 +173,145 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> T as(Class<T> type) {
 		return type.cast( this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<LifecycleEventHandler> getEntityListenerRegistrations() {
 		return lifecycleEventHandlers == null ? emptyList() : lifecycleEventHandlers;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<ClassDetails, List<LifecycleEventHandler>> getTargetedEntityListenerRegistrations() {
 		return targetedLifecycleEventHandlers == null ? emptyMap() : targetedLifecycleEventHandlers;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<ConversionRegistration> getConverterRegistrations() {
 		return converterRegistrations == null ? emptyList() : converterRegistrations;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<JavaTypeRegistration> getJavaTypeRegistrations() {
 		return javaTypeRegistrations == null ? emptyList() : javaTypeRegistrations;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<JdbcTypeRegistration> getJdbcTypeRegistrations() {
 		return jdbcTypeRegistrations == null ? emptyList() : jdbcTypeRegistrations;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<UserTypeRegistration> getUserTypeRegistrations() {
 		return userTypeRegistrations == null ? emptyList() : userTypeRegistrations;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<CompositeUserTypeRegistration> getCompositeUserTypeRegistrations() {
 		return compositeUserTypeRegistrations == null ? emptyList() : compositeUserTypeRegistrations;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<CollectionTypeRegistration> getCollectionTypeRegistrations() {
 		return collectionTypeRegistrations == null ? emptyList() : collectionTypeRegistrations;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<EmbeddableInstantiatorRegistration> getEmbeddableInstantiatorRegistrations() {
 		return embeddableInstantiatorRegistrations == null ? emptyList() : embeddableInstantiatorRegistrations;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, FilterDefRegistration> getFilterDefRegistrations() {
 		return filterDefRegistrations == null ? emptyMap() : filterDefRegistrations;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<FetchProfileRegistration> getFetchProfileRegistrations() {
 		return fetchProfileRegistrations == null ? emptyList() : fetchProfileRegistrations;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, String> getImportedRenames() {
 		return importedRenameMap == null ? emptyMap() : importedRenameMap;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, SequenceGeneratorRegistration> getSequenceGeneratorRegistrations() {
 		return sequenceGeneratorRegistrations == null ? emptyMap() : sequenceGeneratorRegistrations;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, TableGeneratorRegistration> getTableGeneratorRegistrations() {
 		return tableGeneratorRegistrations == null ? emptyMap() : tableGeneratorRegistrations;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, GenericGeneratorRegistration> getGenericGeneratorRegistrations() {
 		return genericGeneratorRegistrations == null ? emptyMap() : genericGeneratorRegistrations;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Set<ConverterRegistration> getJpaConverters() {
 		return jpaConverters == null ? emptySet() : jpaConverters;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, SqlResultSetMappingRegistration> getSqlResultSetMappingRegistrations() {
 		return sqlResultSetMappingRegistrations == null ? emptyMap() : sqlResultSetMappingRegistrations;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, NamedQueryRegistration > getNamedQueryRegistrations() {
 		return namedQueryRegistrations == null ? emptyMap() : namedQueryRegistrations;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, NamedNativeQueryRegistration> getNamedNativeQueryRegistrations() {
 		return namedNativeQueryRegistrations == null ? emptyMap() : namedNativeQueryRegistrations;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, NamedStatementRegistration> getNamedStatementRegistrations() {
 		return namedStatementRegistrations == null ? emptyMap() : namedStatementRegistrations;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, NamedNativeStatementRegistration> getNamedNativeStatementRegistrations() {
 		return namedNativeStatementRegistrations == null ? emptyMap() : namedNativeStatementRegistrations;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, NamedStoredProcedureQueryRegistration> getNamedStoredProcedureQueryRegistrations() {
 		return namedStoredProcedureQueryRegistrations == null ? emptyMap() : namedStoredProcedureQueryRegistrations;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<DatabaseObjectRegistration> getDatabaseObjectRegistrations() {
 		return databaseObjectRegistrations == null ? emptyList() : databaseObjectRegistrations;
 	}
@@ -293,10 +319,12 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// JavaTypeRegistration
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private ClassDetailsRegistry getClassDetailsRegistry() {
 		return sourceModelContext.getClassDetailsRegistry();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectJavaTypeRegistrations(AnnotationTarget annotationTarget) {
 		annotationTarget.forEachAnnotationUsage( JAVA_TYPE_REGISTRATION, sourceModelContext,
 				usage -> collectJavaTypeRegistration(
@@ -305,6 +333,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 				) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectJavaTypeRegistrations(List<JaxbJavaTypeRegistrationImpl> registrations) {
 		registrations.forEach( registration -> collectJavaTypeRegistration(
 				toClassDetails( registration.getClazz() ),
@@ -312,10 +341,12 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		) );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public  void collectJavaTypeRegistration(ClassDetails javaType, ClassDetails descriptor) {
 		collectJavaTypeRegistration( new JavaTypeRegistration( javaType, descriptor ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public  void collectJavaTypeRegistration(JavaTypeRegistration registration) {
 		if ( javaTypeRegistrations == null ) {
 			javaTypeRegistrations = new ArrayList<>();
@@ -327,6 +358,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// JdbcTypeRegistration
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectJdbcTypeRegistrations(AnnotationTarget annotationTarget) {
 		annotationTarget.forEachAnnotationUsage( JDBC_TYPE_REGISTRATION, sourceModelContext,
 				usage -> collectJdbcTypeRegistration(
@@ -336,6 +368,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 				) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectJdbcTypeRegistrations(List<JaxbJdbcTypeRegistrationImpl> registrations) {
 		registrations.forEach( registration -> collectJdbcTypeRegistration(
 				registration.getCode(),
@@ -343,6 +376,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectJdbcTypeRegistration(Integer registrationCode, ClassDetails descriptor) {
 		if ( jdbcTypeRegistrations == null ) {
 			jdbcTypeRegistrations = new ArrayList<>();
@@ -354,6 +388,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// ConversionRegistration
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectConverterRegistrations(AnnotationTarget annotationTarget) {
 		annotationTarget.forEachAnnotationUsage( CONVERTER_REGISTRATION, sourceModelContext,
 				usage -> collectConverterRegistration( new ConversionRegistration(
@@ -364,6 +399,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 				) ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectConverterRegistrations(List<JaxbConverterRegistrationImpl> registrations) {
 		registrations.forEach( registration -> {
 			final String explicitDomainTypeName = registration.getClazz();
@@ -382,6 +418,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		} );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectConverterRegistration(ConversionRegistration conversion) {
 		if ( converterRegistrations == null ) {
 			converterRegistrations = new ArrayList<>();
@@ -393,11 +430,13 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// UserTypeRegistration
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectUserTypeRegistrations(AnnotationTarget annotationTarget) {
 		annotationTarget.forEachAnnotationUsage( TYPE_REGISTRATION, sourceModelContext,
 				usage -> collectUserTypeRegistration( usage.basicClass(), usage.userType() ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectUserTypeRegistrations(List<JaxbUserTypeRegistrationImpl> registrations) {
 		registrations.forEach( registration -> {
 			final var domainTypeDetails = toClassDetails( registration.getClazz() );
@@ -406,6 +445,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		} );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectUserTypeRegistration(ClassDetails domainClass, ClassDetails userTypeClass) {
 		if ( userTypeRegistrations == null ) {
 			userTypeRegistrations = new ArrayList<>();
@@ -413,6 +453,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		userTypeRegistrations.add( new UserTypeRegistration( domainClass, userTypeClass ) );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void collectUserTypeRegistration(Class<?> domainClass, Class<? extends UserType<?>> userTypeClass) {
 		collectUserTypeRegistration(
 				toClassDetails( domainClass.getName() ),
@@ -424,11 +465,13 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// CompositeUserTypeRegistration
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectCompositeUserTypeRegistrations(AnnotationTarget annotationTarget) {
 		annotationTarget.forEachAnnotationUsage( COMPOSITE_TYPE_REGISTRATION, sourceModelContext,
 				usage -> collectCompositeUserTypeRegistration( usage.embeddableClass(), usage.userType() ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectCompositeUserTypeRegistrations(List<JaxbCompositeUserTypeRegistrationImpl> registrations) {
 		registrations.forEach( registration -> collectCompositeUserTypeRegistration(
 				toClassDetails( registration.getClazz() ),
@@ -436,6 +479,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectCompositeUserTypeRegistration(ClassDetails domainClass, ClassDetails userTypeClass) {
 		if ( compositeUserTypeRegistrations == null ) {
 			compositeUserTypeRegistrations = new ArrayList<>();
@@ -443,6 +487,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		compositeUserTypeRegistrations.add( new CompositeUserTypeRegistration( domainClass, userTypeClass ) );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void collectCompositeUserTypeRegistration(Class<?> domainClass, Class<? extends CompositeUserType<?>> userTypeClass) {
 		collectCompositeUserTypeRegistration(
 				toClassDetails( domainClass.getName() ),
@@ -454,6 +499,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// CollectionTypeRegistration
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectCollectionTypeRegistrations(AnnotationTarget annotationTarget) {
 		annotationTarget.forEachAnnotationUsage( COLLECTION_TYPE_REGISTRATION, sourceModelContext, (usage) -> collectCollectionTypeRegistration(
 				usage.classification(),
@@ -462,6 +508,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		) );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private Map<String,String> extractParameterMap(Parameter[] parameters) {
 		final Map<String,String> result = new HashMap<>();
 		for ( var parameter : parameters ) {
@@ -470,6 +517,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		return result;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectCollectionTypeRegistrations(List<JaxbCollectionUserTypeRegistrationImpl> registrations) {
 		registrations.forEach( registration -> collectCollectionTypeRegistration(
 				registration.getClassification(),
@@ -478,6 +526,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Map<String, String> extractParameterMap(List<JaxbConfigurationParameterImpl> parameters) {
 		if ( isEmpty( parameters ) ) {
 			return Collections.emptyMap();
@@ -489,6 +538,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectCollectionTypeRegistration(
 			CollectionClassification classification,
 			ClassDetails userTypeClass,
@@ -499,6 +549,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		collectionTypeRegistrations.add( new CollectionTypeRegistration( classification, userTypeClass, parameters ) );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void collectCollectionTypeRegistration(
 			CollectionClassification classification,
 			Class<? extends UserCollectionType> userTypeClass,
@@ -514,11 +565,13 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// EmbeddableInstantiatorRegistration
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectEmbeddableInstantiatorRegistrations(AnnotationTarget annotationTarget) {
 		annotationTarget.forEachAnnotationUsage( EMBEDDABLE_INSTANTIATOR_REGISTRATION, sourceModelContext,
 				usage -> collectEmbeddableInstantiatorRegistration( usage.embeddableClass(), usage.instantiator() ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectEmbeddableInstantiatorRegistrations(List<JaxbEmbeddableInstantiatorRegistrationImpl> registrations) {
 		final var classDetailsRegistry = getClassDetailsRegistry();
 		registrations.forEach( registration -> collectEmbeddableInstantiatorRegistration(
@@ -527,6 +580,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectEmbeddableInstantiatorRegistration(ClassDetails embeddableClass, ClassDetails instantiator) {
 		if ( embeddableInstantiatorRegistrations == null ) {
 			embeddableInstantiatorRegistrations = new ArrayList<>();
@@ -534,6 +588,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		embeddableInstantiatorRegistrations.add( new EmbeddableInstantiatorRegistration( embeddableClass, instantiator ) );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void collectEmbeddableInstantiatorRegistration(Class<?> embeddableClass, Class<? extends EmbeddableInstantiator> instantiator) {
 		collectEmbeddableInstantiatorRegistration(
 				toClassDetails( embeddableClass.getName() ),
@@ -545,6 +600,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Filter-defs
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void collectFilterDefinitions(AnnotationTarget annotationTarget) {
 		annotationTarget.forEachAnnotationUsage( FILTER_DEF, sourceModelContext, usage -> {
 			final Map<String, ClassDetails> paramJdbcMappings;
@@ -578,14 +634,17 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		} );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private ClassDetails toClassDetails(Class<?> type) {
 		return getClassDetailsRegistry().resolveClassDetails( type.getName() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private ClassDetails toClassDetails(String typeName) {
 		return getClassDetailsRegistry().resolveClassDetails( typeName );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void collectFilterDefinitions(List<JaxbFilterDefImpl> filterDefinitions) {
 		final var classDetailsRegistry = getClassDetailsRegistry();
 		filterDefinitions.forEach( filterDefinition -> {
@@ -626,6 +685,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		} );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectFilterDefinition(
 			String name,
 			String defaultCondition,
@@ -648,6 +708,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void collectFetchProfiles( List<JaxbFetchProfileImpl> jaxbFetchProfiles) {
 		if ( jaxbFetchProfiles.isEmpty() ) {
 			return;
@@ -673,6 +734,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void collectImportRename(ClassDetails classDetails) {
 		final var importedUsage = classDetails.getDirectAnnotationUsage( Imported.class );
 		if ( importedUsage != null ) {
@@ -685,6 +747,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectImportRename(String rename, String name) {
 		if ( importedRenameMap == null ) {
 			importedRenameMap = new HashMap<>();
@@ -697,6 +760,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// EntityListenerRegistration
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectEntityListenerRegistrations(List<JaxbEntityListenerImpl> listeners, ModelsContext modelsContext) {
 		final var classDetailsRegistry = getClassDetailsRegistry();
 		listeners.forEach( jaxbEntityListener ->
@@ -708,6 +772,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 				) ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addJpaEventListener(LifecycleEventHandler listener) {
 		if ( lifecycleEventHandlers == null ) {
 			lifecycleEventHandlers = new ArrayList<>();
@@ -716,6 +781,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		lifecycleEventHandlers.add( listener );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void addTargetedJpaEventListener(ClassDetails listenerClassDetails) {
 		final Map<ClassDetails, TargetedLifecycleEventHandlerBuilder> builders = new LinkedHashMap<>();
 		listenerClassDetails.forEachMethod( (index, methodDetails) -> {
@@ -746,6 +812,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void addTargetedJpaEventListener(ClassDetails targetClass, LifecycleEventHandler listener) {
 		if ( targetedLifecycleEventHandlers == null ) {
 			targetedLifecycleEventHandlers = new LinkedHashMap<>();
@@ -754,6 +821,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		targetedLifecycleEventHandlers.computeIfAbsent( targetClass, ignored -> new ArrayList<>() ).add( listener );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void applyTargetedCallback(
 			ClassDetails listenerClassDetails,
 			MethodDetails methodDetails,
@@ -780,14 +848,17 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		private TargetedLifecycleEventHandlerBuilder() {
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void setCallbackMethod(CallbackType callbackType, MethodDetails method) {
 			checkDuplicate( callbackMethods.putIfAbsent( callbackType, method ), method );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private LifecycleEventHandler build(JpaEventListenerStyle style, ClassDetails listenerClassDetails) {
 			return new LifecycleEventHandler( style, listenerClassDetails, callbackMethods );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void checkDuplicate(MethodDetails previous, MethodDetails method) {
 			if ( previous != null && previous != method ) {
 				throw new ModelsException( "You can only annotate one callback method per callback type and target class"
@@ -800,6 +871,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Id generators
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectIdGenerators(JaxbEntityMappingsImpl jaxbRoot) {
 		collectSequenceGenerators( jaxbRoot.getSequenceGenerators() );
 		collectTableGenerators( jaxbRoot.getTableGenerators() );
@@ -808,6 +880,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		// todo : add support for @IdGeneratorType in mapping.xsd?
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectIdGenerators(ClassDetails classDetails) {
 		if ( classDetails.getName().endsWith( ".package-info" )
 				|| bootstrapContext.getJpaCompliance().isGlobalGeneratorScopeEnabled() ) {
@@ -825,6 +898,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectIdGenerators(MemberDetails memberDetails) {
 		if ( bootstrapContext.getJpaCompliance().isGlobalGeneratorScopeEnabled() ) {
 			memberDetails.forEachRepeatedAnnotationUsages(
@@ -866,6 +940,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Sequence generator
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectSequenceGenerators(List<JaxbSequenceGeneratorImpl> sequenceGenerators) {
 		sequenceGenerators.forEach( jaxbGenerator -> {
 			final var sequenceAnn = SEQUENCE_GENERATOR.createUsage( sourceModelContext );
@@ -902,15 +977,18 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		} );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void collectSequenceGenerator(MemberDetails memberDetails, SequenceGenerator usage) {
 		collectSequenceGenerator( memberDetails.getDeclaringType(), usage );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void collectSequenceGenerator(ClassDetails classDetails, SequenceGenerator usage) {
 		final String registrationName = registrationName( classDetails, usage.name() );
 		collectSequenceGenerator( new SequenceGeneratorRegistration( registrationName, usage ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectSequenceGenerator(SequenceGeneratorRegistration generatorRegistration) {
 		checkGeneratorName( generatorRegistration.name() );
 
@@ -920,12 +998,14 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		sequenceGeneratorRegistrations.put( generatorRegistration.name(), generatorRegistration );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void checkGeneratorName(String name) {
 		checkGeneratorName( name, sequenceGeneratorRegistrations );
 		checkGeneratorName( name, tableGeneratorRegistrations );
 		checkGeneratorName( name, genericGeneratorRegistrations );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void checkGeneratorName(String name, Map<String, ?> generatorMap) {
 		if ( generatorMap != null && generatorMap.containsKey( name ) ) {
 			if ( bootstrapContext.getJpaCompliance().isGlobalGeneratorScopeEnabled() ) {
@@ -942,6 +1022,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Table generator
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectTableGenerators(List<JaxbTableGeneratorImpl> jaxbGenerators) {
 		jaxbGenerators.forEach( jaxbGenerator -> {
 			final var annotation = TABLE_GENERATOR.createUsage( sourceModelContext );
@@ -990,15 +1071,18 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		} );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void collectTableGenerator(MemberDetails memberDetails, TableGenerator usage) {
 		collectTableGenerator(  memberDetails.getDeclaringType(), usage );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void collectTableGenerator(ClassDetails classDetails, TableGenerator usage) {
 		final String registrationName = registrationName( classDetails, usage.name() );
 		collectTableGenerator( new TableGeneratorRegistration( registrationName, usage ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectTableGenerator(TableGeneratorRegistration generatorRegistration) {
 		checkGeneratorName( generatorRegistration.name() );
 
@@ -1012,6 +1096,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Generic generators
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void collectGenericGenerators(List<JaxbGenericIdGeneratorImpl> jaxbGenerators) {
 		jaxbGenerators.forEach( jaxbGenerator -> {
 			final Map<String,String> parameters = new HashMap<>();
@@ -1028,6 +1113,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		} );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectGenericGenerator(GenericGeneratorRegistration generatorRegistration) {
 		checkGeneratorName( generatorRegistration.name() );
 
@@ -1041,6 +1127,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Converters
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectConverter(ClassDetails converterClassDetails) {
 		if ( jpaConverters == null ) {
 			jpaConverters = new HashSet<>();
@@ -1049,6 +1136,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		jpaConverters.add( new ConverterRegistration( converterClassDetails, null ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectConverters(List<JaxbConverterImpl> converters) {
 		if ( !isEmpty( converters ) ) {
 			if ( jpaConverters == null ) {
@@ -1066,6 +1154,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectQueryReferences(JaxbEntityMappingsImpl jaxbRoot, XmlDocumentContext xmlDocumentContext) {
 		collectNamedSqlResultSetMappings( jaxbRoot.getSqlResultSetMappings(), xmlDocumentContext );
 		collectNamedQueries( jaxbRoot.getNamedQueries(), xmlDocumentContext );
@@ -1075,6 +1164,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		collectStoredProcedureQueries( jaxbRoot.getNamedProcedureQueries(), xmlDocumentContext );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void collectNamedSqlResultSetMappings(
 			List<JaxbSqlResultSetMappingImpl> jaxbSqlResultSetMappings,
 			XmlDocumentContext xmlDocumentContext) {
@@ -1108,6 +1198,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void collectNamedQueries(List<JaxbNamedHqlQueryImpl> jaxbNamedQueries, XmlDocumentContext xmlDocumentContext) {
 		if ( !isEmpty( jaxbNamedQueries ) ) {
 			if ( namedQueryRegistrations == null ) {
@@ -1134,6 +1225,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private QueryHint[] collectQueryHints(JaxbNamedHqlQueryImpl jaxbNamedQuery, XmlDocumentContext xmlDocumentContext) {
 		final var hints = extractQueryHints( jaxbNamedQuery );
 
@@ -1191,6 +1283,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		return hints.toArray(QueryHint[]::new);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void collectNamedNativeQueries(List<JaxbNamedNativeQueryImpl> namedNativeQueries, XmlDocumentContext xmlDocumentContext) {
 		if ( !isEmpty( namedNativeQueries ) ) {
 			if ( namedNativeQueryRegistrations == null ) {
@@ -1219,6 +1312,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void applyResultSetMapping(
 			JaxbNamedNativeQueryImpl jaxbNamedQuery,
 			NamedNativeQueryJpaAnnotation queryAnnotation,
@@ -1243,6 +1337,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private QueryHint[] collectNativeQueryHints(JaxbNamedNativeQueryImpl jaxbNamedQuery) {
 		final var hints = extractQueryHints( jaxbNamedQuery );
 
@@ -1284,6 +1379,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		return hints.toArray(QueryHint[]::new);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void collectNamedStatements(
 			List<JaxbNamedStatementImpl> namedStatements,
 			XmlDocumentContext xmlDocumentContext) {
@@ -1309,6 +1405,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void collectNamedNativeStatements(
 			List<JaxbNamedNativeStatementImpl> namedNativeStatements,
 			XmlDocumentContext xmlDocumentContext) {
@@ -1334,6 +1431,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void collectStoredProcedureQueries(
 			List<JaxbNamedStoredProcedureQueryImpl> namedProcedureQueries,
 			XmlDocumentContext xmlDocumentContext) {
@@ -1372,6 +1470,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private List<QueryHint> extractQueryHints(JaxbQueryHintContainer jaxbQuery) {
 		final var jaxbQueryHints = jaxbQuery.getHints();
 		final List<QueryHint> hints = new ArrayList<>();
@@ -1383,6 +1482,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		return hints;
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void collectDataBaseObject(List<JaxbDatabaseObjectImpl> databaseObjects) {
 		if ( !isEmpty( databaseObjects ) ) {
 			if ( databaseObjectRegistrations == null ) {
@@ -1412,6 +1512,7 @@ public class GlobalRegistrationsImpl implements GlobalRegistrations, GlobalRegis
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static String registrationName(ClassDetails classDetails, String name) {
 		if ( !name.isBlank() ) {
 			return name;

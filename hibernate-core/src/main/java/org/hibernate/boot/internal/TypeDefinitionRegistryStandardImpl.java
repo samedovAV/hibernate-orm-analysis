@@ -15,6 +15,8 @@ import org.hibernate.type.descriptor.java.BasicJavaType;
 
 import static org.hibernate.boot.BootLogging.BOOT_LOGGER;
 import static org.hibernate.internal.util.StringHelper.isEmpty;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Basic implementation of {@link TypeDefinitionRegistry}.
@@ -35,6 +37,7 @@ public class TypeDefinitionRegistryStandardImpl implements TypeDefinitionRegistr
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public TypeDefinition resolve(String typeName) {
 		final var localDefinition = typeDefinitionMap.get( typeName );
 		if ( localDefinition != null ) {
@@ -49,6 +52,7 @@ public class TypeDefinitionRegistryStandardImpl implements TypeDefinitionRegistr
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TypeDefinition resolveAutoApplied(BasicJavaType<?> basicJavaType) {
 		// For now, check the definition map for an entry keyed by the JTD name.
 		// Ultimately should maybe have TypeDefinition or the registry keep explicit
@@ -58,11 +62,13 @@ public class TypeDefinitionRegistryStandardImpl implements TypeDefinitionRegistr
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public TypeDefinitionRegistry register(TypeDefinition typeDefinition) {
 		return register( typeDefinition, DuplicationStrategy.OVERWRITE );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public TypeDefinitionRegistry register(TypeDefinition typeDefinition, DuplicationStrategy duplicationStrategy) {
 		if ( typeDefinition == null ) {
 			throw new IllegalArgumentException( "TypeDefinition to register cannot be null" );
@@ -87,6 +93,7 @@ public class TypeDefinitionRegistryStandardImpl implements TypeDefinitionRegistr
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void register(String name, TypeDefinition typeDefinition, DuplicationStrategy duplicationStrategy) {
 		if ( duplicationStrategy == DuplicationStrategy.KEEP ) {
 			if ( !typeDefinitionMap.containsKey( name ) ) {
@@ -113,6 +120,7 @@ public class TypeDefinitionRegistryStandardImpl implements TypeDefinitionRegistr
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, TypeDefinition> copyRegistrationMap() {
 		return new HashMap<>( typeDefinitionMap );
 	}

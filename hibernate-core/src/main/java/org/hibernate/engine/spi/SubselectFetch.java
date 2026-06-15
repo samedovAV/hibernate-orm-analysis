@@ -18,6 +18,8 @@ import org.hibernate.sql.exec.spi.JdbcParameterBindings;
 import org.hibernate.sql.exec.spi.JdbcParametersList;
 
 import static org.hibernate.internal.util.NullnessUtil.castNonNull;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Encapsulates details related to entities which contain sub-select-fetchable
@@ -44,6 +46,7 @@ public class SubselectFetch {
 		this.resultingEntityKeys = resultingEntityKeys;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcParametersList getLoadingJdbcParameters() {
 		// todo (6.0) : do not believe this is needed
 		// 		- see org.hibernate.loader.ast.internal.LoaderSelectBuilder.generateSelect(org.hibernate.engine.spi.SubselectFetch)
@@ -53,6 +56,7 @@ public class SubselectFetch {
 	/**
 	 * The SQL AST select from which the owner was loaded
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QuerySpec getLoadingSqlAst() {
 		return loadingSqlAst;
 	}
@@ -60,6 +64,7 @@ public class SubselectFetch {
 	/**
 	 * The TableGroup for the owner within the {@link #getLoadingSqlAst()}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableGroup getOwnerTableGroup() {
 		return ownerTableGroup;
 	}
@@ -68,6 +73,7 @@ public class SubselectFetch {
 	 * The JDBC parameter bindings related to {@link #getLoadingSqlAst()} for
 	 * the specific execution that loaded the owners
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcParameterBindings getLoadingJdbcParameterBindings() {
 		return loadingJdbcParameterBindings;
 	}
@@ -77,15 +83,18 @@ public class SubselectFetch {
 	 * <p>
 	 * Used for "empty collection" handling mostly
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Set<EntityKey> getResultingEntityKeys() {
 		return resultingEntityKeys;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "SubselectFetch(" + ownerTableGroup.getNavigablePath() + ")";
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static RegistrationHandler createRegistrationHandler(
 			BatchFetchQueue batchFetchQueue,
 			SelectStatement sqlAst,
@@ -94,6 +103,7 @@ public class SubselectFetch {
 		return createRegistrationHandler( batchFetchQueue, sqlAst, jdbcParameters, jdbcParameterBindings, null );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static RegistrationHandler createRegistrationHandler(
 			BatchFetchQueue batchFetchQueue,
 			SelectStatement sqlAst,
@@ -108,6 +118,7 @@ public class SubselectFetch {
 	}
 
 	public interface RegistrationHandler {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void addKey(EntityHolder holder);
 	}
 
@@ -135,6 +146,7 @@ public class SubselectFetch {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void addKey(EntityHolder holder) {
 			if ( batchFetchQueue.getSession().getLoadQueryInfluencers()
 					.hasSubselectLoadableAttributes( holder.getDescriptor(), appliedGraph ) ) {

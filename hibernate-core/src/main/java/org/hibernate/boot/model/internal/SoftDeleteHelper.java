@@ -23,6 +23,8 @@ import java.time.Instant;
 
 import static org.hibernate.internal.util.StringHelper.coalesce;
 import static org.hibernate.internal.util.StringHelper.isBlank;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Helper for dealing with {@link org.hibernate.annotations.SoftDelete}
@@ -38,6 +40,7 @@ public class SoftDeleteHelper {
 	 * @param table The table to which the soft-delete should be applied
 	 * @param context The processing context for access to needed info and services
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void bindSoftDeleteIndicator(
 			SoftDelete softDeleteConfig,
 			SoftDeletable target,
@@ -53,6 +56,7 @@ public class SoftDeleteHelper {
 		target.enableSoftDelete( softDeleteIndicatorColumn, softDeleteConfig.strategy() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static BasicValue createSoftDeleteIndicatorValue(
 			SoftDelete softDeleteConfig,
 			Table table,
@@ -80,6 +84,7 @@ public class SoftDeleteHelper {
 		return softDeleteIndicatorValue;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Column createSoftDeleteIndicatorColumn(
 			SoftDelete softDeleteConfig,
 			BasicValue softDeleteIndicatorValue,
@@ -112,6 +117,7 @@ public class SoftDeleteHelper {
 		return softDeleteColumn;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void applyColumnName(
 			Column softDeleteColumn,
 			SoftDelete softDeleteConfig,
@@ -130,6 +136,7 @@ public class SoftDeleteHelper {
 		softDeleteColumn.setName( physicalColumnName.render( database.getDialect() ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static SoftDeleteMappingImpl resolveSoftDeleteMapping(
 			SoftDeletableModelPart softDeletableModelPart,
 			SoftDeletable bootMapping,

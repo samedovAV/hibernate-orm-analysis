@@ -19,6 +19,8 @@ import org.hibernate.sql.ast.tree.expression.Expression;
 import org.hibernate.sql.ast.tree.from.FromClause;
 import org.hibernate.sql.ast.tree.predicate.Predicate;
 import org.hibernate.sql.ast.tree.predicate.PredicateContainer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -56,50 +58,60 @@ public class QuerySpec extends QueryPart implements SqlAstNode, PredicateContain
 		this.havingClauseRestrictions = original.havingClauseRestrictions;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QuerySpec asSubQuery() {
 		return isRoot() ? new QuerySpec( this, false ) : this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QuerySpec asRootQuery() {
 		return isRoot() ? this : new QuerySpec( this, true );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QuerySpec getFirstQuerySpec() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QuerySpec getLastQuerySpec() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void visitQuerySpecs(Consumer<QuerySpec> querySpecConsumer) {
 		querySpecConsumer.accept( this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> T queryQuerySpecs(Function<QuerySpec, T> querySpecConsumer) {
 		return querySpecConsumer.apply( this );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FromClause getFromClause() {
 		return fromClause;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SelectClause getSelectClause() {
 		return selectClause;
 	}
 
 	/// Set of [NavigablePath] references to be considered roots
 	/// for locking purposes.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Set<NavigablePath> getRootPathsForLocking() {
 		return rootPathsForLocking;
 	}
 
 	/// Applies a [NavigablePath] to be considered a root for the
 	/// purpose of potential locking.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applyRootPathForLocking(NavigablePath path) {
 		if ( rootPathsForLocking == null ) {
 			rootPathsForLocking = new HashSet<>();
@@ -107,32 +119,39 @@ public class QuerySpec extends QueryPart implements SqlAstNode, PredicateContain
 		rootPathsForLocking.add( path );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Predicate getWhereClauseRestrictions() {
 		return whereClauseRestrictions;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applyPredicate(Predicate predicate) {
 		this.whereClauseRestrictions = SqlAstTreeHelper.combinePredicates( this.whereClauseRestrictions, predicate );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<Expression> getGroupByClauseExpressions() {
 		return groupByClauseExpressions;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setGroupByClauseExpressions(List<Expression> groupByClauseExpressions) {
 		this.groupByClauseExpressions = groupByClauseExpressions == null ? Collections.emptyList() : groupByClauseExpressions;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Predicate getHavingClauseRestrictions() {
 		return havingClauseRestrictions;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setHavingClauseRestrictions(Predicate havingClauseRestrictions) {
 		this.havingClauseRestrictions = havingClauseRestrictions;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker sqlTreeWalker) {
 		sqlTreeWalker.visitQuerySpec( this );
 	}

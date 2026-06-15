@@ -14,6 +14,8 @@ import org.hibernate.cache.spi.access.NaturalIdDataAccess;
 import org.hibernate.cache.spi.access.SoftLock;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.persister.entity.EntityPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard support for {@link NaturalIdDataAccess}
@@ -35,22 +37,26 @@ public class NaturalIdReadWriteAccess extends AbstractReadWriteAccess implements
 
 	@Deprecated
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected AccessedDataClassification getAccessedDataClassification() {
 		return AccessedDataClassification.NATURAL_ID;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AccessType getAccessType() {
 		return AccessType.READ_WRITE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Comparator<Object> getVersionComparator() {
 		// natural id has no comparator
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object generateCacheKey(
 			Object naturalIdValues,
 			EntityPersister rootEntityDescriptor,
@@ -59,20 +65,24 @@ public class NaturalIdReadWriteAccess extends AbstractReadWriteAccess implements
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object getNaturalIdValues(Object cacheKey) {
 		return keysFactory.getNaturalIdValues( cacheKey );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void put(SharedSessionContractImplementor session, Object key, Object value) {
 		getStorageAccess().putIntoCache( key, new Item( value, null, nextTimestamp() ), session );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean insert(SharedSessionContractImplementor session, Object key, Object value) {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean afterInsert(SharedSessionContractImplementor session, Object key, Object value) {
 		try {
 			writeLock().lock();
@@ -91,11 +101,13 @@ public class NaturalIdReadWriteAccess extends AbstractReadWriteAccess implements
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean update(SharedSessionContractImplementor session, Object key, Object value) {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean afterUpdate(SharedSessionContractImplementor session, Object key, Object value, SoftLock lock) {
 		try {
 			writeLock().lock();

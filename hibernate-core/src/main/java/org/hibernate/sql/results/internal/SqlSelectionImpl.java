@@ -18,6 +18,8 @@ import org.hibernate.type.BasicType;
 import org.hibernate.type.JavaObjectType;
 import org.hibernate.type.descriptor.ValueExtractor;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// ```
 /// @Entity
@@ -83,6 +85,7 @@ public class SqlSelectionImpl implements SqlSelection, SqlExpressionAccess {
 		this.valueExtractor = valueExtractor;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static ValueExtractor determineValueExtractor(Expression sqlExpression, JavaType<?> jdbcJavaType) {
 		final JdbcMappingContainer expressionType = sqlExpression.getExpressionType();
 		final JdbcMapping jdbcMapping = expressionType == null
@@ -98,11 +101,13 @@ public class SqlSelectionImpl implements SqlSelection, SqlExpressionAccess {
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression getExpression() {
 		return sqlExpression;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ValueExtractor getJdbcValueExtractor() {
 		ValueExtractor extractor = valueExtractor;
 		if ( extractor == null ) {
@@ -112,40 +117,48 @@ public class SqlSelectionImpl implements SqlSelection, SqlExpressionAccess {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getJdbcResultSetIndex() {
 		return jdbcPosition;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getValuesArrayPosition() {
 		return valuesArrayPosition;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcMappingContainer getExpressionType() {
 		return getExpression().getExpressionType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isVirtual() {
 		return virtual;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression getSqlExpression() {
 		return sqlExpression;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void accept(SqlAstWalker interpreter) {
 		sqlExpression.accept( interpreter );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean needsResolve() {
 		return sqlExpression.getExpressionType() instanceof JavaObjectType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqlSelection resolve(JdbcValuesMetadata jdbcResultsMetadata, SessionFactoryImplementor sessionFactory) {
 		if ( needsResolve() ) {
 			final BasicType<Object> resolvedType = jdbcResultsMetadata.resolveType(
@@ -164,6 +177,7 @@ public class SqlSelectionImpl implements SqlSelection, SqlExpressionAccess {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean equals(Object o) {
 		if ( this == o ) {
 			return true;
@@ -179,6 +193,7 @@ public class SqlSelectionImpl implements SqlSelection, SqlExpressionAccess {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int hashCode() {
 		return Objects.hash( jdbcPosition, valuesArrayPosition, sqlExpression, virtual );
 	}

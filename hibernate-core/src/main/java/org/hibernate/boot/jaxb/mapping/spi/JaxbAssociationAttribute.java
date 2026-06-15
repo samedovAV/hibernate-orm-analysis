@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.boot.jaxb.mapping.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * JAXB binding interface for association attributes (to-one and plural mappings)
@@ -11,6 +14,8 @@ package org.hibernate.boot.jaxb.mapping.spi;
  */
 public interface JaxbAssociationAttribute extends JaxbCascadableAttribute {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getTargetEntity();
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setTargetEntity(String value);
 }

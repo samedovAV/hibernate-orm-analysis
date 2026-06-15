@@ -39,6 +39,8 @@ import jakarta.persistence.Temporal;
 import static org.hibernate.boot.BootLogging.BOOT_LOGGER;
 import static org.hibernate.internal.util.StringHelper.isEmpty;
 import static org.hibernate.internal.util.StringHelper.isNotEmpty;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Emmanuel Bernard
@@ -70,10 +72,12 @@ public class CollectionPropertyHolder extends AbstractPropertyHolder {
 		this.keyAttributeConversionInfoMap = new HashMap<>();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Collection getCollectionBinding() {
 		return collection;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void buildAttributeConversionInfoMaps(
 			MemberDetails collectionProperty,
 			boolean isComposite,
@@ -89,6 +93,7 @@ public class CollectionPropertyHolder extends AbstractPropertyHolder {
 				) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void applyLocalConvert(
 			Convert convertAnnotation,
 			MemberDetails collectionProperty,
@@ -172,11 +177,13 @@ public class CollectionPropertyHolder extends AbstractPropertyHolder {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void throwMissingAttributeName() {
 		throw new IllegalStateException( "'@Convert' annotation for map [" + collection.getRole()
 									+ "] must specify 'attributeName=\"key\"' or 'attributeName=\"value\"'" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void logSpecNoncompliance(String attributeName, String role) {
 		final boolean specCompliant = isNotEmpty( attributeName )
 				&& (attributeName.startsWith( "key" ) || attributeName.startsWith( "value" ) );
@@ -192,10 +199,12 @@ public class CollectionPropertyHolder extends AbstractPropertyHolder {
 	 * @param prefix Prefix.
 	 * @return Path without prefix, or null, if path did not have the prefix.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private String removePrefix(String path, String prefix) {
 		return removePrefix( path, prefix, null );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String removePrefix(String path, String prefix, String defaultValue) {
 		if ( path.equals(prefix) ) {
 			return "";
@@ -209,27 +218,32 @@ public class CollectionPropertyHolder extends AbstractPropertyHolder {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String normalizeCompositePath(String attributeName) {
 		return attributeName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String normalizeCompositePathForLogging(String attributeName) {
 		return collection.getRole() + '.' + attributeName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void startingProperty(MemberDetails property) {
 		// for now, nothing to do...
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected AttributeConversionInfo locateAttributeConversionInfo(MemberDetails attributeMember) {
 		// nothing to do
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected AttributeConversionInfo locateAttributeConversionInfo(String path) {
 		final String key = removePrefix( path, "key" );
 		if ( key != null ) {
@@ -245,88 +259,105 @@ public class CollectionPropertyHolder extends AbstractPropertyHolder {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getClassName() {
 		throw new AssertionFailure( "Collection property holder does not have a class name" );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getEntityOwnerClassName() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Table getTable() {
 		return collection.getCollectionTable();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addProperty(Property prop, MemberDetails memberDetails, ClassDetails declaringClass) {
 		throw new AssertionFailure( "Cannot add property to a collection" );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void movePropertyToJoin(Property prop, Join join, MemberDetails memberDetails, ClassDetails declaringClass) {
 		throw new AssertionFailure( "Cannot add property to a collection" );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public KeyValue getIdentifier() {
 		throw new AssertionFailure( "Identifier collection not yet managed" );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isOrWithinEmbeddedId() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isWithinElementCollection() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistentClass getPersistentClass() {
 		return collection.getOwner();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isComponent() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isEntity() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getEntityName() {
 		return collection.getOwner().getEntityName();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addProperty(Property prop, MemberDetails memberDetails, @Nullable AnnotatedColumns columns, ClassDetails declaringClass) {
 		//Ejb3Column.checkPropertyConsistency( ); //already called earlier
 		throw new AssertionFailure( "addProperty to a join table of a collection: does it make sense?" );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Join addJoin(JoinTable joinTableAnn, boolean noDelayInPkColumnCreation) {
 		throw new AssertionFailure( "Add join in a second pass" );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Join addJoin(JoinTable joinTableAnn, Table table, boolean noDelayInPkColumnCreation) {
 		throw new AssertionFailure( "Add join in a second pass" );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return getClass().getSimpleName() + "(" + collection.getRole() + ")";
 	}
 
 	boolean prepared;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void prepare(MemberDetails collectionProperty, boolean isComposite) {
 		// fugly
 		if ( prepared ) {
@@ -388,6 +419,7 @@ public class CollectionPropertyHolder extends AbstractPropertyHolder {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ConverterDescriptor<?,?> resolveElementAttributeConverterDescriptor(
 			MemberDetails memberDetails,
 			ClassDetails classDetails) {
@@ -409,6 +441,7 @@ public class CollectionPropertyHolder extends AbstractPropertyHolder {
 				.findAutoApplyConverterForCollectionElement( memberDetails, getContext() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ConverterDescriptor<?,?> mapKeyAttributeConverterDescriptor(
 			MemberDetails memberDetails,
 			TypeDetails keyTypeDetails) {
@@ -430,6 +463,7 @@ public class CollectionPropertyHolder extends AbstractPropertyHolder {
 				.findAutoApplyConverterForMapKey( memberDetails, getContext() );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private ConverterAutoApplyHandler getAttributeConverterAutoApplyHandler() {
 		return getContext().getMetadataCollector()
 				.getConverterRegistry()
@@ -440,6 +474,7 @@ public class CollectionPropertyHolder extends AbstractPropertyHolder {
 	 * A collection is always a modifiable container.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isModifiable() {
 		return true; //TODO: is this correct?
 	}

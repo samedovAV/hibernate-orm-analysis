@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.hibernate.annotations.SecondaryRow;
 import org.hibernate.models.spi.ModelsContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -45,35 +47,42 @@ public class SecondaryRowAnnotation implements SecondaryRow {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return SecondaryRow.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String table() {
 		return table;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void table(String value) {
 		this.table = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean owned() {
 		return owned;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void owned(boolean value) {
 		this.owned = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean optional() {
 		return optional;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void optional(boolean value) {
 		this.optional = value;
 	}

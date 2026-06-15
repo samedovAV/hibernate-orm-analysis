@@ -8,6 +8,8 @@ import java.util.Arrays;
 
 import org.hibernate.bytecode.enhance.spi.CollectionTracker;
 import org.hibernate.internal.util.collections.ArrayHelper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * small low memory class to keep track of the number of elements in a collection
@@ -25,6 +27,7 @@ public final class SimpleCollectionTracker implements CollectionTracker {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void add(String name, int size) {
 		for ( int i = 0; i < names.length; i++ ) {
 			if ( names[i].equals( name ) ) {
@@ -39,6 +42,7 @@ public final class SimpleCollectionTracker implements CollectionTracker {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int getSize(String name) {
 		for ( int i = 0; i < names.length; i++ ) {
 			if ( name.equals( names[i] ) ) {

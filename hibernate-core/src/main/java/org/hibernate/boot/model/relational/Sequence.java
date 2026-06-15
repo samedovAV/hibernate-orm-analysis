@@ -6,6 +6,8 @@ package org.hibernate.boot.model.relational;
 
 import org.hibernate.HibernateException;
 import org.hibernate.boot.model.naming.Identifier;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Models a database {@code SEQUENCE}.
@@ -63,32 +65,39 @@ public class Sequence implements ContributableDatabaseObject {
 		this.options = options;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QualifiedSequenceName getName() {
 		return name;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getExportIdentifier() {
 		return exportIdentifier;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getContributor() {
 		return contributor;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getInitialValue() {
 		return initialValue;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getIncrementSize() {
 		return incrementSize;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getOptions() {
 		return options;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void validate(int initialValue, int incrementSize) {
 		if ( this.initialValue != initialValue ) {
 			throw new HibernateException(

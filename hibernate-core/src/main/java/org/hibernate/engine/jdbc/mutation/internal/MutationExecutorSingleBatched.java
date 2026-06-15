@@ -11,6 +11,8 @@ import org.hibernate.engine.jdbc.mutation.TableInclusionChecker;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.sql.model.PreparableMutationOperation;
 import org.hibernate.sql.model.ValuesAnalysis;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -35,12 +37,14 @@ public class MutationExecutorSingleBatched extends AbstractSingleMutationExecuto
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected PreparedStatementGroupSingleTable getStatementGroup() {
 		return (PreparedStatementGroupSingleTable) resolveBatch().getStatementGroup();
 	}
 
 	private GroupedBatch batch;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private GroupedBatch resolveBatch() {
 		if ( batch == null ) {
 			batch = session.getJdbcCoordinator().getGroupedBatch(
@@ -55,6 +59,7 @@ public class MutationExecutorSingleBatched extends AbstractSingleMutationExecuto
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void performBatchedOperations(
 			ValuesAnalysis valuesAnalysis,
 			TableInclusionChecker inclusionChecker,
@@ -63,6 +68,7 @@ public class MutationExecutorSingleBatched extends AbstractSingleMutationExecuto
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void release() {
 		// nothing to do
 	}

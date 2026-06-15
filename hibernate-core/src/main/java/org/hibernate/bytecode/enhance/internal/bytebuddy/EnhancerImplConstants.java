@@ -47,6 +47,8 @@ import org.hibernate.engine.spi.SelfDirtinessTracker;
 import org.hibernate.proxy.ProxyConfiguration;
 
 import static net.bytebuddy.matcher.ElementMatchers.isDefaultFinalizer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Extracts constants used by {@link EnhancerImpl}.
@@ -228,6 +230,7 @@ public final class EnhancerImplConstants {
 				} );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ElementMatcher<? super MethodDescription> defaultFinalizer() {
 		return DEFAULT_FINALIZER;
 	}

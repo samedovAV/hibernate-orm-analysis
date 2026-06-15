@@ -15,6 +15,8 @@ import org.hibernate.sql.ast.spi.SqlAliasBaseManager;
 import org.hibernate.sql.ast.tree.select.SelectStatement;
 import org.hibernate.sql.results.internal.RowTransformerStandardImpl;
 import org.hibernate.sql.results.spi.ListResultsConsumer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A one-time use {@link EntityLoader} for applying a subselect fetch to a to-one association.
@@ -47,10 +49,12 @@ public class EntityLoaderSubSelectFetch implements EntityLoader {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityMappingType getLoadable() {
 		return entityMapping;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void load(SharedSessionContractImplementor session) {
 		final var sessionFactory = session.getFactory();
 		final var jdbcServices = sessionFactory.getJdbcServices();

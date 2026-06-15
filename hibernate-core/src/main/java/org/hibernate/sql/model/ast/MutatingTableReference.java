@@ -13,6 +13,8 @@ import org.hibernate.spi.NavigablePath;
 import org.hibernate.sql.ast.SqlAstWalker;
 import org.hibernate.sql.ast.tree.from.TableReference;
 import org.hibernate.sql.model.TableMapping;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specialized TableReference for model mutation operations
@@ -26,40 +28,48 @@ public class MutatingTableReference implements TableReference {
 		this.tableMapping = tableMapping;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableMapping getTableMapping() {
 		return tableMapping;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getTableName() {
 		return tableMapping.getTableName();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getIdentificationVariable() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getTableId() {
 		return getTableName();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isOptional() {
 		return tableMapping.isOptional();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker sqlTreeWalker) {
 		throw new UnsupportedOperationException( "Mutating table reference should be handled by the statement visitation" );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Boolean visitAffectedTableNames(Function<String, Boolean> nameCollector) {
 		return nameCollector.apply( getTableName() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableReference resolveTableReference(
 			NavigablePath navigablePath,
 			String tableExpression) {
@@ -78,6 +88,7 @@ public class MutatingTableReference implements TableReference {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableReference resolveTableReference(
 			NavigablePath navigablePath,
 			ValuedModelPart modelPart,
@@ -97,11 +108,13 @@ public class MutatingTableReference implements TableReference {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableReference getTableReference(NavigablePath navigablePath, String tableExpression, boolean resolve) {
 		return getTableName().equals( tableExpression ) ? this : null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableReference getTableReference(
 			NavigablePath navigablePath,
 			ValuedModelPart modelPart,
@@ -111,6 +124,7 @@ public class MutatingTableReference implements TableReference {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean equals(Object o) {
 		if ( this == o ) {
 			return true;
@@ -123,11 +137,13 @@ public class MutatingTableReference implements TableReference {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int hashCode() {
 		return Objects.hash( getTableName() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "MutatingTableReference(" + getTableName() + ")";
 	}

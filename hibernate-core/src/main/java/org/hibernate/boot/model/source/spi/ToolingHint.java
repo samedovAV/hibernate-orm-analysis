@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.source.spi;
 
 import org.hibernate.mapping.MetaAttribute;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -21,31 +23,38 @@ public class ToolingHint {
 		this.metaAttribute = new MetaAttribute( name );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isInheritable() {
 		return inheritable;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public java.util.List getValues() {
 		return metaAttribute.getValues();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void addValue(String value) {
 		metaAttribute.addValue( value );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getValue() {
 		return metaAttribute.getValue();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isMultiValued() {
 		return metaAttribute.isMultiValued();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "ToolingHint{" +
 				"name='" + name + '\'' +
@@ -54,6 +63,7 @@ public class ToolingHint {
 				'}';
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MetaAttribute asMetaAttribute() {
 		return metaAttribute;
 	}

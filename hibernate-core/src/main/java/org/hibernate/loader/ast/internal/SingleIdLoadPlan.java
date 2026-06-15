@@ -25,6 +25,8 @@ import org.hibernate.sql.results.spi.ListResultsConsumer;
 import org.hibernate.sql.results.spi.RowTransformer;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Describes a plan for loading an entity by identifier.
@@ -61,6 +63,7 @@ public class SingleIdLoadPlan<T> implements SingleEntityLoadPlan {
 								null,
 								new QueryOptionsAdapter() {
 									@Override
+									@Prove(complexity = Complexity.O_1, n = "", count = {})
 									public LockOptions getLockOptions() {
 										return lockOptions;
 									}
@@ -68,41 +71,50 @@ public class SingleIdLoadPlan<T> implements SingleEntityLoadPlan {
 						);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected LockOptions getLockOptions() {
 		return lockOptions;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected JdbcParametersList getJdbcParameters() {
 		return jdbcParameters;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Loadable getLoadable() {
 		return entityMappingType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ModelPart getRestrictivePart() {
 		return restrictivePart;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcSelect getJdbcSelect() {
 		return jdbcSelect;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected RowTransformer<T> getRowTransformer() {
 		return RowTransformerStandardImpl.instance();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public T load(Object restrictedValue, SharedSessionContractImplementor session) {
 		return load( restrictedValue, null, null, false, session );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public T load(Object restrictedValue, Boolean readOnly, SharedSessionContractImplementor session) {
 		return load( restrictedValue, null, readOnly, false, session );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public T load(
 			Object restrictedValue,
 			Boolean readOnly,
@@ -111,6 +123,7 @@ public class SingleIdLoadPlan<T> implements SingleEntityLoadPlan {
 		return load( restrictedValue, null, readOnly, singleResultExpected, session );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public T load(
 			Object restrictedValue,
 			Object entityInstance,
@@ -187,26 +200,31 @@ public class SingleIdLoadPlan<T> implements SingleEntityLoadPlan {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Object getEntityInstance() {
 			return entityInstance;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Object getEntityId() {
 			return restrictedValue;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public EntityMappingType getRootEntityDescriptor() {
 			return rootEntityDescriptor;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public QueryOptions getQueryOptions() {
 			return queryOptions;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Callback getCallback() {
 			return callback;
 		}

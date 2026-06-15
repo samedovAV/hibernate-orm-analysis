@@ -10,6 +10,8 @@ import org.hibernate.resource.beans.spi.ManagedBean;
 import org.hibernate.resource.beans.spi.ProvidedInstanceManagedBeanImpl;
 
 import jakarta.persistence.AttributeConverter;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * ConverterDescriptor implementation for cases where we are handed
@@ -28,6 +30,7 @@ class InstanceBasedConverterDescriptor<X,Y> extends AbstractConverterDescriptor<
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected ManagedBean<? extends AttributeConverter<X,Y>>
 	createManagedBean(JpaAttributeConverterCreationContext context) {
 		return new ProvidedInstanceManagedBeanImpl<>( converterInstance );

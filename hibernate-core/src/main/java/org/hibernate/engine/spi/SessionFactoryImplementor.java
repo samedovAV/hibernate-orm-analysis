@@ -48,6 +48,8 @@ import org.hibernate.stat.spi.StatisticsImplementor;
 import org.hibernate.type.descriptor.WrapperOptions;
 import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Defines the internal contract between the {@link SessionFactory} and the internal
@@ -67,6 +69,7 @@ public interface SessionFactoryImplementor extends SessionFactory {
 	 *
 	 * @see org.hibernate.internal.SessionFactoryRegistry#getSessionFactory
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getUuid();
 
 	/**
@@ -78,6 +81,7 @@ public interface SessionFactoryImplementor extends SessionFactory {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionImplementor openSession();
 
 	/**
@@ -87,6 +91,7 @@ public interface SessionFactoryImplementor extends SessionFactory {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionBuilderImplementor withOptions();
 
 	/**
@@ -94,6 +99,7 @@ public interface SessionFactoryImplementor extends SessionFactory {
 	 *
 	 * @apiNote This is used by {@code hibernate-envers}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionImplementor openTemporarySession();
 
 	/**
@@ -101,6 +107,7 @@ public interface SessionFactoryImplementor extends SessionFactory {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CacheImplementor getCache();
 
 	/**
@@ -108,24 +115,28 @@ public interface SessionFactoryImplementor extends SessionFactory {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StatisticsImplementor getStatistics();
 
 	/**
 	 * Obtain the {@link TypeConfiguration}
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TypeConfiguration getTypeConfiguration();
 
 	/**
 	 * Obtain the {@link RuntimeMetamodelsImplementor}
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	RuntimeMetamodelsImplementor getRuntimeMetamodels();
 
 	/**
 	 * Obtain the {@link MappingMetamodelImplementor}
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default MappingMetamodelImplementor getMappingMetamodel() {
 		return getRuntimeMetamodels().getMappingMetamodel();
 	}
@@ -134,6 +145,7 @@ public interface SessionFactoryImplementor extends SessionFactory {
 	 * Obtain the {@link JpaMetamodel}
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default JpaMetamodel getJpaMetamodel() {
 		return getRuntimeMetamodels().getJpaMetamodel();
 	}
@@ -142,12 +154,14 @@ public interface SessionFactoryImplementor extends SessionFactory {
 	 * Obtain the {@link QueryEngine}
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	QueryEngine getQueryEngine();
 
 	/**
 	 * Obtain the {@link SqlTranslationEngine}
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqlTranslationEngine getSqlTranslationEngine();
 
 	/**
@@ -156,23 +170,27 @@ public interface SessionFactoryImplementor extends SessionFactory {
 	 * @return The factory's ServiceRegistry
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ServiceRegistryImplementor getServiceRegistry();
 
 	/**
 	 * Get the EventEngine associated with this SessionFactory
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EventEngine getEventEngine();
 
 	/**
 	 * Obtain the {@link EntityNotFoundDelegate}
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityNotFoundDelegate getEntityNotFoundDelegate();
 
 	/**
 	 * Register a {@link SessionFactoryObserver} of this factory.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addObserver(@Nonnull SessionFactoryObserver observer);
 
 	/**
@@ -180,6 +198,7 @@ public interface SessionFactoryImplementor extends SessionFactory {
 	 */
 	//todo make a Service ?
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CustomEntityDirtinessStrategy getCustomEntityDirtinessStrategy();
 
 	/**
@@ -187,6 +206,7 @@ public interface SessionFactoryImplementor extends SessionFactory {
 	 */
 	//todo make a Service ?
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CurrentTenantIdentifierResolver<Object> getCurrentTenantIdentifierResolver();
 
 	/**
@@ -197,6 +217,7 @@ public interface SessionFactoryImplementor extends SessionFactory {
 	 */
 	@Incubating
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object resolveTenantIdentifier();
 
 	/**
@@ -204,6 +225,7 @@ public interface SessionFactoryImplementor extends SessionFactory {
 	 *
 	 * @since 6.4
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JavaType<Object> getTenantIdentifierJavaType();
 
 	/**
@@ -213,6 +235,7 @@ public interface SessionFactoryImplementor extends SessionFactory {
 	 */
 	@Internal @Incubating
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EventListenerGroups getEventListenerGroups();
 
 	/**
@@ -221,6 +244,7 @@ public interface SessionFactoryImplementor extends SessionFactory {
 	 * @since 7.0
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ParameterMarkerStrategy getParameterMarkerStrategy();
 
 	/**
@@ -230,6 +254,7 @@ public interface SessionFactoryImplementor extends SessionFactory {
 	 */
 	@Incubating
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcValuesMappingProducerProvider getJdbcValuesMappingProducerProvider();
 
 	/**
@@ -239,6 +264,7 @@ public interface SessionFactoryImplementor extends SessionFactory {
 	 */
 	@Incubating
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityCopyObserverFactory getEntityCopyObserver();
 
 	/**
@@ -248,6 +274,7 @@ public interface SessionFactoryImplementor extends SessionFactory {
 	 */
 	@Incubating
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ClassLoaderService getClassLoaderService();
 
 	/**
@@ -257,6 +284,7 @@ public interface SessionFactoryImplementor extends SessionFactory {
 	 */
 	@Incubating
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ManagedBeanRegistry getManagedBeanRegistry();
 
 	/**
@@ -266,18 +294,21 @@ public interface SessionFactoryImplementor extends SessionFactory {
 	 */
 	@Incubating
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EventListenerRegistry getEventListenerRegistry();
 
 	/**
 	 * Efficient access to the {@link ChangesetCoordinator}.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ChangesetCoordinator getChangesetCoordinator();
 
 	/**
 	 * Configuration for graph planning as part of the ActionQueue.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PlanningOptions getGraphPlanningOptions();
 
 	/**
@@ -287,6 +318,7 @@ public interface SessionFactoryImplementor extends SessionFactory {
 	 * @apiNote Avoid using this operation.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	WrapperOptions getWrapperOptions();
 
 	/**
@@ -294,12 +326,14 @@ public interface SessionFactoryImplementor extends SessionFactory {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryOptions getSessionFactoryOptions();
 
 	/**
 	 * Access to the StatementObserver associated with this factory.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StatementObserver getStatementObserver();
 
 	/**
@@ -309,6 +343,7 @@ public interface SessionFactoryImplementor extends SessionFactory {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	FilterDefinition getFilterDefinition(@Nonnull String filterName);
 
 	/**
@@ -317,18 +352,21 @@ public interface SessionFactoryImplementor extends SessionFactory {
 	 * filters.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Collection<FilterDefinition> getAutoEnabledFilters();
 
 	/**
 	 * Obtain the {@link JdbcServices} service.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcServices getJdbcServices();
 
 	/**
 	 * Obtain the {@link SqlStringGenerationContext}.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqlStringGenerationContext getSqlStringGenerationContext();
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -336,44 +374,52 @@ public interface SessionFactoryImplementor extends SessionFactory {
 
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	RootGraphImplementor<?> findEntityGraphByName(@Nonnull String name);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default <T> RootGraphImplementor<T> createEntityGraph(@Nonnull Class<T> entityType) {
 		return (RootGraphImplementor<T>) SessionFactory.super.createEntityGraph( entityType );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	RootGraphImplementor<Map<String, ?>> createGraphForDynamicEntity(@Nonnull String entityName);
 
 	/**
 	 * The best guess entity name for an entity not in an association
 	 */
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String bestGuessEntityName(@Nonnull Object object);
 
 	@Incubating
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default JdbcSelectWithActionsBuilder getJdbcSelectWithActionsBuilder(){
 		return new JdbcSelectWithActions.Builder();
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <T> RootGraph<T> parseEntityGraph(@Nonnull Class<T> rootEntityClass, @Nonnull CharSequence graphText) {
 		return GraphParser.parse( rootEntityClass, graphText.toString(), unwrap( SessionFactoryImplementor.class ) );
 	}
 
 	@Override @Incubating
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <T> RootGraph<T> parseEntityGraph(@Nonnull String rootEntityName, @Nonnull CharSequence graphText) {
 		return GraphParser.parse( rootEntityName, graphText.toString(), unwrap( SessionFactoryImplementor.class ) );
 	}
 
 	@Override @Incubating
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <T> RootGraph<T> parseEntityGraph(@Nonnull CharSequence graphText) {
 		return GraphParser.parse( graphText.toString(), unwrap( SessionFactoryImplementor.class ) );
 	}
@@ -382,5 +428,6 @@ public interface SessionFactoryImplementor extends SessionFactory {
 	 * Access to the factory for ActionQueue instances configured for this factory.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ActionQueueFactory getActionQueueFactory();
 }

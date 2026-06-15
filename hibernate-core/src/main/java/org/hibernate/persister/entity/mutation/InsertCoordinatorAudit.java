@@ -11,6 +11,8 @@ import org.hibernate.generator.values.GeneratedValues;
 import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.audit.ModificationType;
 import org.hibernate.sql.model.MutationOperationGroup;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Insert coordinator for audited entities.
@@ -27,11 +29,13 @@ public class InsertCoordinatorAudit extends AbstractAuditCoordinator implements 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MutationOperationGroup getStaticMutationOperationGroup() {
 		return currentInsertCoordinator.getStaticMutationOperationGroup();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public GeneratedValues insert(
 			Object entity,
 			Object[] values,
@@ -46,6 +50,7 @@ public class InsertCoordinatorAudit extends AbstractAuditCoordinator implements 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public GeneratedValues insert(
 			Object entity,
 			Object id,

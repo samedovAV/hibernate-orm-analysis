@@ -8,6 +8,8 @@ import org.hibernate.models.spi.AnnotationTarget;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Convert;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Describes a {@linkplain AttributeConverter conversion}
@@ -50,6 +52,7 @@ public class AttributeConversionInfo {
 	 *
 	 * @see Convert#attributeName()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getAttributeName() {
 		return attributeName;
 	}
@@ -57,6 +60,7 @@ public class AttributeConversionInfo {
 	/**
 	 * The {@linkplain AttributeConverter converter} implementation class
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends AttributeConverter<?,?>> getConverterClass() {
 		return converterClass;
 	}
@@ -64,6 +68,7 @@ public class AttributeConversionInfo {
 	/**
 	 * Whether conversion is explicitly disabled for this {@linkplain #getAttributeName() attribute}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isConversionDisabled() {
 		return conversionDisabled;
 	}
@@ -71,6 +76,7 @@ public class AttributeConversionInfo {
 	/**
 	 * The annotated element
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AnnotationTarget getSource() {
 		return source;
 	}

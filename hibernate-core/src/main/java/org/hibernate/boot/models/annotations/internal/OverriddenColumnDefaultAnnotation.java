@@ -17,6 +17,8 @@ import org.hibernate.models.spi.ModelsContext;
 
 import static org.hibernate.boot.models.DialectOverrideAnnotations.DIALECT_OVERRIDE_COLUMN_DEFAULT;
 import static org.hibernate.boot.models.internal.OrmAnnotationHelper.extractJdkValue;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -56,20 +58,24 @@ public class OverriddenColumnDefaultAnnotation
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AnnotationDescriptor<ColumnDefault> getOverriddenDescriptor() {
 		return HibernateAnnotations.COLUMN_DEFAULT;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ColumnDefault override() {
 		return override;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void override(ColumnDefault value) {
 		this.override = value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return DialectOverride.ColumnDefault.class;
 	}

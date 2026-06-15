@@ -17,6 +17,8 @@ import java.util.function.BiConsumer;
 import static org.hibernate.boot.models.xml.internal.ManagedTypeProcessor.processCompleteEmbeddable;
 import static org.hibernate.boot.models.xml.internal.ManagedTypeProcessor.processCompleteEntity;
 import static org.hibernate.boot.models.xml.internal.ManagedTypeProcessor.processCompleteMappedSuperclass;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Processes XML mappings - applying metadata-complete mappings and collecting
@@ -25,6 +27,7 @@ import static org.hibernate.boot.models.xml.internal.ManagedTypeProcessor.proces
  * @author Steve Ebersole
  */
 public class XmlProcessor {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static XmlProcessingResult processXml(
 			XmlPreProcessingResult xmlPreProcessingResult,
 			PersistenceUnitMetadata persistenceUnitMetadata,

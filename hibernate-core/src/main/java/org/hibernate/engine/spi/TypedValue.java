@@ -13,6 +13,8 @@ import org.hibernate.internal.util.ValueHolder;
 import org.hibernate.type.Type;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An ordered pair of a value and its Hibernate type.
@@ -32,22 +34,27 @@ public final class TypedValue implements Serializable {
 		this.hashcode = hashCode(type, value);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getValue() {
 		return value;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Type getType() {
 		return type;
 	}
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String toString() {
 		return value==null ? "null" : value.toString();
 	}
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int hashCode() {
 		return hashcode.getValue();
 	}
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean equals(@Nullable Object other) {
 		if ( this == other ) {
 			return true;
@@ -61,12 +68,14 @@ public final class TypedValue implements Serializable {
 	}
 
 	@Serial
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void readObject(ObjectInputStream ois)
 			throws ClassNotFoundException, IOException {
 		ois.defaultReadObject();
 		this.hashcode = hashCode(type, value);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static ValueHolder<Integer> hashCode(Type type, Object value) {
 		return new ValueHolder<>( () -> value == null ? 0 : type.getHashCode( value ) );
 	}

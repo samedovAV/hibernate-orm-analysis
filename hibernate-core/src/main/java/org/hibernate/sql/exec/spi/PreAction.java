@@ -7,6 +7,8 @@ package org.hibernate.sql.exec.spi;
 import org.hibernate.Incubating;
 
 import java.sql.Connection;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An action to be performed before a {@linkplain PrimaryOperation}.
@@ -25,5 +27,6 @@ public interface PreAction extends SecondaryAction {
 	 * @param jdbcConnection The JDBC Connection.
 	 * @param executionContext Access to contextual information useful while executing.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void performPreAction(StatementAccess jdbcStatementAccess, Connection jdbcConnection, ExecutionContext executionContext);
 }

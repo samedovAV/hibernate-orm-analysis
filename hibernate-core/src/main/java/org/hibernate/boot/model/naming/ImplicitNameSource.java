@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.naming;
 
 import org.hibernate.boot.spi.MetadataBuildingContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Common contract for all implicit naming sources
@@ -17,5 +19,6 @@ public interface ImplicitNameSource {
 	 *
 	 * @return The building context
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MetadataBuildingContext getBuildingContext();
 }

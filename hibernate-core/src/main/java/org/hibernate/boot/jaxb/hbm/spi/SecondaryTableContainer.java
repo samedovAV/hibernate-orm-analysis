@@ -5,6 +5,8 @@
 package org.hibernate.boot.jaxb.hbm.spi;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Common interface for mappings that may contain secondary table (join) mappings.
@@ -12,5 +14,6 @@ import java.util.List;
  * @author Steve Ebersole
  */
 public interface SecondaryTableContainer {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<JaxbHbmSecondaryTableType> getJoin();
 }

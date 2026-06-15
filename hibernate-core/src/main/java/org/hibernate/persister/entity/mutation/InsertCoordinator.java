@@ -8,6 +8,8 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.generator.values.GeneratedValues;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Coordinates the inserting of an entity.
@@ -22,14 +24,16 @@ public interface InsertCoordinator extends MutationCoordinator {
 	 *
 	 * @return The {@linkplain GeneratedValues generated values} if any, {@code null} otherwise.
 	 */
-	@Nullable GeneratedValues insert(Object entity, Object[] values, SharedSessionContractImplementor session);
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	GeneratedValues insert(Object entity, Object[] values, SharedSessionContractImplementor session);
 
 	/**
 	 * Persist an entity instance using the provided identifier.
 	 *
 	 * @return The {@linkplain GeneratedValues generated values} if any, {@code null} otherwise.
 	 */
-	@Nullable GeneratedValues insert(
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	GeneratedValues insert(
 			Object entity,
 			Object id,
 			Object[] values,

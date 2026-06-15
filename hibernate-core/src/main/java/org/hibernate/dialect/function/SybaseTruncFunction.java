@@ -21,6 +21,8 @@ import org.hibernate.sql.ast.tree.SqlAstNode;
 import org.hibernate.type.spi.TypeConfiguration;
 
 import static java.util.Arrays.asList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Custom {@link TruncFunction} for Sybase which uses a dialect-specific emulation function for datetimes
@@ -42,6 +44,7 @@ public class SybaseTruncFunction extends TruncFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected <T> SelfRenderingSqmFunction<T> generateSqmFunctionExpression(
 			List<? extends SqmTypedNode<?>> arguments,
 			ReturnableType<T> impliedResultType,
@@ -82,6 +85,7 @@ public class SybaseTruncFunction extends TruncFunction {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void render(
 				SqlAppender sqlAppender,
 				List<? extends SqlAstNode> sqlAstArguments,
@@ -105,6 +109,7 @@ public class SybaseTruncFunction extends TruncFunction {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		protected <T> SelfRenderingSqmFunction<T> generateSqmFunctionExpression(
 				List<? extends SqmTypedNode<?>> arguments,
 				ReturnableType<T> impliedResultType,

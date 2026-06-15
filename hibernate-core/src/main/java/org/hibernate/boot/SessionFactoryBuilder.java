@@ -29,6 +29,8 @@ import org.hibernate.resource.jdbc.spi.StatementInspector;
 import org.hibernate.type.format.FormatMapper;
 
 import jakarta.persistence.criteria.Nulls;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The contract for building a {@link SessionFactory} given a specified set of options.
@@ -52,6 +54,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#JAKARTA_VALIDATION_FACTORY
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyValidatorFactory(Object validatorFactory);
 
 	/**
@@ -65,6 +68,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#JAKARTA_CDI_BEAN_MANAGER
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyBeanManager(Object beanManager);
 
 	/**
@@ -76,6 +80,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#SESSION_FACTORY_NAME
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyName(String sessionFactoryName);
 
 	/**
@@ -91,6 +96,7 @@ public interface SessionFactoryBuilder {
 	 * @see org.hibernate.cfg.AvailableSettings#SESSION_FACTORY_NAME_IS_JNDI
 	 * @see org.hibernate.cfg.AvailableSettings#SESSION_FACTORY_JNDI_NAME
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyNameAsJndiName(boolean isJndiName);
 
 	/**
@@ -103,6 +109,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#AUTO_CLOSE_SESSION
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyAutoClosing(boolean enabled);
 
 	/**
@@ -115,6 +122,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#FLUSH_BEFORE_COMPLETION
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyAutoFlushing(boolean enabled);
 
 	/**
@@ -126,6 +134,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#GENERATE_STATISTICS
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyStatisticsSupport(boolean enabled);
 
 	/**
@@ -139,6 +148,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#INTERCEPTOR
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyInterceptor(Interceptor interceptor);
 
 	/**
@@ -153,6 +163,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#SESSION_SCOPED_INTERCEPTOR
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyStatelessInterceptor(Class<? extends Interceptor> statelessInterceptorClass);
 
 	/**
@@ -167,6 +178,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#SESSION_SCOPED_INTERCEPTOR
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyStatelessInterceptor(Supplier<? extends Interceptor> statelessInterceptorSupplier);
 
 	/**
@@ -175,6 +187,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.JdbcSettings#STATEMENT_OBSERVER
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyStatementObserver(StatementObserver statementObserver);
 
 	/**
@@ -189,6 +202,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#STATEMENT_INSPECTOR
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyStatementInspector(StatementInspector statementInspector);
 
 	/**
@@ -201,6 +215,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#SESSION_FACTORY_OBSERVER
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder addSessionFactoryObservers(SessionFactoryObserver... observers);
 
 	/**
@@ -212,6 +227,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#CUSTOM_ENTITY_DIRTINESS_STRATEGY
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyCustomEntityDirtinessStrategy(CustomEntityDirtinessStrategy strategy);
 
 	/**
@@ -222,6 +238,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder addEntityNameResolver(EntityNameResolver... entityNameResolvers);
 
 	/**
@@ -233,6 +250,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyEntityNotFoundDelegate(EntityNotFoundDelegate entityNotFoundDelegate);
 
 	/**
@@ -244,6 +262,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#USE_IDENTIFIER_ROLLBACK
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyIdentifierRollbackSupport(boolean enabled);
 
 	/**
@@ -257,6 +276,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#CHECK_NULLABILITY
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyNullabilityChecking(boolean enabled);
 
 	/**
@@ -270,6 +290,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#ENABLE_LAZY_LOAD_NO_TRANS
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyLazyInitializationOutsideTransaction(boolean enabled);
 
 	/**
@@ -283,6 +304,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#DEFAULT_BATCH_FETCH_SIZE
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyDefaultBatchFetchSize(int size);
 
 	/**
@@ -296,6 +318,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#MAX_FETCH_DEPTH
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyMaximumFetchDepth(int depth);
 
 	/**
@@ -307,6 +330,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#USE_SUBSELECT_FETCH
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applySubselectFetchEnabled(boolean enabled);
 
 	/**
@@ -319,6 +343,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#DEFAULT_NULL_ORDERING
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyDefaultNullPrecedence(Nulls nullPrecedence);
 
 	/**
@@ -334,6 +359,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#ORDER_INSERTS
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyOrderingOfInserts(boolean enabled);
 
 	/**
@@ -349,6 +375,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#ORDER_UPDATES
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyOrderingOfUpdates(boolean enabled);
 
 	/**
@@ -365,6 +392,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#MULTI_TENANT_CONNECTION_PROVIDER
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyMultiTenancy(boolean enabled);
 
 	/**
@@ -377,6 +405,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#MULTI_TENANT_IDENTIFIER_RESOLVER
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyCurrentTenantIdentifierResolver(CurrentTenantIdentifierResolver<?> resolver);
 
 	/**
@@ -392,6 +421,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @since 7.1
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyTenantSchemaMapper(TenantSchemaMapper<?> mapper);
 
 	/**
@@ -406,6 +436,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @since 7.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyTenantCredentialsMapper(TenantCredentialsMapper<?> mapper);
 
 	/**
@@ -420,6 +451,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#JTA_TRACK_BY_THREAD
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyJtaTrackingByThread(boolean enabled);
 
 	/**
@@ -437,6 +469,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#PREFER_USER_TRANSACTION
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyPreferUserTransactions(boolean preferUserTransactions);
 
 	/**
@@ -448,6 +481,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#QUERY_STARTUP_CHECKING
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyNamedQueryCheckingOnStartup(boolean enabled);
 
 	/**
@@ -460,6 +494,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#USE_SECOND_LEVEL_CACHE
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applySecondLevelCacheSupport(boolean enabled);
 
 	/**
@@ -472,6 +507,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#USE_QUERY_CACHE
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyQueryCacheSupport(boolean enabled);
 
 	/**
@@ -485,6 +521,7 @@ public interface SessionFactoryBuilder {
 	 * @since 6.5
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyQueryCacheLayout(CacheLayout cacheLayout);
 
 	/**
@@ -496,6 +533,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#QUERY_CACHE_FACTORY
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyTimestampsCacheFactory(TimestampsCacheFactory factory);
 
 	/**
@@ -507,6 +545,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#CACHE_REGION_PREFIX
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyCacheRegionPrefix(String prefix);
 
 	/**
@@ -527,6 +566,7 @@ public interface SessionFactoryBuilder {
 	 * @see org.hibernate.cfg.AvailableSettings#USE_MINIMAL_PUTS
 	 * @see org.hibernate.cache.spi.RegionFactory#isMinimalPutsEnabledByDefault()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyMinimalPutsForCaching(boolean enabled);
 
 	/**
@@ -541,6 +581,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#USE_STRUCTURED_CACHE
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyStructuredCacheEntries(boolean enabled);
 
 	/**
@@ -558,6 +599,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#USE_DIRECT_REFERENCE_CACHE_ENTRIES
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyDirectReferenceCaching(boolean enabled);
 
 	/**
@@ -575,6 +617,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#AUTO_EVICT_COLLECTION_CACHE
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyAutomaticEvictionOfCollectionCaches(boolean enabled);
 
 	/**
@@ -589,6 +632,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#STATEMENT_BATCH_SIZE
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyJdbcBatchSize(int size);
 
 	/**
@@ -603,6 +647,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#USE_SCROLLABLE_RESULTSET
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyScrollableResultsSupport(boolean enabled);
 
 	/**
@@ -616,6 +661,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#USE_GET_GENERATED_KEYS
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyGetGeneratedKeysSupport(boolean enabled);
 
 	/**
@@ -628,6 +674,7 @@ public interface SessionFactoryBuilder {
 	 * @see org.hibernate.cfg.AvailableSettings#STATEMENT_FETCH_SIZE
 	 * @see java.sql.Statement#setFetchSize(int)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyJdbcFetchSize(int size);
 
 	/**
@@ -644,11 +691,13 @@ public interface SessionFactoryBuilder {
 	 * @see org.hibernate.ConnectionAcquisitionMode
 	 * @see org.hibernate.ConnectionReleaseMode
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyConnectionHandlingMode(PhysicalConnectionHandlingMode connectionHandlingMode);
 
 	/**
 	 * @see org.hibernate.cfg.AvailableSettings#CONNECTION_PROVIDER_DISABLES_AUTOCOMMIT
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyConnectionProviderDisablesAutoCommit(boolean providerDisablesAutoCommit);
 
 	/**
@@ -660,6 +709,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#USE_SQL_COMMENTS
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applySqlComments(boolean enabled);
 
 	/**
@@ -673,6 +723,7 @@ public interface SessionFactoryBuilder {
 	 */
 	// Ultimately I would like this to move to {@link MetadataBuilder} in conjunction with allowing mappings to reference SQLFunctions.
 	// today mappings can only name SQL functions directly, not through the SQLFunctionRegistry indirection
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applySqlFunction(String registrationName, SqmFunctionDescriptor functionDescriptor);
 
 	/**
@@ -684,21 +735,25 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyCollectionsInDefaultFetchGroup(boolean enabled);
 
 	/**
 	 * @see StateManagementSettings#TEMPORAL_TABLE_STRATEGY
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyTemporalTableStrategy(TemporalTableStrategy strategy);
 
 	/**
 	 * @see StateManagementSettings#AUDIT_STRATEGY
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyAuditStrategy(AuditStrategy strategy);
 
 	/**
 	 * @see org.hibernate.cfg.AvailableSettings#ALLOW_UPDATE_OUTSIDE_TRANSACTION
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder allowOutOfTransactionUpdateOperations(boolean allow);
 
 	/**
@@ -706,6 +761,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#JPA_QUERY_COMPLIANCE
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder enableJpaQueryCompliance(boolean enabled);
 
 	/**
@@ -713,6 +769,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#JPA_ORDER_BY_MAPPING_COMPLIANCE
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder enableJpaOrderByMappingCompliance(boolean enabled);
 
 	/**
@@ -720,6 +777,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#JPA_TRANSACTION_COMPLIANCE
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder enableJpaTransactionCompliance(boolean enabled);
 
 	/**
@@ -727,6 +785,7 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#JPA_CLOSED_COMPLIANCE
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder enableJpaClosedCompliance(boolean enabled);
 
 	/**
@@ -739,6 +798,7 @@ public interface SessionFactoryBuilder {
 	 * @see org.hibernate.cfg.AvailableSettings#JSON_FORMAT_MAPPER
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyJsonFormatMapper(FormatMapper jsonFormatMapper);
 
 	/**
@@ -751,6 +811,7 @@ public interface SessionFactoryBuilder {
 	 * @see org.hibernate.cfg.AvailableSettings#XML_FORMAT_MAPPER
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder applyXmlFormatMapper(FormatMapper xmlFormatMapper);
 
 	/**
@@ -758,5 +819,6 @@ public interface SessionFactoryBuilder {
 	 *
 	 * @return The built SessionFactory.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactory build();
 }

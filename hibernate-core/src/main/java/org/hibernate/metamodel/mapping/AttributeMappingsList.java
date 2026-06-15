@@ -9,6 +9,8 @@ import java.util.function.Consumer;
 import org.hibernate.Incubating;
 import org.hibernate.internal.util.IndexedConsumer;
 import org.hibernate.metamodel.mapping.internal.ImmutableAttributeMappingList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * This is essentially a List of AttributeMapping(s), but exposing
@@ -28,12 +30,16 @@ import org.hibernate.metamodel.mapping.internal.ImmutableAttributeMappingList;
 @Incubating
 public interface AttributeMappingsList {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int size();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	AttributeMapping get(int i);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void forEach(Consumer<? super AttributeMapping> attributeMappingConsumer);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void indexedForEach(IndexedConsumer<? super AttributeMapping> consumer);
 
 }

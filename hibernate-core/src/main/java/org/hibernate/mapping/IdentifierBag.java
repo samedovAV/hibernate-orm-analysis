@@ -11,6 +11,8 @@ import org.hibernate.resource.beans.spi.ManagedBean;
 import org.hibernate.type.CollectionType;
 import org.hibernate.type.IdentifierBagType;
 import org.hibernate.usertype.UserCollectionType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A bag with a generated (surrogate) key. Its primary key is just the identifier column.
@@ -38,14 +40,17 @@ public class IdentifierBag extends IdentifierCollection {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public IdentifierBag copy() {
 		return new IdentifierBag( this );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionType getDefaultCollectionType() {
 		return new IdentifierBagType( getRole(), getReferencedPropertyName() );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object accept(ValueVisitor visitor) {
 		return visitor.accept(this);
 	}

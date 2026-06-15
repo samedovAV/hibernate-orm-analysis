@@ -10,6 +10,8 @@ import org.hibernate.metamodel.mapping.internal.IdClassEmbeddable;
 import org.hibernate.metamodel.mapping.internal.VirtualIdEmbeddable;
 import org.hibernate.sql.results.graph.FetchOptions;
 import org.hibernate.sql.results.graph.embeddable.EmbeddableValuedFetchable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A "non-aggregated" composite identifier, which means that the entity itself
@@ -31,19 +33,23 @@ public interface NonAggregatedIdentifierMapping extends CompositeIdentifierMappi
 	/**
 	 * The virtual-id representation of this id mapping
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	VirtualIdEmbeddable getVirtualIdEmbeddable();
 
 	/**
 	 * The id-class representation of this id mapping
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	IdClassEmbeddable getIdClassEmbeddable();
 
 	/**
 	 * The id-class, if there is one, otherwise the virtual-id.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	IdentifierValueMapper getIdentifierValueMapper();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int getFetchableKey() {
 		return -1;
 	}
@@ -53,23 +59,27 @@ public interface NonAggregatedIdentifierMapping extends CompositeIdentifierMappi
 	 * difference between virtual and id-class mappings
 	 */
 	interface IdentifierValueMapper extends EmbeddableMappingType {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		EmbeddableValuedModelPart getEmbeddedPart();
 
 		/**
 		 * Extract the identifier out of the given entity, returning the mapper's
 		 * representation
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		Object getIdentifier(Object entity, SharedSessionContractImplementor session);
 
 		/**
 		 * Extract the identifier out of the given entity, returning the mapper's
 		 * representation
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void setIdentifier(Object entity, Object id, SharedSessionContractImplementor session);
 
 		/**
 		 * Convenience method to iterate the attributes for this mapper's representation
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		default void forEachAttribute(IndexedConsumer<SingularAttributeMapping> consumer) {
 			//noinspection unchecked,rawtypes
 			getEmbeddedPart().getEmbeddableTypeDescriptor().forEachAttributeMapping( (IndexedConsumer) consumer );

@@ -16,6 +16,8 @@ import org.hibernate.boot.model.source.spi.NaturalIdMutability;
 import org.hibernate.boot.model.source.spi.PluralAttributeElementNature;
 import org.hibernate.boot.model.source.spi.PluralAttributeElementSourceEmbedded;
 import org.hibernate.boot.model.source.spi.ToolingHintContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -43,32 +45,38 @@ public class PluralAttributeElementSourceEmbeddedImpl
 				mappingDocument,
 				new EmbeddableSourceContainer() {
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public AttributeRole getAttributeRoleBase() {
 						return pluralAttributeSource.getAttributeRole().append( "element" );
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public AttributePath getAttributePathBase() {
 						return pluralAttributeSource.getAttributePath().append( "element" );
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public ToolingHintContext getToolingHintContextBaselineForEmbeddable() {
 						return toolingHintContext;
 					}
 				},
 				new EmbeddableMapping() {
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public String getClazz() {
 						return jaxbCompositeElement.getClazz();
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public List<JaxbHbmTuplizerType> getTuplizer() {
 						return jaxbCompositeElement.getTuplizer();
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public String getParent() {
 						return jaxbCompositeElement.getParent() == null
 								? null
@@ -84,16 +92,19 @@ public class PluralAttributeElementSourceEmbeddedImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PluralAttributeElementNature getNature() {
 		return PluralAttributeElementNature.AGGREGATE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableSource getEmbeddableSource() {
 		return embeddableSource;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ToolingHintContext getToolingHintContext() {
 		return toolingHintContext;
 	}

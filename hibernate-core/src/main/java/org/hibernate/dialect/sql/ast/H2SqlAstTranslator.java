@@ -45,6 +45,8 @@ import org.hibernate.sql.model.internal.TableInsertStandard;
 import org.hibernate.sql.model.internal.TableUpdateStandard;
 
 import static org.hibernate.internal.util.collections.CollectionHelper.isEmpty;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A SQL AST translator for H2.
@@ -61,11 +63,13 @@ public class H2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslato
 		this.fullJoinEmulations.push( new FullJoinEmulation( this ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private FullJoinEmulation currentFullJoinEmulationHelper() {
 		return fullJoinEmulations.getFirst();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void visitQuerySpec(QuerySpec querySpec) {
 		final var helper = currentFullJoinEmulationHelper();
 		final boolean needsNestedHelper =
@@ -89,6 +93,7 @@ public class H2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslato
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void visitSelectClause(SelectClause selectClause) {
 		if ( !currentFullJoinEmulationHelper().renderSelectClauseIfNeeded( selectClause ) ) {
 			super.visitSelectClause( selectClause );
@@ -96,6 +101,7 @@ public class H2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslato
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void visitStandardTableInsert(TableInsertStandard tableInsert) {
 		final boolean closeWrapper = renderReturningClause( tableInsert.getReturningColumns() );
 		super.visitStandardTableInsert( tableInsert );
@@ -105,6 +111,7 @@ public class H2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslato
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void visitStandardTableUpdate(TableUpdateStandard tableUpdate) {
 		final boolean closeWrapper = renderReturningClause( tableUpdate.getReturningColumns() );
 		super.visitStandardTableUpdate( tableUpdate );
@@ -113,6 +120,7 @@ public class H2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslato
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected boolean renderReturningClause(List<ColumnReference> returningColumns) {
 		if ( isEmpty( returningColumns ) ) {
 			return false;
@@ -130,11 +138,13 @@ public class H2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslato
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void visitReturningColumns(List<ColumnReference> returningColumns) {
 		// do nothing - this is handled via `#renderReturningClause`
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void visitInsertStatementOnly(InsertSelectStatement statement) {
 		if ( statement.getConflictClause() == null || statement.getConflictClause().isDoNothing() ) {
 			// Render plain insert statement and possibly run into unique constraint violation
@@ -146,6 +156,7 @@ public class H2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslato
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void visitDeleteStatementOnly(DeleteStatement statement) {
 		if ( hasNonTrivialFromClause( statement.getFromClause() ) ) {
 			appendSql( "delete from " );
@@ -167,6 +178,7 @@ public class H2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslato
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void visitUpdateStatementOnly(UpdateStatement statement) {
 		if ( hasNonTrivialFromClause( statement.getFromClause() ) ) {
 			visitUpdateStatementEmulateMerge( statement );
@@ -177,6 +189,7 @@ public class H2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslato
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void renderDmlTargetTableExpression(NamedTableReference tableReference) {
 		super.renderDmlTargetTableExpression( tableReference );
 		if ( getClauseStack().getCurrent() != Clause.INSERT ) {
@@ -185,6 +198,7 @@ public class H2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslato
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void visitConflictClause(ConflictClause conflictClause) {
 		if ( conflictClause != null
 				&& conflictClause.isDoUpdate()
@@ -195,6 +209,7 @@ public class H2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslato
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void visitCteContainer(CteContainer cteContainer) {
 		// H2 has various bugs in different versions that make it impossible to use CTEs with parameters reliably
 		withParameterRenderingMode(
@@ -204,28 +219,33 @@ public class H2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslato
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean needsCteInlining() {
 		// CTEs in H2 are just so buggy, that we can't reliably use them
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean shouldInlineCte(TableGroup tableGroup) {
 		return tableGroup instanceof CteTableGroup
 			&& !getCteStatement( tableGroup.getPrimaryTableReference().getTableId() ).isRecursive();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getArrayContainsFunction() {
 		return "array_contains";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderExpressionAsClauseItem(Expression expression) {
 		expression.accept( this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void visitBooleanExpressionPredicate(BooleanExpressionPredicate booleanExpressionPredicate) {
 		final boolean isNegated = booleanExpressionPredicate.isNegated();
 		if ( isNegated ) {
@@ -238,11 +258,13 @@ public class H2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslato
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void visitOrderBy(List<SortSpecification> sortSpecifications) {
 		currentFullJoinEmulationHelper().renderOrderByIfNeeded( getCurrentQueryPart(), sortSpecifications, super::visitOrderBy );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void visitOffsetFetchClause(QueryPart queryPart) {
 		if ( !currentFullJoinEmulationHelper().isFullJoinEmulationQueryPart( queryPart ) ) {
 			if ( isRowsOnlyFetchClauseType( queryPart ) ) {
@@ -267,6 +289,7 @@ public class H2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslato
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderSelectTupleComparison(
 			List<SqlSelection> lhsExpressions,
 			SqlTuple tuple,
@@ -275,6 +298,7 @@ public class H2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslato
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void visitSqlSelections(SelectClause selectClause) {
 		final boolean renderAsArray = this.renderAsArray;
 		this.renderAsArray = false;
@@ -288,6 +312,7 @@ public class H2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslato
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderPartitionItem(Expression expression) {
 		if ( expression instanceof Literal ) {
 			appendSql( "'0' || '0'" );
@@ -304,6 +329,7 @@ public class H2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslato
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void visitBinaryArithmeticExpression(BinaryArithmeticExpression arithmeticExpression) {
 		appendSql( OPEN_PARENTHESIS );
 		visitArithmeticOperand( arithmeticExpression.getLeftHandOperand() );
@@ -313,11 +339,13 @@ public class H2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslato
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void visitArithmeticOperand(Expression expression) {
 		render( expression, SqlAstNodeRenderingMode.NO_PLAIN_PARAMETER );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected boolean renderPrimaryTableReference(TableGroup tableGroup, LockMode lockMode) {
 		final TableReference tableRef = tableGroup.getPrimaryTableReference();
 		// The H2 parser can't handle a sub-query as first element in a nested join
@@ -330,6 +358,7 @@ public class H2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslato
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void visitLikePredicate(LikePredicate likePredicate) {
 		super.visitLikePredicate( likePredicate );
 		// Custom implementation because H2 uses backslash as the default escape character
@@ -340,10 +369,12 @@ public class H2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslato
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean supportsOffsetFetchClause() {
 		return true;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean supportsOffsetFetchClausePercentWithTies() {
 		// Introduction of TIES clause https://github.com/h2database/h2database/commit/876e9fbe7baf11d01675bfe871aac2cf1b6104ce
 		// Introduction of PERCENT support https://github.com/h2database/h2database/commit/f45913302e5f6ad149155a73763c0c59d8205849

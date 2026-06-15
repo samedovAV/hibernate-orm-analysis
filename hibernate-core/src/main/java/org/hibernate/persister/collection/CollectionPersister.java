@@ -44,6 +44,8 @@ import org.hibernate.sql.ast.tree.predicate.Predicate;
 import org.hibernate.generator.BeforeExecutionGenerator;
 import org.hibernate.type.CollectionType;
 import org.hibernate.type.Type;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A strategy for persisting a mapped collection role. A
@@ -97,16 +99,19 @@ public interface CollectionPersister extends Restrictable {
 	/**
 	 * The NavigableRole for this collection.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NavigableRole getNavigableRole();
 
 	/**
 	 * Get the name of this collection role (the fully qualified class name,
 	 * extended by a "property path")
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String getRole() {
 		return getNavigableRole().getFullPath();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default PluralAttributeMapping getAttributeMapping() {
 		throw new UnsupportedOperationException( "CollectionPersister used for [" + getRole() + "] does not support SQL AST" );
 	}
@@ -114,6 +119,7 @@ public interface CollectionPersister extends Restrictable {
 	/**
 	 * Decomposes a collection recreate action into planned operations.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void decompose(
 			CollectionRecreateAction action,
 			int ordinalBase,
@@ -133,6 +139,7 @@ public interface CollectionPersister extends Restrictable {
 	 *     </li>
 	 * </ul>
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void decompose(
 			CollectionRemoveAction action,
 			int ordinalBase,
@@ -143,6 +150,7 @@ public interface CollectionPersister extends Restrictable {
 	/**
 	 * Decomposes a collection update action into planned operations
 	*/
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void decompose(
 			CollectionUpdateAction action,
 			int ordinalBase,
@@ -156,6 +164,7 @@ public interface CollectionPersister extends Restrictable {
 	 * Queued collection operations often have no SQL work of their own, but still need
 	 * flush-time lifecycle cleanup after the plan reaches the action.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void decompose(
 			QueuedOperationCollectionAction action,
 			int ordinalBase,
@@ -165,75 +174,92 @@ public interface CollectionPersister extends Restrictable {
 	/**
 	 * Get the persister of the entity that "owns" this collection
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityPersister getOwnerEntityPersister();
 
 	/**
 	 * Initialize the given collection with the given key
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void initialize(Object key, SharedSessionContractImplementor session) throws HibernateException;
 
 	/**
 	 * Is this collection role cacheable
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean hasCache();
 
 	/**
 	 * Whether {@link #remove(Object, SharedSessionContractImplementor)} might actually do something,
 	 * or if it is definitely a no-op.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean needsRemove() {
 		return true;
 	}
 
 	@Internal @Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	RowMutationOperations getRowMutationOperations();
 
 	@Internal @Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isRowInsertEnabled();
 
 	@Internal @Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isRowDeleteEnabled();
 
 	@Internal @Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean[] getIndexColumnIsSettable();
 
 	@Internal @Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean[] getElementColumnIsSettable();
 
 	@Internal @Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	UnaryOperator<Object> getIndexIncrementer();
 
 	/**
 	 * Access to the collection's cache region
 	 */
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CollectionDataAccess getCacheAccessStrategy();
 
 	/**
 	 * Get the structure used to store data into the collection's {@linkplain #getCacheAccessStrategy() cache region}
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CacheEntryStructure getCacheEntryStructure();
 
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean useShallowQueryCacheLayout();
 
 	/**
 	 * Return the element class of an array, or null otherwise
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Class<?> getElementClass();
 
 	/**
 	 * Is this an array of primitive values?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isPrimitiveArray();
 	/**
 	 * Is this an array?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isArray();
 	/**
 	 * Is this a one-to-many association?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isOneToMany();
 	/**
 	 * Is this a many-to-many association?  Note that this is mainly
@@ -241,29 +267,35 @@ public interface CollectionPersister extends Restrictable {
 	 * contain all the information needed to handle a many-to-many
 	 * itself, as internally it is looked at as two many-to-ones.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isManyToMany();
 
 	/**
 	 * Is this an "indexed" collection? (list or map)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean hasIndex();
 	/**
 	 * Is this collection lazily initialized?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isLazy();
 	/**
 	 * Is this collection "inverse", so state changes are not
 	 * propagated to the database.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isInverse();
 	/**
 	 * Completely remove the persistent state of the collection
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void remove(Object id, SharedSessionContractImplementor session);
 
 	/**
 	 * (Re)create the collection's persistent state
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void recreate(
 			PersistentCollection<?> collection,
 			Object key,
@@ -273,6 +305,7 @@ public interface CollectionPersister extends Restrictable {
 	 * Delete the persistent state of any elements that were removed from
 	 * the collection
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void deleteRows(
 			PersistentCollection<?> collection,
 			Object key,
@@ -281,6 +314,7 @@ public interface CollectionPersister extends Restrictable {
 	/**
 	 * Update the persistent state of any elements that were modified
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void updateRows(
 			PersistentCollection<?> collection,
 			Object key,
@@ -289,6 +323,7 @@ public interface CollectionPersister extends Restrictable {
 	/**
 	 * Insert the persistent state of any new collection elements
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void insertRows(
 			PersistentCollection<?> collection,
 			Object key,
@@ -297,6 +332,7 @@ public interface CollectionPersister extends Restrictable {
 	/**
 	 * Process queued operations within the PersistentCollection.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void processQueuedOps(
 			PersistentCollection<?> collection,
 			Object key,
@@ -305,11 +341,13 @@ public interface CollectionPersister extends Restrictable {
 	/**
 	 * Get the surrogate key generation strategy (optional operation)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	BeforeExecutionGenerator getGenerator();
 
 	/**
 	 * Does this collection implement "orphan delete"?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean hasOrphanDelete();
 
 	/**
@@ -317,48 +355,60 @@ public interface CollectionPersister extends Restrictable {
 	 * ordered by the initialization operation, not by sorting
 	 * that happens in memory, as in the case of a sorted collection.)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean hasOrdering();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean hasManyToManyOrdering();
 
 	/**
 	 * Get the "space" that holds the persistent state
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String[] getCollectionSpaces();
 
 	/**
 	 * Is cascade delete handled by the database-level
 	 * foreign key constraint definition?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isCascadeDeleteEnabled();
 
 	/**
 	 * Does this collection cause version increment of the
 	 * owning entity?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isVersioned();
 
 	/**
 	 * Can the elements of this collection change?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isMutable();
 
 	//public boolean isSubselectLoadable();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void postInstantiate() throws MappingException;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryImplementor getFactory();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isAffectedByEnabledFilters(SharedSessionContractImplementor session);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isAffectedByEnabledFilters(LoadQueryInfluencers influencers) {
 		throw new UnsupportedOperationException( "CollectionPersister used for [" + getRole() + "] does not support SQL AST" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isAffectedByEnabledFilters(LoadQueryInfluencers influencers, boolean onlyApplyForLoadByKeyFilters) {
 		throw new UnsupportedOperationException( "CollectionPersister used for [" + getRole() + "] does not support SQL AST" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isAffectedByEnabledFilters(
 			Set<ManagedMappingType> visitedTypes,
 			LoadQueryInfluencers influencers,
@@ -366,27 +416,37 @@ public interface CollectionPersister extends Restrictable {
 		throw new UnsupportedOperationException( "CollectionPersister used for [" + getRole() + "] does not support SQL AST" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isAffectedByEntityGraph(LoadQueryInfluencers influencers) {
 		throw new UnsupportedOperationException( "CollectionPersister used for [" + getRole() + "] does not support SQL AST" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isAffectedByEnabledFetchProfiles(LoadQueryInfluencers influencers) {
 		throw new UnsupportedOperationException( "CollectionPersister used for [" + getRole() + "] does not support SQL AST" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isExtraLazy() {
 		return false;
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getSize(Object key, SharedSessionContractImplementor session);
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean indexExists(Object key, Object index, SharedSessionContractImplementor session);
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean elementExists(Object key, Object element, SharedSessionContractImplementor session);
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getElementByIndex(Object key, Object index, SharedSessionContractImplementor session, Object owner);
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int getBatchSize() {
 		return -1;
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isBatchLoadable() {
 		return getBatchSize() > 1;
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isSubselectLoadable() {
 		return false;
 	}
@@ -394,6 +454,7 @@ public interface CollectionPersister extends Restrictable {
 	/**
 	 * @return the name of the property this collection is mapped by
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getMappedByProperty();
 
 	/**
@@ -404,15 +465,18 @@ public interface CollectionPersister extends Restrictable {
 	 * @see CollectionClassification#SORTED_MAP
 	 * @see CollectionClassification#SORTED_SET
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Comparator<?> getSortingComparator();
 
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// mapping model
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CollectionSemantics<?,?> getCollectionSemantics();
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void applyBaseManyToManyRestrictions(
 			Consumer<Predicate> predicateConsumer,
 			TableGroup tableGroup,
@@ -434,6 +498,7 @@ public interface CollectionPersister extends Restrictable {
 	 * by {@link org.hibernate.query.sql.internal.SQLQueryParser}
 	 */
 	@Deprecated( since = "6", forRemoval = true )
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String[] getKeyColumnAliases(String suffix);
 
 	/**
@@ -447,6 +512,7 @@ public interface CollectionPersister extends Restrictable {
 	 * by {@link org.hibernate.query.sql.internal.SQLQueryParser}
 	 */
 	@Deprecated( since = "6", forRemoval = true )
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String[] getIndexColumnAliases(String suffix);
 
 	/**
@@ -460,6 +526,7 @@ public interface CollectionPersister extends Restrictable {
 	 * by {@link org.hibernate.query.sql.internal.SQLQueryParser}
 	 */
 	@Deprecated( since = "6", forRemoval = true )
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String[] getElementColumnAliases(String suffix);
 
 	/**
@@ -473,6 +540,7 @@ public interface CollectionPersister extends Restrictable {
 	 * by {@link org.hibernate.query.sql.internal.SQLQueryParser}
 	 */
 	@Deprecated( since = "6", forRemoval = true )
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getIdentifierColumnAlias(String suffix);
 
 	/**
@@ -483,6 +551,7 @@ public interface CollectionPersister extends Restrictable {
 	 * be used instead - here (generally), {@link PluralAttributeMapping}
 	 */
 	@Deprecated( forRemoval = true )
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CollectionType getCollectionType();
 
 	/**
@@ -493,6 +562,7 @@ public interface CollectionPersister extends Restrictable {
 	 * be used instead - here, {@link PluralAttributeMapping#getKeyDescriptor()}
 	 */
 	@Deprecated( forRemoval = true )
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Type getKeyType();
 
 	/**
@@ -503,6 +573,7 @@ public interface CollectionPersister extends Restrictable {
 	 * be used instead - here, {@link PluralAttributeMapping#getIndexDescriptor()}
 	 */
 	@Deprecated( forRemoval = true )
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Type getIndexType();
 
 	/**
@@ -513,6 +584,7 @@ public interface CollectionPersister extends Restrictable {
 	 * be used instead - here, {@link PluralAttributeMapping#getElementDescriptor()}
 	 */
 	@Deprecated( forRemoval = true )
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Type getElementType();
 
 	/**
@@ -523,17 +595,22 @@ public interface CollectionPersister extends Restrictable {
 	 * be used instead - here, {@link PluralAttributeMapping#getIdentifierDescriptor()}
 	 */
 	@Deprecated( forRemoval = true )
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Type getIdentifierType();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getIdentifierColumnName();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getTableName();
 
 	/**
 	 * Generate a list of collection index and element columns
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String selectFragment(String alias, String columnSuffix);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String[] getCollectionPropertyColumnAliases(String propertyName, String string);
 
 	/**
@@ -542,5 +619,6 @@ public interface CollectionPersister extends Restrictable {
 	 * for a one-to-many association, the returned persister
 	 * must be {@code OuterJoinLoadable}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityPersister getElementPersister();
 }

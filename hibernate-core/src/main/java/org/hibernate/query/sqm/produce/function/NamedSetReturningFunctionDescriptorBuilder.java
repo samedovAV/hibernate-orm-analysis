@@ -9,6 +9,8 @@ import org.hibernate.query.sqm.function.NamedSqmSetReturningFunctionDescriptor;
 import org.hibernate.query.sqm.function.SqmFunctionRegistry;
 import org.hibernate.query.sqm.function.SqmSetReturningFunctionDescriptor;
 import org.hibernate.sql.ast.SqlAstNodeRenderingMode;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @since 7.0
@@ -39,48 +41,58 @@ public class NamedSetReturningFunctionDescriptorBuilder {
 		this.setReturningTypeResolver = typeResolver;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NamedSetReturningFunctionDescriptorBuilder setArgumentsValidator(ArgumentsValidator argumentsValidator) {
 		this.argumentsValidator = argumentsValidator;
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NamedSetReturningFunctionDescriptorBuilder setArgumentTypeResolver(FunctionArgumentTypeResolver argumentTypeResolver) {
 		this.argumentTypeResolver = argumentTypeResolver;
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NamedSetReturningFunctionDescriptorBuilder setArgumentCountBetween(int min, int max) {
 		return setArgumentsValidator( StandardArgumentsValidators.between( min, max ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NamedSetReturningFunctionDescriptorBuilder setExactArgumentCount(int exactArgumentCount) {
 		return setArgumentsValidator( StandardArgumentsValidators.exactly( exactArgumentCount ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NamedSetReturningFunctionDescriptorBuilder setMinArgumentCount(int min) {
 		return setArgumentsValidator( StandardArgumentsValidators.min( min ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NamedSetReturningFunctionDescriptorBuilder setParameterTypes(FunctionParameterType... types) {
 		setArgumentsValidator( new ArgumentTypesValidator(argumentsValidator, types) );
 		setArgumentTypeResolver( StandardFunctionArgumentTypeResolvers.invariant( types ) );
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NamedSetReturningFunctionDescriptorBuilder setArgumentListSignature(String argumentListSignature) {
 		this.argumentListSignature = argumentListSignature;
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NamedSetReturningFunctionDescriptorBuilder setArgumentRenderingMode(SqlAstNodeRenderingMode argumentRenderingMode) {
 		this.argumentRenderingMode = argumentRenderingMode;
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmSetReturningFunctionDescriptor register() {
 		return registry.register( registrationKey, descriptor() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmSetReturningFunctionDescriptor descriptor() {
 		return new NamedSqmSetReturningFunctionDescriptor(
 				functionName,

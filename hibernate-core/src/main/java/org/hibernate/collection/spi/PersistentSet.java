@@ -19,6 +19,8 @@ import org.hibernate.internal.util.collections.CollectionHelper;
 import org.hibernate.metamodel.mapping.PluralAttributeMapping;
 import org.hibernate.persister.collection.CollectionPersister;
 import org.hibernate.type.Type;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -74,6 +76,7 @@ public class PersistentSet<E> extends AbstractPersistentCollection<E> implements
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Serializable getSnapshot(CollectionPersister persister) throws HibernateException {
 		final HashMap<E,E> clonedSet = CollectionHelper.mapOfSize( set.size() );
 		for ( E aSet : set ) {
@@ -84,12 +87,14 @@ public class PersistentSet<E> extends AbstractPersistentCollection<E> implements
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Collection<E> getOrphans(Serializable snapshot, String entityName) throws HibernateException {
 		final java.util.Map<E,E> sn = (java.util.Map<E,E>) snapshot;
 		return getOrphans( sn.keySet(), set, entityName, getSession() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void initializeEmptyCollection(CollectionPersister persister) {
 		assert set == null;
 		//noinspection unchecked
@@ -98,6 +103,7 @@ public class PersistentSet<E> extends AbstractPersistentCollection<E> implements
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean equalsSnapshot(CollectionPersister persister) throws HibernateException {
 		final Type elementType = persister.getElementType();
 		final java.util.Map<?,?> sn = (java.util.Map<?,?>) getSnapshot();
@@ -116,11 +122,13 @@ public class PersistentSet<E> extends AbstractPersistentCollection<E> implements
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isSnapshotEmpty(Serializable snapshot) {
 		return ( (java.util.Map<?,?>) snapshot ).isEmpty();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void initializeFromCache(CollectionPersister persister, Object disassembled, Object owner)
 			throws HibernateException {
 		final Serializable[] array = (Serializable[]) disassembled;
@@ -137,21 +145,25 @@ public class PersistentSet<E> extends AbstractPersistentCollection<E> implements
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean empty() {
 		return set.isEmpty();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int size() {
 		return readSize() ? getCachedSize() : set.size();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isEmpty() {
 		return readSize() ? getCachedSize()==0 : set.isEmpty();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean contains(Object object) {
 		final Boolean exists = readElementExistence( object );
 		return exists == null
@@ -160,24 +172,28 @@ public class PersistentSet<E> extends AbstractPersistentCollection<E> implements
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Iterator<E> iterator() {
 		read();
 		return new IteratorProxy<>( set.iterator() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object[] toArray() {
 		read();
 		return set.toArray();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <A> A[] toArray(A[] array) {
 		read();
 		return set.toArray( array );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean add(E value) {
 		final Boolean exists = isOperationQueueEnabled() ? readElementExistence( value ) : null;
 		if ( exists == null ) {
@@ -200,6 +216,7 @@ public class PersistentSet<E> extends AbstractPersistentCollection<E> implements
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean remove(Object value) {
 		final Boolean exists = isPutQueueEnabled() ? readElementExistence( value ) : null;
 		if ( exists == null ) {
@@ -224,12 +241,14 @@ public class PersistentSet<E> extends AbstractPersistentCollection<E> implements
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean containsAll(Collection<?> coll) {
 		read();
 		return set.containsAll( coll );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean addAll(Collection<? extends E> coll) {
 		if ( coll.size() > 0 ) {
 			initialize( true );
@@ -247,6 +266,7 @@ public class PersistentSet<E> extends AbstractPersistentCollection<E> implements
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean retainAll(Collection<?> coll) {
 		initialize( true );
 		if ( set.retainAll( coll ) ) {
@@ -259,6 +279,7 @@ public class PersistentSet<E> extends AbstractPersistentCollection<E> implements
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean removeAll(Collection<?> coll) {
 		if ( coll.size() > 0 ) {
 			initialize( true );
@@ -277,6 +298,7 @@ public class PersistentSet<E> extends AbstractPersistentCollection<E> implements
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void clear() {
 		if ( isClearQueueEnabled() ) {
 			queueOperation( new Clear() );
@@ -291,11 +313,13 @@ public class PersistentSet<E> extends AbstractPersistentCollection<E> implements
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String toString() {
 		read();
 		return set.toString();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void injectLoadedState(
 			PluralAttributeMapping attributeMapping,
 			List<?> loadingStateList) {
@@ -314,11 +338,13 @@ public class PersistentSet<E> extends AbstractPersistentCollection<E> implements
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Iterator<E> entries(CollectionPersister persister) {
 		return set.iterator();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public Object disassemble(CollectionPersister persister) throws HibernateException {
 		final Serializable[] result = new Serializable[ set.size() ];
 		final Iterator<E> itr = set.iterator();
@@ -330,6 +356,7 @@ public class PersistentSet<E> extends AbstractPersistentCollection<E> implements
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Iterator<?> getDeletes(CollectionPersister persister, boolean indexIsFormula) throws HibernateException {
 		final Type elementType = persister.getElementType();
 		final java.util.Map<?,?> sn = (java.util.Map<?,?>) getSnapshot();
@@ -358,6 +385,7 @@ public class PersistentSet<E> extends AbstractPersistentCollection<E> implements
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean hasDeletes(CollectionPersister persister) {
 		final Type elementType = persister.getElementType();
 		final java.util.Map<?,?> sn = (java.util.Map<?,?>) getSnapshot();
@@ -384,6 +412,7 @@ public class PersistentSet<E> extends AbstractPersistentCollection<E> implements
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean needsInserting(Object entry, int i, Type elemType) throws HibernateException {
 		final Object oldValue = ( (java.util.Map<?,?>) getSnapshot() ).get( entry );
 		// note that it might be better to iterate the snapshot but this is safe,
@@ -394,65 +423,77 @@ public class PersistentSet<E> extends AbstractPersistentCollection<E> implements
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean needsUpdating(Object entry, int i, Type elemType) {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isRowUpdatePossible() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getIndex(Object entry, int i, CollectionPersister persister) {
 		throw new UnsupportedOperationException("Sets don't have indexes");
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getElement(Object entry) {
 		return entry;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getSnapshotElement(Object entry, int i) {
 		throw new UnsupportedOperationException("Sets don't support updating by element");
 	}
 
 	@Override
 	@SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean equals(Object other) {
 		read();
 		return set.equals( other );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int hashCode() {
 		read();
 		return set.hashCode();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean entryExists(Object key, int i) {
 		return key != null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isWrapper(Object collection) {
 		return set==collection;
 	}
 
 	final class Clear implements DelayedOperation<E> {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void operate() {
 			set.clear();
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public E getAddedInstance() {
 			return null;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public E getOrphan() {
 			throw new UnsupportedOperationException("queued clear cannot be used with orphan delete");
 		}
@@ -465,6 +506,7 @@ public class PersistentSet<E> extends AbstractPersistentCollection<E> implements
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void operate() {
 			set.add( getAddedInstance() );
 		}
@@ -477,6 +519,7 @@ public class PersistentSet<E> extends AbstractPersistentCollection<E> implements
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void operate() {
 			set.remove( getOrphan() );
 		}

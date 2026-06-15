@@ -5,6 +5,8 @@
 package org.hibernate.engine.jdbc.connections.internal;
 
 import java.sql.Connection;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for creating JDBC {@linkplain Connection connections} on demand.
@@ -17,6 +19,7 @@ public interface ConnectionCreator {
 	 *
 	 * @return The connection URL.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getUrl();
 
 	/**
@@ -24,5 +27,6 @@ public interface ConnectionCreator {
 	 *
 	 * @return The newly-created {@link Connection}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Connection createConnection();
 }

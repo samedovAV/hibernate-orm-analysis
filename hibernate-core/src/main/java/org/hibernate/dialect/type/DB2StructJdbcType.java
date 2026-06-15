@@ -24,6 +24,8 @@ import org.hibernate.type.descriptor.jdbc.AggregateJdbcType;
 import org.hibernate.type.descriptor.jdbc.StructuredJdbcType;
 import org.hibernate.type.descriptor.jdbc.XmlHelper;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * DB2 supports UDTs but not in JDBC, so there is a feature called "transforms",
@@ -60,21 +62,25 @@ public class DB2StructJdbcType implements StructuredJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getJdbcTypeCode() {
 		return SqlTypes.SQLXML;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getDdlTypeCode() {
 		return SqlTypes.SQLXML;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getDefaultSqlTypeCode() {
 		return SqlTypes.STRUCT;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AggregateJdbcType resolveAggregateJdbcType(
 			EmbeddableMappingType mappingType,
 			String sqlType,
@@ -83,16 +89,19 @@ public class DB2StructJdbcType implements StructuredJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableMappingType getEmbeddableMappingType() {
 		return embeddableMappingType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getStructTypeName() {
 		return structTypeName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<?> getRecommendedJavaType(
 			Integer precision,
 			Integer scale,
@@ -103,15 +112,18 @@ public class DB2StructJdbcType implements StructuredJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> ValueBinder<X> getBinder(JavaType<X> javaType) {
 		return new BasicBinder<>( javaType, this ) {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBind(PreparedStatement st, X value, int index, WrapperOptions options)
 					throws SQLException {
 				st.setSQLXML( index, createJdbcValue( value, options ) );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBind(CallableStatement st, X value, String name, WrapperOptions options)
 					throws SQLException {
 				st.setSQLXML( name, createJdbcValue( value, options ) );
@@ -121,6 +133,7 @@ public class DB2StructJdbcType implements StructuredJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> ValueExtractor<X> getExtractor(JavaType<X> javaType) {
 		if ( javaType.getJavaTypeClass() == Object[].class ) {
 			//noinspection unchecked
@@ -129,24 +142,29 @@ public class DB2StructJdbcType implements StructuredJdbcType {
 		return createBasicExtractor( javaType );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private <X> BasicExtractor<X> createBasicExtractor(JavaType<X> javaType) {
 		return new BasicExtractor<>( javaType, this ) {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(ResultSet rs, int paramIndex, WrapperOptions options) throws SQLException {
 				return getValue( rs.getSQLXML( paramIndex ), options );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(CallableStatement statement, int index, WrapperOptions options) throws SQLException {
 				return getValue( statement.getSQLXML( index ), options );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(CallableStatement statement, String name, WrapperOptions options)
 					throws SQLException {
 				return getValue( statement.getSQLXML( name ), options );
 			}
 
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			private X getValue(SQLXML object, WrapperOptions options) throws SQLException {
 				if ( object == null ) {
 					return null;
@@ -162,6 +180,7 @@ public class DB2StructJdbcType implements StructuredJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SQLXML createJdbcValue(Object value, WrapperOptions options) throws SQLException {
 		final SQLXML sqlxml =
 				options.getSession().getJdbcCoordinator().getLogicalConnection().getPhysicalConnection()
@@ -171,6 +190,7 @@ public class DB2StructJdbcType implements StructuredJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object[] extractJdbcValues(Object rawJdbcValue, WrapperOptions options) throws SQLException {
 		return XmlHelper.fromString( embeddableMappingType, (String) rawJdbcValue, false, options );
 	}

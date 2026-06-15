@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Indicates a request against an unknown filter name.
@@ -30,6 +33,7 @@ public class UnknownFilterException extends HibernateException {
 	 *
 	 * @return The unknown filter name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return name;
 	}

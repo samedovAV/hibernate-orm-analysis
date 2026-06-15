@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.source.spi;
 
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -15,6 +17,7 @@ public interface CollectionIdSource {
 	 *
 	 * @return The collection id column info.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ColumnSource getColumnSource();
 
 	/**
@@ -22,6 +25,7 @@ public interface CollectionIdSource {
 	 *
 	 * @return The Hibernate type information
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	HibernateTypeSource getTypeInformation();
 
 	/**
@@ -29,10 +33,12 @@ public interface CollectionIdSource {
 	 *
 	 * @return The identifier value generator name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getGeneratorName();
 
 	/**
 	 * @return The identifier generator configuration parameters
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Map<String, String> getParameters();
 }

@@ -9,6 +9,8 @@ import java.io.Serializable;
 import org.hibernate.collection.spi.PersistentCollection;
 import org.hibernate.internal.util.collections.ArrayHelper;
 import org.hibernate.persister.collection.CollectionPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Cacheable representation of persistent collections
@@ -37,6 +39,7 @@ public class CollectionCacheEntry implements Serializable {
 	 *
 	 * @return The cached collection state.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Serializable[] getState() {
 		//TODO: assumes all collections disassemble to an array!
 		return (Serializable[]) state;
@@ -49,6 +52,7 @@ public class CollectionCacheEntry implements Serializable {
 	 * @param persister The collection persister
 	 * @param owner The collection owner instance
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void assemble(
 			final PersistentCollection<?> collection,
 			final CollectionPersister persister,
@@ -58,6 +62,7 @@ public class CollectionCacheEntry implements Serializable {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String toString() {
 		return "CollectionCacheEntry" + ArrayHelper.toString( getState() );
 	}

@@ -10,6 +10,8 @@ import org.hibernate.metamodel.mapping.ordering.ast.OrderingSpecification;
 import org.hibernate.sql.ast.spi.SqlAstCreationState;
 import org.hibernate.sql.ast.tree.from.TableGroup;
 import org.hibernate.sql.ast.tree.select.QuerySpec;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -21,11 +23,13 @@ public class OrderByFragmentImpl implements OrderByFragment {
 		this.fragmentSpecs = fragmentSpecs;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<OrderingSpecification> getFragmentSpecs() {
 		return fragmentSpecs;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void apply(QuerySpec ast, TableGroup tableGroup, SqlAstCreationState creationState) {
 		for ( int i = 0; i < fragmentSpecs.size(); i++ ) {
 			final var orderingSpec = fragmentSpecs.get( i );

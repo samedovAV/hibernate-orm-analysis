@@ -17,6 +17,8 @@ import static org.hibernate.engine.internal.ManagedTypeHelper.asPersistentAttrib
 import static org.hibernate.engine.internal.ManagedTypeHelper.isPersistentAttributeInterceptableType;
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
 import static org.hibernate.internal.util.ReflectHelper.getDefaultConstructor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Support for instantiating entity values as POJO representation
@@ -49,6 +51,7 @@ public class EntityInstantiatorPojoStandard extends AbstractEntityInstantiatorPo
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected static Constructor<?> resolveConstructor(Class<?> mappedPojoClass) {
 		try {
 			return getDefaultConstructor( mappedPojoClass);
@@ -60,11 +63,13 @@ public class EntityInstantiatorPojoStandard extends AbstractEntityInstantiatorPo
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean canBeInstantiated() {
 		return constructor != null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Object applyInterception(Object entity) {
 		if ( applyBytecodeInterception ) {
 			asPersistentAttributeInterceptable( entity )
@@ -79,6 +84,7 @@ public class EntityInstantiatorPojoStandard extends AbstractEntityInstantiatorPo
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isInstance(Object object) {
 		return super.isInstance( object )
 			// this one needed only for guessEntityMode()
@@ -86,6 +92,7 @@ public class EntityInstantiatorPojoStandard extends AbstractEntityInstantiatorPo
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object instantiate() {
 		if ( isAbstract() ) {
 			throw new InstantiationException( "Cannot instantiate abstract class or interface", getMappedPojoClass() );

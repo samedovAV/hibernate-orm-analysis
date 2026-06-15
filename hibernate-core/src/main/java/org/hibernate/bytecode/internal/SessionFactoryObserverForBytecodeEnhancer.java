@@ -7,6 +7,8 @@ package org.hibernate.bytecode.internal;
 import org.hibernate.SessionFactory;
 import org.hibernate.SessionFactoryObserver;
 import org.hibernate.bytecode.spi.BytecodeProvider;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public final class SessionFactoryObserverForBytecodeEnhancer implements SessionFactoryObserver {
 
@@ -17,16 +19,19 @@ public final class SessionFactoryObserverForBytecodeEnhancer implements SessionF
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void sessionFactoryCreated(final SessionFactory factory) {
 		this.bytecodeProvider.resetCaches();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void sessionFactoryClosing(final SessionFactory factory) {
 		//unnecessary
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void sessionFactoryClosed(final SessionFactory factory) {
 		this.bytecodeProvider.resetCaches();
 	}

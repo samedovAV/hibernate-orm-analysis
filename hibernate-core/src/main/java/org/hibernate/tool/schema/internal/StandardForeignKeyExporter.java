@@ -17,6 +17,8 @@ import org.hibernate.mapping.ForeignKey;
 import org.hibernate.tool.schema.spi.Exporter;
 
 import static org.hibernate.internal.util.StringHelper.isNotEmpty;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An {@link Exporter} for {@linkplain ForeignKey foreign key constraints}.
@@ -34,6 +36,7 @@ public class StandardForeignKeyExporter implements Exporter<ForeignKey> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String[] getSqlCreateStrings(ForeignKey foreignKey, Metadata metadata, SqlStringGenerationContext context) {
 		if ( !dialect.hasAlterTable()
 				|| !foreignKey.isCreationEnabled()
@@ -73,6 +76,7 @@ public class StandardForeignKeyExporter implements Exporter<ForeignKey> {
 		return new String[] { buffer.toString() };
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String constraintString(
 			ForeignKey foreignKey,
 			Metadata metadata,
@@ -87,11 +91,13 @@ public class StandardForeignKeyExporter implements Exporter<ForeignKey> {
 						targetTableName, targetColumnNames, foreignKey.isReferenceToPrimaryKey() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String quotedConstraintName(ForeignKey foreignKey, Metadata metadata) {
 		return metadata.getDatabase().getJdbcEnvironment().getIdentifierHelper()
 				.toIdentifier( foreignKey.getName() ).render( dialect );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static List<Column> getTargetColumns(ForeignKey foreignKey, int numberOfColumns) {
 		if ( foreignKey.isReferenceToPrimaryKey() ) {
 			final var primaryKey = foreignKey.getReferencedTable().getPrimaryKey();
@@ -130,6 +136,7 @@ public class StandardForeignKeyExporter implements Exporter<ForeignKey> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String[] getSqlDropStrings(ForeignKey foreignKey, Metadata metadata, SqlStringGenerationContext context) {
 		if ( !dialect.hasAlterTable()
 				|| !foreignKey.isCreationEnabled()
@@ -142,6 +149,7 @@ public class StandardForeignKeyExporter implements Exporter<ForeignKey> {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String getSqlDropStrings(String tableName, ForeignKey foreignKey, Dialect dialect) {
 		final var alterTable = new StringBuilder( dialect.getAlterTableString( tableName ) );
 		alterTable.append(" ").append( dialect.getDropForeignKeyString() ).append(" ");

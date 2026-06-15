@@ -23,6 +23,8 @@ import org.hibernate.sql.model.jdbc.JdbcInsertMutation;
 
 import static java.util.Collections.emptyList;
 import static org.hibernate.engine.jdbc.batch.JdbcBatchLogging.BATCH_MESSAGE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A builder for {@link Batch} instances.
@@ -46,10 +48,12 @@ public class BatchBuilderImpl implements BatchBuilder {
 		this.globalBatchSize = globalBatchSize;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getJdbcBatchSize() {
 		return globalBatchSize;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private int batchSize(Integer explicitBatchSize) {
 		return explicitBatchSize == null
 				? globalBatchSize
@@ -57,6 +61,7 @@ public class BatchBuilderImpl implements BatchBuilder {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public GroupedBatch buildGroupedBatch(
 			BatchKey key,
 			Integer explicitBatchSize,
@@ -68,6 +73,7 @@ public class BatchBuilderImpl implements BatchBuilder {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SingleStatementBatch buildSingleStatementBatch(
 			BatchKey key,
 			Integer explicitBatchSize,
@@ -82,6 +88,7 @@ public class BatchBuilderImpl implements BatchBuilder {
 	 * Intended for use from tests
 	 */
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BatchImpl buildBatch(BatchKey batchKey, Integer sizeOverride, String table, SessionImplementor session, String sql) {
 		return new BatchImpl(
 				batchKey,
@@ -89,51 +96,61 @@ public class BatchBuilderImpl implements BatchBuilder {
 						new JdbcInsertMutation(
 								new TableMapping() {
 									@Override
+									@Prove(complexity = Complexity.O_1, n = "", count = {})
 									public String getTableName() {
 										return table;
 									}
 
 									@Override
+									@Prove(complexity = Complexity.O_1, n = "", count = {})
 									public int relativePosition() {
 										return 0;
 									}
 
 									@Override
+									@Prove(complexity = Complexity.O_1, n = "", count = {})
 									public KeyDetails getKeyDetails() {
 										return null;
 									}
 
 									@Override
+									@Prove(complexity = Complexity.O_1, n = "", count = {})
 									public boolean isOptional() {
 										return false;
 									}
 
 									@Override
+									@Prove(complexity = Complexity.O_1, n = "", count = {})
 									public boolean isInverse() {
 										return false;
 									}
 
 									@Override
+									@Prove(complexity = Complexity.O_1, n = "", count = {})
 									public boolean isIdentifierTable() {
 										return true;
 									}
 
 									@Override
+									@Prove(complexity = Complexity.O_1, n = "", count = {})
 									public MutationDetails getInsertDetails() {
 										return null;
 									}
 
 									@Override
+									@Prove(complexity = Complexity.O_1, n = "", count = {})
 									public MutationDetails getUpdateDetails() {
 										return null;
 									}
 
 									@Override
+									@Prove(complexity = Complexity.O_1, n = "", count = {})
 									public boolean isCascadeDeleteEnabled() {
 										return false;
 									}
 
 									@Override
+									@Prove(complexity = Complexity.O_1, n = "", count = {})
 									public MutationDetails getDeleteDetails() {
 										return null;
 									}

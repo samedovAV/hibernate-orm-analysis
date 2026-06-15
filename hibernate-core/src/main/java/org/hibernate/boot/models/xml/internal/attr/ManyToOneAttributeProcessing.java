@@ -29,12 +29,15 @@ import static org.hibernate.boot.models.xml.internal.attr.CommonAttributeProcess
 import static org.hibernate.boot.models.xml.internal.attr.CommonAttributeProcessing.applyOptimisticLock;
 import static org.hibernate.boot.models.xml.internal.attr.CommonAttributeProcessing.applyOptionality;
 import static org.hibernate.internal.util.NullnessHelper.coalesce;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
  */
 public class ManyToOneAttributeProcessing {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static MutableMemberDetails processManyToOneAttribute(
 			JaxbManyToOneImpl jaxbManyToOne,
 			MutableClassDetails declarer,
@@ -79,6 +82,7 @@ public class ManyToOneAttributeProcessing {
 		return memberDetails;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static ManyToOneJpaAnnotation applyManyToOne(
 			MutableMemberDetails memberDetails,
 			JaxbManyToOneImpl jaxbManyToOne,
@@ -98,6 +102,7 @@ public class ManyToOneAttributeProcessing {
 	}
 
 	@SuppressWarnings("unused")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static void applyOnDelete(
 			MutableMemberDetails memberDetails,
 			JaxbManyToOneImpl jaxbManyToOne,
@@ -107,6 +112,7 @@ public class ManyToOneAttributeProcessing {
 	}
 
 	@SuppressWarnings("unused")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void applyTarget(
 			MutableMemberDetails memberDetails,
 			JaxbManyToOneImpl jaxbManyToOne,

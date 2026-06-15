@@ -31,6 +31,8 @@ import java.util.Set;
 import static org.hibernate.procedure.internal.Util.resolveResultSetMappingClasses;
 import static org.hibernate.procedure.internal.Util.resolveResultSetMappingNames;
 import static org.hibernate.procedure.spi.NamedCallableQueryMemento.ParameterMemento;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Holds all the information needed from a named procedure call declaration in order to create a
@@ -72,42 +74,50 @@ public class NamedProcedureCallDefinitionImpl implements NamedProcedureCallDefin
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getRegistrationName() {
 		return registeredName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FlushMode getQueryFlushMode() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable String getLocation() {
 		// not kept for now
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getProcedureName() {
 		return procedureName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Timeout getTimeout() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getComment() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, Object> getHints() {
 		return hints;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NamedCallableQueryMemento resolve(SessionFactoryImplementor sessionFactory) {
 		final Set<String> collectedQuerySpaces = new HashSet<>();
 
@@ -153,6 +163,7 @@ public class NamedProcedureCallDefinitionImpl implements NamedProcedureCallDefin
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private ResultSetMapping buildResultSetMapping(String registeredName, SessionFactoryImplementor sessionFactory) {
 		return sessionFactory.getJdbcValuesMappingProducerProvider()
 				.buildResultSetMapping( registeredName, false, sessionFactory );
@@ -182,10 +193,12 @@ public class NamedProcedureCallDefinitionImpl implements NamedProcedureCallDefin
 			}
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public ParameterStrategy getParameterStrategy() {
 			return parameterStrategy;
 		}
 
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public List<ParameterMemento> toMementos(SessionFactoryImplementor sessionFactory) {
 			final List<ParameterMemento> mementos = new ArrayList<>();
 			for ( ParameterDefinition<?> definition : parameterDefinitions ) {
@@ -209,6 +222,7 @@ public class NamedProcedureCallDefinitionImpl implements NamedProcedureCallDefin
 			this.type = (Class<T>) annotation.type();
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public ParameterMemento toMemento(SessionFactoryImplementor sessionFactory) {
 			// todo (6.0): figure out how to handle this
 //			final boolean initialPassNullSetting = explicitPassNullSetting != null
@@ -226,6 +240,7 @@ public class NamedProcedureCallDefinitionImpl implements NamedProcedureCallDefin
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static String normalize(String name) {
 		return StringHelper.isNotEmpty( name ) ? name : null;
 	}

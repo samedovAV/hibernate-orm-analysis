@@ -9,6 +9,8 @@ import java.util.function.Supplier;
 import org.hibernate.bytecode.spi.BasicProxyFactory;
 import org.hibernate.metamodel.mapping.EmbeddableMappingType;
 import org.hibernate.metamodel.spi.ValueAccess;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * EmbeddableInstantiator used for instantiating "proxies" of an embeddable.
@@ -28,6 +30,7 @@ public class EmbeddableInstantiatorProxied implements StandardEmbeddableInstanti
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object instantiate(ValueAccess valuesAccess) {
 		final Object proxy = factory.getProxy();
 		final var values = valuesAccess == null ? null : valuesAccess.getValues();
@@ -38,11 +41,13 @@ public class EmbeddableInstantiatorProxied implements StandardEmbeddableInstanti
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isInstance(Object object) {
 		return proxiedClass.isInstance( object );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isSameClass(Object object) {
 		return object.getClass() == proxiedClass;
 	}

@@ -15,6 +15,8 @@ import org.hibernate.sql.model.ast.ColumnValueBinding;
 import org.hibernate.sql.model.ast.ColumnValueBindingList;
 import org.hibernate.sql.model.ast.MutatingTableReference;
 import org.hibernate.sql.model.ast.RestrictedTableMutation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specialization of TableMutationBuilder for mutations which contain a
@@ -50,21 +52,25 @@ public abstract class AbstractRestrictedTableMutationBuilder<O extends MutationO
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ColumnValueBindingList getKeyRestrictionBindings() {
 		return keyRestrictionBindings;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ColumnValueBindingList getOptimisticLockBindings() {
 		return optimisticLockBindings;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addNonKeyRestriction(ColumnValueBinding valueBinding) {
 		optimisticLockBindings.addRestriction( valueBinding );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addNonKeyRestriction(SelectableMapping restrictableMapping, String restrictionExpression) {
 		optimisticLockBindings.addRestriction( ColumnValueBindingBuilder.createValueBinding(
 				restrictionExpression,
@@ -76,26 +82,31 @@ public abstract class AbstractRestrictedTableMutationBuilder<O extends MutationO
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addKeyRestrictionBinding(SelectableMapping selectableMapping) {
 		keyRestrictionBindings.addRestriction( selectableMapping );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addNullOptimisticLockRestriction(SelectableMapping column) {
 		optimisticLockBindings.addNullRestriction( column );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addOptimisticLockRestriction(SelectableMapping selectableMapping) {
 		optimisticLockBindings.addRestriction( selectableMapping );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setWhere(String fragment) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addWhereFragment(String fragment) {
 		throw new UnsupportedOperationException();
 	}

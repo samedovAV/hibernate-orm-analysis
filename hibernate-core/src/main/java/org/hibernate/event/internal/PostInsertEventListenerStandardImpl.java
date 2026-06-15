@@ -8,6 +8,8 @@ import org.hibernate.event.spi.PostInsertEvent;
 import org.hibernate.event.spi.PostInsertEventListener;
 import org.hibernate.jpa.event.spi.CallbackType;
 import org.hibernate.persister.entity.EntityPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Kabir Khan
@@ -15,6 +17,7 @@ import org.hibernate.persister.entity.EntityPersister;
  */
 public class PostInsertEventListenerStandardImpl implements PostInsertEventListener {
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void onPostInsert(PostInsertEvent event) {
 		final Object entity = event.getEntity();
 		final var callbacks = event.getPersister().getEntityCallbacks();
@@ -26,6 +29,7 @@ public class PostInsertEventListenerStandardImpl implements PostInsertEventListe
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean requiresPostCommitHandling(EntityPersister persister) {
 		final var callbacks = persister.getEntityCallbacks();
 		return callbacks.hasRegisteredCallbacks( CallbackType.POST_PERSIST )

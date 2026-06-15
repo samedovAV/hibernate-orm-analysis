@@ -18,6 +18,8 @@ import org.hibernate.sql.model.ast.ColumnValueParameter;
 import org.hibernate.sql.model.ast.GeneratedMutation;
 import org.hibernate.sql.model.ast.MutatingTableReference;
 import org.hibernate.sql.model.jdbc.JdbcMutationOperation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -103,25 +105,30 @@ public class TableUpdateStandard
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCustomSql() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCallable() {
 		return false;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getWhereFragment() {
 		return whereFragment;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker walker) {
 		walker.visitStandardTableUpdate( this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Expectation getExpectation() {
 		if ( expectation != null ) {
 			return expectation;
@@ -130,11 +137,13 @@ public class TableUpdateStandard
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<ColumnReference> getReturningColumns() {
 		return returningColumns;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void forEachReturningColumn(BiConsumer<Integer,ColumnReference> consumer) {
 		forEachThing( returningColumns, consumer );
 	}

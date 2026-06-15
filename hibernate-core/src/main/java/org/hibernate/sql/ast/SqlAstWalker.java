@@ -80,6 +80,8 @@ import org.hibernate.sql.model.internal.TableInsertCustomSql;
 import org.hibernate.sql.model.internal.TableInsertStandard;
 import org.hibernate.sql.model.internal.TableUpdateCustomSql;
 import org.hibernate.sql.model.internal.TableUpdateStandard;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -88,157 +90,233 @@ import org.hibernate.sql.model.internal.TableUpdateStandard;
 @Incubating
 public interface SqlAstWalker {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitSelectStatement(SelectStatement statement);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitDeleteStatement(DeleteStatement statement);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitUpdateStatement(UpdateStatement statement);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitInsertStatement(InsertSelectStatement statement);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitAssignment(Assignment assignment);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitQueryGroup(QueryGroup queryGroup);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitQuerySpec(QuerySpec querySpec);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitSortSpecification(SortSpecification sortSpecification);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitOffsetFetchClause(QueryPart querySpec);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitSelectClause(SelectClause selectClause);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitSqlSelection(SqlSelection sqlSelection);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitFromClause(FromClause fromClause);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitTableGroup(TableGroup tableGroup);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitTableGroupJoin(TableGroupJoin tableGroupJoin);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitNamedTableReference(NamedTableReference tableReference);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitValuesTableReference(ValuesTableReference tableReference);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitQueryPartTableReference(QueryPartTableReference tableReference);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitFunctionTableReference(FunctionTableReference tableReference);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitTableReferenceJoin(TableReferenceJoin tableReferenceJoin);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitColumnReference(ColumnReference columnReference);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitNestedColumnReference(NestedColumnReference nestedColumnReference);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitAggregateColumnWriteExpression(AggregateColumnWriteExpression aggregateColumnWriteExpression);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitExtractUnit(ExtractUnit extractUnit);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitFormat(Format format);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitDistinct(Distinct distinct);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitOverflow(Overflow overflow);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitStar(Star star);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitTrimSpecification(TrimSpecification trimSpecification);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitCastTarget(CastTarget castTarget);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitBinaryArithmeticExpression(BinaryArithmeticExpression arithmeticExpression);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitCaseSearchedExpression(CaseSearchedExpression caseSearchedExpression);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitCaseSimpleExpression(CaseSimpleExpression caseSimpleExpression);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitAny(Any any);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitEvery(Every every);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitSummarization(Summarization every);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitOver(Over<?> over);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitSelfRenderingExpression(SelfRenderingExpression expression);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitSqlSelectionExpression(SqlSelectionExpression expression);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitEntityTypeLiteral(EntityTypeLiteral expression);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitEmbeddableTypeLiteral(EmbeddableTypeLiteral expression);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitTuple(SqlTuple tuple);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitCollation(Collation collation);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitParameter(JdbcParameter jdbcParameter);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitJdbcLiteral(JdbcLiteral<?> jdbcLiteral);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitQueryLiteral(QueryLiteral<?> queryLiteral);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<N extends Number> void visitUnparsedNumericLiteral(UnparsedNumericLiteral<N> literal);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitUnaryOperationExpression(UnaryOperation unaryOperationExpression);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitModifiedSubQueryExpression(ModifiedSubQueryExpression expression);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitBooleanExpressionPredicate(BooleanExpressionPredicate booleanExpressionPredicate);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitBetweenPredicate(BetweenPredicate betweenPredicate);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitFilterPredicate(FilterPredicate filterPredicate);
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitFilterFragmentPredicate(FilterPredicate.FilterFragmentPredicate fragmentPredicate);
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitSqlFragmentPredicate(SqlFragmentPredicate predicate);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitGroupedPredicate(GroupedPredicate groupedPredicate);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitInListPredicate(InListPredicate inListPredicate);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitInSubQueryPredicate(InSubQueryPredicate inSubQueryPredicate);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitInArrayPredicate(InArrayPredicate inArrayPredicate);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitExistsPredicate(ExistsPredicate existsPredicate);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitJunction(Junction junction);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitLikePredicate(LikePredicate likePredicate);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitNegatedPredicate(NegatedPredicate negatedPredicate);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitNullnessPredicate(NullnessPredicate nullnessPredicate);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitThruthnessPredicate(ThruthnessPredicate predicate);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitRelationalPredicate(ComparisonPredicate comparisonPredicate);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitSelfRenderingPredicate(SelfRenderingPredicate selfRenderingPredicate);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitDurationUnit(DurationUnit durationUnit);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitDuration(Duration duration);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitConversion(Conversion conversion);
 
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Model mutations
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitStandardTableInsert(TableInsertStandard tableInsert);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitCustomTableInsert(TableInsertCustomSql tableInsert);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitStandardTableDelete(TableDeleteStandard tableDelete);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitCustomTableDelete(TableDeleteCustomSql tableDelete);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitStandardTableUpdate(TableUpdateStandard tableUpdate);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitOptionalTableUpdate(OptionalTableUpdate tableUpdate);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitCustomTableUpdate(TableUpdateCustomSql tableUpdate);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitColumnWriteFragment(ColumnWriteFragment columnWriteFragment);
 }

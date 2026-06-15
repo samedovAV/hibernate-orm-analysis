@@ -18,6 +18,8 @@ import org.hibernate.models.spi.ModelsContext;
 import jakarta.persistence.CacheRetrieveMode;
 import jakarta.persistence.CacheStoreMode;
 import jakarta.persistence.QueryFlushMode;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -92,126 +94,153 @@ public class NamedQueryAnnotation implements NamedQuery {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return NamedQuery.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String name() {
 		return name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void name(String value) {
 		this.name = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String query() {
 		return query;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void query(String value) {
 		this.query = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> resultClass() {
 		return resultClass;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void resultClass(Class<?> value) {
 		this.resultClass = value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QueryFlushMode flush() {
 		return flush;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void flush(QueryFlushMode value) {
 		this.flush = value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean cacheable() {
 		return cacheable;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void cacheable(boolean value) {
 		this.cacheable = value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String cacheRegion() {
 		return cacheRegion;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void cacheRegion(String value) {
 		this.cacheRegion = value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int fetchSize() {
 		return fetchSize;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void fetchSize(int value) {
 		this.fetchSize = value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int timeout() {
 		return timeout;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void timeout(int value) {
 		this.timeout = value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String comment() {
 		return comment;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void comment(String value) {
 		this.comment = value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CacheStoreMode cacheStoreMode() {
 		return cacheStoreMode;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void cacheStoreMode(CacheStoreMode value) {
 		this.cacheStoreMode = value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CacheRetrieveMode cacheRetrieveMode() {
 		return cacheRetrieveMode;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void cacheRetrieveMode(CacheRetrieveMode value) {
 		this.cacheRetrieveMode = value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CacheMode cacheMode() {
 		return CacheMode.fromJpaModes( cacheRetrieveMode, cacheStoreMode );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean readOnly() {
 		return readOnly;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void readOnly(boolean value) {
 		this.readOnly = value;
 	}
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void apply(JaxbNamedHqlQueryImpl jaxbNamedQuery, XmlDocumentContext xmlDocumentContext) {
 		name( jaxbNamedQuery.getName() );
 		query( jaxbNamedQuery.getQuery() );

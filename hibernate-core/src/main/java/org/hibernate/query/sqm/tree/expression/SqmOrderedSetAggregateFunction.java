@@ -5,6 +5,8 @@
 package org.hibernate.query.sqm.tree.expression;
 
 import org.hibernate.query.sqm.tree.select.SqmOrderByClause;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A SQM ordered set-aggregate function.
@@ -15,5 +17,6 @@ import org.hibernate.query.sqm.tree.select.SqmOrderByClause;
  */
 public interface SqmOrderedSetAggregateFunction<T> extends SqmAggregateFunction<T> {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqmOrderByClause getWithinGroup();
 }

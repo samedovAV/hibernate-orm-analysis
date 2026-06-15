@@ -5,6 +5,8 @@
 package org.hibernate.collection.spi;
 
 import org.hibernate.Incubating;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Marker interface for objects that carry both an element and its snapshot position/key.
 /// Used during collection update decomposition to provide the snapshot position/key for
@@ -20,11 +22,13 @@ import org.hibernate.Incubating;
 @Incubating
 public interface SnapshotIndexed<K> {
 	/// The element (entity or value) at this position.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object element();
 
 	/// The position/key where this element existed in the snapshot.
 	/// - For Lists: the numeric position (0, 1, 2, ...)
 	/// - For Maps: the actual map key
 	/// Used for WHERE clause restrictions in UPDATE/DELETE operations.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	K snapshotIndex();
 }

@@ -11,6 +11,8 @@ import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.sql.results.jdbc.spi.JdbcValuesMappingProducer;
 
 import static org.hibernate.generator.values.internal.GeneratedValuesHelper.createMappingProducer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Marco Belladelli
@@ -40,25 +42,30 @@ public abstract class AbstractGeneratedValuesMutationDelegate implements Generat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EventType getTiming() {
 		return timing;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final boolean supportsArbitraryValues() {
 		return supportsArbitraryValues;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final boolean supportsRowId() {
 		return supportsRowId;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcValuesMappingProducer getGeneratedValuesMappingProducer() {
 		return jdbcValuesMappingProducer;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Dialect dialect() {
 		return persister.getFactory().getJdbcServices().getDialect();
 	}

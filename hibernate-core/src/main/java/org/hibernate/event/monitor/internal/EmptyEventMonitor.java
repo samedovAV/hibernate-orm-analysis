@@ -15,6 +15,8 @@ import org.hibernate.event.monitor.spi.DiagnosticEvent;
 import org.hibernate.event.spi.FlushEvent;
 import org.hibernate.persister.collection.CollectionPersister;
 import org.hibernate.persister.entity.EntityPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An {@link EventMonitor} that ignores all events.
@@ -22,21 +24,25 @@ import org.hibernate.persister.entity.EntityPersister;
 public final class EmptyEventMonitor implements EventMonitor {
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DiagnosticEvent beginSessionOpenEvent() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void completeSessionOpenEvent(DiagnosticEvent sessionOpenEvent, SharedSessionContractImplementor session) {
 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DiagnosticEvent beginSessionClosedEvent() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void completeSessionClosedEvent(
 			DiagnosticEvent sessionClosedEvent,
 			SharedSessionContractImplementor session) {
@@ -44,11 +50,13 @@ public final class EmptyEventMonitor implements EventMonitor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DiagnosticEvent beginJdbcConnectionAcquisitionEvent() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void completeJdbcConnectionAcquisitionEvent(
 			DiagnosticEvent jdbcConnectionAcquisitionEvent,
 			SharedSessionContractImplementor session,
@@ -57,11 +65,13 @@ public final class EmptyEventMonitor implements EventMonitor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DiagnosticEvent beginJdbcConnectionReleaseEvent() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void completeJdbcConnectionReleaseEvent(
 			DiagnosticEvent jdbcConnectionReleaseEvent,
 			SharedSessionContractImplementor session,
@@ -70,11 +80,13 @@ public final class EmptyEventMonitor implements EventMonitor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DiagnosticEvent beginJdbcPreparedStatementCreationEvent() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void completeJdbcPreparedStatementCreationEvent(
 			DiagnosticEvent jdbcPreparedStatementCreation,
 			String preparedStatementSql) {
@@ -82,11 +94,13 @@ public final class EmptyEventMonitor implements EventMonitor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DiagnosticEvent beginJdbcPreparedStatementExecutionEvent() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void completeJdbcPreparedStatementExecutionEvent(
 			DiagnosticEvent jdbcPreparedStatementExecutionEvent,
 			String preparedStatementSql) {
@@ -94,21 +108,25 @@ public final class EmptyEventMonitor implements EventMonitor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DiagnosticEvent beginJdbcBatchExecutionEvent() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void completeJdbcBatchExecutionEvent(DiagnosticEvent jdbcBatchExecutionEvent, String statementSql) {
 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DiagnosticEvent beginCachePutEvent() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void completeCachePutEvent(
 			DiagnosticEvent cachePutEvent,
 			SharedSessionContractImplementor session,
@@ -119,6 +137,7 @@ public final class EmptyEventMonitor implements EventMonitor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void completeCachePutEvent(
 			DiagnosticEvent cachePutEvent,
 			SharedSessionContractImplementor session,
@@ -130,6 +149,7 @@ public final class EmptyEventMonitor implements EventMonitor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void completeCachePutEvent(
 			DiagnosticEvent cachePutEvent,
 			SharedSessionContractImplementor session,
@@ -142,6 +162,7 @@ public final class EmptyEventMonitor implements EventMonitor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void completeCachePutEvent(
 			DiagnosticEvent cachePutEvent,
 			SharedSessionContractImplementor session,
@@ -153,11 +174,13 @@ public final class EmptyEventMonitor implements EventMonitor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DiagnosticEvent beginCacheGetEvent() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void completeCacheGetEvent(
 			DiagnosticEvent cacheGetEvent,
 			SharedSessionContractImplementor session,
@@ -167,6 +190,7 @@ public final class EmptyEventMonitor implements EventMonitor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void completeCacheGetEvent(
 			DiagnosticEvent cacheGetEvent,
 			SharedSessionContractImplementor session,
@@ -178,6 +202,7 @@ public final class EmptyEventMonitor implements EventMonitor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void completeCacheGetEvent(
 			DiagnosticEvent cacheGetEvent,
 			SharedSessionContractImplementor session,
@@ -188,36 +213,43 @@ public final class EmptyEventMonitor implements EventMonitor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DiagnosticEvent beginFlushEvent() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void completeFlushEvent(DiagnosticEvent flushEvent, FlushEvent event) {
 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void completeFlushEvent(DiagnosticEvent flushEvent, FlushEvent event, boolean autoFlush) {
 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DiagnosticEvent beginPartialFlushEvent() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void completePartialFlushEvent(DiagnosticEvent flushEvent, AutoFlushEvent event) {
 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DiagnosticEvent beginDirtyCalculationEvent() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void completeDirtyCalculationEvent(
 			DiagnosticEvent dirtyCalculationEvent,
 			SharedSessionContractImplementor session,
@@ -228,11 +260,13 @@ public final class EmptyEventMonitor implements EventMonitor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DiagnosticEvent beginPrePartialFlush() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void completePrePartialFlush(
 			DiagnosticEvent prePartialFlush,
 			SharedSessionContractImplementor session) {
@@ -240,11 +274,13 @@ public final class EmptyEventMonitor implements EventMonitor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DiagnosticEvent beginEntityInsertEvent() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void completeEntityInsertEvent(
 			DiagnosticEvent event,
 			Object id, String entityName,
@@ -254,11 +290,13 @@ public final class EmptyEventMonitor implements EventMonitor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DiagnosticEvent beginEntityUpdateEvent() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void completeEntityUpdateEvent(
 			DiagnosticEvent event,
 			Object id, String entityName,
@@ -268,21 +306,25 @@ public final class EmptyEventMonitor implements EventMonitor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DiagnosticEvent beginEntityUpsertEvent() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void completeEntityUpsertEvent(DiagnosticEvent event, Object id, String entityName, boolean success, SharedSessionContractImplementor session) {
 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DiagnosticEvent beginEntityDeleteEvent() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void completeEntityDeleteEvent(
 			DiagnosticEvent event,
 			Object id, String entityName,
@@ -292,41 +334,49 @@ public final class EmptyEventMonitor implements EventMonitor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DiagnosticEvent beginEntityLockEvent() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void completeEntityLockEvent(DiagnosticEvent event, Object id, String entityName, LockMode lockMode, boolean success, SharedSessionContractImplementor session) {
 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DiagnosticEvent beginCollectionRecreateEvent() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void completeCollectionRecreateEvent(DiagnosticEvent event, Object id, String role, boolean success, SharedSessionContractImplementor session) {
 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DiagnosticEvent beginCollectionUpdateEvent() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void completeCollectionUpdateEvent(DiagnosticEvent event, Object id, String role, boolean success, SharedSessionContractImplementor session) {
 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DiagnosticEvent beginCollectionRemoveEvent() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void completeCollectionRemoveEvent(DiagnosticEvent event, Object id, String role, boolean success, SharedSessionContractImplementor session) {
 
 	}

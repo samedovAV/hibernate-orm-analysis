@@ -10,6 +10,8 @@ import org.hibernate.boot.model.relational.QualifiedName;
 import org.hibernate.boot.model.relational.SqlStringGenerationContext;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.mapping.Table;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Encapsulates definition of the underlying data structure backing
@@ -26,24 +28,28 @@ public interface DatabaseStructure extends ExportableProducer {
 	 *
 	 * @return The structure name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	QualifiedName getPhysicalName();
 
 	/**
 	 * How many times has this structure been accessed through this reference?
 	 * @return The number of accesses.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getTimesAccessed();
 
 	/**
 	 * The configured initial value
 	 * @return The configured initial value
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getInitialValue();
 
 	/**
 	 * The configured increment size
 	 * @return The configured increment size
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getIncrementSize();
 
 	/**
@@ -53,6 +59,7 @@ public interface DatabaseStructure extends ExportableProducer {
 	 * @param session The session.
 	 * @return The next value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	AccessCallback buildCallback(SharedSessionContractImplementor session);
 
 	/**
@@ -64,6 +71,7 @@ public interface DatabaseStructure extends ExportableProducer {
 	 * @deprecated Use {@link #configure(Optimizer)} instead.
 	 */
 	@Deprecated
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void prepare(Optimizer optimizer) {
 	}
 
@@ -74,6 +82,7 @@ public interface DatabaseStructure extends ExportableProducer {
 	 *
 	 * @param optimizer The optimizer being applied to the generator.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void configure(Optimizer optimizer) {
 		prepare( optimizer );
 	}
@@ -87,6 +96,7 @@ public interface DatabaseStructure extends ExportableProducer {
 	 * @param database The database instance
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void registerExportables(Database database);
 
 	/**
@@ -101,6 +111,7 @@ public interface DatabaseStructure extends ExportableProducer {
 	 *
 	 * @since 7.2
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void registerExtraExportables(Table table, Optimizer optimizer) {
 	}
 
@@ -112,6 +123,7 @@ public interface DatabaseStructure extends ExportableProducer {
 	 *
 	 * @param context A context to help generate SQL strings
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void initialize(SqlStringGenerationContext context) {
 	}
 
@@ -120,12 +132,14 @@ public interface DatabaseStructure extends ExportableProducer {
 	 *
 	 * @return {@code true} if the actual database structure is a sequence; {@code false} otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isPhysicalSequence();
 
 	/**
 	 * @deprecated Exposed for tests only.
 	 */
 	@Deprecated
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String[] getAllSqlForTests() {
 		return new String[] { };
 	}

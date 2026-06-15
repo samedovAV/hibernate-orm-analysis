@@ -16,6 +16,8 @@ import java.util.List;
 
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A factory for SQM nodes representing invocations of a certain
@@ -95,6 +97,7 @@ public interface SqmFunctionDescriptor {
 	 * simplifying the task of writing HQL functions which are
 	 * portable between databases.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> SelfRenderingSqmFunction<T> generateSqmExpression(
 			List<? extends SqmTypedNode<?>> arguments,
 			@Nullable ReturnableType<T> impliedResultType,
@@ -106,6 +109,7 @@ public interface SqmFunctionDescriptor {
 	 * <p>
 	 * This method is intended for aggregate functions.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <T> SelfRenderingSqmFunction<T> generateAggregateSqmExpression(
 			List<? extends SqmTypedNode<?>> arguments,
 			SqmPredicate filter,
@@ -120,6 +124,7 @@ public interface SqmFunctionDescriptor {
 	 * <p>
 	 * This method is intended for ordered set aggregate functions.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <T> SelfRenderingSqmFunction<T> generateOrderedSetAggregateSqmExpression(
 			List<? extends SqmTypedNode<?>> arguments,
 			SqmPredicate filter,
@@ -135,6 +140,7 @@ public interface SqmFunctionDescriptor {
 	 * <p>
 	 * This method is intended for window functions.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <T> SelfRenderingSqmFunction<T> generateWindowSqmExpression(
 			List<? extends SqmTypedNode<?>> arguments,
 			SqmPredicate filter,
@@ -148,6 +154,7 @@ public interface SqmFunctionDescriptor {
 	/**
 	 * Convenience for a single argument.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default <T> SelfRenderingSqmFunction<T> generateSqmExpression(
 			SqmTypedNode<?> argument,
 			@Nullable ReturnableType<T> impliedResultType,
@@ -162,6 +169,7 @@ public interface SqmFunctionDescriptor {
 	/**
 	 * Convenience for no arguments.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default <T> SelfRenderingSqmFunction<T> generateSqmExpression(
 			@Nullable ReturnableType<T> impliedResultType,
 			QueryEngine queryEngine) {
@@ -192,6 +200,7 @@ public interface SqmFunctionDescriptor {
 	 *
 	 * @return {@code true} by default
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean alwaysIncludesParentheses() {
 		return true;
 	}
@@ -202,6 +211,7 @@ public interface SqmFunctionDescriptor {
 	 * @param name the function name
 	 * @return the signature of the function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String getSignature(String name) {
 		return name;
 	}
@@ -211,6 +221,7 @@ public interface SqmFunctionDescriptor {
 	 *
 	 * @return {@link FunctionKind#NORMAL} by default
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default FunctionKind getFunctionKind() {
 		return FunctionKind.NORMAL;
 	}
@@ -220,6 +231,7 @@ public interface SqmFunctionDescriptor {
 	 *
 	 * @return an instance of {@link ArgumentsValidator}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ArgumentsValidator getArgumentsValidator();
 
 	/**
@@ -227,6 +239,7 @@ public interface SqmFunctionDescriptor {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isPredicate() {
 		return false;
 	}

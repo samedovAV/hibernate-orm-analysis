@@ -12,6 +12,8 @@ import org.hibernate.cfg.MappingSettings;
 import static org.hibernate.cfg.SchemaToolingSettings.ENABLE_SYNONYMS;
 import static org.hibernate.cfg.SchemaToolingSettings.HBM2DDL_JDBC_METADATA_EXTRACTOR_STRATEGY;
 import static org.hibernate.internal.util.config.ConfigurationHelper.getBoolean;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Determines how JDBC metadata is read by the schema management tooling.
@@ -38,10 +40,12 @@ public enum JdbcMetadataAccessStrategy {
 	GROUPED;
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String toString() {
 		return super.toString().toLowerCase(Locale.ROOT);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static JdbcMetadataAccessStrategy interpretSetting(Map<String,Object> options) {
 		if ( options == null ) {
 			return interpretHbm2ddlSetting( null );
@@ -55,6 +59,7 @@ public enum JdbcMetadataAccessStrategy {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static JdbcMetadataAccessStrategy interpretHbm2ddlSetting(Object value) {
 		if ( value == null ) {
 			return GROUPED;

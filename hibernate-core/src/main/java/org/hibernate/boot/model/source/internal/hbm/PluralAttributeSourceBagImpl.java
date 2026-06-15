@@ -9,6 +9,8 @@ import org.hibernate.boot.model.source.spi.AttributeSourceContainer;
 import org.hibernate.boot.model.source.spi.Orderable;
 import org.hibernate.boot.model.source.spi.PluralAttributeNature;
 import org.hibernate.internal.util.StringHelper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -25,26 +27,31 @@ public class PluralAttributeSourceBagImpl extends AbstractPluralAttributeSourceI
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PluralAttributeNature getNature() {
 		return PluralAttributeNature.BAG;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public XmlElementMetadata getSourceType() {
 		return XmlElementMetadata.BAG;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getXmlNodeName() {
 		return jaxbBagMapping.getNode();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isOrdered() {
 		return StringHelper.isNotEmpty( getOrder() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getOrder() {
 		return jaxbBagMapping.getOrderBy();
 	}

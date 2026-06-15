@@ -9,6 +9,8 @@ import org.hibernate.cache.spi.access.AccessType;
 import org.hibernate.mapping.Property;
 import org.hibernate.mapping.RootClass;
 import org.hibernate.metamodel.model.domain.NavigableRole;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -30,6 +32,7 @@ public class NaturalIdDataCachingConfigImpl
 		this.mutable = hasAnyMutableNaturalIdProps();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private boolean hasAnyMutableNaturalIdProps() {
 		for ( Property property : rootEntityDescriptor.getDeclaredProperties() ) {
 			if ( property.isNaturalIdentifier() && property.isUpdatable() ) {
@@ -40,16 +43,19 @@ public class NaturalIdDataCachingConfigImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigableRole getNavigableRole() {
 		return navigableRole;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isMutable() {
 		return mutable;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isVersioned() {
 		return false;
 	}

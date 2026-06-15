@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.type.OutputableType;
 import org.hibernate.sql.exec.spi.JdbcCallParameterExtractor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard implementation of JdbcCallParameterExtractor
@@ -34,16 +36,19 @@ public class JdbcCallParameterExtractorImpl<T> implements JdbcCallParameterExtra
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getParameterName() {
 		return parameterName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getParameterPosition() {
 		return parameterPosition;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public T extractValue(
 			CallableStatement callableStatement,
 			boolean shouldUseJdbcNamedParameters,

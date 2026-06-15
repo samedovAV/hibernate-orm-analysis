@@ -16,6 +16,8 @@ import org.hibernate.boot.xsd.XsdDescriptor;
 
 import static org.hibernate.boot.jaxb.JaxbLogger.JAXB_LOGGER;
 import static org.hibernate.internal.log.DeprecationLogger.DEPRECATION_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -31,6 +33,7 @@ public class LocalXmlResourceResolver implements javax.xml.stream.XMLResolver {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object resolveEntity(String publicID, String systemID, String baseURI, String namespace) throws XMLStreamException {
 		JAXB_LOGGER.resolveEntityInvocation( publicID, systemID, baseURI, namespace );
 
@@ -131,10 +134,12 @@ public class LocalXmlResourceResolver implements javax.xml.stream.XMLResolver {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private InputStream openUrlStream(XsdDescriptor xsdDescriptor) {
 		return openUrlStream( LocalSchemaLocator.resolveLocalSchemaUrl( xsdDescriptor.getLocalResourceName() ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private InputStream openUrlStream(URL url) {
 		try {
 			return url.openStream();
@@ -144,6 +149,7 @@ public class LocalXmlResourceResolver implements javax.xml.stream.XMLResolver {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private InputStream resolveInLocalNamespace(String path) {
 		try {
 			return resourceStreamLocator.locateResourceStream( path );
@@ -195,10 +201,12 @@ public class LocalXmlResourceResolver implements javax.xml.stream.XMLResolver {
 			this.localSchemaUrl = LocalSchemaLocator.resolveLocalSchemaUrl( resourceName );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getIdentifierBase() {
 			return httpBase;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean matches(String publicId, String systemId) {
 			if ( publicId != null ) {
 				if ( publicId.startsWith( httpBase )
@@ -215,6 +223,7 @@ public class LocalXmlResourceResolver implements javax.xml.stream.XMLResolver {
 			return false;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public URL getMappedLocalUrl() {
 			return localSchemaUrl;
 		}

@@ -24,10 +24,13 @@ import org.hibernate.dialect.SybaseASEDialect;
 import org.hibernate.dialect.SybaseDialect;
 
 import java.util.Objects;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class DefaultDialectSelector implements DialectSelector {
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Dialect> resolve(final String name) {
 		Objects.requireNonNull( name );
 		if ( name.isEmpty() ) {

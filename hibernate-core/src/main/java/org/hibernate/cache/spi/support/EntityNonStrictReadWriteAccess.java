@@ -11,6 +11,8 @@ import org.hibernate.cache.spi.DomainDataRegion;
 import org.hibernate.cache.spi.access.AccessType;
 import org.hibernate.cache.spi.access.SoftLock;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard support for {@link org.hibernate.cache.spi.access.EntityDataAccess}
@@ -28,11 +30,13 @@ public class EntityNonStrictReadWriteAccess extends AbstractEntityDataAccess {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AccessType getAccessType() {
 		return AccessType.NONSTRICT_READ_WRITE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean insert(
 			SharedSessionContractImplementor session,
 			Object key,
@@ -42,11 +46,13 @@ public class EntityNonStrictReadWriteAccess extends AbstractEntityDataAccess {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean afterInsert(SharedSessionContractImplementor session, Object key, Object value, Object version) {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean update(
 			SharedSessionContractImplementor session,
 			Object key,
@@ -58,6 +64,7 @@ public class EntityNonStrictReadWriteAccess extends AbstractEntityDataAccess {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean afterUpdate(
 			SharedSessionContractImplementor session,
 			Object key,
@@ -73,6 +80,7 @@ public class EntityNonStrictReadWriteAccess extends AbstractEntityDataAccess {
 	 * Since this is a non-strict read/write strategy item locking is not used.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void unlockItem(SharedSessionContractImplementor session, Object key, SoftLock lock) throws CacheException {
 		getStorageAccess().removeFromCache( key, session );
 	}

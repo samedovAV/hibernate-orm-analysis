@@ -12,6 +12,8 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 
 import static org.hibernate.engine.jdbc.JdbcLogging.JDBC_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * We used to record Statement(s) and their associated ResultSet(s) in a Map
@@ -40,10 +42,12 @@ final class ResultsetsTrackingContainer {
 	//Additional pairs, for the case in which we need more:
 	private HashMap<Statement, ResultSetsSet> xref;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasRegisteredResources() {
 		return key_1 != null; //No need to check the content of xref because of implementation rule #1.
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void registerExpectingNew(final Statement statement) {
 		//We use an assert here as it's a relatively expensive check and I'm fairly confident this would never happen at runtime,
 		//yet we keep the check as an assertion to have the testsuite help us ensure this confidence is maintained in the future.
@@ -59,6 +63,7 @@ final class ResultsetsTrackingContainer {
 	}
 
 	//Assertion helper only:
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean statementNotExisting(final Statement statement) {
 		if ( key_1 == statement ) {
 			return false;
@@ -71,6 +76,7 @@ final class ResultsetsTrackingContainer {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private HashMap<Statement, ResultSetsSet> getXrefForWriting() {
 		if ( this.xref == null ) {
 			this.xref = new HashMap<>();
@@ -78,6 +84,7 @@ final class ResultsetsTrackingContainer {
 		return this.xref;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void trickleDown() {
 		//Moves the first entry from the xref map into the fields, if any entry exists in it.
 		if ( xref != null ) {
@@ -92,6 +99,7 @@ final class ResultsetsTrackingContainer {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void storeAssociatedResultset(Statement statement, ResultSet resultSet) {
 		if ( key_1 == null ) {
 			key_1 = statement;
@@ -122,6 +130,7 @@ final class ResultsetsTrackingContainer {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private ResultSetsSet ensureWriteable(final ResultSetsSet value) {
 		return value == null || value == EMPTY ? new ResultSetsSet() : value;
 	}
@@ -136,6 +145,7 @@ final class ResultsetsTrackingContainer {
 	 * @param statement
 	 * @return
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ResultSetsSet getForResultSetRemoval(final Statement statement) {
 		final ResultSetsSet existingEntry;
 		if ( key_1 == statement ) {
@@ -154,6 +164,7 @@ final class ResultsetsTrackingContainer {
 		return existingEntry;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public ResultSetsSet remove(final Statement statement) {
 		if ( key_1 == statement ) {
 			final ResultSetsSet v = value_1;
@@ -168,6 +179,7 @@ final class ResultsetsTrackingContainer {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean warnOnNotNull(ResultSetsSet existingEntry) {
 		// Keep this at DEBUG level, rather than WARN.
 		// Connection pool implementations often return a
@@ -179,6 +191,7 @@ final class ResultsetsTrackingContainer {
 		return true;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void forEach(final BiConsumer<Statement, ResultSetsSet> action) {
 		if ( key_1 != null ) {
 			action.accept( key_1, value_1 );
@@ -188,6 +201,7 @@ final class ResultsetsTrackingContainer {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void clear() {
 		key_1 = null;
 		value_1 = null;

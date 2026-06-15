@@ -7,6 +7,8 @@ package org.hibernate.engine.query.internal;
 import org.hibernate.engine.query.spi.NativeQueryInterpreter;
 import org.hibernate.query.sql.internal.ParameterParser;
 import org.hibernate.query.sql.spi.ParameterRecognizer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -24,6 +26,7 @@ public class NativeQueryInterpreterStandardImpl implements NativeQueryInterprete
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void recognizeParameters(String nativeQuery, ParameterRecognizer recognizer) {
 		ParameterParser.parse( nativeQuery, recognizer, nativeJdbcParametersIgnored );
 	}

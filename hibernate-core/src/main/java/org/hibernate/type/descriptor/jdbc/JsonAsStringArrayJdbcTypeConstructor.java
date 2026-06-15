@@ -10,6 +10,8 @@ import org.hibernate.tool.schema.extract.spi.ColumnTypeInformation;
 import org.hibernate.type.BasicType;
 import org.hibernate.type.SqlTypes;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Factory for {@link JsonArrayJdbcType}.
@@ -17,6 +19,7 @@ import org.hibernate.type.spi.TypeConfiguration;
 public class JsonAsStringArrayJdbcTypeConstructor implements JdbcTypeConstructor {
 	public static final JsonAsStringArrayJdbcTypeConstructor INSTANCE = new JsonAsStringArrayJdbcTypeConstructor();
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcType resolveType(
 			TypeConfiguration typeConfiguration,
 			Dialect dialect,
@@ -25,6 +28,7 @@ public class JsonAsStringArrayJdbcTypeConstructor implements JdbcTypeConstructor
 		return resolveType( typeConfiguration, dialect, elementType.getJdbcType(), columnTypeInformation );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcType resolveType(
 			TypeConfiguration typeConfiguration,
 			Dialect dialect,
@@ -34,6 +38,7 @@ public class JsonAsStringArrayJdbcTypeConstructor implements JdbcTypeConstructor
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getDefaultSqlTypeCode() {
 		return SqlTypes.JSON_ARRAY;
 	}

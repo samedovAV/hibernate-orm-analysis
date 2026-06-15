@@ -8,6 +8,8 @@ import org.hibernate.persister.filter.FilterAliasGenerator;
 
 import static org.hibernate.persister.entity.AbstractEntityPersister.generateTableAlias;
 import static org.hibernate.persister.entity.AbstractEntityPersister.getTableId;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Rob Worsnop
@@ -22,6 +24,7 @@ public class DynamicFilterAliasGenerator implements FilterAliasGenerator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getAlias(String table) {
 		return table == null
 				? rootAlias

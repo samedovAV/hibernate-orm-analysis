@@ -12,6 +12,8 @@ import org.hibernate.query.named.FetchMemento;
 import org.hibernate.query.results.spi.FetchBuilder;
 import org.hibernate.query.results.internal.complete.CompleteFetchBuilderEmbeddableValuedModelPart;
 import org.hibernate.spi.NavigablePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -31,6 +33,7 @@ public class FetchMementoEmbeddableStandard implements FetchMemento {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchBuilder resolve(
 			Parent parent,
 			Consumer<String> querySpaceConsumer,
@@ -39,14 +42,17 @@ public class FetchMementoEmbeddableStandard implements FetchMemento {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigablePath getNavigablePath() {
 		return navigablePath;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableValuedModelPart getAttributeMapping() {
 		return attributeMapping;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<String> getColumnNames() {
 		return columnNames;
 	}

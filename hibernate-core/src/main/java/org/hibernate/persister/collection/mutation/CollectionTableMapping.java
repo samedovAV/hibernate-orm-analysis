@@ -5,6 +5,8 @@
 package org.hibernate.persister.collection.mutation;
 
 import org.hibernate.sql.model.TableMapping;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -61,6 +63,7 @@ public class CollectionTableMapping implements TableMapping {
 		this.deleteRowDetails = baseMapping.deleteRowDetails;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static String[] appendSpace(String[] baseSpaces, String newSpace) {
 		for ( String space : baseSpaces ) {
 			if ( newSpace.equals( space ) ) {
@@ -74,15 +77,18 @@ public class CollectionTableMapping implements TableMapping {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getTableName() {
 		return tableName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getSpaces() {
 		return spaces;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean containsTableName(String tableName) {
 		if ( this.tableName.equals( tableName ) ) {
 			return true;
@@ -97,56 +103,67 @@ public class CollectionTableMapping implements TableMapping {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public KeyDetails getKeyDetails() {
 		// todo (tuple-cleanup) : implement this
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isJoinTable() {
 		return isJoinTable;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int relativePosition() {
 		return 0;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isOptional() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isInverse() {
 		return isInverse;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isIdentifierTable() {
 		// if there is an id (id-bag), the collection table would hold it
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutationDetails getInsertDetails() {
 		return insertDetails;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutationDetails getUpdateDetails() {
 		return updateDetails;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCascadeDeleteEnabled() {
 		return cascadeDeleteEnabled;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutationDetails getDeleteDetails() {
 		return deleteAllDetails;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutationDetails getDeleteRowDetails() {
 		return deleteRowDetails;
 	}

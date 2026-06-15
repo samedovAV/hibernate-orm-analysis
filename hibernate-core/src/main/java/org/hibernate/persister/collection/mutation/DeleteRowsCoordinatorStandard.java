@@ -17,6 +17,8 @@ import org.hibernate.sql.model.MutationType;
 
 import static org.hibernate.sql.model.ModelMutationLogging.MODEL_MUTATION_LOGGER;
 import static org.hibernate.sql.model.internal.MutationOperationGroupFactory.singleOperation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -45,11 +47,13 @@ public class DeleteRowsCoordinatorStandard implements DeleteRowsCoordinator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionMutationTarget getMutationTarget() {
 		return mutationTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void deleteRows(PersistentCollection<?> collection, Object key, SharedSessionContractImplementor session) {
 		if ( operationGroup == null ) {
 			operationGroup = createOperationGroup();
@@ -106,6 +110,7 @@ public class DeleteRowsCoordinatorStandard implements DeleteRowsCoordinator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private MutationOperationGroup createOperationGroup() {
 		assert mutationTarget.getTargetPart() != null
 			&& mutationTarget.getTargetPart().getKeyDescriptor() != null;

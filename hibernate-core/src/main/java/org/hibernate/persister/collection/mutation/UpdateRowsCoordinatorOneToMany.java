@@ -15,6 +15,8 @@ import org.hibernate.sql.model.MutationOperationGroup;
 import org.hibernate.sql.model.MutationType;
 
 import static org.hibernate.sql.model.internal.MutationOperationGroupFactory.singleOperation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -37,6 +39,7 @@ public class UpdateRowsCoordinatorOneToMany extends AbstractUpdateRowsCoordinato
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected int doUpdate(Object key, PersistentCollection<?> collection, SharedSessionContractImplementor session) {
 		if ( rowMutationOperations.hasDeleteRow() ) {
 			deleteRows( key, collection, session );
@@ -49,6 +52,7 @@ public class UpdateRowsCoordinatorOneToMany extends AbstractUpdateRowsCoordinato
 		return 0;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void deleteRows(Object key, PersistentCollection<?> collection, SharedSessionContractImplementor session) {
 		final var attributeMapping = getMutationTarget().getTargetPart();
 		final var collectionDescriptor = attributeMapping.getCollectionDescriptor();
@@ -87,6 +91,7 @@ public class UpdateRowsCoordinatorOneToMany extends AbstractUpdateRowsCoordinato
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private MutationOperationGroup resolveDeleteGroup() {
 		if ( deleteOperationGroup == null ) {
 			final var operation = rowMutationOperations.getDeleteRowOperation();
@@ -96,6 +101,7 @@ public class UpdateRowsCoordinatorOneToMany extends AbstractUpdateRowsCoordinato
 		return deleteOperationGroup;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private int insertRows(Object key, PersistentCollection<?> collection, SharedSessionContractImplementor session) {
 		final var attributeMapping = getMutationTarget().getTargetPart();
 		final var collectionDescriptor = attributeMapping.getCollectionDescriptor();
@@ -137,6 +143,7 @@ public class UpdateRowsCoordinatorOneToMany extends AbstractUpdateRowsCoordinato
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private MutationOperationGroup resolveInsertGroup() {
 		if ( insertOperationGroup == null ) {
 			final var operation = rowMutationOperations.getInsertRowOperation();

@@ -9,6 +9,8 @@ import org.hibernate.type.descriptor.jdbc.EnumJdbcType;
 import org.hibernate.type.descriptor.jdbc.OrdinalEnumJdbcType;
 
 import java.sql.Types;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Defines a list of constant type codes used to identify generic SQL types.
@@ -747,6 +749,7 @@ public class SqlTypes {
 	 * numeric type?
 	 * @param typeCode a JDBC type code from {@link Types}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isNumericType(int typeCode) {
 		switch (typeCode) {
 			case Types.BIT:
@@ -771,6 +774,7 @@ public class SqlTypes {
 	 *
 	 * @param typeCode a JDBC type code from {@link Types}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isStringType(int typeCode) {
 		switch (typeCode) {
 			case Types.CHAR:
@@ -794,6 +798,7 @@ public class SqlTypes {
 	 *
 	 * @param typeCode a JDBC type code from {@link Types}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isCharacterOrClobType(int typeCode) {
 		switch (typeCode) {
 			case Types.CHAR:
@@ -816,6 +821,7 @@ public class SqlTypes {
 	 *
 	 * @param typeCode a JDBC type code from {@link Types}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isCharacterType(int typeCode) {
 		switch (typeCode) {
 			case Types.CHAR:
@@ -836,6 +842,7 @@ public class SqlTypes {
 	 *
 	 * @param typeCode a JDBC type code from {@link Types}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isVarcharType(int typeCode) {
 		switch (typeCode) {
 			case Types.VARCHAR:
@@ -853,6 +860,7 @@ public class SqlTypes {
 	 * variable-length binary string type?
 	 * @param typeCode a JDBC type code from {@link Types}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isVarbinaryType(int typeCode) {
 		switch (typeCode) {
 			case Types.VARBINARY:
@@ -868,6 +876,7 @@ public class SqlTypes {
 	 * variable-length binary string or BLOB type?
 	 * @param typeCode a JDBC type code from {@link Types}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isBinaryType(int typeCode) {
 		switch ( typeCode ) {
 			case Types.BINARY:
@@ -884,6 +893,7 @@ public class SqlTypes {
 	 * Does the given typecode represent one of the two SQL decimal types?
 	 * @param typeCode a JDBC type code from {@link Types}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isNumericOrDecimal(int typeCode) {
 		switch ( typeCode ) {
 			case NUMERIC:
@@ -898,6 +908,7 @@ public class SqlTypes {
 	 * Does the given typecode represent a SQL floating point type?
 	 * @param typeCode a JDBC type code from {@link Types}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isFloatOrRealOrDouble(int typeCode) {
 		switch ( typeCode ) {
 			case FLOAT:
@@ -913,6 +924,7 @@ public class SqlTypes {
 	 * Does the given typecode represent a SQL integer type?
 	 * @param typeCode a JDBC type code from {@link Types}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isIntegral(int typeCode) {
 		switch ( typeCode ) {
 			case INTEGER:
@@ -926,6 +938,7 @@ public class SqlTypes {
 	}
 
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isSmallOrTinyInt(int typeCode) {
 		switch ( typeCode ) {
 			case SMALLINT:
@@ -940,6 +953,7 @@ public class SqlTypes {
 	 * Does the given typecode represent a SQL date, time, or timestamp type?
 	 * @param typeCode a JDBC type code from {@link Types}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isTemporalType(int typeCode) {
 		switch ( typeCode ) {
 			case DATE:
@@ -965,6 +979,7 @@ public class SqlTypes {
 	/**
 	 * Does the given typecode represent a SQL {@code interval} type?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isIntervalType(int typeCode) {
 		return typeCode == INTERVAL_SECOND;
 	}
@@ -972,6 +987,7 @@ public class SqlTypes {
 	/**
 	 * Does the given typecode represent a {@code duration} type?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isDurationType(int typeCode) {
 		return typeCode == DURATION;
 	}
@@ -980,6 +996,7 @@ public class SqlTypes {
 	 * Does the given typecode represent a SQL date or timestamp type?
 	 * @param typeCode a JDBC type code from {@link Types}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean hasDatePart(int typeCode) {
 		switch ( typeCode ) {
 			case DATE:
@@ -1000,6 +1017,7 @@ public class SqlTypes {
 	 * Does the given typecode represent a SQL time or timestamp type?
 	 * @param typeCode a JDBC type code from {@link Types}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean hasTimePart(int typeCode) {
 		switch ( typeCode ) {
 			case TIME:
@@ -1024,6 +1042,7 @@ public class SqlTypes {
 	 *
 	 * @param typeCode - a JDBC type code
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isSpatialType(int typeCode) {
 		switch ( typeCode ) {
 			case GEOMETRY:
@@ -1035,6 +1054,7 @@ public class SqlTypes {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isEnumType(int typeCode) {
 		switch ( typeCode ) {
 			case ENUM:
@@ -1051,6 +1071,7 @@ public class SqlTypes {
 	 * @param typeCode - a JDBC type code
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isJsonType(int typeCode) {
 		switch ( typeCode ) {
 			case JSON:
@@ -1067,6 +1088,7 @@ public class SqlTypes {
 	 * @param typeCode - a JDBC type code
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isImplicitJsonType(int typeCode) {
 		switch ( typeCode ) {
 			case JSON:
@@ -1083,6 +1105,7 @@ public class SqlTypes {
 	 * @param typeCode - a JDBC type code
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isXmlType(int typeCode) {
 		switch ( typeCode ) {
 			case SQLXML:
@@ -1099,6 +1122,7 @@ public class SqlTypes {
 	 * @param typeCode - a JDBC type code
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isImplicitXmlType(int typeCode) {
 		switch ( typeCode ) {
 			case SQLXML:

@@ -5,6 +5,8 @@
 package org.hibernate.type.descriptor.java;
 
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Additional contract for types which may be used to version (and optimistic lock) data.
@@ -25,6 +27,7 @@ public interface VersionJavaType<T> extends JavaType<T> {
 	 * @param session The session from which this request originates.
 	 * @return an instance of the type
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	T seed(Long length, Integer precision, Integer scale, SharedSessionContractImplementor session);
 
 	/**
@@ -37,6 +40,7 @@ public interface VersionJavaType<T> extends JavaType<T> {
 	 * @param session The session from which this request originates.
 	 * @return an instance of the type
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	T next(T current, Long length, Integer precision, Integer scale, SharedSessionContractImplementor session);
 
 }

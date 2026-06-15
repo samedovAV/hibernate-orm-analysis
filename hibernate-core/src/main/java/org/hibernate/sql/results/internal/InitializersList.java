@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.hibernate.sql.results.graph.Initializer;
 import org.hibernate.sql.results.graph.entity.internal.EntityInitializerImpl;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Internal helper to keep track of the various
@@ -36,19 +38,23 @@ public final class InitializersList {
 		this.hasCollectionInitializers = hasCollectionInitializers;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Initializer<?>[] getInitializers() {
 		return initializers;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Initializer<?>[] getSortedForResolveInstance() {
 		return sortedForResolveInstance;
 	}
 
 	@Deprecated //for simpler migration to the new SPI
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public List<Initializer<?>> asList() {
 		return Arrays.asList( initializers );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int size() {
 		return initializers.length;
 	}
@@ -66,6 +72,7 @@ public final class InitializersList {
 			initializers = new ArrayList<>( size );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void addInitializer(final Initializer<?> initializer) {
 			initializers.add( initializer );
 			//in this method we perform these checks merely to learn the sizing hints,
@@ -81,10 +88,12 @@ public final class InitializersList {
 			}
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private static boolean initializeFirst(final Initializer<?> initializer) {
 			return initializer instanceof EntityInitializerImpl;
 		}
 
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public InitializersList build() {
 			final int size = initializers.size();
 			final Initializer<?>[] sortedForResolveInstance = new Initializer<?>[size];
@@ -107,6 +116,7 @@ public final class InitializersList {
 			);
 		}
 
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		private Initializer<?>[] toArray(final ArrayList<Initializer<?>> initializers) {
 			return initializers.toArray( new Initializer<?>[initializers.size()] );
 		}

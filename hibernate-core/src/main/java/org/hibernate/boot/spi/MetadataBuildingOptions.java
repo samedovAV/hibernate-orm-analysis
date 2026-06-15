@@ -22,6 +22,8 @@ import org.hibernate.type.spi.TypeConfiguration;
 import org.hibernate.usertype.CompositeUserType;
 
 import jakarta.persistence.SharedCacheMode;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Describes the options used while building the {@link org.hibernate.boot.Metadata}
@@ -35,11 +37,13 @@ public interface MetadataBuildingOptions {
 	/**
 	 * Access to the {@link StandardServiceRegistry}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StandardServiceRegistry getServiceRegistry();
 
 	/**
 	 * Access to the {@link MappingDefaults}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MappingDefaults getMappingDefaults();
 
 	/**
@@ -50,6 +54,7 @@ public interface MetadataBuildingOptions {
 	 * @see org.hibernate.cfg.AvailableSettings#TIMEZONE_DEFAULT_STORAGE
 	 * @see org.hibernate.dialect.Dialect#getTimeZoneSupport()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TimeZoneStorageStrategy getDefaultTimeZoneStorage();
 
 	/**
@@ -57,6 +62,7 @@ public interface MetadataBuildingOptions {
 	 *
 	 * @see org.hibernate.dialect.Dialect#getTimeZoneSupport()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TimeZoneSupport getTimeZoneSupport();
 
 	/**
@@ -64,8 +70,10 @@ public interface MetadataBuildingOptions {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#WRAPPER_ARRAY_HANDLING
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	WrapperArrayHandling getWrapperArrayHandling();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default CollectionSemanticsResolver getPersistentCollectionRepresentationResolver() {
 		// for now always return the standard one
 		return StandardCollectionSemanticsResolver.INSTANCE;
@@ -83,26 +91,31 @@ public interface MetadataBuildingOptions {
 	 *
 	 * @return The {@code BasicTypes} registrations
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<BasicTypeRegistration> getBasicTypeRegistrations();
 
 	/**
 	 * Access the list of {@link CompositeUserType} registrations.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<CompositeUserType<?>> getCompositeUserTypes();
 
 	/**
 	 * @see org.hibernate.cfg.AvailableSettings#IMPLICIT_NAMING_STRATEGY
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ImplicitNamingStrategy getImplicitNamingStrategy();
 
 	/**
 	 * @see org.hibernate.cfg.AvailableSettings#PHYSICAL_NAMING_STRATEGY
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PhysicalNamingStrategy getPhysicalNamingStrategy();
 
 	/**
 	 * @see org.hibernate.cfg.AvailableSettings#COLUMN_ORDERING_STRATEGY
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ColumnOrderingStrategy getColumnOrderingStrategy();
 
 	/**
@@ -112,6 +125,7 @@ public interface MetadataBuildingOptions {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#JAKARTA_SHARED_CACHE_MODE
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedCacheMode getSharedCacheMode();
 
 	/**
@@ -121,6 +135,7 @@ public interface MetadataBuildingOptions {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#DEFAULT_CACHE_CONCURRENCY_STRATEGY
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	AccessType getImplicitCacheAccessType();
 
 	/**
@@ -132,6 +147,7 @@ public interface MetadataBuildingOptions {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#MULTI_TENANT_CONNECTION_PROVIDER
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isMultiTenancyEnabled();
 
 	/**
@@ -141,11 +157,13 @@ public interface MetadataBuildingOptions {
 	 * @see org.hibernate.cfg.MappingSettings#XML_FORMAT_MAPPER_LEGACY_FORMAT
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isXmlFormatMapperLegacyFormatEnabled();
 
 	/**
 	 * @return the {@link TypeConfiguration} belonging to the {@link BootstrapContext}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TypeConfiguration getTypeConfiguration();
 
 	/**
@@ -158,6 +176,7 @@ public interface MetadataBuildingOptions {
 	 * @see org.hibernate.boot.MetadataBuilder#enableExplicitDiscriminatorsForJoinedSubclassSupport
 	 * @see org.hibernate.cfg.AvailableSettings#IGNORE_EXPLICIT_DISCRIMINATOR_COLUMNS_FOR_JOINED_SUBCLASS
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean ignoreExplicitDiscriminatorsForJoinedInheritance();
 
 	/**
@@ -169,6 +188,7 @@ public interface MetadataBuildingOptions {
 	 * @see org.hibernate.boot.MetadataBuilder#enableImplicitDiscriminatorsForJoinedSubclassSupport
 	 * @see org.hibernate.cfg.AvailableSettings#IMPLICIT_DISCRIMINATOR_COLUMNS_FOR_JOINED_SUBCLASS
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean createImplicitDiscriminatorsForJoinedInheritance();
 
 	/**
@@ -180,6 +200,7 @@ public interface MetadataBuildingOptions {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#FORCE_DISCRIMINATOR_IN_SELECTS_BY_DEFAULT
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean shouldImplicitlyForceDiscriminatorInSelect();
 
 	/**
@@ -192,6 +213,7 @@ public interface MetadataBuildingOptions {
 	 *
 	 * @return {@code true} if nationalized character data should be used by default; {@code false} otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean useNationalizedCharacterData();
 
 	/**
@@ -204,11 +226,13 @@ public interface MetadataBuildingOptions {
 	 * @return {@code true} if we should <em>not</em> create constraints by default;
 	 *         {@code false} if we should.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isNoConstraintByDefault();
 
 	/**
 	 * @see org.hibernate.cfg.AvailableSettings#HBM2DDL_CHARSET_NAME
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String getSchemaCharset() {
 		return null;
 	}
@@ -216,6 +240,7 @@ public interface MetadataBuildingOptions {
 	/**
 	 * @see org.hibernate.cfg.AvailableSettings#XML_MAPPING_ENABLED
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isXmlMappingEnabled() {
 		return true;
 	}
@@ -223,5 +248,6 @@ public interface MetadataBuildingOptions {
 	/**
 	 * Check to see if extensions can be hosted in CDI
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isAllowExtensionsInCdi();
 }

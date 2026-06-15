@@ -17,6 +17,8 @@ import org.hibernate.type.descriptor.ValueExtractor;
 import org.hibernate.type.descriptor.WrapperOptions;
 import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Descriptor for {@link Types#BLOB BLOB} handling.
@@ -32,21 +34,25 @@ public abstract class BlobJdbcType implements JdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getJdbcTypeCode() {
 		return Types.BLOB;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getFriendlyName() {
 		return "BLOB";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "BlobTypeDescriptor";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<?> getRecommendedJavaType(
 			Integer length,
 			Integer scale,
@@ -55,19 +61,23 @@ public abstract class BlobJdbcType implements JdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> ValueExtractor<X> getExtractor(final JavaType<X> javaType) {
 		return new BasicExtractor<>( javaType, this ) {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(ResultSet rs, int paramIndex, WrapperOptions options) throws SQLException {
 				return javaType.wrap( rs.getBlob( paramIndex ), options );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(CallableStatement statement, int index, WrapperOptions options) throws SQLException {
 				return javaType.wrap( statement.getBlob( index ), options );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(CallableStatement statement, String name, WrapperOptions options)
 					throws SQLException {
 				return javaType.wrap( statement.getBlob( name ), options );
@@ -75,14 +85,17 @@ public abstract class BlobJdbcType implements JdbcType {
 		};
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract <X> BasicBinder<X> getBlobBinder(final JavaType<X> javaType);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> BasicBinder<X> getBinder(final JavaType<X> javaType) {
 		return getBlobBinder( javaType );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getExtraCreateTableInfo(JavaType<?> javaType, String columnName, String tableName, Database database) {
 		if( javaType.getJavaTypeClass() != Blob.class && database.getDialect().supportsValueLOBAccess() ) {
 			return database.getDialect().getValueLOBFragmentForExtraCreateTableInfo(columnName);
@@ -94,15 +107,18 @@ public abstract class BlobJdbcType implements JdbcType {
 
 	public static final BlobJdbcType DEFAULT = new BlobJdbcType() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String toString() {
 			return "BlobTypeDescriptor(DEFAULT)";
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Class<?> getPreferredJavaTypeClass(WrapperOptions options) {
 			return byte[].class;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private BlobJdbcType getDescriptor(Object value, WrapperOptions options) {
 			if ( value instanceof byte[] ) {
 				// performance shortcut for binding BLOB data in byte[] format
@@ -117,15 +133,18 @@ public abstract class BlobJdbcType implements JdbcType {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public <X> BasicBinder<X> getBlobBinder(final JavaType<X> javaType) {
 			return new BasicBinder<>( javaType, this ) {
 				@Override
+				@Prove(complexity = Complexity.O_N, n = "", count = {})
 				protected void doBind(PreparedStatement st, X value, int index, WrapperOptions options)
 						throws SQLException {
 					getDescriptor( value, options ).getBlobBinder( javaType ).doBind( st, value, index, options );
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_N, n = "", count = {})
 				protected void doBind(CallableStatement st, X value, String name, WrapperOptions options)
 						throws SQLException {
 					getDescriptor( value, options ).getBlobBinder( javaType ).doBind( st, value, name, options );
@@ -136,25 +155,30 @@ public abstract class BlobJdbcType implements JdbcType {
 
 	public static final BlobJdbcType PRIMITIVE_ARRAY_BINDING = new BlobJdbcType() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String toString() {
 			return "BlobTypeDescriptor(PRIMITIVE_ARRAY_BINDING)";
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Class<?> getPreferredJavaTypeClass(WrapperOptions options) {
 			return byte[].class;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public <X> BasicBinder<X> getBlobBinder(final JavaType<X> javaType) {
 			return new BasicBinder<>( javaType, this ) {
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				public void doBind(PreparedStatement st, X value, int index, WrapperOptions options)
 						throws SQLException {
 					st.setBytes( index, javaType.unwrap( value, byte[].class, options ) );
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected void doBind(CallableStatement st, X value, String name, WrapperOptions options)
 						throws SQLException {
 					st.setBytes( name, javaType.unwrap( value, byte[].class, options ) );
@@ -165,25 +189,30 @@ public abstract class BlobJdbcType implements JdbcType {
 
 	public static final BlobJdbcType BLOB_BINDING = new BlobJdbcType() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String toString() {
 			return "BlobTypeDescriptor(BLOB_BINDING)";
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Class<?> getPreferredJavaTypeClass(WrapperOptions options) {
 			return Blob.class;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public <X> BasicBinder<X> getBlobBinder(final JavaType<X> javaType) {
 			return new BasicBinder<>( javaType, this ) {
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected void doBind(PreparedStatement st, X value, int index, WrapperOptions options)
 						throws SQLException {
 					st.setBlob( index, javaType.unwrap( value, Blob.class, options ) );
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected void doBind(CallableStatement st, X value, String name, WrapperOptions options)
 						throws SQLException {
 					st.setBlob( name, javaType.unwrap( value, Blob.class, options ) );
@@ -194,19 +223,23 @@ public abstract class BlobJdbcType implements JdbcType {
 
 	public static final BlobJdbcType STREAM_BINDING = new BlobJdbcType() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String toString() {
 			return "BlobTypeDescriptor(STREAM_BINDING)";
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Class<?> getPreferredJavaTypeClass(WrapperOptions options) {
 			return BinaryStream.class;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public <X> BasicBinder<X> getBlobBinder(final JavaType<X> javaType) {
 			return new BasicBinder<>( javaType, this ) {
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected void doBind(PreparedStatement st, X value, int index, WrapperOptions options)
 						throws SQLException {
 					// the use of BinaryStream here instead of InputStream seems to be only necessary on Oracle
@@ -215,6 +248,7 @@ public abstract class BlobJdbcType implements JdbcType {
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected void doBind(CallableStatement st, X value, String name, WrapperOptions options)
 						throws SQLException {
 					// the use of BinaryStream here instead of InputStream seems to be only necessary on Oracle
@@ -227,25 +261,30 @@ public abstract class BlobJdbcType implements JdbcType {
 
 	public static final BlobJdbcType MATERIALIZED = new BlobJdbcType() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String toString() {
 			return "BlobTypeDescriptor(MATERIALIZED)";
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Class<?> getPreferredJavaTypeClass(WrapperOptions options) {
 			return byte[].class;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public <X> BasicBinder<X> getBlobBinder(final JavaType<X> javaType) {
 			return new BasicBinder<>( javaType, this ) {
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				public void doBind(PreparedStatement st, X value, int index, WrapperOptions options)
 						throws SQLException {
 					st.setBytes( index, javaType.unwrap( value, byte[].class, options ) );
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected void doBind(CallableStatement st, X value, String name, WrapperOptions options)
 						throws SQLException {
 					st.setBytes( name, javaType.unwrap( value, byte[].class, options ) );
@@ -254,19 +293,23 @@ public abstract class BlobJdbcType implements JdbcType {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public <X> ValueExtractor<X> getExtractor(final JavaType<X> javaType) {
 			return new BasicExtractor<>( javaType, this ) {
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected X doExtract(ResultSet rs, int paramIndex, WrapperOptions options) throws SQLException {
 					return javaType.wrap( rs.getBytes( paramIndex ), options );
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected X doExtract(CallableStatement statement, int index, WrapperOptions options) throws SQLException {
 					return javaType.wrap( statement.getBytes( index ), options );
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected X doExtract(CallableStatement statement, String name, WrapperOptions options)
 						throws SQLException {
 					return javaType.wrap( statement.getBytes( name ), options );

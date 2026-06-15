@@ -22,6 +22,8 @@ import org.hibernate.boot.spi.MetadataBuildingContext;
 
 import static org.hibernate.boot.query.BootQueryLogging.BOOT_QUERY_LOGGER;
 import static org.hibernate.boot.query.HbmResultSetMappingDescriptor.*;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Builder for implicit ResultSet mapping defined inline as part of a named native query
@@ -62,14 +64,17 @@ public class ImplicitHbmResultSetMappingDescriptorBuilder {
 		this.resultDescriptors = new ArrayList<>( numberOfReturns );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getRegistrationName() {
 		return registrationName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasAnyReturns() {
 		return ! resultDescriptors.isEmpty();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ImplicitHbmResultSetMappingDescriptorBuilder addReturn(JaxbHbmNativeQueryScalarReturnType returnMapping) {
 		resultDescriptors.add(
 				new ScalarDescriptor(
@@ -80,6 +85,7 @@ public class ImplicitHbmResultSetMappingDescriptorBuilder {
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ImplicitHbmResultSetMappingDescriptorBuilder addReturn(JaxbHbmNativeQueryReturnType returnMapping) {
 		foundEntityReturn = true;
 		final EntityResultDescriptor resultDescriptor = new EntityResultDescriptor(
@@ -99,6 +105,7 @@ public class ImplicitHbmResultSetMappingDescriptorBuilder {
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ImplicitHbmResultSetMappingDescriptorBuilder addReturn(JaxbHbmNativeQueryJoinReturnType returnMapping) {
 		if ( joinDescriptors == null ) {
 			joinDescriptors = new HashMap<>();
@@ -118,6 +125,7 @@ public class ImplicitHbmResultSetMappingDescriptorBuilder {
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ImplicitHbmResultSetMappingDescriptorBuilder addReturn(JaxbHbmNativeQueryCollectionLoadReturnType returnMapping) {
 		foundCollectionReturn = true;
 		final CollectionResultDescriptor resultDescriptor = new CollectionResultDescriptor(
@@ -137,6 +145,7 @@ public class ImplicitHbmResultSetMappingDescriptorBuilder {
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HbmResultSetMappingDescriptor build(HbmLocalMetadataBuildingContext context) {
 		if ( foundCollectionReturn && resultDescriptors.size() > 1 ) {
 			throw new MappingException(

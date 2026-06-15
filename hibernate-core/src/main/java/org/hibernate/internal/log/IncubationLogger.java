@@ -15,6 +15,8 @@ import java.lang.invoke.MethodHandles;
 import java.util.Locale;
 
 import static org.jboss.logging.Logger.Level.INFO;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -32,5 +34,6 @@ public interface IncubationLogger {
 			id = 90006001,
 			value = "Setting '%s' is still incubating (see Javadoc of corresponding member of 'org.hibernate.cfg.AvailableSettings')"
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void incubatingSetting(String settingName);
 }

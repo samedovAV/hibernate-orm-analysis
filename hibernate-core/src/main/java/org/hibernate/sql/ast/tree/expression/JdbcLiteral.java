@@ -25,6 +25,8 @@ import org.hibernate.sql.results.graph.basic.BasicResult;
 import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.descriptor.java.JavaTypedExpressible;
 import org.hibernate.type.descriptor.java.MutabilityPlan;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents a literal in the SQL AST.  This form accepts a {@link JdbcMapping} and acts
@@ -44,21 +46,25 @@ public class JdbcLiteral<T> implements Literal, MappingModelExpressible<T>, Doma
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getLiteralValue() {
 		return literalValue;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcMapping getJdbcMapping() {
 		return jdbcMapping;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker sqlTreeWalker) {
 		sqlTreeWalker.visitJdbcLiteral( this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void bindParameterValue(
 			PreparedStatement statement,
 			int startPosition,
@@ -78,16 +84,19 @@ public class JdbcLiteral<T> implements Literal, MappingModelExpressible<T>, Doma
 	// MappingModelExpressible
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MappingModelExpressible<T> getExpressionType() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getJdbcTypeCount() {
 		return 1;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcMapping getJdbcMapping(int index) {
 		if ( index != 0 ) {
 			throw new IndexOutOfBoundsException( index );
@@ -96,22 +105,26 @@ public class JdbcLiteral<T> implements Literal, MappingModelExpressible<T>, Doma
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcMapping getSingleJdbcMapping() {
 		return jdbcMapping;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int forEachJdbcType(int offset, IndexedConsumer<JdbcMapping> action) {
 		action.accept( offset, jdbcMapping );
 		return getJdbcTypeCount();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object disassemble(Object value, SharedSessionContractImplementor session) {
 		return value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addToCacheKey(MutableCacheKeyBuilder cacheKey, Object value, SharedSessionContractImplementor session) {
 		if ( value != null ) {
 			cacheKey.addValue( disassemble( value, jdbcMapping.getJdbcJavaType().getMutabilityPlan(), session ) );
@@ -119,10 +132,12 @@ public class JdbcLiteral<T> implements Literal, MappingModelExpressible<T>, Doma
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static <T> int hashCode(Object value, JavaType<T> javaTypeDescriptor) {
 		return javaTypeDescriptor.extractHashCode( (T) value );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static <T> Serializable disassemble(
 			Object value, MutabilityPlan<T> mutabilityPlan,
 			SharedSessionContractImplementor session) {
@@ -130,6 +145,7 @@ public class JdbcLiteral<T> implements Literal, MappingModelExpressible<T>, Doma
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X, Y> int forEachDisassembledJdbcValue(
 			Object value,
 			int offset,
@@ -142,6 +158,7 @@ public class JdbcLiteral<T> implements Literal, MappingModelExpressible<T>, Doma
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X, Y> int forEachJdbcValue(
 			Object value,
 			int offset,
@@ -158,6 +175,7 @@ public class JdbcLiteral<T> implements Literal, MappingModelExpressible<T>, Doma
 	// DomainResultProducer
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResult<T> createDomainResult(String resultVariable, DomainResultCreationState creationState) {
 		final SqlAstCreationState sqlAstCreationState = creationState.getSqlAstCreationState();
 		final SqlSelection sqlSelection =
@@ -172,6 +190,7 @@ public class JdbcLiteral<T> implements Literal, MappingModelExpressible<T>, Doma
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applySqlSelections(DomainResultCreationState creationState) {
 		final SqlAstCreationState sqlAstCreationState = creationState.getSqlAstCreationState();
 		sqlAstCreationState.getSqlExpressionResolver().resolveSqlSelection(
@@ -183,6 +202,7 @@ public class JdbcLiteral<T> implements Literal, MappingModelExpressible<T>, Doma
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<T> getExpressibleJavaType() {
 		return (JavaType<T>)
 				jdbcMapping.getJavaTypeDescriptor();

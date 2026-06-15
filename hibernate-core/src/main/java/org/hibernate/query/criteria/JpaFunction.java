@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.query.criteria;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Contract for expressions which model a SQL function call.
@@ -17,5 +20,6 @@ public interface JpaFunction<T> extends JpaExpression<T> {
 	 *
 	 * @return The function name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getFunctionName();
 }

@@ -8,9 +8,12 @@ import jakarta.annotation.Nonnull;
 import org.hibernate.type.BasicType;
 
 import java.util.Comparator;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 class ComparatorUtil {
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <T> Comparator<Object> versionComparator(BasicType<T> type) {
 		return (u, v) -> {
 			final var descriptor = type.getJavaTypeDescriptor();

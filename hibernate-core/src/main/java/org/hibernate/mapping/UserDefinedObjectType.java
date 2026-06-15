@@ -13,6 +13,8 @@ import org.hibernate.Incubating;
 import org.hibernate.Internal;
 import org.hibernate.boot.model.naming.Identifier;
 import org.hibernate.boot.model.relational.Namespace;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A mapping model object representing a relational database {@linkplain org.hibernate.annotations.Struct UDT}.
@@ -36,6 +38,7 @@ public class UserDefinedObjectType extends AbstractUserDefinedType {
 	 *         Note: the instance *can* be different than the input parameter,
 	 *         but the name will be the same.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Column getColumn(Column column) {
 		if ( column == null ) {
 			return null;
@@ -46,6 +49,7 @@ public class UserDefinedObjectType extends AbstractUserDefinedType {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Column getColumn(Identifier name) {
 		if ( name == null ) {
 			return null;
@@ -53,6 +57,7 @@ public class UserDefinedObjectType extends AbstractUserDefinedType {
 		return columns.get( name.getCanonicalName() );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Column getColumn(int n) {
 		final var iter = columns.values().iterator();
 		for ( int i = 0; i < n - 1; i++ ) {
@@ -61,6 +66,7 @@ public class UserDefinedObjectType extends AbstractUserDefinedType {
 		return iter.next();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addColumn(Column column) {
 		final Column old = getColumn( column );
 		if ( old == null ) {
@@ -72,27 +78,33 @@ public class UserDefinedObjectType extends AbstractUserDefinedType {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getColumnSpan() {
 		return columns.size();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Collection<Column> getColumns() {
 		return columns.values();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean containsColumn(Column column) {
 		return columns.containsValue( column );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getComment() {
 		return comment;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
 
 	@Internal
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void reorderColumns(List<Column> columns) {
 		if ( orderMapping != null ) {
 			return;
@@ -109,6 +121,7 @@ public class UserDefinedObjectType extends AbstractUserDefinedType {
 	}
 
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int[] getOrderMapping() {
 		return orderMapping;
 	}

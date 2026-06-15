@@ -13,6 +13,8 @@ import org.hibernate.metamodel.mapping.EmbeddableMappingType;
 import org.hibernate.metamodel.spi.RuntimeModelCreationContext;
 import org.hibernate.type.descriptor.WrapperOptions;
 import org.hibernate.type.descriptor.jdbc.AggregateJdbcType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -22,6 +24,7 @@ public class OracleReflectionStructJdbcType extends OracleBaseStructJdbcType {
 
 	private static final ClassValue<Method> RAW_JDBC_TRANSFORMER = new ClassValue<>() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		protected Method computeValue(Class<?> type) {
 			if ( "oracle.sql.TIMESTAMPTZ".equals( type.getName() ) ) {
 				try {
@@ -46,6 +49,7 @@ public class OracleReflectionStructJdbcType extends OracleBaseStructJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AggregateJdbcType resolveAggregateJdbcType(
 			EmbeddableMappingType mappingType,
 			String sqlType,
@@ -62,6 +66,7 @@ public class OracleReflectionStructJdbcType extends OracleBaseStructJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Object transformRawJdbcValue(Object rawJdbcValue, WrapperOptions options) {
 		Method rawJdbcTransformer = RAW_JDBC_TRANSFORMER.get( rawJdbcValue.getClass() );
 		if ( rawJdbcTransformer == null ) {

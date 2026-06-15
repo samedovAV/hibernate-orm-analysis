@@ -8,6 +8,8 @@ import jakarta.persistence.PessimisticLockScope;
 import org.hibernate.LockMode;
 import org.hibernate.LockOptions;
 import org.hibernate.Timeouts;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Event class for {@link org.hibernate.Session#lock}.
@@ -62,22 +64,27 @@ public class LockEvent extends AbstractSessionEvent {
 		this( entityName, object, lockMode.toLockOptions(), source );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getObject() {
 		return object;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setObject(Object object) {
 		this.object = object;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LockOptions getLockOptions() {
 		return lockOptions;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getEntityName() {
 		return entityName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setEntityName(String entityName) {
 		this.entityName = entityName;
 	}
@@ -87,6 +94,7 @@ public class LockEvent extends AbstractSessionEvent {
 	 * @deprecated Use {@linkplain #getLockOptions()} instead.
 	 */
 	@Deprecated(since = "7.1")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public LockMode getLockMode() {
 		return lockOptions.getLockMode();
 	}
@@ -95,6 +103,7 @@ public class LockEvent extends AbstractSessionEvent {
 	 * @deprecated Use {@linkplain #getLockOptions()} instead.
 	 */
 	@Deprecated(since = "7.1")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getLockTimeout() {
 		return lockOptions.getTimeOut();
 	}
@@ -103,6 +112,7 @@ public class LockEvent extends AbstractSessionEvent {
 	 * @deprecated Use {@linkplain #getLockOptions()} instead.
 	 */
 	@Deprecated(since = "7.1")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean getLockScope() {
 		return lockOptions.getLockScope() != PessimisticLockScope.NORMAL;
 	}

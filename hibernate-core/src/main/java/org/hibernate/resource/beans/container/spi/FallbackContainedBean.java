@@ -6,6 +6,8 @@ package org.hibernate.resource.beans.container.spi;
 
 import org.hibernate.resource.beans.spi.BeanInstanceProducer;
 import org.hibernate.resource.beans.spi.ManagedBean;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -27,11 +29,13 @@ public class FallbackContainedBean<B> implements ContainedBean<B>, ManagedBean<B
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<B> getBeanClass() {
 		return beanType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public B getBeanInstance() {
 		return beanInstance;
 	}

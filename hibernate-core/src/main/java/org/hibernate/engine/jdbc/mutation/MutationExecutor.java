@@ -10,6 +10,8 @@ import org.hibernate.engine.jdbc.mutation.group.PreparedStatementDetails;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.generator.values.GeneratedValues;
 import org.hibernate.sql.model.ValuesAnalysis;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Main contract for performing the mutation.  Accounts for various
@@ -26,12 +28,14 @@ public interface MutationExecutor {
 	/**
 	 * Get the delegate to be used to coordinate JDBC parameter binding.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcValueBindings getJdbcValueBindings();
 
 	/**
 	 * Details about the {@link java.sql.PreparedStatement} for mutating
 	 * the given table.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PreparedStatementDetails getPreparedStatementDetails(String tableName);
 
 	/**
@@ -42,6 +46,7 @@ public interface MutationExecutor {
 	 * @param resultChecker Custom result checking; pass {@code null} to perform
 	 * 		the standard check using the statement's {@linkplain org.hibernate.jdbc.Expectation expectation}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	GeneratedValues execute(
 			Object modelReference,
 			ValuesAnalysis valuesAnalysis,
@@ -49,6 +54,7 @@ public interface MutationExecutor {
 			OperationResultChecker resultChecker,
 			SharedSessionContractImplementor session);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	GeneratedValues execute(
 			Object modelReference,
 			ValuesAnalysis valuesAnalysis,
@@ -57,5 +63,6 @@ public interface MutationExecutor {
 			SharedSessionContractImplementor session,
 			StaleStateMapper staleStateMapper);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void release();
 }

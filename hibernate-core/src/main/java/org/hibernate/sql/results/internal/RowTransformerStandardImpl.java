@@ -6,6 +6,8 @@ package org.hibernate.sql.results.internal;
 
 import org.hibernate.Incubating;
 import org.hibernate.sql.results.spi.RowTransformer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Returns the first object in each row, if there
@@ -23,6 +25,7 @@ public class RowTransformerStandardImpl<T> implements RowTransformer<T> {
 	private static final RowTransformerStandardImpl INSTANCE = new RowTransformerStandardImpl();
 
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <T> RowTransformer<T> instance() {
 		return INSTANCE;
 	}
@@ -32,6 +35,7 @@ public class RowTransformerStandardImpl<T> implements RowTransformer<T> {
 
 	@Override
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public T transformRow(Object[] row) {
 		return row.length == 1 ? (T) row[0] : (T) row;
 	}

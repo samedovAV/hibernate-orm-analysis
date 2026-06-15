@@ -29,6 +29,8 @@ import org.hibernate.sql.results.graph.internal.ImmutableFetchList;
 import org.hibernate.type.descriptor.java.JavaType;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -170,12 +172,14 @@ public class EagerCollectionFetch extends CollectionFetch {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigablePath resolveNavigablePath(Fetchable fetchable) {
 		// Only CollectionPart is possible here
 		return getNavigablePath().append( fetchable.getFetchableName() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionInitializer<?> createInitializer(InitializerParent<?> parent, AssemblerCreationState creationState) {
 		return initializerProducer.produceInitializer(
 				getNavigablePath(),
@@ -191,21 +195,25 @@ public class EagerCollectionFetch extends CollectionFetch {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchTiming getTiming() {
 		return FetchTiming.IMMEDIATE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasTableGroup() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ImmutableFetchList getFetches() {
 		return fetches;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Fetch findFetch(Fetchable fetchable) {
 		if ( CollectionPart.Nature.ELEMENT.getName().equals( fetchable.getFetchableName() ) ) {
 			return elementFetch;
@@ -222,33 +230,39 @@ public class EagerCollectionFetch extends CollectionFetch {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasJoinFetches() {
 		// This is already a fetch, so this line should actually never be hit
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean containsCollectionFetches() {
 		// This is already a collection fetch, so this line should actually never be hit
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int getCollectionFetchesCount() {
 		return 1 + super.getCollectionFetchesCount();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<?> getResultJavaType() {
 		return getFetchedMapping().getJavaType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchParent asFetchParent() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void collectValueIndexesToCache(BitSet valueIndexes) {
 		if ( collectionKeyResult != null ) {
 			collectionKeyResult.collectValueIndexesToCache( valueIndexes );

@@ -7,6 +7,8 @@ package org.hibernate.sql.results.graph;
 import org.hibernate.Incubating;
 import org.hibernate.engine.FetchTiming;
 import org.hibernate.graph.spi.GraphImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * State used as part of applying entity graphs to
@@ -38,14 +40,17 @@ public interface EntityGraphTraversalState {
 			this.fetchOptions = fetchOptions;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public GraphImplementor<?> getGraph() {
 			return previousContext;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public FetchStrategy getFetchStrategy() {
 			return fetchStrategy;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public org.hibernate.engine.spi.FetchOptions getFetchOptions() {
 			return fetchOptions;
 		}
@@ -61,10 +66,12 @@ public interface EntityGraphTraversalState {
 			this.joined = joined;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public FetchTiming getFetchTiming() {
 			return fetchTiming;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean isJoined() {
 			return joined;
 		}
@@ -74,6 +81,7 @@ public interface EntityGraphTraversalState {
 	 * Traverses to the next part of the Jakarta Persistence entity graph relating to
 	 * the given {@link Fetchable}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TraversalResult traverse(FetchParent parent, Fetchable fetchable, boolean exploreKeySubgraph);
 
 	/**
@@ -83,5 +91,6 @@ public interface EntityGraphTraversalState {
 	 * @param previousContext The previous entity graph context node; should not be null
 	 * @see #traverse(FetchParent, Fetchable, boolean)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void backtrack(TraversalResult previousContext);
 }

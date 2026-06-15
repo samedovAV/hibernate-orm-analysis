@@ -7,6 +7,8 @@ package org.hibernate.type.descriptor.jdbc;
 
 import java.sql.Types;
 import java.util.concurrent.ConcurrentHashMap;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Information pertaining to JDBC type families.
@@ -31,6 +33,7 @@ public class JdbcTypeFamilyInformation {
 			this.typeCodes = typeCodes;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public int[] getTypeCodes() {
 			return typeCodes;
 		}
@@ -52,6 +55,7 @@ public class JdbcTypeFamilyInformation {
 	 *
 	 * @return The family of datatypes the type code belongs to, or {@code null} if it belongs to no known families.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Family locateJdbcTypeFamilyByTypeCode(int typeCode) {
 		return typeCodeToFamilyMap.get(typeCode);
 	}

@@ -17,6 +17,8 @@ import org.hibernate.sql.model.MutationType;
 import java.util.Iterator;
 
 import static org.hibernate.sql.model.internal.MutationOperationGroupFactory.singleOperation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard WriteIndexCoordinator implementation for collections with {@code @OrderColumn}.
@@ -41,16 +43,19 @@ public class WriteIndexCoordinatorStandard implements WriteIndexCoordinator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "WriteIndexCoordinator(" + mutationTarget.getRolePath() + ")";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionMutationTarget getMutationTarget() {
 		return mutationTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void writeIndex(
 			PersistentCollection<?> collection,
 			Iterator<?> entries,
@@ -116,10 +121,12 @@ public class WriteIndexCoordinatorStandard implements WriteIndexCoordinator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private int getBaseIndex() {
 		return getBaseIndex(mutationTarget);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static int getBaseIndex(CollectionMutationTarget mutationTarget) {
 		final var indexMetadata = mutationTarget.getTargetPart().getIndexMetadata();
 		return indexMetadata != null ? indexMetadata.getListIndexBase() : 0;

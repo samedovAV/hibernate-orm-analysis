@@ -7,6 +7,8 @@ package org.hibernate.engine.spi;
 import java.io.Serializable;
 
 import org.hibernate.action.spi.Executable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * We frequently need the union type of Executable, Comparable of ComparableExecutable, Serializable;
@@ -21,6 +23,7 @@ public interface ComparableExecutable extends Executable, Comparable<ComparableE
 	 * This affect sorting order of the executables, when sorting is enabled.
 	 * @return the primary sorting attribute; typically the entity name or collection role.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getPrimarySortClassifier();
 
 	/**
@@ -28,6 +31,7 @@ public interface ComparableExecutable extends Executable, Comparable<ComparableE
 	 * @return the secondary sorting attribute, applied when getPrimarySortClassifier
 	 * matches during a comparison; typically the entity key or collection key.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getSecondarySortIndex();
 
 }

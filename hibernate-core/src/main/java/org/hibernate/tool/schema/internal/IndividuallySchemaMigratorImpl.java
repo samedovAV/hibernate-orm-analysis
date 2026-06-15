@@ -18,6 +18,8 @@ import org.hibernate.tool.schema.spi.GenerationTarget;
 import org.hibernate.tool.schema.spi.ContributableMatcher;
 import org.hibernate.tool.schema.spi.ExecutionOptions;
 import org.hibernate.tool.schema.spi.SchemaFilter;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * This implementation executes one {@link java.sql.DatabaseMetaData#getTables(String, String, String, String[])} call
@@ -34,6 +36,7 @@ public class IndividuallySchemaMigratorImpl extends AbstractSchemaMigrator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected NameSpaceTablesInformation performTablesMigration(
 			Metadata metadata,
 			DatabaseInformation existingDatabase,

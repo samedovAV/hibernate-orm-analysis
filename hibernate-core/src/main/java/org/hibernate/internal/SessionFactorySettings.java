@@ -25,12 +25,15 @@ import static org.hibernate.engine.config.spi.StandardConverters.STRING;
 import static org.hibernate.internal.log.DeprecationLogger.DEPRECATION_LOGGER;
 import static org.hibernate.internal.util.StringHelper.isNotEmpty;
 import static org.hibernate.internal.util.config.ConfigurationHelper.maskOut;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Helper methods used to set up a {@link SessionFactoryImpl}.
  */
 class SessionFactorySettings {
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static Map<String, Object> getSettings(
 			SessionFactoryOptions options, SessionFactoryServiceRegistry serviceRegistry) {
 		final var settings =
@@ -48,6 +51,7 @@ class SessionFactorySettings {
 		return result;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static Map<String, Object> getMaskedSettings(
 			SessionFactoryOptions options, SessionFactoryServiceRegistry serviceRegistry) {
 		final var settings = getSettings( options, serviceRegistry );
@@ -55,6 +59,7 @@ class SessionFactorySettings {
 		return maskOutSensitiveInformation( settings );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static String getSessionFactoryName(
 			SessionFactoryOptions options, SessionFactoryServiceRegistry serviceRegistry) {
 		final String sessionFactoryName = options.getSessionFactoryName();
@@ -76,6 +81,7 @@ class SessionFactorySettings {
 				.getSetting( PERSISTENCE_UNIT_NAME, STRING );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static Map<String, Object> maskOutSensitiveInformation(Map<String, Object> props) {
 		return maskOut( props,
 				JdbcSettings.JPA_JDBC_USER,
@@ -86,6 +92,7 @@ class SessionFactorySettings {
 				JdbcSettings.PASS );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static String determineJndiName(
 			String name,
 			SessionFactoryOptions options,
@@ -112,6 +119,7 @@ class SessionFactorySettings {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static void deprecationCheck(Map<String, Object> settings) {
 		for ( String setting:settings.keySet() ) {
 			switch ( setting ) {

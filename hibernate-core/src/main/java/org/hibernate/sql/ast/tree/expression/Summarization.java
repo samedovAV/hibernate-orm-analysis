@@ -8,6 +8,8 @@ import java.util.List;
 
 import org.hibernate.metamodel.mapping.MappingModelExpressible;
 import org.hibernate.sql.ast.SqlAstWalker;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -22,20 +24,24 @@ public class Summarization implements Expression {
 		this.groupings = groupings;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Kind getKind() {
 		return kind;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<Expression> getGroupings() {
 		return groupings;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MappingModelExpressible getExpressionType() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker walker) {
 		walker.visitSummarization( this );
 	}
@@ -50,6 +56,7 @@ public class Summarization implements Expression {
 			this.sqlText = sqlText;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String sqlText() {
 			return sqlText;
 		}

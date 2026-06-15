@@ -10,6 +10,8 @@ import org.hibernate.models.spi.ModelsContext;
 
 import java.lang.annotation.Annotation;
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -43,26 +45,31 @@ public class AnyDiscriminatorImplicitValuesAnnotation implements AnyDiscriminato
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return AnyDiscriminatorImplicitValues.class;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Strategy value() {
 		return value;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void value(Strategy value) {
 		this.value = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends ImplicitDiscriminatorStrategy> implementation() {
 		return implementation;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void implementation(Class<? extends ImplicitDiscriminatorStrategy> implementation) {
 		this.implementation = implementation;
 	}

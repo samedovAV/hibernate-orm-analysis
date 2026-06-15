@@ -10,6 +10,8 @@ import org.hibernate.boot.Metadata;
 import org.hibernate.boot.spi.MetadataImplementor;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.query.spi.QueryEngine;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Responsible for triggering {@linkplain QueryEngine#validateNamedQueries()
@@ -29,6 +31,7 @@ class SessionFactoryObserverForNamedQueryValidation implements SessionFactoryObs
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void sessionFactoryCreated(SessionFactory factory) {
 		final var sessionFactory = (SessionFactoryImplementor) factory;
 		final var queryEngine = sessionFactory.getQueryEngine();

@@ -11,6 +11,8 @@ import java.util.Locale;
 import static java.lang.Character.isDigit;
 import static java.lang.Character.isLowerCase;
 import static java.lang.Character.isUpperCase;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Converts {@code camelCase} or {@code MixedCase} logical names to {@code snake_case}.
@@ -36,30 +38,36 @@ import static java.lang.Character.isUpperCase;
 public class PhysicalNamingStrategySnakeCaseImpl implements PhysicalNamingStrategy {
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Identifier toPhysicalCatalogName(Identifier logicalName, JdbcEnvironment jdbcEnvironment) {
 		return apply( logicalName );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Identifier toPhysicalSchemaName(Identifier logicalName, JdbcEnvironment jdbcEnvironment) {
 		return apply( logicalName );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Identifier toPhysicalTableName(Identifier logicalName, JdbcEnvironment jdbcEnvironment) {
 		return apply( logicalName );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Identifier toPhysicalSequenceName(Identifier logicalName, JdbcEnvironment jdbcEnvironment) {
 		return apply( logicalName );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Identifier toPhysicalColumnName(Identifier logicalName, JdbcEnvironment jdbcEnvironment) {
 		return apply( logicalName );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Identifier apply(final Identifier name) {
 		if ( name == null ) {
 			return null;
@@ -72,6 +80,7 @@ public class PhysicalNamingStrategySnakeCaseImpl implements PhysicalNamingStrate
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private String camelCaseToSnakeCase(String name) {
 		final var builder = new StringBuilder( name.replace( '.', '_' ) );
 		for ( int i = 1; i < builder.length() - 1; i++ ) {
@@ -82,14 +91,17 @@ public class PhysicalNamingStrategySnakeCaseImpl implements PhysicalNamingStrate
 		return builder.toString();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Identifier unquotedIdentifier(Identifier name) {
 		return new Identifier( camelCaseToSnakeCase( name.getText() ).toLowerCase( Locale.ROOT ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Identifier quotedIdentifier(Identifier quotedName) {
 		return quotedName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean isUnderscoreRequired(final char before, final char current, final char after) {
 		return ( isLowerCase( before ) || isDigit( before ) )
 			&& isUpperCase( current )

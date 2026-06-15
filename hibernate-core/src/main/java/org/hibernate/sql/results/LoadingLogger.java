@@ -18,6 +18,8 @@ import java.lang.invoke.MethodHandles;
 import java.util.Locale;
 
 import static org.jboss.logging.Logger.Level.DEBUG;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -34,10 +36,12 @@ public interface LoadingLogger extends BasicLogger {
 
 	LoadingLogger LOADING_LOGGER = Logger.getMessageLogger( MethodHandles.lookup(), LoadingLogger.class, LOGGER_NAME, Locale.ROOT );
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static String subLoggerName(String subName) {
 		return LOGGER_NAME + "." + subName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static Logger subLogger(String subName) {
 		return Logger.getLogger( subLoggerName( subName ) );
 	}
@@ -45,10 +49,12 @@ public interface LoadingLogger extends BasicLogger {
 	@LogMessage(level = DEBUG)
 	@Message(id = 90005801,
 			value = "Found matching entity in context, but it is scheduled for removal (returning null)")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void foundEntityScheduledForRemoval();
 
 	@LogMessage(level = DEBUG)
 	@Message(id = 90005802,
 			value = "Found matching entity in context, but the matched entity had an inconsistent type")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void foundEntityWrongType();
 }

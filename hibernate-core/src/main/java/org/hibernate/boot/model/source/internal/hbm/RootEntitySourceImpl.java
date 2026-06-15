@@ -9,6 +9,8 @@ import org.hibernate.boot.jaxb.hbm.spi.JaxbHbmRootEntityType;
 import org.hibernate.boot.model.source.spi.IdentifiableTypeSource;
 import org.hibernate.boot.model.source.spi.NaturalIdMutability;
 import org.hibernate.boot.model.source.spi.TableSpecificationSource;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -33,6 +35,7 @@ public class RootEntitySourceImpl extends AbstractEntitySourceImpl {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void buildAttributeSources(final AttributesHelper.Callback attributeBuildingCallback) {
 		final JaxbHbmNaturalIdType naturalId = jaxbEntityMapping().getNaturalId();
 		if ( naturalId != null ) {
@@ -53,21 +56,25 @@ public class RootEntitySourceImpl extends AbstractEntitySourceImpl {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected JaxbHbmRootEntityType jaxbEntityMapping() {
 		return (JaxbHbmRootEntityType) super.jaxbEntityMapping();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableSpecificationSource getPrimaryTable() {
 		return primaryTable;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getDiscriminatorMatchValue() {
 		return jaxbEntityMapping().getDiscriminatorValue();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public IdentifiableTypeSource getSuperType() {
 		return null;
 	}

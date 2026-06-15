@@ -11,6 +11,8 @@ import org.hibernate.boot.spi.MetadataBuildingContext;
 import org.hibernate.mapping.PersistentClass;
 import org.hibernate.mapping.Property;
 import org.hibernate.property.access.spi.PropertyAccessStrategy;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Configures the {@link PropertyAccessStrategy} for an attribute.
@@ -19,6 +21,7 @@ import org.hibernate.property.access.spi.PropertyAccessStrategy;
  */
 public class AttributeAccessorBinder implements AttributeBinder<AttributeAccessor> {
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void bind(
 			AttributeAccessor accessor,
 			MetadataBuildingContext buildingContext,

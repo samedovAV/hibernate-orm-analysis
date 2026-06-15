@@ -11,6 +11,8 @@ import java.util.function.Consumer;
 import org.hibernate.Incubating;
 import org.hibernate.metamodel.mapping.internal.EmptyAttributeMappingsMap;
 import org.hibernate.metamodel.mapping.internal.ImmutableAttributeMappingsMap;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Similar to {@link AttributeMappingsList}, this is essentially
@@ -32,14 +34,19 @@ import org.hibernate.metamodel.mapping.internal.ImmutableAttributeMappingsMap;
 @Incubating
 public interface AttributeMappingsMap {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void forEachValue(Consumer<? super AttributeMapping> action);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int size();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	AttributeMapping get(String name);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Iterable<AttributeMapping> valueIterator();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static Builder builder() {
 		return new Builder();
 	}
@@ -50,6 +57,7 @@ public interface AttributeMappingsMap {
 
 		private LinkedHashMap<String,AttributeMapping> storage;
 
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public void put(final String name, final AttributeMapping mapping) {
 			Objects.requireNonNull( name );
 			Objects.requireNonNull( mapping );
@@ -59,6 +67,7 @@ public interface AttributeMappingsMap {
 			storage.put( name, mapping );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public AttributeMappingsMap build() {
 			if ( storage == null ) {
 				return EmptyAttributeMappingsMap.INSTANCE;

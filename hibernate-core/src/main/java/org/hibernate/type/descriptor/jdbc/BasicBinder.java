@@ -13,6 +13,8 @@ import org.hibernate.type.descriptor.JdbcBindingLogging;
 import org.hibernate.type.descriptor.ValueBinder;
 import org.hibernate.type.descriptor.WrapperOptions;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Convenience base implementation of {@link ValueBinder}
@@ -24,10 +26,12 @@ public abstract class BasicBinder<J> implements ValueBinder<J>, Serializable {
 	private final JavaType<J> javaType;
 	private final JdbcType jdbcType;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<J> getJavaType() {
 		return javaType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcType getJdbcType() {
 		return jdbcType;
 	}
@@ -38,6 +42,7 @@ public abstract class BasicBinder<J> implements ValueBinder<J>, Serializable {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final void bind(PreparedStatement st, J value, int index, WrapperOptions options)
 			throws SQLException {
 		if ( value == null ) {
@@ -62,6 +67,7 @@ public abstract class BasicBinder<J> implements ValueBinder<J>, Serializable {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final void bind(CallableStatement st, J value, String name, WrapperOptions options)
 			throws SQLException {
 		if ( value == null ) {
@@ -86,6 +92,7 @@ public abstract class BasicBinder<J> implements ValueBinder<J>, Serializable {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getBindValue(J value, WrapperOptions options) throws SQLException {
 		final var preferredClass = jdbcType.getPreferredJavaTypeClass( options );
 		return preferredClass == null ? value : getJavaType().unwrap( value, preferredClass, options );
@@ -100,6 +107,7 @@ public abstract class BasicBinder<J> implements ValueBinder<J>, Serializable {
 	 *
 	 * @throws SQLException Indicates a problem binding to the prepared statement.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void doBindNull(PreparedStatement st, int index, WrapperOptions options)
 			throws SQLException {
 		st.setNull( index, jdbcType.getJdbcTypeCode() );
@@ -114,6 +122,7 @@ public abstract class BasicBinder<J> implements ValueBinder<J>, Serializable {
 	 *
 	 * @throws SQLException Indicates a problem binding to the callable statement.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void doBindNull(CallableStatement st, String name, WrapperOptions options)
 			throws SQLException {
 		st.setNull( name, jdbcType.getJdbcTypeCode() );
@@ -129,6 +138,7 @@ public abstract class BasicBinder<J> implements ValueBinder<J>, Serializable {
 	 *
 	 * @throws SQLException Indicates a problem binding to the prepared statement.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract void doBind(PreparedStatement st, J value, int index, WrapperOptions options)
 			throws SQLException;
 
@@ -142,6 +152,7 @@ public abstract class BasicBinder<J> implements ValueBinder<J>, Serializable {
 	 *
 	 * @throws SQLException Indicates a problem binding to the callable statement.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract void doBind(CallableStatement st, J value, String name, WrapperOptions options)
 			throws SQLException;
 }

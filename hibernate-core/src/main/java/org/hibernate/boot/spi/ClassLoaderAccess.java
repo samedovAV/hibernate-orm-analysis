@@ -5,6 +5,8 @@
 package org.hibernate.boot.spi;
 
 import java.net.URL;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * During the process of building the metamodel, access to the {@link ClassLoader} is
@@ -22,6 +24,7 @@ public interface ClassLoaderAccess {
 	 * @param name The name of the class
 	 * @return The {@code Class} object with the given name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> Class<T> classForName(String name);
 
 	/**
@@ -31,5 +34,6 @@ public interface ClassLoaderAccess {
 	 * @return The located resource;
 	 *         may return {@code null} to indicate the resource was not found
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	URL locateResource(String resourceName);
 }

@@ -5,6 +5,8 @@
 package org.hibernate.persister.entity.mutation;
 
 import org.hibernate.sql.model.MutationOperationGroup;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Coordinates the mutation operations of an entity.
@@ -21,5 +23,6 @@ public interface MutationCoordinator {
 	 * The operation group used to perform the mutation unless some form
 	 * of dynamic mutation is necessary.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOperationGroup getStaticMutationOperationGroup();
 }

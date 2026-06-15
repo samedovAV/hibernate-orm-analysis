@@ -14,6 +14,8 @@ import org.hibernate.sql.model.MutationOperation;
 import org.hibernate.sql.model.ast.builder.AbstractTableUpdateBuilder;
 import org.hibernate.sql.model.ast.builder.TableMergeBuilder;
 import org.hibernate.sql.model.ast.builder.TableUpdateBuilder;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specialized {@link UpdateCoordinator} for {@code merge into}.
@@ -27,6 +29,7 @@ public class MergeCoordinatorStandard extends UpdateCoordinatorStandard {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected <O extends MutationOperation> AbstractTableUpdateBuilder<O> newTableUpdateBuilder(EntityTableMapping tableMapping) {
 		final TableMergeBuilder<O> tableUpdateBuilder =
 				new TableMergeBuilder<>( entityPersister(), tableMapping, factory() );
@@ -34,6 +37,7 @@ public class MergeCoordinatorStandard extends UpdateCoordinatorStandard {
 		return tableUpdateBuilder;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void addDiscriminatorValueIfNeeded(
 			AbstractTableUpdateBuilder<?> tableUpdateBuilder,
 			EntityTableMapping tableMapping) {
@@ -53,10 +57,12 @@ public class MergeCoordinatorStandard extends UpdateCoordinatorStandard {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean isColumnIncludedInSet(SelectableMapping selectable) {
 		return selectable.isUpdateable() || selectable.isInsertable();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isInsertableOrUpdatable(AttributeMapping attribute) {
 		final var attributeMetadata = attribute.getAttributeMetadata();
 		return attributeMetadata.isUpdatable()
@@ -64,11 +70,13 @@ public class MergeCoordinatorStandard extends UpdateCoordinatorStandard {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected AttributeInclusionChecker createInclusionChecker(boolean[] attributeUpdateability) {
 		return (position, attribute) -> isInsertableOrUpdatable( attribute );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected boolean includeInStaticUpdate(
 			int index,
 			AttributeMapping attribute,
@@ -78,11 +86,13 @@ public class MergeCoordinatorStandard extends UpdateCoordinatorStandard {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean includeProperty(boolean[] insertability, boolean[] updateability, int property) {
 		return insertability[property] || updateability[property];
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public boolean[] getPropertyUpdateability(Object entity) {
 		final boolean[] updateability = super.getPropertyUpdateability( entity );
 		final boolean[] insertability = entityPersister().getPropertyInsertability();
@@ -94,6 +104,7 @@ public class MergeCoordinatorStandard extends UpdateCoordinatorStandard {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public boolean[] getPropertyUpdateability() {
 		final boolean[] updateability = entityPersister().getPropertyUpdateability();
 		final boolean[] insertability = entityPersister().getPropertyInsertability();
@@ -104,11 +115,13 @@ public class MergeCoordinatorStandard extends UpdateCoordinatorStandard {
 		return result;
 	}
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void forEachUpdatable(AttributeMapping attributeMapping, TableUpdateBuilder<?> tableUpdateBuilder) {
 		attributeMapping.forEachSelectable( tableUpdateBuilder );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	protected UpdateValuesAnalysisImpl analyzeUpdateValues(
 			Object entity,
 			Object[] values,
@@ -157,6 +170,7 @@ public class MergeCoordinatorStandard extends UpdateCoordinatorStandard {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "MergeCoordinator(" + entityPersister().getEntityName() + ")";
 	}

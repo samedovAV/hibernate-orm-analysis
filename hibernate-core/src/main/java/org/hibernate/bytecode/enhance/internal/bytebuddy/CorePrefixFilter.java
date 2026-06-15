@@ -5,6 +5,8 @@
 package org.hibernate.bytecode.enhance.internal.bytebuddy;
 
 import java.util.Objects;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * We differentiate between core classes and application classes during symbol
@@ -49,6 +51,7 @@ public final class CorePrefixFilter {
 		this.acceptedPrefixes = Objects.requireNonNull( acceptedPrefixes );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isCoreClassName(final String name) {
 		for ( String acceptedPrefix : acceptedPrefixes ) {
 			if ( name.startsWith( acceptedPrefix ) ) {

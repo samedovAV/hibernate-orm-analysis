@@ -5,6 +5,8 @@
 package org.hibernate.event.spi;
 
 import org.hibernate.persister.entity.EntityPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Occurs after an entity instance is fully loaded.
@@ -27,34 +29,41 @@ public class PostLoadEvent extends AbstractSessionEvent {
 		this.entity = entity;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void reset() {
 		entity = null;
 		id = null;
 		persister = null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getEntity() {
 		return entity;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityPersister getPersister() {
 		return persister;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getId() {
 		return id;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PostLoadEvent setEntity(Object entity) {
 		this.entity = entity;
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PostLoadEvent setId(Object id) {
 		this.id = id;
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PostLoadEvent setPersister(EntityPersister persister) {
 		this.persister = persister;
 		return this;

@@ -3,12 +3,17 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.engine.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * @author Steve Ebersole
  */
 public interface PersistentAttributeInterceptable extends PrimeAmongSecondarySupertypes {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PersistentAttributeInterceptor $$_hibernate_getInterceptor();
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void $$_hibernate_setInterceptor(PersistentAttributeInterceptor interceptor);
 
 	/**
@@ -17,6 +22,7 @@ public interface PersistentAttributeInterceptable extends PrimeAmongSecondarySup
 	 * @return this same instance
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default PersistentAttributeInterceptable asPersistentAttributeInterceptable() {
 		return this;
 	}

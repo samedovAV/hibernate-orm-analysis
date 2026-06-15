@@ -11,6 +11,8 @@ import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.metamodel.mapping.PluralAttributeMapping;
 import org.hibernate.spi.NavigablePath;
 import org.hibernate.sql.ast.spi.SqlAliasBase;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A table group for collection tables of plural attributes.
@@ -50,24 +52,29 @@ public class CollectionTableGroup extends StandardTableGroup implements PluralTa
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public PluralAttributeMapping getModelPart() {
 		return (PluralAttributeMapping) super.getModelPart();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableGroup getElementTableGroup() {
 		return elementTableGroup;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableGroup getIndexTableGroup() {
 		return indexTableGroup;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void registerIndexTableGroup(TableGroupJoin indexTableGroupJoin) {
 		registerIndexTableGroup( indexTableGroupJoin, true );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void registerIndexTableGroup(TableGroupJoin indexTableGroupJoin, boolean nested) {
 		assert this.indexTableGroup == null;
 		this.indexTableGroup = indexTableGroupJoin.getJoinedGroup();
@@ -79,10 +86,12 @@ public class CollectionTableGroup extends StandardTableGroup implements PluralTa
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void registerElementTableGroup(TableGroupJoin elementTableGroupJoin) {
 		registerElementTableGroup( elementTableGroupJoin, true );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void registerElementTableGroup(TableGroupJoin elementTableGroupJoin, boolean nested) {
 		assert this.elementTableGroup == null;
 		this.elementTableGroup = elementTableGroupJoin.getJoinedGroup();
@@ -95,6 +104,7 @@ public class CollectionTableGroup extends StandardTableGroup implements PluralTa
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public TableReference getTableReference(
 			NavigablePath navigablePath,
 			String tableExpression,

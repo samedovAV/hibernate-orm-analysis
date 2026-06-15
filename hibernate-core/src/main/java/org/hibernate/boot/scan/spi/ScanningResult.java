@@ -11,6 +11,8 @@ import org.hibernate.boot.scan.internal.ScanningResultImpl;
 import java.net.URI;
 import java.net.URL;
 import java.util.Set;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Defines the result from archive scanning.
 ///
@@ -23,11 +25,14 @@ public interface ScanningResult {
 	ScanningResult NONE = new ScanningResultImpl();
 
 	/// All discovered package names (without `package-info`).
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Set<String> discoveredPackages();
 
 	/// All discovered class names.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Set<String> discoveredClasses();
 
 	/// All `META-INF/orm.xml` files discovered across all unit archives.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Set<URI> mappingFiles();
 }

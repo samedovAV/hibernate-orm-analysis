@@ -8,6 +8,8 @@ import org.hibernate.boot.jaxb.mapping.spi.JaxbEntityMappingsImpl;
 import org.hibernate.boot.jaxb.spi.Binding;
 import org.hibernate.boot.model.process.spi.ManagedResources;
 import org.hibernate.boot.models.xml.internal.XmlPreProcessingResultImpl;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Performs pre-processing across XML mappings to collect data
@@ -20,6 +22,7 @@ public class XmlPreProcessor {
 	/**
 	 * Build an XmlResources reference based on the given {@code managedResources}
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static XmlPreProcessingResult preProcessXmlResources(
 			ManagedResources managedResources,
 			PersistenceUnitMetadata persistenceUnitMetadata) {

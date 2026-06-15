@@ -14,6 +14,8 @@ import org.hibernate.sql.model.TableMapping;
 import java.util.BitSet;
 import java.util.List;
 import java.util.function.Function;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /// Values analysis for update operations in the decomposer.
@@ -105,18 +107,22 @@ public class UpdateValuesAnalysis implements org.hibernate.persister.entity.muta
 		} );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void addTableWithNonNullValues(EntityTableDescriptor table) {
 		tablesWithNonNullValues = addTable( table, tablesWithNonNullValues );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void addTableWithPreviousNonNullValues(EntityTableDescriptor table) {
 		tablesWithPreviousNonNullValues = addTable( table, tablesWithPreviousNonNullValues );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void addTableNeedingUpdate(EntityTableDescriptor table) {
 		tablesNeedingUpdate = addTable( table, tablesNeedingUpdate );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private BitSet addTable(EntityTableDescriptor table, BitSet graphSet) {
 		if ( graphSet == null ) {
 			graphSet = new BitSet();
@@ -125,28 +131,34 @@ public class UpdateValuesAnalysis implements org.hibernate.persister.entity.muta
 		return graphSet;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean needsUpdate(EntityTableDescriptor table) {
 		return contains( tablesNeedingUpdate, table );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean contains(BitSet graphSet, EntityTableDescriptor table) {
 		return graphSet != null && graphSet.get( table.getRelativePosition() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean[] getDirtiness() {
 		return dirtiness;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasDirtyAttributes() {
 		return hasDirtyAttributes;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object[] getValues() {
 		return values;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableSet getTablesNeedingUpdate() {
 		if ( legacyTablesNeedingUpdate == null ) {
 			legacyTablesNeedingUpdate = buildLegacyTableSet( tablesNeedingUpdate );
@@ -155,6 +167,7 @@ public class UpdateValuesAnalysis implements org.hibernate.persister.entity.muta
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableSet getTablesWithNonNullValues() {
 		if ( legacyTablesWithNonNullValues == null ) {
 			legacyTablesWithNonNullValues = buildLegacyTableSet( tablesWithNonNullValues );
@@ -163,6 +176,7 @@ public class UpdateValuesAnalysis implements org.hibernate.persister.entity.muta
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableSet getTablesWithPreviousNonNullValues() {
 		if ( legacyTablesWithPreviousNonNullValues == null ) {
 			legacyTablesWithPreviousNonNullValues = buildLegacyTableSet( tablesWithPreviousNonNullValues );
@@ -171,6 +185,7 @@ public class UpdateValuesAnalysis implements org.hibernate.persister.entity.muta
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableSet getTablesNeedingDynamicUpdate() {
 		if ( legacyTablesNeedingDynamicUpdate == null ) {
 			legacyTablesNeedingDynamicUpdate = buildLegacyTableSet( tablesNeedingDynamicUpdate );
@@ -178,6 +193,7 @@ public class UpdateValuesAnalysis implements org.hibernate.persister.entity.muta
 		return legacyTablesNeedingDynamicUpdate;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private TableSet buildLegacyTableSet(BitSet graphSet) {
 		final TableSet legacySet = new TableSet();
 		if ( graphSet != null ) {
@@ -191,6 +207,7 @@ public class UpdateValuesAnalysis implements org.hibernate.persister.entity.muta
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<AttributeAnalysis> getAttributeAnalyses() {
 		return List.of();
 	}

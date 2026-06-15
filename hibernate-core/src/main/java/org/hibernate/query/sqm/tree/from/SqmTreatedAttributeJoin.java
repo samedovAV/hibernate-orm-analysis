@@ -12,6 +12,8 @@ import org.hibernate.query.criteria.JpaExpression;
 import org.hibernate.query.criteria.JpaPredicate;
 import org.hibernate.query.sqm.tree.SqmCopyContext;
 import org.hibernate.query.sqm.tree.domain.SqmTreatedJoin;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -19,33 +21,41 @@ import org.hibernate.query.sqm.tree.domain.SqmTreatedJoin;
 public interface SqmTreatedAttributeJoin<L,R,R1 extends R> extends SqmAttributeJoin<L,R1>, SqmTreatedJoin<L,R,R1> {
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<S extends R1> SqmTreatedAttributeJoin<L,R1,S> treatAs(@Nonnull Class<S> treatJavaType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<S extends R1> SqmTreatedAttributeJoin<L,R1,S> treatAs(@Nonnull Class<S> treatJavaType, @Nullable String alias);
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<S extends R1> SqmTreatedAttributeJoin<L,R1,S> treatAs(@Nonnull EntityDomainType<S> treatTarget);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<S extends R1> SqmTreatedAttributeJoin<L,R1,S> treatAs(@Nonnull EntityDomainType<S> treatTarget, @Nullable String alias);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqmTreatedAttributeJoin<L,R,R1> on(@Nullable JpaExpression<Boolean> restriction);
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqmTreatedAttributeJoin<L,R,R1> on(@Nonnull Expression<Boolean> restriction);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqmTreatedAttributeJoin<L,R,R1> on(@Nullable JpaPredicate... restrictions);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqmTreatedAttributeJoin<L,R,R1> copy(SqmCopyContext context);
 }

@@ -26,6 +26,8 @@ import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.type.TypeHelper;
 
 import static org.hibernate.engine.internal.Versioning.getVersion;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A base class for entity insert actions.
@@ -71,10 +73,12 @@ public abstract class AbstractEntityInsertAction extends EntityAction {
 	 *
 	 * @see #nullifyTransientReferencesIfNotAlready
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object[] getState() {
 		return state;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void executePreInsertCallbacks(SharedSessionContractImplementor session) {
 		final var callbacks = getPersister().getEntityCallbacks();
 		if ( callbacks.hasRegisteredCallbacks( CallbackType.PRE_INSERT )
@@ -83,6 +87,7 @@ public abstract class AbstractEntityInsertAction extends EntityAction {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void copyStateFromEntity(SharedSessionContractImplementor session) {
 		final var persister = getPersister();
 		final Object[] currentState = persister.getValues( getInstance() );
@@ -104,6 +109,7 @@ public abstract class AbstractEntityInsertAction extends EntityAction {
 	 * @return true, if it needs to be executed as soon as possible;
 	 *         false, otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public abstract boolean isEarlyInsert();
 
 	/**
@@ -111,6 +117,7 @@ public abstract class AbstractEntityInsertAction extends EntityAction {
 	 * @return the transient unsaved entity dependencies that are non-nullable,
 	 *         or null if there are none.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public NonNullableTransientDependencies findNonNullableTransientEntities() {
 		return ForeignKeys.findNonNullableTransientEntities(
 				getPersister().getEntityName(),
@@ -133,6 +140,7 @@ public abstract class AbstractEntityInsertAction extends EntityAction {
 	 *
 	 * @see #makeEntityManaged()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final void nullifyTransientReferencesIfNotAlready() {
 		if ( !areTransientReferencesNullified ) {
 			new ForeignKeys.Nullifier( getInstance(), false, isEarlyInsert(), getSession(), getPersister() )
@@ -146,6 +154,7 @@ public abstract class AbstractEntityInsertAction extends EntityAction {
 	/**
 	 * Make the entity "managed" by the persistence context.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final void makeEntityManaged() {
 		nullifyTransientReferencesIfNotAlready();
 		final var persister = getPersister();
@@ -171,6 +180,7 @@ public abstract class AbstractEntityInsertAction extends EntityAction {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void addCollectionsByKeyToPersistenceContext(PersistenceContext persistenceContext, Object[] objects) {
 		for ( int i = 0; i < objects.length; i++ ) {
 			final var attributeMapping = getPersister().getAttributeMapping( i );
@@ -191,6 +201,7 @@ public abstract class AbstractEntityInsertAction extends EntityAction {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private void visitEmbeddedAttributeMapping(
 			EmbeddedAttributeMapping attributeMapping,
 			Object object,
@@ -222,6 +233,7 @@ public abstract class AbstractEntityInsertAction extends EntityAction {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void addCollectionKey(
 			PluralAttributeMapping pluralAttributeMapping,
 			Object object,
@@ -244,6 +256,7 @@ public abstract class AbstractEntityInsertAction extends EntityAction {
 	/**
 	 * Indicate that the action has executed.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void markExecuted() {
 		this.isExecuted = true;
 	}
@@ -252,15 +265,19 @@ public abstract class AbstractEntityInsertAction extends EntityAction {
 	 * Returns the {@link EntityKey}.
 	 * @return the {@link EntityKey}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract EntityKey getEntityKey();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract Object getRowId();
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private NaturalIdResolutions getNaturalIdResolutions() {
 		return getSession().getPersistenceContextInternal().getNaturalIdResolutions();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void afterDeserialize(EventSource session) {
 		super.afterDeserialize( session );
 		// IMPL NOTE: non-flushed changes code calls this method with session == null...
@@ -274,6 +291,7 @@ public abstract class AbstractEntityInsertAction extends EntityAction {
 	/**
 	 * Handle sending notifications needed for natural-id before saving
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void handleNaturalIdPreSaveNotifications() {
 		// before save, we need to add a natural id cross-reference to the persistence-context
 		final var naturalIdMapping = getPersister().getNaturalIdMapping();
@@ -292,6 +310,7 @@ public abstract class AbstractEntityInsertAction extends EntityAction {
 	 *
 	 * @param generatedId The generated entity identifier
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleNaturalIdPostSaveNotifications(Object generatedId) {
 		final var persister = getPersister();
 		final var naturalIdMapping = persister.getNaturalIdMapping();

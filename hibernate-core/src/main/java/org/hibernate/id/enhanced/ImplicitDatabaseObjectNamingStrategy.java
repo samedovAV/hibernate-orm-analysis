@@ -10,6 +10,8 @@ import org.hibernate.Incubating;
 import org.hibernate.boot.model.naming.Identifier;
 import org.hibernate.boot.model.relational.QualifiedName;
 import org.hibernate.service.ServiceRegistry;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A naming strategy specifically for determining the implicit naming of
@@ -29,6 +31,7 @@ public interface ImplicitDatabaseObjectNamingStrategy {
 	 * @see org.hibernate.id.enhanced.SequenceStyleGenerator
 	 * @see org.hibernate.id.enhanced.SequenceStructure
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	QualifiedName determineSequenceName(
 			Identifier catalogName,
 			Identifier schemaName,
@@ -41,6 +44,7 @@ public interface ImplicitDatabaseObjectNamingStrategy {
 	 * @see org.hibernate.id.enhanced.TableGenerator
 	 * @see org.hibernate.id.enhanced.TableStructure
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	QualifiedName determineTableName(
 			Identifier catalogName,
 			Identifier schemaName,

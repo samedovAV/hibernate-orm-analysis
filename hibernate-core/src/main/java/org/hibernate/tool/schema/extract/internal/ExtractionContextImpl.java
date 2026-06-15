@@ -16,6 +16,8 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.tool.schema.extract.spi.ExtractionContext;
 
 import static org.hibernate.engine.jdbc.JdbcLogging.JDBC_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -44,21 +46,25 @@ public class ExtractionContextImpl implements ExtractionContext {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ServiceRegistry getServiceRegistry() {
 		return serviceRegistry;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcEnvironment getJdbcEnvironment() {
 		return jdbcEnvironment;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqlStringGenerationContext getSqlStringGenerationContext() {
 		return context;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Connection getJdbcConnection() {
 		if ( jdbcConnection == null ) {
 			try {
@@ -73,6 +79,7 @@ public class ExtractionContextImpl implements ExtractionContext {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DatabaseMetaData getJdbcDatabaseMetaData() {
 		if ( jdbcDatabaseMetaData == null ) {
 			try {
@@ -87,21 +94,25 @@ public class ExtractionContextImpl implements ExtractionContext {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Identifier getDefaultCatalog() {
 		return context.getDefaultCatalog();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Identifier getDefaultSchema() {
 		return context.getDefaultSchema();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DatabaseObjectAccess getDatabaseObjectAccess() {
 		return registeredTableAccess;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void cleanup() {
 		if ( jdbcDatabaseMetaData != null ) {
 			jdbcDatabaseMetaData = null;

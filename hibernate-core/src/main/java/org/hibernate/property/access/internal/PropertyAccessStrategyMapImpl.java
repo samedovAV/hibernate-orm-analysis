@@ -10,6 +10,8 @@ import org.hibernate.property.access.spi.PropertyAccess;
 import org.hibernate.property.access.spi.PropertyAccessStrategy;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -22,6 +24,7 @@ public class PropertyAccessStrategyMapImpl implements PropertyAccessStrategy {
 	public static final PropertyAccessStrategy INSTANCE = new PropertyAccessStrategyMapImpl();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PropertyAccess buildPropertyAccess(@Nullable Class<?> containerJavaType, String propertyName, boolean setterRequired) {
 
 		// Sometimes containerJavaType is null, but if it isn't, make sure it's a Map.

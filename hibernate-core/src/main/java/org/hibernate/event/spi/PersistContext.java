@@ -5,6 +5,8 @@
 package org.hibernate.event.spi;
 
 import java.util.IdentityHashMap;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link PersistEvent} represents a {@linkplain org.hibernate.Session#persist(Object) persist operation}
@@ -15,8 +17,10 @@ import java.util.IdentityHashMap;
  */
 public interface PersistContext {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean add(Object entity);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static PersistContext create() {
 		// use extension to avoid creating
 		// a useless wrapper object
@@ -27,6 +31,7 @@ public interface PersistContext {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public boolean add(Object entity) {
 				return put(entity,entity)==null;
 			}

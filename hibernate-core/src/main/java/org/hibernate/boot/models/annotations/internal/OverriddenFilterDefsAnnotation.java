@@ -17,6 +17,8 @@ import org.hibernate.models.spi.ModelsContext;
 
 import static org.hibernate.boot.models.DialectOverrideAnnotations.DIALECT_OVERRIDE_FILTER_DEFS;
 import static org.hibernate.boot.models.internal.OrmAnnotationHelper.extractJdkValue;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -56,20 +58,24 @@ public class OverriddenFilterDefsAnnotation
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AnnotationDescriptor<FilterDefs> getOverriddenDescriptor() {
 		return HibernateAnnotations.FILTER_DEFS;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FilterDefs override() {
 		return override;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void override(FilterDefs value) {
 		this.override = value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return DialectOverride.FilterDefs.class;
 	}

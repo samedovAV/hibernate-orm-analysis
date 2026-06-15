@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.event.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Event class for {@link org.hibernate.Session#evict}
@@ -25,10 +28,12 @@ public class EvictEvent extends AbstractSessionEvent {
 		this.object = object;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getObject() {
 		return object;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setObject(Object object) {
 		this.object = object;
 	}

@@ -10,6 +10,8 @@ import org.hibernate.type.descriptor.jdbc.JdbcTypeIndicators;
 import org.hibernate.type.descriptor.jdbc.spi.JdbcTypeRegistry;
 
 import java.sql.Types;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class SybaseJtdsNCharJdbcType extends SybaseJtdsNVarcharJdbcType {
 
@@ -19,16 +21,19 @@ public class SybaseJtdsNCharJdbcType extends SybaseJtdsNVarcharJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getJdbcTypeCode() {
 		return Types.NCHAR;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "SybaseJtdsNCharJdbcType";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcType resolveIndicatedType(
 			JdbcTypeIndicators indicators,
 			JavaType<?> domainJtd) {

@@ -16,6 +16,8 @@ import org.hibernate.query.sqm.tree.SqmCopyContext;
 import org.hibernate.query.sqm.tree.expression.SqmExpression;
 
 import static org.hibernate.internal.util.NullnessUtil.castNonNull;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -40,11 +42,13 @@ public class SqmIndexedCollectionAccessPath<T> extends AbstractSqmPath<T> implem
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nonnull SqmAttributeJoin<?, ?> getLhs() {
 		return (SqmAttributeJoin<?, ?>) castNonNull( super.getLhs() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmIndexedCollectionAccessPath<T> copy(SqmCopyContext context) {
 		final var existing = context.getCopy( this );
 		if ( existing != null ) {
@@ -64,16 +68,19 @@ public class SqmIndexedCollectionAccessPath<T> extends AbstractSqmPath<T> implem
 		return path;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmExpression<?> getSelectorExpression() {
 		return selectorExpression;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PluralPersistentAttribute<?, ?, T> getPluralAttribute() {
 		//noinspection unchecked
 		return (PluralPersistentAttribute<?, ?, T>) getLhs().getReferencedPathSource();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPath<?> resolvePathPart(
 			String name,
 			boolean isTerminal,
@@ -84,18 +91,21 @@ public class SqmIndexedCollectionAccessPath<T> extends AbstractSqmPath<T> implem
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> X accept(SemanticQueryWalker<X> walker) {
 		return walker.visitIndexedPluralAccessPath( this );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S extends T> SqmTreatedPath<T, S> treatAs(@Nonnull Class<S> treatJavaType) {
 		return treatAs( nodeBuilder().getDomainModel().entity( treatJavaType ) );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends T> SqmTreatedPath<T, S> treatAs(@Nonnull EntityDomainType<S> treatTarget) {
 		if ( getReferencedPathSource().getPathType() instanceof EntityDomainType ) {
 			return getTreatedPath( treatTarget );
@@ -105,6 +115,7 @@ public class SqmIndexedCollectionAccessPath<T> extends AbstractSqmPath<T> implem
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void appendHqlString(StringBuilder hql, SqmRenderContext context) {
 		getLhs().getLhs().appendHqlString( hql, context );
 		hql.append( '.' );

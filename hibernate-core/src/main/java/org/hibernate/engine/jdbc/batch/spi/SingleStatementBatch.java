@@ -5,6 +5,8 @@
 package org.hibernate.engine.jdbc.batch.spi;
 
 import org.hibernate.Incubating;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Batch variant for a single JDBC statement shape.
 ///
@@ -35,5 +37,6 @@ public interface SingleStatementBatch extends Batch {
 	/// @param statementBinder binds the current row to the batch statement
 	/// @param resultChecker optional row result checker used for stale-state/result
 	/// handling associated with this row
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addToBatch(StatementBinder statementBinder, BatchedResultChecker resultChecker);
 }

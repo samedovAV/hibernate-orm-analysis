@@ -14,6 +14,8 @@ import org.hibernate.resource.beans.spi.BeanInstanceProducer;
 import org.hibernate.resource.beans.spi.ManagedBean;
 import org.hibernate.resource.beans.spi.ManagedBeanRegistry;
 import org.hibernate.service.spi.Stoppable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Abstract support (template pattern) for {@link ManagedBeanRegistry} implementations
@@ -30,26 +32,31 @@ public class ManagedBeanRegistryImpl implements ManagedBeanRegistry, BeanContain
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BeanContainer getBeanContainer() {
 		return beanContainer;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean canUseCachedReferences() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean useJpaCompliantCreation() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> ManagedBean<T> getBean(Class<T> beanClass) {
 		return getBean( beanClass, FallbackBeanInstanceProducer.INSTANCE );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> ManagedBean<T> getBean(Class<T> beanClass, BeanInstanceProducer fallbackBeanInstanceProducer) {
 		final String beanClassName = beanClass.getName();
 		final var existing = registrations.get( beanClassName );
@@ -68,11 +75,13 @@ public class ManagedBeanRegistryImpl implements ManagedBeanRegistry, BeanContain
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> ManagedBean<? extends T> getBean(String beanName, Class<T> beanContract) {
 		return getBean( beanName, beanContract, FallbackBeanInstanceProducer.INSTANCE );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> ManagedBean<? extends T> getBean(
 			String beanName,
 			Class<T> beanContract,
@@ -93,12 +102,14 @@ public class ManagedBeanRegistryImpl implements ManagedBeanRegistry, BeanContain
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private <T> ManagedBean<T> createBean(Class<T> beanClass, BeanInstanceProducer fallbackBeanInstanceProducer) {
 		return beanContainer == null
 				? new FallbackContainedBean<>( beanClass, fallbackBeanInstanceProducer )
 				: beanContainer.getBean( beanClass, this, fallbackBeanInstanceProducer );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private <T> ManagedBean<? extends T> createBean(
 			String beanName, Class<T> beanContract, BeanInstanceProducer fallbackBeanInstanceProducer) {
 		return beanContainer == null
@@ -107,6 +118,7 @@ public class ManagedBeanRegistryImpl implements ManagedBeanRegistry, BeanContain
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void stop() {
 		if ( beanContainer != null ) {
 			beanContainer.stop();

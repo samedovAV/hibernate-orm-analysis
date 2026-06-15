@@ -5,6 +5,8 @@
 package org.hibernate.sql.results.graph;
 
 import org.hibernate.engine.FetchStyle;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Access to a FetchStyle
@@ -12,5 +14,6 @@ import org.hibernate.engine.FetchStyle;
  * @author Steve Ebersole
  */
 public interface FetchStyleAccess {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	FetchStyle getStyle();
 }

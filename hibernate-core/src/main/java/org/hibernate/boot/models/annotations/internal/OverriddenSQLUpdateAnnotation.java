@@ -17,6 +17,8 @@ import org.hibernate.models.spi.ModelsContext;
 
 import static org.hibernate.boot.models.DialectOverrideAnnotations.DIALECT_OVERRIDE_SQL_UPDATE;
 import static org.hibernate.boot.models.internal.OrmAnnotationHelper.extractJdkValue;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -56,20 +58,24 @@ public class OverriddenSQLUpdateAnnotation
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AnnotationDescriptor<SQLUpdate> getOverriddenDescriptor() {
 		return HibernateAnnotations.SQL_UPDATE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SQLUpdate override() {
 		return override;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void override(SQLUpdate value) {
 		this.override = value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return DialectOverride.SQLUpdate.class;
 	}

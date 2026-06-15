@@ -9,6 +9,8 @@ import java.lang.reflect.Constructor;
 import org.hibernate.InstantiationException;
 import org.hibernate.metamodel.spi.EmbeddableInstantiator;
 import org.hibernate.metamodel.spi.ValueAccess;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Support for instantiating embeddables as POJO representation through a constructor
@@ -25,6 +27,7 @@ public class EmbeddableInstantiatorPojoIndirecting
 		this.index = index;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static EmbeddableInstantiatorPojoIndirecting of(
 			String[] propertyNames,
 			Constructor<?> constructor,
@@ -39,6 +42,7 @@ public class EmbeddableInstantiatorPojoIndirecting
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object instantiate(ValueAccess valuesAccess) {
 		try {
 			final var originalValues = valuesAccess.getValues();
@@ -61,6 +65,7 @@ public class EmbeddableInstantiatorPojoIndirecting
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public Object instantiate(ValueAccess valuesAccess) {
 			try {
 				final var originalValues = valuesAccess.getValues();

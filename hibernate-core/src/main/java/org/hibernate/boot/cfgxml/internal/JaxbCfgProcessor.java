@@ -40,6 +40,8 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -56,6 +58,7 @@ public class JaxbCfgProcessor {
 		this.xmlResourceResolver = new LocalXmlResourceResolver( classLoaderService );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JaxbCfgHibernateConfiguration unmarshal(InputStream stream, Origin origin) {
 		try {
 			final var staxReader = staxFactory().createXMLEventReader( stream );
@@ -77,6 +80,7 @@ public class JaxbCfgProcessor {
 
 	private XMLInputFactory staxFactory;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private XMLInputFactory staxFactory() {
 		if ( staxFactory == null ) {
 			staxFactory = buildStaxFactory();
@@ -84,12 +88,14 @@ public class JaxbCfgProcessor {
 		return staxFactory;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private XMLInputFactory buildStaxFactory() {
 		final var staxFactory = XMLInputFactory.newInstance();
 		staxFactory.setXMLResolver( xmlResourceResolver );
 		return staxFactory;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private JaxbCfgHibernateConfiguration unmarshal(XMLEventReader staxEventReader, final Origin origin) {
 		final XMLEvent event = xmlEvent( staxEventReader );
 		if ( !isNamespaced( event.asStartElement() ) ) {
@@ -117,6 +123,7 @@ public class JaxbCfgProcessor {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static XMLEvent xmlEvent(XMLEventReader staxEventReader) {
 		try {
 			XMLEvent event = staxEventReader.peek();
@@ -134,12 +141,14 @@ public class JaxbCfgProcessor {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean isNamespaced(StartElement startElement) {
 		return isNotEmpty( startElement.getName().getNamespaceURI() );
 	}
 
 	private Schema schema;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Schema schema() {
 		if ( schema == null ) {
 			schema = resolveLocalSchema( "org/hibernate/hibernate-configuration-4.0.xsd" );
@@ -147,10 +156,12 @@ public class JaxbCfgProcessor {
 		return schema;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private Schema resolveLocalSchema(String schemaName) {
 		return resolveLocalSchema( schemaName, W3C_XML_SCHEMA_NS_URI );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Schema resolveLocalSchema(String schemaName, String schemaLanguage) {
 		final URL url = classLoaderService.locateResource( schemaName );
 		if ( url == null ) {
@@ -185,6 +196,7 @@ public class JaxbCfgProcessor {
 		private String message;
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean handleEvent(ValidationEvent validationEvent) {
 			final var locator = validationEvent.getLocator();
 			lineNumber = locator.getLineNumber();
@@ -193,14 +205,17 @@ public class JaxbCfgProcessor {
 			return false;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public int getLineNumber() {
 			return lineNumber;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public int getColumnNumber() {
 			return columnNumber;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getMessage() {
 			return message;
 		}
@@ -220,6 +235,7 @@ public class JaxbCfgProcessor {
 			this.namespaceUri = namespaceUri;
 		}
 
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		private StartElement withNamespace(StartElement startElement) {
 			// otherwise, wrap the start element event to provide a default namespace mapping
 			final List<Namespace> namespaces = new ArrayList<>();
@@ -236,12 +252,14 @@ public class JaxbCfgProcessor {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public XMLEvent nextEvent() throws XMLStreamException {
 			final var event = super.nextEvent();
 			return event.isStartElement() ? withNamespace( event.asStartElement() ) : event;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public XMLEvent peek() throws XMLStreamException {
 			final var event = super.peek();
 			return event.isStartElement() ? withNamespace( event.asStartElement() ) : event;

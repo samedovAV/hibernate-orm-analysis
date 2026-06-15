@@ -56,6 +56,8 @@ import org.hibernate.type.format.jakartajson.JsonBJsonFormatMapper;
 
 
 import static org.hibernate.boot.BootLogging.BOOT_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Builder for {@link StrategySelector} instances.
@@ -75,6 +77,7 @@ public class StrategySelectorBuilder {
 	 * @param <T> The type of the strategy.  Used to make sure that the strategy and implementation are type
 	 * compatible.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> void addExplicitStrategyRegistration(Class<T> strategy, Class<? extends T> implementation, String name) {
 		addExplicitStrategyRegistration( new SimpleStrategyRegistrationImpl<>( strategy, implementation, name ) );
 	}
@@ -86,6 +89,7 @@ public class StrategySelectorBuilder {
 	 * @param <T> The type of the strategy.  Used to make sure that the strategy and implementation are type
 	 * compatible.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> void addExplicitStrategyRegistration(StrategyRegistration<T> strategyRegistration) {
 		final var strategyRole = strategyRegistration.getStrategyRole();
 		if ( BOOT_LOGGER.isTraceEnabled() && !strategyRole.isInterface() ) {
@@ -109,6 +113,7 @@ public class StrategySelectorBuilder {
 	 *
 	 * @return The selector.
 	 */
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public StrategySelector buildSelector(ClassLoaderService classLoaderService) {
 		final var strategySelector = new StrategySelectorImpl( classLoaderService );
 
@@ -140,6 +145,7 @@ public class StrategySelectorBuilder {
 		return strategySelector;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private <T> void applyFromStrategyRegistration(StrategySelectorImpl strategySelector, StrategyRegistration<T> strategyRegistration) {
 		for ( String name : strategyRegistration.getSelectorNames() ) {
 			strategySelector.registerStrategyImplementor(
@@ -150,6 +156,7 @@ public class StrategySelectorBuilder {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void addTransactionCoordinatorBuilders(StrategySelectorImpl strategySelector) {
 		strategySelector.registerStrategyImplementor(
 				TransactionCoordinatorBuilder.class,
@@ -180,6 +187,7 @@ public class StrategySelectorBuilder {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void addSqmMultiTableInsertStrategies(StrategySelectorImpl strategySelector) {
 		strategySelector.registerStrategyImplementor(
 				SqmMultiTableInsertStrategy.class,
@@ -203,6 +211,7 @@ public class StrategySelectorBuilder {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void addSqmMultiTableMutationStrategies(StrategySelectorImpl strategySelector) {
 		strategySelector.registerStrategyImplementor(
 				SqmMultiTableMutationStrategy.class,
@@ -226,6 +235,7 @@ public class StrategySelectorBuilder {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void addImplicitNamingStrategies(StrategySelectorImpl strategySelector) {
 		strategySelector.registerStrategyImplementor(
 				ImplicitNamingStrategy.class,
@@ -273,6 +283,7 @@ public class StrategySelectorBuilder {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void addColumnOrderingStrategies(StrategySelectorImpl strategySelector) {
 		strategySelector.registerStrategyImplementor(
 				ColumnOrderingStrategy.class,
@@ -286,6 +297,7 @@ public class StrategySelectorBuilder {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void addCacheKeysFactories(StrategySelectorImpl strategySelector) {
 		strategySelector.registerStrategyImplementor(
 			CacheKeysFactory.class,
@@ -299,6 +311,7 @@ public class StrategySelectorBuilder {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void addJsonFormatMappers(StrategySelectorImpl strategySelector) {
 		strategySelector.registerStrategyImplementor(
 				FormatMapper.class,
@@ -324,6 +337,7 @@ public class StrategySelectorBuilder {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void addXmlFormatMappers(StrategySelectorImpl strategySelector) {
 		strategySelector.registerStrategyImplementor(
 				FormatMapper.class,

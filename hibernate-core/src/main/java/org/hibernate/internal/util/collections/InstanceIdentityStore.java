@@ -8,6 +8,8 @@ import jakarta.annotation.Nullable;
 import org.hibernate.engine.spi.InstanceIdentity;
 
 import java.util.ConcurrentModificationException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Utility collection that takes advantage of {@link InstanceIdentity}'s identifier to store objects.
@@ -30,6 +32,7 @@ public class InstanceIdentityStore<V> extends AbstractPagedArray<Object> {
 	 * @param instanceId the instance identifier
 	 * @return the index of the corresponding key instance in the array
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static int toKeyIndex(int instanceId) {
 		return (instanceId - 1) * 2;
 	}
@@ -45,6 +48,7 @@ public class InstanceIdentityStore<V> extends AbstractPagedArray<Object> {
 	 * @implNote This method accesses the backing array with the provided instance id, but performs an instance
 	 * equality check ({@code ==}) with the provided key to ensure it corresponds to the mapped one
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nullable V get(int instanceId, Object key) {
 		if ( instanceId <= 0 ) {
 			return null;
@@ -76,6 +80,7 @@ public class InstanceIdentityStore<V> extends AbstractPagedArray<Object> {
 	 * @param key key with which the specified value is to be associated
 	 * @param value value to be associated with the specified key
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void put(Object key, int instanceId, V value) {
 		if ( key == null ) {
 			throw new NullPointerException( "This store does not support null keys" );
@@ -99,6 +104,7 @@ public class InstanceIdentityStore<V> extends AbstractPagedArray<Object> {
 	 * @implNote This method accesses the backing array with the provided instance id, but performs an instance
 	 * equality check ({@code ==}) with the provided key to ensure it corresponds to the mapped one
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void remove(int instanceId, Object key) {
 		if ( instanceId <= 0 ) {
 			return;

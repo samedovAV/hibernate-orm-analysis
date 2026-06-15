@@ -11,6 +11,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Implementation of {@link BinaryStream} backed by a {@code byte[]} array.
@@ -31,27 +33,32 @@ public class ArrayBackedBinaryStream extends ByteArrayInputStream implements Bin
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public InputStream getInputStream() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public byte[] getBytes() {
 		// from ByteArrayInputStream
 		return buf;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getLength() {
 		return length;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Blob asBlob(LobCreator lobCreator) {
 		return lobCreator.createBlob( buf );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void release() {
 		try {
 			super.close();

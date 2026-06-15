@@ -17,6 +17,8 @@ import java.lang.invoke.MethodHandles;
 import java.util.Locale;
 
 import static org.jboss.logging.Logger.Level.TRACE;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @MessageLogger(projectCode = "HHH")
 @ValidIdRange(min=160000,max = 160100)
@@ -31,11 +33,14 @@ public interface VersionLogger extends BasicLogger {
 
 	@LogMessage(level = TRACE)
 	@Message(value = "Seeding version: %s", id = 160001)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void seed(Object seededVersion);
 	@LogMessage(level = TRACE)
 	@Message(value = "Using initial version: %s", id = 160002)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void initial(Object initialVersion);
 	@LogMessage(level = TRACE)
 	@Message(value = "Incrementing version: %s to: %s", id = 160003)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void incrementing(Object oldVersion, Object newVersion);
 }

@@ -10,6 +10,8 @@ import org.hibernate.type.BindingContext;
 import org.hibernate.query.sqm.produce.function.ArgumentsValidator;
 import org.hibernate.query.sqm.produce.function.FunctionArgumentException;
 import org.hibernate.query.sqm.tree.SqmTypedNode;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link ArgumentsValidator} that validates the arguments for the {@code array_includes} function.
@@ -23,6 +25,7 @@ public class ArrayIncludesArgumentValidator extends ArrayArgumentValidator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void validate(
 			List<? extends SqmTypedNode<?>> arguments,
 			String functionName,

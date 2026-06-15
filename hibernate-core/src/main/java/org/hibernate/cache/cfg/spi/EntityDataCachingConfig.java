@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.function.Supplier;
 
 import org.hibernate.metamodel.model.domain.NavigableRole;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specialized DomainDataCachingConfig describing the requested
@@ -25,6 +27,7 @@ public interface EntityDataCachingConfig extends DomainDataCachingConfig {
 	 * not produce a null Comparator later
 	 *
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isVersioned();
 
 	/**
@@ -32,12 +35,14 @@ public interface EntityDataCachingConfig extends DomainDataCachingConfig {
 	 * version.  If the entity is not versioned, then this method
 	 * returns {@code null}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Supplier<Comparator<Object>> getVersionComparatorAccess();
 
 	/**
 	 * The list of specific subclasses of the root that are actually
 	 * written to cache.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Set<NavigableRole> getCachedTypes();
 
 	// todo (5.3) : what else is needed here?

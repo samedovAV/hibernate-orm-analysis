@@ -27,6 +27,8 @@ import org.hibernate.type.descriptor.java.JavaType;
 
 import static jakarta.persistence.metamodel.Type.PersistenceType.BASIC;
 import static java.util.Arrays.asList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -52,6 +54,7 @@ public class SqmBasicValuedSimplePath<T>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmBasicValuedSimplePath<T> copy(SqmCopyContext context) {
 		final var existing = context.getCopy( this );
 		if ( existing != null ) {
@@ -73,6 +76,7 @@ public class SqmBasicValuedSimplePath<T>
 		return path;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected SqmBasicValuedSimplePath<T> createCopy(
 			NavigablePath navigablePath,
 			SqmPathSource<T> referencedPathSource,
@@ -89,11 +93,13 @@ public class SqmBasicValuedSimplePath<T>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nonnull SqmBindableType<T> getExpressible() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistenceType getPersistenceType() {
 		return BASIC;
 	}
@@ -102,6 +108,7 @@ public class SqmBasicValuedSimplePath<T>
 	// SemanticPathPart
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPath<?> resolvePathPart(
 			String name,
 			boolean isTerminal,
@@ -115,6 +122,7 @@ public class SqmBasicValuedSimplePath<T>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPath<?> resolveIndexedAccess(
 			SqmExpression<?> selector,
 			boolean isTerminal,
@@ -143,6 +151,7 @@ public class SqmBasicValuedSimplePath<T>
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private SelfRenderingSqmFunction<?> getIndexFunction(
 			SqmExpression<?> selector, SqmDomainType<T> sqmPathType, QueryEngine queryEngine) {
 		final SqmFunctionRegistry registry = queryEngine.getSqmFunctionRegistry();
@@ -167,6 +176,7 @@ public class SqmBasicValuedSimplePath<T>
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private @Nullable Class<?> getJavaTypeClass(SqmDomainType<T> sqmPathType) {
 		final SqmBindableType<T> expressible = nodeBuilder().resolveExpressible( sqmPathType );
 		return expressible == null ? null : expressible.getRelationalJavaType().getJavaTypeClass();
@@ -177,57 +187,67 @@ public class SqmBasicValuedSimplePath<T>
 	// SqmPath
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nonnull BasicJavaType<T> getJavaTypeDescriptor() {
 		return (BasicJavaType<T>) super.getJavaTypeDescriptor();
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends T> SqmTreatedPath<T,S> treatAs(@Nonnull Class<S> treatJavaType) {
 		throw new UnsupportedOperationException( "Basic-value cannot be treated (downcast)" );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends T> SqmTreatedPath<T, S> treatAs(@Nonnull EntityDomainType<S> treatTarget) {
 		throw new UnsupportedOperationException( "Basic-value cannot be treated (downcast)" );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends T> SqmTreatedPath<T, S> treatAs(@Nonnull Class<S> treatJavaType, @Nullable String alias) {
 		throw new UnsupportedOperationException( "Basic-value cannot be treated (downcast)" );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends T> SqmTreatedPath<T, S> treatAs(@Nonnull EntityDomainType<S> treatTarget, @Nullable String alias) {
 		throw new UnsupportedOperationException( "Basic-value cannot be treated (downcast)" );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends T> SqmTreatedPath<T, S> treatAs(@Nonnull Class<S> treatJavaType, @Nullable String alias, boolean fetch) {
 		throw new UnsupportedOperationException( "Basic-value cannot be treated (downcast)" );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends T> SqmTreatedPath<T, S> treatAs(@Nonnull EntityDomainType<S> treatTarget, @Nullable String alias, boolean fetch) {
 		throw new UnsupportedOperationException( "Basic-value cannot be treated (downcast)" );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nonnull Class<T> getJavaType() {
 		return getJavaTypeDescriptor().getJavaTypeClass();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JavaType<T> getExpressibleJavaType() {
 		return super.getExpressible().getExpressibleJavaType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nullable SqmDomainType<T> getSqmType() {
 		return getResolvedModel().getSqmType();
 	}
@@ -237,11 +257,13 @@ public class SqmBasicValuedSimplePath<T>
 	// Visitation
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> X accept(SemanticQueryWalker<X> walker) {
 		return walker.visitBasicValuedPath( this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JavaType<?> getRelationalJavaType() {
 		return super.getExpressible().getRelationalJavaType();
 	}

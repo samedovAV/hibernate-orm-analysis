@@ -11,6 +11,8 @@ import org.hibernate.dialect.SQLServerDialect;
 import org.hibernate.mapping.Table;
 
 import static java.util.Collections.emptySet;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gavin King
@@ -22,11 +24,13 @@ public class SQLServerTemporalTableSupport extends DefaultTemporalTableSupport {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsNativeTemporalTables() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getExtraTemporalTableDeclarations(
 			TemporalTableStrategy strategy,
 			String rowStartColumn, String rowEndColumn,
@@ -40,6 +44,7 @@ public class SQLServerTemporalTableSupport extends DefaultTemporalTableSupport {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getTemporalTableOptions(
 			TemporalTableStrategy strategy,
 			String rowEndColumnName,
@@ -52,6 +57,7 @@ public class SQLServerTemporalTableSupport extends DefaultTemporalTableSupport {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addTemporalTableAuxiliaryObjects(
 			TemporalTableStrategy strategy,
 			Table table,

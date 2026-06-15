@@ -5,6 +5,8 @@
 package org.hibernate.sql.ast.tree.from;
 
 import org.hibernate.spi.NavigablePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Table reference that matches both an auxiliary table expression
@@ -31,6 +33,7 @@ public class AuxiliaryTableReference extends NamedTableReference {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public TableReference getTableReference(
 			NavigablePath navigablePath,
 			String tableExpression,
@@ -41,6 +44,7 @@ public class AuxiliaryTableReference extends NamedTableReference {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public TableReference resolveTableReference(
 			NavigablePath navigablePath,
 			String tableExpression) {
@@ -50,6 +54,7 @@ public class AuxiliaryTableReference extends NamedTableReference {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean containsAffectedTableName(String requestedName) {
 		return super.containsAffectedTableName( requestedName )
 			|| currentTableExpression.equals( requestedName );

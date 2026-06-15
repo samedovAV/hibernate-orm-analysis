@@ -6,6 +6,8 @@ package org.hibernate.context.spi;
 
 import jakarta.annotation.Nonnull;
 import org.hibernate.Incubating;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Supplies
@@ -37,7 +39,8 @@ public interface TenantCredentialsMapper<T> {
 	 * @param tenantIdentifier The tenant identifier
 	 * @return The name of the database schema belonging to that tenant
 	 */
-	@Nonnull String user(@Nonnull T tenantIdentifier);
+	@Nonnull @Prove(complexity = Complexity.O_1, n = "", count = {})
+	String user(@Nonnull T tenantIdentifier);
 
 	/**
 	 * The password of the database user for data belonging to the tenant
@@ -46,5 +49,6 @@ public interface TenantCredentialsMapper<T> {
 	 * @param tenantIdentifier The tenant identifier
 	 * @return The name of the database schema belonging to that tenant
 	 */
-	@Nonnull String password(@Nonnull T tenantIdentifier);
+	@Nonnull @Prove(complexity = Complexity.O_1, n = "", count = {})
+	String password(@Nonnull T tenantIdentifier);
 }

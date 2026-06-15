@@ -12,6 +12,8 @@ import org.hibernate.mapping.Table;
 import org.hibernate.type.SqlTypes;
 
 import static java.util.Collections.emptySet;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gavin King
@@ -23,11 +25,13 @@ public class PostgreSQLTemporalTableSupport extends DefaultTemporalTableSupport 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsTemporalTablePartitioning() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getTemporalTableOptions(
 			TemporalTableStrategy strategy,
 			String rowEndColumnName,
@@ -40,6 +44,7 @@ public class PostgreSQLTemporalTableSupport extends DefaultTemporalTableSupport 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addTemporalTableAuxiliaryObjects(
 			TemporalTableStrategy strategy,
 			Table table,
@@ -67,6 +72,7 @@ public class PostgreSQLTemporalTableSupport extends DefaultTemporalTableSupport 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getTemporalColumnType() {
 		return SqlTypes.TIMESTAMP_UTC;
 	}

@@ -5,6 +5,8 @@
 package org.hibernate.cache.spi.entry;
 
 import org.hibernate.engine.spi.SessionFactoryImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Strategy for how cache entries are "structured" for storing into the cache.
@@ -19,6 +21,7 @@ public interface CacheEntryStructure {
 	 *
 	 * @return The structured form.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object structure(Object item);
 
 	/**
@@ -29,5 +32,6 @@ public interface CacheEntryStructure {
 	 *
 	 * @return The item
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object destructure(Object structured, SessionFactoryImplementor factory);
 }

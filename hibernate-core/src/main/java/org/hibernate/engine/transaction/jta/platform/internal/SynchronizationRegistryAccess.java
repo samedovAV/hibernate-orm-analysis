@@ -6,6 +6,8 @@ package org.hibernate.engine.transaction.jta.platform.internal;
 
 import java.io.Serializable;
 import jakarta.transaction.TransactionSynchronizationRegistry;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Provides access to a {@link TransactionSynchronizationRegistry} for use by {@link TransactionSynchronizationRegistry}-based
@@ -19,5 +21,6 @@ public interface SynchronizationRegistryAccess extends Serializable {
 	 *
 	 * @return the synchronization registry
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TransactionSynchronizationRegistry getSynchronizationRegistry();
 }

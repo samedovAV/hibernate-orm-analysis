@@ -6,6 +6,8 @@ package org.hibernate.jdbc;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * This interface provides a way to execute unrelated "work" objects using
@@ -30,5 +32,6 @@ public interface WorkExecutorVisitable<T> {
 	 * @throws SQLException Thrown during execution of the underlying JDBC interaction.
 	 * @throws org.hibernate.HibernateException Generally indicates a wrapped SQLException.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	T accept(WorkExecutor<T> executor, Connection connection) throws SQLException;
 }

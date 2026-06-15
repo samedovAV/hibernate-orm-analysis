@@ -10,6 +10,8 @@ import java.util.Map;
 import org.hibernate.boot.jaxb.spi.JaxbBindableMappingDescriptor;
 import org.hibernate.boot.jaxb.spi.Binding;
 import org.hibernate.boot.model.convert.spi.ConverterDescriptor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents the result of the first step of the process of building {@link org.hibernate.boot.MetadataSources}
@@ -31,6 +33,7 @@ public interface ManagedResources {
 	 *
 	 * @return The AttributeConverter definitions.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Collection<ConverterDescriptor<?,?>> getAttributeConverterDescriptors();
 
 	/**
@@ -39,6 +42,7 @@ public interface ManagedResources {
 	 *
 	 * @return The list of entity/component classes known by Class reference.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Collection<Class<?>> getAnnotatedClassReferences();
 
 	/**
@@ -47,6 +51,7 @@ public interface ManagedResources {
 	 *
 	 * @return The list of entity/component classes known by name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Collection<String> getAnnotatedClassNames();
 
 	/**
@@ -55,6 +60,7 @@ public interface ManagedResources {
 	 *
 	 * @return The list of known annotated package names.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Collection<String> getAnnotatedPackageNames();
 
 	/**
@@ -63,7 +69,9 @@ public interface ManagedResources {
 	 *
 	 * @return The list of bindings for all known XML mapping files.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Collection<Binding<? extends JaxbBindableMappingDescriptor>> getXmlMappingBindings();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Map<String,Class<?>> getExtraQueryImports();
 }

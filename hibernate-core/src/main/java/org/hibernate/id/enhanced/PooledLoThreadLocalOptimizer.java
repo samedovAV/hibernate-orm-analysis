@@ -13,6 +13,8 @@ import org.hibernate.sql.ast.tree.expression.Expression;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Variation of {@link PooledOptimizer} which interprets the incoming database
@@ -44,11 +46,13 @@ public class PooledLoThreadLocalOptimizer extends AbstractOptimizer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Serializable generate(AccessCallback callback) {
 		return locateGenerationState( callback.getTenantIdentifier() )
 				.generate( callback, incrementSize, returnClass );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private GenerationState locateGenerationState(String tenantIdentifier) {
 		if ( tenantIdentifier == null ) {
 			return singleTenantState.get();
@@ -65,12 +69,14 @@ public class PooledLoThreadLocalOptimizer extends AbstractOptimizer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void reset() {
 		singleTenantState.remove();
 		multiTenantStates.remove();
 	}
 
 	// for Hibernate testsuite use only
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private GenerationState noTenantGenerationState() {
 		final var noTenantState = locateGenerationState( null );
 		if ( noTenantState == null ) {
@@ -81,11 +87,13 @@ public class PooledLoThreadLocalOptimizer extends AbstractOptimizer {
 
 	// for Hibernate testsuite use only
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Long getLastSourceValue() {
 		return noTenantGenerationState().lastSourceValue;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean applyIncrementSizeToSourceValues() {
 		return true;
 	}
@@ -98,6 +106,7 @@ public class PooledLoThreadLocalOptimizer extends AbstractOptimizer {
 		// the value at which we'll hit the db again
 		private long upperLimitValue;
 
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		private Serializable generate(AccessCallback callback, int incrementSize, Class<?> returnClass) {
 			if ( lastSourceValue == null || value >= upperLimitValue ) {
 				lastSourceValue = callback.getNextValue();
@@ -113,6 +122,7 @@ public class PooledLoThreadLocalOptimizer extends AbstractOptimizer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression createLowValueExpression(Expression databaseValue, SessionFactoryImplementor sessionFactory) {
 		return databaseValue;
 	}

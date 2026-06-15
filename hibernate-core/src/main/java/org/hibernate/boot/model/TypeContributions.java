@@ -16,6 +16,8 @@ import org.hibernate.type.descriptor.jdbc.JdbcType;
 import org.hibernate.type.spi.TypeConfiguration;
 import org.hibernate.usertype.CompositeUserType;
 import org.hibernate.usertype.UserType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Allows custom types and type descriptors to be contributed to the eventual
@@ -29,12 +31,14 @@ public interface TypeContributions {
 	/**
 	 * The {@link TypeConfiguration} to contribute to
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TypeConfiguration getTypeConfiguration();
 
 	/**
 	 * Add the given {@link JavaType} to the {@link JavaTypeRegistry}
 	 * of the eventual {@link TypeConfiguration}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void contributeJavaType(JavaType<?> descriptor) {
 		getTypeConfiguration().getJavaTypeRegistry().addDescriptor( descriptor );
 	}
@@ -43,10 +47,12 @@ public interface TypeContributions {
 	 * Add the given {@link JdbcType} to the {@link JdbcTypeRegistry}
 	 * of the eventual {@link TypeConfiguration}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void contributeJdbcType(JdbcType descriptor) {
 		getTypeConfiguration().getJdbcTypeRegistry().addDescriptor( descriptor );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void contributeJdbcTypeConstructor(JdbcTypeConstructor typeConstructor) {
 		getTypeConfiguration().getJdbcTypeRegistry().addTypeConstructor( typeConstructor );
 	}
@@ -55,6 +61,7 @@ public interface TypeContributions {
 	 * Register a {@link UserType} as the implicit (auto-applied)
 	 * type for values of type {@link UserType#returnedClass()}.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void contributeType(UserType<?> type) {
 		contributeType( type, type.returnedClass().getTypeName() );
 	}
@@ -66,6 +73,7 @@ public interface TypeContributions {
 	 * @since 6.4
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void contributeType(CompositeUserType<?> type) {
 		// default implementation for backward compatibility
 		throw new UnsupportedOperationException();
@@ -77,6 +85,7 @@ public interface TypeContributions {
 	 * @since 6.2
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void contributeAttributeConverter(Class<? extends AttributeConverter<?, ?>> converterClass)  {
 		// default implementation for backward compatibility
 		throw new UnsupportedOperationException();
@@ -86,6 +95,7 @@ public interface TypeContributions {
 	 * @deprecated See discussion of {@link TypeContributor} in User Guide.
 	 */
 	@Deprecated(since = "6.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void contributeType(BasicType<?> type) {
 		getTypeConfiguration().getBasicTypeRegistry().register( type );
 		final JavaType<?> javaType = type.getJavaTypeDescriptor();
@@ -96,6 +106,7 @@ public interface TypeContributions {
 	 * @deprecated Use {@link #contributeType(BasicType)} instead.
 	 */
 	@Deprecated(since = "5.3")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void contributeType(BasicType<?> type, String... keys) {
 		getTypeConfiguration().getBasicTypeRegistry().register( type, keys );
 		final JavaType<?> javaType = type.getJavaTypeDescriptor();
@@ -106,6 +117,7 @@ public interface TypeContributions {
 	 * @deprecated Use {@link #contributeType(BasicType)} instead.
 	 */
 	@Deprecated(since = "5.3")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void contributeType(UserType<?> type, String... keys) {
 		final CustomType<?> customType = getTypeConfiguration().getBasicTypeRegistry().register( type, keys );
 		final JavaType<?> javaType = customType.getJavaTypeDescriptor();

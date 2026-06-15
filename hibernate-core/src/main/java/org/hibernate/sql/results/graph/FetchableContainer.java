@@ -12,6 +12,8 @@ import org.hibernate.internal.util.IndexedConsumer;
 import org.hibernate.internal.util.MutableInteger;
 import org.hibernate.metamodel.mapping.EntityMappingType;
 import org.hibernate.metamodel.mapping.ModelPartContainer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Container of {@link Fetchable} references
@@ -23,6 +25,7 @@ public interface FetchableContainer extends ModelPartContainer {
 	/**
 	 * The number of key fetchables in the container
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int getNumberOfKeyFetchables() {
 		return 0;
 	}
@@ -30,39 +33,46 @@ public interface FetchableContainer extends ModelPartContainer {
 	/**
 	 * The number of fetchables in the container
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getNumberOfFetchables();
 
 	/**
 	 * The number of fetchables in the container
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int getNumberOfFetchableKeys() {
 		return getNumberOfFetchables();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Fetchable getKeyFetchable(int position) {
 		List<Fetchable> fetchables = new ArrayList<>( getNumberOfKeyFetchables() );
 		visitKeyFetchables( fetchable -> fetchables.add( fetchable ), null );
 		return fetchables.get( position );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Fetchable getFetchable(int position) {
 		List<Fetchable> fetchables = new ArrayList<>( getNumberOfFetchables() );
 		visitFetchables( fetchable -> fetchables.add( fetchable ), null );
 		return fetchables.get( position );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void visitKeyFetchables(
 			Consumer<? super Fetchable> fetchableConsumer,
 			EntityMappingType treatTargetType) {
 		// by default, nothing to do
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void visitKeyFetchables(
 			IndexedConsumer<? super Fetchable> fetchableConsumer,
 			EntityMappingType treatTargetType) {
 		visitKeyFetchables( 0, fetchableConsumer, treatTargetType );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void visitKeyFetchables(
 			int offset,
 			IndexedConsumer<? super Fetchable> fetchableConsumer,
@@ -70,6 +80,7 @@ public interface FetchableContainer extends ModelPartContainer {
 		// by default, nothing to do
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void visitFetchables(
 			Consumer<? super Fetchable> fetchableConsumer,
 			EntityMappingType treatTargetType) {
@@ -77,12 +88,14 @@ public interface FetchableContainer extends ModelPartContainer {
 		visitSubParts( (Consumer) fetchableConsumer, treatTargetType );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void visitFetchables(
 			IndexedConsumer<? super Fetchable> fetchableConsumer,
 			EntityMappingType treatTargetType) {
 		visitFetchables( 0, fetchableConsumer, treatTargetType );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void visitFetchables(
 			int offset,
 			IndexedConsumer<? super Fetchable> fetchableConsumer,
@@ -94,6 +107,7 @@ public interface FetchableContainer extends ModelPartContainer {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int getSelectableIndex(String selectableName) {
 		final MutableInteger position = new MutableInteger( -1 );
 		forEachSelectable(

@@ -11,6 +11,8 @@ import org.hibernate.tool.schema.extract.spi.SequenceInformation;
 import org.hibernate.tool.schema.extract.spi.SequenceInformationExtractor;
 
 import static java.util.Collections.emptyList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -22,6 +24,7 @@ public class SequenceInformationExtractorNoOpImpl implements SequenceInformation
 	public static final SequenceInformationExtractorNoOpImpl INSTANCE = new SequenceInformationExtractorNoOpImpl();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Iterable<SequenceInformation> extractMetadata(ExtractionContext extractionContext) throws SQLException {
 		return emptyList();
 	}

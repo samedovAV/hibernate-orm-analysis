@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.source.spi;
 
 import org.hibernate.boot.model.JavaTypeDescriptor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents the binding source for an "embeddable" (in JPA terms)
@@ -16,8 +18,10 @@ import org.hibernate.boot.model.JavaTypeDescriptor;
  * @author Steve Ebersole
  */
 public interface EmbeddableSource extends AttributeSourceContainer {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JavaTypeDescriptor getTypeDescriptor();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getParentReferenceAttributeName();
 
 	/**
@@ -28,7 +32,9 @@ public interface EmbeddableSource extends AttributeSourceContainer {
 	 * {@code false} indicates there is a dedicated class for representing the
 	 * composition.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isDynamic();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isUnique();
 }

@@ -7,12 +7,15 @@ package org.hibernate.id.enhanced;
 import org.hibernate.resource.transaction.spi.DdlTransactionIsolator;
 
 import java.sql.SQLException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gavin King
  */
 class ResyncHelper {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static long execute(DdlTransactionIsolator isolator, String sequenceCurrentValue, String message) {
 		isolator.getJdbcContext().getSqlStatementLogger().logStatement( sequenceCurrentValue );
 		try ( var select = isolator.getIsolatedConnection().prepareStatement( sequenceCurrentValue );
@@ -26,6 +29,7 @@ class ResyncHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static long getNextSequenceValue(DdlTransactionIsolator isolator, String sequenceName) {
 		return execute( isolator,
 				isolator.getJdbcContext().getDialect().getSequenceSupport()
@@ -33,18 +37,21 @@ class ResyncHelper {
 				"Could not fetch the current sequence value from the database" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static long getMaxPrimaryKey(DdlTransactionIsolator isolator, String primaryKeyColumnName, String tableName) {
 		return execute( isolator,
 				"select max(" + primaryKeyColumnName + ") from " + tableName,
 				"Could not fetch the max primary key from the database" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static long getCurrentTableValue(DdlTransactionIsolator isolator, String tableName, String columnName) {
 		return execute( isolator,
 				"select " + columnName + " from " + tableName,
 				"Could not fetch the current table value from the database" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static long getCurrentTableValue(
 			DdlTransactionIsolator isolator,
 			String tableName, String columnName,

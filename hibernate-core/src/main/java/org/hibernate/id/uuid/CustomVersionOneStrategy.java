@@ -16,6 +16,8 @@ import static java.lang.System.currentTimeMillis;
 import static org.hibernate.id.uuid.Helper.getAddressBytes;
 import static org.hibernate.id.uuid.Helper.getCountBytes;
 import static org.hibernate.id.uuid.Helper.getJvmIdentifierBytes;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Applies a version 1 (time-based) generation strategy (using ip address rather than mac address) but applies them in a
@@ -29,6 +31,7 @@ import static org.hibernate.id.uuid.Helper.getJvmIdentifierBytes;
  */
 public class CustomVersionOneStrategy implements UUIDGenerationStrategy, UuidValueGenerator {
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getGeneratedVersion() {
 		return 1;
 	}
@@ -49,20 +52,24 @@ public class CustomVersionOneStrategy implements UUIDGenerationStrategy, UuidVal
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public UUID generateUuid(SharedSessionContractImplementor session) {
 		return new UUID( mostSignificantBits,
 				generateLeastSignificantBits( currentTimeMillis() ) );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public UUID generateUUID(SharedSessionContractImplementor session) {
 		return generateUuid( session );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getMostSignificantBits() {
 		return mostSignificantBits;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static long generateLeastSignificantBits(long seed) {
 		final byte[] loBits = new byte[8];
 		final short hiTime = (short) ( seed >>> 32 );
@@ -76,6 +83,7 @@ public class CustomVersionOneStrategy implements UUIDGenerationStrategy, UuidVal
 	}
 
 	@AllowSysOut
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void main(String[] args) {
 		final var strategy = new CustomVersionOneStrategy();
 

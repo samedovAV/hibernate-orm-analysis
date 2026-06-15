@@ -5,6 +5,8 @@
 package org.hibernate;
 
 import java.io.Serializable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Allows reaction to basic {@link SessionFactory} lifecycle events.
@@ -23,6 +25,7 @@ public interface SessionFactoryObserver extends Serializable {
 	 *
 	 * @param factory The factory initialized.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void sessionFactoryCreated(SessionFactory factory) {
 		// nothing to do by default
 	}
@@ -39,6 +42,7 @@ public interface SessionFactoryObserver extends Serializable {
 	 *
 	 * @since 5.2
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void sessionFactoryClosing(SessionFactory factory) {
 		// nothing to do by default
 	}
@@ -49,6 +53,7 @@ public interface SessionFactoryObserver extends Serializable {
 	 *
 	 * @param factory The factory closed.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void sessionFactoryClosed(SessionFactory factory) {
 		// nothing to do by default
 	}

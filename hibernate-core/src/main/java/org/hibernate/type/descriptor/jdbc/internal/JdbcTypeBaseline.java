@@ -40,6 +40,8 @@ import org.hibernate.type.descriptor.jdbc.TinyIntJdbcType;
 import org.hibernate.type.descriptor.jdbc.VarbinaryJdbcType;
 import org.hibernate.type.descriptor.jdbc.VarcharJdbcType;
 import org.hibernate.type.descriptor.jdbc.ZonedDateTimeJdbcType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Registers the base {@link JdbcType} instances.
@@ -48,10 +50,13 @@ import org.hibernate.type.descriptor.jdbc.ZonedDateTimeJdbcType;
  */
 public class JdbcTypeBaseline {
 	public interface BaselineTarget {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void addDescriptor(JdbcType descriptor);
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void addDescriptor(int code, JdbcType descriptor);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void prime(BaselineTarget target) {
 		target.addDescriptor( BooleanJdbcType.INSTANCE );
 		// ResultSetMetaData might report BIT on some DBs, so we need to register the boolean type descriptor for that code

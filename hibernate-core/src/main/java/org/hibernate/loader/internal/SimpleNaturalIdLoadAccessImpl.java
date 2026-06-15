@@ -22,6 +22,8 @@ import org.hibernate.internal.find.StatefulLoadAccessContext;
 import org.hibernate.metamodel.mapping.EntityMappingType;
 import org.hibernate.metamodel.mapping.internal.SimpleNaturalIdMapping;
 import org.hibernate.persister.entity.EntityPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Implementation of {@link SimpleNaturalIdLoadAccess}.
@@ -44,50 +46,59 @@ public class SimpleNaturalIdLoadAccessImpl<T>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public LockOptions getLockOptions() {
 		return super.getLockOptions();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isSynchronizationEnabled() {
 		return super.isSynchronizationEnabled();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SimpleNaturalIdLoadAccess<T> with(LockMode lockMode, PessimisticLockScope lockScope) {
 		//noinspection unchecked
 		return (SimpleNaturalIdLoadAccess<T>) super.with( lockMode, lockScope );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SimpleNaturalIdLoadAccess<T> with(PessimisticLockScope lockScope) {
 		super.with( lockScope );
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SimpleNaturalIdLoadAccess<T> with(Timeout timeout) {
 		//noinspection unchecked
 		return (SimpleNaturalIdLoadAccess<T>) super.with( timeout );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final SimpleNaturalIdLoadAccessImpl<T> with(LockOptions lockOptions) {
 		return (SimpleNaturalIdLoadAccessImpl<T>) super.with( lockOptions );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SimpleNaturalIdLoadAccessImpl<T> setSynchronizationEnabled(boolean synchronizationEnabled) {
 		super.synchronizationEnabled( synchronizationEnabled );
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public T getReference(Object naturalIdValue) {
 		verifySimplicity( naturalIdValue );
 		return doGetReference( entityPersister().getNaturalIdMapping().normalizeInput( naturalIdValue) );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public T load(Object naturalIdValue) {
 		verifySimplicity( naturalIdValue );
 		return doLoad( entityPersister().getNaturalIdMapping().normalizeInput( naturalIdValue) );
@@ -101,6 +112,7 @@ public class SimpleNaturalIdLoadAccessImpl<T>
 	 * For lists, just like arrays, we assume the user has ordered them properly; for maps,
 	 * the key is expected to be the attribute name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void verifySimplicity(Object naturalIdValue) {
 		assert naturalIdValue != null;
 		if ( !hasSimpleNaturalId
@@ -119,34 +131,40 @@ public class SimpleNaturalIdLoadAccessImpl<T>
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean isNaturalIdClass(Object naturalIdValue) {
 		final EntityPersister entityPersister = entityPersister();
 		return entityPersister.getNaturalIdMapping().getNaturalIdClass().isInstance(  naturalIdValue );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Optional<T> loadOptional(Object naturalIdValue) {
 		return Optional.ofNullable( load( naturalIdValue ) );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SimpleNaturalIdLoadAccess<T> with(EntityGraph<T> graph, GraphSemantic semantic) {
 		super.with( graph, semantic );
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SimpleNaturalIdLoadAccess<T> withLoadGraph(EntityGraph<T> graph) {
 		return SimpleNaturalIdLoadAccess.super.withLoadGraph(graph);
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SimpleNaturalIdLoadAccess<T> enableFetchProfile(String profileName) {
 		super.enableFetchProfile( profileName );
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SimpleNaturalIdLoadAccess<T> disableFetchProfile(String profileName) {
 		super.enableFetchProfile( profileName );
 		return this;

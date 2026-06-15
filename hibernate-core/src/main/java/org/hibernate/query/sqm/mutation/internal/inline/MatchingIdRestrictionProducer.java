@@ -15,6 +15,8 @@ import org.hibernate.sql.ast.tree.expression.Expression;
 import org.hibernate.sql.ast.tree.from.TableReference;
 import org.hibernate.sql.ast.tree.predicate.Predicate;
 import org.hibernate.sql.exec.spi.ExecutionContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Strategy (pattern) for producing the restriction used when mutating a
@@ -26,6 +28,7 @@ public interface MatchingIdRestrictionProducer {
 	/**
 	 * Produces a list of expression for which a restriction can be produced per-table.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<Expression> produceIdExpressionList(List<Object> idsAndFks, EntityMappingType entityDescriptor);
 
 	/**
@@ -35,6 +38,7 @@ public interface MatchingIdRestrictionProducer {
 	 * @param mutatingTableReference The TableReference for the table being mutated
 	 * @param columnsToMatchVisitationSupplier The columns against which to restrict the mutations
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Predicate produceRestriction(
 			List<Expression> idExpressions,
 			EntityMappingType entityDescriptor,

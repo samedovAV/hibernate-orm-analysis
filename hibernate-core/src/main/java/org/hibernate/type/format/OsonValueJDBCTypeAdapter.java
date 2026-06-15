@@ -16,6 +16,8 @@ import org.hibernate.type.descriptor.java.PrimitiveByteArrayJavaType;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
 
 import java.sql.SQLException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -23,6 +25,7 @@ import java.sql.SQLException;
  */
 public class OsonValueJDBCTypeAdapter implements JsonValueJDBCTypeAdapter {
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object fromValue(JavaType<?> jdbcJavaType, JdbcType jdbcType, JsonDocumentReader source, WrapperOptions options)
 			throws SQLException {
 		Object valueToBeWrapped = null;
@@ -75,6 +78,7 @@ public class OsonValueJDBCTypeAdapter implements JsonValueJDBCTypeAdapter {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object fromNumericValue(JavaType<?> jdbcJavaType, JdbcType jdbcType, JsonDocumentReader source, WrapperOptions options)
 			throws SQLException {
 		return fromValue( jdbcJavaType, jdbcType, source, options );

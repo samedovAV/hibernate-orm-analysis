@@ -9,6 +9,8 @@ import java.util.Set;
 
 import org.hibernate.sql.exec.spi.JdbcOperationQueryInsert;
 import org.hibernate.sql.exec.spi.JdbcParameterBinder;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base support for JdbcInsertMutation implementations
@@ -29,6 +31,7 @@ public class AbstractJdbcOperationQueryInsert extends AbstractJdbcOperationQuery
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getUniqueConstraintNameThatMayFail() {
 		return uniqueConstraintNameThatMayFail;
 	}

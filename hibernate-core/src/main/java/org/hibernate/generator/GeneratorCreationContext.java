@@ -18,6 +18,8 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.type.Type;
 
 import static org.hibernate.boot.model.relational.internal.SqlStringGenerationContextImpl.fromExplicit;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Access to information useful during {@linkplain Generator} creation and initialization.
@@ -34,46 +36,55 @@ public interface GeneratorCreationContext {
 	 * and namespaces (catalogs and schemas). Generators may add new
 	 * tables or sequences to the returned {@link Database}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Database getDatabase();
 
 	/**
 	 * Access to available services.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ServiceRegistry getServiceRegistry();
 
 	/**
 	 * The default catalog name, if one.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getDefaultCatalog();
 
 	/**
 	 * The default schema name, if one.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getDefaultSchema();
 
 	/**
 	 * Mapping details for the entity.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PersistentClass getPersistentClass();
 
 	/**
 	 * Mapping details for the root of the {@linkplain #getPersistentClass() entity} hierarchy.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	RootClass getRootClass();
 
 	/**
 	 * The entity identifier or id-bag property details.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Property getProperty();
 
 	/**
 	 * The identifier.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Value getValue();
 
 	/**
 	 * Mapping details for the identifier type.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default Type getType() {
 		return getProperty().getType();
 	}
@@ -81,6 +92,7 @@ public interface GeneratorCreationContext {
 	/**
 	 * The {@link SqlStringGenerationContext} to use when generating SQL.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SqlStringGenerationContext getSqlStringGenerationContext() {
 		final var database = getDatabase();
 		return fromExplicit( database.getJdbcEnvironment(), database, getDefaultCatalog(), getDefaultSchema() );
@@ -91,6 +103,7 @@ public interface GeneratorCreationContext {
 	 *
 	 * @since 7.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default MemberDetails getMemberDetails() {
 		return null;
 	}

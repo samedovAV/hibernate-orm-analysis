@@ -24,6 +24,8 @@ import org.hibernate.boot.registry.classloading.spi.ClassLoadingException;
 
 import static java.util.Collections.singletonList;
 import static org.hibernate.boot.BootLogging.BOOT_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard implementation of the service for interacting with class loaders
@@ -85,6 +87,7 @@ public class ClassLoaderServiceImpl implements ClassLoaderService {
 	@Override
 	@SuppressWarnings("unchecked")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> Class<T> classForName(@Nonnull String className) {
 		try {
 			return (Class<T>) Class.forName( className, true, getAggregatedClassLoader() );
@@ -96,6 +99,7 @@ public class ClassLoaderServiceImpl implements ClassLoaderService {
 
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public URL locateResource(@Nonnull String name) {
 		// first we try name as a URL
 		try {
@@ -135,6 +139,7 @@ public class ClassLoaderServiceImpl implements ClassLoaderService {
 
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public InputStream locateResourceStream(@Nonnull String name) {
 		// first we try name as a URL
 		try {
@@ -184,6 +189,7 @@ public class ClassLoaderServiceImpl implements ClassLoaderService {
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public List<URL> locateResources(@Nonnull String name) {
 		final ArrayList<URL> urls = new ArrayList<>();
 		try {
@@ -203,6 +209,7 @@ public class ClassLoaderServiceImpl implements ClassLoaderService {
 	@Nonnull
 	@Override
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S> Collection<S> loadJavaServices(@Nonnull Class<S> serviceContract) {
 		var serviceLoader = (AggregatedServiceLoader<S>) serviceLoaders.get( serviceContract );
 		if ( serviceLoader == null ) {
@@ -215,6 +222,7 @@ public class ClassLoaderServiceImpl implements ClassLoaderService {
 	@Override
 	@SuppressWarnings("unchecked")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> T generateProxy(@Nonnull InvocationHandler handler, @Nonnull Class<?>... interfaces) {
 		return (T) Proxy.newProxyInstance(
 				getAggregatedClassLoader(),
@@ -225,6 +233,7 @@ public class ClassLoaderServiceImpl implements ClassLoaderService {
 
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Package packageForNameOrNull(@Nonnull String packageName) {
 		try {
 			return Class.forName( packageName + ".package-info", true, getAggregatedClassLoader() )
@@ -241,10 +250,12 @@ public class ClassLoaderServiceImpl implements ClassLoaderService {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> T workWithClassLoader(@Nonnull Work<T> work) {
 		return work.doWork( getAggregatedClassLoader() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private AggregatedClassLoader getAggregatedClassLoader() {
 		final AggregatedClassLoader aggregated = this.aggregatedClassLoader;
 		if ( aggregated == null ) {
@@ -253,6 +264,7 @@ public class ClassLoaderServiceImpl implements ClassLoaderService {
 		return aggregated;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String stripClasspathScheme(String name) {
 		if ( name == null ) {
 			return null;
@@ -266,6 +278,7 @@ public class ClassLoaderServiceImpl implements ClassLoaderService {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void stop() {
 		for ( AggregatedServiceLoader<?> serviceLoader : serviceLoaders.values() ) {
 			serviceLoader.close();

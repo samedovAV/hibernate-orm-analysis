@@ -27,6 +27,8 @@ import org.hibernate.type.BasicType;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.unmodifiableList;
 import static org.hibernate.cache.cfg.internal.ComparatorUtil.versionComparator;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * DomainDataRegionConfig implementation
@@ -52,21 +54,25 @@ public class DomainDataRegionConfigImpl implements DomainDataRegionConfig {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getRegionName() {
 		return regionName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<EntityDataCachingConfig> getEntityCaching() {
 		return entityConfigs;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<NaturalIdDataCachingConfig> getNaturalIdCaching() {
 		return naturalIdConfigs;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<CollectionDataCachingConfig> getCollectionCaching() {
 		return collectionConfigs;
 	}
@@ -88,6 +94,7 @@ public class DomainDataRegionConfigImpl implements DomainDataRegionConfig {
 		}
 
 		@SuppressWarnings("UnusedReturnValue")
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder addEntityConfig(PersistentClass bootEntityDescriptor, AccessType accessType) {
 			if ( entityConfigsByRootName == null ) {
 				entityConfigsByRootName = new HashMap<>();
@@ -115,6 +122,7 @@ public class DomainDataRegionConfigImpl implements DomainDataRegionConfig {
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private @Nullable Supplier<Comparator<Object>> versionComparatorAccess(PersistentClass bootEntityDescriptor) {
 			return bootEntityDescriptor.isVersioned()
 					? () -> {
@@ -131,6 +139,7 @@ public class DomainDataRegionConfigImpl implements DomainDataRegionConfig {
 		//		that would alleviate the difference between 5.3 and 6.0 from the SPI POV
 
 		@SuppressWarnings("UnusedReturnValue")
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder addNaturalIdConfig(RootClass rootEntityDescriptor, AccessType accessType) {
 			if ( naturalIdConfigs == null ) {
 				naturalIdConfigs = new ArrayList<>();
@@ -140,6 +149,7 @@ public class DomainDataRegionConfigImpl implements DomainDataRegionConfig {
 		}
 
 		@SuppressWarnings("UnusedReturnValue")
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder addCollectionConfig(Collection collectionDescriptor, AccessType accessType) {
 			if ( collectionConfigs == null ) {
 				collectionConfigs = new ArrayList<>();
@@ -148,6 +158,7 @@ public class DomainDataRegionConfigImpl implements DomainDataRegionConfig {
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public DomainDataRegionConfigImpl build() {
 			return new DomainDataRegionConfigImpl(
 					regionName,
@@ -157,12 +168,14 @@ public class DomainDataRegionConfigImpl implements DomainDataRegionConfig {
 			);
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private <T extends DomainDataCachingConfig> List<T> finalize(Map<?,? extends T> configs) {
 			return configs == null
 					? emptyList()
 					: unmodifiableList( new ArrayList<>( configs.values() ) );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private <T extends DomainDataCachingConfig> List<T> finalize(List<T> configs) {
 			return configs == null
 					? emptyList()

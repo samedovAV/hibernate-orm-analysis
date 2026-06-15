@@ -6,6 +6,8 @@ package org.hibernate.sql.ast.tree.from;
 
 import org.hibernate.metamodel.mapping.ModelPartContainer;
 import org.hibernate.sql.ast.spi.SqlAliasBaseManager;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Marker interface for anything which produces a TableGroup
@@ -23,8 +25,10 @@ public interface TableGroupProducer extends ModelPartContainer {
 	 *
 	 * @see SqlAliasBaseManager#createSqlAliasBase
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getSqlAliasStem();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean containsTableReference(String tableExpression) {
 		return false;
 	}

@@ -20,6 +20,8 @@ import org.hibernate.usertype.UserType;
 
 import jakarta.persistence.MapKeyTemporal;
 import jakarta.persistence.TemporalType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -27,6 +29,7 @@ import jakarta.persistence.TemporalType;
 public class UserTypeCasesMapKey extends AbstractUserTypeCases {
 	public static final UserTypeCasesMapKey MAP_KEY_USER_TYPE_CASES = new UserTypeCasesMapKey();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void applyJavaTypeAnnotationStatic(
 			MutableMemberDetails memberDetails,
 			Class<? extends BasicJavaType<?>> descriptor,
@@ -39,6 +42,7 @@ public class UserTypeCasesMapKey extends AbstractUserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void applyJavaTypeAnnotation(
 			MutableMemberDetails memberDetails,
 			Class<? extends BasicJavaType<?>> descriptor,
@@ -48,6 +52,7 @@ public class UserTypeCasesMapKey extends AbstractUserTypeCases {
 
 	@SuppressWarnings("deprecation")
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void applyTemporalPrecision(
 			MutableMemberDetails memberDetails,
 			TemporalType temporalType,
@@ -75,6 +80,7 @@ public class UserTypeCasesMapKey extends AbstractUserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleGeneral(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,

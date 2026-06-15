@@ -22,6 +22,8 @@ import org.hibernate.sql.ast.spi.SqlAstTreeHelper;
 import org.hibernate.sql.ast.tree.Statement;
 import org.hibernate.sql.ast.tree.from.TableGroup;
 import org.hibernate.sql.ast.tree.predicate.Predicate;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specialized BaseSqmToSqlAstConverter implementation used during conversion
@@ -103,30 +105,36 @@ public class MultiTableSqmMutationConverter extends BaseSqmToSqlAstConverter<Sta
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void pruneTableGroupJoins() {
 		super.pruneTableGroupJoins();
 	}
 
 	@SuppressWarnings("unused")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityMappingType getMutatingEntityDescriptor() {
 		return mutatingEntityDescriptor;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableGroup getMutatingTableGroup() {
 		return mutatingTableGroup;
 	}
 
 	@Override // promote protected to public
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmStatement<?> getStatement() {
 		return super.getStatement();
 	}
 
 	@Override // promote protected to public
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Stack<SqlAstProcessingState> getProcessingStateStack() {
 		return super.getProcessingStateStack();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Predicate visitWhereClause(@Nullable SqmWhereClause whereClause) {
 		return SqlAstTreeHelper.combinePredicates( super.visitWhereClause( whereClause ), discriminatorPredicate );
 	}

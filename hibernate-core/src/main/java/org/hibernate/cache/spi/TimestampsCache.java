@@ -8,6 +8,8 @@ import java.util.Collection;
 
 import org.hibernate.cache.CacheException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Tracks invalidation of "query spaces" (tables) for the purpose of
@@ -29,12 +31,14 @@ public interface TimestampsCache {
 	/**
 	 * The region used to store all timestamp data.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TimestampsRegion getRegion();
 
 	/**
 	 * Perform pre-invalidation of the passed spaces (table names)
 	 * against the timestamp region data.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void preInvalidate(
 			String[] spaces,
 			SharedSessionContractImplementor session);
@@ -43,6 +47,7 @@ public interface TimestampsCache {
 	 * Perform invalidation of the passed spaces (table names)
 	 * against the timestamp region data.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void invalidate(
 			String[] spaces,
 			SharedSessionContractImplementor session);
@@ -51,6 +56,7 @@ public interface TimestampsCache {
 	 * Perform an up-to-date check for the given set of query spaces as
 	 * part of verifying the validity of cached query results.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isUpToDate(
 			String[] spaces,
 			Long timestamp,
@@ -60,15 +66,18 @@ public interface TimestampsCache {
 	 * Perform an up-to-date check for the given set of query spaces as
 	 * part of verifying the validity of cached query results.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isUpToDate(
 			Collection<String> spaces,
 			Long timestamp,
 			SharedSessionContractImplementor session);
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void clear() throws CacheException {
 		getRegion().clear();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void destroy() {
 		// nothing to do - the region itself is destroyed
 	}

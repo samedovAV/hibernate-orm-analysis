@@ -12,6 +12,8 @@ import org.hibernate.type.descriptor.WrapperOptions;
 import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.descriptor.jdbc.JavaTimeJdbcType;
 import org.hibernate.type.descriptor.jdbc.internal.GetObjectExtractor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Variant of the {@link GetObjectExtractor} that catches a {@link NullPointerException},
@@ -29,6 +31,7 @@ public class DB2GetObjectExtractor<T> extends GetObjectExtractor<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected T doExtract(ResultSet rs, int paramIndex, WrapperOptions options) throws SQLException {
 		try {
 			return super.doExtract( rs, paramIndex, options );
@@ -43,6 +46,7 @@ public class DB2GetObjectExtractor<T> extends GetObjectExtractor<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected T doExtract(CallableStatement statement, int paramIndex, WrapperOptions options) throws SQLException {
 		try {
 			return super.doExtract( statement, paramIndex, options );
@@ -57,6 +61,7 @@ public class DB2GetObjectExtractor<T> extends GetObjectExtractor<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected T doExtract(CallableStatement statement, String name, WrapperOptions options) throws SQLException {
 		try {
 			return super.doExtract( statement, name, options );

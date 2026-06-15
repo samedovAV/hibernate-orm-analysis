@@ -8,6 +8,8 @@ import jakarta.annotation.Nullable;
 import jakarta.annotation.Nonnull;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.persister.collection.CollectionPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for managing transactional and concurrent access to cached collection
@@ -34,6 +36,7 @@ public interface CollectionDataAccess extends CachedDomainDataAccess {
 	 * @return a key which can be used to identify this collection on this same region
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object generateCacheKey(
 			Object id,
 			CollectionPersister collectionDescriptor,
@@ -47,6 +50,7 @@ public interface CollectionDataAccess extends CachedDomainDataAccess {
 	 *
 	 * @return original key passed to {@link #generateCacheKey}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getCacheKeyId(Object cacheKey);
 
 

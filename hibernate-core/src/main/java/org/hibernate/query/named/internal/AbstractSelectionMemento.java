@@ -18,6 +18,8 @@ import org.hibernate.query.spi.MutationQueryImplementor;
 import org.hibernate.query.spi.QueryImplementor;
 
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -75,81 +77,97 @@ public abstract class AbstractSelectionMemento<R>
 
 	@Override
 	@Nullable //FIXME: declared @Nonnull by JPA
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<R> getResultType() {
 		return queryType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Boolean getReadOnly() {
 		return readOnly;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Integer getFetchSize() {
 		return fetchSize;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Integer getFirstResult() {
 		return firstRow;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Integer getMaxResults() {
 		return maxRows;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Boolean getCacheable() {
 		return cacheable;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CacheMode getCacheMode() {
 		return cacheMode;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getCacheRegion() {
 		return cacheRegion;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LockMode getHibernateLockMode() {
 		return lockMode;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PessimisticLockScope getPessimisticLockScope() {
 		return lockScope;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Timeout getLockTimeout() {
 		return lockTimeout;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Locking.FollowOn getFollowOnLockingStrategy() {
 		return followOnLockingStrategy;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutationQueryImplementor<R> toMutationQuery(SharedSessionContractImplementor session) {
 		throw new IllegalMutationQueryException( "Not a NamedMutationMemento" );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> MutationQueryImplementor<X> toMutationQuery(SharedSessionContractImplementor session, Class<X> targetType) {
 		throw new IllegalMutationQueryException( "Not a NamedMutationMemento" );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QueryImplementor<R> toQuery(SharedSessionContractImplementor session) {
 		return toSelectionQuery( session );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> QueryImplementor<X> toQuery(SharedSessionContractImplementor session, Class<X> javaType) {
 		return toSelectionQuery( session, javaType );
 	}

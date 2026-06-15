@@ -18,6 +18,8 @@ import org.hibernate.type.descriptor.ValueBinder;
 import org.hibernate.type.descriptor.ValueExtractor;
 import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Emmanuel Bernard
@@ -33,36 +35,43 @@ public class BasicTypeImpl<J> implements BasicDomainType<J>, SqmDomainType<J>, J
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Class<J> getJavaType() {
 		return BasicDomainType.super.getJavaType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getTypeName() {
 		return javaType.getTypeName();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable SqmDomainType<J> getSqmType() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<J> getExpressibleJavaType() {
 		return javaType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean canDoExtraction() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcType getJdbcType() {
 		return jdbcType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public J extract(
 			CallableStatement statement,
 			int paramIndex,
@@ -71,6 +80,7 @@ public class BasicTypeImpl<J> implements BasicDomainType<J>, SqmDomainType<J>, J
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public J extract(
 			CallableStatement statement,
 			String paramName,
@@ -79,16 +89,19 @@ public class BasicTypeImpl<J> implements BasicDomainType<J>, SqmDomainType<J>, J
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<?> getJavaTypeDescriptor() {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ValueExtractor<J> getJdbcValueExtractor() {
 		return jdbcType.getExtractor( javaType );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ValueBinder<J> getJdbcValueBinder() {
 		return jdbcType.getBinder( javaType );
 	}

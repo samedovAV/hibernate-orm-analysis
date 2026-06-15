@@ -8,6 +8,8 @@ import org.hibernate.boot.Metadata;
 import org.hibernate.boot.model.relational.SqlStringGenerationContext;
 import org.hibernate.mapping.Table;
 import org.hibernate.tool.schema.extract.spi.TableInformation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An object that produces an {@code alter table} statements
@@ -18,6 +20,7 @@ import org.hibernate.tool.schema.extract.spi.TableInformation;
  * @since 6.2
  */
 public interface TableMigrator {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String[] getSqlAlterStrings(
 			Table table,
 			Metadata metadata,

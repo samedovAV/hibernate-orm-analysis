@@ -17,6 +17,8 @@ import org.hibernate.sql.model.internal.TableUpdateStandard;
 
 import java.util.Collections;
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Custom table update builder for one-to-many collections that handles row deletes
@@ -35,6 +37,7 @@ public class CollectionRowDeleteByUpdateSetNullBuilder<O extends MutationOperati
 
 	@SuppressWarnings( "unchecked" )
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LogicalTableUpdate<O> buildMutation() {
 		final CollectionTableMapping tableMapping = (CollectionTableMapping) getMutatingTable().getTableMapping();
 		final List<ColumnValueBinding> valueBindings = combine(
@@ -52,16 +55,19 @@ public class CollectionRowDeleteByUpdateSetNullBuilder<O extends MutationOperati
 					getOptimisticLockBindings()
 			) {
 				@Override
+				@Prove(complexity = Complexity.O_N, n = "", count = {})
 				public String getCustomSql() {
 					return tableMapping.getDeleteRowDetails().getCustomSql();
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_N, n = "", count = {})
 				public boolean isCallable() {
 					return tableMapping.getDeleteRowDetails().isCallable();
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_N, n = "", count = {})
 				public Expectation getExpectation() {
 					return tableMapping.getDeleteRowDetails().getExpectation();
 				}
@@ -79,6 +85,7 @@ public class CollectionRowDeleteByUpdateSetNullBuilder<O extends MutationOperati
 				Collections.emptyList()
 		) {
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public Expectation getExpectation() {
 				return tableMapping.getDeleteRowDetails().getExpectation();
 			}

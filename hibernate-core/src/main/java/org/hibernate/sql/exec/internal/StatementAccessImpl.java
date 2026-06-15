@@ -11,6 +11,8 @@ import org.hibernate.sql.exec.spi.StatementAccess;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Lazy access to a JDBC {@linkplain Statement}.
@@ -31,7 +33,8 @@ public class StatementAccessImpl implements StatementAccess {
 		this.factory = factory;
 	}
 
-	@Override public Statement getJdbcStatement() {
+	@Override @Prove(complexity = Complexity.O_1, n = "", count = {})
+	public Statement getJdbcStatement() {
 		if ( jdbcStatement == null ) {
 			try {
 				jdbcStatement = jdbcConnection.createStatement();
@@ -46,6 +49,7 @@ public class StatementAccessImpl implements StatementAccess {
 		return jdbcStatement;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void release() {
 		if ( jdbcStatement != null ) {
 			try {

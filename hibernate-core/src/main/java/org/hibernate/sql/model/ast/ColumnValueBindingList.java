@@ -15,6 +15,8 @@ import org.hibernate.metamodel.mapping.ModelPart;
 import org.hibernate.metamodel.mapping.SelectableMapping;
 import org.hibernate.sql.ast.tree.expression.ColumnReference;
 import org.hibernate.sql.model.ast.builder.ColumnValueBindingBuilder;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// List of [value bindings][ColumnValueBinding] allowing the grouping to act as
 /// a consumer for JDBC value mappings.
@@ -35,11 +37,13 @@ public class ColumnValueBindingList extends ArrayList<ColumnValueBinding> implem
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object clone() {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void consume(int valueIndex, Object value, SelectableMapping jdbcValueMapping) {
 		if ( value == null ) {
 			addNullRestriction( jdbcValueMapping );
@@ -50,18 +54,22 @@ public class ColumnValueBindingList extends ArrayList<ColumnValueBinding> implem
 	}
 
 	@Internal @Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addRestriction(ColumnValueBinding valueBinding) {
 		add( valueBinding );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addRestriction(SelectableMapping column) {
 		add( createValueBinding( column, column.getWriteExpression() ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addNullRestriction(SelectableMapping column) {
 		add( createValueBinding( column, null ) );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected ColumnValueBinding createValueBinding(SelectableMapping column, @Nullable String customWriteExpression) {
 		return ColumnValueBindingBuilder.createValueBinding(
 				customWriteExpression,
@@ -72,6 +80,7 @@ public class ColumnValueBindingList extends ArrayList<ColumnValueBinding> implem
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean containsColumn(String columnName, JdbcMapping jdbcMapping) {
 		final ColumnReference reference = new ColumnReference( mutatingTable, columnName, jdbcMapping );
 		for ( int i = 0; i < size(); i++ ) {
@@ -83,6 +92,7 @@ public class ColumnValueBindingList extends ArrayList<ColumnValueBinding> implem
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String toString() {
 		return "ColumnValueBindingList" + super.toString();
 	}

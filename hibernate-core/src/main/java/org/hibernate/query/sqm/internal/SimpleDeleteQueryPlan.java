@@ -38,6 +38,8 @@ import org.hibernate.sql.results.internal.SqlSelectionImpl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -57,6 +59,7 @@ public class SimpleDeleteQueryPlan extends SimpleNonSelectQueryPlan {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected Interpretation buildInterpretation(
 			SqmDmlStatement<?> sqm,
 			DomainParameterXref domainParameterXref,
@@ -131,11 +134,13 @@ public class SimpleDeleteQueryPlan extends SimpleNonSelectQueryPlan {
 	}
 
 	// For Hibernate Reactive
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected List<JdbcOperationQueryMutation> getCollectionTableDeletes() {
 		return collectionTableDeletes;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	protected int execute(CacheableSqmInterpretation<MutationStatement, JdbcOperationQueryMutation> sqmInterpretation, JdbcParameterBindings jdbcParameterBindings, ExecutionContext executionContext) {
 		final SessionFactoryImplementor factory = executionContext.getSession().getFactory();
 		final JdbcMutationExecutor jdbcMutationExecutor = factory.getJdbcServices().getJdbcMutationExecutor();
@@ -155,6 +160,7 @@ public class SimpleDeleteQueryPlan extends SimpleNonSelectQueryPlan {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected SqmTranslation<? extends MutationStatement> buildTranslation(SqmDmlStatement<?> sqm, DomainParameterXref domainParameterXref, DomainQueryExecutionContext executionContext) {
 		final SqmTranslation<? extends MutationStatement> sqmTranslation =
 				super.buildTranslation( sqm, domainParameterXref, executionContext );

@@ -8,6 +8,8 @@ import org.hibernate.metamodel.mapping.DiscriminatorValueDetails;
 import org.hibernate.metamodel.mapping.EmbeddableDiscriminatorConverter;
 import org.hibernate.metamodel.mapping.EmbeddableDiscriminatorMapping;
 import org.hibernate.metamodel.mapping.EntityMappingType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Implementation of {@link DiscriminatorValueDetails} used for embeddable inheritance.
@@ -25,21 +27,25 @@ public class EmbeddableDiscriminatorValueDetailsImpl implements DiscriminatorVal
 		this.embeddableClass = embeddableClass;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getEmbeddableClass() {
 		return embeddableClass;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getValue() {
 		return value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getIndicatedEntityName() {
 		return embeddableClass.getName();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityMappingType getIndicatedEntity() {
 		throw new UnsupportedOperationException();
 	}

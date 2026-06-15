@@ -5,6 +5,8 @@
 package org.hibernate.collection.spi;
 
 import org.hibernate.Incubating;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The most general abstraction over collections which may be fetched lazily.
@@ -35,6 +37,7 @@ public interface LazyInitializable {
 	 *
 	 * @see org.hibernate.Hibernate#isInitialized(Object)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean wasInitialized();
 
 	/**
@@ -42,6 +45,7 @@ public interface LazyInitializable {
 	 *
 	 * @see org.hibernate.Hibernate#initialize(Object)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void forceInitialization();
 
 }

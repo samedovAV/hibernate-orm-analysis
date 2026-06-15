@@ -8,6 +8,8 @@ import jakarta.annotation.Nonnull;
 import org.hibernate.type.descriptor.converter.spi.BasicValueConverter;
 import org.hibernate.type.descriptor.java.MutabilityPlan;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Wrapper of {@link CustomMutabilityConvertedBasicTypeImpl} for primitive type.
@@ -31,6 +33,7 @@ public class CustomMutabilityConvertedPrimitiveBasicTypeImpl<J> extends CustomMu
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<J> getJavaType() {
 		return primitiveClass;
 	}

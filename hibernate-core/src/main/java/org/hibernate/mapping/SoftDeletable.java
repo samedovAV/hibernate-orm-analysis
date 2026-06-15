@@ -7,6 +7,8 @@ package org.hibernate.mapping;
 import org.hibernate.Incubating;
 import org.hibernate.annotations.SoftDeleteType;
 import org.hibernate.persister.state.internal.SoftDeleteStateManagement;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Part of the boot model which can be soft-deleted
@@ -27,6 +29,7 @@ public interface SoftDeletable extends Stateful {
 	 * @param indicatorColumn The column which indicates soft-deletion
 	 * @param strategy The strategy for indicating soft-deletion
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void enableSoftDelete(Column indicatorColumn, SoftDeleteType strategy) {
 		addAuxiliaryColumn( INDICATOR, indicatorColumn );
 		setStateManagementType( SoftDeleteStateManagement.class );
@@ -35,6 +38,7 @@ public interface SoftDeletable extends Stateful {
 	/**
 	 * The column which indicates soft-deletion.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Column getSoftDeleteColumn() {
 		return getAuxiliaryColumn( INDICATOR );
 	}
@@ -42,5 +46,6 @@ public interface SoftDeletable extends Stateful {
 	/**
 	 * The strategy for indicating soft-deletion.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SoftDeleteType getSoftDeleteStrategy();
 }

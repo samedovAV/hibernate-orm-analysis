@@ -12,6 +12,8 @@ import org.hibernate.type.descriptor.converter.internal.AttributeConverterBean;
 import org.hibernate.type.descriptor.converter.spi.JpaAttributeConverter;
 
 import java.lang.reflect.Type;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 class ConverterDescriptorImpl<X, Y> implements ConverterDescriptor<X, Y> {
@@ -34,26 +36,31 @@ class ConverterDescriptorImpl<X, Y> implements ConverterDescriptor<X, Y> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends AttributeConverter<X, Y>> getAttributeConverterClass() {
 		return converterType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Type getDomainValueResolvedType() {
 		return domainTypeToMatch;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Type getRelationalValueResolvedType() {
 		return relationalType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AutoApplicableConverterDescriptor getAutoApplyDescriptor() {
 		return autoApplyDescriptor;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JpaAttributeConverter<X, Y> createJpaAttributeConverter(JpaAttributeConverterCreationContext context) {
 		final var javaTypeRegistry = context.getTypeConfiguration().getJavaTypeRegistry();
 		final var converterBean = context.getManagedBeanRegistry().getBean( converterType );

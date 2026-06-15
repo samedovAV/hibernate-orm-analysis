@@ -14,6 +14,8 @@ import java.util.Map;
 
 import static org.hibernate.boot.models.HibernateAnnotations.NAMED_ENTITY_GRAPHS;
 import static org.hibernate.boot.models.internal.OrmAnnotationHelper.extractJdkValue;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -42,15 +44,18 @@ public class NamedEntityGraphsAnnotation implements NamedEntityGraphs, Repeatabl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return NamedEntityGraphs.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NamedEntityGraph[] value() {
 		return value;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void value(NamedEntityGraph[] value) {
 		this.value = value;
 	}

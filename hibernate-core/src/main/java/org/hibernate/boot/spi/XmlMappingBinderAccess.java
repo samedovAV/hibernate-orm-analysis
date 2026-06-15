@@ -19,6 +19,8 @@ import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.function.Function;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Holds the XML binder and a classloader used for binding mappings, as well
@@ -42,6 +44,7 @@ public class XmlMappingBinderAccess {
 		this.mappingBinder = new MappingBinder( classLoaderService, configAccess );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MappingBinder getMappingBinder() {
 		return mappingBinder;
 	}
@@ -51,6 +54,7 @@ public class XmlMappingBinderAccess {
 	 *
 	 * @see UrlXmlSource#fromUrl
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Binding<JaxbBindableMappingDescriptor> bind(String resource) {
 		//noinspection unchecked,rawtypes
 		return (Binding) UrlXmlSource.fromResource( resource, classLoaderService, getMappingBinder() );
@@ -61,6 +65,7 @@ public class XmlMappingBinderAccess {
 	 *
 	 * @see FileXmlSource#fromFile
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Binding<JaxbBindableMappingDescriptor> bind(File file) {
 		//noinspection unchecked,rawtypes
 		return (Binding) FileXmlSource.fromFile( file, getMappingBinder() );
@@ -71,6 +76,7 @@ public class XmlMappingBinderAccess {
 	 *
 	 * @see InputStreamAccessXmlSource#fromStreamAccess
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Binding<JaxbBindableMappingDescriptor> bind(InputStreamAccess xmlInputStreamAccess) {
 		//noinspection unchecked,rawtypes
 		return (Binding) InputStreamAccessXmlSource.fromStreamAccess( xmlInputStreamAccess, getMappingBinder() );
@@ -81,6 +87,7 @@ public class XmlMappingBinderAccess {
 	 *
 	 * @see InputStreamXmlSource#fromStream
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Binding<JaxbBindableMappingDescriptor> bind(InputStream xmlInputStream) {
 		//noinspection unchecked,rawtypes
 		return (Binding) InputStreamXmlSource.fromStream( xmlInputStream, getMappingBinder() );
@@ -91,6 +98,7 @@ public class XmlMappingBinderAccess {
 	 *
 	 * @see UrlXmlSource#fromUrl
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Binding<JaxbBindableMappingDescriptor> bind(URL url) {
 		//noinspection unchecked,rawtypes
 		return (Binding) UrlXmlSource.fromUrl( url, getMappingBinder() );

@@ -12,6 +12,8 @@ import java.util.Set;
 import org.hibernate.sql.ast.tree.SqlAstNode;
 import org.hibernate.sql.ast.tree.expression.ColumnReference;
 import org.hibernate.sql.ast.tree.select.QuerySpec;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A walker that detects nested correlation where a deeper subquery references
@@ -26,11 +28,13 @@ public class NestedCorrelationChecker extends AbstractSqlAstWalker {
 
 	protected static class NestedCorrelationException extends RuntimeException {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Throwable fillInStackTrace() {
 			return this;
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean hasNestedCorrelation(SqlAstNode node) {
 		try {
 			node.accept( new NestedCorrelationChecker() );
@@ -42,6 +46,7 @@ public class NestedCorrelationChecker extends AbstractSqlAstWalker {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void visitQuerySpec(QuerySpec querySpec) {
 		if ( currentLevelAliases != null ) {
 			currentAliases.addAll( currentLevelAliases );
@@ -66,6 +71,7 @@ public class NestedCorrelationChecker extends AbstractSqlAstWalker {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void visitColumnReference(ColumnReference columnReference) {
 		String qualifier = columnReference.getQualifier();
 		if ( qualifier != null && currentAliases.contains( qualifier ) ) {

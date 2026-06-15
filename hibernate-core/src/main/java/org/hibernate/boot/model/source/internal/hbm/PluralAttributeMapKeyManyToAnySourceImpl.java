@@ -20,6 +20,8 @@ import org.hibernate.boot.model.source.spi.PluralAttributeIndexNature;
 import org.hibernate.boot.model.source.spi.PluralAttributeMapKeyManyToAnySource;
 import org.hibernate.boot.model.source.spi.RelationalValueSource;
 import org.hibernate.boot.spi.MetadataBuildingContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -29,16 +31,19 @@ public class PluralAttributeMapKeyManyToAnySourceImpl
 
 	private static final HibernateTypeSource UNKNOWN = new HibernateTypeSource() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getName() {
 			return null;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Map<String, String> getParameters() {
 			return null;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public JavaTypeDescriptor getJavaType() {
 			return null;
 		}
@@ -58,16 +63,19 @@ public class PluralAttributeMapKeyManyToAnySourceImpl
 				null,
 				new RelationalValueSourceHelper.AbstractColumnsAndFormulasSource() {
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public XmlElementMetadata getSourceType() {
 						return XmlElementMetadata.MANY_TO_ANY;
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public String getSourceName() {
 						return null;
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public List getColumnOrFormulaElements() {
 						return jaxbMapKeyManyToAnyMapping.getColumn();
 					}
@@ -103,26 +111,31 @@ public class PluralAttributeMapKeyManyToAnySourceImpl
 //			);
 //		}
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public HibernateTypeSource getTypeSource() {
 				return discriminatorTypeSource;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public RelationalValueSource getRelationalValueSource() {
 				return discriminatorRelationalValueSource;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public Map<String, String> getValueMappings() {
 				return discriminatorValueMapping;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public AttributePath getAttributePath() {
 				return pluralAttributeSource.getAttributePath();
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public MetadataBuildingContext getBuildingContext() {
 				return mappingDocument;
 			}
@@ -133,21 +146,25 @@ public class PluralAttributeMapKeyManyToAnySourceImpl
 			private final List<RelationalValueSource> fkRelationalValueSources = relationalValueSources.subList( 1, relationalValueSources.size() );
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public HibernateTypeSource getTypeSource() {
 				return fkTypeSource;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public List<RelationalValueSource> getRelationalValueSources() {
 				return fkRelationalValueSources;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public AttributePath getAttributePath() {
 				return pluralAttributeSource.getAttributePath();
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public MetadataBuildingContext getBuildingContext() {
 				return mappingDocument;
 			}
@@ -155,31 +172,37 @@ public class PluralAttributeMapKeyManyToAnySourceImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AnyDiscriminatorSource getDiscriminatorSource() {
 		return discriminatorSource;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AnyKeySource getKeySource() {
 		return keySource;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Nature getMapKeyNature() {
 		return Nature.ANY;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PluralAttributeIndexNature getNature() {
 		return PluralAttributeIndexNature.MANY_TO_ANY;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernateTypeSource getTypeInformation() {
 		return UNKNOWN;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getXmlNodeName() {
 		return null;
 	}

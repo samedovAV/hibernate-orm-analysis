@@ -45,6 +45,8 @@ import org.hibernate.tool.schema.internal.SchemaManagementToolInitiator;
 import org.hibernate.tool.schema.internal.script.SqlScriptExtractorInitiator;
 
 import static java.util.Collections.unmodifiableList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Central definition of the standard set of service initiators defined by Hibernate.
@@ -57,6 +59,7 @@ public final class StandardServiceInitiators {
 
 	public static final List<StandardServiceInitiator<?>> LIST = buildStandardServiceInitiatorList();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static List<StandardServiceInitiator<?>> buildStandardServiceInitiatorList() {
 
 		// Please do not rearrange - it's useful to maintain this particular order

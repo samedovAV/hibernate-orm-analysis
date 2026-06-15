@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.boot.registry.selector;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Describes the registration of a named strategy implementation.
@@ -19,6 +22,7 @@ public interface StrategyRegistration<T> {
 	 *
 	 * @return The strategy contract/role.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Class<T> getStrategyRole();
 
 	/**
@@ -26,6 +30,7 @@ public interface StrategyRegistration<T> {
 	 *
 	 * @return The registered selection names.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Iterable<String> getSelectorNames();
 
 	/**
@@ -33,5 +38,6 @@ public interface StrategyRegistration<T> {
 	 *
 	 * @return The strategy implementation.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Class<? extends T> getStrategyImplementation();
 }

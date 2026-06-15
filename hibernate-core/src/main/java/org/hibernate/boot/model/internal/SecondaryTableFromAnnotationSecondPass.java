@@ -9,6 +9,8 @@ import java.util.Map;
 import org.hibernate.MappingException;
 import org.hibernate.boot.spi.SecondPass;
 import org.hibernate.mapping.PersistentClass;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class SecondaryTableFromAnnotationSecondPass implements SecondPass {
 	private final EntityBinder entityBinder;
@@ -22,6 +24,7 @@ public class SecondaryTableFromAnnotationSecondPass implements SecondPass {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void doSecondPass(Map<String, PersistentClass> persistentClasses) throws MappingException {
 		entityBinder.finalSecondaryTableFromAnnotationBinding( propertyHolder );
 	}

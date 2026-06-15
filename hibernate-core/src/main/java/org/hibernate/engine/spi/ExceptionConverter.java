@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import org.hibernate.HibernateException;
 import org.hibernate.JDBCException;
 import org.hibernate.LockOptions;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Andrea Boriero
@@ -21,6 +23,7 @@ public interface ExceptionConverter {
 	 *
 	 * @return The converted exception
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	RuntimeException convertCommitException(RuntimeException e);
 
 	/**
@@ -33,6 +36,7 @@ public interface ExceptionConverter {
 	 *
 	 * @return The JPA-specified exception
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	RuntimeException convert(HibernateException e, LockOptions lockOptions);
 
 	/**
@@ -44,11 +48,15 @@ public interface ExceptionConverter {
 	 *
 	 * @return The JPA-specified exception
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	RuntimeException convert(HibernateException e);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	RuntimeException convert(RuntimeException e);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	RuntimeException convert(RuntimeException e, LockOptions lockOptions);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JDBCException convert(SQLException e, String message);
 }

@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.boot.model.source.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Describes a relationship annotated with {@link jakarta.persistence.MapsId}
@@ -16,6 +19,7 @@ public interface MapsIdSource {
 	 *
 	 * @return The corresponding id attribute name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getMappedIdAttributeName();
 
 	/**
@@ -23,5 +27,6 @@ public interface MapsIdSource {
 	 *
 	 * @return The association attribute information
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SingularAttributeSourceToOne getAssociationAttributeSource();
 }

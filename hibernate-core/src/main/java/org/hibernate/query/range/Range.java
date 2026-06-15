@@ -11,6 +11,8 @@ import org.hibernate.Incubating;
 import org.hibernate.Internal;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specifies an allowed set or range of values for a value being restricted.
@@ -34,6 +36,7 @@ public interface Range<U> {
 	/**
 	 * The Java class of the values belonging to this range.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Class<? extends U> getType();
 
 	/**
@@ -42,11 +45,13 @@ public interface Range<U> {
 	 * values.
 	 */
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Predicate toPredicate(Path<? extends U> path, CriteriaBuilder builder);
 
 	/**
 	 * A range containing a single value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <U> Range<U> singleValue(U value) {
 		return new Value<>( value );
 	}
@@ -55,6 +60,7 @@ public interface Range<U> {
 	 * A range containing all strings which are equal to the given string,
 	 * ignoring case.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static Range<String> singleCaseInsensitiveValue(String value) {
 		return new CaseInsensitiveValue( value );
 	}
@@ -62,6 +68,7 @@ public interface Range<U> {
 	/**
 	 * A range containing all values belonging to the given list.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <U> Range<U> valueList(List<U> values) {
 		return new ValueList<>( values );
 	}
@@ -70,6 +77,7 @@ public interface Range<U> {
 	 * A range containing all values strictly greater than the given
 	 * lower bound.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <U extends Comparable<U>> Range<U> greaterThan(U bound) {
 		return new LowerBound<>( bound, true );
 	}
@@ -78,6 +86,7 @@ public interface Range<U> {
 	 * A range containing all values greater than or equal to the given
 	 * lower bound.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <U extends Comparable<U>> Range<U> greaterThanOrEqualTo(U bound) {
 		return new LowerBound<>( bound, false );
 	}
@@ -86,6 +95,7 @@ public interface Range<U> {
 	 * A range containing all values strictly less than the given
 	 * upper bound.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <U extends Comparable<U>> Range<U> lessThan(U bound) {
 		return new UpperBound<>( bound, true );
 	}
@@ -94,6 +104,7 @@ public interface Range<U> {
 	 * A range containing all values less than or equal to the given
 	 * upper bound.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <U extends Comparable<U>> Range<U> lessThanOrEqualTo(U bound) {
 		return new UpperBound<>( bound, false );
 	}
@@ -102,6 +113,7 @@ public interface Range<U> {
 	 * An open range containing all values strictly greater than the
 	 * given lower bound, and strictly less than the given upper bound.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <U extends Comparable<U>> Range<U> open(U lowerBound, U upperBound) {
 		return new Interval<>( new LowerBound<>( lowerBound, true ),
 				new UpperBound<>( upperBound, true ) );
@@ -111,6 +123,7 @@ public interface Range<U> {
 	 * A closed range containing all values greater than or equal to the
 	 * given lower bound, and less than or equal to the given upper bound.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <U extends Comparable<U>> Range<U> closed(U lowerBound, U upperBound) {
 		return new Interval<>( new LowerBound<>( lowerBound, false ),
 				new UpperBound<>( upperBound, false ) );
@@ -125,6 +138,7 @@ public interface Range<U> {
 	 * @param pattern A pattern involving the default wildcard characters
 	 * @param caseSensitive {@code true} if matching is case-sensitive
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static Range<String> pattern(String pattern, boolean caseSensitive) {
 		return new Pattern( pattern, caseSensitive );
 	}
@@ -140,6 +154,7 @@ public interface Range<U> {
 	 * @param charWildcard A wildcard character which matches any single character
 	 * @param stringWildcard A wildcard character which matches any string of characters
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static Range<String> pattern(String pattern, boolean caseSensitive, char charWildcard, char stringWildcard) {
 		return new Pattern( pattern, caseSensitive, charWildcard, stringWildcard );
 	}
@@ -149,6 +164,7 @@ public interface Range<U> {
 	 * with case-sensitivity. The pattern must be expressed in terms
 	 * of the default wildcard characters {@code _} and {@code %}.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static Range<String> pattern(String pattern) {
 		return pattern( pattern, true );
 	}
@@ -157,6 +173,7 @@ public interface Range<U> {
 	 * A range containing all strings which begin with the given prefix,
 	 * with case-sensitivity specified explicitly.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static Range<String> prefix(String prefix, boolean caseSensitive) {
 		return pattern( escape( prefix ) + '%', caseSensitive );
 	}
@@ -165,6 +182,7 @@ public interface Range<U> {
 	 * A range containing all strings which end with the given suffix,
 	 * with case-sensitivity specified explicitly.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static Range<String> suffix(String suffix, boolean caseSensitive) {
 		return pattern( '%' + escape( suffix ), caseSensitive );
 	}
@@ -173,6 +191,7 @@ public interface Range<U> {
 	 * A range containing all strings which contain the given substring,
 	 * with case-sensitivity specified explicitly.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static Range<String> containing(String substring, boolean caseSensitive) {
 		return pattern( '%' + escape( substring ) + '%', caseSensitive );
 	}
@@ -181,6 +200,7 @@ public interface Range<U> {
 	 * A range containing all strings which begin with the given prefix,
 	 * with case-sensitivity.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static Range<String> prefix(String prefix) {
 		return prefix( prefix, true );
 	}
@@ -189,6 +209,7 @@ public interface Range<U> {
 	 * A range containing all strings which end with the given suffix,
 	 * with case-sensitivity.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static Range<String> suffix(String suffix) {
 		return pattern( suffix, true );
 	}
@@ -197,6 +218,7 @@ public interface Range<U> {
 	 * A range containing all strings which contain the given substring,
 	 * with case-sensitivity.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static Range<String> containing(String substring) {
 		return containing( substring, true );
 	}
@@ -204,6 +226,7 @@ public interface Range<U> {
 	/**
 	 * An empty range containing no values.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <U> Range<U> empty(Class<U> type) {
 		return new EmptyRange<>( type );
 	}
@@ -211,6 +234,7 @@ public interface Range<U> {
 	/**
 	 * A complete range containing all values of the given type.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <U> Range<U> full(Class<U> type) {
 		return new FullRange<>( type );
 	}
@@ -219,6 +243,7 @@ public interface Range<U> {
 	 * A range containing all allowed values of the given type
 	 * except {@code null}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <U> Range<U> notNull(Class<U> type) {
 		return new NotNull<>( type );
 	}
@@ -227,6 +252,7 @@ public interface Range<U> {
 	 * Escape occurrences of the default wildcard characters in the
 	 * given literal string.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static String escape(String literal) {
 		final var result = new StringBuilder();
 		for ( int i = 0; i < literal.length(); i++ ) {

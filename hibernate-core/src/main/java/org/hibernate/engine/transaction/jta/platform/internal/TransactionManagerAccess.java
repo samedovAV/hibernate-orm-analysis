@@ -6,6 +6,8 @@ package org.hibernate.engine.transaction.jta.platform.internal;
 
 import java.io.Serializable;
 import jakarta.transaction.TransactionManager;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Provides access to a {@link TransactionManager} for use by {@link TransactionManager}-based
@@ -19,5 +21,6 @@ public interface TransactionManagerAccess extends Serializable {
 	 *
 	 * @return The transaction manager.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TransactionManager getTransactionManager();
 }

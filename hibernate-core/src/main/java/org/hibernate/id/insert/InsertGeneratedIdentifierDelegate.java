@@ -9,6 +9,8 @@ import java.sql.PreparedStatement;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.generator.values.GeneratedValues;
 import org.hibernate.generator.values.GeneratedValuesMutationDelegate;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Each implementation defines a strategy for retrieving a primary key
@@ -37,6 +39,7 @@ import org.hibernate.generator.values.GeneratedValuesMutationDelegate;
 public interface InsertGeneratedIdentifierDelegate extends GeneratedValuesMutationDelegate {
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PreparedStatement prepareStatement(String insertSql, SharedSessionContractImplementor session);
 
 	/**
@@ -45,6 +48,7 @@ public interface InsertGeneratedIdentifierDelegate extends GeneratedValuesMutati
 	 *
 	 * @return The processed {@code insert} statement string
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String prepareIdentifierGeneratingInsert(String insertSQL) {
 		return insertSQL;
 	}
@@ -59,5 +63,6 @@ public interface InsertGeneratedIdentifierDelegate extends GeneratedValuesMutati
 	 *
 	 * @return The generated identifier value
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	GeneratedValues performInsertReturning(String insertSQL, SharedSessionContractImplementor session, Binder binder);
 }

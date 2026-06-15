@@ -48,6 +48,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Helper used when generating the database-snapshot select query
@@ -55,6 +57,7 @@ import java.util.function.Function;
 public class LoaderSqlAstCreationState
 		implements SqlAstQueryPartProcessingState, SqlAstCreationState, DomainResultCreationState, QueryOptions {
 	public interface FetchProcessor {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		ImmutableFetchList visitFetches(FetchParent fetchParent, LoaderSqlAstCreationState creationState);
 	}
 
@@ -98,6 +101,7 @@ public class LoaderSqlAstCreationState
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applyOrdering(TableGroup tableGroup, OrderByFragment orderByFragment) {
 		final QuerySpec querySpec = getInflightQueryPart().getFirstQuerySpec();
 		assert querySpec.isRoot() : "Illegal attempt to apply order-by fragment to a non-root query spec";
@@ -105,81 +109,97 @@ public class LoaderSqlAstCreationState
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqlAstCreationContext getCreationContext() {
 		return sf;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqlAstProcessingState getCurrentProcessingState() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public QueryPart getInflightQueryPart() {
 		return processingState.getInflightQueryPart();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public FromClause getFromClause() {
 		return processingState.getFromClause();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void applyPredicate(Predicate predicate) {
 		processingState.applyPredicate( predicate );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void registerTreatedFrom(SqmFrom<?, ?> sqmFrom) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void registerFromUsage(SqmFrom<?, ?> sqmFrom, boolean downgradeTreatUses) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<SqmFrom<?, ?>, Boolean> getFromRegistrations() {
 		return Collections.emptyMap();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqlExpressionResolver getSqlExpressionResolver() {
 		return processingState;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FromClauseAccess getFromClauseAccess() {
 		return fromClauseAccess;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqlAliasBaseGenerator getSqlAliasBaseGenerator() {
 		return sqlAliasBaseManager;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LoadQueryInfluencers getLoadQueryInfluencers() {
 		return loadQueryInfluencers;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean applyOnlyLoadByKeyFilters() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void registerLockMode(String identificationVariable, LockMode explicitLockMode) {
 		throw new UnsupportedOperationException( "Registering lock modes should only be done for result set mappings" );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public ImmutableFetchList visitFetches(FetchParent fetchParent) {
 		return fetchProcessor.visitFetches( fetchParent, this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <R> R withNestedFetchParent(FetchParent fetchParent, Function<FetchParent, R> action) {
 		final var nestingFetchParent = processingState.getNestingFetchParent();
 		processingState.setNestingFetchParent( fetchParent );
@@ -189,26 +209,31 @@ public class LoaderSqlAstCreationState
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isResolvingCircularFetch() {
 		return resolvingCircularFetch;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setResolvingCircularFetch(boolean resolvingCircularFetch) {
 		this.resolvingCircularFetch = resolvingCircularFetch;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ForeignKeyDescriptor.Nature getCurrentlyResolvingForeignKeyPart() {
 		return currentlyResolvingForeignKeySide;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setCurrentlyResolvingForeignKeyPart(ForeignKeyDescriptor.Nature currentlyResolvingForeignKeySide) {
 		this.currentlyResolvingForeignKeySide = currentlyResolvingForeignKeySide;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void registerFetchOptions(NavigablePath fetchablePath, FetchOptions fetchOptions) {
 		if ( fetchOptions.hasOptions() ) {
 			if ( this.fetchOptions == null ) {
@@ -219,67 +244,80 @@ public class LoaderSqlAstCreationState
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchOptions getFetchOptions(NavigablePath fetchablePath) {
 		return fetchOptions == null ? FetchOptions.NONE : fetchOptions.getOrDefault( fetchablePath, FetchOptions.NONE );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean forceIdentifierSelection() {
 		return forceIdentifierSelection;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqlAstCreationState getSqlAstCreationState() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean registerVisitedAssociationKey(AssociationKey associationKey) {
 		return visitedAssociationKeys.add( associationKey );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void removeVisitedAssociationKey(AssociationKey associationKey) {
 		visitedAssociationKeys.remove( associationKey );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isAssociationKeyVisited(AssociationKey associationKey) {
 		return visitedAssociationKeys.contains( associationKey );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isRegisteringVisitedAssociationKeys(){
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ModelPart resolveModelPart(NavigablePath navigablePath) {
 		// for now, let's assume that the navigable-path refers to TableGroup
 		return fromClauseAccess.findTableGroup( navigablePath ).getModelPart();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqlAstProcessingState getParentState() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Timeout getTimeout() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FlushMode getFlushMode() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Boolean isReadOnly() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AppliedGraph getAppliedGraph() {
 		// todo (6.0) : use this from the "load settings" (Hibernate method args, map passed to JPA methods)
 		//   the legacy approach is to temporarily set this on the Session's "load query influencers"
@@ -287,71 +325,85 @@ public class LoaderSqlAstCreationState
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TupleTransformer<?> getTupleTransformer() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ResultListTransformer<?> getResultListTransformer() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Boolean isResultCachingEnabled() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Boolean getQueryPlanCachingEnabled() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CacheRetrieveMode getCacheRetrieveMode() {
 		return CacheRetrieveMode.BYPASS;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CacheStoreMode getCacheStoreMode() {
 		return CacheStoreMode.BYPASS;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getResultCacheRegionName() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LockOptions getLockOptions() {
 		return lockOptions;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getComment() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<String> getDatabaseHints() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Integer getFetchSize() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Limit getLimit() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Set<String> getEnabledFetchProfiles() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Set<String> getDisabledFetchProfiles() {
 		return null;
 	}

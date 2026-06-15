@@ -18,6 +18,8 @@ import java.lang.invoke.MethodHandles;
 import java.util.Locale;
 
 import static org.jboss.logging.Logger.Level.TRACE;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Logging related to loading a {@linkplain org.hibernate.loader.ast.spi.Loadable loadable}
@@ -45,62 +47,76 @@ public interface MultiKeyLoadLogging extends BasicLogger {
 	@LogMessage(level = TRACE)
 	@Message(id = 90006101,
 			value = "Batch fetching enabled for collection '%s' using ARRAY strategy with batch size %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void enabledCollectionArray(String role, int domainBatchSize);
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90006102,
 			value = "Batch fetching enabled for collection '%s' using IN-predicate with batch size %s (%s)")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void enabledCollectionInPredicate(String role, int sqlBatchSize, int domainBatchSize);
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90006103,
 			value = "Batch fetching enabled for entity '%s' using ARRAY strategy with batch size %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void enabledEntityArray(String entityName, int domainBatchSize);
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90006104,
 			value = "Batch fetching enabled for entity '%s' using IN-predicate with batch size %s (%s)")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void enabledEntityInPredicate(String entityName, int sqlBatchSize, int domainBatchSize);
 
 	// Start operations
 	@LogMessage(level = TRACE)
 	@Message(id = 90006110, value = "Batch fetching collection: %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void batchFetchingCollection(String collectionInfoString);
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90006111, value = "Finishing initializing batch fetched collection: %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void finishingInitializingBatchFetchedCollection(String collectionInfoString);
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90006112, value = "Batch fetching entity: %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void batchFetchingEntity(String entityInfoString);
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90006113, value = "Unordered batch load starting: %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void unorderedBatchLoadStarting(String entityName);
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90006114, value = "Ordered MultiLoad starting: %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void orderedMultiLoadStarting(String entityName);
 
 	// Details
 	@LogMessage(level = TRACE)
 	@Message(id = 90006120, value = "Collection keys to initialize via batch fetching (%s) %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void collectionKeysToInitialize(String collectionInfoString, Object[] keysToInitialize);
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90006121, value = "Entity ids to initialize via batch fetching (%s) %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void entityIdsToInitialize(String entityInfoString, Object[] idsToInitialize);
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90006122, value = "Processing entity batch-fetch chunk (%s) %s - %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void processingEntityBatchFetchChunk(String entityInfoString, int startIndex, int endIndex);
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90006123, value = "Processing collection batch fetch chunk (%s) %s - %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void processingCollectionBatchFetchChunk(String collectionInfoString, int startIndex, int endIndex);
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90006124, value = "Finishing collection batch fetch chunk (%s) %s - %s (%s)")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void finishingCollectionBatchFetchChunk(String collectionInfoString, int startIndex, int endIndex, int nonNullElementCount);
 }

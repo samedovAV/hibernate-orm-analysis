@@ -6,6 +6,8 @@ package org.hibernate.event.spi;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Incubating;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A listener for events of type {@link PreFlushEvent}.
@@ -15,5 +17,6 @@ import org.hibernate.Incubating;
  */
 @Incubating
 public interface PreFlushEventListener {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void onAutoPreFlush(PreFlushEvent event) throws HibernateException;
 }

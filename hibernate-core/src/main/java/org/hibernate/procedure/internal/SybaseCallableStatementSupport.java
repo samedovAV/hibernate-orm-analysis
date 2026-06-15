@@ -17,6 +17,8 @@ import org.hibernate.sql.exec.spi.JdbcCallParameterRegistration;
 import org.hibernate.sql.exec.spi.JdbcOperationQueryCall;
 
 import jakarta.persistence.ParameterMode;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Sybase implementation of CallableStatementSupport.
@@ -34,6 +36,7 @@ public class SybaseCallableStatementSupport extends AbstractStandardCallableStat
 	private static final String CALL_SYNTAX_END = ")}";
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcOperationQueryCall interpretCall(ProcedureCallImplementor procedureCall) {
 		final String procedureName = procedureCall.getProcedureName();
 		final FunctionReturnImplementor<?> functionReturn = procedureCall.getFunctionReturn();

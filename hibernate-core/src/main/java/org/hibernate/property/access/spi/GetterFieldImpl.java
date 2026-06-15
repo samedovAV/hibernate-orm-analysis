@@ -17,6 +17,8 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import jakarta.annotation.Nullable;
 
 import static org.hibernate.internal.util.ReflectHelper.findGetterMethodForFieldAccess;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Field-based implementation of Getter
@@ -42,6 +44,7 @@ public class GetterFieldImpl implements Getter {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nullable Object get(Object owner) {
 		try {
 			return field.get( owner );
@@ -62,35 +65,42 @@ public class GetterFieldImpl implements Getter {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable Object getForInsert(Object owner, Map<Object, Object> mergeMap, SharedSessionContractImplementor session) {
 		return get( owner );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getReturnTypeClass() {
 		return field.getType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Type getReturnType() {
 		return field.getGenericType();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Field getField() {
 		return field;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Member getMember() {
 		return getField();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable String getMethodName() {
 		return getterMethod != null ? getterMethod.getName() : null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable Method getMethod() {
 		return getterMethod;
 	}

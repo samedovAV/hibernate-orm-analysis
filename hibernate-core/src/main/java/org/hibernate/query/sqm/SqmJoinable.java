@@ -12,6 +12,8 @@ import org.hibernate.query.sqm.tree.domain.SqmPath;
 import org.hibernate.query.sqm.tree.from.SqmFrom;
 import org.hibernate.query.sqm.tree.from.SqmJoin;
 import org.hibernate.spi.NavigablePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specialization for attributes that that can be used in creating SQM joins
@@ -22,6 +24,7 @@ import org.hibernate.spi.NavigablePath;
  * @author Steve Ebersole
  */
 public interface SqmJoinable<O, E> {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqmJoin<O, E> createSqmJoin(
 			SqmFrom<?, O> lhs,
 			SqmJoinType joinType,
@@ -29,8 +32,10 @@ public interface SqmJoinable<O, E> {
 			boolean fetched,
 			SqmCreationState creationState);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getName();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default NavigablePath createNavigablePath(SqmPath<?> parent, @Nullable String alias) {
 		return SqmCreationHelper.buildSubNavigablePath( parent, getName(), alias );
 	}

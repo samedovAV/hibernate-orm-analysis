@@ -32,6 +32,8 @@ import java.util.List;
 
 import static org.hibernate.action.queue.internal.decompose.entity.BindPlanHelper.shouldBindJdbcValue;
 import static org.hibernate.generator.EventType.INSERT;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Bind plan for entity insert operations.
 /// Uses on-demand decomposition to minimize allocation overhead.
@@ -111,21 +113,25 @@ public class EntityInsertBindPlan implements BindPlan, OperationResultChecker {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getEntityId() {
 		return identifier;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getEntityInstance() {
 		return entity;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public GeneratedValuesCollector getGeneratedValuesCollector() {
 		return generatedValuesCollector;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void bindValues(
 			JdbcValueBindings valueBindings,
 			FlushOperation flushOperation,
@@ -137,6 +143,7 @@ public class EntityInsertBindPlan implements BindPlan, OperationResultChecker {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void decomposeForInsert(
 			JdbcValueBindings valueBindings,
 			Object identifier,
@@ -191,6 +198,7 @@ public class EntityInsertBindPlan implements BindPlan, OperationResultChecker {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Object resolveInsertAttributeValue(
 			AttributeMapping attribute,
 			SharedSessionContractImplementor session) {
@@ -206,6 +214,7 @@ public class EntityInsertBindPlan implements BindPlan, OperationResultChecker {
 		return attributeValue;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean isDeletedEntityReference(
 			Object attributeValue,
 			SharedSessionContractImplementor session) {
@@ -219,6 +228,7 @@ public class EntityInsertBindPlan implements BindPlan, OperationResultChecker {
 		return entry != null && entry.getStatus().isDeletedOrGone();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean shouldBindInsertValue(
 			AttributeMapping attribute,
 			int selectableIndex,
@@ -234,10 +244,12 @@ public class EntityInsertBindPlan implements BindPlan, OperationResultChecker {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Object generatedIdentifierHandleOrNull(Object attributeValue) {
 		return decompositionContext.getGeneratedIdentifierHandle( attributeValue );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void bindTemporalStartingValue(
 			JdbcValueBindings valueBindings,
 			SharedSessionContractImplementor session) {
@@ -258,6 +270,7 @@ public class EntityInsertBindPlan implements BindPlan, OperationResultChecker {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void breakDownKeyJdbcValue(
 			JdbcValueBindings valueBindings,
 			SharedSessionContractImplementor session) {
@@ -282,11 +295,13 @@ public class EntityInsertBindPlan implements BindPlan, OperationResultChecker {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public OperationResultChecker getOperationResultChecker() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean checkResult(
 			FlushOperation flushOperation,
 			int affectedRowCount,
@@ -303,6 +318,7 @@ public class EntityInsertBindPlan implements BindPlan, OperationResultChecker {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean checkResult(
 			int affectedRowCount,
 			int batchPosition,
@@ -311,6 +327,7 @@ public class EntityInsertBindPlan implements BindPlan, OperationResultChecker {
 		return checkResult( tableDescriptor, affectedRowCount, batchPosition, sqlString, sessionFactory );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean checkResult(
 			EntityTableDescriptor tableDescriptor,
 			int affectedRowCount,

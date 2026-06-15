@@ -15,6 +15,8 @@ import org.hibernate.engine.jdbc.cursor.spi.RefCursorSupport;
 import org.hibernate.engine.jdbc.spi.JdbcServices;
 
 import org.jboss.logging.Logger;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard implementation of {@link RefCursorSupport}
@@ -31,6 +33,7 @@ public class StandardRefCursorSupport implements RefCursorSupport {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void registerRefCursorParameter(CallableStatement statement, int position) {
 		try {
 			statement.registerOutParameter( position, refCursorTypeCode() );
@@ -42,6 +45,7 @@ public class StandardRefCursorSupport implements RefCursorSupport {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void registerRefCursorParameter(CallableStatement statement, String name) {
 		try {
 			statement.registerOutParameter( name, refCursorTypeCode() );
@@ -53,6 +57,7 @@ public class StandardRefCursorSupport implements RefCursorSupport {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ResultSet getResultSet(CallableStatement statement, int position) {
 		try {
 			return statement.getObject( position, ResultSet.class );
@@ -63,6 +68,7 @@ public class StandardRefCursorSupport implements RefCursorSupport {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ResultSet getResultSet(CallableStatement statement, String name) {
 		try {
 			return statement.getObject( name, ResultSet.class );
@@ -79,6 +85,7 @@ public class StandardRefCursorSupport implements RefCursorSupport {
 	 *
 	 * @return {@code true} if the metadata indicates that the driver defines REF_CURSOR support
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static boolean supportsRefCursors(DatabaseMetaData meta) {
 		try {
 			final boolean mightSupportIt = meta.supportsRefCursors();
@@ -97,6 +104,7 @@ public class StandardRefCursorSupport implements RefCursorSupport {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private int refCursorTypeCode() {
 		return Types.REF_CURSOR;
 	}

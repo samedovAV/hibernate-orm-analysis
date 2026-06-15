@@ -10,6 +10,8 @@ import org.hibernate.engine.jdbc.Size;
 import org.hibernate.sql.ast.spi.SqlAppender;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
 import org.hibernate.type.descriptor.jdbc.XmlArrayJdbcType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -21,6 +23,7 @@ public class SQLServerCastingXmlArrayJdbcType extends XmlArrayJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void appendWriteExpression(
 			String writeExpression,
 			@Nullable Size size,
@@ -32,6 +35,7 @@ public class SQLServerCastingXmlArrayJdbcType extends XmlArrayJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isWriteExpressionTyped(Dialect dialect) {
 		return true;
 	}

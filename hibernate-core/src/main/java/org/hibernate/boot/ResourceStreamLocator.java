@@ -7,6 +7,8 @@ package org.hibernate.boot;
 import java.io.InputStream;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Abstraction for locating class-path resources
@@ -25,5 +27,6 @@ public interface ResourceStreamLocator {
 	 *
 	 * @return The located resource's InputStream, or {@code null} if no match found
 	 */
-	@Nullable InputStream locateResourceStream(String resourceName);
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	InputStream locateResourceStream(String resourceName);
 }

@@ -20,6 +20,8 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.metamodel.mapping.TemporalMapping;
 import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.persister.entity.mutation.TemporalMutationHelper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Bind plan for temporal operations which end the current row version.
 ///
@@ -57,16 +59,19 @@ public class EntityTemporalEndBindPlan implements BindPlan, OperationResultCheck
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getEntityId() {
 		return identifier;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object[] getLoadedState() {
 		return loadedState;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void bindValues(
 			JdbcValueBindings valueBindings,
 			FlushOperation flushOperation,
@@ -86,6 +91,7 @@ public class EntityTemporalEndBindPlan implements BindPlan, OperationResultCheck
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void bindTemporalEndingValue(
 			JdbcValueBindings valueBindings,
 			SharedSessionContractImplementor session) {
@@ -98,6 +104,7 @@ public class EntityTemporalEndBindPlan implements BindPlan, OperationResultCheck
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void bindKey(
 			JdbcValueBindings valueBindings,
 			SharedSessionContractImplementor session) {
@@ -119,6 +126,7 @@ public class EntityTemporalEndBindPlan implements BindPlan, OperationResultCheck
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void bindVersionRestriction(
 			JdbcValueBindings valueBindings,
 			SharedSessionContractImplementor session) {
@@ -143,6 +151,7 @@ public class EntityTemporalEndBindPlan implements BindPlan, OperationResultCheck
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void bindPartitionedSelectionRestrictions(
 			JdbcValueBindings valueBindings,
 			SharedSessionContractImplementor session) {
@@ -174,6 +183,7 @@ public class EntityTemporalEndBindPlan implements BindPlan, OperationResultCheck
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void bindNonVersionOptimisticLockRestrictions(
 			JdbcValueBindings valueBindings,
 			SharedSessionContractImplementor session) {
@@ -204,11 +214,13 @@ public class EntityTemporalEndBindPlan implements BindPlan, OperationResultCheck
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public OperationResultChecker getOperationResultChecker() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean checkResult(
 			int affectedRowCount,
 			int batchPosition,

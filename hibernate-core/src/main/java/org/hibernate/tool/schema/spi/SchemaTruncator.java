@@ -6,6 +6,8 @@ package org.hibernate.tool.schema.spi;
 
 import org.hibernate.Incubating;
 import org.hibernate.boot.Metadata;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Service delegate for handling schema truncation.
@@ -23,6 +25,7 @@ public interface SchemaTruncator {
 	 * @param contributableInclusionFilter Filter for Contributable instances to use
 	 * @param targetDescriptor description of the target(s) for the drop commands
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void doTruncate(
 			Metadata metadata,
 			ExecutionOptions options,

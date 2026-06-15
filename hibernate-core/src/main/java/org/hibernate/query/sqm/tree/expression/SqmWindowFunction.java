@@ -6,6 +6,8 @@ package org.hibernate.query.sqm.tree.expression;
 
 import org.hibernate.query.criteria.JpaFunction;
 import org.hibernate.query.sqm.tree.predicate.SqmPredicate;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A SQM window function.
@@ -16,9 +18,12 @@ import org.hibernate.query.sqm.tree.predicate.SqmPredicate;
  */
 public interface SqmWindowFunction<T> extends JpaFunction<T>, SqmExpression<T> {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqmPredicate getFilter();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Boolean getRespectNulls();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Boolean getFromFirst();
 }

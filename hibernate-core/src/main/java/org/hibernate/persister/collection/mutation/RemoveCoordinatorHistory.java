@@ -18,6 +18,8 @@ import org.hibernate.sql.model.jdbc.JdbcMutationOperation;
 
 import static org.hibernate.sql.model.ModelMutationLogging.MODEL_MUTATION_LOGGER;
 import static org.hibernate.sql.model.internal.MutationOperationGroupFactory.singleOperation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * {@link RemoveCoordinator} implementation for temporal collection tables
@@ -59,11 +61,13 @@ public class RemoveCoordinatorHistory implements RemoveCoordinator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionMutationTarget getMutationTarget() {
 		return mutationTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getSqlString() {
 		if ( operationGroup == null ) {
 			operationGroup = buildOperationGroup( mutationTarget.getCollectionTableMapping() );
@@ -73,6 +77,7 @@ public class RemoveCoordinatorHistory implements RemoveCoordinator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void deleteAllRows(Object key, SharedSessionContractImplementor session) {
 		if ( MODEL_MUTATION_LOGGER.isTraceEnabled() ) {
 			MODEL_MUTATION_LOGGER.removingCollection( mutationTarget.getRolePath(), key );
@@ -122,11 +127,13 @@ public class RemoveCoordinatorHistory implements RemoveCoordinator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private MutationOperationGroup buildOperationGroup(CollectionTableMapping tableMapping) {
 		final var tableReference = new MutatingTableReference( tableMapping );
 		return singleOperation( MutationType.DELETE, mutationTarget, operationProducer.createOperation( tableReference ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private CollectionTableMapping getHistoryTableMapping() {
 		if ( historyTableMapping == null ) {
 			final var temporalMapping = mutationTarget.getTargetPart().getTemporalMapping();
@@ -137,6 +144,7 @@ public class RemoveCoordinatorHistory implements RemoveCoordinator {
 		return historyTableMapping;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private HistoryCollectionRowMutationHelper getRowMutationHelper() {
 		if ( rowMutationHelper == null ) {
 			rowMutationHelper = new HistoryCollectionRowMutationHelper(

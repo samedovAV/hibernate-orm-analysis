@@ -8,6 +8,8 @@ import java.io.Serializable;
 import jakarta.transaction.Synchronization;
 
 import org.hibernate.resource.transaction.NullSynchronizationException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Manages a registry of (local) JTA {@link Synchronization} instances
@@ -22,5 +24,6 @@ public interface SynchronizationRegistry extends Serializable {
 	 *
 	 * @throws NullSynchronizationException if the synchronization is {@code null}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void registerSynchronization(Synchronization synchronization);
 }

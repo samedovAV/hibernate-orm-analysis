@@ -18,6 +18,8 @@ import org.hibernate.sql.model.MutationOperationGroup;
 import org.hibernate.sql.model.MutationType;
 
 import static org.hibernate.sql.model.internal.MutationOperationGroupFactory.singleOperation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * {@link UpdateRowsCoordinator} implementation for temporal collection tables
@@ -50,6 +52,7 @@ public class UpdateRowsCoordinatorTemporal extends AbstractUpdateRowsCoordinator
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected int doUpdate(Object key, PersistentCollection<?> collection, SharedSessionContractImplementor session) {
 		if ( rowMutationOperations.getDeleteRowOperation() == null
 				|| rowMutationOperations.getInsertRowOperation() == null ) {
@@ -117,6 +120,7 @@ public class UpdateRowsCoordinatorTemporal extends AbstractUpdateRowsCoordinator
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean processRow(
 			Object key,
 			PersistentCollection<?> collection,

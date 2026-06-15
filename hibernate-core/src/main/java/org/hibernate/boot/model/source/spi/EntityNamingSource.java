@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.source.spi;
 
 import org.hibernate.boot.model.naming.EntityNaming;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Naming information about an entity.
@@ -18,5 +20,6 @@ public interface EntityNamingSource extends EntityNaming {
 	 *
 	 * @return The reference-able type name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getTypeName();
 }

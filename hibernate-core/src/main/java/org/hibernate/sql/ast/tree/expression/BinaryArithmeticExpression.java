@@ -12,6 +12,8 @@ import org.hibernate.sql.ast.spi.SqlSelection;
 import org.hibernate.sql.results.graph.DomainResult;
 import org.hibernate.sql.results.graph.DomainResultCreationState;
 import org.hibernate.sql.results.graph.basic.BasicResult;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -36,16 +38,19 @@ public class BinaryArithmeticExpression implements Expression, DomainResultProdu
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BasicValuedMapping getExpressionType() {
 		return resultType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker walker) {
 		walker.visitBinaryArithmeticExpression( this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResult createDomainResult(
 			String resultVariable,
 			DomainResultCreationState creationState) {
@@ -60,10 +65,12 @@ public class BinaryArithmeticExpression implements Expression, DomainResultProdu
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applySqlSelections(DomainResultCreationState creationState) {
 		resolveSqlSelection( creationState );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqlSelection resolveSqlSelection(DomainResultCreationState creationState) {
 		return creationState.getSqlAstCreationState().getSqlExpressionResolver().resolveSqlSelection(
 				this,
@@ -78,6 +85,7 @@ public class BinaryArithmeticExpression implements Expression, DomainResultProdu
 	 *
 	 * @return The left-hand operand.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression getLeftHandOperand() {
 		return lhsOperand;
 	}
@@ -87,6 +95,7 @@ public class BinaryArithmeticExpression implements Expression, DomainResultProdu
 	 *
 	 * @return The operation
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BinaryArithmeticOperator getOperator() {
 		return operator;
 	}
@@ -96,6 +105,7 @@ public class BinaryArithmeticExpression implements Expression, DomainResultProdu
 	 *
 	 * @return The right-hand operand.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression getRightHandOperand() {
 		return rhsOperand;
 	}

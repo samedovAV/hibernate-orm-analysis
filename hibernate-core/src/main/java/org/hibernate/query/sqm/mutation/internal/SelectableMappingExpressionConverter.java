@@ -16,6 +16,8 @@ import org.hibernate.query.sqm.tree.select.SqmSelection;
 import org.hibernate.spi.NavigablePath;
 import org.hibernate.sql.ast.tree.expression.Expression;
 import org.hibernate.sql.ast.tree.from.TableGroup;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A function for producing an {@link Expression} from a {@link NavigablePath} for a {@link TableGroup} and {@link SelectableMapping}.
@@ -30,6 +32,7 @@ public class SelectableMappingExpressionConverter implements Function<SemanticQu
 		this.selectableMapping = selectableMapping;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <T> SqmSelection<T> forSelectableMapping(SqmFrom<?, T> from, SelectableMapping selectableMapping) {
 		return new SqmSelection<>(
 				new SqmSelfRenderingExpression<>(
@@ -42,6 +45,7 @@ public class SelectableMappingExpressionConverter implements Function<SemanticQu
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression apply(SemanticQueryWalker semanticQueryWalker) {
 		final SqmToSqlAstConverter converter = (SqmToSqlAstConverter) semanticQueryWalker;
 		final TableGroup tableGroup = converter.getFromClauseAccess().getTableGroup( navigablePath );

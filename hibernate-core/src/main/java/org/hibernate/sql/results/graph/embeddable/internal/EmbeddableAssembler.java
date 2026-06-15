@@ -14,6 +14,8 @@ import org.hibernate.sql.results.graph.DomainResultAssembler;
 import org.hibernate.sql.results.graph.collection.internal.DetachedCollectionHelper;
 import org.hibernate.sql.results.jdbc.spi.RowProcessingState;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -34,11 +36,13 @@ public class EmbeddableAssembler implements DomainResultAssembler {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType getAssembledJavaType() {
 		return initializer.getInitializedPart().getJavaType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object assemble(RowProcessingState rowProcessingState) {
 		final var data = initializer.getData( rowProcessingState );
 		final var state = data.getState();
@@ -56,6 +60,7 @@ public class EmbeddableAssembler implements DomainResultAssembler {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void resolveState(RowProcessingState rowProcessingState) {
 		// use resolveState instead of initialize instance to avoid
 		// unneeded embeddable instantiation and injection
@@ -66,11 +71,13 @@ public class EmbeddableAssembler implements DomainResultAssembler {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableInitializer<?> getInitializer() {
 		return initializer;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void forEachResultAssembler(BiConsumer consumer, Object arg) {
 		if ( initializer.isResultInitializer() ) {
 			consumer.accept( initializer, arg );
@@ -88,6 +95,7 @@ public class EmbeddableAssembler implements DomainResultAssembler {
 			this.collectionKeyAssembler = collectionKeyAssembler;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void load(Object embeddable, RowProcessingState rowProcessingState) {
 			if ( embeddable != null ) {
 				collectionAttribute.setValue(
@@ -102,6 +110,7 @@ public class EmbeddableAssembler implements DomainResultAssembler {
 			}
 		}
 
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public void resolveState(RowProcessingState rowProcessingState) {
 			collectionKeyAssembler.resolveState( rowProcessingState );
 		}

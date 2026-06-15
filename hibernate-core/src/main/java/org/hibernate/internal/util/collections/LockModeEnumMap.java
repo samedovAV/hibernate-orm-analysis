@@ -7,6 +7,8 @@ package org.hibernate.internal.util.collections;
 import java.util.function.Function;
 
 import org.hibernate.LockMode;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A concurrent safe EnumMap&lt;LockMode&gt;, suitable to
@@ -27,6 +29,7 @@ public final class LockModeEnumMap<V> extends LazyIndexedMap<LockMode,V> {
 		super( ENUM_DIMENSION );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public V computeIfAbsent(LockMode key, Function<LockMode,V> valueGenerator) {
 		return super.computeIfAbsent( key.ordinal(), key, valueGenerator );
 	}

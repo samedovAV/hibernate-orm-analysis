@@ -18,6 +18,8 @@ import org.hibernate.sql.model.internal.MutationGroupSingle;
 
 import static org.hibernate.persister.entity.mutation.AbstractTemporalUpdateCoordinator.applyTemporalEnding;
 import static org.hibernate.sql.model.internal.MutationOperationGroupFactory.singleOperation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Delete coordinator for
@@ -51,16 +53,19 @@ public class DeleteCoordinatorHistory
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MutationOperationGroup getStaticMutationOperationGroup() {
 		return currentDeleteCoordinator.getStaticMutationOperationGroup();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected BatchKey getBatchKey() {
 		return historyBatchKey;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void delete(
 			Object entity,
 			Object id,
@@ -70,6 +75,7 @@ public class DeleteCoordinatorHistory
 		performHistoryEndingUpdate( entity, id, version, session );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void performHistoryEndingUpdate(
 			Object entity,
 			Object id,
@@ -120,6 +126,7 @@ public class DeleteCoordinatorHistory
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private MutationOperationGroup buildHistoryEndUpdateGroup() {
 		final var tableUpdateBuilder =
 				new TableUpdateBuilderStandard<>( entityPersister(), historyTableMapping, factory() );

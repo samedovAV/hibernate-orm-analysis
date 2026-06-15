@@ -5,6 +5,8 @@
 package org.hibernate.query.spi;
 
 import java.util.Objects;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Paging limits
@@ -28,48 +30,58 @@ public class Limit {
 		this.maxRows = maxRows;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isEmpty() {
 		return firstRow == null && maxRows == null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Limit makeCopy() {
 		return new Limit( firstRow, maxRows );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Integer getFirstRow() {
 		return firstRow;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getFirstRowJpa() {
 		// JPA defines this return as a primitive with magic values:
 		// specifically, the "magic number" 0 (ZERO) as defined by the spec.
 		return firstRow == null ? 0 : firstRow;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setFirstRow(Integer firstRow) {
 		this.firstRow = firstRow;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Integer getMaxRows() {
 		return maxRows;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getMaxRowsJpa() {
 		// JPA defines this return as a primitive with magic values:
 		// specifically, the "magic number" Integer.MAX_VALUE as defined by the spec
 		return maxRows == null ? Integer.MAX_VALUE : maxRows;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setMaxRows(int maxRows) {
 		// treat negatives specially as meaning no limit
 		this.maxRows = maxRows < 0 ? null : maxRows;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setMaxRows(Integer maxRows) {
 		// treat negatives specially as meaning no limit
 		this.maxRows = maxRows != null && maxRows < 0 ? null : maxRows;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCompatible(Limit limit) {
 		if ( limit == null ) {
 			return isEmpty();

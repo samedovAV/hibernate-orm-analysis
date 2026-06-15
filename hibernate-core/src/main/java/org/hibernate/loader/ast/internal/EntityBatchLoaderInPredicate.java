@@ -23,6 +23,8 @@ import java.util.Locale;
 import static org.hibernate.loader.ast.internal.MultiKeyLoadLogging.MULTI_KEY_LOAD_LOGGER;
 import static org.hibernate.pretty.MessageHelper.infoString;
 import static org.hibernate.sql.exec.spi.JdbcParameterBindings.NO_BINDINGS;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An {@link EntityBatchLoader} using one or more SQL queries, which each initialize up
@@ -94,25 +96,30 @@ public class EntityBatchLoaderInPredicate<T>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getDomainBatchSize() {
 		return domainBatchSize;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getSqlBatchSize() {
 		return sqlBatchSize;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final T load(Object pkValue, LockOptions lockOptions, Boolean readOnly, SharedSessionContractImplementor session) {
 		return load( pkValue, null, lockOptions, readOnly, session );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Object[] resolveIdsToInitialize(Object id, SharedSessionContractImplementor session) {
 		return session.getPersistenceContextInternal().getBatchFetchQueue()
 				.getBatchLoadableEntityIds( getLoadable(), id, domainBatchSize );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void initializeEntities(
 			Object[] idsToInitialize,
 			Object pkValue,
@@ -169,6 +176,7 @@ public class EntityBatchLoaderInPredicate<T>
 				);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private MultiKeyLoadChunker<Object> getChunker(EntityIdentifierMapping identifierMapping) {
 		return new MultiKeyLoadChunker<>(
 				sqlBatchSize,
@@ -181,6 +189,7 @@ public class EntityBatchLoaderInPredicate<T>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return String.format(
 				Locale.ROOT,

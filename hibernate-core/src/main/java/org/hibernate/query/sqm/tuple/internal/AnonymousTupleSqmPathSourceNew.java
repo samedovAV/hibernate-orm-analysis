@@ -17,6 +17,8 @@ import org.hibernate.query.sqm.tree.domain.SqmEntityValuedSimplePath;
 import org.hibernate.query.sqm.tree.domain.SqmPath;
 import org.hibernate.query.sqm.tree.domain.SqmDomainType;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -34,36 +36,43 @@ public class AnonymousTupleSqmPathSourceNew<J> implements SqmPathSource<J> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<J> getBindableJavaType() {
 		return pathSource.getExpressibleJavaType().getJavaTypeClass();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getPathName() {
 		return localPathName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmDomainType<J> getPathType() {
 		return sqmPathType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public BindableType getBindableType() {
 		return pathSource.getBindableType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JavaType<J> getExpressibleJavaType() {
 		return pathSource.getExpressibleJavaType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nullable SqmPathSource<?> findSubPathSource(String name) {
 		return pathSource.findSubPathSource( name );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPath<J> createSqmPath(SqmPath<?> lhs, @Nullable SqmPathSource<?> intermediatePathSource) {
 		if ( sqmPathType instanceof BasicDomainType<?> ) {
 			return new SqmBasicValuedSimplePath<>(

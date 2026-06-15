@@ -11,6 +11,8 @@ import org.hibernate.internal.log.ConnectionAccessLogger;
 import org.hibernate.internal.util.ExceptionHelper;
 import org.hibernate.resource.transaction.spi.DdlTransactionIsolator;
 import org.hibernate.tool.schema.internal.exec.JdbcContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * DdlExecutor for use in non-JTA environments (JDBC transaction)
@@ -28,16 +30,19 @@ public class DdlTransactionIsolatorNonJtaImpl implements DdlTransactionIsolator 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcContext getJdbcContext() {
 		return jdbcContext;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Connection getIsolatedConnection() {
 		return getIsolatedConnection(true);
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Connection getIsolatedConnection(boolean autocommit) {
 		if ( jdbcConnection == null ) {
 			try {
@@ -79,6 +84,7 @@ public class DdlTransactionIsolatorNonJtaImpl implements DdlTransactionIsolator 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void release() {
 		if ( jdbcConnection != null ) {
 			Throwable originalException = null;

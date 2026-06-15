@@ -21,6 +21,8 @@ import jakarta.persistence.NamedQuery;
 
 import static org.hibernate.boot.models.internal.OrmAnnotationHelper.extractJdkValue;
 import static org.hibernate.internal.util.NullnessHelper.coalesce;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -75,88 +77,106 @@ public class NamedQueryJpaAnnotation implements NamedQuery {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return NamedQuery.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String name() {
 		return name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void name(String value) {
 		this.name = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String query() {
 		return query;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void query(String value) {
 		this.query = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public java.lang.Class<?> resultClass() {
 		return resultClass;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void resultClass(java.lang.Class<?> value) {
 		this.resultClass = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LockModeType lockMode() {
 		return lockMode;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void lockMode(LockModeType value) {
 		this.lockMode = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PessimisticLockScope lockScope() {
 		return lockScope;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void lockScope(PessimisticLockScope lockScope) {
 		this.lockScope = lockScope;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QueryFlushMode flush() {
 		return flush;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void flush(QueryFlushMode value) {
 		this.flush = value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String entityGraph() {
 		return entityGraph;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void entityGraph(String entityGraph) {
 		this.entityGraph = entityGraph;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.QueryHint[] hints() {
 		return hints;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void hints(jakarta.persistence.QueryHint[] value) {
 		this.hints = value;
 	}
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void apply(JaxbNamedHqlQueryImpl jaxbNamedQuery, XmlDocumentContext xmlDocumentContext) {
 		name( jaxbNamedQuery.getName() );
 		query( jaxbNamedQuery.getQuery() );

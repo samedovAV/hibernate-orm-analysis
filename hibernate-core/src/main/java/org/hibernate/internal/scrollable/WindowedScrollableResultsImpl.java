@@ -5,6 +5,8 @@
 package org.hibernate.internal.scrollable;
 
 import org.hibernate.ScrollableResults;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Scrollable results view applying an in-memory offset/limit without
@@ -41,11 +43,13 @@ public class WindowedScrollableResultsImpl<R> extends AbstractScrollableResults<
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected R getCurrentRow() {
 		return currentRow;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean next() {
 		if ( afterLast ) {
 			return false;
@@ -75,6 +79,7 @@ public class WindowedScrollableResultsImpl<R> extends AbstractScrollableResults<
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean previous() {
 		if ( beforeFirst ) {
 			return false;
@@ -103,6 +108,7 @@ public class WindowedScrollableResultsImpl<R> extends AbstractScrollableResults<
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean scroll(int positions) {
 		if ( positions == 0 ) {
 			return currentPosition > 0;
@@ -129,6 +135,7 @@ public class WindowedScrollableResultsImpl<R> extends AbstractScrollableResults<
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean position(int position) {
 		if ( position > 0 ) {
 			return moveToPosition( position );
@@ -145,22 +152,26 @@ public class WindowedScrollableResultsImpl<R> extends AbstractScrollableResults<
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getPosition() {
 		return currentPosition;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean last() {
 		ensureResultSize();
 		return resultSize != null && resultSize > 0 && moveToPosition( resultSize );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean first() {
 		return moveToPosition( 1 );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void beforeFirst() {
 		delegate.beforeFirst();
 		delegateBeforeFirst = true;
@@ -171,17 +182,20 @@ public class WindowedScrollableResultsImpl<R> extends AbstractScrollableResults<
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void afterLast() {
 		ensureResultSize();
 		setAfterLastState();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isFirst() {
 		return currentPosition == 1;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isLast() {
 		if ( currentPosition == 0 ) {
 			return false;
@@ -191,15 +205,18 @@ public class WindowedScrollableResultsImpl<R> extends AbstractScrollableResults<
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getRowNumber() {
 		return currentPosition > 0 ? currentPosition - 1 : -1;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean setRowNumber(int rowNumber) {
 		return position( rowNumber );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private boolean moveToPosition(int targetPosition) {
 		if ( targetPosition < 1 ) {
 			beforeFirst();
@@ -247,6 +264,7 @@ public class WindowedScrollableResultsImpl<R> extends AbstractScrollableResults<
 		return true;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void ensureResultSize() {
 		if ( resultSize == null ) {
 			final int restorePosition = currentPosition;
@@ -273,6 +291,7 @@ public class WindowedScrollableResultsImpl<R> extends AbstractScrollableResults<
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void setAfterLastState() {
 		currentRow = null;
 		currentPosition = 0;

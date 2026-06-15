@@ -26,6 +26,8 @@ import org.hibernate.sql.results.graph.Fetchable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -64,16 +66,19 @@ public class ResultMementoEntityJpa implements ResultMementoEntity, FetchMemento
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigablePath getNavigablePath() {
 		return navigablePath;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getResultJavaType() {
 		return entityDescriptor.getJavaType().getJavaTypeClass();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public ResultBuilderEntityValued resolve(
 			Consumer<String> querySpaceConsumer,
 			ResultSetMappingResolutionContext context) {
@@ -120,6 +125,7 @@ public class ResultMementoEntityJpa implements ResultMementoEntity, FetchMemento
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <R> ResultSetMapping<R> toJpaMapping(SessionFactory sessionFactory) {
 		//noinspection unchecked
 		return new EntityMapping<>(
@@ -133,6 +139,7 @@ public class ResultMementoEntityJpa implements ResultMementoEntity, FetchMemento
 
 	private static final MemberMapping<?>[] NO_MEMBERS = new MemberMapping<?>[0];
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private <T> MemberMapping<T>[] toJpaFieldMappings(SessionFactory sessionFactory) {
 		if ( CollectionHelper.isEmpty( explicitFetchMementoMap ) ) {
 			//noinspection unchecked
@@ -148,6 +155,7 @@ public class ResultMementoEntityJpa implements ResultMementoEntity, FetchMemento
 		return (MemberMapping<T>[]) memberMappings;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private FetchBuilderBasicValued discriminatorFetchBuilder(
 			Consumer<String> querySpaceConsumer,
 			ResultSetMappingResolutionContext context) {

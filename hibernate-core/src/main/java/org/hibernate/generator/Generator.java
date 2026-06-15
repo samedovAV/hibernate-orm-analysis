@@ -14,6 +14,8 @@ import java.util.EnumSet;
 import static org.hibernate.generator.EventType.FORCE_INCREMENT;
 import static org.hibernate.generator.EventType.INSERT;
 import static org.hibernate.generator.EventType.UPDATE;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Describes the generation of values of a certain field or property of an entity. A generated
@@ -101,6 +103,7 @@ public interface Generator extends Serializable {
 	 *         the execution of an {@code insert} or {@code update} statement, or false if
 	 *         it is generated in Java code before the statement is executed via JDBC.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean generatedOnExecution();
 
 	/**
@@ -121,6 +124,7 @@ public interface Generator extends Serializable {
 	 *
 	 * @since 6.4
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default boolean generatedOnExecution(Object entity, SharedSessionContractImplementor session) {
 		return generatedOnExecution();
 	}
@@ -145,6 +149,7 @@ public interface Generator extends Serializable {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean generatedBeforeExecution(Object entity, SharedSessionContractImplementor session) {
 		return !generatedOnExecution();
 	}
@@ -157,6 +162,7 @@ public interface Generator extends Serializable {
 	 *
 	 * @return a set of {@link EventType}s.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EnumSet<EventType> getEventTypes();
 
 	/**
@@ -169,6 +175,7 @@ public interface Generator extends Serializable {
 	 * @since 7.4
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default @Nullable Class<?> getGeneratedType() {
 		return null;
 	}
@@ -183,6 +190,7 @@ public interface Generator extends Serializable {
 	 *
 	 * @since 6.5
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean allowAssignedIdentifiers() {
 		return false;
 	}
@@ -196,24 +204,29 @@ public interface Generator extends Serializable {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean allowMutation() {
 		return false;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean generatesSometimes() {
 		return generatesOnInsert()
 			|| generatesOnUpdate();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean generatesOnInsert() {
 		return getEventTypes().contains(INSERT);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean generatesOnUpdate() {
 		return getEventTypes().contains(UPDATE);
 	}
 
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean generatesOnForceIncrement() {
 		return getEventTypes().contains(FORCE_INCREMENT);
 	}
@@ -224,6 +237,7 @@ public interface Generator extends Serializable {
 	 * @since 8.0
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean requiresIdentityColumn() {
 		return false;
 	}

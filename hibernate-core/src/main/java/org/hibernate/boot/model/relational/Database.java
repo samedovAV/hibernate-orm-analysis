@@ -23,6 +23,8 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.type.spi.TypeConfiguration;
 
 import static java.util.Collections.emptyList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -57,6 +59,7 @@ public class Database {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void setImplicitNamespaceName(Identifier catalogName, Identifier schemaName) {
 		physicalImplicitNamespaceName = new Namespace.Name(
 				physicalNamingStrategy.toPhysicalCatalogName( catalogName, jdbcEnvironment ),
@@ -64,6 +67,7 @@ public class Database {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Dialect determineDialect(MetadataBuildingOptions buildingOptions) {
 		final Dialect dialect = buildingOptions.getServiceRegistry().requireService( JdbcServices.class ).getDialect();
 		if ( dialect != null ) {
@@ -74,16 +78,19 @@ public class Database {
 		return new H2Dialect();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Namespace makeNamespace(Namespace.Name name) {
 		final Namespace namespace = new Namespace( getPhysicalNamingStrategy(), getJdbcEnvironment(), name );
 		namespaceMap.put( name, namespace );
 		return namespace;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Dialect getDialect() {
 		return dialect;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcEnvironment getJdbcEnvironment() {
 		return jdbcEnvironment;
 	}
@@ -102,6 +109,7 @@ public class Database {
 	 *
 	 * @return The wrapped Identifier form
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Identifier toIdentifier(String text) {
 		return toIdentifier( text, false );
 	}
@@ -119,14 +127,17 @@ public class Database {
 	 * @return The wrapped Identifier form
 	 * @implNote Quoting from database keywords happens only when building physical identifiers.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Identifier toIdentifier(String text, boolean isExplicit) {
 		return text == null ? null : jdbcEnvironment.getIdentifierHelper().toIdentifier( text, false, isExplicit );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PhysicalNamingStrategy getPhysicalNamingStrategy() {
 		return physicalNamingStrategy;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Iterable<Namespace> getNamespaces() {
 		return namespaceMap.values();
 	}
@@ -136,6 +147,7 @@ public class Database {
 	 *         which will have to be interpreted with defaults at runtime.
 	 * @see SqlStringGenerationContext
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Namespace getDefaultNamespace() {
 		return locateNamespace( null, null );
 	}
@@ -146,41 +158,50 @@ public class Database {
 	 *         at runtime.
 	 * @see SqlStringGenerationContext
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Namespace.Name getPhysicalImplicitNamespaceName() {
 		return physicalImplicitNamespaceName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable Namespace findNamespace(Identifier catalogName, Identifier schemaName) {
 		return namespaceMap.get( new Namespace.Name( catalogName, schemaName ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Namespace locateNamespace(Identifier catalogName, Identifier schemaName) {
 		final var name = new Namespace.Name( catalogName, schemaName );
 		final var namespace = namespaceMap.get( name );
 		return namespace == null ? makeNamespace( name ) : namespace;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Namespace adjustDefaultNamespace(Identifier catalogName, Identifier schemaName) {
 		setImplicitNamespaceName( catalogName, schemaName );
 		return locateNamespace( catalogName, schemaName );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Namespace adjustDefaultNamespace(String implicitCatalogName, String implicitSchemaName) {
 		return adjustDefaultNamespace( toIdentifier( implicitCatalogName ), toIdentifier( implicitSchemaName ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addAuxiliaryDatabaseObject(AuxiliaryDatabaseObject auxiliaryDatabaseObject) {
 		auxiliaryDatabaseObjects.put( auxiliaryDatabaseObject.getExportIdentifier(), auxiliaryDatabaseObject );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Collection<AuxiliaryDatabaseObject> getAuxiliaryDatabaseObjects() {
 		return auxiliaryDatabaseObjects.values();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Collection<InitCommand> getInitCommands() {
 		return initCommands == null ? emptyList() : initCommands;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addInitCommand(InitCommand initCommand) {
 		if ( initCommands == null ) {
 			initCommands = new ArrayList<>();
@@ -188,10 +209,12 @@ public class Database {
 		initCommands.add( initCommand );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ServiceRegistry getServiceRegistry() {
 		return serviceRegistry;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TypeConfiguration getTypeConfiguration() {
 		return typeConfiguration;
 	}

@@ -9,6 +9,8 @@ import java.util.function.Supplier;
 import org.hibernate.mapping.Component;
 import org.hibernate.metamodel.mapping.EmbeddableMappingType;
 import org.hibernate.metamodel.spi.ValueAccess;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Support for instantiating embeddables as dynamic-map representation
@@ -28,6 +30,7 @@ public class EmbeddableInstantiatorDynamicMap
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object instantiate(ValueAccess valuesAccess) {
 		final var dataMap = generateDataMap();
 		final var values = valuesAccess == null ? null : valuesAccess.getValues();

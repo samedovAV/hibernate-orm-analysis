@@ -23,6 +23,8 @@ import org.hibernate.sql.results.graph.Initializer;
 import org.hibernate.sql.results.graph.InitializerParent;
 import org.hibernate.sql.results.graph.internal.ImmutableFetchList;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A collection-valued domain result that preserves the cardinality of the owning row.
@@ -64,26 +66,31 @@ public class DetachedCollectionDomainResult<T> implements DomainResult<T>, Fetch
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getResultVariable() {
 		return resultVariable;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean containsAnyNonScalarResults() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<?> getResultJavaType() {
 		return resultJavaType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigablePath getNavigablePath() {
 		return loadingPath;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public DomainResultAssembler<T> createResultAssembler(
 			InitializerParent<?> parent,
 			AssemblerCreationState creationState) {
@@ -96,41 +103,49 @@ public class DetachedCollectionDomainResult<T> implements DomainResult<T>, Fetch
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void collectValueIndexesToCache(BitSet valueIndexes) {
 		collectionKeyResult.collectValueIndexesToCache( valueIndexes );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchableContainer getReferencedMappingContainer() {
 		return loadingAttribute;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchableContainer getReferencedMappingType() {
 		return loadingAttribute;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ImmutableFetchList getFetches() {
 		return ImmutableFetchList.EMPTY;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Fetch findFetch(Fetchable fetchable) {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasJoinFetches() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean containsCollectionFetches() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Initializer<?> createInitializer(InitializerParent<?> parent, AssemblerCreationState creationState) {
 		throw new UnsupportedOperationException();
 	}

@@ -5,6 +5,8 @@
 package org.hibernate.engine.spi;
 
 import org.hibernate.StatelessSession;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * SPI extension of StatelessSession
@@ -15,6 +17,7 @@ import org.hibernate.StatelessSession;
  */
 public interface StatelessSessionImplementor extends StatelessSession, SharedSessionContractImplementor {
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isStateless() {
 		return true;
 	}

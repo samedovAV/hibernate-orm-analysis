@@ -18,6 +18,8 @@ import org.hibernate.sql.ast.tree.expression.Expression;
 import org.hibernate.sql.ast.tree.select.QueryPart;
 import org.hibernate.sql.exec.spi.JdbcOperation;
 import org.hibernate.sql.exec.spi.JdbcParameterBindings;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * {@linkplain #translate Translates} a {@linkplain #getSqlAst() SQL AST}
@@ -29,6 +31,7 @@ public interface SqlAstTranslator<T extends JdbcOperation> extends SqlAstWalker 
 	/**
 	 * Perform the translation and produce the JdbcOperation.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	T translate(JdbcParameterBindings jdbcParameterBindings, QueryOptions queryOptions);
 
 	/**
@@ -37,17 +40,20 @@ public interface SqlAstTranslator<T extends JdbcOperation> extends SqlAstWalker 
 	 * @since 7.1
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Statement getSqlAst();
 
 	/**
 	 * Access to the SessionFactory.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryImplementor getSessionFactory();
 
 	/**
 	 * Returns the literal value of the given expression, inlining a parameter value if necessary.
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> X getLiteralValue(Expression expression);
 
 	/**
@@ -56,18 +62,22 @@ public interface SqlAstTranslator<T extends JdbcOperation> extends SqlAstWalker 
 	 * @since 7.0
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void renderNamedSetReturningFunction(String functionName, List<? extends SqlAstNode> sqlAstArguments, AnonymousTupleTableGroupProducer tupleType, String tableIdentifierVariable, SqlAstNodeRenderingMode argumentRenderingMode);
 
 	/**
 	 * Renders the given SQL AST node with the given rendering mode.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void render(SqlAstNode sqlAstNode, SqlAstNodeRenderingMode renderingMode);
 
 	/**
 	 * Returns the current query part that is translated.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	QueryPart getCurrentQueryPart();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Stack<Clause> getCurrentClauseStack();
 
 	/**
@@ -77,7 +87,9 @@ public interface SqlAstTranslator<T extends JdbcOperation> extends SqlAstWalker 
 	 *
 	 * A better option is probably to have "translation" objects that expose the affected table-names.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Set<String> getAffectedTableNames();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addAffectedTableName(String tableName);
 }

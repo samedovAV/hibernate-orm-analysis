@@ -10,6 +10,8 @@ import org.hibernate.boot.model.relational.QualifiedTableName;
 import org.hibernate.boot.model.relational.QualifiedTypeName;
 import org.hibernate.boot.model.relational.SqlStringGenerationContext;
 import org.hibernate.dialect.Dialect;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class AbstractUserDefinedType implements UserDefinedType {
 
@@ -30,90 +32,111 @@ public class AbstractUserDefinedType implements UserDefinedType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getContributor() {
 		return contributor;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getQualifiedName(SqlStringGenerationContext context) {
 		return context.format( new QualifiedTypeName( catalog, schema, name ) );
 	}
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setName(String name) {
 		this.name = Identifier.toIdentifier( name );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return name == null ? null : name.getText();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Identifier getNameIdentifier() {
 		return name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getQuotedName() {
 		return name == null ? null : name.toString();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getQuotedName(Dialect dialect) {
 		return name == null ? null : name.render( dialect );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QualifiedTableName getQualifiedTableName() {
 		return name == null ? null : new QualifiedTableName( catalog, schema, name );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isQuoted() {
 		return name.isQuoted();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setQuoted(boolean quoted) {
 		if ( quoted != name.isQuoted() ) {
 			name = new Identifier( name.getText(), quoted );
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setSchema(String schema) {
 		this.schema = Identifier.toIdentifier( schema );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSchema() {
 		return schema == null ? null : schema.getText();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getQuotedSchema() {
 		return schema == null ? null : schema.toString();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getQuotedSchema(Dialect dialect) {
 		return schema == null ? null : schema.render( dialect );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isSchemaQuoted() {
 		return schema != null && schema.isQuoted();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setCatalog(String catalog) {
 		this.catalog = Identifier.toIdentifier( catalog );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getCatalog() {
 		return catalog == null ? null : catalog.getText();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getQuotedCatalog() {
 		return catalog == null ? null : catalog.render();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getQuotedCatalog(Dialect dialect) {
 		return catalog == null ? null : catalog.render( dialect );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCatalogQuoted() {
 		return catalog != null && catalog.isQuoted();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -124,12 +147,14 @@ public class AbstractUserDefinedType implements UserDefinedType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean equals(Object object) {
 		return object != null
 			&& object.getClass() == getClass()
 			&& equals( (AbstractUserDefinedType) object );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean equals(AbstractUserDefinedType table) {
 		if ( null == table ) {
 			return false;
@@ -144,6 +169,7 @@ public class AbstractUserDefinedType implements UserDefinedType {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String toString() {
 		final var string = new StringBuilder()
 				.append( getClass().getSimpleName() )
@@ -159,6 +185,7 @@ public class AbstractUserDefinedType implements UserDefinedType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getExportIdentifier() {
 		final var qualifiedName = new StringBuilder();
 		if ( catalog != null ) {

@@ -13,6 +13,8 @@ import org.hibernate.mapping.Column;
 import org.hibernate.mapping.Constraint;
 import org.hibernate.mapping.Table;
 import org.hibernate.mapping.UserDefinedObjectType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A pluggable contract that allows ordering of columns within {@link org.hibernate.mapping.Table},
@@ -32,22 +34,26 @@ public interface ColumnOrderingStrategy {
 	 * Orders the columns of the table.
 	 * May return null if columns were not ordered.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<Column> orderTableColumns(Table table, Metadata metadata);
 
 	/**
 	 * Orders the columns of the constraint.
 	 * May return null if columns were not ordered.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<Column> orderConstraintColumns(Constraint constraint, Metadata metadata);
 
 	/**
 	 * Orders the columns of the user defined type.
 	 * May return null if columns were not ordered.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<Column> orderUserDefinedTypeColumns(UserDefinedObjectType userDefinedType, Metadata metadata);
 
 	/**
 	 * Orders the columns of the temporary table.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void orderTemporaryTableColumns(List<TemporaryTableColumn> temporaryTableColumns, Metadata metadata);
 }

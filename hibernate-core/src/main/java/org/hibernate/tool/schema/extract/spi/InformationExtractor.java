@@ -7,6 +7,8 @@ package org.hibernate.tool.schema.extract.spi;
 import jakarta.annotation.Nullable;
 import org.hibernate.Incubating;
 import org.hibernate.boot.model.naming.Identifier;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for extracting information about objects in the database schema(s).  To an extent, the contract largely
@@ -28,6 +30,7 @@ public interface InformationExtractor {
 	 *
 	 * @return {@code true} if the catalog does exist; {@code false} otherwise
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean catalogExists(Identifier catalog);
 
 	/**
@@ -38,6 +41,7 @@ public interface InformationExtractor {
 	 *
 	 * @return {@code true} if the schema does exist; {@code false} otherwise
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean schemaExists(Identifier catalog, Identifier schema);
 
 	/**
@@ -51,6 +55,7 @@ public interface InformationExtractor {
 	 *
 	 * @return table info for the matching table
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TableInformation getTable(Identifier catalog, Identifier schema, Identifier tableName);
 
 	/**
@@ -63,6 +68,7 @@ public interface InformationExtractor {
 	 *
 	 * @return a {@link NameSpaceTablesInformation}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NameSpaceTablesInformation getTables(Identifier catalog, Identifier schema);
 
 	/**
@@ -72,7 +78,8 @@ public interface InformationExtractor {
 	 *
 	 * @return The extracted primary key information
 	 */
-	@Nullable PrimaryKeyInformation getPrimaryKey(TableInformation tableInformation);
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	PrimaryKeyInformation getPrimaryKey(TableInformation tableInformation);
 
 	/**
 	 * Extract all the primary keys information.
@@ -86,6 +93,7 @@ public interface InformationExtractor {
 	 * @throws SchemaExtractionException when bulk extraction isn't supported
 	 * @since 7.2
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NameSpacePrimaryKeysInformation getPrimaryKeys(Identifier catalog, Identifier schema);
 
 	/**
@@ -96,6 +104,7 @@ public interface InformationExtractor {
 	 *
 	 * @return The extracted index information
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Iterable<IndexInformation> getIndexes(TableInformation tableInformation);
 
 	/**
@@ -110,6 +119,7 @@ public interface InformationExtractor {
 	 * @throws SchemaExtractionException when bulk extraction isn't supported
 	 * @since 7.2
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NameSpaceIndexesInformation getIndexes(Identifier catalog, Identifier schema);
 
 	/**
@@ -120,6 +130,7 @@ public interface InformationExtractor {
 	 *
 	 * @return The extracted foreign-key information
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Iterable<ForeignKeyInformation> getForeignKeys(TableInformation tableInformation);
 
 	/**
@@ -134,6 +145,7 @@ public interface InformationExtractor {
 	 * @throws SchemaExtractionException when bulk extraction isn't supported
 	 * @since 7.2
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NameSpaceForeignKeysInformation getForeignKeys(Identifier catalog, Identifier schema);
 
 	/**
@@ -141,6 +153,7 @@ public interface InformationExtractor {
 	 *
 	 * @since 7.2
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean supportsBulkPrimaryKeyRetrieval();
 
 	/**
@@ -148,6 +161,7 @@ public interface InformationExtractor {
 	 *
 	 * @since 7.2
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean supportsBulkForeignKeyRetrieval();
 
 	/**
@@ -155,5 +169,6 @@ public interface InformationExtractor {
 	 *
 	 * @since 7.2
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean supportsBulkIndexRetrieval();
 }

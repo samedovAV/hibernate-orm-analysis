@@ -18,6 +18,8 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.persister.entity.EntityPersister;
 
 import java.sql.SQLException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// @author Steve Ebersole
 public class ForceVersionBindPlan implements BindPlan, OperationResultChecker {
@@ -44,16 +46,19 @@ public class ForceVersionBindPlan implements BindPlan, OperationResultChecker {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable Object getEntityId() {
 		return entityId;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable Object getEntityInstance() {
 		return entity;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void bindValues(
 			JdbcValueBindings jdbcValueBindings,
 			FlushOperation flushOperation,
@@ -75,11 +80,13 @@ public class ForceVersionBindPlan implements BindPlan, OperationResultChecker {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public OperationResultChecker getOperationResultChecker() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean checkResult(
 			int affectedRowCount,
 			int batchPosition,

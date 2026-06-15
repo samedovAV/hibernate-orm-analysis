@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.naming;
 
 import org.hibernate.boot.model.naming.ImplicitJoinColumnNameSource.Nature;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Implementation of the ImplicitNamingStrategy contract which conforms to the
@@ -24,6 +26,7 @@ public class ImplicitNamingStrategyLegacyJpaImpl extends ImplicitNamingStrategyJ
 	public static final ImplicitNamingStrategyLegacyJpaImpl INSTANCE = new ImplicitNamingStrategyLegacyJpaImpl();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Identifier determineCollectionTableName(ImplicitCollectionTableNameSource source) {
 		final Identifier owningPhysicalTableName = source.getOwningPhysicalTableName();
 		final Identifier identifier = toIdentifier(
@@ -35,6 +38,7 @@ public class ImplicitNamingStrategyLegacyJpaImpl extends ImplicitNamingStrategyJ
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Identifier determineJoinTableName(ImplicitJoinTableNameSource source) {
 		final String ownerPortion = source.getOwningPhysicalTableName();
 		final String ownedPortion =
@@ -45,6 +49,7 @@ public class ImplicitNamingStrategyLegacyJpaImpl extends ImplicitNamingStrategyJ
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Identifier determineJoinColumnName(ImplicitJoinColumnNameSource source) {
 		// legacy JPA-based naming strategy preferred to use {TableName}_{ReferencedColumnName}
 		// where JPA was later clarified to prefer {EntityName}_{ReferencedColumnName}.

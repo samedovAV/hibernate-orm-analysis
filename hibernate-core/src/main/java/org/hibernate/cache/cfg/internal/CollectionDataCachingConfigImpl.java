@@ -13,6 +13,8 @@ import org.hibernate.metamodel.model.domain.NavigableRole;
 import org.hibernate.type.BasicType;
 
 import static org.hibernate.cache.cfg.internal.ComparatorUtil.versionComparator;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -32,16 +34,19 @@ public class CollectionDataCachingConfigImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isMutable() {
 		return collectionDescriptor.isMutable();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isVersioned() {
 		return collectionDescriptor.getOwner().isVersioned();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Comparator<Object> getOwnerVersionComparator() {
 		if ( isVersioned() ) {
 			final var type = (BasicType<?>)
@@ -54,6 +59,7 @@ public class CollectionDataCachingConfigImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigableRole getNavigableRole() {
 		return navigableRole;
 	}

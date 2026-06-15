@@ -5,6 +5,8 @@
 package org.hibernate.type;
 
 import org.hibernate.engine.internal.CascadePoint;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents directionality of the foreign key constraint
@@ -18,6 +20,7 @@ public enum ForeignKeyDirection {
 	 */
 	TO_PARENT {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean cascadeNow(CascadePoint cascadePoint) {
 			return cascadePoint != CascadePoint.BEFORE_INSERT_AFTER_DELETE;
 		}
@@ -28,6 +31,7 @@ public enum ForeignKeyDirection {
 	 */
 	FROM_PARENT {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean cascadeNow(CascadePoint cascadePoint) {
 			return cascadePoint != CascadePoint.AFTER_INSERT_BEFORE_DELETE;
 		}
@@ -42,5 +46,6 @@ public enum ForeignKeyDirection {
 	 *
 	 * @see org.hibernate.engine.internal.Cascade
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public abstract boolean cascadeNow(CascadePoint cascadePoint);
 }

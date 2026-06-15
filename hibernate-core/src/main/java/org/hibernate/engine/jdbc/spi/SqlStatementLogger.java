@@ -12,6 +12,8 @@ import org.hibernate.internal.build.AllowSysOut;
 import org.hibernate.resource.jdbc.spi.JdbcSessionContext;
 import org.hibernate.service.Service;
 import org.jboss.logging.Logger;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -80,14 +82,17 @@ public class SqlStatementLogger implements Service {
 	 *
 	 * @return True if we are currently logging to stdout; false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isLogToStdout() {
 		return logToStdout;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isFormat() {
 		return format;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getLogSlowQuery() {
 		return logSlowQuery;
 	}
@@ -97,6 +102,7 @@ public class SqlStatementLogger implements Service {
 	 *
 	 * @param statement The SQL statement.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void logStatement(String statement) {
 		// for now just assume a DML log for formatting
 		logStatement( statement, FormatStyle.BASIC.getFormatter() );
@@ -109,6 +115,7 @@ public class SqlStatementLogger implements Service {
 	 * @param formatter The formatter to use.
 	 */
 	@AllowSysOut
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void logStatement(String statement, Formatter formatter) {
 		if ( logToStdout || LOG.isDebugEnabled() ) {
 			try {
@@ -137,6 +144,7 @@ public class SqlStatementLogger implements Service {
 	 * @param sql The SQL query.
 	 * @param startTimeNanos Start time in nanoseconds.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void logSlowQuery(final String sql, final long startTimeNanos, final JdbcSessionContext context) {
 		if ( logSlowQuery >= 1 ) {
 			if ( startTimeNanos <= 0 ) {
@@ -152,11 +160,13 @@ public class SqlStatementLogger implements Service {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static long elapsedFrom(final long startTimeNanos) {
 		return TimeUnit.NANOSECONDS.toMillis( System.nanoTime() - startTimeNanos );
 	}
 
 	@AllowSysOut
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void logSlowQueryInternal(final JdbcSessionContext context, final long queryExecutionMillis, final String sql) {
 		final String logData = "Slow query took " + queryExecutionMillis + " milliseconds [" + sql + "]";
 		LOG_SLOW.info( logData );

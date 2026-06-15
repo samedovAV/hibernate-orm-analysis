@@ -25,6 +25,8 @@ import static java.lang.Character.isJavaIdentifierPart;
 import static java.lang.Character.isLetter;
 import static java.lang.Character.isWhitespace;
 import static org.hibernate.internal.util.collections.ArrayHelper.EMPTY_STRING_ARRAY;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public final class StringHelper {
 
@@ -37,6 +39,7 @@ public final class StringHelper {
 	private StringHelper() { /* static methods only - hide constructor */
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static int lastIndexOfLetter(String string) {
 		for ( int i = 0; i < string.length(); i++ ) {
 			final char character = string.charAt( i );
@@ -48,6 +51,7 @@ public final class StringHelper {
 		return string.length() - 1;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String join(String separator, String[] strings) {
 		final int length = strings.length;
 		if ( length == 0 ) {
@@ -68,6 +72,7 @@ public final class StringHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String join(String separator, Object[] values) {
 		final int length = values.length;
 		if ( length == 0 ) {
@@ -88,10 +93,12 @@ public final class StringHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String join(String separator, Iterable<?> objects) {
 		return join( separator, objects.iterator() );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String join(String separator, Iterator<?> objects) {
 		final StringBuilder buf = new StringBuilder();
 		if ( objects.hasNext() ) {
@@ -103,6 +110,7 @@ public final class StringHelper {
 		return buf.toString();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String joinWithQualifierAndSuffix(
 			String[] values,
 			String qualifier,
@@ -121,6 +129,7 @@ public final class StringHelper {
 		return buf.toString();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String[] add(String[] x, String sep, String[] y) {
 		final String[] result = new String[x.length];
 		for ( int i = 0; i < x.length; i++ ) {
@@ -129,10 +138,12 @@ public final class StringHelper {
 		return result;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String repeat(String string, int times) {
 		return string.repeat( Math.max( 0, times ) );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String repeat(String string, int times, String deliminator) {
 		final StringBuilder buf =
 				new StringBuilder( string.length() * times + deliminator.length() * ( times - 1 ) )
@@ -143,12 +154,14 @@ public final class StringHelper {
 		return buf.toString();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String repeat(char character, int times) {
 		final char[] buffer = new char[times];
 		Arrays.fill( buffer, character );
 		return new String( buffer );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void repeat(String string, int times, String separator, StringBuilder buffer) {
 		buffer.append( string );
 		for ( int i = 1; i < times; i++ ) {
@@ -156,10 +169,12 @@ public final class StringHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String replace(String template, String placeholder, String replacement) {
 		return replace( template, placeholder, replacement, false );
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public static String[] replace(String[] templates, String placeholder, String replacement) {
 		final String[] result = new String[templates.length];
 		for ( int i = 0; i < templates.length; i++ ) {
@@ -168,10 +183,12 @@ public final class StringHelper {
 		return result;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String replace(String template, String placeholder, String replacement, boolean wholeWords) {
 		return replace( template, placeholder, replacement, wholeWords, false );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String replace(
 			String template,
 			String placeholder,
@@ -199,6 +216,7 @@ public final class StringHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String replace(
 			String beforePlaceholder,
 			String afterPlaceholder,
@@ -247,6 +265,7 @@ public final class StringHelper {
 		return buf.toString();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static int indexOfPlaceHolder(String template, String placeholder, boolean wholeWords) {
 		if ( wholeWords ) {
 			int placeholderIndex = -1;
@@ -268,6 +287,7 @@ public final class StringHelper {
 	/**
 	 * Used to find the ordinal parameters (e.g. '?1') in a string.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static int indexOfIdentifierWord(String str, String word) {
 		if ( str != null && !str.isEmpty() && word != null && !word.isEmpty() ) {
 			int position = str.indexOf( word );
@@ -285,6 +305,7 @@ public final class StringHelper {
 		return -1;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static char getLastNonWhitespaceCharacter(String str) {
 		if ( str != null && !str.isEmpty() ) {
 			for ( int i = str.length() - 1; i >= 0; i-- ) {
@@ -297,6 +318,7 @@ public final class StringHelper {
 		return '\0';
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static char getFirstNonWhitespaceCharacter(String str) {
 		if ( str != null && !str.isEmpty() ) {
 			for ( int i = 0; i < str.length(); i++ ) {
@@ -309,6 +331,7 @@ public final class StringHelper {
 		return '\0';
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String replaceOnce(String template, String placeholder, String replacement) {
 		if ( template == null ) {
 			return null;
@@ -322,10 +345,12 @@ public final class StringHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String[] split(String separators, String list) {
 		return split( separators, list, false );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String[] split(String separators, String list, boolean include) {
 		final StringTokenizer tokens = new StringTokenizer( list, separators, include );
 		final String[] result = new String[tokens.countTokens()];
@@ -336,6 +361,7 @@ public final class StringHelper {
 		return result;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String[] splitTrimmingTokens(String separators, String list, boolean include) {
 		final StringTokenizer tokens = new StringTokenizer( list, separators, include );
 		final String[] result = new String[tokens.countTokens()];
@@ -346,6 +372,7 @@ public final class StringHelper {
 		return result;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String[] splitFull(String separators, String list) {
 		final List<String> parts = new ArrayList<>();
 		int prevIndex = 0;
@@ -358,11 +385,13 @@ public final class StringHelper {
 		return parts.toArray( EMPTY_STRING_ARRAY );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String unqualify(String qualifiedName) {
 		final int loc = qualifiedName.lastIndexOf( '.' );
 		return loc < 0 ? qualifiedName : qualifiedName.substring( loc + 1 );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String qualifier(String qualifiedName) {
 		final int loc = qualifiedName.lastIndexOf( '.' );
 		return loc < 0 ? "" : qualifiedName.substring( 0, loc );
@@ -377,6 +406,7 @@ public final class StringHelper {
 	 *
 	 * @return The collapsed name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String collapse(String name) {
 		if ( name == null ) {
 			return null;
@@ -399,6 +429,7 @@ public final class StringHelper {
 	 *
 	 * @return The collapsed form.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String collapseQualifier(String qualifier, boolean includeDots) {
 		final StringTokenizer tokenizer = new StringTokenizer( qualifier, "." );
 		final StringBuilder result = new StringBuilder();
@@ -421,6 +452,7 @@ public final class StringHelper {
 	 *
 	 * @return The name itself, or the partially unqualified form if it begins with the qualifier base.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String partiallyUnqualify(String name, String qualifierBase) {
 		return name == null || !name.startsWith( qualifierBase )
 				? name
@@ -437,6 +469,7 @@ public final class StringHelper {
 	 *
 	 * @return The name itself if it does not begin with the qualifierBase, or the properly collapsed form otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String collapseQualifierBase(String name, String qualifierBase) {
 		return name == null || !name.startsWith( qualifierBase )
 				? collapse( name )
@@ -444,6 +477,7 @@ public final class StringHelper {
 						+ name.substring( qualifierBase.length() );
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public static String[] suffix(String[] columns, String suffix) {
 		if ( suffix == null ) {
 			return columns;
@@ -457,20 +491,24 @@ public final class StringHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static String suffix(String name, String suffix) {
 		return suffix == null ? name : name + suffix;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String root(String qualifiedName) {
 		final int loc = qualifiedName.indexOf( '.' );
 		return loc < 0 ? qualifiedName : qualifiedName.substring( 0, loc );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String unroot(String qualifiedName) {
 		final int loc = qualifiedName.indexOf( '.' );
 		return loc < 0 ? qualifiedName : qualifiedName.substring( loc + 1 );
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public static String toString(Object[] array) {
 		final int len = array.length;
 		if ( len == 0 ) {
@@ -485,6 +523,7 @@ public final class StringHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public static String[] multiply(String string, Iterator<String> placeholders, Iterator<String[]> replacements) {
 		String[] result = new String[] {string};
 		while ( placeholders.hasNext() ) {
@@ -493,6 +532,7 @@ public final class StringHelper {
 		return result;
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private static String[] multiply(String[] strings, String placeholder, String[] replacements) {
 		final String[] results = new String[replacements.length * strings.length];
 		int n = 0;
@@ -504,6 +544,7 @@ public final class StringHelper {
 		return results;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static int count(String text, String match) {
 		int count = 0;
 		int index = text.indexOf( match );
@@ -514,6 +555,7 @@ public final class StringHelper {
 		return count;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static int count(String text, char match) {
 		if ( text == null ) {
 			return 0;
@@ -532,6 +574,7 @@ public final class StringHelper {
 		return count;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static int countUnquoted(String string, char character) {
 		if ( '\'' == character ) {
 			throw new IllegalArgumentException( "Unquoted count of quotes is invalid" );
@@ -562,22 +605,27 @@ public final class StringHelper {
 		return count;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isNotEmpty(@Nullable String string) {
 		return string != null && !string.isEmpty();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static boolean isEmpty(@Nullable String string) {
 		return string == null || string.isEmpty();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isNotBlank(@Nullable String string) {
 		return string != null && !string.isBlank();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static boolean isBlank(@Nullable String string) {
 		return string == null || string.isBlank();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String qualify(String prefix, String name) {
 		if ( name == null || prefix == null ) {
 			throw new NullPointerException( "prefix or name were null attempting to build qualified name" );
@@ -585,6 +633,7 @@ public final class StringHelper {
 		return prefix + '.' + name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String qualifyConditionally(String prefix, String name) {
 		if ( name == null ) {
 			throw new NullPointerException( "name was null attempting to build qualified name" );
@@ -601,6 +650,7 @@ public final class StringHelper {
 	 * @apiNote Similar to {@link #qualifyConditionally}, except that here we explicitly
 	 * check whether {@code name} is already qualified.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String qualifyConditionallyIfNot(String prefix, String name) {
 		if ( name == null ) {
 			throw new NullPointerException( "name was null attempting to build qualified name" );
@@ -611,6 +661,7 @@ public final class StringHelper {
 		return prefix + '.' + name;
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public static String[] qualify(String prefix, String[] names) {
 		if ( prefix == null ) {
 			return names;
@@ -625,6 +676,7 @@ public final class StringHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static int firstIndexOfChar(String sqlString, BitSet keys, int startindex) {
 		for ( int i = startindex, size = sqlString.length(); i < size; i++ ) {
 			if ( keys.get( sqlString.charAt( i ) ) ) {
@@ -634,6 +686,7 @@ public final class StringHelper {
 		return -1;
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public static int firstIndexOfChar(String sqlString, String string, int startindex) {
 		final BitSet keys = new BitSet();
 		for ( int i = 0, size = string.length(); i < size; i++ ) {
@@ -642,6 +695,7 @@ public final class StringHelper {
 		return firstIndexOfChar( sqlString, keys, startindex );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String truncate(String string, int length) {
 		return string.length() <= length ? string : string.substring( 0, length );
 	}
@@ -650,6 +704,7 @@ public final class StringHelper {
 	 * @deprecated No longer used
 	 */
 	@Deprecated(since = "7", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String generateAlias(String description) {
 		return generateAliasRoot( description ) + '_';
 	}
@@ -666,6 +721,7 @@ public final class StringHelper {
 	 * @deprecated No longer used
 	 */
 	@Deprecated(since = "7", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String generateAlias(String description, int unique) {
 		return generateAliasRoot( description )
 				+ AliasConstantsHelper.get( unique );
@@ -683,6 +739,7 @@ public final class StringHelper {
 	 * @deprecated No longer used
 	 */
 	@Deprecated(since = "7", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static String generateAliasRoot(String description) {
 		String result = truncate( unqualifyEntityName( description ), ALIAS_TRUNCATE_LENGTH )
 				.toLowerCase( Locale.ROOT )
@@ -703,6 +760,7 @@ public final class StringHelper {
 	 * @deprecated No longer used
 	 */
 	@Deprecated(since = "7", forRemoval = true)
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static String cleanAlias(String alias) {
 		final char[] chars = alias.toCharArray();
 		// shortcut check...
@@ -718,6 +776,7 @@ public final class StringHelper {
 		return alias;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String unqualifyEntityName(String entityName) {
 		final String result = unqualify( entityName );
 		final int slashPos = result.indexOf( '/' );
@@ -731,6 +790,7 @@ public final class StringHelper {
 	 *
 	 * @return True if the given string starts and ends with '`'; false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isQuoted(final String name) {
 		if ( name == null || name.isEmpty() ) {
 			return false;
@@ -749,6 +809,7 @@ public final class StringHelper {
 	 *
 	 * @return The unquoted version.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String unquote(String name) {
 		return isQuoted( name ) ? name.substring( 1, name.length() - 1 ) : name;
 	}
@@ -766,6 +827,7 @@ public final class StringHelper {
 	 *
 	 * @return True if quoted, false otherwise
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isQuoted(final String name, final Dialect dialect) {
 		if ( name == null || name.isEmpty() ) {
 			return false;
@@ -786,6 +848,7 @@ public final class StringHelper {
 	 *
 	 * @return The unquoted version.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String unquote(String name, Dialect dialect) {
 		return isQuoted( name, dialect ) ? name.substring( 1, name.length() - 1 ) : name;
 	}
@@ -798,6 +861,7 @@ public final class StringHelper {
 	 *
 	 * @return The unquoted versions.
 	 */
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public static String[] unquote(final String[] names, final Dialect dialect) {
 		if ( names == null ) {
 			return null;
@@ -826,14 +890,17 @@ public final class StringHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static @Nullable String nullIfEmpty(@Nullable String value) {
 		return isEmpty( value ) ? null : value;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static @Nullable String nullIfBlank(@Nullable String value) {
 		return isBlank( value ) ? null : value;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static @Nullable String subStringNullIfEmpty(String value, Character startChar) {
 		if ( isEmpty( value ) ) {
 			return null;
@@ -844,12 +911,14 @@ public final class StringHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String[] splitAtCommas(@Nullable String incomingString) {
 		return incomingString==null || incomingString.isBlank()
 				? EMPTY_STRINGS
 				: COMMA_SEPARATED_PATTERN.split( incomingString );
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public static <T> String join(Collection<T> values, Renderer<T> renderer) {
 		final StringBuilder buffer = new StringBuilder();
 		for ( T value : values ) {
@@ -858,6 +927,7 @@ public final class StringHelper {
 		return buffer.toString();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String coalesce(@Nonnull String fallbackValue, @Nonnull String... values) {
 		for ( int i = 0; i < values.length; i++ ) {
 			if ( isNotEmpty( values[i] ) ) {
@@ -867,6 +937,7 @@ public final class StringHelper {
 		return fallbackValue;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String coalesce(@Nonnull String fallbackValue, String value) {
 		if ( isNotEmpty( value ) ) {
 			return value;
@@ -874,6 +945,7 @@ public final class StringHelper {
 		return fallbackValue;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String coalesce(String... values) {
 		for ( int i = 0; i < values.length; i++ ) {
 			if ( isNotEmpty( values[i] ) ) {
@@ -884,6 +956,7 @@ public final class StringHelper {
 	}
 
 	public interface Renderer<T> {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		String render(T value);
 	}
 
@@ -898,6 +971,7 @@ public final class StringHelper {
 	 * then {@code secondExpression} is returned;
 	 * if both {@code firstExpression} and {@code secondExpression} are empty, then null is returned.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String getNonEmptyOrConjunctionIfBothNonEmpty( String firstExpression, String secondExpression ) {
 		final boolean isFirstExpressionNonEmpty = isNotEmpty( firstExpression );
 		final boolean isSecondExpressionNonEmpty = isNotEmpty( secondExpression );
@@ -927,6 +1001,7 @@ public final class StringHelper {
 	 * @param string The string to intern.
 	 * @return The interned string.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String safeInterning(final String string) {
 		return string == null ? null : string.intern();
 	}
@@ -946,6 +1021,7 @@ public final class StringHelper {
 	 * @param name The string to be decapitalized.
 	 * @return The decapitalized version of the string.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String decapitalize(final String name) {
 		if ( name == null || name.isEmpty() ) {
 			return name;

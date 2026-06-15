@@ -9,6 +9,8 @@ import org.hibernate.Incubating;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.util.Properties;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Types which implement this interface will have
@@ -38,25 +40,34 @@ public interface DynamicParameterizedType extends ParameterizedType {
 
 	interface ParameterType {
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		Class<?> getReturnedClass();
 
 		@Incubating
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		default Type getReturnedJavaType() {
 			return getReturnedClass();
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		Annotation[] getAnnotationsMethod();
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		String getCatalog();
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		String getSchema();
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		String getTable();
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		boolean isPrimaryKey();
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		String[] getColumns();
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		Long[] getColumnLengths();
 	}
 }

@@ -11,6 +11,8 @@ import org.hibernate.type.descriptor.java.AbstractJavaType;
 import org.hibernate.type.descriptor.java.MutabilityPlan;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
 import org.hibernate.type.descriptor.jdbc.JdbcTypeIndicators;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * {@link AbstractJavaType} adapter for cases where we do not know a proper
@@ -39,11 +41,13 @@ public final class UnknownBasicJavaType<T> extends AbstractJavaType<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getTypeName() {
 		return typeName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Type getJavaType() {
 		final Type type = super.getJavaType();
 		if ( type == null ) {
@@ -55,6 +59,7 @@ public final class UnknownBasicJavaType<T> extends AbstractJavaType<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcType getRecommendedJdbcType(JdbcTypeIndicators context) {
 		throw new JdbcTypeRecommendationException(
 				"Could not determine recommended JdbcType for Java type '" + getTypeName() + "'"
@@ -62,6 +67,7 @@ public final class UnknownBasicJavaType<T> extends AbstractJavaType<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> X unwrap(T value, Class<X> type, WrapperOptions options) {
 		if ( type.isAssignableFrom( getJavaTypeClass() ) ) {
 			return type.cast( value );
@@ -72,6 +78,7 @@ public final class UnknownBasicJavaType<T> extends AbstractJavaType<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> T wrap(X value, WrapperOptions options) {
 		final var javaTypeClass = getJavaTypeClass();
 		if ( javaTypeClass.isInstance( value ) ) {
@@ -83,6 +90,7 @@ public final class UnknownBasicJavaType<T> extends AbstractJavaType<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "BasicJavaType(" + getTypeName() + ")";
 	}

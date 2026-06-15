@@ -11,6 +11,8 @@ import jakarta.persistence.spi.PersistenceUnitInfo;
 import jakarta.persistence.spi.TransformerException;
 import jakarta.annotation.Nullable;
 import org.hibernate.jpa.HibernatePersistenceProvider;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A persistence provider provides an instance of this interface to the container.
@@ -39,6 +41,7 @@ public interface ClassTransformer extends jakarta.persistence.spi.ClassTransform
 	 * @return A well-formed class file that can be loaded
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	byte[] transform(
 			@Nullable ClassLoader loader,
 			String className,
@@ -46,5 +49,6 @@ public interface ClassTransformer extends jakarta.persistence.spi.ClassTransform
 			ProtectionDomain protectionDomain,
 			byte[] classfileBuffer)  throws TransformerException;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void discoverTypes(ClassLoader loader, String className);
 }

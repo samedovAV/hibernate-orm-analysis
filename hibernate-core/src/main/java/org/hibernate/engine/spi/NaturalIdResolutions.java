@@ -7,6 +7,8 @@ package org.hibernate.engine.spi;
 import java.util.Collection;
 
 import org.hibernate.metamodel.mapping.EntityMappingType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Manages the cached resolutions related to natural-id (to and from identifier)
@@ -23,6 +25,7 @@ public interface NaturalIdResolutions {
 	 *
 	 * @return {@code true} if a new entry was actually added; {@code false} otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean cacheResolution(Object id, Object naturalId, EntityMappingType entityDescriptor);
 
 	/**
@@ -32,14 +35,17 @@ public interface NaturalIdResolutions {
 	 *
 	 * @return The cached values, if any.  May be different from incoming values.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object removeResolution(Object id, Object naturalId, EntityMappingType entityDescriptor);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void cacheResolutionFromLoad(Object id, Object naturalId, EntityMappingType entityDescriptor);
 
 	/**
 	 * Ensures that the necessary local cross-reference exists.  Specifically, this
 	 * only effects the persistence-context cache, not the L2 cache
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void manageLocalResolution(
 			Object id,
 			Object naturalIdValue,
@@ -51,11 +57,13 @@ public interface NaturalIdResolutions {
 	 * <p>
 	 * Again, this only effects the persistence-context cache, not the L2 cache
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object removeLocalResolution(Object id, Object naturalId, EntityMappingType entityDescriptor);
 
 	/**
 	 * Ensures that the necessary cross-reference exists in the L2 cache
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void manageSharedResolution(
 			Object id,
 			Object naturalId,
@@ -66,8 +74,10 @@ public interface NaturalIdResolutions {
 	/**
 	 * Removes any cross-reference from the L2 cache
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void removeSharedResolution(Object id, Object naturalId, EntityMappingType entityDescriptor, boolean delayToAfterTransactionCompletion);
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void removeSharedResolution(Object id, Object naturalId, EntityMappingType entityDescriptor) {
 		removeSharedResolution( id, naturalId, entityDescriptor, false );
 	}
@@ -77,6 +87,7 @@ public interface NaturalIdResolutions {
 	 *
 	 * @return The cross-referenced natural-id values or {@code null}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object findCachedNaturalIdById(Object id, EntityMappingType entityDescriptor);
 
 	/**
@@ -84,6 +95,7 @@ public interface NaturalIdResolutions {
 	 *
 	 * @return The cross-referenced primary key, {@link #INVALID_NATURAL_ID_REFERENCE} or {@code null}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object findCachedIdByNaturalId(Object naturalId, EntityMappingType entityDescriptor);
 
 	/**
@@ -91,6 +103,7 @@ public interface NaturalIdResolutions {
 	 *
 	 * @return The primary keys
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Collection<?> getCachedPkResolutions(EntityMappingType entityDescriptor);
 
 	/**
@@ -106,16 +119,19 @@ public interface NaturalIdResolutions {
 	 *
 	 * @see #cleanupFromSynchronizations
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void handleSynchronization(Object id, Object entity, EntityMappingType entityDescriptor);
 
 	/**
 	 * The clean up process of {@link #handleSynchronization}.  Responsible for cleaning up the tracking
 	 * of old values as no longer valid.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void cleanupFromSynchronizations();
 
 	/**
 	 * Called on {@link org.hibernate.Session#evict} to give a chance to clean up natural-id cross refs.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void handleEviction(Object id, Object object, EntityMappingType entityDescriptor);
 }

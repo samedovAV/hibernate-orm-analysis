@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.util.UUID;
 
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A strategy for generating a variant 2 {@link UUID} value.
@@ -33,6 +35,7 @@ public interface UUIDGenerationStrategy extends Serializable {
 	 *
 	 * @return The supported generation version
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getGeneratedVersion();
 
 	/**
@@ -42,6 +45,7 @@ public interface UUIDGenerationStrategy extends Serializable {
 	 *
 	 * @return The generated UUID.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	UUID generateUUID(SharedSessionContractImplementor session);
 
 }

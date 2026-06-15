@@ -6,6 +6,8 @@ package org.hibernate.engine.jdbc;
 
 import java.io.InputStream;
 import java.sql.Blob;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Wraps a binary stream to also provide the length which is needed when binding.
@@ -18,6 +20,7 @@ public interface BinaryStream {
 	 *
 	 * @return The input stream
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	InputStream getInputStream();
 
 	/**
@@ -25,6 +28,7 @@ public interface BinaryStream {
 	 *
 	 * @return The bytes.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	byte[] getBytes();
 
 	/**
@@ -32,11 +36,13 @@ public interface BinaryStream {
 	 *
 	 * @return The input stream length
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	long getLength();
 
 	/**
 	 * Release any underlying resources.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void release();
 
 	/**
@@ -45,5 +51,6 @@ public interface BinaryStream {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Blob asBlob(LobCreator lobCreator);
 }

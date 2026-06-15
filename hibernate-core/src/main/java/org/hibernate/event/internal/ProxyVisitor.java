@@ -9,6 +9,8 @@ import org.hibernate.collection.spi.PersistentCollection;
 import org.hibernate.event.spi.EventSource;
 import org.hibernate.persister.collection.CollectionPersister;
 import org.hibernate.type.CollectionType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A visitor able to reattach {@linkplain PersistentCollection collections}
@@ -26,6 +28,7 @@ public abstract class ProxyVisitor extends AbstractVisitor {
 	 * Has the owner of the collection changed since the collection
 	 * was snapshotted and detached?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected static boolean isOwnerUnchanged(
 			CollectionPersister persister, Object id, PersistentCollection<?> snapshot) {
 		return isCollectionSnapshotValid( snapshot )
@@ -33,6 +36,7 @@ public abstract class ProxyVisitor extends AbstractVisitor {
 			&& persister.getKeyType().isEqual( id, snapshot.getKey() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isCollectionSnapshotValid(PersistentCollection<?> snapshot) {
 		return snapshot != null
 			&& snapshot.getRole() != null
@@ -44,6 +48,7 @@ public abstract class ProxyVisitor extends AbstractVisitor {
 	 * collection wrapper, using a snapshot carried with the collection
 	 * wrapper
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void reattachCollection(PersistentCollection<?> collection, CollectionType type)
 			throws HibernateException {
 		final var session = getSession();

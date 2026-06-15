@@ -7,6 +7,8 @@ package org.hibernate.action.queue.internal.plan;
 import org.hibernate.action.queue.spi.plan.FlushOperation;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Execution step within a FlushPlan containing one or more [operations][#operations()].
 /// Operations in this step are independent of operations in other steps.
@@ -15,5 +17,6 @@ import java.util.List;
 /// @author Steve Ebersole
 public interface PlanStep {
 	/// The operations for this step.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<FlushOperation> operations();
 }

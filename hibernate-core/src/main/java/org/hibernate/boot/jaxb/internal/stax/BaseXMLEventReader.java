@@ -12,6 +12,8 @@ import javax.xml.stream.events.EntityDeclaration;
 import javax.xml.stream.events.EntityReference;
 import javax.xml.stream.events.XMLEvent;
 import javax.xml.stream.util.EventReaderDelegate;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base for XMLEventReader that implements the {@link #getElementText()} and {@link #nextTag()} APIs in a
@@ -33,22 +35,26 @@ public abstract class BaseXMLEventReader extends EventReaderDelegate {
 	/**
 	 * Subclass's version of {@link #nextEvent()}, called by {@link #next()}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract XMLEvent internalNextEvent() throws XMLStreamException;
 
 	/**
 	 * @return The XMLEvent returned by the last call to {@link #internalNextEvent()}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected final XMLEvent getPreviousEvent() {
 		return this.previousEvent;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final XMLEvent nextEvent() throws XMLStreamException {
 		this.previousEvent = this.internalNextEvent();
 		return this.previousEvent;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final Object next() {
 		try {
 			return this.nextEvent();
@@ -59,6 +65,7 @@ public abstract class BaseXMLEventReader extends EventReaderDelegate {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final String getElementText() throws XMLStreamException {
 		XMLEvent event = this.previousEvent;
 		if (event == null) {
@@ -101,6 +108,7 @@ public abstract class BaseXMLEventReader extends EventReaderDelegate {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final XMLEvent nextTag() throws XMLStreamException {
 		XMLEvent event = this.nextEvent();
 		while ((event.isCharacters() && event.asCharacters().isWhiteSpace())

@@ -6,6 +6,8 @@ package org.hibernate.context.spi;
 
 import jakarta.annotation.Nonnull;
 import org.hibernate.Incubating;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Supplies the name of a database schema for a given tenant identifier when
@@ -32,5 +34,6 @@ public interface TenantSchemaMapper<T> {
 	 *
 	 * @see org.hibernate.cfg.MultiTenancySettings#MULTI_TENANT_SCHEMA_MAPPER
 	 */
-	@Nonnull String schemaName(@Nonnull T tenantIdentifier);
+	@Nonnull @Prove(complexity = Complexity.O_1, n = "", count = {})
+	String schemaName(@Nonnull T tenantIdentifier);
 }

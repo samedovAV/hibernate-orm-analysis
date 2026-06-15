@@ -31,6 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hibernate.sql.model.internal.MutationOperationGroupFactory.singleOperation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Update coordinator for
@@ -68,16 +70,19 @@ public class UpdateCoordinatorHistory extends AbstractTemporalUpdateCoordinator 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MutationOperationGroup getStaticMutationOperationGroup() {
 		return currentUpdateCoordinator.getStaticMutationOperationGroup();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected BasicBatchKey getBatchKey() {
 		return historyUpdateBatchKey;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public GeneratedValues update(
 			Object entity,
 			Object id,
@@ -131,6 +136,7 @@ public class UpdateCoordinatorHistory extends AbstractTemporalUpdateCoordinator 
 		return generatedValues;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void performHistoryExcludedUpdate(
 			Object entity,
 			Object id,
@@ -180,6 +186,7 @@ public class UpdateCoordinatorHistory extends AbstractTemporalUpdateCoordinator 
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private HistoryExcludedUpdateDetails buildHistoryExcludedUpdateDetails(
 			Object entity,
 			Object rowId,
@@ -256,6 +263,7 @@ public class UpdateCoordinatorHistory extends AbstractTemporalUpdateCoordinator 
 
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isGeneratedBeforeExecution(
 			Object entity, SharedSessionContractImplementor session, Generator generator) {
 		return generator != null
@@ -263,6 +271,7 @@ public class UpdateCoordinatorHistory extends AbstractTemporalUpdateCoordinator 
 			&& generator.generatedBeforeExecution( entity, session );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void bindHistoryExcludedUpdateValues(
 			Object[] values,
 			HistoryExcludedUpdateDetails updateDetails,
@@ -293,6 +302,7 @@ public class UpdateCoordinatorHistory extends AbstractTemporalUpdateCoordinator 
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void applyCurrentRowRestriction(TableUpdateBuilderStandard<MutationOperation> tableUpdateBuilder) {
 		final var endingColumnReference =
 				new ColumnReference( tableUpdateBuilder.getMutatingTable(), temporalMapping.getEndingColumnMapping() );
@@ -300,6 +310,7 @@ public class UpdateCoordinatorHistory extends AbstractTemporalUpdateCoordinator 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void bindVersionRestriction(Object oldVersion, JdbcValueBindings jdbcValueBindings, String temporalTableName) {
 		final var versionMapping = entityPersister().getVersionMapping();
 		if ( versionMapping != null && entityPersister().optimisticLockStyle().isVersion() ) {
@@ -312,6 +323,7 @@ public class UpdateCoordinatorHistory extends AbstractTemporalUpdateCoordinator 
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void insertHistoryRow(
 			Object id,
 			Object[] values,
@@ -329,6 +341,7 @@ public class UpdateCoordinatorHistory extends AbstractTemporalUpdateCoordinator 
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private MutationOperationGroup buildHistoryInsertGroup(boolean[] propertyInclusions) {
 		final var insertBuilder =
 				new TableInsertBuilderStandard( entityPersister(), historyTableMapping, factory() );
@@ -340,6 +353,7 @@ public class UpdateCoordinatorHistory extends AbstractTemporalUpdateCoordinator 
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void applyHistoryInsertDetails(
 			TableInsertBuilderStandard insertBuilder,
 			boolean[] propertyInclusions) {
@@ -373,6 +387,7 @@ public class UpdateCoordinatorHistory extends AbstractTemporalUpdateCoordinator 
 		identifierTableMapping.getKeyMapping().forEachKeyColumn( insertBuilder::addColumnAssignment );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void addSqlGeneratedValue(
 			AssigningTableMutationBuilder<?> updateBuilder,
 			AttributeMapping attributeMapping,
@@ -386,6 +401,7 @@ public class UpdateCoordinatorHistory extends AbstractTemporalUpdateCoordinator 
 				updateBuilder.addColumnAssignment( mapping, writePropertyValue ? "?" : columnValues[j] ) );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void bindHistoryInsertValues(
 			Object id,
 			Object[] values,
@@ -440,28 +456,33 @@ public class UpdateCoordinatorHistory extends AbstractTemporalUpdateCoordinator 
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isValueGeneratedOnInsert(Generator generator) {
 		return generator != null
 			&& generator.generatesOnInsert()
 			&& generator.generatedOnExecution();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isValueGeneratedOnUpdate(Generator generator) {
 		return generator != null
 			&& generator.generatesOnUpdate()
 			&& generator.generatedOnExecution();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean isValueGenerationInSql(Generator generator) {
 		assert isValueGeneratedOnInsert( generator );
 		return ( (OnExecutionGenerator) generator ).referenceColumnsInSql( dialect() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean isUpdateValueGenerationInSql(Generator generator) {
 		assert isValueGeneratedOnUpdate( generator );
 		return ( (OnExecutionGenerator) generator ).referenceColumnsInSql( dialect() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean needsUpdateValueGeneration(
 			Object entity,
 			SharedSessionContractImplementor session,
@@ -471,6 +492,7 @@ public class UpdateCoordinatorHistory extends AbstractTemporalUpdateCoordinator 
 			&& isUpdateValueGenerationInSql( generator );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static int[] toIntArray(List<Integer> values) {
 		final int[] result = new int[values.size()];
 		for ( int i = 0; i < values.size(); i++ ) {
@@ -494,6 +516,7 @@ public class UpdateCoordinatorHistory extends AbstractTemporalUpdateCoordinator 
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static boolean verifyOutcome(
 			PreparedStatementDetails statementDetails,
 			int affectedRowCount,
@@ -508,6 +531,7 @@ public class UpdateCoordinatorHistory extends AbstractTemporalUpdateCoordinator 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void forceVersionIncrement(
 			Object id,
 			Object currentVersion,

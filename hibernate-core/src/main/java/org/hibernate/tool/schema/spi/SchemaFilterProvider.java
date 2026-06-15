@@ -5,6 +5,8 @@
 package org.hibernate.tool.schema.spi;
 
 import org.hibernate.Incubating;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Used to specify the {@link SchemaFilter}s to be used by create, drop, migrate and validate
@@ -20,6 +22,7 @@ public interface SchemaFilterProvider {
 	 *
 	 * @return The {@link SchemaCreator} filter
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SchemaFilter getCreateFilter();
 
 	/**
@@ -27,6 +30,7 @@ public interface SchemaFilterProvider {
 	 *
 	 * @return The {@link SchemaDropper} filter
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SchemaFilter getDropFilter();
 
 	/**
@@ -34,6 +38,7 @@ public interface SchemaFilterProvider {
 	 *
 	 * @return The {@link SchemaTruncator} filter
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SchemaFilter getTruncatorFilter();
 
 	/**
@@ -41,6 +46,7 @@ public interface SchemaFilterProvider {
 	 *
 	 * @return The {@link SchemaMigrator} filter
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SchemaFilter getMigrateFilter();
 
 	/**
@@ -48,5 +54,6 @@ public interface SchemaFilterProvider {
 	 *
 	 * @return The {@link SchemaValidator} filter
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SchemaFilter getValidateFilter();
 }

@@ -24,6 +24,8 @@ import org.hibernate.sql.model.MutationType;
 import org.hibernate.sql.model.PreparableMutationOperation;
 
 import static org.hibernate.engine.jdbc.mutation.internal.PreparedStatementGroupNone.GROUP_OF_NONE;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Helper functionality related to model mutations
@@ -36,6 +38,7 @@ public class ModelMutationHelper {
 		// disallow direct instantiation
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void checkResults(
 			OperationResultChecker resultChecker,
 			PreparedStatementDetails statementDetails,
@@ -46,6 +49,7 @@ public class ModelMutationHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean identifiedResultsCheck(
 			PreparedStatementDetails statementDetails,
 			int affectedRowCount,
@@ -89,6 +93,7 @@ public class ModelMutationHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static PreparedStatementGroup toPreparedStatementGroup(
 			MutationType mutationType,
 			MutationTarget<?,?> mutationTarget,
@@ -106,6 +111,7 @@ public class ModelMutationHelper {
 		return new PreparedStatementGroupStandard( mutationType, mutationTarget, delegate, mutations, session );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static PreparedStatementDetails standardPreparation(
 			PreparableMutationOperation jdbcMutation,
 			GeneratedValuesMutationDelegate delegate,
@@ -119,6 +125,7 @@ public class ModelMutationHelper {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static PreparedStatement delegateStatementPreparation(
 			PreparableMutationOperation jdbcMutation,
 			GeneratedValuesMutationDelegate delegate,
@@ -128,6 +135,7 @@ public class ModelMutationHelper {
 		return statement;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static PreparedStatement standardStatementPreparation(
 			PreparableMutationOperation jdbcMutation,
 			SharedSessionContractImplementor session) {

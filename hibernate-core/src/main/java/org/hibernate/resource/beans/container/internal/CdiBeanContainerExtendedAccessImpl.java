@@ -14,6 +14,8 @@ import org.hibernate.resource.beans.container.spi.ExtendedBeanManager;
 import org.hibernate.resource.beans.spi.BeanInstanceProducer;
 
 import static org.hibernate.resource.beans.internal.BeansMessageLogger.BEANS_MSG_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -32,6 +34,7 @@ public class CdiBeanContainerExtendedAccessImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected <B> ContainedBeanImplementor<B> createBean(
 			Class<B> beanType,
 			BeanLifecycleStrategy lifecycleStrategy,
@@ -45,6 +48,7 @@ public class CdiBeanContainerExtendedAccessImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected <B> ContainedBeanImplementor<B> createBean(
 			String name,
 			Class<B> beanType,
@@ -64,18 +68,21 @@ public class CdiBeanContainerExtendedAccessImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void beanManagerInitialized(BeanManager beanManager) {
 		this.usableBeanManager = beanManager;
 		forEachBean( ContainedBeanImplementor::initialize );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void beforeBeanManagerDestroyed(BeanManager beanManager) {
 		stop();
 		this.usableBeanManager = null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BeanManager getUsableBeanManager() {
 		if ( usableBeanManager == null ) {
 			throw new IllegalStateException( "ExtendedBeanManager.LifecycleListener callback not yet called: CDI not (yet) usable" );
@@ -84,6 +91,7 @@ public class CdiBeanContainerExtendedAccessImpl
 	}
 
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BeanManager getBeanManager() {
 		return usableBeanManager;
 	}
@@ -105,11 +113,13 @@ public class CdiBeanContainerExtendedAccessImpl
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Class<B> getBeanClass() {
 			return beanType;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public void initialize() {
 			if ( delegateContainedBean == null ) {
 				delegateContainedBean = lifecycleStrategy.createBean( beanType, fallbackProducer, DUMMY_BEAN_CONTAINER );
@@ -118,6 +128,7 @@ public class CdiBeanContainerExtendedAccessImpl
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public B getBeanInstance() {
 			if ( delegateContainedBean == null ) {
 				initialize();
@@ -126,6 +137,7 @@ public class CdiBeanContainerExtendedAccessImpl
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public void release() {
 			delegateContainedBean.release();
 			delegateContainedBean = null;
@@ -152,11 +164,13 @@ public class CdiBeanContainerExtendedAccessImpl
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Class<B> getBeanClass() {
 			return beanType;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public void initialize() {
 			if ( delegateContainedBean == null ) {
 				delegateContainedBean =
@@ -166,6 +180,7 @@ public class CdiBeanContainerExtendedAccessImpl
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public B getBeanInstance() {
 			if ( delegateContainedBean == null ) {
 				initialize();
@@ -174,6 +189,7 @@ public class CdiBeanContainerExtendedAccessImpl
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public void release() {
 			delegateContainedBean.release();
 			delegateContainedBean = null;
@@ -182,11 +198,13 @@ public class CdiBeanContainerExtendedAccessImpl
 
 	private final CdiBasedBeanContainer DUMMY_BEAN_CONTAINER = new CdiBasedBeanContainer() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public BeanManager getUsableBeanManager() {
 			return usableBeanManager;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public <B> ContainedBean<B> getBean(
 				Class<B> beanType,
 				LifecycleOptions lifecycleOptions,
@@ -196,6 +214,7 @@ public class CdiBeanContainerExtendedAccessImpl
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public <B> ContainedBean<B> getBean(
 				String beanName,
 				Class<B> beanType,
@@ -206,6 +225,7 @@ public class CdiBeanContainerExtendedAccessImpl
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void stop() {
 		}
 	};

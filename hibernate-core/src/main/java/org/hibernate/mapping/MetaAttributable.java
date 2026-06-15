@@ -6,6 +6,8 @@ package org.hibernate.mapping;
 
 
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Common interface for things that can handle meta attributes.
@@ -14,10 +16,13 @@ import java.util.Map;
  */
 public interface MetaAttributable {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Map<String, MetaAttribute> getMetaAttributes();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setMetaAttributes(Map<String, MetaAttribute> metas);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MetaAttribute getMetaAttribute(String name);
 
 }

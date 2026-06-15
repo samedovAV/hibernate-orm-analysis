@@ -14,6 +14,8 @@ import org.hibernate.sql.results.graph.Initializer;
 import org.hibernate.sql.results.graph.collection.CollectionInitializer;
 import org.hibernate.sql.results.jdbc.spi.RowProcessingState;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Andrea Boriero
@@ -29,6 +31,7 @@ public class CollectionAssembler implements DomainResultAssembler {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object assemble(RowProcessingState rowProcessingState) {
 		assert initializer.getData( rowProcessingState ).getState() != Initializer.State.UNINITIALIZED
 				&& initializer.getData( rowProcessingState ).getState() != Initializer.State.KEY_RESOLVED;
@@ -39,21 +42,25 @@ public class CollectionAssembler implements DomainResultAssembler {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<?> getAssembledJavaType() {
 		return fetchedMapping.getJavaType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionInitializer<?> getInitializer() {
 		return initializer;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void resolveState(RowProcessingState rowProcessingState) {
 		initializer.resolveState( rowProcessingState );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void forEachResultAssembler(BiConsumer consumer, Object arg) {
 		if ( initializer.isResultInitializer() ) {
 			consumer.accept( initializer, arg );

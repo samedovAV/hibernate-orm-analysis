@@ -17,6 +17,8 @@ import org.hibernate.sql.results.graph.InitializerParent;
 import org.hibernate.sql.results.graph.InitializerProducer;
 import org.hibernate.sql.results.graph.entity.AbstractDiscriminatedEntityResultGraphNode;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class DiscriminatedEntityFetch extends AbstractDiscriminatedEntityResultGraphNode implements Fetch,
 		InitializerProducer<DiscriminatedEntityFetch> {
@@ -38,26 +40,31 @@ public class DiscriminatedEntityFetch extends AbstractDiscriminatedEntityResultG
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchParent getFetchParent() {
 		return fetchParent;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DiscriminatedAssociationModelPart getFetchedMapping() {
 		return getReferencedMappingContainer();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchTiming getTiming() {
 		return fetchTiming;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasTableGroup() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResultAssembler<?> createAssembler(
 			InitializerParent<?> parent,
 			AssemblerCreationState creationState) {
@@ -68,6 +75,7 @@ public class DiscriminatedEntityFetch extends AbstractDiscriminatedEntityResultG
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Initializer<?> createInitializer(
 			DiscriminatedEntityFetch resultGraphNode,
 			InitializerParent<?> parent,
@@ -76,6 +84,7 @@ public class DiscriminatedEntityFetch extends AbstractDiscriminatedEntityResultG
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Initializer<?> createInitializer(InitializerParent<?> parent, AssemblerCreationState creationState) {
 		return new DiscriminatedEntityInitializer(
 				parent,
@@ -90,6 +99,7 @@ public class DiscriminatedEntityFetch extends AbstractDiscriminatedEntityResultG
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchParent asFetchParent() {
 		return this;
 	}

@@ -7,6 +7,8 @@ package org.hibernate.tool.schema.extract.spi;
 import java.sql.Types;
 
 import org.hibernate.Incubating;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Provides access to information about existing table columns
@@ -19,26 +21,31 @@ public interface ColumnTypeInformation {
 
 	ColumnTypeInformation EMPTY = new ColumnTypeInformation() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Boolean getNullable() {
 			return null;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public int getTypeCode() {
 			return Types.OTHER;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getTypeName() {
 			return null;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public int getColumnSize() {
 			return 0;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public int getDecimalDigits() {
 			return 0;
 		}
@@ -51,6 +58,7 @@ public interface ColumnTypeInformation {
 	 *
 	 * @return nullability, if known
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Boolean getNullable();
 
 	/**
@@ -58,6 +66,7 @@ public interface ColumnTypeInformation {
 	 *
 	 * @return JDBC type-code
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getTypeCode();
 
 	/**
@@ -65,6 +74,7 @@ public interface ColumnTypeInformation {
 	 *
 	 * @return Type name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getTypeName();
 
 	// todo : wrap these in org.hibernate.metamodel.spi.relational.Size
@@ -74,6 +84,7 @@ public interface ColumnTypeInformation {
 	 *
 	 * @return The column length
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getColumnSize();
 
 	/**
@@ -81,5 +92,6 @@ public interface ColumnTypeInformation {
 	 *
 	 * @return The numeric precision
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getDecimalDigits();
 }

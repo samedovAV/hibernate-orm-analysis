@@ -12,6 +12,8 @@ import org.hibernate.internal.util.StringHelper;
 import org.hibernate.internal.util.collections.CollectionHelper;
 
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A SQL {@code FOR UPDATE} clause.
@@ -53,11 +55,13 @@ public class ForUpdateFragment {
 		} );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ForUpdateFragment addTableAlias(String alias) {
 		addLockItem( alias );
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ForUpdateFragment addLockItem(String itemText) {
 		if ( !lockItemFragment.isEmpty() ) {
 			lockItemFragment.append( ", " );
@@ -66,6 +70,7 @@ public class ForUpdateFragment {
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toFragmentString() {
 		if ( lockItemFragment.isEmpty() ) {
 			return dialect.getForUpdateString( lockOptions );

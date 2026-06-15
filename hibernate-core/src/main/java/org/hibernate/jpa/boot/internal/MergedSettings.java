@@ -17,6 +17,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import static org.hibernate.cfg.PersistenceSettings.PERSISTENCE_UNIT_NAME;
 import static org.hibernate.cfg.PersistenceSettings.SESSION_FACTORY_NAME;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class MergedSettings {
 	private final Map<String, Object> configurationValues =
@@ -31,10 +33,12 @@ public class MergedSettings {
 		getConfigurationValues().putAll( PropertiesHelper.map( Environment.getProperties() ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<CacheRegionDefinition> getCacheRegionDefinitions() {
 		return cacheRegionDefinitions;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void processPersistenceUnitDescriptorProperties(PersistenceUnitDescriptor persistenceUnit) {
 		final var properties = persistenceUnit.getProperties();
 		if ( properties != null ) {
@@ -43,6 +47,7 @@ public class MergedSettings {
 		getConfigurationValues().put( PERSISTENCE_UNIT_NAME, persistenceUnit.getName() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void processHibernateConfigXmlResources(LoadedConfig loadedConfig) {
 		if ( !getConfigurationValues().containsKey( SESSION_FACTORY_NAME) ) {
 			// there is not already a SF-name in the merged settings
@@ -58,10 +63,12 @@ public class MergedSettings {
 		getConfigurationValues().putAll( loadedConfig.getConfigurationValues() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, Object> getConfigurationValues() {
 		return configurationValues;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addCacheRegionDefinition(CacheRegionDefinition cacheRegionDefinition) {
 		if ( cacheRegionDefinitions == null ) {
 			cacheRegionDefinitions = new ArrayList<>();

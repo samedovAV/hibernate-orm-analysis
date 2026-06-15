@@ -11,6 +11,8 @@ import org.hibernate.sql.ast.tree.SqlAstNode;
 import org.hibernate.type.spi.TypeConfiguration;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 public class SpannerPostgreSQLRegexpLikeFunction extends AbstractRegexpLikeFunction {
@@ -20,6 +22,7 @@ public class SpannerPostgreSQLRegexpLikeFunction extends AbstractRegexpLikeFunct
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void render(SqlAppender sqlAppender, List<? extends SqlAstNode> sqlAstArguments, ReturnableType<?> returnType, SqlAstTranslator<?> walker) {
 		sqlAppender.append( "regexp_match(" );
 		sqlAstArguments.get( 0 ).accept( walker );

@@ -19,6 +19,8 @@ import org.hibernate.boot.model.source.spi.SingularAttributeNature;
 import org.hibernate.boot.model.source.spi.SingularAttributeSourceManyToOne;
 import org.hibernate.boot.model.source.spi.ToolingHintContext;
 import org.hibernate.type.ForeignKeyDirection;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Implementation for {@code <many-to-one/>} mappings
@@ -58,6 +60,7 @@ class SingularAttributeSourceManyToOneImpl
 
 		final JavaTypeDescriptor referencedTypeDescriptor = new JavaTypeDescriptor() {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public String getName() {
 				return referencedTypeName;
 			}
@@ -87,56 +90,67 @@ class SingularAttributeSourceManyToOneImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public XmlElementMetadata getSourceType() {
 		return XmlElementMetadata.MANY_TO_ONE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getName() {
 			return manyToOneElement.getName();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getXmlNodeName() {
 		return manyToOneElement.getNode();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AttributePath getAttributePath() {
 		return attributePath;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AttributeRole getAttributeRole() {
 		return attributeRole;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernateTypeSourceImpl getTypeInformation() {
 		return typeSource;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getPropertyAccessorName() {
 		return manyToOneElement.getAccess();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchCharacteristicsSingularAssociationImpl getFetchCharacteristics() {
 		return fetchCharacteristics;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isIgnoreNotFound() {
 		return manyToOneElement.getNotFound() != null && "ignore".equalsIgnoreCase( manyToOneElement.getNotFound().value() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isIncludedInOptimisticLocking() {
 		return manyToOneElement.isOptimisticLock();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getCascadeStyleName() {
 		return manyToOneElement.getCascade() == null
 				? ""
@@ -144,81 +158,97 @@ class SingularAttributeSourceManyToOneImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SingularAttributeNature getSingularAttributeNature() {
 		return SingularAttributeNature.MANY_TO_ONE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Boolean isInsertable() {
 		return manyToOneElement.isInsert();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Boolean isUpdatable() {
 		return manyToOneElement.isUpdate();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isBytecodeLazy() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getReferencedEntityAttributeName() {
 		return manyToOneElement.getPropertyRef();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getReferencedEntityName() {
 		return referencedTypeName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Boolean isEmbedXml() {
 		return manyToOneElement.isEmbedXml();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isUnique() {
 		return manyToOneElement.isUnique();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getExplicitForeignKeyName() {
 		return manyToOneElement.getForeignKey();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCascadeDeleteEnabled() {
 		return JaxbHbmOnDeleteEnum.CASCADE.equals( manyToOneElement.getOnDelete() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ForeignKeyDirection getForeignKeyDirection() {
 		return ForeignKeyDirection.TO_PARENT;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<RelationalValueSource> getRelationalValueSources() {
 		return relationalValueSources;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean areValuesIncludedInInsertByDefault() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean areValuesIncludedInUpdateByDefault() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean areValuesNullableByDefault() {
 		return getNaturalIdMutability() == NaturalIdMutability.NOT_NATURAL_ID;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ToolingHintContext getToolingHintContext() {
 		return toolingHintContext;
 	}

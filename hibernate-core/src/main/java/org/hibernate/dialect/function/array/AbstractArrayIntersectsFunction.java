@@ -9,6 +9,8 @@ import org.hibernate.query.sqm.produce.function.StandardArgumentsValidators;
 import org.hibernate.query.sqm.produce.function.StandardFunctionArgumentTypeResolvers;
 import org.hibernate.query.sqm.produce.function.StandardFunctionReturnTypeResolvers;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Encapsulates the validator, return type and argument type resolvers for the array_intersects function.
@@ -35,6 +37,7 @@ public abstract class AbstractArrayIntersectsFunction extends AbstractSqmSelfRen
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getArgumentListSignature() {
 		return "(ARRAY array0, OBJECT array1)";
 	}

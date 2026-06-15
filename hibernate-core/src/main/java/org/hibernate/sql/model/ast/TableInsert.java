@@ -10,6 +10,8 @@ import java.util.function.BiConsumer;
 import org.hibernate.internal.util.collections.CollectionHelper;
 import org.hibernate.sql.ast.tree.expression.ColumnReference;
 import org.hibernate.sql.model.jdbc.JdbcInsertMutation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Models an insert into a model (entity or collection) table,
@@ -21,6 +23,7 @@ public interface TableInsert extends AssigningTableMutation<JdbcInsertMutation> 
 	/**
 	 * The value bindings for each column, including table key(s)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<ColumnValueBinding> getValueBindings();
 
 	/**
@@ -28,6 +31,7 @@ public interface TableInsert extends AssigningTableMutation<JdbcInsertMutation> 
 	 *
 	 * @see #getValueBindings()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int getNumberOfValueBindings() {
 		return getValueBindings().size();
 	}
@@ -37,11 +41,13 @@ public interface TableInsert extends AssigningTableMutation<JdbcInsertMutation> 
 	 *
 	 * @see #getValueBindings()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void forEachValueBinding(BiConsumer<Integer, ColumnValueBinding> consumer);
 
 	/**
 	 * The columns to return from the insert.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<ColumnReference> getReturningColumns();
 
 	/**
@@ -49,6 +55,7 @@ public interface TableInsert extends AssigningTableMutation<JdbcInsertMutation> 
 	 *
 	 * @see #getReturningColumns
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int getNumberOfReturningColumns() {
 		final List<ColumnReference> returningColumns = getReturningColumns();
 		return CollectionHelper.size( returningColumns );
@@ -59,5 +66,6 @@ public interface TableInsert extends AssigningTableMutation<JdbcInsertMutation> 
 	 *
 	 * @see #getReturningColumns
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void forEachReturningColumn(BiConsumer<Integer,ColumnReference> consumer);
 }

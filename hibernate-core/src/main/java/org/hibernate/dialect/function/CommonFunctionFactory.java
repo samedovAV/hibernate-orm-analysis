@@ -58,6 +58,8 @@ import static org.hibernate.query.sqm.produce.function.StandardFunctionArgumentT
 import static org.hibernate.query.sqm.produce.function.StandardFunctionArgumentTypeResolvers.IMPLIED_RESULT_TYPE;
 import static org.hibernate.query.sqm.produce.function.StandardFunctionReturnTypeResolvers.useArgType;
 import static org.hibernate.sql.ast.SqlAstNodeRenderingMode.NO_PLAIN_PARAMETER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Enumeratoes common function template definitions.
@@ -103,6 +105,7 @@ public class CommonFunctionFactory {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// trigonometric/geometric functions
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void cot() {
 		functionRegistry.namedDescriptorBuilder( "cot" )
 				.setExactArgumentCount( 1 )
@@ -114,6 +117,7 @@ public class CommonFunctionFactory {
 	/**
 	 * For databases where the first parameter is the base
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void log() {
 		functionRegistry.namedDescriptorBuilder( "log" )
 				.setArgumentCountBetween( 1, 2 )
@@ -122,6 +126,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void log_ln() {
 		functionRegistry.patternDescriptorBuilder( "log", "ln(?2)/ln(?1)" )
 				.setExactArgumentCount( 2 )
@@ -134,6 +139,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SQL Server defines parameters in reverse order
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void log_log() {
 		functionRegistry.patternDescriptorBuilder( "log", "log(?2,?1)" )
 				.setExactArgumentCount( 2 )
@@ -146,6 +152,7 @@ public class CommonFunctionFactory {
 	/**
 	 * For Sybase
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void log_loglog() {
 		functionRegistry.patternDescriptorBuilder( "log", "log(?2)/log(?1)" )
 				.setExactArgumentCount( 2 )
@@ -158,6 +165,7 @@ public class CommonFunctionFactory {
 	/**
 	 * For SQL Server and Sybase
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void ln_log() {
 		functionRegistry.namedDescriptorBuilder( "ln", "log" )
 				.setInvariantType(doubleType)
@@ -166,6 +174,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void log10() {
 		functionRegistry.namedDescriptorBuilder( "log10" )
 				.setExactArgumentCount( 1 )
@@ -177,6 +186,7 @@ public class CommonFunctionFactory {
 	/**
 	 * For Oracle and HANA
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void log10_log() {
 		functionRegistry.patternDescriptorBuilder( "log10", "log(10,?1)" )
 				.setExactArgumentCount( 1 )
@@ -188,6 +198,7 @@ public class CommonFunctionFactory {
 	/**
 	 *  For Spanner
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void position_locate_spanner() {
 		functionRegistry.registerBinaryTernaryPattern(
 						"locate",
@@ -201,6 +212,7 @@ public class CommonFunctionFactory {
 		functionRegistry.registerAlternateKey( "position", "locate" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void round_spanner() {
 		functionRegistry.registerUnaryBinaryPattern(
 				"round",
@@ -211,6 +223,7 @@ public class CommonFunctionFactory {
 		).setArgumentListSignature( "(NUMERIC number[, INTEGER places])" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void log_spanner() {
 		functionRegistry.registerUnaryBinaryPattern(
 						"log",
@@ -223,6 +236,7 @@ public class CommonFunctionFactory {
 		functionRegistry.registerAlternateKey( "log10", "log" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void log2() {
 		functionRegistry.namedDescriptorBuilder( "log2" )
 				.setInvariantType(doubleType)
@@ -231,6 +245,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void radians() {
 		functionRegistry.namedDescriptorBuilder( "radians" )
 				.setExactArgumentCount( 1 )
@@ -242,6 +257,7 @@ public class CommonFunctionFactory {
 	/**
 	 * For Oracle, HANA
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void radians_acos() {
 		functionRegistry.patternDescriptorBuilder( "radians", "(?1*acos(-1)/180)" )
 				.setInvariantType(doubleType)
@@ -250,6 +266,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void degrees() {
 		functionRegistry.namedDescriptorBuilder( "degrees" )
 				.setExactArgumentCount( 1 )
@@ -261,6 +278,7 @@ public class CommonFunctionFactory {
 	/**
 	 * For Oracle, HANA
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void degrees_acos() {
 		functionRegistry.patternDescriptorBuilder( "degrees", "(?1/acos(-1)*180)" )
 				.setInvariantType(doubleType)
@@ -269,6 +287,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void sinh() {
 		functionRegistry.namedDescriptorBuilder( "sinh" )
 				.setExactArgumentCount( 1 )
@@ -277,6 +296,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void sinh_exp() {
 		functionRegistry.patternDescriptorBuilder( "sinh", "((exp(?1)-exp(-?1))/2)" )
 				.setExactArgumentCount( 1 )
@@ -285,6 +305,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void cosh() {
 		functionRegistry.namedDescriptorBuilder( "cosh" )
 				.setExactArgumentCount( 1 )
@@ -293,6 +314,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void cosh_exp() {
 		functionRegistry.patternDescriptorBuilder( "cosh", "((exp(?1)+exp(-?1))/2)" )
 				.setExactArgumentCount( 1 )
@@ -301,6 +323,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void tanh() {
 		functionRegistry.namedDescriptorBuilder( "tanh" )
 				.setExactArgumentCount( 1 )
@@ -309,6 +332,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void tanh_exp() {
 		functionRegistry.patternDescriptorBuilder( "tanh", "((exp(2*?1)-1)/(exp(2*?1)+1))" )
 				.setExactArgumentCount( 1 )
@@ -317,6 +341,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void moreHyperbolic() {
 		functionRegistry.namedDescriptorBuilder( "acosh" )
 				.setInvariantType(doubleType)
@@ -338,6 +363,7 @@ public class CommonFunctionFactory {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// numeric and datetime truncation
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void trunc(
 			String truncPattern,
 			String twoArgTruncPattern,
@@ -350,6 +376,7 @@ public class CommonFunctionFactory {
 		functionRegistry.registerAlternateKey( "truncate", "trunc" );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void trunc() {
 		trunc( "trunc(?1)", "trunc(?1,?2)", null, null );
 	}
@@ -357,6 +384,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2, DB2
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void trunc_dateTrunc() {
 		functionRegistry.register(
 				"trunc",
@@ -375,6 +403,7 @@ public class CommonFunctionFactory {
 	/**
 	 * HSQL
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void trunc_dateTrunc_trunc() {
 		functionRegistry.register(
 				"trunc",
@@ -392,6 +421,7 @@ public class CommonFunctionFactory {
 	/**
 	 * MySQL
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void trunc_truncate() {
 		trunc( "truncate(?1,0)", "truncate(?1,?2)", TruncFunction.DatetimeTrunc.FORMAT, "str_to_date" );
 	}
@@ -399,6 +429,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SQL Server >= 16
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void trunc_round_datetrunc() {
 		trunc( "round(?1,0,1)", "round(?1,?2,1)", TruncFunction.DatetimeTrunc.DATETRUNC, "convert" );
 	}
@@ -406,6 +437,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Derby (only works if the second arg is constant, as it almost always is)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void trunc_floor() {
 		trunc( "sign(?1)*floor(abs(?1))", "sign(?1)*floor(abs(?1)*1e?2)/1e?2", null, null );
 	}
@@ -413,6 +445,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SAP HANA
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void trunc_roundMode() {
 		trunc( "round(?1,0,round_down)", "round(?1,?2,round_down)", TruncFunction.DatetimeTrunc.FORMAT, "to_timestamp" );
 	}
@@ -423,6 +456,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Returns double between 0.0 and 1.0. First call may specify a seed value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void rand() {
 		functionRegistry.namedDescriptorBuilder( "rand" )
 				.setArgumentCountBetween( 0, 1 )
@@ -433,6 +467,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void median() {
 		functionRegistry.namedAggregateDescriptorBuilder( "median" )
 				.setInvariantType(doubleType)
@@ -441,6 +476,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void median_percentileCont(boolean over) {
 		functionRegistry.patternDescriptorBuilder(
 						"median",
@@ -457,6 +493,7 @@ public class CommonFunctionFactory {
 	 * CockroachDB lacks
 	 * <a href="https://github.com/cockroachdb/cockroach/issues/89965">implicit casting</a>
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void median_percentileCont_castDouble() {
 		functionRegistry.patternDescriptorBuilder(
 						"median",
@@ -471,6 +508,7 @@ public class CommonFunctionFactory {
 	/**
 	 * For MariaDB
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void median_medianOver() {
 		functionRegistry.patternDescriptorBuilder(
 						"median",
@@ -489,6 +527,7 @@ public class CommonFunctionFactory {
 	 * <li>On Oracle, DB2, MySQL it means {@code  stdev_pop()}
 	 * </ul>
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void stddev() {
 		functionRegistry.namedAggregateDescriptorBuilder( "stddev" )
 				.setInvariantType(doubleType)
@@ -504,6 +543,7 @@ public class CommonFunctionFactory {
 	 * <li>On Oracle, DB2, MySQL it means {@code var_pop()} (the MLE)
 	 * </ul>
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void variance() {
 		functionRegistry.namedAggregateDescriptorBuilder( "variance" )
 				.setInvariantType(doubleType)
@@ -512,6 +552,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void stddevPopSamp() {
 		functionRegistry.namedAggregateDescriptorBuilder( "stddev_pop" )
 				.setInvariantType(doubleType)
@@ -525,6 +566,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void varPopSamp() {
 		functionRegistry.namedAggregateDescriptorBuilder( "var_pop" )
 				.setInvariantType(doubleType)
@@ -538,6 +580,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void covarPopSamp() {
 		functionRegistry.namedAggregateDescriptorBuilder( "covar_pop" )
 				.setInvariantType(doubleType)
@@ -551,6 +594,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void corr() {
 		functionRegistry.namedAggregateDescriptorBuilder( "corr" )
 				.setInvariantType(doubleType)
@@ -559,6 +603,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void regrLinearRegressionAggregates() {
 		Arrays.asList(
 						"regr_avgx", "regr_avgy", "regr_count", "regr_intercept", "regr_r2",
@@ -576,6 +621,7 @@ public class CommonFunctionFactory {
 	/**
 	 * DB2
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void varianceSamp() {
 		functionRegistry.namedAggregateDescriptorBuilder( "variance_samp" )
 				.setInvariantType( doubleType )
@@ -587,6 +633,7 @@ public class CommonFunctionFactory {
 	private static final String VAR_POP_SUM_COUNT_PATTERN = "(sum(power(?1,2))-(power(sum(?1),2)/count(?1)))/nullif(count(?1),0)";
 	private static final String VAR_SAMP_SUM_COUNT_PATTERN = "(sum(power(?1,2))-(power(sum(?1),2)/count(?1)))/nullif(count(?1)-1,0)";
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void varPop_sumCount() {
 		functionRegistry.patternAggregateDescriptorBuilder( "var_pop", VAR_POP_SUM_COUNT_PATTERN )
 				.setInvariantType( doubleType )
@@ -598,6 +645,7 @@ public class CommonFunctionFactory {
 	/**
 	 * DB2 before 11
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void varSamp_sumCount() {
 		functionRegistry.patternAggregateDescriptorBuilder( "var_samp", VAR_SAMP_SUM_COUNT_PATTERN )
 				.setInvariantType( doubleType )
@@ -609,6 +657,7 @@ public class CommonFunctionFactory {
 	/**
 	 * DB2 before 11
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void stddevSamp_sumCount() {
 		functionRegistry.patternAggregateDescriptorBuilder( "stddev_samp", "sqrt(" + VAR_SAMP_SUM_COUNT_PATTERN + ")" )
 				.setInvariantType( doubleType )
@@ -620,6 +669,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SQL Server-style
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void stddevPopSamp_stdevp() {
 		functionRegistry.namedAggregateDescriptorBuilder( "stdev" )
 				.setInvariantType(doubleType)
@@ -638,6 +688,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SQL Server-style
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void varPopSamp_varp() {
 		functionRegistry.namedAggregateDescriptorBuilder( "var" )
 				.setInvariantType(doubleType)
@@ -653,6 +704,7 @@ public class CommonFunctionFactory {
 		functionRegistry.registerAlternateKey( "var_pop", "varp" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void pi() {
 		functionRegistry.noArgsBuilder( "pi" )
 				.setInvariantType(doubleType)
@@ -661,6 +713,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void pi_acos() {
 		functionRegistry.patternDescriptorBuilder( "pi", "acos(-1)" )
 				.setInvariantType(doubleType)
@@ -672,6 +725,7 @@ public class CommonFunctionFactory {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// character functions
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void soundex() {
 		functionRegistry.namedDescriptorBuilder( "soundex" )
 				.setExactArgumentCount( 1 )
@@ -679,6 +733,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void trim2() {
 		functionRegistry.namedDescriptorBuilder( "ltrim" )
 				.setInvariantType(stringType)
@@ -694,6 +749,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void trim1() {
 		functionRegistry.namedDescriptorBuilder( "ltrim" )
 				.setInvariantType(stringType)
@@ -709,6 +765,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void pad() {
 		functionRegistry.namedDescriptorBuilder( "lpad" )
 				.setInvariantType(stringType)
@@ -727,6 +784,7 @@ public class CommonFunctionFactory {
 	/**
 	 * In MySQL the third argument is required
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void pad_space() {
 		functionRegistry.registerBinaryTernaryPattern(
 				"lpad",
@@ -749,6 +807,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Transact-SQL
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void pad_replicate() {
 		functionRegistry.registerBinaryTernaryPattern(
 				"lpad",
@@ -768,6 +827,7 @@ public class CommonFunctionFactory {
 		).setArgumentListSignature( "(string, length[, padding])" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void pad_repeat() {
 		functionRegistry.registerBinaryTernaryPattern(
 				"lpad",
@@ -790,6 +850,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SAP DB
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void pad_fill() {
 		functionRegistry.registerBinaryTernaryPattern(
 				"lpad",
@@ -809,6 +870,7 @@ public class CommonFunctionFactory {
 		).setArgumentListSignature( "(string, length[, padding])" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void reverse() {
 		functionRegistry.namedDescriptorBuilder( "reverse" )
 				.setInvariantType(stringType)
@@ -817,6 +879,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void space() {
 		functionRegistry.namedDescriptorBuilder( "space" )
 				.setInvariantType(stringType)
@@ -825,6 +888,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void repeat() {
 		functionRegistry.namedDescriptorBuilder( "repeat" )
 				.setInvariantType(stringType)
@@ -834,10 +898,12 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void repeat_rpad() {
 		repeat_rpad( "length" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void repeat_rpad(String lengthFunctionName) {
 		functionRegistry.patternDescriptorBuilder( "repeat", "rpad(?1,?2*" + lengthFunctionName + "(?1),?1)" )
 				.setInvariantType(stringType)
@@ -847,6 +913,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void leftRight() {
 		functionRegistry.namedDescriptorBuilder( "left" )
 				.setInvariantType(stringType)
@@ -862,6 +929,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void leftRight_substr() {
 		functionRegistry.patternDescriptorBuilder( "left", "substr(?1,1,?2)" )
 				.setInvariantType(stringType)
@@ -882,6 +950,7 @@ public class CommonFunctionFactory {
 	 * This function is for Apache Derby and uses {@link SqlAstNodeRenderingMode#NO_PLAIN_PARAMETER}
 	 * for the right function emulation, because length in Apache Derby can't handle plain parameters.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void leftRight_substrLength() {
 		functionRegistry.patternDescriptorBuilder( "left", "substr(?1,1,?2)" )
 				.setInvariantType(stringType)
@@ -898,6 +967,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void repeat_replicate() {
 		functionRegistry.namedDescriptorBuilder( "replicate" )
 				.setInvariantType(stringType)
@@ -909,6 +979,7 @@ public class CommonFunctionFactory {
 	}
 
 	@Deprecated(since = "7")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void md5() {
 		functionRegistry.namedDescriptorBuilder( "md5" )
 				.setInvariantType(stringType)
@@ -917,6 +988,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void initcap() {
 		functionRegistry.namedDescriptorBuilder( "initcap" )
 				.setInvariantType(stringType)
@@ -925,6 +997,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void instr() {
 		functionRegistry.namedDescriptorBuilder( "instr" )
 				.setInvariantType(integerType)
@@ -934,6 +1007,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void substr() {
 		functionRegistry.namedDescriptorBuilder( "substr" )
 				.setInvariantType(stringType)
@@ -943,6 +1017,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void translate() {
 		functionRegistry.namedDescriptorBuilder( "translate" )
 				.setInvariantType(stringType)
@@ -951,6 +1026,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void bitand() {
 		functionRegistry.namedDescriptorBuilder( "bitand" )
 				.setExactArgumentCount( 2 )
@@ -958,6 +1034,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void bitor() {
 		functionRegistry.namedDescriptorBuilder( "bitor" )
 				.setExactArgumentCount( 2 )
@@ -965,6 +1042,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void bitxor() {
 		functionRegistry.namedDescriptorBuilder( "bitxor" )
 				.setExactArgumentCount( 2 )
@@ -972,6 +1050,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void bitnot() {
 		functionRegistry.namedDescriptorBuilder( "bitnot" )
 				.setExactArgumentCount( 1 )
@@ -982,6 +1061,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Binary bitwise operators, not aggregate functions!
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void bitandorxornot_bitAndOrXorNot() {
 		functionRegistry.namedDescriptorBuilder( "bit_and" )
 				.setExactArgumentCount( 2 )
@@ -1011,6 +1091,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Bitwise operators, not aggregate functions!
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void bitandorxornot_binAndOrXorNot() {
 		functionRegistry.namedDescriptorBuilder( "bin_and" )
 				.setMinArgumentCount( 1 )
@@ -1040,6 +1121,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Binary bitwise operators, not aggregate functions!
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void bitandorxornot_operator() {
 		functionRegistry.patternDescriptorBuilder( "bitand", "(?1&?2)" )
 				.setExactArgumentCount( 2 )
@@ -1065,6 +1147,7 @@ public class CommonFunctionFactory {
 	/**
 	 * These are aggregate functions taking one argument!
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void bitAndOr() {
 		functionRegistry.namedAggregateDescriptorBuilder( "bit_and" )
 				.setExactArgumentCount( 1 )
@@ -1085,6 +1168,7 @@ public class CommonFunctionFactory {
 	/**
 	 * These are aggregate functions taking one argument!
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void everyAny() {
 		functionRegistry.namedAggregateDescriptorBuilder( "every" )
 				.setExactArgumentCount( 1 )
@@ -1106,6 +1190,7 @@ public class CommonFunctionFactory {
 	 * databases that can directly aggregate both boolean columns
 	 * and predicates!
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void everyAny_boolAndOr() {
 		functionRegistry.namedAggregateDescriptorBuilder( "bool_and" )
 				.setExactArgumentCount( 1 )
@@ -1129,6 +1214,7 @@ public class CommonFunctionFactory {
 	 * for databases that have to emulate the boolean
 	 * aggregation functions using sum() and case.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void everyAny_sumCase(boolean supportsPredicateAsExpression) {
 		functionRegistry.register( "every",
 				new EveryAnyEmulation( typeConfiguration, true, supportsPredicateAsExpression ) );
@@ -1140,6 +1226,7 @@ public class CommonFunctionFactory {
 	 * These are aggregate functions taking one argument,
 	 * for SQL Server.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void everyAny_minMaxIif() {
 		functionRegistry.register( "every",
 				new SQLServerEveryAnyEmulation( typeConfiguration, true ) );
@@ -1152,6 +1239,7 @@ public class CommonFunctionFactory {
 	 * These are aggregate functions taking one argument,
 	 * for Oracle and Sybase.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void everyAny_minMaxCase() {
 		functionRegistry.register( "every",
 				new MinMaxCaseEveryAnyEmulation( typeConfiguration, true ) );
@@ -1164,6 +1252,7 @@ public class CommonFunctionFactory {
 	 * since their names collide with the HQL abbreviations
 	 * for extract(), they can't actually be called from HQL.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void yearMonthDay() {
 		functionRegistry.namedDescriptorBuilder( "day" )
 				.setInvariantType(integerType)
@@ -1187,6 +1276,7 @@ public class CommonFunctionFactory {
 	 * since their names collide with the HQL abbreviations
 	 * for extract(), they can't actually be called from HQL.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void hourMinuteSecond() {
 		functionRegistry.namedDescriptorBuilder( "hour" )
 				.setInvariantType(integerType)
@@ -1210,6 +1300,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void dayofweekmonthyear() {
 		functionRegistry.namedDescriptorBuilder( "dayofweek" )
 				.setInvariantType(integerType)
@@ -1229,6 +1320,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void dayOfWeekMonthYear() {
 		functionRegistry.namedDescriptorBuilder( "day_of_week" )
 				.setInvariantType(integerType)
@@ -1248,6 +1340,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void daynameMonthname() {
 		functionRegistry.namedDescriptorBuilder( "monthname" )
 				.setInvariantType(stringType)
@@ -1261,6 +1354,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void weekQuarter() {
 		functionRegistry.namedDescriptorBuilder( "week" )
 				.setInvariantType(integerType)
@@ -1274,6 +1368,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void lastDay() {
 		functionRegistry.namedDescriptorBuilder( "last_day" )
 				.setInvariantType(dateType)
@@ -1282,6 +1377,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void lastDay_eomonth() {
 		functionRegistry.namedDescriptorBuilder( "eomonth" )
 				.setInvariantType(dateType)
@@ -1291,6 +1387,7 @@ public class CommonFunctionFactory {
 		functionRegistry.registerAlternateKey( "last_date", "eomonth" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void ceiling_ceil() {
 		functionRegistry.namedDescriptorBuilder( "ceil" )
 				.setExactArgumentCount( 1 )
@@ -1301,6 +1398,7 @@ public class CommonFunctionFactory {
 		functionRegistry.registerAlternateKey( "ceiling", "ceil" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void toCharNumberDateTimestamp() {
 		//argument counts are right for Oracle, TimesTen, and CUBRID
 		functionRegistry.namedDescriptorBuilder( "to_number" )
@@ -1329,12 +1427,14 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void dateTimeTimestamp() {
 		date();
 		time();
 		timestamp();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void timestamp() {
 		functionRegistry.namedDescriptorBuilder( "timestamp" )
 				.setArgumentCountBetween( 1, 2 )
@@ -1343,6 +1443,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void time() {
 		functionRegistry.namedDescriptorBuilder( "time" )
 				.setExactArgumentCount( 1 )
@@ -1351,6 +1452,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void date() {
 		functionRegistry.namedDescriptorBuilder( "date" )
 				.setExactArgumentCount( 1 )
@@ -1359,6 +1461,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void utcDateTimeTimestamp() {
 		functionRegistry.noArgsBuilder( "utc_date" )
 				.setUseParenthesesWhenNoArgs( false )
@@ -1374,6 +1477,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void currentUtcdatetimetimestamp() {
 		functionRegistry.noArgsBuilder( "current_utcdate" )
 				.setUseParenthesesWhenNoArgs( false )
@@ -1389,6 +1493,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void week_weekofyear() {
 		functionRegistry.namedDescriptorBuilder( "weekofyear" )
 				.setInvariantType(integerType)
@@ -1401,6 +1506,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Almost every database
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void concat_pipeOperator() {
 		functionRegistry.patternDescriptorBuilder( "concat", "(?1||?2...)" )
 				.setInvariantType(stringType)
@@ -1412,6 +1518,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void concat_pipeOperator(String clobPattern) {
 		functionRegistry.register( "concat", new ConcatPipeFunction( clobPattern, typeConfiguration ) );
 	}
@@ -1419,6 +1526,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle-style
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void rownumRowid() {
 		functionRegistry.noArgsBuilder( "rowid" )
 				.setInvariantType(longType)
@@ -1433,6 +1541,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2/HSQL-style
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void rownum() {
 		functionRegistry.noArgsBuilder( "rownum" )
 				.setInvariantType(longType)
@@ -1443,6 +1552,7 @@ public class CommonFunctionFactory {
 	/**
 	 * CUBRID
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void rownumInstOrderbyGroupbyNum() {
 		functionRegistry.noArgsBuilder( "rownum" )
 				.setInvariantType(integerType)
@@ -1466,6 +1576,7 @@ public class CommonFunctionFactory {
 	/**
 	 * MySQL/CUBRID
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void makedateMaketime() {
 		functionRegistry.namedDescriptorBuilder( "makedate" )
 				.setInvariantType(dateType)
@@ -1484,6 +1595,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Postgres
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void makeDateTimeTimestamp() {
 		functionRegistry.namedDescriptorBuilder( "make_date" )
 				.setInvariantType(dateType)
@@ -1507,6 +1619,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void sysdate() {
 		// returns a local timestamp
 		functionRegistry.noArgsBuilder( "sysdate" )
@@ -1518,6 +1631,7 @@ public class CommonFunctionFactory {
 	/**
 	 * MySQL requires the parens in sysdate()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void sysdateParens() {
 		functionRegistry.noArgsBuilder( "sysdate" )
 				.setInvariantType(timestampType)
@@ -1528,6 +1642,7 @@ public class CommonFunctionFactory {
 	/**
 	 * MySQL 5.7 precision defaults to seconds, but microseconds is better
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void sysdateExplicitMicros() {
 		functionRegistry.patternDescriptorBuilder( "sysdate", "sysdate(6)" )
 				.setInvariantType(timestampType)
@@ -1535,6 +1650,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void systimestamp() {
 		// returns a timestamp with timezone
 		functionRegistry.noArgsBuilder( "systimestamp" )
@@ -1543,6 +1659,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void localtimeLocaltimestamp() {
 		//these functions return times without timezones
 		functionRegistry.noArgsBuilder( "localtime" )
@@ -1565,6 +1682,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void trigonometry() {
 		functionRegistry.namedDescriptorBuilder( "sin" )
 				.setInvariantType(doubleType)
@@ -1612,6 +1730,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Transact-SQL atan2 is misspelled
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void atan2_atn2() {
 		functionRegistry.namedDescriptorBuilder( "atan2", "atn2" )
 				.setInvariantType(doubleType)
@@ -1620,6 +1739,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void coalesce() {
 		functionRegistry.namedDescriptorBuilder( "coalesce" )
 				.setMinArgumentCount( 1 )
@@ -1630,6 +1750,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SAP DB
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void coalesce_value() {
 		functionRegistry.namedDescriptorBuilder( "value" )
 				.setMinArgumentCount( 1 )
@@ -1638,6 +1759,7 @@ public class CommonFunctionFactory {
 		functionRegistry.registerAlternateKey( "coalesce", "value" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void nullif() {
 		functionRegistry.namedDescriptorBuilder( "nullif" )
 				.setExactArgumentCount( 2 )
@@ -1648,6 +1770,7 @@ public class CommonFunctionFactory {
 	/**
 	 * ANSI SQL-style
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void length_characterLength() {
 		functionRegistry.namedDescriptorBuilder( "character_length" )
 				.setInvariantType(integerType)
@@ -1657,6 +1780,7 @@ public class CommonFunctionFactory {
 		functionRegistry.registerAlternateKey( "length", "character_length" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void length_characterLength_pattern(String clobPattern) {
 		functionRegistry.register(
 				"character_length",
@@ -1668,6 +1792,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Transact SQL-style
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void characterLength_len() {
 		functionRegistry.namedDescriptorBuilder( "character_length", "len" )
 				.setInvariantType(integerType)
@@ -1681,6 +1806,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle-style
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void characterLength_length(SqlAstNodeRenderingMode argumentRenderingMode) {
 		functionRegistry.namedDescriptorBuilder( "character_length", "length" )
 				.setInvariantType(integerType)
@@ -1691,6 +1817,7 @@ public class CommonFunctionFactory {
 		functionRegistry.registerAlternateKey( "length", "character_length" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void characterLength_length(String clobPattern) {
 		functionRegistry.register(
 				"character_length",
@@ -1699,6 +1826,7 @@ public class CommonFunctionFactory {
 		functionRegistry.registerAlternateKey( "length", "character_length" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void octetLength() {
 		functionRegistry.namedDescriptorBuilder( "octet_length" )
 				.setInvariantType(integerType)
@@ -1707,10 +1835,12 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void octetLength_pattern(String pattern) {
 		octetLength_pattern( pattern, SqlAstNodeRenderingMode.DEFAULT );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void octetLength_pattern(String pattern, SqlAstNodeRenderingMode renderingMode) {
 		functionRegistry.patternDescriptorBuilder( "octet_length", pattern )
 				.setInvariantType(integerType)
@@ -1720,6 +1850,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void octetLength_pattern(String pattern, String clobPattern) {
 		functionRegistry.register(
 				"octet_length",
@@ -1727,6 +1858,7 @@ public class CommonFunctionFactory {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void bitLength() {
 		functionRegistry.namedDescriptorBuilder( "bit_length" )
 				.setInvariantType(integerType)
@@ -1735,10 +1867,12 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void bitLength_pattern(String pattern) {
 		bitLength_pattern( pattern, SqlAstNodeRenderingMode.DEFAULT );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void bitLength_pattern(String pattern, SqlAstNodeRenderingMode renderingMode) {
 		functionRegistry.patternDescriptorBuilder( "bit_length", pattern )
 				.setInvariantType(integerType)
@@ -1748,6 +1882,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void bitLength_pattern(String pattern, String clobPattern) {
 		functionRegistry.register(
 				"bit_length",
@@ -1758,6 +1893,7 @@ public class CommonFunctionFactory {
 	/**
 	 * ANSI-style
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void position() {
 		functionRegistry.patternDescriptorBuilder( "position", "position(?1 in ?2)" )
 				.setInvariantType(integerType)
@@ -1767,6 +1903,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void locate() {
 		functionRegistry.namedDescriptorBuilder( "locate" )
 				.setInvariantType(integerType)
@@ -1779,6 +1916,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Transact SQL-style
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void locate_charindex() {
 		functionRegistry.namedDescriptorBuilder( "charindex" )
 				.setInvariantType(integerType)
@@ -1792,6 +1930,7 @@ public class CommonFunctionFactory {
 	/**
 	 * locate() in terms of ANSI position() and substring()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void locate_positionSubstring() {
 		functionRegistry.registerBinaryTernaryPattern(
 						"locate",
@@ -1805,6 +1944,7 @@ public class CommonFunctionFactory {
 	/**
 	 * ANSI-style substring
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void substringFromFor() {
 		functionRegistry.registerBinaryTernaryPattern(
 						"substring",
@@ -1819,6 +1959,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Not the same as ANSI-style substring!
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void substring() {
 		functionRegistry.namedDescriptorBuilder( "substring" )
 				.setInvariantType(stringType)
@@ -1831,6 +1972,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Transact SQL-style (3 required args)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void substring_substringLen() {
 		functionRegistry
 				.registerBinaryTernaryPattern(
@@ -1847,6 +1989,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle, and many others
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void substring_substr() {
 		functionRegistry.namedDescriptorBuilder( "substring", "substr" )
 				.setArgumentListSignature( "(STRING string{ from|,} INTEGER start[{ for|,} INTEGER length])" )
@@ -1856,6 +1999,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void insert() {
 		functionRegistry.namedDescriptorBuilder( "insert" )
 				.setInvariantType(stringType)
@@ -1867,6 +2011,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Postgres
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void insert_overlay() {
 		functionRegistry.patternDescriptorBuilder(
 						"insert",
@@ -1882,6 +2027,7 @@ public class CommonFunctionFactory {
 	/**
 	 * ANSI SQL form, supported by Postgres, HSQL
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void overlay() {
 		functionRegistry.registerTernaryQuaternaryPattern(
 						"overlay",
@@ -1897,6 +2043,7 @@ public class CommonFunctionFactory {
 	/**
 	 * For DB2 which has a broken implementation of overlay()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void overlayLength_overlay(boolean withCodeUnits) {
 		final String codeUnits = withCodeUnits ? " using codeunits32" : "";
 		functionRegistry.registerTernaryQuaternaryPattern(
@@ -1910,6 +2057,7 @@ public class CommonFunctionFactory {
 				.setArgumentListSignature( "(string placing replacement from start[ for length])" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void replace() {
 		functionRegistry.namedDescriptorBuilder( "replace" )
 				.setInvariantType(stringType)
@@ -1922,6 +2070,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Sybase
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void replace_strReplace() {
 		functionRegistry.namedDescriptorBuilder( "str_replace" )
 				.setInvariantType(stringType)
@@ -1932,6 +2081,7 @@ public class CommonFunctionFactory {
 		functionRegistry.registerAlternateKey( "replace", "str_replace" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void concat() {
 		functionRegistry.namedDescriptorBuilder( "concat" )
 				.setInvariantType(stringType)
@@ -1943,6 +2093,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void lowerUpper() {
 		functionRegistry.namedDescriptorBuilder( "lower" )
 				.setInvariantType(stringType)
@@ -1964,6 +2115,7 @@ public class CommonFunctionFactory {
 	 * doesn't have it (e.g. Derby) and because, well, ASCII. For the
 	 * same reason we don't consider chr()/char() as "standard".
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void ascii() {
 		functionRegistry.namedDescriptorBuilder( "ascii" )
 				.setExactArgumentCount( 1 )
@@ -1972,6 +2124,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void char_chr() {
 		functionRegistry.namedDescriptorBuilder( "chr" )
 				.setExactArgumentCount( 1 )
@@ -1981,6 +2134,7 @@ public class CommonFunctionFactory {
 		functionRegistry.registerAlternateKey( "char", "chr" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void chr_char() {
 		functionRegistry.namedDescriptorBuilder( "char" )
 				.setExactArgumentCount( 1 )
@@ -1993,6 +2147,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Transact SQL-style
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void datepartDatename() {
 		functionRegistry.namedDescriptorBuilder( "datepart" )
 //				.setInvariantType( StandardBasicTypes.INTEGER )
@@ -2014,6 +2169,7 @@ public class CommonFunctionFactory {
 	// MySQL, Cache: now()/curtime()/curdate() mean current_timestamp/current_time/current_date
 	// CUBRID: now()/curtime()/curdate() mean current_datetime/current_time/current_date
 	// Postgres: now() means current_timestamp
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void nowCurdateCurtime() {
 		functionRegistry.noArgsBuilder( "curtime" )
 				.setInvariantType(timeType)
@@ -2029,6 +2185,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void leastGreatest() {
 		functionRegistry.namedDescriptorBuilder( "least" )
 				.setMinArgumentCount( 2 )
@@ -2042,6 +2199,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void leastGreatest_minMax() {
 		functionRegistry.namedDescriptorBuilder( "least", "min" )
 				.setMinArgumentCount( 2 )
@@ -2055,6 +2213,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void leastGreatest_minMaxValue() {
 		functionRegistry.namedDescriptorBuilder( "least", "minvalue" )
 				.setMinArgumentCount( 2 )
@@ -2068,6 +2227,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void aggregates(Dialect dialect, SqlAstNodeRenderingMode inferenceArgumentRenderingMode) {
 		functionRegistry.namedAggregateDescriptorBuilder( "max" )
 				.setArgumentRenderingMode( inferenceArgumentRenderingMode )
@@ -2107,6 +2267,7 @@ public class CommonFunctionFactory {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void avg_castingNonDoubleArguments(
 			Dialect dialect,
 			SqlAstNodeRenderingMode inferenceArgumentRenderingMode) {
@@ -2120,6 +2281,7 @@ public class CommonFunctionFactory {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void listagg(String emptyWithinReplacement) {
 		functionRegistry.register(
 				"listagg",
@@ -2127,6 +2289,7 @@ public class CommonFunctionFactory {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void listagg_groupConcat() {
 		functionRegistry.register(
 				ListaggGroupConcatEmulation.FUNCTION_NAME,
@@ -2134,6 +2297,7 @@ public class CommonFunctionFactory {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void listagg_list(String stringType) {
 		functionRegistry.register(
 				ListaggStringAggEmulation.FUNCTION_NAME,
@@ -2141,6 +2305,7 @@ public class CommonFunctionFactory {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void listagg_stringAgg(String stringType) {
 		functionRegistry.register(
 				ListaggStringAggEmulation.FUNCTION_NAME,
@@ -2148,6 +2313,7 @@ public class CommonFunctionFactory {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void listagg_stringAggWithinGroup(String stringType) {
 		functionRegistry.register(
 				ListaggStringAggEmulation.FUNCTION_NAME,
@@ -2155,6 +2321,7 @@ public class CommonFunctionFactory {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void inverseDistributionOrderedSetAggregates() {
 		functionRegistry.register(
 				"mode",
@@ -2170,6 +2337,7 @@ public class CommonFunctionFactory {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void inverseDistributionOrderedSetAggregates_windowEmulation() {
 		functionRegistry.register(
 				"percentile_cont",
@@ -2181,6 +2349,7 @@ public class CommonFunctionFactory {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void hypotheticalOrderedSetAggregates() {
 		functionRegistry.register(
 				"rank",
@@ -2200,6 +2369,7 @@ public class CommonFunctionFactory {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void hypotheticalOrderedSetAggregates_windowEmulation() {
 		functionRegistry.register(
 				"rank",
@@ -2219,6 +2389,7 @@ public class CommonFunctionFactory {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void windowFunctions() {
 		functionRegistry.namedWindowDescriptorBuilder( "row_number" )
 				.setExactArgumentCount( 0 )
@@ -2268,6 +2439,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void math() {
 		functionRegistry.namedDescriptorBuilder( "floor" )
 				// To avoid truncating to a specific data type, we default to using the argument type
@@ -2329,6 +2501,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void mod_operator() {
 		functionRegistry.patternDescriptorBuilder( "mod", "(?1%?2)" )
 				.setInvariantType(integerType)
@@ -2337,6 +2510,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void power_expLn() {
 		functionRegistry.patternDescriptorBuilder( "power", "exp(ln(?1)*?2)" )
 				.setInvariantType(doubleType)
@@ -2348,6 +2522,7 @@ public class CommonFunctionFactory {
 	/**
 	 * power() for Spanner
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void power_spanner() {
 		functionRegistry.patternDescriptorBuilder("power", "power(?1::float8, ?2::float8)")
 				.setExactArgumentCount(2)
@@ -2356,6 +2531,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void round() {
 		functionRegistry.namedDescriptorBuilder( "round" )
 				// To avoid truncating to a specific data type, we default to using the argument type
@@ -2368,6 +2544,7 @@ public class CommonFunctionFactory {
 
 	private static final String VAR_SAMP_SUM_COUNT_SPANNER_PATTERN = "(sum(power(cast(?1 as float8), cast(2 as float8)))-(power(cast(sum(?1) as float8), cast(2 as float8))/count(?1)))/nullif(count(?1)-1,0)";
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void stddevSamp_sumCount_spanner() {
 		functionRegistry.patternAggregateDescriptorBuilder( "stddev_samp", "sqrt(" + VAR_SAMP_SUM_COUNT_SPANNER_PATTERN + ")" )
 				.setInvariantType( doubleType )
@@ -2376,6 +2553,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void varSamp_sumCount_spanner() {
 		functionRegistry.patternAggregateDescriptorBuilder( "var_samp", VAR_SAMP_SUM_COUNT_SPANNER_PATTERN )
 				.setInvariantType( doubleType )
@@ -2387,6 +2565,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SQL Server
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void round_round() {
 		functionRegistry.registerUnaryBinaryPattern(
 				"round",
@@ -2400,6 +2579,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Derby (only works if the second arg is constant, as it almost always is)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void round_floor() {
 		functionRegistry.registerUnaryBinaryPattern(
 				"round",
@@ -2413,6 +2593,7 @@ public class CommonFunctionFactory {
 	/**
 	 * PostgreSQL (only works if the second arg is constant, as it almost always is)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void round_roundFloor() {
 		functionRegistry.registerUnaryBinaryPattern(
 				"round",
@@ -2423,6 +2604,7 @@ public class CommonFunctionFactory {
 		).setArgumentListSignature( "(NUMERIC number[, INTEGER places])" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void square() {
 		functionRegistry.namedDescriptorBuilder( "square" )
 				.setExactArgumentCount( 1 )
@@ -2430,6 +2612,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void cbrt() {
 		functionRegistry.namedDescriptorBuilder( "cbrt" )
 				.setInvariantType(doubleType)
@@ -2439,6 +2622,7 @@ public class CommonFunctionFactory {
 	}
 
 	@Deprecated(since = "7")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void crc32() {
 		functionRegistry.namedDescriptorBuilder( "crc32" )
 				.setInvariantType(integerType)
@@ -2447,6 +2631,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void sqrt_spanner() {
 		functionRegistry.patternDescriptorBuilder("sqrt", "sqrt(?1::float8)")
 				.setExactArgumentCount(1)
@@ -2455,6 +2640,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void hex(String pattern) {
 		functionRegistry.patternDescriptorBuilder( "hex", pattern )
 				.setInvariantType(stringType)
@@ -2463,6 +2649,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void md5(String pattern) {
 		functionRegistry.patternDescriptorBuilder( "md5", pattern )
 				.setInvariantType(binaryType)
@@ -2471,6 +2658,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void sha(String pattern) {
 		functionRegistry.patternDescriptorBuilder( "sha", pattern )
 				.setInvariantType(binaryType)
@@ -2480,6 +2668,7 @@ public class CommonFunctionFactory {
 	}
 
 	@Deprecated(since = "7")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void sha1() {
 		functionRegistry.namedDescriptorBuilder( "sha1" )
 				.setInvariantType(stringType)
@@ -2489,6 +2678,7 @@ public class CommonFunctionFactory {
 	}
 
 	@Deprecated(since = "7")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void sha2() {
 		functionRegistry.namedDescriptorBuilder( "sha2" )
 				.setInvariantType(stringType)
@@ -2498,6 +2688,7 @@ public class CommonFunctionFactory {
 	}
 
 	@Deprecated(since = "7")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void sha() {
 		functionRegistry.namedDescriptorBuilder( "sha" )
 				.setInvariantType(stringType)
@@ -2506,6 +2697,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void timestampaddAndDiff(Dialect dialect) {
 		// disallow plain parameter for timestamps argument since databases reject it
 		functionRegistry.register(
@@ -2533,6 +2725,7 @@ public class CommonFunctionFactory {
 	/**
 	 * MySQL style, returns the number of days between two dates
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void datediff() {
 		functionRegistry.namedDescriptorBuilder( "datediff" )
 				.setInvariantType(integerType)
@@ -2545,6 +2738,7 @@ public class CommonFunctionFactory {
 	/**
 	 * MySQL style
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void adddateSubdateAddtimeSubtime() {
 		functionRegistry.namedDescriptorBuilder( "adddate" )
 				.setReturnTypeResolver( useArgType( 1 ) )
@@ -2572,6 +2766,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addMonths() {
 		functionRegistry.namedDescriptorBuilder( "add_months" )
 				.setReturnTypeResolver( useArgType( 1 ) )
@@ -2581,6 +2776,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void monthsBetween() {
 		functionRegistry.namedDescriptorBuilder( "months_between" )
 				.setInvariantType(integerType)
@@ -2590,6 +2786,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void daysBetween() {
 		functionRegistry.namedDescriptorBuilder( "days_between" )
 				.setInvariantType(integerType)
@@ -2599,6 +2796,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void secondsBetween() {
 		functionRegistry.namedDescriptorBuilder( "seconds_between" )
 				.setInvariantType(longType)
@@ -2608,6 +2806,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void yearsMonthsDaysHoursMinutesSecondsBetween() {
 		functionRegistry.namedDescriptorBuilder( "years_between" )
 				.setInvariantType(integerType)
@@ -2647,6 +2846,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addYearsMonthsDaysHoursMinutesSeconds() {
 		functionRegistry.namedDescriptorBuilder( "add_years" )
 				.setReturnTypeResolver( useArgType( 1 ) )
@@ -2689,6 +2889,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2-style (uses Java's SimpleDateFormat directly so no need to translate format)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void format_formatdatetime() {
 		functionRegistry.register( "format", new FormatFunction( "formatdatetime", typeConfiguration ) );
 	}
@@ -2698,6 +2899,7 @@ public class CommonFunctionFactory {
 	 *
 	 * @see org.hibernate.dialect.OracleDialect#datetimeFormat
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void format_toChar() {
 		functionRegistry.register( "format", new FormatFunction( "to_char", typeConfiguration ) );
 	}
@@ -2707,6 +2909,7 @@ public class CommonFunctionFactory {
 	 *
 	 * @see org.hibernate.dialect.MySQLDialect#datetimeFormat
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void format_dateFormat() {
 		functionRegistry.register( "format", new FormatFunction( "date_format", typeConfiguration ) );
 	}
@@ -2716,6 +2919,7 @@ public class CommonFunctionFactory {
 	 *
 	 *  @see org.hibernate.dialect.OracleDialect#datetimeFormat
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void format_toVarchar() {
 		functionRegistry.register( "format", new FormatFunction( "to_varchar", typeConfiguration ) );
 	}
@@ -2723,6 +2927,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Use the 'collate' operator which exists on at least Postgres, MySQL, Oracle, and SQL Server
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collate() {
 		functionRegistry.patternDescriptorBuilder("collate", "(?1 collate ?2)")
 				.setInvariantType(stringType)
@@ -2735,6 +2940,7 @@ public class CommonFunctionFactory {
 	/**
 	 * HSQL requires quotes around certain collations
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collate_quoted() {
 		functionRegistry.patternDescriptorBuilder("collate", "(?1 collate '?2')")
 				.setInvariantType(stringType)
@@ -2747,6 +2953,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2, DB2 and PostgreSQL native date_trunc() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void dateTrunc() {
 		functionRegistry.patternDescriptorBuilder( "date_trunc", "date_trunc(?1,?2)" )
 				.setReturnTypeResolver( useArgType( 2 ) )
@@ -2759,6 +2966,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SQLServer native datetrunc() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void dateTrunc_datetrunc() {
 		functionRegistry.patternDescriptorBuilder( "datetrunc", "datetrunc(?1,?2)" )
 				.setReturnTypeResolver( useArgType( 2 ) )
@@ -2768,6 +2976,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void regexpLike() {
 		functionRegistry.namedDescriptorBuilder( "regexp_like"  )
 				.setArgumentCountBetween( 2, 3 )
@@ -2779,6 +2988,7 @@ public class CommonFunctionFactory {
 	/**
 	 * For legacy PostgreSQL and CockroachDB
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void regexpLike_postgresql(boolean supportsStandard) {
 		functionRegistry.register( "regexp_like", new RegexpLikeOperatorFunction( typeConfiguration, supportsStandard ) );
 	}
@@ -2786,6 +2996,7 @@ public class CommonFunctionFactory {
 	/**
 	 * For MariaDB, legacy MySQL, SingleStore and SQLite
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void regexpLike_regexp() {
 		functionRegistry.register( "regexp_like", new RegexpPredicateFunction( typeConfiguration ) );
 	}
@@ -2793,6 +3004,7 @@ public class CommonFunctionFactory {
 	/**
 	 * For HSQLDB
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void regexpLike_hsql() {
 		functionRegistry.register( "regexp_like", new HSQLRegexpLikeFunction( typeConfiguration ) );
 	}
@@ -2800,6 +3012,7 @@ public class CommonFunctionFactory {
 	/**
 	 * For Oracle and SQL Server
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void regexpLike_predicateFunction() {
 		functionRegistry.register( "regexp_like", new RegexpLikePredicateFunction( typeConfiguration ) );
 	}
@@ -2807,6 +3020,7 @@ public class CommonFunctionFactory {
 	/**
 	 * For SAP HANA
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void regexpLike_like_regexp() {
 		functionRegistry.register( "regexp_like", new HANARegexpLikeFunction( typeConfiguration ) );
 	}
@@ -2814,6 +3028,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2, HSQL array() constructor function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void array() {
 		functionRegistry.register( "array", new ArrayConstructorFunction( false, true ) );
 		functionRegistry.register( "array_list", new ArrayConstructorFunction( true, true ) );
@@ -2822,6 +3037,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2, HSQL array() constructor function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void array_hsql() {
 		functionRegistry.register( "array", new HSQLArrayConstructorFunction( false ) );
 		functionRegistry.register( "array_list", new HSQLArrayConstructorFunction( true ) );
@@ -2830,6 +3046,7 @@ public class CommonFunctionFactory {
 	/**
 	 * CockroachDB and PostgreSQL array() constructor function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void array_postgresql() {
 		functionRegistry.register( "array", new PostgreSQLArrayConstructorFunction( false ) );
 		functionRegistry.register( "array_list", new PostgreSQLArrayConstructorFunction( true ) );
@@ -2838,6 +3055,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Google Spanner array() constructor function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void array_spanner() {
 		functionRegistry.register( "array", new ArrayConstructorFunction( false, false ) );
 		functionRegistry.register( "array_list", new ArrayConstructorFunction( true, false ) );
@@ -2846,6 +3064,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle array() constructor function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void array_oracle() {
 		functionRegistry.register( "array", new OracleArrayConstructorFunction( false ) );
 		functionRegistry.register( "array_list", new OracleArrayConstructorFunction( true ) );
@@ -2854,6 +3073,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2, HSQL, CockroachDB and PostgreSQL array_agg() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayAggregate() {
 		functionRegistry.register( ArrayAggFunction.FUNCTION_NAME, new ArrayAggFunction( "array_agg", false, true ) );
 	}
@@ -2861,6 +3081,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle array_agg() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayAggregate_jsonArrayagg() {
 		functionRegistry.register( ArrayAggFunction.FUNCTION_NAME, new OracleArrayAggEmulation() );
 	}
@@ -2868,6 +3089,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2 array_contains() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayContains_h2(int maximumArraySize) {
 		functionRegistry.register(
 				"array_contains",
@@ -2890,6 +3112,7 @@ public class CommonFunctionFactory {
 	/**
 	 * HSQL array_contains() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayContains_hsql() {
 		functionRegistry.register(
 				"array_contains",
@@ -2912,6 +3135,7 @@ public class CommonFunctionFactory {
 	/**
 	 * CockroachDB and PostgreSQL array contains operator
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayContains_postgresql() {
 		functionRegistry.register( "array_contains", new ArrayContainsOperatorFunction( false, typeConfiguration ) );
 		functionRegistry.register( "array_contains_nullable", new ArrayContainsOperatorFunction( true, typeConfiguration ) );
@@ -2922,6 +3146,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle array_contains() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayContains_oracle() {
 		functionRegistry.register( "array_contains", new OracleArrayContainsFunction( false, typeConfiguration ) );
 		functionRegistry.register( "array_contains_nullable", new OracleArrayContainsFunction( true, typeConfiguration ) );
@@ -2932,6 +3157,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2 array_intersects() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayIntersects_h2(int maximumArraySize) {
 		functionRegistry.register(
 				"array_intersects",
@@ -2948,6 +3174,7 @@ public class CommonFunctionFactory {
 	/**
 	 * HSQL array_intersects() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayIntersects_hsql() {
 		functionRegistry.register(
 				"array_intersects",
@@ -2964,6 +3191,7 @@ public class CommonFunctionFactory {
 	/**
 	 * CockroachDB and PostgreSQL array intersects operator
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayIntersects_postgresql() {
 		functionRegistry.register( "array_intersects", new ArrayIntersectsOperatorFunction( false, typeConfiguration ) );
 		functionRegistry.register( "array_intersects_nullable", new ArrayIntersectsOperatorFunction( true, typeConfiguration ) );
@@ -2974,6 +3202,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle array_intersects() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayIntersects_oracle() {
 		functionRegistry.register(
 				"array_intersects",
@@ -2990,6 +3219,7 @@ public class CommonFunctionFactory {
 	/**
 	 * CockroachDB and PostgreSQL array_position() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayPosition_postgresql() {
 		functionRegistry.register( "array_position", new PostgreSQLArrayPositionFunction( typeConfiguration ) );
 	}
@@ -2997,6 +3227,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2 array_position() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayPosition_h2(int maximumArraySize) {
 		functionRegistry.register( "array_position", new H2ArrayPositionFunction( maximumArraySize, typeConfiguration ) );
 	}
@@ -3004,6 +3235,7 @@ public class CommonFunctionFactory {
 	/**
 	 * HSQL array_position() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayPosition_hsql() {
 		functionRegistry.register( "array_position", new HSQLArrayPositionFunction( typeConfiguration ) );
 	}
@@ -3011,6 +3243,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle array_position() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayPosition_oracle() {
 		functionRegistry.register( "array_position", new OracleArrayPositionFunction( typeConfiguration ) );
 	}
@@ -3018,6 +3251,7 @@ public class CommonFunctionFactory {
 	/**
 	 * CockroachDB and PostgreSQL array_positions() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayPositions_postgresql() {
 		functionRegistry.register(
 				"array_positions",
@@ -3032,6 +3266,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2 array_positions() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayPositions_h2(int maximumArraySize) {
 		functionRegistry.register(
 				"array_positions",
@@ -3046,6 +3281,7 @@ public class CommonFunctionFactory {
 	/**
 	 * HSQL array_positions() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayPositions_hsql() {
 		functionRegistry.register(
 				"array_positions",
@@ -3060,6 +3296,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle array_positions() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayPositions_oracle() {
 		functionRegistry.register(
 				"array_positions",
@@ -3074,6 +3311,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2, HSQLDB, CockroachDB and PostgreSQL array_length() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayLength_cardinality() {
 		functionRegistry.patternDescriptorBuilder( "array_length", "cardinality(?1)" )
 				.setReturnTypeResolver( StandardFunctionReturnTypeResolvers.invariant( integerType ) )
@@ -3091,6 +3329,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Spanner Postgres array_length() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayLength_spannerpg() {
 		functionRegistry.patternDescriptorBuilder( "array_length", "case when ?1 is null then null else coalesce(array_length(?1, 1), 0) end" )
 				.setReturnTypeResolver( StandardFunctionReturnTypeResolvers.invariant( integerType ) )
@@ -3109,6 +3348,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Spanner array_length() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayLength_spanner() {
 		functionRegistry.patternDescriptorBuilder( "array_length", "array_length(?1)" )
 				.setReturnTypeResolver( StandardFunctionReturnTypeResolvers.invariant( integerType ) )
@@ -3126,6 +3366,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle array_length() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayLength_oracle() {
 		functionRegistry.register( "array_length", new OracleArrayLengthFunction( typeConfiguration ) );
 		functionRegistry.register( "length", new DynamicDispatchFunction( functionRegistry, "character_length", "array_length" ) );
@@ -3134,6 +3375,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2 and HSQLDB array_concat() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayConcat_operator() {
 		functionRegistry.register( "array_concat", new ArrayConcatFunction( "", "||", "" ) );
 	}
@@ -3141,6 +3383,7 @@ public class CommonFunctionFactory {
 	/**
 	 * CockroachDB and PostgreSQL array_concat() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayConcat_postgresql() {
 		functionRegistry.register( "array_concat", new PostgreSQLArrayConcatFunction() );
 	}
@@ -3148,6 +3391,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle array_concat() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayConcat_oracle() {
 		functionRegistry.register( "array_concat", new OracleArrayConcatFunction() );
 	}
@@ -3155,6 +3399,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2 and HSQLDB array_prepend() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayPrepend_operator() {
 		functionRegistry.register( "array_prepend", new ArrayConcatElementFunction( "", "||", "", true ) );
 	}
@@ -3162,6 +3407,7 @@ public class CommonFunctionFactory {
 	/**
 	 * CockroachDB and PostgreSQL array_prepend() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayPrepend_postgresql() {
 		functionRegistry.register( "array_prepend", new PostgreSQLArrayConcatElementFunction( true ) );
 	}
@@ -3169,6 +3415,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle array_prepend() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayPrepend_oracle() {
 		functionRegistry.register( "array_prepend", new OracleArrayConcatElementFunction( true ) );
 	}
@@ -3176,6 +3423,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2 and HSQLDB array_append() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayAppend_operator() {
 		functionRegistry.register( "array_append", new ArrayConcatElementFunction( "", "||", "", false ) );
 	}
@@ -3183,6 +3431,7 @@ public class CommonFunctionFactory {
 	/**
 	 * CockroachDB and PostgreSQL array_append() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayAppend_postgresql() {
 		functionRegistry.register( "array_append", new PostgreSQLArrayConcatElementFunction( false ) );
 	}
@@ -3190,6 +3439,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle array_append() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayAppend_oracle() {
 		functionRegistry.register( "array_append", new OracleArrayConcatElementFunction( false ) );
 	}
@@ -3197,6 +3447,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2 array_get() function via bracket syntax
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayGet_h2() {
 		functionRegistry.patternDescriptorBuilder( "array_get", "case when array_length(?1)>=?2 then ?1[?2] end" )
 				.setReturnTypeResolver( ElementViaArrayArgumentReturnTypeResolver.DEFAULT_INSTANCE )
@@ -3211,6 +3462,7 @@ public class CommonFunctionFactory {
 				.register();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void arrayGet_bracket() {
 		arrayGet_bracket( true );
 	}
@@ -3218,6 +3470,7 @@ public class CommonFunctionFactory {
 	/**
 	 * CockroachDB and PostgreSQL array_get() function via bracket syntax
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayGet_bracket(boolean supportsJsonBracket) {
 		functionRegistry.register( "array_get", new ArrayGetBracketFunction( supportsJsonBracket ) );
 	}
@@ -3225,6 +3478,7 @@ public class CommonFunctionFactory {
 	/**
 	 * HSQL array_get() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayGet_unnest() {
 		functionRegistry.register( "array_get", new ArrayGetUnnestFunction() );
 	}
@@ -3232,6 +3486,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle array_get() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayGet_oracle() {
 		functionRegistry.register( "array_get", new OracleArrayGetFunction() );
 	}
@@ -3239,6 +3494,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2 array_set() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arraySet_h2(int maximumArraySize) {
 		functionRegistry.register( "array_set", new H2ArraySetFunction( maximumArraySize ) );
 	}
@@ -3246,6 +3502,7 @@ public class CommonFunctionFactory {
 	/**
 	 * HSQL array_set() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arraySet_hsql() {
 		functionRegistry.register( "array_set", new HSQLArraySetFunction() );
 	}
@@ -3253,6 +3510,7 @@ public class CommonFunctionFactory {
 	/**
 	 * CockroachDB and PostgreSQL array_set() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arraySet_unnest() {
 		functionRegistry.register( "array_set", new ArraySetUnnestFunction() );
 	}
@@ -3260,6 +3518,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle array_set() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arraySet_oracle() {
 		functionRegistry.register( "array_set", new OracleArraySetFunction() );
 	}
@@ -3267,6 +3526,7 @@ public class CommonFunctionFactory {
 	/**
 	 * CockroachDB and PostgreSQL array_remove() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayRemove() {
 		functionRegistry.namedDescriptorBuilder( "array_remove" )
 				.setArgumentsValidator(
@@ -3283,6 +3543,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2 array_remove() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayRemove_h2(int maximumArraySize) {
 		functionRegistry.register( "array_remove", new H2ArrayRemoveFunction( maximumArraySize ) );
 	}
@@ -3290,6 +3551,7 @@ public class CommonFunctionFactory {
 	/**
 	 * HSQL array_remove() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayRemove_hsql() {
 		functionRegistry.register( "array_remove", new HSQLArrayRemoveFunction() );
 	}
@@ -3297,6 +3559,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle array_remove() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayRemove_oracle() {
 		functionRegistry.register( "array_remove", new OracleArrayRemoveFunction() );
 	}
@@ -3304,6 +3567,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2 array_remove_index() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayRemoveIndex_h2(int maximumArraySize) {
 		functionRegistry.register( "array_remove_index", new H2ArrayRemoveIndexFunction( maximumArraySize ) );
 	}
@@ -3311,6 +3575,7 @@ public class CommonFunctionFactory {
 	/**
 	 * HSQL, CockroachDB and PostgreSQL array_remove_index() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayRemoveIndex_unnest(boolean castEmptyArrayLiteral) {
 		functionRegistry.register( "array_remove_index", new ArrayRemoveIndexUnnestFunction( castEmptyArrayLiteral ) );
 	}
@@ -3318,6 +3583,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle array_remove_index() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayRemoveIndex_oracle() {
 		functionRegistry.register( "array_remove_index", new OracleArrayRemoveIndexFunction() );
 	}
@@ -3325,6 +3591,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2 array_slice() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arraySlice() {
 		functionRegistry.patternAggregateDescriptorBuilder( "array_slice", "case when ?1 is null or ?2 is null or ?3 is null then null else coalesce(array_slice(?1,?2,?3),array[]) end" )
 				.setArgumentsValidator(
@@ -3347,6 +3614,7 @@ public class CommonFunctionFactory {
 	/**
 	 * HSQL array_slice() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arraySlice_unnest() {
 		functionRegistry.register( "array_slice", new ArraySliceUnnestFunction( false ) );
 	}
@@ -3354,6 +3622,7 @@ public class CommonFunctionFactory {
 	/**
 	 * CockroachDB and PostgreSQL array_slice() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arraySlice_operator() {
 		functionRegistry.patternAggregateDescriptorBuilder( "array_slice", "?1[?2:?3]" )
 				.setArgumentsValidator(
@@ -3376,6 +3645,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle array_slice() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arraySlice_oracle() {
 		functionRegistry.register( "array_slice", new OracleArraySliceFunction() );
 	}
@@ -3383,6 +3653,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2 array_replace() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayReplace_h2(int maximumArraySize) {
 		functionRegistry.register( "array_replace", new H2ArrayReplaceFunction( maximumArraySize ) );
 	}
@@ -3390,6 +3661,7 @@ public class CommonFunctionFactory {
 	/**
 	 * HSQL array_replace() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayReplace_unnest() {
 		functionRegistry.register( "array_replace", new ArrayReplaceUnnestFunction() );
 	}
@@ -3397,6 +3669,7 @@ public class CommonFunctionFactory {
 	/**
 	 * CockroachDB and PostgreSQL array_replace() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayReplace() {
 		functionRegistry.namedDescriptorBuilder( "array_replace" )
 				.setArgumentsValidator(
@@ -3414,6 +3687,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle array_replace() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayReplace_oracle() {
 		functionRegistry.register( "array_replace", new OracleArrayReplaceFunction() );
 	}
@@ -3421,6 +3695,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2, HSQLDB, CockroachDB and PostgreSQL array_trim() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayTrim_trim_array() {
 		functionRegistry.patternAggregateDescriptorBuilder( "array_trim", "trim_array(?1,?2)" )
 				.setArgumentsValidator(
@@ -3443,6 +3718,7 @@ public class CommonFunctionFactory {
 	/**
 	 * PostgreSQL array_trim() emulation for versions before 14
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayTrim_unnest() {
 		functionRegistry.register( "array_trim", new PostgreSQLArrayTrimEmulation() );
 	}
@@ -3450,6 +3726,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle array_trim() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayTrim_oracle() {
 		functionRegistry.register( "array_trim", new OracleArrayTrimFunction() );
 	}
@@ -3457,6 +3734,7 @@ public class CommonFunctionFactory {
 	/**
 	 * CockroachDB and PostgreSQL array_reverse() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayReverse() {
 		functionRegistry.namedDescriptorBuilder( "array_reverse" )
 				.setArgumentsValidator(
@@ -3476,6 +3754,7 @@ public class CommonFunctionFactory {
 	/**
 	 * array_reverse() emulation for PostgreSQL versions before 18 and HSQLDB
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayReverse_unnest() {
 		functionRegistry.register( "array_reverse", new PostgreSQLArrayReverseEmulation() );
 	}
@@ -3483,6 +3762,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle array_reverse() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayReverse_oracle() {
 		functionRegistry.register( "array_reverse", new OracleArrayReverseFunction() );
 	}
@@ -3490,6 +3770,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2 array_reverse() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayReverse_h2(int maximumArraySize) {
 		functionRegistry.register( "array_reverse", new H2ArrayReverseFunction( maximumArraySize ) );
 	}
@@ -3497,6 +3778,7 @@ public class CommonFunctionFactory {
 	/**
 	 * CockroachDB and PostgreSQL array_sort() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arraySort() {
 		functionRegistry.namedDescriptorBuilder( "array_sort" )
 				.setArgumentsValidator(
@@ -3531,6 +3813,7 @@ public class CommonFunctionFactory {
 	/**
 	 * PostgreSQL array_sort() emulation for versions before 18
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arraySort_unnest() {
 		functionRegistry.register( "array_sort", new PostgreSQLArraySortEmulation( typeConfiguration ) );
 	}
@@ -3538,6 +3821,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle array_sort() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arraySort_oracle() {
 		functionRegistry.register( "array_sort", new OracleArraySortFunction( typeConfiguration ) );
 	}
@@ -3545,6 +3829,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2 array_sort() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arraySort_h2(int maximumArraySize) {
 		functionRegistry.register( "array_sort", new H2ArraySortFunction( maximumArraySize, typeConfiguration ) );
 	}
@@ -3552,6 +3837,7 @@ public class CommonFunctionFactory {
 	/**
 	 * HSQL array_sort() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arraySort_hsql() {
 		functionRegistry.register( "array_sort", new HSQLArraySortFunction( typeConfiguration ) );
 	}
@@ -3559,6 +3845,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2 array_fill() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayFill_h2() {
 		functionRegistry.register( "array_fill", new H2ArrayFillFunction( false ) );
 		functionRegistry.register( "array_fill_list", new H2ArrayFillFunction( true ) );
@@ -3567,6 +3854,7 @@ public class CommonFunctionFactory {
 	/**
 	 * HSQLDB array_fill() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayFill_hsql() {
 		functionRegistry.register( "array_fill", new HSQLArrayFillFunction( false ) );
 		functionRegistry.register( "array_fill_list", new HSQLArrayFillFunction( true ) );
@@ -3575,6 +3863,7 @@ public class CommonFunctionFactory {
 	/**
 	 * PostgreSQL array_fill() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayFill_postgresql() {
 		functionRegistry.register( "array_fill", new PostgreSQLArrayFillFunction( false ) );
 		functionRegistry.register( "array_fill_list", new PostgreSQLArrayFillFunction( true ) );
@@ -3583,6 +3872,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Cockroach array_fill() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayFill_cockroachdb() {
 		functionRegistry.register( "array_fill", new CockroachArrayFillFunction( false ) );
 		functionRegistry.register( "array_fill_list", new CockroachArrayFillFunction( true ) );
@@ -3591,6 +3881,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle array_fill() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayFill_oracle() {
 		functionRegistry.register( "array_fill", new OracleArrayFillFunction( false ) );
 		functionRegistry.register( "array_fill_list", new OracleArrayFillFunction( true ) );
@@ -3599,6 +3890,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2 array_to_string() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayToString_h2(int maximumArraySize) {
 		functionRegistry.register( "array_to_string", new H2ArrayToStringFunction( maximumArraySize, typeConfiguration ) );
 	}
@@ -3606,6 +3898,7 @@ public class CommonFunctionFactory {
 	/**
 	 * HSQL array_to_string() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayToString_hsql() {
 		functionRegistry.register( "array_to_string", new HSQLArrayToStringFunction( typeConfiguration ) );
 	}
@@ -3613,6 +3906,7 @@ public class CommonFunctionFactory {
 	/**
 	 * CockroachDB and PostgreSQL array_to_string() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayToString_postgresql() {
 		functionRegistry.register( "array_to_string", new ArrayToStringFunction( typeConfiguration ) );
 	}
@@ -3620,6 +3914,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle array_to_string() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void arrayToString_oracle() {
 		functionRegistry.register( "array_to_string", new OracleArrayToStringFunction( typeConfiguration ) );
 	}
@@ -3627,6 +3922,7 @@ public class CommonFunctionFactory {
 	/**
 	 * HANA json_value() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonValue_no_passing() {
 		functionRegistry.register( "json_value", new HANAJsonValueFunction( typeConfiguration ) );
 	}
@@ -3634,6 +3930,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle json_value() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonValue_oracle() {
 		functionRegistry.register( "json_value", new OracleJsonValueFunction( typeConfiguration ) );
 	}
@@ -3641,6 +3938,7 @@ public class CommonFunctionFactory {
 	/**
 	 * DB2 json_value() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonValue_db2() {
 		functionRegistry.register( "json_value", new DB2JsonValueFunction( typeConfiguration ) );
 	}
@@ -3648,6 +3946,7 @@ public class CommonFunctionFactory {
 	/**
 	 * PostgreSQL json_value() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonValue_postgresql(boolean supportsStandard) {
 		functionRegistry.register( "json_value", new PostgreSQLJsonValueFunction( supportsStandard, typeConfiguration ) );
 	}
@@ -3655,6 +3954,7 @@ public class CommonFunctionFactory {
 	/**
 	 * CockroachDB json_value() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonValue_cockroachdb() {
 		functionRegistry.register( "json_value", new CockroachDBJsonValueFunction( typeConfiguration ) );
 	}
@@ -3662,6 +3962,7 @@ public class CommonFunctionFactory {
 	/**
 	 * MySQL json_value() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonValue_mysql() {
 		functionRegistry.register( "json_value", new MySQLJsonValueFunction( typeConfiguration ) );
 	}
@@ -3669,6 +3970,7 @@ public class CommonFunctionFactory {
 	/**
 	 * MariaDB json_value() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonValue_mariadb() {
 		functionRegistry.register( "json_value", new MariaDBJsonValueFunction( typeConfiguration ) );
 	}
@@ -3676,6 +3978,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SQL Server json_value() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonValue_sqlserver() {
 		functionRegistry.register( "json_value", new SQLServerJsonValueFunction( typeConfiguration ) );
 	}
@@ -3683,6 +3986,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2 json_value() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonValue_h2() {
 		functionRegistry.register( "json_value", new H2JsonValueFunction( typeConfiguration ) );
 	}
@@ -3690,6 +3994,7 @@ public class CommonFunctionFactory {
 	/**
 	 * json_query() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonQuery() {
 		functionRegistry.register( "json_query", new JsonQueryFunction( typeConfiguration, true, true ) );
 	}
@@ -3697,6 +4002,7 @@ public class CommonFunctionFactory {
 	/**
 	 * json_query() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonQuery_no_passing() {
 		functionRegistry.register( "json_query", new JsonQueryFunction( typeConfiguration, true, false ) );
 	}
@@ -3704,6 +4010,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle json_query() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonQuery_oracle() {
 		functionRegistry.register( "json_query", new JsonQueryFunction( typeConfiguration, false, false ) );
 	}
@@ -3711,6 +4018,7 @@ public class CommonFunctionFactory {
 	/**
 	 * PostgreSQL json_query() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonQuery_postgresql() {
 		functionRegistry.register( "json_query", new PostgreSQLJsonQueryFunction( typeConfiguration ) );
 	}
@@ -3718,6 +4026,7 @@ public class CommonFunctionFactory {
 	/**
 	 * CockroachDB json_query() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonQuery_cockroachdb() {
 		functionRegistry.register( "json_query", new CockroachDBJsonQueryFunction( typeConfiguration ) );
 	}
@@ -3725,6 +4034,7 @@ public class CommonFunctionFactory {
 	/**
 	 * MySQL json_query() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonQuery_mysql() {
 		functionRegistry.register( "json_query", new MySQLJsonQueryFunction( typeConfiguration ) );
 	}
@@ -3732,6 +4042,7 @@ public class CommonFunctionFactory {
 	/**
 	 * MariaDB json_query() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonQuery_mariadb() {
 		functionRegistry.register( "json_query", new MariaDBJsonQueryFunction( typeConfiguration ) );
 	}
@@ -3739,6 +4050,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SQL Server json_query() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonQuery_sqlserver() {
 		functionRegistry.register( "json_query", new SQLServerJsonQueryFunction( typeConfiguration ) );
 	}
@@ -3746,6 +4058,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2 json_query() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonQuery_h2() {
 		functionRegistry.register( "json_query", new H2JsonQueryFunction( typeConfiguration ) );
 	}
@@ -3753,6 +4066,7 @@ public class CommonFunctionFactory {
 	/**
 	 * json_exists() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonExists() {
 		functionRegistry.register( "json_exists", new JsonExistsFunction( typeConfiguration, true, true ) );
 	}
@@ -3760,6 +4074,7 @@ public class CommonFunctionFactory {
 	/**
 	 * json_exists() function that doesn't support the passing clause
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonExists_no_passing() {
 		functionRegistry.register( "json_exists", new JsonExistsFunction( typeConfiguration, true, false ) );
 	}
@@ -3767,6 +4082,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle json_exists() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonExists_oracle() {
 		functionRegistry.register( "json_exists", new JsonExistsFunction( typeConfiguration, false, true ) );
 	}
@@ -3774,6 +4090,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2 json_exists() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonExists_h2() {
 		functionRegistry.register( "json_exists", new H2JsonExistsFunction( typeConfiguration ) );
 	}
@@ -3781,6 +4098,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SQL Server json_exists() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonExists_sqlserver(boolean supportsExtendedJson) {
 		functionRegistry.register( "json_exists", new SQLServerJsonExistsFunction( supportsExtendedJson, typeConfiguration ) );
 	}
@@ -3788,6 +4106,7 @@ public class CommonFunctionFactory {
 	/**
 	 * PostgreSQL json_exists() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonExists_postgresql() {
 		functionRegistry.register( "json_exists", new PostgreSQLJsonExistsFunction( typeConfiguration ) );
 	}
@@ -3795,6 +4114,7 @@ public class CommonFunctionFactory {
 	/**
 	 * CockroachDB json_exists() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonExists_cockroachdb() {
 		functionRegistry.register( "json_exists", new CockroachDBJsonExistsFunction( typeConfiguration ) );
 	}
@@ -3802,6 +4122,7 @@ public class CommonFunctionFactory {
 	/**
 	 * MySQL json_exists() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonExists_mysql() {
 		functionRegistry.register( "json_exists", new MySQLJsonExistsFunction( typeConfiguration ) );
 	}
@@ -3809,6 +4130,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SAP HANA json_exists() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonExists_hana() {
 		functionRegistry.register( "json_exists", new HANAJsonExistsFunction( typeConfiguration ) );
 	}
@@ -3816,6 +4138,7 @@ public class CommonFunctionFactory {
 	/**
 	 * json_object() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonObject() {
 		functionRegistry.register( "json_object", new JsonObjectFunction( typeConfiguration, true ) );
 	}
@@ -3823,6 +4146,7 @@ public class CommonFunctionFactory {
 	/**
 	 * DB2 json_object() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonObject_db2() {
 		functionRegistry.register( "json_object", new DB2JsonObjectFunction( typeConfiguration ) );
 	}
@@ -3830,6 +4154,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle json_object() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonObject_oracle(boolean colonSyntax) {
 		functionRegistry.register( "json_object", new OracleJsonObjectFunction( colonSyntax, typeConfiguration ) );
 	}
@@ -3837,6 +4162,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SQL Server json_object() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonObject_sqlserver(boolean supportsExtendedJson) {
 		functionRegistry.register( "json_object", new SQLServerJsonObjectFunction( supportsExtendedJson, typeConfiguration ) );
 	}
@@ -3844,6 +4170,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SAP HANA json_object() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonObject_hana() {
 		functionRegistry.register( "json_object", new HANAJsonObjectFunction( typeConfiguration ) );
 	}
@@ -3851,6 +4178,7 @@ public class CommonFunctionFactory {
 	/**
 	 * HSQLDB json_object() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonObject_hsqldb() {
 		functionRegistry.register( "json_object", new HSQLJsonObjectFunction( typeConfiguration ) );
 	}
@@ -3858,6 +4186,7 @@ public class CommonFunctionFactory {
 	/**
 	 * MySQL json_object() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonObject_mysql() {
 		functionRegistry.register( "json_object", new MySQLJsonObjectFunction( typeConfiguration ) );
 	}
@@ -3865,6 +4194,7 @@ public class CommonFunctionFactory {
 	/**
 	 * PostgreSQL json_object() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonObject_postgresql() {
 		functionRegistry.register( "json_object", new PostgreSQLJsonObjectFunction( typeConfiguration ) );
 	}
@@ -3872,6 +4202,7 @@ public class CommonFunctionFactory {
 	/**
 	 * json_array() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonArray() {
 		functionRegistry.register( "json_array", new JsonArrayFunction( typeConfiguration ) );
 	}
@@ -3879,6 +4210,7 @@ public class CommonFunctionFactory {
 	/**
 	 * DB2 json_array() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonArray_db2() {
 		functionRegistry.register( "json_array", new DB2JsonArrayFunction( typeConfiguration ) );
 	}
@@ -3886,6 +4218,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle json_array() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonArray_oracle() {
 		functionRegistry.register( "json_array", new OracleJsonArrayFunction( typeConfiguration ) );
 	}
@@ -3893,6 +4226,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SQL Server json_array() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonArray_sqlserver(boolean supportsExtendedJson) {
 		functionRegistry.register( "json_array", new SQLServerJsonArrayFunction( supportsExtendedJson, typeConfiguration ) );
 	}
@@ -3900,6 +4234,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SAP HANA json_array() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonArray_hana() {
 		functionRegistry.register( "json_array", new HANAJsonArrayFunction( typeConfiguration ) );
 	}
@@ -3907,6 +4242,7 @@ public class CommonFunctionFactory {
 	/**
 	 * HSQLDB json_array() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonArray_hsqldb() {
 		functionRegistry.register( "json_array", new HSQLJsonArrayFunction( typeConfiguration ) );
 	}
@@ -3914,6 +4250,7 @@ public class CommonFunctionFactory {
 	/**
 	 * MySQL json_array() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonArray_mysql() {
 		functionRegistry.register( "json_array", new MySQLJsonArrayFunction( typeConfiguration ) );
 	}
@@ -3921,6 +4258,7 @@ public class CommonFunctionFactory {
 	/**
 	 * MariaDB json_array() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonArray_mariadb() {
 		functionRegistry.register( "json_array", new MariaDBJsonArrayFunction( typeConfiguration ) );
 	}
@@ -3928,6 +4266,7 @@ public class CommonFunctionFactory {
 	/**
 	 * PostgreSQL json_array() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonArray_postgresql() {
 		functionRegistry.register( "json_array", new PostgreSQLJsonArrayFunction( typeConfiguration ) );
 	}
@@ -3935,6 +4274,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2 json_arrayagg() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonArrayAgg_h2() {
 		functionRegistry.register( "json_arrayagg", new H2JsonArrayAggFunction( typeConfiguration ) );
 	}
@@ -3942,6 +4282,7 @@ public class CommonFunctionFactory {
 	/**
 	 * HSQLDB json_arrayagg() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonArrayAgg_hsqldb() {
 		functionRegistry.register( "json_arrayagg", new HSQLJsonArrayAggFunction( typeConfiguration ) );
 	}
@@ -3949,6 +4290,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle json_arrayagg() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonArrayAgg_oracle() {
 		functionRegistry.register( "json_arrayagg", new OracleJsonArrayAggFunction( typeConfiguration ) );
 	}
@@ -3956,6 +4298,7 @@ public class CommonFunctionFactory {
 	/**
 	 * PostgreSQL json_arrayagg() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonArrayAgg_postgresql(boolean supportsStandard) {
 		functionRegistry.register( "json_arrayagg", new PostgreSQLJsonArrayAggFunction( supportsStandard, typeConfiguration ) );
 	}
@@ -3963,6 +4306,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SQL Server json_arrayagg() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonArrayAgg_sqlserver(boolean supportsExtendedJson) {
 		functionRegistry.register( "json_arrayagg", new SQLServerJsonArrayAggFunction( supportsExtendedJson, typeConfiguration ) );
 	}
@@ -3970,6 +4314,7 @@ public class CommonFunctionFactory {
 	/**
 	 * MySQL json_arrayagg() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonArrayAgg_mysql() {
 		functionRegistry.register( "json_arrayagg", new MySQLJsonArrayAggFunction( typeConfiguration ) );
 	}
@@ -3977,6 +4322,7 @@ public class CommonFunctionFactory {
 	/**
 	 * MariaDB json_arrayagg() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonArrayAgg_mariadb() {
 		functionRegistry.register( "json_arrayagg", new MariaDBJsonArrayAggFunction( typeConfiguration ) );
 	}
@@ -3984,6 +4330,7 @@ public class CommonFunctionFactory {
 	/**
 	 * DB2 json_arrayagg() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonArrayAgg_db2() {
 		functionRegistry.register( "json_arrayagg", new DB2JsonArrayAggFunction( typeConfiguration ) );
 	}
@@ -3991,6 +4338,7 @@ public class CommonFunctionFactory {
 	/**
 	 * HANA json_arrayagg() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonArrayAgg_hana() {
 		functionRegistry.register( "json_arrayagg", new HANAJsonArrayAggFunction( typeConfiguration ) );
 	}
@@ -3998,6 +4346,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle json_objectagg() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonObjectAgg_oracle() {
 		functionRegistry.register( "json_objectagg", new OracleJsonObjectAggFunction( typeConfiguration ) );
 	}
@@ -4005,6 +4354,7 @@ public class CommonFunctionFactory {
 	/**
 	 * json_objectagg() function for H2 and HSQLDB
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonObjectAgg_h2() {
 		functionRegistry.register( "json_objectagg", new H2JsonObjectAggFunction( typeConfiguration ) );
 	}
@@ -4012,6 +4362,7 @@ public class CommonFunctionFactory {
 	/**
 	 * PostgreSQL json_objectagg() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonObjectAgg_postgresql(boolean supportsStandard) {
 		functionRegistry.register( "json_objectagg", new PostgreSQLJsonObjectAggFunction( supportsStandard, typeConfiguration ) );
 	}
@@ -4019,6 +4370,7 @@ public class CommonFunctionFactory {
 	/**
 	 * MySQL json_objectagg() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonObjectAgg_mysql() {
 		functionRegistry.register( "json_objectagg", new MySQLJsonObjectAggFunction( typeConfiguration ) );
 	}
@@ -4026,6 +4378,7 @@ public class CommonFunctionFactory {
 	/**
 	 * MariaDB json_objectagg() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonObjectAgg_mariadb() {
 		functionRegistry.register( "json_objectagg", new MariaDBJsonObjectAggFunction( typeConfiguration ) );
 	}
@@ -4033,6 +4386,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SQL Server json_objectagg() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonObjectAgg_sqlserver(boolean supportsExtendedJson) {
 		functionRegistry.register( "json_objectagg", new SQLServerJsonObjectAggFunction( supportsExtendedJson, typeConfiguration ) );
 	}
@@ -4040,6 +4394,7 @@ public class CommonFunctionFactory {
 	/**
 	 * HANA json_objectagg() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonObjectAgg_hana() {
 		functionRegistry.register( "json_objectagg", new HANAJsonObjectAggFunction( typeConfiguration ) );
 	}
@@ -4047,6 +4402,7 @@ public class CommonFunctionFactory {
 	/**
 	 * DB2 json_objectagg() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonObjectAgg_db2() {
 		functionRegistry.register( "json_objectagg", new DB2JsonObjectAggFunction( typeConfiguration ) );
 	}
@@ -4054,6 +4410,7 @@ public class CommonFunctionFactory {
 	/**
 	 * PostgreSQL json_set() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonSet_postgresql() {
 		functionRegistry.register( "json_set", new PostgreSQLJsonSetFunction( typeConfiguration ) );
 	}
@@ -4061,6 +4418,7 @@ public class CommonFunctionFactory {
 	/**
 	 * MySQL json_set() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonSet_mysql() {
 		functionRegistry.namedDescriptorBuilder( "json_set" )
 				.setArgumentsValidator( new ArgumentTypesValidator(
@@ -4078,6 +4436,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle json_set() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonSet_oracle() {
 		functionRegistry.register( "json_set", new OracleJsonSetFunction( typeConfiguration ) );
 	}
@@ -4085,6 +4444,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SQL Server json_set() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonSet_sqlserver() {
 		functionRegistry.register( "json_set", new SQLServerJsonSetFunction( typeConfiguration ) );
 	}
@@ -4092,6 +4452,7 @@ public class CommonFunctionFactory {
 	/**
 	 * PostgreSQL json_remove() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonRemove_postgresql() {
 		functionRegistry.register( "json_remove", new PostgreSQLJsonRemoveFunction( typeConfiguration ) );
 	}
@@ -4099,6 +4460,7 @@ public class CommonFunctionFactory {
 	/**
 	 * CockroachDB json_remove() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonRemove_cockroachdb() {
 		functionRegistry.register( "json_remove", new CockroachDBJsonRemoveFunction( typeConfiguration ) );
 	}
@@ -4106,6 +4468,7 @@ public class CommonFunctionFactory {
 	/**
 	 * MySQL json_remove() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonRemove_mysql() {
 		functionRegistry.namedDescriptorBuilder( "json_remove" )
 				.setArgumentsValidator( new ArgumentTypesValidator(
@@ -4122,6 +4485,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle json_remove() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonRemove_oracle() {
 		functionRegistry.register( "json_remove", new OracleJsonRemoveFunction( typeConfiguration ) );
 	}
@@ -4129,6 +4493,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SQL server json_remove() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonRemove_sqlserver() {
 		functionRegistry.register( "json_remove", new SQLServerJsonRemoveFunction( typeConfiguration ) );
 	}
@@ -4136,6 +4501,7 @@ public class CommonFunctionFactory {
 	/**
 	 * PostgreSQL json_replace() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonReplace_postgresql() {
 		functionRegistry.register( "json_replace", new PostgreSQLJsonReplaceFunction( typeConfiguration ) );
 	}
@@ -4143,6 +4509,7 @@ public class CommonFunctionFactory {
 	/**
 	 * MySQL json_replace() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonReplace_mysql() {
 		functionRegistry.namedDescriptorBuilder( "json_replace" )
 				.setArgumentsValidator( new ArgumentTypesValidator(
@@ -4160,6 +4527,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle json_replace() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonReplace_oracle() {
 		functionRegistry.register( "json_replace", new OracleJsonReplaceFunction( typeConfiguration ) );
 	}
@@ -4167,6 +4535,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SQL server json_replace() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonReplace_sqlserver(boolean supportsExtendedJson) {
 		functionRegistry.register( "json_replace", new SQLServerJsonReplaceFunction( supportsExtendedJson, typeConfiguration ) );
 	}
@@ -4174,6 +4543,7 @@ public class CommonFunctionFactory {
 	/**
 	 * PostgreSQL json_insert() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonInsert_postgresql() {
 		functionRegistry.register( "json_insert", new PostgreSQLJsonInsertFunction( typeConfiguration ) );
 	}
@@ -4181,6 +4551,7 @@ public class CommonFunctionFactory {
 	/**
 	 * MySQL json_insert() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonInsert_mysql() {
 		functionRegistry.namedDescriptorBuilder( "json_insert" )
 				.setArgumentsValidator( new ArgumentTypesValidator(
@@ -4198,6 +4569,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle json_insert() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonInsert_oracle() {
 		functionRegistry.register( "json_insert", new OracleJsonInsertFunction( typeConfiguration ) );
 	}
@@ -4205,6 +4577,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SQL server json_insert() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonInsert_sqlserver(boolean supportsExtendedJson) {
 		functionRegistry.register( "json_insert", new SQLServerJsonInsertFunction( supportsExtendedJson, typeConfiguration ) );
 	}
@@ -4212,6 +4585,7 @@ public class CommonFunctionFactory {
 	/**
 	 * PostgreSQL json_mergepatch() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonMergepatch_postgresql() {
 		functionRegistry.register( "json_mergepatch", new PostgreSQLJsonMergepatchFunction( typeConfiguration ) );
 	}
@@ -4219,6 +4593,7 @@ public class CommonFunctionFactory {
 	/**
 	 * MySQL json_mergepatch() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonMergepatch_mysql() {
 		functionRegistry.namedDescriptorBuilder( "json_mergepatch", "json_merge_patch" )
 				.setArgumentsValidator( new ArgumentTypesValidator(
@@ -4235,6 +4610,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle json_mergepatch() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonMergepatch_oracle() {
 		functionRegistry.register( "json_mergepatch", new OracleJsonMergepatchFunction( typeConfiguration ) );
 	}
@@ -4242,6 +4618,7 @@ public class CommonFunctionFactory {
 	/**
 	 * PostgreSQL json_array_append() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonArrayAppend_postgresql(boolean supportsLax) {
 		functionRegistry.register( "json_array_append", new PostgreSQLJsonArrayAppendFunction( supportsLax, typeConfiguration ) );
 	}
@@ -4249,6 +4626,7 @@ public class CommonFunctionFactory {
 	/**
 	 * MySQL json_array_append() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonArrayAppend_mysql() {
 		functionRegistry.namedDescriptorBuilder( "json_array_append" )
 				.setArgumentsValidator( new ArgumentTypesValidator(
@@ -4266,6 +4644,7 @@ public class CommonFunctionFactory {
 	/**
 	 * MariaDB json_array_append() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonArrayAppend_mariadb() {
 		functionRegistry.register( "json_array_append", new MariaDBJsonArrayAppendFunction( typeConfiguration ) );
 	}
@@ -4273,6 +4652,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle json_array_append() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonArrayAppend_oracle() {
 		functionRegistry.register( "json_array_append", new OracleJsonArrayAppendFunction( typeConfiguration ) );
 	}
@@ -4280,6 +4660,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SQL server json_array_append() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonArrayAppend_sqlserver(boolean supportsExtendedJson) {
 		functionRegistry.register( "json_array_append", new SQLServerJsonArrayAppendFunction( supportsExtendedJson, typeConfiguration ) );
 	}
@@ -4287,6 +4668,7 @@ public class CommonFunctionFactory {
 	/**
 	 * PostgreSQL json_array_insert() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonArrayInsert_postgresql() {
 		functionRegistry.register( "json_array_insert", new PostgreSQLJsonArrayInsertFunction( typeConfiguration ) );
 	}
@@ -4294,6 +4676,7 @@ public class CommonFunctionFactory {
 	/**
 	 * MySQL json_array_insert() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonArrayInsert_mysql() {
 		functionRegistry.namedDescriptorBuilder( "json_array_insert" )
 				.setArgumentsValidator( new ArgumentTypesValidator(
@@ -4311,6 +4694,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle json_array_insert() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonArrayInsert_oracle() {
 		functionRegistry.register( "json_array_insert", new OracleJsonArrayInsertFunction( typeConfiguration ) );
 	}
@@ -4318,6 +4702,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SQL server json_array_insert() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonArrayInsert_sqlserver() {
 		functionRegistry.register( "json_array_insert", new SQLServerJsonArrayInsertFunction( typeConfiguration ) );
 	}
@@ -4325,6 +4710,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Standard xmlelement() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void xmlelement() {
 		functionRegistry.register( "xmlelement", new XmlElementFunction( typeConfiguration ) );
 	}
@@ -4332,6 +4718,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2 xmlelement() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void xmlelement_h2() {
 		functionRegistry.register( "xmlelement", new H2XmlElementFunction( typeConfiguration ) );
 	}
@@ -4339,6 +4726,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SQL Server xmlelement() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void xmlelement_sqlserver() {
 		functionRegistry.register( "xmlelement", new SQLServerXmlElementFunction( typeConfiguration ) );
 	}
@@ -4346,6 +4734,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Standard xmlcomment() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void xmlcomment() {
 		functionRegistry.namedDescriptorBuilder( "xmlcomment" )
 				.setExactArgumentCount( 1 )
@@ -4357,6 +4746,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SQL Server xmlcomment() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void xmlcomment_sqlserver() {
 		functionRegistry.patternDescriptorBuilder( "xmlcomment", "cast(('<!--'+?1+'-->') AS xml)" )
 				.setExactArgumentCount( 1 )
@@ -4368,6 +4758,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Standard xmlforest() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void xmlforest() {
 		functionRegistry.register( "xmlforest", new XmlForestFunction( typeConfiguration ) );
 	}
@@ -4375,6 +4766,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2 xmlforest() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void xmlforest_h2() {
 		functionRegistry.register( "xmlforest", new H2XmlForestFunction( typeConfiguration ) );
 	}
@@ -4382,6 +4774,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SQL Server xmlforest() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void xmlforest_sqlserver() {
 		functionRegistry.register( "xmlforest", new SQLServerXmlForestFunction( typeConfiguration ) );
 	}
@@ -4389,6 +4782,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Standard xmlconcat() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void xmlconcat() {
 		functionRegistry.register( "xmlconcat", new XmlConcatFunction( typeConfiguration ) );
 	}
@@ -4396,6 +4790,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2 xmlconcat() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void xmlconcat_h2() {
 		functionRegistry.register( "xmlconcat", new H2XmlConcatFunction( typeConfiguration ) );
 	}
@@ -4403,6 +4798,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SQL Server xmlconcat() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void xmlconcat_sqlserver() {
 		functionRegistry.register( "xmlconcat", new SQLServerXmlConcatFunction( typeConfiguration ) );
 	}
@@ -4410,6 +4806,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Standard xmlpi() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void xmlpi() {
 		functionRegistry.register( "xmlpi", new XmlPiFunction( typeConfiguration ) );
 	}
@@ -4417,6 +4814,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2 xmlpi() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void xmlpi_h2() {
 		functionRegistry.register( "xmlpi", new H2XmlPiFunction( typeConfiguration ) );
 	}
@@ -4424,6 +4822,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SQL Server xmlpi() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void xmlpi_sqlserver() {
 		functionRegistry.register( "xmlpi", new SQLServerXmlPiFunction( typeConfiguration ) );
 	}
@@ -4431,6 +4830,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle xmlquery() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void xmlquery_oracle() {
 		functionRegistry.register( "xmlquery", new XmlQueryFunction( true, typeConfiguration ) );
 	}
@@ -4438,6 +4838,7 @@ public class CommonFunctionFactory {
 	/**
 	 * DB2 xmlquery() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void xmlquery_db2() {
 		functionRegistry.register( "xmlquery", new XmlQueryFunction( false, typeConfiguration ) );
 	}
@@ -4445,6 +4846,7 @@ public class CommonFunctionFactory {
 	/**
 	 * DB2 10.5 xmlquery() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void xmlquery_db2_legacy() {
 		functionRegistry.register( "xmlquery", new LegacyDB2XmlQueryFunction( typeConfiguration ) );
 	}
@@ -4452,6 +4854,7 @@ public class CommonFunctionFactory {
 	/**
 	 * PostgreSQL xmlquery() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void xmlquery_postgresql() {
 		functionRegistry.register( "xmlquery", new PostgreSQLXmlQueryFunction( typeConfiguration ) );
 	}
@@ -4459,6 +4862,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SQL Server xmlquery() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void xmlquery_sqlserver() {
 		functionRegistry.register( "xmlquery", new SQLServerXmlQueryFunction( typeConfiguration ) );
 	}
@@ -4466,6 +4870,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Standard xmlexists() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void xmlexists() {
 		functionRegistry.register( "xmlexists", new XmlExistsFunction( typeConfiguration ) );
 	}
@@ -4473,6 +4878,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SQL Server xmlexists() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void xmlexists_sqlserver() {
 		functionRegistry.register( "xmlexists", new SQLServerXmlExistsFunction( typeConfiguration ) );
 	}
@@ -4480,6 +4886,7 @@ public class CommonFunctionFactory {
 	/**
 	 * DB2 10.5 xmlexists() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void xmlexists_db2_legacy() {
 		functionRegistry.register( "xmlexists", new LegacyDB2XmlExistsFunction( typeConfiguration ) );
 	}
@@ -4487,6 +4894,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Standard xmlagg() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void xmlagg() {
 		functionRegistry.register( "xmlagg", new XmlAggFunction( typeConfiguration ) );
 	}
@@ -4494,6 +4902,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SQL Server xmlagg() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void xmlagg_sqlserver() {
 		functionRegistry.register( "xmlagg", new SQLServerXmlAggFunction( typeConfiguration ) );
 	}
@@ -4501,6 +4910,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Standard unnest() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void unnest(@Nullable String defaultBasicArrayElementColumnName, String defaultIndexSelectionExpression) {
 		functionRegistry.register( "unnest", new UnnestFunction( defaultBasicArrayElementColumnName, defaultIndexSelectionExpression, false ) );
 	}
@@ -4508,6 +4918,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Standard unnest() function for databases that don't support arrays natively
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void unnest_emulated() {
 		// Pass an arbitrary value
 		unnest( "v", "i" );
@@ -4516,6 +4927,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2 unnest() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void unnest_h2(int maxArraySize) {
 		functionRegistry.register( "unnest", new H2UnnestFunction( maxArraySize ) );
 	}
@@ -4524,6 +4936,7 @@ public class CommonFunctionFactory {
 	 * Oracle unnest() function
 	 */
 	@Deprecated(forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void unnest_oracle() {
 		functionRegistry.register( "unnest", new OracleUnnestFunction() );
 	}
@@ -4531,6 +4944,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle unnest() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void unnest_oracle(boolean supportsJsonType) {
 		functionRegistry.register( "unnest", new OracleUnnestFunction( supportsJsonType ) );
 	}
@@ -4538,6 +4952,7 @@ public class CommonFunctionFactory {
 	/**
 	 * PostgreSQL unnest() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void unnest_postgresql(boolean supportsJsonTable) {
 		functionRegistry.register( "unnest", new PostgreSQLUnnestFunction( supportsJsonTable ) );
 	}
@@ -4545,6 +4960,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SQL Server unnest() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void unnest_sqlserver() {
 		functionRegistry.register( "unnest", new SQLServerUnnestFunction() );
 	}
@@ -4552,6 +4968,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Sybase ASE unnest() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void unnest_sybasease() {
 		functionRegistry.register( "unnest", new SybaseASEUnnestFunction() );
 	}
@@ -4559,6 +4976,7 @@ public class CommonFunctionFactory {
 	/**
 	 * HANA unnest() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void unnest_hana() {
 		functionRegistry.register( "unnest", new HANAUnnestFunction() );
 	}
@@ -4566,6 +4984,7 @@ public class CommonFunctionFactory {
 	/**
 	 * DB2 unnest() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void unnest_db2(int maximumArraySize) {
 		functionRegistry.register( "unnest", new DB2UnnestFunction( maximumArraySize ) );
 	}
@@ -4573,6 +4992,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Standard generate_series() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void generateSeries(@Nullable String defaultValueColumnName, String defaultIndexSelectionExpression, boolean coerceToTimestamp) {
 		functionRegistry.register( "generate_series", new GenerateSeriesFunction( defaultValueColumnName, defaultIndexSelectionExpression, coerceToTimestamp, typeConfiguration ) );
 	}
@@ -4580,6 +5000,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Recursive CTE generate_series() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void generateSeries_recursive(int maxSeriesSize, boolean supportsInterval, boolean coerceToTimestamp) {
 		functionRegistry.register( "generate_series", new CteGenerateSeriesFunction( maxSeriesSize, supportsInterval, coerceToTimestamp, typeConfiguration ) );
 	}
@@ -4587,6 +5008,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2 generate_series() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void generateSeries_h2(int maxSeriesSize) {
 		functionRegistry.register( "generate_series", new H2GenerateSeriesFunction( maxSeriesSize, typeConfiguration ) );
 	}
@@ -4594,6 +5016,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SQL Server generate_series() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void generateSeries_sqlserver(int maxSeriesSize) {
 		functionRegistry.register( "generate_series", new SQLServerGenerateSeriesFunction( maxSeriesSize, typeConfiguration ) );
 	}
@@ -4601,6 +5024,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Sybase ASE generate_series() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void generateSeries_sybasease(int maxSeriesSize) {
 		functionRegistry.register( "generate_series", new SybaseASEGenerateSeriesFunction( maxSeriesSize, typeConfiguration ) );
 	}
@@ -4608,6 +5032,7 @@ public class CommonFunctionFactory {
 	/**
 	 * HANA generate_series() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void generateSeries_hana(int maxSeriesSize) {
 		functionRegistry.register( "generate_series", new HANAGenerateSeriesFunction( maxSeriesSize, typeConfiguration ) );
 	}
@@ -4615,6 +5040,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Standard json_table() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonTable() {
 		functionRegistry.register( "json_table", new JsonTableFunction( typeConfiguration ) );
 	}
@@ -4622,6 +5048,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle json_table() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonTable_oracle() {
 		functionRegistry.register( "json_table", new OracleJsonTableFunction( typeConfiguration ) );
 	}
@@ -4629,6 +5056,7 @@ public class CommonFunctionFactory {
 	/**
 	 * PostgreSQL json_table() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonTable_postgresql() {
 		functionRegistry.register( "json_table", new PostgreSQLJsonTableFunction( typeConfiguration ) );
 	}
@@ -4636,6 +5064,7 @@ public class CommonFunctionFactory {
 	/**
 	 * CockroachDB json_table() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonTable_cockroachdb() {
 		functionRegistry.register( "json_table", new CockroachDBJsonTableFunction( typeConfiguration ) );
 	}
@@ -4643,6 +5072,7 @@ public class CommonFunctionFactory {
 	/**
 	 * MySQL json_table() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonTable_mysql() {
 		functionRegistry.register( "json_table", new MySQLJsonTableFunction( typeConfiguration ) );
 	}
@@ -4650,6 +5080,7 @@ public class CommonFunctionFactory {
 	/**
 	 * DB2 json_table() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonTable_db2(int maximumSeriesSize) {
 		functionRegistry.register( "json_table", new DB2JsonTableFunction( maximumSeriesSize, typeConfiguration ) );
 	}
@@ -4657,6 +5088,7 @@ public class CommonFunctionFactory {
 	/**
 	 * HANA json_table() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonTable_hana() {
 		functionRegistry.register( "json_table", new HANAJsonTableFunction( typeConfiguration ) );
 	}
@@ -4664,6 +5096,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SQL Server json_table() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonTable_sqlserver() {
 		functionRegistry.register( "json_table", new SQLServerJsonTableFunction( typeConfiguration ) );
 	}
@@ -4671,6 +5104,7 @@ public class CommonFunctionFactory {
 	/**
 	 * H2 json_table() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void jsonTable_h2(int maximumArraySize) {
 		functionRegistry.register( "json_table", new H2JsonTableFunction( maximumArraySize, typeConfiguration ) );
 	}
@@ -4678,6 +5112,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Standard xmltable() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void xmltable(boolean supportsParametersInDefault) {
 		functionRegistry.register( "xmltable", new XmlTableFunction( supportsParametersInDefault, typeConfiguration ) );
 	}
@@ -4685,6 +5120,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Oracle xmltable() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void xmltable_oracle() {
 		functionRegistry.register( "xmltable", new OracleXmlTableFunction( typeConfiguration ) );
 	}
@@ -4692,6 +5128,7 @@ public class CommonFunctionFactory {
 	/**
 	 * DB2 xmltable() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void xmltable_db2() {
 		functionRegistry.register( "xmltable", new DB2XmlTableFunction( typeConfiguration ) );
 	}
@@ -4699,6 +5136,7 @@ public class CommonFunctionFactory {
 	/**
 	 * HANA xmltable() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void xmltable_hana() {
 		functionRegistry.register( "xmltable", new HANAXmlTableFunction( typeConfiguration ) );
 	}
@@ -4706,6 +5144,7 @@ public class CommonFunctionFactory {
 	/**
 	 * SQL Server xmltable() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void xmltable_sqlserver() {
 		functionRegistry.register( "xmltable", new SQLServerXmlTableFunction( typeConfiguration ) );
 	}
@@ -4713,6 +5152,7 @@ public class CommonFunctionFactory {
 	/**
 	 * Sybase ASE xmltable() function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void xmltable_sybasease() {
 		functionRegistry.register( "xmltable", new SybaseASEXmlTableFunction( typeConfiguration ) );
 	}

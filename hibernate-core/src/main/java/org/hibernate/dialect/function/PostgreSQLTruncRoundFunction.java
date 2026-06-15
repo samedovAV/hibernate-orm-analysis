@@ -24,6 +24,8 @@ import org.hibernate.type.descriptor.jdbc.JdbcType;
 
 import static org.hibernate.query.sqm.produce.function.FunctionParameterType.INTEGER;
 import static org.hibernate.query.sqm.produce.function.FunctionParameterType.NUMERIC;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * PostgreSQL only supports the two-argument {@code trunc} and {@code round} functions
@@ -63,6 +65,7 @@ public class PostgreSQLTruncRoundFunction extends AbstractSqmFunctionDescriptor 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> arguments,
@@ -151,11 +154,13 @@ public class PostgreSQLTruncRoundFunction extends AbstractSqmFunctionDescriptor 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getArgumentListSignature() {
 		return "(NUMERIC number[, INTEGER places])";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected <T> SelfRenderingSqmFunction<T> generateSqmFunctionExpression(
 			List<? extends SqmTypedNode<?>> arguments,
 			ReturnableType<T> impliedResultType,

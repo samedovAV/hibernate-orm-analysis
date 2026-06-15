@@ -25,6 +25,8 @@ import org.hibernate.query.SyntaxException;
 import org.hibernate.query.sqm.ParsingException;
 
 import static org.hibernate.query.hql.internal.StandardHqlTranslator.prettifyAntlrError;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Responsible for performing the translation of the order-by fragment associated
@@ -45,6 +47,7 @@ public class OrderByFragmentTranslator {
 	 * both happen at different times.  This is performed at boot-time while building the CollectionPersister
 	 * happens at runtime while loading the described collection
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static OrderByFragment translate(
 			String fragment,
 			PluralAttributeMapping pluralAttributeMapping,
@@ -54,11 +57,13 @@ public class OrderByFragmentTranslator {
 		return new OrderByFragmentImpl( visitor.visitOrderByFragment( parseTree ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void check(String fragment) {
 		final var parseTree = buildParseTree( fragment );
 		// TODO: check against the model (requires the PluralAttributeMapping)
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static OrderingParser.OrderByFragmentContext buildParseTree(String fragment) {
 		final var lexer = new OrderingLexer( CharStreams.fromString( fragment ) );
 
@@ -89,6 +94,7 @@ public class OrderByFragmentTranslator {
 
 			final ANTLRErrorListener errorListener = new BaseErrorListener() {
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
 					throw new SyntaxException( prettifyAntlrError( offendingSymbol, line, charPositionInLine, msg, e, fragment, true ), fragment );
 				}

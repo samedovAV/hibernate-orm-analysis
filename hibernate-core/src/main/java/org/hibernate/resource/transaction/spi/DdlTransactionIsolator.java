@@ -7,6 +7,8 @@ package org.hibernate.resource.transaction.spi;
 import java.sql.Connection;
 
 import org.hibernate.tool.schema.internal.exec.JdbcContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Provides access to a {@link Connection} that is isolated from any
@@ -16,6 +18,7 @@ import org.hibernate.tool.schema.internal.exec.JdbcContext;
  * @author Steve Ebersole
  */
 public interface DdlTransactionIsolator extends AutoCloseable {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcContext getJdbcContext();
 
 	/**
@@ -28,6 +31,7 @@ public interface DdlTransactionIsolator extends AutoCloseable {
 	 *
 	 * @return The Connection.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Connection getIsolatedConnection();
 
 	/**
@@ -40,11 +44,14 @@ public interface DdlTransactionIsolator extends AutoCloseable {
 	 *
 	 * @return The Connection.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Connection getIsolatedConnection(boolean autocommit);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void release();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void close() {
 		release();
 	}

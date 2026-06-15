@@ -9,6 +9,8 @@ import org.hibernate.engine.jdbc.mutation.ParameterUsage;
 import org.hibernate.engine.jdbc.mutation.group.UnknownParameterException;
 import org.hibernate.engine.jdbc.mutation.spi.JdbcValueDescriptorAccess;
 import org.hibernate.sql.model.jdbc.JdbcValueDescriptor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Mutation for a specific table as part of a logical mutation on the entity.
@@ -68,16 +70,19 @@ public interface MutationOperation extends JdbcValueDescriptorAccess {
 	/**
 	 * The type of operation (INSERT, etc)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationType getMutationType();
 
 	/**
 	 * The thing being mutated
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationTarget<?,?> getMutationTarget();
 
 	/**
 	 * The table against which operation is to be performed
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TableMapping getTableDetails();
 
 	/**
@@ -87,12 +92,14 @@ public interface MutationOperation extends JdbcValueDescriptorAccess {
 	 *
 	 * @see #getJdbcValueDescriptor
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcValueDescriptor findValueDescriptor(String columnName, ParameterUsage usage);
 
 	/**
 	 * Form of {@link #findValueDescriptor}, throwing an exception if not found as opposed
 	 * to simply returning null
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default JdbcValueDescriptor getJdbcValueDescriptor(String columnName, ParameterUsage usage) {
 		final JdbcValueDescriptor parameterDescriptor = findValueDescriptor( columnName, usage );
 		if ( parameterDescriptor == null ) {
@@ -102,12 +109,14 @@ public interface MutationOperation extends JdbcValueDescriptorAccess {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String resolvePhysicalTableName(String tableName) {
 		assert getTableDetails().getTableName().equals( tableName );
 		return tableName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default JdbcValueDescriptor resolveValueDescriptor(String tableName, String columnName, ParameterUsage usage) {
 		assert getTableDetails().getTableName().equals( tableName );
 		return findValueDescriptor( columnName, usage );

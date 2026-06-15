@@ -9,6 +9,8 @@ import org.hibernate.JDBCException;
 import org.hibernate.LockMode;
 import org.hibernate.LockOptions;
 import org.hibernate.persister.entity.EntityPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A pessimistic locking strategy where {@link LockMode#PESSIMISTIC_READ}
@@ -37,6 +39,7 @@ public class PessimisticReadSelectLockingStrategy extends AbstractSelectLockingS
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected HibernateException convertException(Object entity, JDBCException ex) {
 		return new PessimisticEntityLockException( entity, "could not obtain pessimistic lock", ex );
 	}

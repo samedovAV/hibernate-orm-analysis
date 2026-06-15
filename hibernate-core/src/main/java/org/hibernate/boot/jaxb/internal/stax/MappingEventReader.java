@@ -8,6 +8,8 @@ import javax.xml.stream.XMLEventFactory;
 import javax.xml.stream.XMLEventReader;
 
 import org.hibernate.boot.xsd.MappingXsdSupport;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * StAX EVentReader for reading `mapping.xml` streams
@@ -23,6 +25,7 @@ public class MappingEventReader extends AbstractEventReader {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean shouldBeMappedToLatestJpaDescriptor(String uri) {
 		return !MappingXsdSupport.latestDescriptor().getNamespaceUri().equals( uri );
 	}

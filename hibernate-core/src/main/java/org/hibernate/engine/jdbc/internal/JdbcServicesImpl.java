@@ -21,6 +21,8 @@ import org.hibernate.service.spi.Configurable;
 import org.hibernate.service.spi.ServiceRegistryAwareService;
 import org.hibernate.service.spi.ServiceRegistryImplementor;
 import org.hibernate.sql.ast.spi.ParameterMarkerStrategy;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard implementation of the {@link JdbcServices} contract
@@ -42,11 +44,13 @@ public class JdbcServicesImpl implements JdbcServices, ServiceRegistryAwareServi
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void injectServices(@Nonnull ServiceRegistryImplementor serviceRegistry) {
 		this.serviceRegistry = serviceRegistry;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void configure(@Nonnull Map<String, Object> configValues) {
 		this.jdbcEnvironment = serviceRegistry.requireService( JdbcEnvironment.class );
 		this.sqlStatementLogger = serviceRegistry.getService( SqlStatementLogger.class );
@@ -54,43 +58,51 @@ public class JdbcServicesImpl implements JdbcServices, ServiceRegistryAwareServi
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcEnvironment getJdbcEnvironment() {
 		return jdbcEnvironment;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcConnectionAccess getBootstrapJdbcConnectionAccess() {
 		return JdbcEnvironmentInitiator.buildJdbcConnectionAccess( serviceRegistry );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Dialect getDialect() {
 		return jdbcEnvironment != null ? jdbcEnvironment.getDialect() : null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqlStatementLogger getSqlStatementLogger() {
 		return sqlStatementLogger;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ParameterMarkerStrategy getParameterMarkerStrategy() {
 		return parameterMarkerStrategy;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqlExceptionHelper getSqlExceptionHelper() {
 		assert jdbcEnvironment != null : "JdbcEnvironment was not found";
 		return jdbcEnvironment.getSqlExceptionHelper();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ExtractedDatabaseMetaData getExtractedMetaDataSupport() {
 		assert jdbcEnvironment != null : "JdbcEnvironment was not found";
 		return jdbcEnvironment.getExtractedDatabaseMetaData();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LobCreator getLobCreator(LobCreationContext lobCreationContext) {
 		assert jdbcEnvironment != null : "JdbcEnvironment was not found";
 		return jdbcEnvironment.getLobCreatorBuilder().buildLobCreator( lobCreationContext );

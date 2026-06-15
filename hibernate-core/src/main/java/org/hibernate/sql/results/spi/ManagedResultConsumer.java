@@ -10,6 +10,8 @@ import org.hibernate.sql.results.internal.RowProcessingStateStandardImpl;
 import org.hibernate.sql.results.jdbc.spi.JdbcValues;
 import org.hibernate.sql.results.jdbc.spi.JdbcValuesSourceProcessingOptions;
 import org.hibernate.sql.results.jdbc.spi.JdbcValuesSourceProcessingState;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Reads rows without producing a result.
@@ -22,6 +24,7 @@ public class ManagedResultConsumer implements ResultsConsumer<Void, Object> {
 	public static final ManagedResultConsumer INSTANCE = new ManagedResultConsumer();
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Void consume(
 			JdbcValues jdbcValues,
 			SharedSessionContractImplementor session,
@@ -72,6 +75,7 @@ public class ManagedResultConsumer implements ResultsConsumer<Void, Object> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean canResultsBeCached() {
 		return false;
 	}

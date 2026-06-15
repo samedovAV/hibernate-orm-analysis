@@ -13,6 +13,8 @@ import org.hibernate.persister.collection.CollectionPersister;
 import org.hibernate.persister.entity.EntityPersister;
 
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Substitutes escape sequences of form {@code {alias}},
@@ -33,12 +35,19 @@ public class SQLQueryParser {
 	private long aliasesFound;
 
 	public interface ParserContext {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		boolean isEntityAlias(String aliasName);
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		EntityPersister getEntityPersister(String alias);
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		String getEntitySuffix(String alias);
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		boolean isCollectionAlias(String aliasName);
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		CollectionPersister getCollectionPersister(String alias);
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		String getCollectionSuffix(String alias);
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		Map<String, String[]> getPropertyResultsMap(String alias);
 	}
 
@@ -55,20 +64,24 @@ public class SQLQueryParser {
 		this.sqlStringGenerationContext = sqlStringGenerationContext;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean queryHasAliases() {
 		return aliasesFound>0;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getOriginalQueryString() {
 		return originalQueryString;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String process() {
 		return substituteBrackets( originalQueryString );
 	}
 
 	// TODO: should "record" how many properties we have referred to - and if we
 	//       don't get them all we throw an exception! Way better than trial and error ;)
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected String substituteBrackets(String sqlQuery) throws QueryException {
 		final String trimmed = sqlQuery.trim();
 		if ( trimmed.startsWith("{") && trimmed.endsWith("}") ) {
@@ -137,6 +150,7 @@ public class SQLQueryParser {
 		return result.toString();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void interpretToken(String token, StringBuilder result) {
 		if ( token.startsWith("h-") ) {
 			handlePlaceholder( token, result );
@@ -149,6 +163,7 @@ public class SQLQueryParser {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void handleAliases(String token, StringBuilder result) {
 		final int firstDot = token.indexOf( '.' );
 		if ( firstDot == -1 ) {
@@ -184,6 +199,7 @@ public class SQLQueryParser {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void handlePlaceholder(String token, StringBuilder result) {
 		final Identifier defaultCatalog = sqlStringGenerationContext.getDefaultCatalog();
 		final Identifier defaultSchema = sqlStringGenerationContext.getDefaultSchema();
@@ -216,6 +232,7 @@ public class SQLQueryParser {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String resolveCollectionProperties(String aliasName, String propertyName, String token) {
 		final var fieldResults = context.getPropertyResultsMap( aliasName );
 		final var collectionPersister = context.getCollectionPersister( aliasName );
@@ -247,6 +264,7 @@ public class SQLQueryParser {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String resolveProperties(String aliasName, String propertyName, String token) {
 		final var fieldResults = context.getPropertyResultsMap( aliasName );
 		final var persister = context.getEntityPersister( aliasName );
@@ -274,6 +292,7 @@ public class SQLQueryParser {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void validate(String aliasName, String propertyName, String[] columnAliases, String token) {
 		if ( columnAliases == null || columnAliases.length == 0 ) {
 			throw new QueryException(

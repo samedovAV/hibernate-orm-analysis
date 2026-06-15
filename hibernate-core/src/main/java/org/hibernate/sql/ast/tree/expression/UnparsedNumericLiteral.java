@@ -20,6 +20,8 @@ import org.hibernate.sql.results.graph.DomainResult;
 import org.hibernate.sql.results.graph.DomainResultCreationState;
 import org.hibernate.sql.results.graph.basic.BasicResult;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A numeric literal coming from an HQL query, which needs special handling
@@ -40,11 +42,13 @@ public class UnparsedNumericLiteral<N extends Number> implements Literal, Domain
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public N getLiteralValue() {
 		return typeCategory.parseLiteralValue( literalValue );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void bindParameterValue(
 			PreparedStatement statement,
 			int startPosition,
@@ -59,24 +63,29 @@ public class UnparsedNumericLiteral<N extends Number> implements Literal, Domain
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getUnparsedLiteralValue() {
 		return literalValue;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NumericTypeCategory getTypeCategory() {
 		return typeCategory;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcMapping getJdbcMapping() {
 		return jdbcMapping;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcMappingContainer getExpressionType() {
 		return getJdbcMapping();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResult<N> createDomainResult(String resultVariable, DomainResultCreationState creationState) {
 		final SqlExpressionResolver sqlExpressionResolver =
 				creationState.getSqlAstCreationState().getSqlExpressionResolver();
@@ -98,6 +107,7 @@ public class UnparsedNumericLiteral<N extends Number> implements Literal, Domain
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applySqlSelections(DomainResultCreationState creationState) {
 		creationState.getSqlAstCreationState().getSqlExpressionResolver().resolveSqlSelection(
 				this,
@@ -108,6 +118,7 @@ public class UnparsedNumericLiteral<N extends Number> implements Literal, Domain
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker sqlTreeWalker) {
 		sqlTreeWalker.visitUnparsedNumericLiteral( this );
 	}

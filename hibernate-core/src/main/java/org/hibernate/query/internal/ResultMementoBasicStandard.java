@@ -27,6 +27,8 @@ import java.lang.reflect.Type;
 import java.util.function.Consumer;
 
 import static org.hibernate.internal.util.GenericsHelper.typeArguments;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Implementation of {@link ResultMementoBasic} for scalar (basic) results.
@@ -83,12 +85,14 @@ public class ResultMementoBasicStandard implements ResultMementoBasic {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getColumnName() {
 		return explicitColumnName;
 	}
 
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static <T> ResultBuilderBasicValued resolveBuilder(
 			String columnName,
 			Class<T> definedType,
@@ -153,6 +157,7 @@ public class ResultMementoBasicStandard implements ResultMementoBasic {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static BasicJavaType<?> determineDomainJavaType(
 			Type[] typeArguments,
 			JavaTypeRegistry jtdRegistry) {
@@ -160,6 +165,7 @@ public class ResultMementoBasicStandard implements ResultMementoBasic {
 		return (BasicJavaType<?>) jtdRegistry.resolveDescriptor( domainClass );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static BasicValuedMapping resolveUnderlyingMapping(
 			Type[] typeArguments,
 			TypeConfiguration typeConfiguration) {
@@ -185,6 +191,7 @@ public class ResultMementoBasicStandard implements ResultMementoBasic {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ResultBuilderBasicValued resolve(
 			Consumer<String> querySpaceConsumer,
 			ResultSetMappingResolutionContext context) {
@@ -192,11 +199,13 @@ public class ResultMementoBasicStandard implements ResultMementoBasic {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <R> ColumnMapping<R> toJpaMapping(SessionFactory sessionFactory) {
 		return toJpaMappingElement( sessionFactory );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <R> ColumnMapping<R> toJpaMappingElement(SessionFactory sessionFactory) {
 		final Class<?> resultJavaType = getResultJavaType();
 		if ( resultJavaType == null ) {
@@ -208,6 +217,7 @@ public class ResultMementoBasicStandard implements ResultMementoBasic {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getResultJavaType() {
 		return builder.getJavaType();
 	}

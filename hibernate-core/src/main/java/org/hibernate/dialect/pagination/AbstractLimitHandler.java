@@ -13,6 +13,8 @@ import org.hibernate.query.spi.Limit;
 
 import static java.util.regex.Pattern.CASE_INSENSITIVE;
 import static java.util.regex.Pattern.compile;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Default implementation of {@link LimitHandler} interface.
@@ -23,6 +25,7 @@ public abstract class AbstractLimitHandler implements LimitHandler {
 
 	public static LimitHandler NO_LIMIT = new AbstractLimitHandler(){
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean processSqlMutatesState() {
 			return false;
 		}
@@ -42,16 +45,19 @@ public abstract class AbstractLimitHandler implements LimitHandler {
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsLimit() {
 		return false;
 	}
 
 //	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsOffset() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsLimitOffset() {
 		return supportsLimit();
 	}
@@ -62,6 +68,7 @@ public abstract class AbstractLimitHandler implements LimitHandler {
 	 *
 	 * @return true if bind variables can be used
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsVariableLimit() {
 		return supportsLimit();
 	}
@@ -73,6 +80,7 @@ public abstract class AbstractLimitHandler implements LimitHandler {
 	 *
 	 * @return true if the correct order is limit then offset
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean bindLimitParametersInReverseOrder() {
 		return false;
 	}
@@ -83,6 +91,7 @@ public abstract class AbstractLimitHandler implements LimitHandler {
 	 *
 	 * @return true if limit parameters come before other parameters
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean bindLimitParametersFirst() {
 		return false;
 	}
@@ -98,6 +107,7 @@ public abstract class AbstractLimitHandler implements LimitHandler {
 	 * @return true if the limit clause expects the number of
 	 *         the last row, false if it expects the page size
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean useMaxForLimit() {
 		//if this limit handler doesn't support
 		//an offset, we definitely need to set
@@ -113,6 +123,7 @@ public abstract class AbstractLimitHandler implements LimitHandler {
 	 * @return true to force limit into SQL query even if none specified in
 	 *         Hibernate query; false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean forceLimitUsage() {
 		return false;
 	}
@@ -130,17 +141,20 @@ public abstract class AbstractLimitHandler implements LimitHandler {
 	 *
 	 * @return The resulting offset, adjusted to one-based if necessary.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int convertToFirstRowValue(int zeroBasedFirstResult) {
 		return zeroBasedFirstResult;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String processSql(String sql, Limit limit) {
 		throw new UnsupportedOperationException( "Paged queries not supported by " + getClass().getName() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int bindLimitParametersAtStartOfQuery(Limit limit, PreparedStatement statement, int index)
 			throws SQLException {
 		return bindLimitParametersFirst()
@@ -149,6 +163,7 @@ public abstract class AbstractLimitHandler implements LimitHandler {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int bindLimitParametersAtEndOfQuery(Limit limit, PreparedStatement statement, int index)
 			throws SQLException {
 		return !bindLimitParametersFirst()
@@ -157,6 +172,7 @@ public abstract class AbstractLimitHandler implements LimitHandler {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setMaxRows(Limit limit, PreparedStatement statement) throws SQLException {
 	}
 
@@ -169,6 +185,7 @@ public abstract class AbstractLimitHandler implements LimitHandler {
 	 * @return The number of parameter values bound.
 	 * @throws SQLException Indicates problems binding parameter values.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected final int bindLimitParameters(Limit limit, PreparedStatement statement, int index)
 			throws SQLException {
 		if ( supportsVariableLimit() ) {
@@ -188,6 +205,7 @@ public abstract class AbstractLimitHandler implements LimitHandler {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private int bindLimitParameters(
 			Limit limit,
 			PreparedStatement statement,
@@ -206,6 +224,7 @@ public abstract class AbstractLimitHandler implements LimitHandler {
 		return bound;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private int bindOffset(Limit limit, PreparedStatement statement, int index, boolean bindOffset, int bound)
 			throws SQLException {
 		if ( bindOffset ) {
@@ -216,6 +235,7 @@ public abstract class AbstractLimitHandler implements LimitHandler {
 		return bound;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private int bindLimit(Limit limit, PreparedStatement statement, int index, boolean bindLimit, int count)
 			throws SQLException {
 		if ( bindLimit ) {
@@ -233,6 +253,7 @@ public abstract class AbstractLimitHandler implements LimitHandler {
 	 *
 	 * @return Whether a max row limit was indicated
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean hasMaxRows(Limit limit) {
 		return limit != null
 			&& limit.getMaxRows() != null
@@ -246,6 +267,7 @@ public abstract class AbstractLimitHandler implements LimitHandler {
 	 *
 	 * @return Whether a first row limit was indicated
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean hasFirstRow(Limit limit) {
 		return limit != null
 			&& limit.getFirstRow() != null;
@@ -260,6 +282,7 @@ public abstract class AbstractLimitHandler implements LimitHandler {
 	 *
 	 * @return The appropriate value to bind into the limit clause.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected final int getMaxOrLimit(Limit limit) {
 		if ( hasMaxRows( limit ) ) {
 			final int firstRow = getFirstRow( limit );
@@ -283,6 +306,7 @@ public abstract class AbstractLimitHandler implements LimitHandler {
 	 *
 	 * @return The first row
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected final int getFirstRow(Limit limit) {
 		return limit == null || limit.getFirstRow() == null
 				? 0
@@ -294,6 +318,7 @@ public abstract class AbstractLimitHandler implements LimitHandler {
 	 * {@code SELECT}, but before {@code DISTINCT}
 	 * or {@code ALL}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected static String insertAfterSelect(String limitOffsetClause, String sqlStatement) {
 		final var selectMatcher = SELECT_PATTERN.matcher( sqlStatement );
 		if ( selectMatcher.find() ) {
@@ -311,6 +336,7 @@ public abstract class AbstractLimitHandler implements LimitHandler {
 	 * {@code SELECT}, {@code SELECT DISTINCT},
 	 * or {@code SELECT ALL}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected static String insertAfterDistinct(String limitOffsetClause, String sqlStatement) {
 		final var selectDistinctMatcher = SELECT_DISTINCT_PATTERN.matcher( sqlStatement );
 		if ( selectDistinctMatcher.find() ) {
@@ -327,6 +353,7 @@ public abstract class AbstractLimitHandler implements LimitHandler {
 	 * Insert a fragment of SQL right at the very
 	 * end of the query.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String insertAtEnd(String limitOffsetClause, String sqlStatement) {
 		final var endMatcher = END_PATTERN.matcher( sqlStatement );
 		if ( endMatcher.find() ) {
@@ -345,6 +372,7 @@ public abstract class AbstractLimitHandler implements LimitHandler {
 	 * we need a way to identify these clauses in
 	 * the text of the whole query.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Pattern getForUpdatePattern() {
 		return FOR_UPDATE_PATTERN;
 	}
@@ -354,6 +382,7 @@ public abstract class AbstractLimitHandler implements LimitHandler {
 	 * {@code FOR UPDATE}ish clauses at the end
 	 * of the query.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String insertBeforeForUpdate(String limitOffsetClause, String sqlStatement) {
 		final var forUpdateMatcher = getForUpdatePattern().matcher( sqlStatement );
 		if ( forUpdateMatcher.find() ) {

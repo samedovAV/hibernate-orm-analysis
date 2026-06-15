@@ -20,6 +20,8 @@ import org.hibernate.persister.collection.mutation.InsertRowsCoordinator;
 import org.hibernate.type.Type;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Persistent collections are treated as value objects by Hibernate.
@@ -62,13 +64,15 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @return The owner
 	 */
-	@Nullable Object getOwner();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	Object getOwner();
 
 	/**
 	 * Set the reference to the owning entity
 	 *
 	 * @param entity The owner
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setOwner(Object entity);
 
 	/**
@@ -76,6 +80,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @return {@code false} if the collection is non-empty; {@code true} otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean empty();
 
 	/**
@@ -84,12 +89,14 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 * @param role The collection role
 	 * @param snapshot The snapshot state
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setSnapshot(@Nullable Object key, @Nullable String role, @Nullable Serializable snapshot);
 
 	/**
 	 * After flushing, clear any "queued" additions, since the
 	 * database state is now synchronized with the memory state.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void postAction();
 
 	/**
@@ -97,6 +104,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @return The underlying collection/array
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getValue();
 
 	/**
@@ -105,6 +113,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @return {@code true} indicates that the application might have access to the underlying collection/array.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isDirectlyAccessible();
 
 	/**
@@ -114,6 +123,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @return true if this was currently associated with the given session
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean unsetSession(SharedSessionContractImplementor currentSession);
 
 	/**
@@ -126,6 +136,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 * @throws HibernateException if the collection was already associated
 	 * with another open session
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean setCurrentSession(SharedSessionContractImplementor session) throws HibernateException;
 
 	/**
@@ -135,6 +146,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @return The iterator
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Iterator<?> entries(CollectionPersister persister);
 
 	/**
@@ -147,6 +159,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @return The identifier value
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getIdentifier(Object entry, int i);
 
 	/**
@@ -158,6 +171,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @return The index value
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getIndex(Object entry, int i, CollectionPersister persister);
 
 	/**
@@ -168,6 +182,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @return The corresponding object that is part of the collection elements.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getElement(Object entry);
 
 	/**
@@ -178,6 +193,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @return The snapshot state for that element
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getSnapshotElement(Object entry, int i);
 
 	/**
@@ -188,6 +204,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 * @return {@code true} if the current state and the snapshot state match.
 	 *
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean equalsSnapshot(CollectionPersister persister);
 
 	/**
@@ -197,6 +214,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @return {@code true} if the given snapshot is empty
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isSnapshotEmpty(Serializable snapshot);
 
 	/**
@@ -206,6 +224,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @return {@code true} if a change requires a recreate.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean needsRecreate(CollectionPersister persister);
 
 	/**
@@ -215,6 +234,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @return The snapshot
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Serializable getSnapshot(CollectionPersister persister);
 
 	/**
@@ -225,6 +245,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @return {@code true} if the given entry is a collection element
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean entryExists(Object entry, int i);
 
 	/**
@@ -232,6 +253,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @apiNote Defined to match signature of {@link InsertRowsCoordinator.EntryFilter#include}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean includeInRecreate(
 			Object entry,
 			int i,
@@ -252,6 +274,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @return {@code true} if the element needs inserting
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean needsInserting(Object entry, int i, Type elemType);
 
 	/**
@@ -259,6 +282,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @apiNote Defined to match signature of {@link InsertRowsCoordinator.EntryFilter#include}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean includeInInsert(
 			Object entry,
 			int entryPosition,
@@ -278,6 +302,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 * @param attributeDescriptor The type for the element
 	 * @return {@code true} if the element needs updating
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default boolean needsUpdating(
 			Object entry,
 			int entryPosition,
@@ -296,6 +321,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @return {@code true} if the element needs updating
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean needsUpdating(Object entry, int i, Type elemType);
 
 	/**
@@ -304,6 +330,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @return {@code true} if the row for each element is known
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isRowUpdatePossible();
 
 	/**
@@ -314,6 +341,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @return An iterator over the elements to delete
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Iterator<?> getDeletes(CollectionPersister persister, boolean indexIsFormula);
 
 	/**
@@ -325,6 +353,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @since 7
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean hasDeletes(CollectionPersister persister);
 
 	/**
@@ -341,6 +370,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 * @since 8.0
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Iterator<?> getAddedEntities(CollectionPersister persister) {
 		// Default implementation returns empty - subclasses should override
 		return java.util.Collections.emptyIterator();
@@ -365,6 +395,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 * @since 8.0
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default CollectionChangeSet getChangeSet(CollectionPersister persister) {
 		// Default implementation returns null - only indexed collections override
 		return null;
@@ -377,17 +408,20 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @return  {@code true} if this is a wrapper around that given collection instance.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isWrapper(Object collection);
 
 	/**
 	 * Is this PersistentCollection in the process of being initialized?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isInitializing();
 
 	/**
 	 * Called prior to the initialization of this yet-uninitialized collection.  Pairs
 	 * with {@link #afterInitialize}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void beforeInitialize(CollectionPersister persister, int anticipatedSize);
 
 	/**
@@ -397,16 +431,19 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 * @param disassembled The disassembled cached state
 	 * @param owner The collection owner
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void initializeFromCache(CollectionPersister persister, Object disassembled, Object owner);
 
 	/**
 	 * Called just before reading any rows from the JDBC result set.  Pairs with {@link #endRead}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void beginRead();
 
 	/**
 	 * Inject the state loaded for a collection instance.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void injectLoadedState(PluralAttributeMapping attributeMapping, List<?> loadingState);
 
 	/**
@@ -414,11 +451,13 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @see #injectLoadedState
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean endRead();
 
 	/**
 	 * Called after initialization is complete.  Pairs with {@link #beforeInitialize}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean afterInitialize();
 
 	/**
@@ -428,6 +467,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @return The disassembled state
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object disassemble(CollectionPersister persister) ;
 
 	/**
@@ -435,6 +475,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @return {@code true} indicates there are pending, queued, delayed operations
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean hasQueuedOperations();
 
 	/**
@@ -442,6 +483,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @return The iterator
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Iterator<?> queuedAdditionIterator();
 
 	/**
@@ -451,6 +493,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @return The orphaned elements
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Collection<E> getQueuedOrphans(String entityName);
 
 	/**
@@ -458,20 +501,23 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @return the current collection key value
 	 */
-	@Nullable Object getKey();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	Object getKey();
 
 	/**
 	 * Get the current role name
 	 *
 	 * @return the collection role name
 	 */
-	@Nullable String getRole();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	String getRole();
 
 	/**
 	 * Is the collection unreferenced?
 	 *
 	 * @return {@code true} if the collection is no longer referenced by an owner
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isUnreferenced();
 
 	/**
@@ -482,8 +528,10 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @return {@code true} if the collection is dirty
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isDirty();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isElementRemoved(){
 		return false;
 	}
@@ -499,6 +547,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 * @return true, if {@code collection} was provided directly to this
 	 * PersistentCollection; false, otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isDirectlyProvidedCollection(Object collection) {
 		return isDirectlyAccessible() && isWrapper( collection );
 	}
@@ -507,6 +556,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 * Clear the dirty flag, after flushing changes
 	 * to the database.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void clearDirty();
 
 	/**
@@ -514,11 +564,13 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @return The internally stored snapshot state
 	 */
-	@Nullable Serializable getStoredSnapshot();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	Serializable getStoredSnapshot();
 
 	/**
 	 * Mark the collection as dirty
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void dirty();
 
 	/**
@@ -527,6 +579,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @param persister The collection persister
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void preInsert(CollectionPersister persister);
 
 	/**
@@ -536,6 +589,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 * @param entry The collection element just inserted
 	 * @param i The element position/index
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void afterRowInsert(CollectionPersister persister, Object entry, int i);
 
 	/**
@@ -546,23 +600,28 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @return The orphans
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Collection<E> getOrphans(Serializable snapshot, String entityName);
 
 	/**
 	 * Obtain the size of this collection without initializing it
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getSize();
 
 	/**
 	 * Determine if the given element belongs to this collection without initializing it
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean elementExists(Object element);
 
 	/**
 	 * Obtain the element os this collection associated with the given index without initializing it
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object elementByIndex(Object index);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void initializeEmptyCollection(CollectionPersister persister);
 
 	/**
@@ -570,6 +629,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 * Declared here for use by Hibernate Reactive.
 	 */
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionContractImplementor getSession();
 
 	/**
@@ -577,6 +637,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	 *
 	 * @return {@code true} if the collection is newly instantiated
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isNewlyInstantiated() {
 		return getKey() == null && !isDirty();
 	}
@@ -584,6 +645,7 @@ public interface PersistentCollection<E> extends LazyInitializable, InstanceIden
 	/**
 	 * Like {@link Object#toString()} but without the silliness of rendering the elements
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String render() {
 		return getRole() + "#" + getKey() + "(initialized: " + wasInitialized() + ")";
 	}

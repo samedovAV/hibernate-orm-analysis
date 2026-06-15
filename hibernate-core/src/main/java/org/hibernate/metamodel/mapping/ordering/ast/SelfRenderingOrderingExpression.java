@@ -12,6 +12,8 @@ import org.hibernate.sql.ast.tree.expression.SelfRenderingSqlFragmentExpression;
 import org.hibernate.sql.ast.tree.from.TableGroup;
 import org.hibernate.sql.ast.tree.select.QuerySpec;
 import org.hibernate.sql.ast.tree.select.SortSpecification;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents a self rendering expression i.e. usually a literal used in an order-by fragment
@@ -28,6 +30,7 @@ public class SelfRenderingOrderingExpression extends SelfRenderingSqlFragmentExp
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression resolve(
 			QuerySpec ast,
 			TableGroup tableGroup,
@@ -37,6 +40,7 @@ public class SelfRenderingOrderingExpression extends SelfRenderingSqlFragmentExp
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void apply(
 			QuerySpec ast,
 			TableGroup tableGroup,
@@ -62,6 +66,7 @@ public class SelfRenderingOrderingExpression extends SelfRenderingSqlFragmentExp
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toDescriptiveText() {
 		return "unknown";
 	}

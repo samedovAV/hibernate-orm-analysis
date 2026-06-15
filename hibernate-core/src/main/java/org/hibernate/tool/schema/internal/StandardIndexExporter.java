@@ -15,6 +15,8 @@ import org.hibernate.tool.schema.spi.Exporter;
 import static org.hibernate.internal.util.StringHelper.isBlank;
 import static org.hibernate.internal.util.StringHelper.isNotBlank;
 import static org.hibernate.internal.util.StringHelper.qualify;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An {@link Exporter} for {@linkplain Index indexes}.
@@ -29,11 +31,13 @@ public class StandardIndexExporter implements Exporter<Index> {
 		this.dialect = dialect;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Dialect getDialect() {
 		return dialect;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getSqlCreateStrings(Index index, Metadata metadata, SqlStringGenerationContext context) {
 		final var createIndex = new StringBuilder()
 				.append( createIndexString( index ) )
@@ -55,6 +59,7 @@ public class StandardIndexExporter implements Exporter<Index> {
 		return new String[] { createIndex.toString() };
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String createIndexString(Index index) {
 		final String createIndexString = dialect.getCreateIndexString( index.isUnique() );
 		final String type = index.getType();
@@ -64,6 +69,7 @@ public class StandardIndexExporter implements Exporter<Index> {
 						' ' + type + " index" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String indexName(Index index, SqlStringGenerationContext context, Metadata metadata) {
 		if ( dialect.qualifyIndexName() ) {
 			final var qualifiedTableName = index.getTable().getQualifiedTableName();
@@ -81,6 +87,7 @@ public class StandardIndexExporter implements Exporter<Index> {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void appendColumnList(Index index, StringBuilder createIndex) {
 		boolean first = true;
 		final var columnOrderMap = index.getSelectableOrderMap();
@@ -99,6 +106,7 @@ public class StandardIndexExporter implements Exporter<Index> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getSqlDropStrings(Index index, Metadata metadata, SqlStringGenerationContext context) {
 		if ( !dialect.dropConstraints() ) {
 			return NO_COMMANDS;

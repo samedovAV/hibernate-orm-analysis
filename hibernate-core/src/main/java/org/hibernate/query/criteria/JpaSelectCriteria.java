@@ -13,6 +13,8 @@ import jakarta.persistence.criteria.Subquery;
 import jakarta.persistence.metamodel.EntityType;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Commonality between a JPA {@link JpaCriteriaQuery} and {@link JpaSubQuery},
@@ -25,11 +27,13 @@ public interface JpaSelectCriteria<T> extends AbstractQuery<T>, JpaCriteriaBase 
 	 * The query structure.  See {@link JpaQueryStructure} for details
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaQueryStructure<T> getQuerySpec();
 	/**
 	 * The query structure.  See {@link JpaQueryStructure} for details
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaQueryPart<T> getQueryPart();
 
 	/**
@@ -40,6 +44,7 @@ public interface JpaSelectCriteria<T> extends AbstractQuery<T>, JpaCriteriaBase 
 	 * @return query root corresponding to the given subquery
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> JpaDerivedRoot<X> from(@Nonnull Subquery<X> subquery);
 
 	/**
@@ -50,6 +55,7 @@ public interface JpaSelectCriteria<T> extends AbstractQuery<T>, JpaCriteriaBase 
 	 * @return query root corresponding to the given cte
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> JpaRoot<X> from(@Nonnull JpaCteCriteria<X> cte);
 
 	/**
@@ -60,61 +66,76 @@ public interface JpaSelectCriteria<T> extends AbstractQuery<T>, JpaCriteriaBase 
 	 * @return query root corresponding to the given function
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> JpaFunctionRoot<X> from(@Nonnull JpaSetReturningFunction<X> function);
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaSelectCriteria<T> distinct(boolean distinct);
 
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaSelection<T> getSelection();
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> JpaRoot<X> from(@Nonnull Class<X> entityClass);
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> JpaRoot<X> from(@Nonnull EntityType<X> entity);
 
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaPredicate getRestriction();
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaSelectCriteria<T> where(@Nonnull Expression<Boolean> restriction);
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaSelectCriteria<T> where(@Nonnull BooleanExpression... restrictions);
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaSelectCriteria<T> where(@Nonnull List<? extends Expression<Boolean>> restrictions);
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaSelectCriteria<T> groupBy(@Nonnull Expression<?>... grouping);
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaSelectCriteria<T> groupBy(@Nonnull List<Expression<?>> grouping);
 
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaPredicate getGroupRestriction();
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaSelectCriteria<T> having(@Nonnull Expression<Boolean> restriction);
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaSelectCriteria<T> having(@Nonnull BooleanExpression... restrictions);
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaSelectCriteria<T> having(@Nonnull List<? extends Expression<Boolean>> restrictions);
 }

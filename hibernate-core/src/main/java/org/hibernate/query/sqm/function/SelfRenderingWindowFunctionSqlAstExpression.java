@@ -14,6 +14,8 @@ import org.hibernate.sql.ast.spi.SqlAppender;
 import org.hibernate.sql.ast.tree.SqlAstNode;
 import org.hibernate.sql.ast.tree.expression.WindowFunctionExpression;
 import org.hibernate.sql.ast.tree.predicate.Predicate;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Representation of a window function call in the SQL AST for impls that know how to
@@ -44,21 +46,25 @@ public class SelfRenderingWindowFunctionSqlAstExpression<T> extends SelfRenderin
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Predicate getFilter() {
 		return filter;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Boolean getRespectNulls() {
 		return respectNulls;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Boolean getFromFirst() {
 		return fromFirst;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void renderToSql(
 			SqlAppender sqlAppender,
 			SqlAstTranslator<?> walker,

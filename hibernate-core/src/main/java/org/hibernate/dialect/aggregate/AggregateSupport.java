@@ -21,6 +21,8 @@ import org.hibernate.sql.ast.spi.SqlAppender;
 import org.hibernate.sql.ast.tree.expression.Expression;
 import org.hibernate.type.SqlTypes;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A set of operations providing support for aggregate column types
@@ -43,6 +45,7 @@ public interface AggregateSupport {
 	 * @param aggregateColumn The type information for the aggregate column
 	 * @param column The column within the aggregate type, for which to return the read expression
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default String aggregateComponentCustomReadExpression(
 			String template,
 			String placeholder,
@@ -72,6 +75,7 @@ public interface AggregateSupport {
 	}
 
 	@Internal // TODO: find a better way!
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean useLengthsInCasts() {
 		return false;
 	}
@@ -90,6 +94,7 @@ public interface AggregateSupport {
 	 * @param typeConfiguration The type configuration
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String aggregateComponentCustomReadExpression(
 			String template,
 			String placeholder,
@@ -108,6 +113,7 @@ public interface AggregateSupport {
 	 * @param aggregateColumn The type information for the aggregate column
 	 * @param column The column within the aggregate type, for which to return the assignment expression
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default String aggregateComponentAssignmentExpression(
 			String aggregateParentAssignmentExpression,
 			String columnExpression,
@@ -135,6 +141,7 @@ public interface AggregateSupport {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String aggregateComponentAssignmentExpression(
 			String aggregateParentAssignmentExpression,
 			String columnExpression,
@@ -148,21 +155,25 @@ public interface AggregateSupport {
 	 * @param aggregateColumn The type information for the aggregate column
 	 * @param aggregatedColumns The columns of the aggregate type
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String aggregateCustomWriteExpression(AggregateColumn aggregateColumn, List<Column> aggregatedColumns);
 
 	/**
 	 * Whether {@link #aggregateCustomWriteExpressionRenderer(SelectableMapping, SelectableMapping[], TypeConfiguration)} is needed
 	 * when assigning an expression to individual aggregated columns in an update statement.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean requiresAggregateCustomWriteExpressionRenderer(int aggregateSqlTypeCode);
 
 	/**
 	 * Whether to prefer selecting the aggregate column as a whole instead of individual parts.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean preferSelectAggregateMapping(int aggregateSqlTypeCode);
 	/**
 	 * Whether to prefer binding the aggregate column as a whole instead of individual parts.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean preferBindAggregateMapping(int aggregateSqlTypeCode);
 
 	/**
@@ -170,6 +181,7 @@ public interface AggregateSupport {
 	 * @param columnsToUpdate The mappings of the columns that should be updated
 	 * @param typeConfiguration The type configuration
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	WriteExpressionRenderer aggregateCustomWriteExpressionRenderer(
 			SelectableMapping aggregateColumn,
 			SelectableMapping[] columnsToUpdate,
@@ -184,6 +196,7 @@ public interface AggregateSupport {
 		 * Renders the qualified custom write expression to the {@link SqlAppender} with the value expressions for each
 		 * selectable as returned by {@link AggregateColumnWriteExpression#getValueExpression(SelectableMapping)}.
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void render(
 				SqlAppender sqlAppender,
 				SqlAstTranslator<?> translator,
@@ -200,12 +213,14 @@ public interface AggregateSupport {
 		 * Returns the value expression to assign to the given selectable mapping,
 		 * or throws an {@link IllegalArgumentException} when an invalid selectable mapping is passed.
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		Expression getValueExpression(SelectableMapping selectableMapping);
 	}
 
 	/**
 	 * Allows to generate auxiliary database objects for an aggregate type.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<AuxiliaryDatabaseObject> aggregateAuxiliaryDatabaseObjects(
 			Namespace namespace,
 			String aggregatePath,
@@ -221,11 +236,13 @@ public interface AggregateSupport {
 	 * @param aggregateColumnSqlTypeCode The {@link org.hibernate.type.SqlTypes} type code of the aggregate column
 	 * @param columnSqlTypeCode The {@link org.hibernate.type.SqlTypes} type code of the column
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int aggregateComponentSqlTypeCode(int aggregateColumnSqlTypeCode, int columnSqlTypeCode);
 
 	/**
 	 * Returns whether the database supports the use of a check constraint on tables,
 	 * to implement not-null and other constraints of an aggregate type.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean supportsComponentCheckConstraints();
 }

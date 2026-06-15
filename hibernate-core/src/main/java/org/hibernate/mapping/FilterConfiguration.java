@@ -11,6 +11,8 @@ import org.hibernate.engine.spi.SessionFactoryImplementor;
 
 import static java.util.Collections.emptyMap;
 import static java.util.Collections.singletonMap;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Rob Worsnop
@@ -38,18 +40,22 @@ public class FilterConfiguration {
 		this.persistentClass = persistentClass;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getCondition() {
 		return condition;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean useAutoAliasInjection() {
 		return autoAliasInjection;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, String> getAliasTableMap(SessionFactoryImplementor factory) {
 		final var mergedAliasTableMap = mergeAliasMaps( factory );
 		if ( !mergedAliasTableMap.isEmpty() ) {
@@ -66,6 +72,7 @@ public class FilterConfiguration {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private Map<String, String> mergeAliasMaps(SessionFactoryImplementor factory) {
 		final Map<String, String> result = new HashMap<>();
 		if ( aliasTableMap != null ) {

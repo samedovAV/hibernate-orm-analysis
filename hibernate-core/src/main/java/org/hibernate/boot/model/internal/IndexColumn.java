@@ -16,6 +16,8 @@ import org.hibernate.mapping.Join;
 import jakarta.persistence.OrderColumn;
 
 import static org.hibernate.internal.util.StringHelper.nullIfEmpty;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An {@link jakarta.persistence.OrderColumn} annotation
@@ -31,6 +33,7 @@ public class IndexColumn extends AnnotatedColumn {
 		setScale( 0 );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static IndexColumn fromAnnotations(
 			OrderColumn orderColumn,
 			ListIndexBase listIndexBase,
@@ -59,6 +62,7 @@ public class IndexColumn extends AnnotatedColumn {
 		return column;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void addIndexCheckConstraint(Dialect dialect) {
 		getMappingColumn()
 				.addCheckConstraint( new CheckConstraint( null,
@@ -66,6 +70,7 @@ public class IndexColumn extends AnnotatedColumn {
 								+ ">=" + getBase() ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void createParent(
 			PropertyHolder propertyHolder,
 			Map<String, Join> secondaryTables,
@@ -78,10 +83,12 @@ public class IndexColumn extends AnnotatedColumn {
 		column.setParent( parent );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getBase() {
 		return base;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setBase(int base) {
 		this.base = base;
 	}
@@ -95,6 +102,7 @@ public class IndexColumn extends AnnotatedColumn {
 	 * @param secondaryTables Any secondary tables available.
 	 * @return The index column
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static IndexColumn buildColumnFromOrderColumn(OrderColumn orderColumn, PropertyHolder propertyHolder, PropertyData inferredData, Map<String, Join> secondaryTables, MetadataBuildingContext context) {
 		if ( orderColumn != null ) {
 			final String sqlType = nullIfEmpty( orderColumn.columnDefinition() );

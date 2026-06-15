@@ -9,6 +9,8 @@ import org.hibernate.sql.ast.spi.SqlAppender;
 import org.hibernate.sql.ast.tree.expression.Expression;
 import org.hibernate.sql.ast.tree.expression.JsonNullBehavior;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * MariaDB json_objectagg function.
@@ -20,6 +22,7 @@ public class MariaDBJsonObjectAggFunction extends MySQLJsonObjectAggFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderArgument(
 			SqlAppender sqlAppender,
 			Expression arg,

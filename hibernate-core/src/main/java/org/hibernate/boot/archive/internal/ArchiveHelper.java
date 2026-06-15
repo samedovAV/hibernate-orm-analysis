@@ -22,6 +22,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static org.hibernate.boot.BootLogging.BOOT_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Helper for dealing with archives
 ///
@@ -34,6 +36,7 @@ public class ArchiveHelper {
 
 	/// Resolves a named `<jar-file/>` reference assuming the name is a URL.
 	/// `null` will be returned if the reference is not a URL.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static ArchiveDescriptor resolveJarFileReferenceAsUrl(
 			String jarFileReference,
 			ArchiveDescriptorFactory archiveDescriptorFactory) {
@@ -49,6 +52,7 @@ public class ArchiveHelper {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static InputStreamAccess buildByteBasedInputStreamAccess(String name, InputStream inputStream) {
 		// because of how jar InputStreams work we need to extract the bytes immediately.  However, we
 		// do delay the creation of the ByteArrayInputStreams until needed
@@ -64,6 +68,7 @@ public class ArchiveHelper {
 	/// @param entry file known to be in the JAR
 	/// @return the JAR URL
 	/// @throws IllegalArgumentException if none URL is found
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static URL getJarURLFromURLEntry(URL url, String entry) throws IllegalArgumentException {
 		URL jarUrl;
 		String file = url.getFile();
@@ -131,6 +136,7 @@ public class ArchiveHelper {
 	/// and do not have an [ArchiveDescriptor].
 	///
 	/// @see org.hibernate.jpa.boot.internal.ParsedPersistenceXmlDescriptor
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static URL resolveJarFileReference(String jarFileReference, URLClassLoader urlClassLoader) {
 		assert jarFileReference != null;
 		if ( jarFileReference.startsWith( "file://" ) ) {
@@ -154,6 +160,7 @@ public class ArchiveHelper {
 		throw new HibernateException( "Could not resolve jar-file: " + jarFileReference );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static URL tryAsFileReference(String jarFileReference, String trimmed) {
 		final File jarFile = new File( trimmed );
 		try {
@@ -167,6 +174,7 @@ public class ArchiveHelper {
 	}
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static URL asFileReference(String jarFileReference, String trimmed) {
 		final File jarFile = new File( trimmed );
 		if ( !jarFile.exists() ) {
@@ -188,6 +196,7 @@ public class ArchiveHelper {
 	/// @return The bytes
 	///
 	/// @throws ArchiveException Indicates a problem accessing the stream
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static byte[] getBytesFromInputStreamSafely(InputStream inputStream) throws ArchiveException {
 		try {
 			return getBytesFromInputStream( inputStream );
@@ -206,6 +215,7 @@ public class ArchiveHelper {
 	/// @throws IOException Indicates a problem accessing the stream
 	///
 	/// @see #getBytesFromInputStreamSafely(InputStream)
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static byte[] getBytesFromInputStream(InputStream inputStream) throws IOException {
 		// Optimized by HHH-7835
 		int size;
@@ -242,6 +252,7 @@ public class ArchiveHelper {
 	}
 
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static ArchiveDescriptor standardJarFileReferenceResolution(
 			@Nonnull String jarFileReference,
 			ArchiveDescriptorFactory archiveDescriptorFactory) {

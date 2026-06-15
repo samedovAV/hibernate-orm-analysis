@@ -10,6 +10,8 @@ import org.hibernate.event.spi.PostCommitInsertEventListener;
 import org.hibernate.event.spi.PostCommitUpdateEventListener;
 
 import static org.hibernate.event.internal.EventListenerLogging.EVENT_LISTENER_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Historically, the listeners for the post-commit events simply reused the
@@ -44,11 +46,13 @@ class PostCommitEventListenerGroupImpl<T> extends EventListenerGroupImpl<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void appendListener(T listener) {
 		checkAgainstExtendedContract( listener );
 		super.appendListener( listener );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void checkAgainstExtendedContract(T listener) {
 		if ( !extendedListenerContract.isInstance( listener ) ) {
 			EVENT_LISTENER_LOGGER.warnf(
@@ -63,6 +67,7 @@ class PostCommitEventListenerGroupImpl<T> extends EventListenerGroupImpl<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void prependListener(T listener) {
 		checkAgainstExtendedContract( listener );
 		super.prependListener( listener );

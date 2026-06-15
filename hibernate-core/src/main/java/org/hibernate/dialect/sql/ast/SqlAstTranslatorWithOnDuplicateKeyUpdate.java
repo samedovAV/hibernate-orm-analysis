@@ -20,6 +20,8 @@ import org.hibernate.sql.model.jdbc.UpsertOperation;
 import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.function.BiConsumer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Jan Schatteman
@@ -31,6 +33,7 @@ public class SqlAstTranslatorWithOnDuplicateKeyUpdate<T extends JdbcOperation> e
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutationOperation createMergeOperation(OptionalTableUpdate optionalTableUpdate) {
 		assert optionalTableUpdate.getNumberOfOptimisticLockBindings() == 0;
 
@@ -54,6 +57,7 @@ public class SqlAstTranslatorWithOnDuplicateKeyUpdate<T extends JdbcOperation> e
 
 	private static class MySQLRowCountExpectation implements Expectation {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public final void verifyOutcome(int rowCount, PreparedStatement statement, int batchPosition, String sql) {
 			if ( rowCount > 2 ) {
 				throw new StaleStateException(
@@ -66,12 +70,14 @@ public class SqlAstTranslatorWithOnDuplicateKeyUpdate<T extends JdbcOperation> e
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderUpsertStatement(OptionalTableUpdate optionalTableUpdate) {
 		renderInsertInto( optionalTableUpdate );
 		appendSql( " " );
 		renderOnDuplicateKeyUpdate( optionalTableUpdate );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void renderInsertInto(OptionalTableUpdate optionalTableUpdate) {
 		if ( optionalTableUpdate.getValueBindings().isEmpty() ) {
 			appendSql( "insert ignore into " );
@@ -117,9 +123,11 @@ public class SqlAstTranslatorWithOnDuplicateKeyUpdate<T extends JdbcOperation> e
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderNewRowAlias() {
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderOnDuplicateKeyUpdate(OptionalTableUpdate optionalTableUpdate) {
 		appendSql( "on duplicate key update " );
 		if ( optionalTableUpdate.getValueBindings().stream()
@@ -127,6 +135,7 @@ public class SqlAstTranslatorWithOnDuplicateKeyUpdate<T extends JdbcOperation> e
 			class BindingProcessor implements BiConsumer<Integer, ColumnValueBinding> {
 				boolean first = true;
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				public void accept(Integer columnPosition, ColumnValueBinding columnValueBinding) {
 					if ( columnValueBinding.isAttributeUpdatable() ) {
 						final String columnName = columnValueBinding.getColumnReference().getColumnExpression();
@@ -154,6 +163,7 @@ public class SqlAstTranslatorWithOnDuplicateKeyUpdate<T extends JdbcOperation> e
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderUpdateValue(ColumnValueBinding columnValueBinding) {
 	}
 

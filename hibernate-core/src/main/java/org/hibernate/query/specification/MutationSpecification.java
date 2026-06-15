@@ -18,6 +18,8 @@ import org.hibernate.query.IllegalMutationQueryException;
 import org.hibernate.query.MutationQuery;
 import org.hibernate.query.specification.internal.MutationSpecificationImpl;
 import org.hibernate.query.restriction.Restriction;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specialization of {@link QuerySpecification} for programmatic customization of
@@ -49,6 +51,7 @@ import org.hibernate.query.restriction.Restriction;
 public interface MutationSpecification<T> extends QuerySpecification<T> {
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationSpecification<T> restrict(Restriction<? super T> restriction);
 
 	/**
@@ -58,6 +61,7 @@ public interface MutationSpecification<T> extends QuerySpecification<T> {
 	 */
 	@FunctionalInterface
 	interface Augmentation<T> {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void augment(CriteriaBuilder builder, CommonAbstractCriteria query, Root<T> mutationTarget);
 	}
 
@@ -68,21 +72,26 @@ public interface MutationSpecification<T> extends QuerySpecification<T> {
 	 *
 	 * @return {@code this} for method chaining.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationSpecification<T> augment(Augmentation<T> augmentation);
 
 	/**
 	 * Finalize the building and create the {@linkplain MutationQuery} instance.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery createQuery(EntityHandler entityHandler);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CriteriaStatement<T> buildCriteria(CriteriaBuilder builder);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationSpecification<T> validate(CriteriaBuilder builder);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StatementReference reference();
 
 	/**
@@ -99,6 +108,7 @@ public interface MutationSpecification<T> extends QuerySpecification<T> {
 	 * @throws IllegalMutationQueryException Only {@code update} and {@code delete} are supported;
 	 * this method will throw an exception if the given HQL query is not an {@code update} or {@code delete}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <T> MutationSpecification<T> create(Class<T> mutationTarget, String hql) {
 		return new MutationSpecificationImpl<>( hql, mutationTarget );
 	}
@@ -115,6 +125,7 @@ public interface MutationSpecification<T> extends QuerySpecification<T> {
 	 *
 	 * @since 8.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <T> MutationSpecification<T> create(StatementReference statementReference) {
 		return new MutationSpecificationImpl<>( statementReference );
 	}
@@ -130,6 +141,7 @@ public interface MutationSpecification<T> extends QuerySpecification<T> {
 	 *
 	 * @see UpdateSpecification#create(CriteriaUpdate)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <T> MutationSpecification<T> create(CriteriaUpdate<T> criteriaUpdate) {
 		return new MutationSpecificationImpl<>( criteriaUpdate );
 	}
@@ -145,6 +157,7 @@ public interface MutationSpecification<T> extends QuerySpecification<T> {
 	 *
 	 * @see DeleteSpecification#create(CriteriaDelete)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <T> MutationSpecification<T> create(CriteriaDelete<T> criteriaDelete) {
 		return new MutationSpecificationImpl<>( criteriaDelete );
 	}

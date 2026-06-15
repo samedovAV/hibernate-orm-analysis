@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.metamodel.model.domain;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 
 /**
@@ -14,6 +17,8 @@ package org.hibernate.metamodel.model.domain;
  * @author Steve Ebersole
  */
 public interface AnyMappingDomainType<J> extends SimpleDomainType<J> {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SimpleDomainType<?> getDiscriminatorType();
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SimpleDomainType<?> getKeyType();
 }

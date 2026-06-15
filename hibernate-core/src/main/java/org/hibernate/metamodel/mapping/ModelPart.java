@@ -18,6 +18,8 @@ import org.hibernate.sql.results.graph.DomainResultCreationState;
 import org.hibernate.type.descriptor.java.JavaType;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Base descriptor, within the mapping model, for any part of the
 /// application's domain model: an attribute, an entity identifier,
@@ -49,17 +51,21 @@ public interface ModelPart extends MappingModelExpressible {
 	/// @apiNote Whereas [#getPartName()] is local to this part, NavigableRole can be a compound path
 	///
 	/// @see #getPartName()
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NavigableRole getNavigableRole();
 
 	/// The local part name, which is generally the unqualified role name
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getPartName();
 
 	/// The type for this part.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MappingType getPartMappingType();
 
 	/// The Java type for this part.  Generally equivalent to
 	/// [MappingType#getMappedJavaType()] relative to
 	/// [#getPartMappingType()]
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JavaType<?> getJavaType();
 
 	/// Whether this model part describes something that physically
@@ -70,17 +76,21 @@ public interface ModelPart extends MappingModelExpressible {
 	/// is no "discriminator attribute".
 	///
 	/// Also indicates whether the part is castable to [VirtualModelPart]
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isVirtual() {
 		return false;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isEntityIdentifierMapping() {
 		return false;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean hasPartitionedSelectionMapping();
 
 	/// Create a [DomainResult] for a specific reference to this [ModelPart].
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> DomainResult<T> createDomainResult(
 			NavigablePath navigablePath,
 			TableGroup tableGroup,
@@ -89,6 +99,7 @@ public interface ModelPart extends MappingModelExpressible {
 
 	/// Apply SQL selections for a specific reference to this [ModelPart]
 	/// outside the domain query's root select clause.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void applySqlSelections(
 			NavigablePath navigablePath,
 			TableGroup tableGroup,
@@ -96,6 +107,7 @@ public interface ModelPart extends MappingModelExpressible {
 
 	/// Apply SQL selections for a specific reference to this [ModelPart]
 	/// outside the domain query's root select clause.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void applySqlSelections(
 			NavigablePath navigablePath,
 			TableGroup tableGroup,
@@ -103,6 +115,7 @@ public interface ModelPart extends MappingModelExpressible {
 			BiConsumer<SqlSelection,JdbcMapping> selectionConsumer);
 
 	/// Visits each physical (non-formula)  column.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int forEachColumn(SelectableConsumer consumer) {
 		final int[] count = new int[] {0};
 		forEachSelectable( 0, (index, selectableMapping) -> {
@@ -115,30 +128,36 @@ public interface ModelPart extends MappingModelExpressible {
 	}
 
 	/// A shorthand form of [#forEachSelectable(int,SelectableConsumer)], that passes `0` as offset.
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default int forEachSelectable(SelectableConsumer consumer) {
 		return forEachSelectable( 0, consumer );
 	}
 
 	/// Visits each selectable mapping with the selectable index offset by the given value.
 	/// Returns the amount of jdbc types that have been visited.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int forEachSelectable(int offset, SelectableConsumer consumer) {
 		return 0;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default AttributeMapping asAttributeMapping() {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default EntityMappingType asEntityMappingType(){
 		return null;
 	}
 
-	@Nullable default BasicValuedModelPart asBasicValuedModelPart() {
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	default BasicValuedModelPart asBasicValuedModelPart() {
 		return null;
 	}
 
 	/// A shorthand form of [#breakDownJdbcValues(Object,int,Object,Object,JdbcValueBiConsumer,SharedSessionContractImplementor)],
 	/// that passes `0` as offset and null for the two values `X` and `Y`.
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default int breakDownJdbcValues(
 			Object domainValue,
 			JdbcValueConsumer valueConsumer,
@@ -151,6 +170,7 @@ public interface ModelPart extends MappingModelExpressible {
 	/// Think of it as breaking the multi-dimensional array into a visitable flat array.
 	/// Additionally, it passes through the values `X` and `Y` to the consumer.
 	/// Returns the amount of jdbc types that have been visited.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X, Y> int breakDownJdbcValues(
 			Object domainValue,
 			int offset,
@@ -161,6 +181,7 @@ public interface ModelPart extends MappingModelExpressible {
 
 	/// A shorthand form of [#decompose(Object,int,Object,Object,JdbcValueBiConsumer,SharedSessionContractImplementor)],
 	/// that passes `0` as offset and null for the two values `X` and `Y`.
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default int decompose(
 			Object domainValue,
 			JdbcValueConsumer valueConsumer,
@@ -171,6 +192,7 @@ public interface ModelPart extends MappingModelExpressible {
 	/// Similar to [#breakDownJdbcValues(Object,int,Object,Object,JdbcValueBiConsumer,SharedSessionContractImplementor)],
 	/// but this method is supposed to be used for decomposing values for assignment expressions.
 	/// Returns the amount of jdbc types that have been visited.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <X, Y> int decompose(
 			Object domainValue,
 			int offset,
@@ -181,8 +203,10 @@ public interface ModelPart extends MappingModelExpressible {
 		return breakDownJdbcValues( domainValue, offset, x, y, valueConsumer, session );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityMappingType findContainingEntityMapping();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean areEqual(@Nullable Object one, @Nullable Object other, SharedSessionContractImplementor session) {
 		// NOTE : deepEquals to account for arrays (compound natural-id)
 		return Objects.deepEquals( one, other );
@@ -192,11 +216,13 @@ public interface ModelPart extends MappingModelExpressible {
 	@FunctionalInterface
 	interface JdbcValueConsumer extends JdbcValueBiConsumer<Object, Object> {
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		default void consume(int valueIndex, Object x, Object y, Object value, SelectableMapping jdbcValueMapping) {
 			consume( valueIndex, value, jdbcValueMapping );
 		}
 
 		/// Consume a JDBC-level jdbcValue. The JDBC jdbcMapping descriptor is also passed in
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void consume(int valueIndex, Object value, SelectableMapping jdbcValueMapping);
 	}
 
@@ -204,6 +230,7 @@ public interface ModelPart extends MappingModelExpressible {
 	@FunctionalInterface
 	interface JdbcValueBiConsumer<X, Y> {
 		/// Consume a JDBC-level jdbcValue.  The JDBC jdbcMapping descriptor is also passed in
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void consume(int valueIndex, X x, Y y, Object value, SelectableMapping jdbcValueMapping);
 	}
 }

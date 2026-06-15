@@ -16,6 +16,8 @@ import org.hibernate.sql.ast.tree.SqlAstNode;
 import org.hibernate.sql.ast.tree.expression.JsonNullBehavior;
 import org.hibernate.type.SqlTypes;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard json_object function.
@@ -38,6 +40,7 @@ public class JsonObjectFunction extends AbstractSqmSelfRenderingFunctionDescript
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,
@@ -80,6 +83,7 @@ public class JsonObjectFunction extends AbstractSqmSelfRenderingFunctionDescript
 		sqlAppender.appendSql( ')' );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderValue(SqlAppender sqlAppender, SqlAstNode value, SqlAstTranslator<?> walker) {
 		value.accept( walker );
 	}

@@ -8,6 +8,8 @@ import org.hibernate.Internal;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 
 import java.util.EnumSet;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link Generator} that doesn't generate.
@@ -26,46 +28,55 @@ import java.util.EnumSet;
 @Internal
 public class Assigned implements Generator {
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean generatedOnExecution() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean generatedOnExecution(Object entity, SharedSessionContractImplementor session) {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean generatedBeforeExecution(Object entity, SharedSessionContractImplementor session) {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean allowAssignedIdentifiers() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean allowMutation() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EnumSet<EventType> getEventTypes() {
 		return EventTypeSets.NONE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean generatesSometimes() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean generatesOnInsert() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean generatesOnUpdate() {
 		return false;
 	}

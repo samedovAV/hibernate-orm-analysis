@@ -16,6 +16,8 @@ import org.hibernate.query.sqm.tree.SqmCopyContext;
 import org.hibernate.query.sqm.tree.SqmRenderContext;
 import org.hibernate.query.sqm.tree.from.SqmEntityJoin;
 import org.hibernate.spi.NavigablePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -60,6 +62,7 @@ public class SqmTreatedEntityJoin<L,R,S extends R> extends SqmEntityJoin<L,S> im
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmTreatedEntityJoin<L,R,S> copy(SqmCopyContext context) {
 		final var existing = context.getCopy( this );
 		if ( existing != null ) {
@@ -80,32 +83,38 @@ public class SqmTreatedEntityJoin<L,R,S extends R> extends SqmEntityJoin<L,S> im
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityDomainType<S> getTreatTarget() {
 		return treatTarget;
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmEntityDomainType<S> getModel() {
 		return treatTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPath<R> getWrappedPath() {
 		return wrappedPath;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nonnull SqmBindableType<S> getNodeType() {
 		return treatTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmEntityDomainType<S> getReferencedPathSource() {
 		return treatTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void appendHqlString(StringBuilder hql, SqmRenderContext context) {
 		hql.append( "treat(" );
 		wrappedPath.appendHqlString( hql, context );
@@ -116,30 +125,35 @@ public class SqmTreatedEntityJoin<L,R,S extends R> extends SqmEntityJoin<L,S> im
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmTreatedEntityJoin<L,R,S> on(@Nullable JpaExpression<Boolean> restriction) {
 		return (SqmTreatedEntityJoin<L, R, S>) super.on( restriction );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmTreatedEntityJoin<L,R,S> on(@Nonnull Expression<Boolean> restriction) {
 		return (SqmTreatedEntityJoin<L, R, S>) super.on( restriction );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmTreatedEntityJoin<L,R,S> on(@Nullable JpaPredicate ... restrictions) {
 		return (SqmTreatedEntityJoin<L, R, S>) super.on( restrictions );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmTreatedEntityJoin<L,R,S> on(@Nonnull BooleanExpression... restrictions) {
 		return (SqmTreatedEntityJoin<L,R,S>) super.on( restrictions );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S1 extends S> SqmTreatedEntityJoin<L, S, S1> treatAs(@Nonnull Class<S1> treatJavaType, @Nullable String alias, boolean fetched) {
 		//noinspection unchecked
 		return (SqmTreatedEntityJoin<L, S, S1>) wrappedPath.treatAs( treatJavaType, alias, fetched );
@@ -147,6 +161,7 @@ public class SqmTreatedEntityJoin<L,R,S extends R> extends SqmEntityJoin<L,S> im
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S1 extends S> SqmTreatedEntityJoin<L, S, S1> treatAs(@Nonnull EntityDomainType<S1> treatTarget, @Nullable String alias, boolean fetched) {
 		//noinspection unchecked
 		return (SqmTreatedEntityJoin<L, S, S1>) wrappedPath.treatAs( treatTarget, alias, fetched );

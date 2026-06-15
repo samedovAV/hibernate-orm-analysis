@@ -33,6 +33,8 @@ import static org.hibernate.tool.schema.internal.Helper.applySqlString;
 import static org.hibernate.tool.schema.internal.Helper.applySqlStrings;
 import static org.hibernate.tool.schema.internal.Helper.createSqlStringGenerationContext;
 import static org.hibernate.tool.schema.internal.Helper.interpretFormattingEnabled;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Basic implementation of {@link SchemaTruncator}.
@@ -51,6 +53,7 @@ public class SchemaTruncatorImpl extends AbstractSchemaPopulator implements Sche
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void doTruncate(
 			Metadata metadata,
 			ExecutionOptions options,
@@ -65,6 +68,7 @@ public class SchemaTruncatorImpl extends AbstractSchemaPopulator implements Sche
 	}
 
 	@Internal
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void doTruncate(
 			Metadata metadata,
 			ExecutionOptions options,
@@ -90,6 +94,7 @@ public class SchemaTruncatorImpl extends AbstractSchemaPopulator implements Sche
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void performTruncate(
 			Metadata metadata,
 			ExecutionOptions options,
@@ -101,6 +106,7 @@ public class SchemaTruncatorImpl extends AbstractSchemaPopulator implements Sche
 		truncateFromMetadata( metadata, options, schemaFilter, contributableInclusionFilter, dialect, formatter, targets );
 	}
 
+	@Prove(complexity = Complexity.O_N3, n = "", count = {})
 	private void truncateFromMetadata(
 			Metadata metadata,
 			ExecutionOptions options,
@@ -152,6 +158,7 @@ public class SchemaTruncatorImpl extends AbstractSchemaPopulator implements Sche
 		applyImportSources( options, commandExtractor, format, dialect, targets );
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private void disableConstraints(
 			Namespace namespace,
 			Metadata metadata,
@@ -190,6 +197,7 @@ public class SchemaTruncatorImpl extends AbstractSchemaPopulator implements Sche
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private void enableConstraints(
 			Namespace namespace,
 			Metadata metadata,
@@ -226,6 +234,7 @@ public class SchemaTruncatorImpl extends AbstractSchemaPopulator implements Sche
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void checkExportIdentifier(Exportable exportable, Set<String> exportIdentifiers) {
 		final String exportIdentifier = exportable.getExportIdentifier();
 		if ( exportIdentifiers.contains( exportIdentifier ) ) {
@@ -235,6 +244,7 @@ public class SchemaTruncatorImpl extends AbstractSchemaPopulator implements Sche
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ClassLoaderService getClassLoaderService() {
 		return tool.getServiceRegistry().getService( ClassLoaderService.class );
 	}

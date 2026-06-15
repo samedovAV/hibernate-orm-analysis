@@ -15,6 +15,8 @@ import org.hibernate.sql.model.ast.ColumnValueBinding;
 import org.hibernate.sql.model.internal.OptionalTableUpdate;
 import org.hibernate.sql.model.jdbc.DeleteOrUpsertOperation;
 import org.hibernate.sql.model.jdbc.UpsertOperation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base SqlAstTranslator for translators which support an insert-or-update (UPSERT) command
@@ -29,6 +31,7 @@ public class SqlAstTranslatorWithUpsert<T extends JdbcOperation> extends Abstrac
 	/**
 	 * Create the MutationOperation for performing the DELETE or UPSERT
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutationOperation createMergeOperation(OptionalTableUpdate optionalTableUpdate) {
 		renderUpsertStatement( optionalTableUpdate );
 
@@ -49,6 +52,7 @@ public class SqlAstTranslatorWithUpsert<T extends JdbcOperation> extends Abstrac
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Expectation expectation(OptionalTableUpdate optionalTableUpdate) {
 		return optionalTableUpdate.getValueBindings().stream()
 					.anyMatch( ColumnValueBinding::isAttributeUpdatable )
@@ -57,6 +61,7 @@ public class SqlAstTranslatorWithUpsert<T extends JdbcOperation> extends Abstrac
 				: new Expectation.OptionalRowCount();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderUpsertStatement(OptionalTableUpdate optionalTableUpdate) {
 		// template:
 		//
@@ -79,30 +84,36 @@ public class SqlAstTranslatorWithUpsert<T extends JdbcOperation> extends Abstrac
 		renderMergeUpdate( optionalTableUpdate );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderMergeInto(OptionalTableUpdate optionalTableUpdate) {
 		appendSql( "merge into " );
 		renderMergeTarget( optionalTableUpdate );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void renderMergeTarget(OptionalTableUpdate optionalTableUpdate) {
 		appendSql( optionalTableUpdate.getMutatingTable().getTableName() );
 		renderMergeTargetAlias();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderMergeTargetAlias() {
 		appendSql( " as t" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderMergeUsing(OptionalTableUpdate optionalTableUpdate) {
 		appendSql( "using " );
 
 		renderMergeSource( optionalTableUpdate );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean wrapMergeSourceExpression() {
 		return true;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void renderMergeSource(OptionalTableUpdate optionalTableUpdate) {
 		if ( wrapMergeSourceExpression() ) {
 			appendSql( " (" );
@@ -145,10 +156,12 @@ public class SqlAstTranslatorWithUpsert<T extends JdbcOperation> extends Abstrac
 		appendSql( ")" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderMergeSourceAlias() {
 		appendSql( " as s" );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void renderMergeOn(OptionalTableUpdate optionalTableUpdate) {
 		appendSql( "on (" );
 
@@ -167,6 +180,7 @@ public class SqlAstTranslatorWithUpsert<T extends JdbcOperation> extends Abstrac
 		appendSql( ")" );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void renderMergeInsert(OptionalTableUpdate optionalTableUpdate) {
 		final List<ColumnValueBinding> valueBindings = optionalTableUpdate.getValueBindings();
 		final List<ColumnValueBinding> keyBindings = optionalTableUpdate.getKeyBindings();
@@ -198,6 +212,7 @@ public class SqlAstTranslatorWithUpsert<T extends JdbcOperation> extends Abstrac
 		appendSql( ")" );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void renderMergeUpdate(OptionalTableUpdate optionalTableUpdate) {
 		final List<ColumnValueBinding> valueBindings = optionalTableUpdate.getValueBindings();
 		final List<ColumnValueBinding> optimisticLockBindings = optionalTableUpdate.getOptimisticLockBindings();
@@ -223,6 +238,7 @@ public class SqlAstTranslatorWithUpsert<T extends JdbcOperation> extends Abstrac
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void renderMatchedWhere(List<ColumnValueBinding> optimisticLockBindings) {
 		if ( !optimisticLockBindings.isEmpty() ) {
 			appendSql( " where " );

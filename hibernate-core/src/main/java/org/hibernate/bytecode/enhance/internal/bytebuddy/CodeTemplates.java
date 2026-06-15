@@ -36,11 +36,14 @@ import net.bytebuddy.implementation.bytecode.member.MethodVariableAccess;
 import net.bytebuddy.jar.asm.Opcodes;
 
 import static org.hibernate.engine.internal.ManagedTypeHelper.asCompositeTracker;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 class CodeTemplates {
 
 	static class SetPersistenceInfo {
 		@Advice.OnMethodExit
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void $$_hibernate_setOwner(
 				@Advice.Argument(0) EntityEntry entityEntry,
 				@Advice.Argument(1) ManagedEntity previous,
@@ -61,6 +64,7 @@ class CodeTemplates {
 
 	static class SetOwner {
 		@Advice.OnMethodEnter
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void $$_hibernate_setOwner(
 				@Advice.Argument(0) String name,
 				@Advice.Argument(1) CompositeOwner tracker,
@@ -74,6 +78,7 @@ class CodeTemplates {
 
 	static class ClearOwner {
 		@Advice.OnMethodEnter
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void $$_hibernate_setOwner(
 				@Advice.Argument(0) String name,
 				@Advice.FieldValue(value = EnhancerConstants.TRACKER_COMPOSITE_FIELD_NAME, readOnly = false) CompositeOwnerTracker $$_hibernate_compositeOwners) {
@@ -85,6 +90,7 @@ class CodeTemplates {
 
 	static class TrackChange {
 		@Advice.OnMethodEnter
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void $$_hibernate_trackChange(
 				@Advice.Argument(0) String name,
 				@Advice.FieldValue(value = EnhancerConstants.TRACKER_FIELD_NAME, readOnly = false) DirtyTracker $$_hibernate_tracker) {
@@ -97,6 +103,7 @@ class CodeTemplates {
 
 	static class GetDirtyAttributes {
 		@Advice.OnMethodExit
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void $$_hibernate_getDirtyAttributes(
 				@Advice.This ExtendedSelfDirtinessTracker self,
 				@Advice.Return(readOnly = false) String[] returned,
@@ -117,6 +124,7 @@ class CodeTemplates {
 
 	static class GetDirtyAttributesWithoutCollections {
 		@Advice.OnMethodExit
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void $$_hibernate_getDirtyAttributes(
 				@Advice.Return(readOnly = false) String[] returned,
 				@Advice.FieldValue(value = EnhancerConstants.TRACKER_FIELD_NAME) DirtyTracker $$_hibernate_tracker) {
@@ -126,6 +134,7 @@ class CodeTemplates {
 
 	static class GetCollectionTrackerWithoutCollections {
 		@Advice.OnMethodExit
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void $$_hibernate_getCollectionTracker( @Advice.Return(readOnly = false) CollectionTracker returned) {
 			returned = NoopCollectionTracker.INSTANCE;
 		}
@@ -133,6 +142,7 @@ class CodeTemplates {
 
 	static class AreFieldsDirty {
 		@Advice.OnMethodExit
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void $$_hibernate_hasDirtyAttributes(
 				@Advice.This ExtendedSelfDirtinessTracker self,
 				@Advice.Return(readOnly = false) boolean returned,
@@ -143,6 +153,7 @@ class CodeTemplates {
 
 	static class AreFieldsDirtyWithoutCollections {
 		@Advice.OnMethodExit
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void $$_hibernate_hasDirtyAttributes(
 				@Advice.Return(readOnly = false) boolean returned,
 				@Advice.FieldValue(value = EnhancerConstants.TRACKER_FIELD_NAME) DirtyTracker $$_hibernate_tracker) {
@@ -152,6 +163,7 @@ class CodeTemplates {
 
 	static class ClearDirtyAttributes {
 		@Advice.OnMethodEnter
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void $$_hibernate_clearDirtyAttributes(
 				@Advice.This ExtendedSelfDirtinessTracker self,
 				@Advice.FieldValue(value = EnhancerConstants.TRACKER_FIELD_NAME, readOnly = false) DirtyTracker $$_hibernate_tracker) {
@@ -164,6 +176,7 @@ class CodeTemplates {
 
 	static class ClearDirtyAttributesWithoutCollections {
 		@Advice.OnMethodEnter
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void $$_hibernate_clearDirtyAttributes(
 				@Advice.FieldValue(value = EnhancerConstants.TRACKER_FIELD_NAME) DirtyTracker $$_hibernate_tracker) {
 			if ( $$_hibernate_tracker != null ) {
@@ -174,6 +187,7 @@ class CodeTemplates {
 
 	static class SuspendDirtyTracking {
 		@Advice.OnMethodEnter
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void $$_hibernate_suspendDirtyTracking(
 				@Advice.Argument(0) boolean suspend,
 				@Advice.FieldValue(value = EnhancerConstants.TRACKER_FIELD_NAME, readOnly = false) DirtyTracker $$_hibernate_tracker) {
@@ -186,6 +200,7 @@ class CodeTemplates {
 
 	static class CollectionAreCollectionFieldsDirty {
 		@Advice.OnMethodExit
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void $$_hibernate_areCollectionFieldsDirty(
 				@Advice.Return(readOnly = false) boolean returned,
 				@FieldName String fieldName,
@@ -209,6 +224,7 @@ class CodeTemplates {
 
 	static class MapAreCollectionFieldsDirty {
 		@Advice.OnMethodExit
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void $$_hibernate_areCollectionFieldsDirty(
 				@Advice.Return(readOnly = false) boolean returned,
 				@FieldName String fieldName,
@@ -232,6 +248,7 @@ class CodeTemplates {
 
 	static class CollectionGetCollectionFieldDirtyNames {
 		@Advice.OnMethodExit
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void $$_hibernate_areCollectionFieldsDirty(
 				@FieldName String fieldName,
 				@FieldValue Collection<?> collection,
@@ -255,6 +272,7 @@ class CodeTemplates {
 
 	static class MapGetCollectionFieldDirtyNames {
 		@Advice.OnMethodExit
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void $$_hibernate_areCollectionFieldsDirty(
 				@FieldName String fieldName,
 				@FieldValue Map<?, ?> map,
@@ -278,6 +296,7 @@ class CodeTemplates {
 
 	static class CollectionGetCollectionClearDirtyNames {
 		@Advice.OnMethodExit
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void $$_hibernate_clearDirtyCollectionNames(
 				@FieldName String fieldName,
 				@FieldValue Collection<?> collection,
@@ -296,6 +315,7 @@ class CodeTemplates {
 
 	static class MapGetCollectionClearDirtyNames {
 		@Advice.OnMethodExit
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void $$_hibernate_clearDirtyCollectionNames(
 				@FieldName String fieldName,
 				@FieldValue Map<?, ?> map,
@@ -314,6 +334,7 @@ class CodeTemplates {
 
 	static class ClearDirtyCollectionNames {
 		@Advice.OnMethodEnter
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void $$_hibernate_clearDirtyCollectionNames(
 				@Advice.This ExtendedSelfDirtinessTracker self,
 				@Advice.FieldValue(value = EnhancerConstants.TRACKER_COLLECTION_NAME, readOnly = false) CollectionTracker $$_hibernate_collectionTracker) {
@@ -326,6 +347,7 @@ class CodeTemplates {
 
 	static class InitializeLazyAttributeLoadingInterceptor {
 		@Advice.OnMethodEnter
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void $$_hibernate_removeDirtyFields(
 				@Advice.Argument(value = 0, readOnly = false) LazyAttributeLoadingInterceptor lazyInterceptor,
 				@Advice.FieldValue(value = EnhancerConstants.INTERCEPTOR_FIELD_NAME) PersistentAttributeInterceptor $$_hibernate_attributeInterceptor) {
@@ -337,6 +359,7 @@ class CodeTemplates {
 
 	static class CompositeFieldDirtyCheckingHandler {
 		@Advice.OnMethodEnter
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void enter(@FieldName String fieldName, @FieldValue Object field) {
 			if ( field != null ) {
 				asCompositeTracker( field ).$$_hibernate_clearOwner( fieldName );
@@ -344,6 +367,7 @@ class CodeTemplates {
 		}
 
 		@Advice.OnMethodExit
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void exit(@Advice.This CompositeOwner self, @FieldName String fieldName, @FieldValue Object field) {
 			if ( field != null ) {
 				asCompositeTracker( field ).$$_hibernate_setOwner( fieldName, self );
@@ -354,6 +378,7 @@ class CodeTemplates {
 
 	static class CompositeDirtyCheckingHandler {
 		@Advice.OnMethodEnter
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void enter(@Advice.FieldValue(EnhancerConstants.TRACKER_COMPOSITE_FIELD_NAME) CompositeOwnerTracker $$_hibernate_compositeOwners) {
 			if ( $$_hibernate_compositeOwners != null ) {
 				$$_hibernate_compositeOwners.callOwner( "" );
@@ -363,6 +388,7 @@ class CodeTemplates {
 
 	static class CompositeOwnerDirtyCheckingHandler {
 		@Advice.OnMethodEnter
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void $$_hibernate_trackChange(
 				@Advice.Argument(0) String name,
 				@Advice.FieldValue(EnhancerConstants.TRACKER_COMPOSITE_FIELD_NAME) CompositeOwnerTracker $$_hibernate_compositeOwners) {
@@ -374,6 +400,7 @@ class CodeTemplates {
 
 	static class OneToOneHandler {
 		@Advice.OnMethodEnter
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void enter(@FieldValue Object field, @Advice.Argument(0) Object argument, @InverseSide boolean inverseSide) {
 			if ( getterSelf() != null ) {
 				// We copy the old value, then set the field to null which we must do before
@@ -386,27 +413,32 @@ class CodeTemplates {
 		}
 
 		@Advice.OnMethodExit
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void exit(@Advice.This Object self, @Advice.Argument(0) Object argument, @InverseSide boolean inverseSide) {
 			if ( argument != null && getter( argument ) != self ) {
 				setterSelf( argument, self );
 			}
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static Object getter(Object target) {
 			// is replaced by the actual method call
 			throw new AssertionError();
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static Object getterSelf() {
 			// is replaced by the actual method call
 			throw new AssertionError();
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void setterNull(Object target, Object argument) {
 			// is replaced by the actual method call
 			throw new AssertionError();
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void setterSelf(Object target, Object argument) {
 			// is replaced by the actual method call
 			throw new AssertionError();
@@ -415,6 +447,7 @@ class CodeTemplates {
 
 	static class OneToManyOnCollectionHandler {
 		@Advice.OnMethodEnter
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		static void enter(@FieldValue Collection<?> field, @Advice.Argument(0) Collection<?> argument, @InverseSide boolean inverseSide) {
 			if ( getterSelf() != null ) {
 				Object[] array = field.toArray();
@@ -427,6 +460,7 @@ class CodeTemplates {
 		}
 
 		@Advice.OnMethodExit
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		static void exit(@Advice.This Object self, @Advice.Argument(0) Collection<?> argument, @InverseSide boolean inverseSide) {
 			if ( argument != null ) {
 				Object[] array = argument.toArray();
@@ -438,21 +472,25 @@ class CodeTemplates {
 			}
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static Object getter(Object target) {
 			// is replaced by the actual method call
 			throw new AssertionError();
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static Object getterSelf() {
 			// is replaced by the actual method call
 			throw new AssertionError();
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void setterNull(Object target, Object argument) {
 			// is replaced by the actual method call
 			throw new AssertionError();
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void setterSelf(Object target, Object argument) {
 			// is replaced by the actual method call
 			throw new AssertionError();
@@ -461,6 +499,7 @@ class CodeTemplates {
 
 	static class OneToManyOnMapHandler {
 		@Advice.OnMethodEnter
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		static void enter(@FieldValue Map<?, ?> field, @Advice.Argument(0) Map<?, ?> argument, @InverseSide boolean inverseSide) {
 			if ( getterSelf() != null ) {
 				Object[] array = field.values().toArray();
@@ -473,6 +512,7 @@ class CodeTemplates {
 		}
 
 		@Advice.OnMethodExit
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		static void exit(@Advice.This Object self, @Advice.Argument(0) Map<?, ?> argument, @InverseSide boolean inverseSide) {
 			if ( argument != null ) {
 				Object[] array = argument.values().toArray();
@@ -484,21 +524,25 @@ class CodeTemplates {
 			}
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static Object getter(Object target) {
 			// is replaced with the actual getter call during instrumentation.
 			throw new AssertionError();
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static Object getterSelf() {
 			// is replaced by the actual method call
 			throw new AssertionError();
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void setterNull(Object target, Object argument) {
 			// is replaced with the actual setter call during instrumentation.
 			throw new AssertionError();
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void setterSelf(Object target, Object argument) {
 			// is replaced with the actual setter call during instrumentation.
 			throw new AssertionError();
@@ -507,6 +551,7 @@ class CodeTemplates {
 
 	static class ManyToOneHandler {
 		@Advice.OnMethodEnter
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void enter(@Advice.This Object self, @FieldValue Object field, @BidirectionalAttribute String inverseAttribute) {
 			if ( getterSelf() != null ) {
 				Collection<?> c = getter( field );
@@ -517,6 +562,7 @@ class CodeTemplates {
 		}
 
 		@Advice.OnMethodExit
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static void exit(@Advice.This Object self, @Advice.Argument(0) Object argument, @BidirectionalAttribute String inverseAttribute) {
 			if ( argument != null ) {
 				Collection<Object> c = getter( argument );
@@ -526,11 +572,13 @@ class CodeTemplates {
 			}
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static Collection<Object> getter(Object target) {
 			// is replaced by the actual method call
 			throw new AssertionError();
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static Object getterSelf() {
 			// is replaced by the actual method call
 			throw new AssertionError();
@@ -539,6 +587,7 @@ class CodeTemplates {
 
 	static class ManyToManyHandler {
 		@Advice.OnMethodEnter
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		static void enter(@Advice.This Object self, @FieldValue Collection<?> field, @Advice.Argument(0) Collection<?> argument, @InverseSide boolean inverseSide, @BidirectionalAttribute String bidirectionalAttribute) {
 			if ( getterSelf() != null ) {
 				Object[] array = field.toArray();
@@ -551,6 +600,7 @@ class CodeTemplates {
 		}
 
 		@Advice.OnMethodExit
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		static void exit(@Advice.This Object self, @Advice.Argument(0) Collection<?> argument, @InverseSide boolean inverseSide, @BidirectionalAttribute String bidirectionalAttribute) {
 			if ( argument != null ) {
 				Object[] array = argument.toArray();
@@ -563,11 +613,13 @@ class CodeTemplates {
 			}
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static Collection<Object> getter(Object self) {
 			// is replaced by the actual method call
 			throw new AssertionError();
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static Object getterSelf() {
 			// is replaced by the actual method call
 			throw new AssertionError();
@@ -609,12 +661,14 @@ class CodeTemplates {
 			this.returnType = returnType;
 		}
 
-		@Override public Target resolve(TypeDescription instrumentedType, MethodDescription instrumentedMethod, Assigner assigner, Advice.ArgumentHandler argumentHandler, Sort sort) {
+		@Override @Prove(complexity = Complexity.O_1, n = "", count = {})
+		public Target resolve(TypeDescription instrumentedType, MethodDescription instrumentedMethod, Assigner assigner, Advice.ArgumentHandler argumentHandler, Sort sort) {
 			MethodDescription.Token signature = new MethodDescription.Token( EnhancerConstants.PERSISTENT_FIELD_READER_PREFIX + persistentField.getName() , Opcodes.ACC_PUBLIC, returnType );
 			MethodDescription method = new MethodDescription.Latent( persistentField.getDeclaringType().asErasure(), signature );
 
 			return new Target.AbstractReadOnlyAdapter() {
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				public StackManipulation resolveRead() {
 					return new StackManipulation.Compound( MethodVariableAccess.loadThis(), MethodInvocation.invoke( method ).special( method.getDeclaringType().asErasure() ) );
 				}

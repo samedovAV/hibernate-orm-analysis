@@ -49,6 +49,8 @@ import org.hibernate.type.spi.TypeConfiguration;
 import java.util.Set;
 import java.util.UUID;
 import java.util.function.Supplier;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Defines the internal contract shared between {@link org.hibernate.Session} and
@@ -89,6 +91,7 @@ public interface SharedSessionContractImplementor
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryImplementor getFactory();
 
 	/**
@@ -96,6 +99,7 @@ public interface SharedSessionContractImplementor
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SessionFactoryImplementor getSessionFactory() {
 		return getFactory();
 	}
@@ -105,6 +109,7 @@ public interface SharedSessionContractImplementor
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default TypeConfiguration getTypeConfiguration() {
 		return getFactory().getTypeConfiguration();
 	}
@@ -114,6 +119,7 @@ public interface SharedSessionContractImplementor
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default Dialect getDialect() {
 		return getSessionFactory().getJdbcServices().getDialect();
 	}
@@ -122,6 +128,7 @@ public interface SharedSessionContractImplementor
 	 * Get the {@link SessionEventListenerManager} associated with this session.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionEventListenerManager getEventListenerManager();
 
 	/**
@@ -136,18 +143,21 @@ public interface SharedSessionContractImplementor
 	 *            this method multiple times.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PersistenceContext getPersistenceContext();
 
 	/**
 	 * Obtain the {@link JdbcCoordinator} for this session.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcCoordinator getJdbcCoordinator();
 
 	/**
 	 * Obtain the {@link JdbcServices} for the factory which created this session.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcServices getJdbcServices();
 
 	/**
@@ -156,6 +166,7 @@ public interface SharedSessionContractImplementor
 	 * The UUID is useful mainly for logging.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	UUID getSessionIdentifier();
 
 	/**
@@ -163,6 +174,7 @@ public interface SharedSessionContractImplementor
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SharedSessionContractImplementor getSession() {
 		return this;
 	}
@@ -170,6 +182,7 @@ public interface SharedSessionContractImplementor
 	/**
 	 * Obtain a "token" which uniquely identifies this session.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Object getSessionToken() {
 		return this;
 	}
@@ -184,6 +197,7 @@ public interface SharedSessionContractImplementor
 	 *
 	 * @return {@code true} if the session is closed; {@code false} otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isClosed();
 
 	/**
@@ -192,6 +206,7 @@ public interface SharedSessionContractImplementor
 	 * @return {@code true} if the session is closed, or if it's waiting
 	 *         for auto-close; {@code false} otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isOpenOrWaitingForAutoClose() {
 		return !isClosed();
 	}
@@ -205,6 +220,7 @@ public interface SharedSessionContractImplementor
 	 *         (JPA specifies this exception type.)</li>
 	 * </ul>
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void checkOpen() {
 		checkOpen( true );
 	}
@@ -218,37 +234,44 @@ public interface SharedSessionContractImplementor
 	 *         (JPA specifies this exception type.)
 	 * </ul>
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void checkOpen(boolean markForRollbackIfClosed);
 
 	/**
 	 * Run a Jakarta Persistence entity lifecycle callback.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void runEntityLifecycleCallback(Runnable callback);
 
 	/**
 	 * Call a Jakarta Persistence entity lifecycle callback.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T callEntityLifecycleCallback(@Nonnull Supplier<T> callback);
 
 	/**
 	 * Run a Hibernate {@link Interceptor} callback.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void runInterceptorCallback(@Nonnull Runnable callback);
 
 	/**
 	 * Call a Hibernate {@link Interceptor} callback.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T callInterceptorCallback(@Nonnull Supplier<T> callback);
 
 	/**
 	 * Prepare for the execution of a {@link Query} or
 	 * {@link org.hibernate.procedure.ProcedureCall}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void prepareForQueryExecution(boolean requiresTxn);
 
 	/**
 	 * Marks current transaction, if any, for rollback only.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void markForRollbackOnly();
 
 	/**
@@ -256,6 +279,7 @@ public interface SharedSessionContractImplementor
 	 * with this session. This may be {@code null} if the session is not
 	 * currently associated with an active transaction.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CacheTransactionSynchronization getCacheTransactionSynchronization();
 
 	/**
@@ -265,6 +289,7 @@ public interface SharedSessionContractImplementor
 	 * {@linkplain org.hibernate.annotations.Audited.Table#changesetIdColumn
 	 * audit log changeset id columns}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getCurrentChangesetIdentifier();
 
 	/**
@@ -276,12 +301,14 @@ public interface SharedSessionContractImplementor
 	 * before materializing audit bind plans. Suppliers which only produce a
 	 * scalar changeset identifier return {@code null}.
 	 */
-	@Nullable Object getCurrentChangesetContext();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	Object getCurrentChangesetContext();
 
 	/**
 	 * Does this session have an active Hibernate transaction, or is it
 	 * associated with a JTA transaction currently in progress?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isTransactionInProgress();
 
 	/**
@@ -293,6 +320,7 @@ public interface SharedSessionContractImplementor
 	 *
 	 * @param exceptionMessage the message to use for the {@link TransactionRequiredException}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void checkTransactionNeededForUpdateOperation(@Nonnull String exceptionMessage) {
 		if ( !isTransactionInProgress() ) {
 			throw new TransactionRequiredException( exceptionMessage );
@@ -308,6 +336,7 @@ public interface SharedSessionContractImplementor
 	 * @return the {@link Transaction}
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Transaction accessTransaction();
 
 	/**
@@ -318,6 +347,7 @@ public interface SharedSessionContractImplementor
 	 */
 	@Incubating
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Transaction getCurrentTransaction();
 
 	/**
@@ -326,6 +356,7 @@ public interface SharedSessionContractImplementor
 	 * @since 7.2
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TransactionCompletionCallbacks getTransactionCompletionCallbacks();
 
 	/**
@@ -335,6 +366,7 @@ public interface SharedSessionContractImplementor
 	 */
 	@Incubating
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TransactionCompletionCallbacksImplementor getTransactionCompletionCallbacksImplementor();
 
 	/**
@@ -344,6 +376,7 @@ public interface SharedSessionContractImplementor
 	 * @since 7.4
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	AuditWorkQueue getAuditWorkQueue();
 
 	/**
@@ -360,6 +393,7 @@ public interface SharedSessionContractImplementor
 	 * @return The entity key
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityKey generateEntityKey(@Nonnull Object id, @Nonnull EntityPersister persister);
 
 	/**
@@ -376,16 +410,19 @@ public interface SharedSessionContractImplementor
 	 * @return The collection key
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CollectionKey generateCollectionKey(@Nonnull CollectionPersister persister, @Nonnull Object key);
 
 	/**
 	 * Retrieves the {@link Interceptor} associated with this session.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Interceptor getInterceptor();
 
 	/**
 	 * Initialize the given collection (if not already initialized).
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void initializeCollection(@Nonnull PersistentCollection<?> collection, boolean writing)
 			throws HibernateException;
 
@@ -402,6 +439,7 @@ public interface SharedSessionContractImplementor
 	 * <p>
 	 * When {@code eager = true}, the object is eagerly fetched from the database.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object internalLoad(@Nonnull String entityName, @Nonnull Object id, boolean eager, boolean nullable)
 			throws HibernateException;
 
@@ -410,6 +448,7 @@ public interface SharedSessionContractImplementor
 	 * This method is only called when lazily initializing a proxy.
 	 * Do not return the proxy.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object immediateLoad(@Nonnull String entityName, @Nonnull Object id);
 
 
@@ -420,18 +459,21 @@ public interface SharedSessionContractImplementor
 	 * @param object the entity instance
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityPersister getEntityPersister(@Nullable String entityName, @Nonnull Object object);
 
 	/**
 	 * Get the entity instance associated with the given {@link EntityKey},
 	 * calling the {@link Interceptor} if necessary.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getEntityUsingInterceptor(@Nonnull EntityKey key);
 
 	/**
 	 * Return the identifier of the persistent object, or null if it is
 	 * not associated with this session.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getContextEntityIdentifier(@Nonnull Object object);
 
 	/**
@@ -440,6 +482,7 @@ public interface SharedSessionContractImplementor
 	 * considering information held in the proxy, and whether the object
 	 * is already associated with this session.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String bestGuessEntityName(@Nonnull Object object);
 
 	/**
@@ -447,31 +490,41 @@ public interface SharedSessionContractImplementor
 	 * which is not involved in an association, using only the
 	 * {@link org.hibernate.EntityNameResolver}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String guessEntityName(@Nonnull Object entity);
 
 	/**
 	 * Instantiate the entity class of the given {@link EntityPersister},
 	 * initializing the new instance with the given identifier.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object instantiate(@Nonnull EntityPersister persister, @Nonnull Object id);
 
 	/**
 	 * Are entities and proxies loaded by this session read-only by default?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isDefaultReadOnly();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isIdentifierRollbackEnabled();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setCriteriaCopyTreeEnabled(boolean jpaCriteriaCopyComplianceEnabled);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isCriteriaCopyTreeEnabled();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setCriteriaPlanCacheEnabled(boolean jpaCriteriaCacheEnabled);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isCriteriaPlanCacheEnabled();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean getNativeJdbcParametersIgnored();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setNativeJdbcParametersIgnored(boolean nativeJdbcParametersIgnored);
 
 	/**
@@ -480,11 +533,13 @@ public interface SharedSessionContractImplementor
 	 * @return The flush mode
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	FlushMode getHibernateFlushMode();
 
 	/**
 	 * Flush this session.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void flush();
 
 	/**
@@ -493,6 +548,7 @@ public interface SharedSessionContractImplementor
 	 * Only stateful session are sources of events. If this object is
 	 * a stateless session, this method return {@code false}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isEventSource() {
 		return false;
 	}
@@ -506,6 +562,7 @@ public interface SharedSessionContractImplementor
 	 * @throws ClassCastException if the cast is not possible
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default EventSource asEventSource() {
 		throw new ClassCastException( "session is not an EventSource" );
 	}
@@ -516,6 +573,7 @@ public interface SharedSessionContractImplementor
 	 *
 	 * @apiNote Essentially, whether casting this session to {@linkplain StatelessSessionImplementor} will succeed.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isStateless() {
 		return false;
 	}
@@ -526,6 +584,7 @@ public interface SharedSessionContractImplementor
 	 * temporary persistence context. For a stateful session, this method
 	 * does nothing.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void afterScrollOperation();
 
 	/**
@@ -535,24 +594,28 @@ public interface SharedSessionContractImplementor
 	 *         should never be null.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	LoadQueryInfluencers getLoadQueryInfluencers();
 
 	/**
 	 * The default lock options associated with this session.
 	 */
 	@SuppressWarnings("removal")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	LockOptions getDefaultLockOptions();
 
 	/**
 	 * Lock timeout specified on the SessionFactory via hint.
 	 */
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Timeout getDefaultLockTimeout();
 
 	/**
 	 * Query timeout specified on the SessionFactory via hint.
 	 */
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Timeout getDefaultTimeout();
 
 	/**
@@ -564,6 +627,7 @@ public interface SharedSessionContractImplementor
 	 * @return the ExceptionConverter for this Session.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ExceptionConverter getExceptionConverter();
 
 	/**
@@ -579,6 +643,7 @@ public interface SharedSessionContractImplementor
 	 * @see org.hibernate.boot.SessionFactoryBuilder#applyJdbcBatchSize
 	 */
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Integer getConfiguredJdbcBatchSize() {
 		final Integer sessionJdbcBatchSize = getJdbcBatchSize();
 		return sessionJdbcBatchSize == null
@@ -598,6 +663,7 @@ public interface SharedSessionContractImplementor
 	 * @return the {@link PersistenceContext} associated to this session.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PersistenceContext getPersistenceContextInternal();
 
 	/**
@@ -607,6 +673,7 @@ public interface SharedSessionContractImplementor
 	 *         the entity belongs to its persistence
 	 *         context and was not removed
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isManaged(Object entity);
 
 	/**
@@ -617,6 +684,7 @@ public interface SharedSessionContractImplementor
 	 *
 	 * @return true if flush is required, false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default boolean autoFlushIfRequired(Set<String> querySpaces) {
 		return autoFlushIfRequired( querySpaces, false );
 	}
@@ -630,8 +698,10 @@ public interface SharedSessionContractImplementor
 	 *
 	 * @return true if flush is required, false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean autoFlushIfRequired(Set<String> querySpaces, boolean skipPreFlush);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean autoPreFlushIfRequired(QueryParameterBindings parameterBindings);
 
 	/**
@@ -642,11 +712,13 @@ public interface SharedSessionContractImplementor
 	 *
 	 * @param success {@code true} if the operation a success
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void afterOperation(boolean success);
 
 	/**
 	 * Cascade the lock operation to the given child entity.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void lock(
 			@Nonnull String entityName,
 			@Nonnull Object child,
@@ -666,6 +738,7 @@ public interface SharedSessionContractImplementor
 	 * @since 7.0
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object loadFromSecondLevelCache(
 			@Nonnull EntityPersister persister,
 			@Nonnull EntityKey entityKey,
@@ -682,19 +755,23 @@ public interface SharedSessionContractImplementor
 	 */
 	@Incubating
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionAssociationMarkers getSessionAssociationMarkers();
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> RootGraphImplementor<T> createEntityGraph(@Nonnull Class<T> rootType);
 
 	@Override @Deprecated
 	@Nullable
 	@SuppressWarnings("removal")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	RootGraphImplementor<?> createEntityGraph(@Nonnull String graphName);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	RootGraphImplementor<?> getEntityGraph(@Nonnull String graphName);
 
 
@@ -703,29 +780,35 @@ public interface SharedSessionContractImplementor
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R> SelectionQueryImplementor<R> createQuery(@Nonnull String queryString, @Nonnull Class<R> resultClass);
 
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default <R> SelectionQueryImplementor<R> createQuery(@Nonnull Class<R> resultClass, @Nonnull String hqlString) {
 		return createQuery( hqlString, resultClass );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R> SelectionQueryImplementor<R> createQuery(@Nonnull TypedQueryReference<R> typedQueryReference);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R> NativeQueryImplementor<R> createNativeQuery(@Nonnull String sqlString, @Nonnull Class<R> resultClass);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default <R> NativeQueryImplementor<R> createNativeQuery(@Nonnull Class<R> resultClass, @Nonnull String sqlString) {
 		return createNativeQuery( sqlString, resultClass );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R> NativeQueryImplementor<R> createNativeQuery(
 			@Nonnull String sqlString,
 			@Nonnull Class<R> resultClass,
@@ -733,6 +816,7 @@ public interface SharedSessionContractImplementor
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R> NativeQueryImplementor<R> createNativeQuery(
 			@Nonnull String sqlString,
 			@Nonnull String resultSetMappingName,
@@ -740,14 +824,17 @@ public interface SharedSessionContractImplementor
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R> SelectionQueryImplementor<R> createNamedQuery(@Nonnull String name, @Nonnull Class<R> resultClass);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R> NativeQueryImplementor<R> createNamedQuery(@Nonnull String name, @Nonnull String resultSetMappingName);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R> NativeQueryImplementor<R> createNamedQuery(
 			@Nonnull String name,
 			@Nonnull String resultSetMappingName,
@@ -755,37 +842,45 @@ public interface SharedSessionContractImplementor
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> SelectionQueryImplementor<T> createQuery(@Nonnull CriteriaSelect<T> criteriaSelect);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQueryImplementor<?> createMutationQuery(@Nonnull CriteriaStatement<?> criteriaStatement);
 
 	@Override
 	@SuppressWarnings("rawtypes")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQueryImplementor createStatement(@Nonnull CriteriaStatement<?> criteriaStatement);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQueryImplementor<?> createMutationQuery(@Nonnull JpaCriteriaInsert<?> insert);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> SelectionQueryImplementor<T> createQuery(@Nonnull String hqlString, @Nonnull EntityGraph<T> entityGraph);
 
 	@Override
 	@SuppressWarnings("rawtypes")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQueryImplementor createNativeQuery(@Nonnull String sql);
 
 	@Override
 	@SuppressWarnings("rawtypes")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQueryImplementor createNativeQuery(@Nonnull String sql, @Nonnull String resultSetMappingName);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> NativeQueryImplementor<T> createNativeQuery(@Nonnull String sql, @Nonnull ResultSetMapping<T> resultSetMapping);
 
 	/**
@@ -798,6 +893,7 @@ public interface SharedSessionContractImplementor
 	 * @param <E> The type of the extension storage.
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<E extends Extension> E getExtension(Class<E> extension);
 
 }

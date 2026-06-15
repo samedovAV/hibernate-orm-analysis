@@ -25,6 +25,8 @@ import static org.hibernate.id.enhanced.SequenceStyleGenerator.CONFIG_SEQUENCE_P
 import static org.hibernate.id.enhanced.TableGenerator.DEF_TABLE;
 import static org.hibernate.internal.util.StringHelper.isNotEmpty;
 import static org.hibernate.internal.util.config.ConfigurationHelper.getString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Naming strategy which implements the behavior of older versions of
@@ -59,6 +61,7 @@ import static org.hibernate.internal.util.config.ConfigurationHelper.getString;
 public class LegacyNamingStrategy implements ImplicitDatabaseObjectNamingStrategy {
 	public static final String STRATEGY_NAME = "legacy";
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QualifiedName determineSequenceName(
 			Identifier catalogName,
 			Identifier schemaName,
@@ -77,6 +80,7 @@ public class LegacyNamingStrategy implements ImplicitDatabaseObjectNamingStrateg
 
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String implicitSequenceName(Map<?, ?> configValues) {
 		final String explicitSuffix = getString( CONFIG_SEQUENCE_PER_ENTITY_SUFFIX, configValues );
 		if ( isNotEmpty( explicitSuffix ) ) {
@@ -95,6 +99,7 @@ public class LegacyNamingStrategy implements ImplicitDatabaseObjectNamingStrateg
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QualifiedName determineTableName(
 			Identifier catalogName,
 			Identifier schemaName,
@@ -112,6 +117,7 @@ public class LegacyNamingStrategy implements ImplicitDatabaseObjectNamingStrateg
 				);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String implicitTableName(Map<?, ?> configValues) {
 		final String annotationName = getString( GENERATOR_NAME, configValues );
 		return isNotEmpty( annotationName ) ? annotationName : DEF_TABLE;

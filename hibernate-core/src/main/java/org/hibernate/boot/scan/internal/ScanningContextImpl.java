@@ -8,6 +8,8 @@ import org.hibernate.boot.archive.spi.ArchiveDescriptorFactory;
 import org.hibernate.boot.scan.spi.ScanningContext;
 
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Simple implementation of [ScanningContext].
 ///
@@ -25,11 +27,13 @@ public final class ScanningContextImpl implements ScanningContext {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<Object, Object> getProperties() {
 		return properties;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ArchiveDescriptorFactory getArchiveDescriptorFactory() {
 		return archiveDescriptorFactory;
 	}

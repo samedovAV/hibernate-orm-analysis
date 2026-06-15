@@ -10,6 +10,8 @@ import java.util.Objects;
 
 import org.hibernate.HibernateException;
 import org.hibernate.internal.util.compare.ComparableComparator;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Abstract adapter for {@link JavaType Java type descriptors}.
@@ -72,43 +74,52 @@ public abstract class AbstractClassJavaType<T> implements BasicJavaType<T>, Seri
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutabilityPlan<T> getMutabilityPlan() {
 		return mutabilityPlan;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<T> getJavaType() {
 		return type;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final Class<T> getJavaTypeClass() {
 		return getJavaType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int extractHashCode(T value) {
 		return value.hashCode();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean areEqual(T one, T another) {
 		return Objects.equals( one, another );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Comparator<T> getComparator() {
 		return comparator;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String extractLoggableRepresentation(T value) {
 		return (value == null) ? "null" : value.toString();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected HibernateException unknownUnwrap(Class<?> conversionType) {
 		return JavaTypeHelper.unknownUnwrap( type, conversionType, this );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected HibernateException unknownWrap(Class<?> conversionType) {
 		return JavaTypeHelper.unknownWrap( conversionType, type, this );
 	}

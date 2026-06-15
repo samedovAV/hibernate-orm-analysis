@@ -11,6 +11,8 @@ import org.hibernate.MappingException;
 import org.hibernate.internal.util.collections.ArrayHelper;
 
 import org.jboss.logging.Logger;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -30,16 +32,19 @@ public final class CascadeStyles {
 	 */
 	public static final CascadeStyle ALL_DELETE_ORPHAN = new BaseCascadeStyle() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean doCascade(CascadingAction<?> action) {
 			return action != CascadingActions.CHECK_ON_FLUSH;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean hasOrphanDelete() {
 			return true;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String toString() {
 			return "STYLE_ALL_DELETE_ORPHAN";
 		}
@@ -50,11 +55,13 @@ public final class CascadeStyles {
 	 */
 	public static final CascadeStyle ALL = new BaseCascadeStyle() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean doCascade(CascadingAction<?> action) {
 			return action != CascadingActions.CHECK_ON_FLUSH;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String toString() {
 			return "STYLE_ALL";
 		}
@@ -69,12 +76,14 @@ public final class CascadeStyles {
 	@Deprecated(since="7", forRemoval = true)
 	public static final CascadeStyle LOCK = new BaseCascadeStyle() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean doCascade(CascadingAction<?> action) {
 			return action == CascadingActions.LOCK
 				|| action == CascadingActions.CHECK_ON_FLUSH;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String toString() {
 			return "STYLE_LOCK";
 		}
@@ -85,12 +94,14 @@ public final class CascadeStyles {
 	 */
 	public static final CascadeStyle REFRESH = new BaseCascadeStyle() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean doCascade(CascadingAction<?> action) {
 			return action == CascadingActions.REFRESH
 				|| action == CascadingActions.CHECK_ON_FLUSH;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String toString() {
 			return "STYLE_REFRESH";
 		}
@@ -101,12 +112,14 @@ public final class CascadeStyles {
 	 */
 	public static final CascadeStyle EVICT = new BaseCascadeStyle() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean doCascade(CascadingAction<?> action) {
 			return action == CascadingActions.EVICT
 				|| action == CascadingActions.CHECK_ON_FLUSH;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String toString() {
 			return "STYLE_EVICT";
 		}
@@ -117,12 +130,14 @@ public final class CascadeStyles {
 	 */
 	public static final CascadeStyle MERGE = new BaseCascadeStyle() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean doCascade(CascadingAction<?> action) {
 			return action == CascadingActions.MERGE
 				|| action == CascadingActions.CHECK_ON_FLUSH;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String toString() {
 			return "STYLE_MERGE";
 		}
@@ -133,12 +148,14 @@ public final class CascadeStyles {
 	 */
 	public static final CascadeStyle PERSIST = new BaseCascadeStyle() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean doCascade(CascadingAction<?> action) {
 			return action == CascadingActions.PERSIST
 				|| action == CascadingActions.PERSIST_ON_FLUSH;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String toString() {
 			return "STYLE_PERSIST";
 		}
@@ -149,12 +166,14 @@ public final class CascadeStyles {
 	 */
 	public static final CascadeStyle DELETE = new BaseCascadeStyle() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean doCascade(CascadingAction<?> action) {
 			return action == CascadingActions.REMOVE
 				|| action == CascadingActions.CHECK_ON_FLUSH;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String toString() {
 			return "STYLE_DELETE";
 		}
@@ -165,6 +184,7 @@ public final class CascadeStyles {
 	 */
 	public static final CascadeStyle DELETE_ORPHAN = new BaseCascadeStyle() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean doCascade(CascadingAction<?> action) {
 			return action == CascadingActions.REMOVE
 				|| action == CascadingActions.PERSIST_ON_FLUSH
@@ -172,17 +192,20 @@ public final class CascadeStyles {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean reallyDoCascade(CascadingAction<?> action) {
 			return action == CascadingActions.REMOVE
 				|| action == CascadingActions.CHECK_ON_FLUSH;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean hasOrphanDelete() {
 			return true;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String toString() {
 			return "STYLE_DELETE_ORPHAN";
 		}
@@ -193,11 +216,13 @@ public final class CascadeStyles {
 	 */
 	public static final CascadeStyle NONE = new BaseCascadeStyle() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean doCascade(CascadingAction<?> action) {
 			return action == CascadingActions.CHECK_ON_FLUSH;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String toString() {
 			return "STYLE_NONE";
 		}
@@ -205,6 +230,7 @@ public final class CascadeStyles {
 
 	private static final Map<String, CascadeStyle> STYLES = buildBaseCascadeStyleMap();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Map<String, CascadeStyle> buildBaseCascadeStyleMap() {
 		final HashMap<String, CascadeStyle> base = new HashMap<>();
 
@@ -230,6 +256,7 @@ public final class CascadeStyles {
 	 *
 	 * @return The appropriate CascadeStyle
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static CascadeStyle getCascadeStyle(String cascade) {
 		CascadeStyle style = STYLES.get( cascade );
 		if ( style == null ) {
@@ -240,6 +267,7 @@ public final class CascadeStyles {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void registerCascadeStyle(String name, BaseCascadeStyle cascadeStyle) {
 		LOG.tracef( "Registering external cascade style [%s : %s]", name, cascadeStyle );
 		final CascadeStyle old = STYLES.put( name, cascadeStyle );
@@ -255,11 +283,13 @@ public final class CascadeStyles {
 
 	public static abstract class BaseCascadeStyle implements CascadeStyle {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean reallyDoCascade(CascadingAction<?> action) {
 			return doCascade( action );
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean hasOrphanDelete() {
 			return false;
 		}
@@ -273,6 +303,7 @@ public final class CascadeStyles {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N2, n = "", count = {})
 		public boolean doCascade(CascadingAction<?> action) {
 			if ( action == CascadingActions.CHECK_ON_FLUSH ) {
 				return !reallyDoCascade( CascadingActions.PERSIST_ON_FLUSH );
@@ -286,6 +317,7 @@ public final class CascadeStyles {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N2, n = "", count = {})
 		public boolean reallyDoCascade(CascadingAction<?> action) {
 			for ( CascadeStyle style : styles ) {
 				if ( style.reallyDoCascade( action ) ) {
@@ -296,6 +328,7 @@ public final class CascadeStyles {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N2, n = "", count = {})
 		public boolean hasOrphanDelete() {
 			for ( CascadeStyle style : styles ) {
 				if ( style.hasOrphanDelete() ) {
@@ -306,6 +339,7 @@ public final class CascadeStyles {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public String toString() {
 			return ArrayHelper.toString( styles );
 		}

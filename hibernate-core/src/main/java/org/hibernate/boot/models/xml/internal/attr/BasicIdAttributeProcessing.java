@@ -20,12 +20,15 @@ import jakarta.persistence.FetchType;
 import static org.hibernate.boot.models.xml.internal.attr.CommonAttributeProcessing.applyAccess;
 import static org.hibernate.boot.models.xml.internal.attr.CommonAttributeProcessing.applyAttributeAccessor;
 import static org.hibernate.internal.util.NullnessHelper.coalesce;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
  */
 public class BasicIdAttributeProcessing {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static MutableMemberDetails processBasicIdAttribute(
 			JaxbIdImpl jaxbId,
 			MutableClassDetails declarer,

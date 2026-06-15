@@ -25,6 +25,8 @@ import org.hibernate.query.sqm.tree.select.SqmSelectableNode;
 import org.hibernate.type.BasicType;
 
 import static java.util.Arrays.asList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The base contract for any kind of expression node in the SQM tree.
@@ -43,6 +45,7 @@ public interface SqmExpression<T> extends SqmSelectableNode<T>, JpaExpression<T>
 	 */
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqmBindableType<T> getNodeType();
 
 	/**
@@ -54,94 +57,114 @@ public interface SqmExpression<T> extends SqmSelectableNode<T>, JpaExpression<T>
 	 * an implicit cast)
 	 */
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void applyInferableType(@Nullable SqmBindableType<?> type);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void visitSubSelectableNodes(Consumer<SqmSelectableNode<?>> jpaSelectionConsumer) {
 		jpaSelectionConsumer.accept( this );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SqmExpression<Long> asLong() {
 		return cast( Long.class );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SqmExpression<Integer> asInteger() {
 		return cast( Integer.class );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SqmExpression<Float> asFloat() {
 		return cast( Float.class );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SqmExpression<Double> asDouble() {
 		return cast( Double.class );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SqmExpression<BigDecimal> asBigDecimal() {
 		return cast( BigDecimal.class );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SqmExpression<BigInteger> asBigInteger() {
 		return cast( BigInteger.class );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SqmExpression<String> asString() {
 		return cast( String.class );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> SqmExpression<X> as(@Nonnull Class<X> type);
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqmPredicate isNull();
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqmPredicate isNotNull();
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqmPredicate equalTo(@Nonnull Expression<?> value);
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqmPredicate equalTo(Object value);
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqmPredicate in(@Nonnull Object... values);
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqmPredicate in(@Nonnull Expression<?>... values);
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqmPredicate in(@Nonnull Collection<?> values);
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqmPredicate in(@Nonnull Expression<Collection<?>> values);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqmExpression<T> copy(SqmCopyContext context);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <X> SqmExpression<X> castAs(DomainType<X> type) {
 		if ( getNodeType() == type ) {
 			// safe cast, because we just checked
@@ -159,6 +182,7 @@ public interface SqmExpression<T> extends SqmSelectableNode<T>, JpaExpression<T>
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <X> SqmExpression<X> cast(@Nonnull Class<X> type) {
 		final BasicType<X> basicType = nodeBuilder().getTypeConfiguration().getBasicTypeForJavaType( type );
 		if ( basicType == null ) {
@@ -169,9 +193,11 @@ public interface SqmExpression<T> extends SqmSelectableNode<T>, JpaExpression<T>
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaPredicate notEqualTo(@Nonnull Expression<?> value);
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaPredicate notEqualTo(Object value);
 }

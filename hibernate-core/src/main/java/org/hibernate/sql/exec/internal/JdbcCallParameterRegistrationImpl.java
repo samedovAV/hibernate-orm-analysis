@@ -15,6 +15,8 @@ import org.hibernate.sql.exec.spi.JdbcCallParameterRegistration;
 import org.hibernate.sql.exec.spi.JdbcParameterBinder;
 
 import jakarta.persistence.ParameterMode;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -46,36 +48,43 @@ public class JdbcCallParameterRegistrationImpl implements JdbcCallParameterRegis
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return name;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcParameterBinder getParameterBinder() {
 		return parameterBinder;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcCallParameterExtractor<?> getParameterExtractor() {
 		return parameterExtractor;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcCallRefCursorExtractorImpl getRefCursorExtractor() {
 		return refCursorExtractor;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ParameterMode getParameterMode() {
 		return parameterMode;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public OutputableType<?> getParameterType() {
 		return ormType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void registerParameter(
 			CallableStatement callableStatement, SharedSessionContractImplementor session) {
 		switch ( parameterMode ) {
@@ -95,6 +104,7 @@ public class JdbcCallParameterRegistrationImpl implements JdbcCallParameterRegis
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void registerRefCursorParameter(
 			CallableStatement callableStatement,
 			SharedSessionContractImplementor session) {
@@ -104,6 +114,7 @@ public class JdbcCallParameterRegistrationImpl implements JdbcCallParameterRegis
 
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void registerOutputParameter(
 			CallableStatement callableStatement,
 			SharedSessionContractImplementor session) {

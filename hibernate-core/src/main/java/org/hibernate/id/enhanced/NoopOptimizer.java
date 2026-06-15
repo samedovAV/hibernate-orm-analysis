@@ -10,6 +10,8 @@ import org.hibernate.sql.ast.tree.expression.Expression;
 import java.io.Serializable;
 
 import static org.hibernate.id.IdentifierGeneratorHelper.makeIntegralValue;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An optimizer that performs no optimization. A round trip to
@@ -31,6 +33,7 @@ public final class NoopOptimizer extends AbstractOptimizer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Serializable generate(AccessCallback callback) {
 		// IMPL NOTE: this method is called concurrently and is
 		// not synchronized. It is very important to work on the
@@ -44,11 +47,13 @@ public final class NoopOptimizer extends AbstractOptimizer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Long getLastSourceValue() {
 		return lastSourceValue;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean applyIncrementSizeToSourceValues() {
 		// We allow the increment size to be 0 for backward-compatibility with legacy
 		// ID generators; we don't apply a value of 0, so the default will be used instead.
@@ -57,11 +62,13 @@ public final class NoopOptimizer extends AbstractOptimizer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression createLowValueExpression(Expression databaseValue, SessionFactoryImplementor sessionFactory) {
 		return databaseValue;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void reset() {
 		lastSourceValue = null;
 	}

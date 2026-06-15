@@ -9,6 +9,8 @@ import org.hibernate.event.spi.FlushEvent;
 import org.hibernate.event.spi.FlushEventListener;
 
 import static org.hibernate.event.internal.EventListenerLogging.EVENT_LISTENER_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Defines the default flush event listeners used by hibernate for
@@ -22,6 +24,7 @@ public class DefaultFlushEventListener extends AbstractFlushingEventListener imp
 	 *
 	 * @param event The flush event to be handled.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void onFlush(FlushEvent event) throws HibernateException {
 		final var source = event.getSession();
 

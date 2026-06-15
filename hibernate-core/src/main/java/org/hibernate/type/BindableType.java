@@ -8,6 +8,8 @@ import jakarta.persistence.metamodel.Type;
 
 import org.hibernate.Incubating;
 import org.hibernate.query.sqm.SqmBindableType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents a type of argument which can be bound to a positional or named
@@ -33,5 +35,6 @@ public interface BindableType<J> extends Type<J> {
 	/**
 	 * Resolve this parameter type to the corresponding {@link SqmBindableType}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqmBindableType<J> resolveExpressible(BindingContext bindingContext);
 }

@@ -14,6 +14,8 @@ import org.hibernate.models.spi.AnnotationTarget;
 
 import jakarta.annotation.Nullable;
 import jakarta.persistence.SqlResultSetMapping;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Emmanuel Bernard
@@ -42,6 +44,7 @@ public class ResultSetMappingSecondPass implements QuerySecondPass {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void doSecondPass(Map<String, PersistentClass> persistentClasses) throws MappingException {
 		if ( annotation == null ) {
 			return;

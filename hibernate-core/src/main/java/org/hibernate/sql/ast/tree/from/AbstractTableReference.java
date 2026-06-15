@@ -5,6 +5,8 @@
 package org.hibernate.sql.ast.tree.from;
 
 import java.util.Objects;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public abstract class AbstractTableReference implements TableReference {
 	protected final String identificationVariable;
@@ -17,16 +19,19 @@ public abstract class AbstractTableReference implements TableReference {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getIdentificationVariable() {
 		return identificationVariable;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isOptional() {
 		return isOptional;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean equals(Object o) {
 		if ( this == o ) {
 			return true;
@@ -39,6 +44,7 @@ public abstract class AbstractTableReference implements TableReference {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int hashCode() {
 		return Objects.hash( identificationVariable );
 	}

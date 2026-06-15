@@ -13,6 +13,8 @@ import org.hibernate.query.sqm.tree.expression.SqmComparableExpression;
 import org.hibernate.query.sqm.tree.expression.SqmComparableExpressionImplementor;
 import org.hibernate.query.sqm.tree.expression.SqmComparableExpressionWrapper;
 import org.hibernate.spi.NavigablePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -38,6 +40,7 @@ public class SqmComparableValuedSimplePath<C extends Comparable<? super C>>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected SqmComparableValuedSimplePath<C> createCopy(
 			NavigablePath navigablePath,
 			SqmPathSource<C> referencedPathSource,
@@ -55,24 +58,28 @@ public class SqmComparableValuedSimplePath<C extends Comparable<? super C>>
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmComparableExpression<C> coalesce(@Nonnull Expression<? extends C> y) {
 		return new SqmComparableExpressionWrapper<>( nodeBuilder().coalesce( this, y ) );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmComparableExpression<C> coalesce(C y) {
 		return new SqmComparableExpressionWrapper<>( nodeBuilder().coalesce( this, y ) );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmComparableExpression<C> nullif(@Nonnull Expression<? extends C> y) {
 		return new SqmComparableExpressionWrapper<>( nodeBuilder().nullif( this, y ) );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmComparableExpression<C> nullif(C y) {
 		return new SqmComparableExpressionWrapper<>( nodeBuilder().nullif( this, y ) );
 	}

@@ -34,6 +34,8 @@ import org.hibernate.type.internal.BasicTypeImpl;
 import org.hibernate.type.spi.TypeConfiguration;
 
 import static java.util.Collections.singletonList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * HQL function for accessing audit columns of temporal entities.
@@ -80,6 +82,7 @@ public class AuditColumnFunction extends AbstractSqmFunctionDescriptor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected <T> SelfRenderingSqmFunction<T> generateSqmFunctionExpression(
 			List<? extends SqmTypedNode<?>> arguments,
 			ReturnableType<T> impliedResultType,
@@ -134,6 +137,7 @@ public class AuditColumnFunction extends AbstractSqmFunctionDescriptor {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N2, n = "", count = {})
 		public AuditColumnSqmFunction<T> copy(SqmCopyContext context) {
 			final var existing = context.getCopy( this );
 			if ( existing != null ) {
@@ -160,6 +164,7 @@ public class AuditColumnFunction extends AbstractSqmFunctionDescriptor {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Expression convertToSqlAst(SqmToSqlAstConverter walker) {
 			final var entityPath = (SqmPath<?>) getArguments().get( 0 );
 

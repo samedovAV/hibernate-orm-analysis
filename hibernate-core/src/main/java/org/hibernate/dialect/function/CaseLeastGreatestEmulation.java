@@ -17,6 +17,8 @@ import org.hibernate.sql.ast.spi.SqlAppender;
 import org.hibernate.sql.ast.tree.SqlAstNode;
 
 import static org.hibernate.query.sqm.produce.function.FunctionParameterType.COMPARABLE;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Some databases don't have a function like {@code least()} or {@code greatest()},
@@ -40,6 +42,7 @@ public class CaseLeastGreatestEmulation
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> arguments,
@@ -72,6 +75,7 @@ public class CaseLeastGreatestEmulation
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getArgumentListSignature() {
 		return "(COMPARABLE arg0[, COMPARABLE arg1[, ...]])";
 	}

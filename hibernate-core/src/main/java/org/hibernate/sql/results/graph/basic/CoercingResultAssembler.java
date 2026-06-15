@@ -7,6 +7,8 @@ package org.hibernate.sql.results.graph.basic;
 import org.hibernate.sql.results.jdbc.spi.RowProcessingState;
 import org.hibernate.type.descriptor.converter.spi.BasicValueConverter;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link BasicResultAssembler} which does type coercion to handle cases
@@ -28,6 +30,7 @@ public class CoercingResultAssembler<J> extends BasicResultAssembler<J> {
 	 * Access to the row value, coerced to expected type
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object extractRawValue(RowProcessingState rowProcessingState) {
 		return assembledJavaType.coerce( super.extractRawValue( rowProcessingState ) );
 	}

@@ -9,6 +9,8 @@ import org.hibernate.models.spi.ModelsContext;
 
 import java.lang.annotation.Annotation;
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -35,6 +37,7 @@ public class ExcludedFromVersioningJpaAnnotation implements ExcludedFromVersioni
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return ExcludedFromVersioning.class;
 	}

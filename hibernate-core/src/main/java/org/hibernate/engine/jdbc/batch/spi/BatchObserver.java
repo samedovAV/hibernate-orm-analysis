@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.engine.jdbc.batch.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 
 /**
@@ -14,10 +17,12 @@ public interface BatchObserver {
 	/**
 	 * Indicates explicit execution of the batch via a call to {@link Batch#execute()}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void batchExplicitlyExecuted();
 
 	/**
 	 * Indicates an implicit execution of the batch.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void batchImplicitlyExecuted();
 }

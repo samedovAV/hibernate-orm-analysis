@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.audit;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 
 /**
@@ -25,6 +28,7 @@ public interface EntityTrackingChangesetListener extends ChangesetListener {
 	 * @param changelog the changelog entity instance, or
 	 * {@code null} if no changelog entity is configured
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void entityChanged(
 			Class<?> entityClass,
 			Object entityId,

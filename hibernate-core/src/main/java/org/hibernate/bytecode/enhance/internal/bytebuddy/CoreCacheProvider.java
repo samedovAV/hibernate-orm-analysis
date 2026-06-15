@@ -12,6 +12,8 @@ import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.pool.TypePool;
 
 import static org.hibernate.internal.util.ReflectHelper.OBJECT_CLASS_NAME;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A CacheProvider for ByteBuddy which is specifically designed for
@@ -37,6 +39,7 @@ class CoreCacheProvider implements TypePool.CacheProvider {
 	 * {@inheritDoc}
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TypePool.Resolution find(final String name) {
 		return storage.get( name );
 	}
@@ -45,6 +48,7 @@ class CoreCacheProvider implements TypePool.CacheProvider {
 	 * {@inheritDoc}
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TypePool.Resolution register(String name, TypePool.Resolution resolution) {
 		//Ensure we DO NOT cache anything from a non-core namespace to not leak application-specific code:
 		if ( acceptedPrefixes.isCoreClassName( name ) ) {
@@ -60,6 +64,7 @@ class CoreCacheProvider implements TypePool.CacheProvider {
 	 * {@inheritDoc}
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void clear() {
 		storage.clear();
 	}

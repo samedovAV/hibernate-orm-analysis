@@ -13,6 +13,8 @@ import org.hibernate.sql.results.jdbc.spi.JdbcValuesSourceProcessingState;
 import org.hibernate.sql.results.jdbc.spi.RowProcessingState;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Special initializer contract for embeddables
@@ -21,17 +23,21 @@ import jakarta.annotation.Nullable;
  */
 public interface EmbeddableInitializer<Data extends InitializerData> extends InitializerParent<Data> {
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EmbeddableValuedModelPart getInitializedPart();
 
 	@Override
-	@Nullable InitializerParent<?> getParent();
+	@Nullable@Prove(complexity = Complexity.O_1, n = "", count = {})
+ InitializerParent<?> getParent();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isEmbeddableInitializer() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default EmbeddableInitializer<?> asEmbeddableInitializer() {
 		return this;
 	}
@@ -44,5 +50,6 @@ public interface EmbeddableInitializer<Data extends InitializerData> extends Ini
 	 * Failing to do this will lead to errors, because {@link org.hibernate.engine.spi.PersistenceContext#postLoad(JdbcValuesSourceProcessingState, Consumer)}
 	 * is called, which expects all registrations to be fully initialized.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void resetResolvedEntityRegistrations(RowProcessingState rowProcessingState);
 }

@@ -12,6 +12,8 @@ import org.hibernate.query.sqm.SqmPathSource;
 import org.hibernate.query.sqm.tree.SqmCopyContext;
 import org.hibernate.query.sqm.tree.SqmRenderContext;
 import org.hibernate.spi.NavigablePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -58,6 +60,7 @@ public class SqmTreatedPluralPartJoin<O, T, S extends T>
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmTreatedPluralPartJoin<O, T, S> copy(SqmCopyContext context) {
 		final var existing = context.getCopy( this );
 		if ( existing != null ) {
@@ -77,33 +80,39 @@ public class SqmTreatedPluralPartJoin<O, T, S extends T>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPluralPartJoin<O, T> getWrappedPath() {
 		return wrappedPath;
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityDomainType<S> getTreatTarget() {
 		return treatTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nonnull SqmBindableType<S> getNodeType() {
 		return treatTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPathSource<S> getReferencedPathSource() {
 		return treatTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPathSource<S> getResolvedModel() {
 		return treatTarget;
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S1 extends S> SqmTreatedPluralPartJoin<O, S, S1> treatAs(
 			@Nonnull Class<S1> treatJavaType,
 			@Nullable String alias,
@@ -116,6 +125,7 @@ public class SqmTreatedPluralPartJoin<O, T, S extends T>
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S1 extends S> SqmTreatedPluralPartJoin<O, S, S1> treatAs(
 			@Nonnull EntityDomainType<S1> treatTarget,
 			@Nullable String alias,
@@ -127,6 +137,7 @@ public class SqmTreatedPluralPartJoin<O, T, S extends T>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void appendHqlString(StringBuilder hql, SqmRenderContext context) {
 		hql.append( "treat(" );
 		wrappedPath.appendHqlString( hql, context );

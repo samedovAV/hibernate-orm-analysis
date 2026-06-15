@@ -18,6 +18,8 @@ import org.hibernate.sql.ast.tree.update.Assignable;
 import org.hibernate.sql.results.graph.DomainResult;
 import org.hibernate.sql.results.graph.DomainResultCreationState;
 import org.hibernate.sql.results.graph.tuple.TupleResult;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -32,15 +34,18 @@ public class SqlTuple implements Expression, SqlTupleContainer, DomainResultProd
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MappingModelExpressible<?> getExpressionType() {
 		return valueMapping;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<? extends Expression> getExpressions(){
 		return expressions;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<ColumnReference> getColumnReferences() {
 		// TODO: this operation is completely untypesafe
 		//       since the List can totally contain
@@ -50,16 +55,19 @@ public class SqlTuple implements Expression, SqlTupleContainer, DomainResultProd
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker sqlTreeWalker) {
 		sqlTreeWalker.visitTuple( this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqlTuple getSqlTuple() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public DomainResult<?> createDomainResult(
 			String resultVariable,
 			DomainResultCreationState creationState) {
@@ -74,6 +82,7 @@ public class SqlTuple implements Expression, SqlTupleContainer, DomainResultProd
 		return new TupleResult<>( valuesArrayPositions, resultVariable, expressible.getExpressibleJavaType() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static SqlSelection resolveSelection(SqlAstCreationState creationState, Expression expression) {
 		return creationState.getSqlExpressionResolver()
 				.resolveSqlSelection(
@@ -85,6 +94,7 @@ public class SqlTuple implements Expression, SqlTupleContainer, DomainResultProd
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applySqlSelections(DomainResultCreationState creationState) {
 		throw new UnsupportedOperationException();
 	}
@@ -103,6 +113,7 @@ public class SqlTuple implements Expression, SqlTupleContainer, DomainResultProd
 			expressions = new ArrayList<>( jdbcTypeCount );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void addSubExpression(Expression expression) {
 			if ( expressions == null ) {
 				expressions = new ArrayList<>();
@@ -111,6 +122,7 @@ public class SqlTuple implements Expression, SqlTupleContainer, DomainResultProd
 			expressions.add( expression );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public SqlTuple buildTuple() {
 			return new SqlTuple( expressions == null ? Collections.emptyList() : expressions, valueMapping );
 		}

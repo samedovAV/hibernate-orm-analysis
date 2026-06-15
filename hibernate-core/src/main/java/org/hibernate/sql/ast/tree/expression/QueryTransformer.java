@@ -8,6 +8,8 @@ import org.hibernate.Incubating;
 import org.hibernate.query.sqm.sql.SqmToSqlAstConverter;
 import org.hibernate.sql.ast.tree.cte.CteContainer;
 import org.hibernate.sql.ast.tree.select.QuerySpec;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -15,6 +17,7 @@ import org.hibernate.sql.ast.tree.select.QuerySpec;
 @Incubating
 public interface QueryTransformer {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	QuerySpec transform(
 			CteContainer cteContainer,
 			QuerySpec querySpec,

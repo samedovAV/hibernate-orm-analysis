@@ -66,6 +66,8 @@ import org.hibernate.type.descriptor.java.YearJavaType;
 import org.hibernate.type.descriptor.java.ZoneIdJavaType;
 import org.hibernate.type.descriptor.java.ZoneOffsetJavaType;
 import org.hibernate.type.descriptor.java.ZonedDateTimeJavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Primes the {@link BaselineTarget} (which is essentially the {@link JavaTypeRegistry})
@@ -79,16 +81,19 @@ public class JavaTypeBaseline {
 		/**
 		 * Add a baseline registration
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void addBaselineDescriptor(JavaType<?> descriptor);
 		/**
 		 * Add a baseline registration
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void addBaselineDescriptor(Type describedJavaType, JavaType<?> descriptor);
 	}
 
 	/**
 	 * The process of registering all the baseline registrations
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void prime(BaselineTarget target) {
 		primePrimitive( target, ByteJavaType.INSTANCE );
 		primePrimitive( target, BooleanJavaType.INSTANCE );
@@ -156,6 +161,7 @@ public class JavaTypeBaseline {
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void registerCollectionTypes(BaselineTarget target) {
 		target.addBaselineDescriptor( new CollectionJavaType( Collection.class, StandardBagSemantics.INSTANCE ) );
 		target.addBaselineDescriptor( new CollectionJavaType( Object[].class, StandardArraySemantics.INSTANCE ) );
@@ -166,6 +172,7 @@ public class JavaTypeBaseline {
 		target.addBaselineDescriptor( new CollectionJavaType( SortedMap.class, StandardSortedMapSemantics.INSTANCE ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void primePrimitive(BaselineTarget target, JavaType<?> descriptor) {
 		target.addBaselineDescriptor( descriptor );
 		target.addBaselineDescriptor( ( (PrimitiveJavaType<?>) descriptor ).getPrimitiveClass(), descriptor );

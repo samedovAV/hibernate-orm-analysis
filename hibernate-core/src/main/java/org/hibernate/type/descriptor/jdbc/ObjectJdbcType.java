@@ -15,6 +15,8 @@ import org.hibernate.type.descriptor.ValueBinder;
 import org.hibernate.type.descriptor.ValueExtractor;
 import org.hibernate.type.descriptor.WrapperOptions;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Descriptor for binding objects using any {@linkplain Types JDBC type code}.
@@ -39,16 +41,19 @@ public class ObjectJdbcType implements JdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getJdbcTypeCode() {
 		return jdbcTypeCode;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "ObjectTypeDescriptor(" + jdbcTypeCode + ")";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <X> ValueBinder<X> getBinder(JavaType<X> javaType) {
 		if ( Serializable.class.isAssignableFrom( javaType.getJavaTypeClass() ) ) {
 			return VarbinaryJdbcType.INSTANCE.getBinder( javaType );
@@ -56,12 +61,14 @@ public class ObjectJdbcType implements JdbcType {
 
 		return new BasicBinder<>( javaType, this ) {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBind(PreparedStatement st, X value, int index, WrapperOptions options)
 					throws SQLException {
 				st.setObject( index, value, jdbcTypeCode );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBind(CallableStatement st, X value, String name, WrapperOptions options)
 					throws SQLException {
 				st.setObject( name, value, jdbcTypeCode );
@@ -70,6 +77,7 @@ public class ObjectJdbcType implements JdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <X> ValueExtractor<X> getExtractor(JavaType<X> javaType) {
 		if ( Serializable.class.isAssignableFrom( javaType.getJavaTypeClass() ) ) {
 			return VarbinaryJdbcType.INSTANCE.getExtractor( javaType );
@@ -77,16 +85,19 @@ public class ObjectJdbcType implements JdbcType {
 
 		return new BasicExtractor<>( javaType, this ) {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(ResultSet rs, int paramIndex, WrapperOptions options) throws SQLException {
 				return javaType.cast( rs.getObject( paramIndex ) );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(CallableStatement statement, int index, WrapperOptions options) throws SQLException {
 				return javaType.cast( statement.getObject( index ) );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(CallableStatement statement, String name, WrapperOptions options) throws SQLException {
 				return javaType.cast( statement.getObject( name ) );
 			}

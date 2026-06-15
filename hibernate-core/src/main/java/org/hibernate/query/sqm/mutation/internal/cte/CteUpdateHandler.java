@@ -50,6 +50,8 @@ import org.hibernate.sql.ast.tree.update.Assignment;
 import org.hibernate.sql.ast.tree.update.UpdateStatement;
 import org.hibernate.sql.exec.spi.JdbcParameterBindings;
 import org.hibernate.sql.results.internal.SqlSelectionImpl;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  *
@@ -72,6 +74,7 @@ public class CteUpdateHandler extends AbstractCteMutationHandler implements Upda
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	protected void addDmlCtes(
 			CteContainer statement,
 			CteStatement idSelectCte,
@@ -294,18 +297,21 @@ public class CteUpdateHandler extends AbstractCteMutationHandler implements Upda
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void collectTableReference(
 			TableReference tableReference,
 			BiConsumer<String, TableReference> consumer) {
 		consumer.accept( tableReference.getIdentificationVariable(), tableReference );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void collectTableReference(
 			TableReferenceJoin tableReferenceJoin,
 			BiConsumer<String, TableReference> consumer) {
 		collectTableReference( tableReferenceJoin.getJoinedTableReference(), consumer );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private TableReference resolveTableReference(
 			ColumnReference columnReference,
 			Map<String, TableReference> tableReferenceByAlias) {
@@ -318,6 +324,7 @@ public class CteUpdateHandler extends AbstractCteMutationHandler implements Upda
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getCteTableName(String tableExpression) {
 		final Dialect dialect = getSessionFactory().getJdbcServices().getDialect();
 		if ( Identifier.isQuoted( tableExpression ) ) {
@@ -326,6 +333,7 @@ public class CteUpdateHandler extends AbstractCteMutationHandler implements Upda
 		return Identifier.toIdentifier( UPDATE_RESULT_TABLE_NAME_PREFIX + tableExpression ).render( dialect );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getInsertCteTableName(String tableExpression) {
 		final Dialect dialect = getSessionFactory().getJdbcServices().getDialect();
 		if ( Identifier.isQuoted( tableExpression ) ) {
@@ -334,6 +342,7 @@ public class CteUpdateHandler extends AbstractCteMutationHandler implements Upda
 		return Identifier.toIdentifier( INSERT_RESULT_TABLE_NAME_PREFIX + tableExpression ).render( dialect );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private Expression asExpression(SelectClause selectClause) {
 		final List<SqlSelection> sqlSelections = selectClause.getSqlSelections();
 		if ( sqlSelections.size() == 1 ) {
@@ -346,6 +355,7 @@ public class CteUpdateHandler extends AbstractCteMutationHandler implements Upda
 		return new SqlTuple( expressions, null );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Expression asExpression(List<ColumnReference> columnReferences) {
 		if ( columnReferences.size() == 1 ) {
 			return columnReferences.get( 0 );

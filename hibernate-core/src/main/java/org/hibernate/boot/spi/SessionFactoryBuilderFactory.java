@@ -6,6 +6,8 @@ package org.hibernate.boot.spi;
 
 import org.hibernate.boot.SessionFactoryBuilder;
 import org.hibernate.service.JavaServiceLoadable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An extension point for integrators that wish to hook into the process of how a SessionFactory
@@ -28,5 +30,6 @@ public interface SessionFactoryBuilderFactory {
 	 *
 	 * @return The {@code SessionFactoryBuilder}, or {@code null}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder getSessionFactoryBuilder(MetadataImplementor metadata, SessionFactoryBuilderImplementor defaultBuilder);
 }

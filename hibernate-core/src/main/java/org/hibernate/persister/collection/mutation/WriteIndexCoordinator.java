@@ -8,6 +8,8 @@ import org.hibernate.collection.spi.PersistentCollection;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 
 import java.util.Iterator;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Coordinates writing index (order column) values for indexed collections.
@@ -30,6 +32,7 @@ public interface WriteIndexCoordinator extends CollectionOperationCoordinator {
 	 * @param resetIndex Whether to reset the index to the base (true for recreate, false for incremental)
 	 * @param session The session
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void writeIndex(
 			PersistentCollection<?> collection,
 			Iterator<?> entries,

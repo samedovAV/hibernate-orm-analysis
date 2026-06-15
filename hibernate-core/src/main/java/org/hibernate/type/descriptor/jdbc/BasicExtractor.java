@@ -14,6 +14,8 @@ import org.hibernate.type.descriptor.JdbcTypeNameMapper;
 import org.hibernate.type.descriptor.ValueExtractor;
 import org.hibernate.type.descriptor.WrapperOptions;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Convenience base implementation of {@link ValueExtractor}
@@ -29,15 +31,18 @@ public abstract class BasicExtractor<J> implements ValueExtractor<J>, Serializab
 		this.jdbcType = jdbcType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<J> getJavaType() {
 		return javaType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcType getJdbcType() {
 		return jdbcType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public J extract(ResultSet rs, int paramIndex, WrapperOptions options)
 			throws SQLException {
 		final J value = doExtract( rs, paramIndex, options );
@@ -72,10 +77,12 @@ public abstract class BasicExtractor<J> implements ValueExtractor<J>, Serializab
 	 *
 	 * @throws SQLException Indicates a problem access the result set
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract J doExtract(ResultSet rs, int paramIndex, WrapperOptions options)
 			throws SQLException;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public J extract(CallableStatement statement, int paramIndex, WrapperOptions options)
 			throws SQLException {
 		final J value = doExtract( statement, paramIndex, options );
@@ -112,10 +119,12 @@ public abstract class BasicExtractor<J> implements ValueExtractor<J>, Serializab
 	 *
 	 * @throws SQLException Indicates a problem accessing the parameter value
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract J doExtract(CallableStatement statement, int index, WrapperOptions options)
 			throws SQLException;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public J extract(CallableStatement statement, String paramName, WrapperOptions options)
 			throws SQLException {
 		final J value = doExtract( statement, paramName, options );
@@ -156,6 +165,7 @@ public abstract class BasicExtractor<J> implements ValueExtractor<J>, Serializab
 	 *
 	 * @throws SQLException Indicates a problem accessing the parameter value
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract J doExtract(CallableStatement statement, String name, WrapperOptions options)
 			throws SQLException;
 }

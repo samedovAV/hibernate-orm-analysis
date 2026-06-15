@@ -12,6 +12,8 @@ import jakarta.annotation.Nullable;
 
 import static org.hibernate.property.access.internal.AccessStrategyHelper.determineEnhancementState;
 import static org.hibernate.property.access.internal.AccessStrategyHelper.handleEnhancedInjection;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A specialized Setter implementation for handling setting values into
@@ -34,6 +36,7 @@ public class EnhancedSetterImpl extends SetterFieldImpl {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void set(Object target, @Nullable Object value) {
 		super.set( target, value );
 		handleEnhancedInjection( target, value, enhancementState, propertyName );

@@ -8,6 +8,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import org.hibernate.query.sqm.sql.internal.InstantiationException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -20,6 +22,7 @@ class BeanInjectorSetter<T> implements BeanInjector<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void inject(T target, Object value) {
 		try {
 			setter.invoke( target, value );

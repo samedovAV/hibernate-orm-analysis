@@ -12,6 +12,8 @@ import org.hibernate.event.spi.PostCollectionRecreateEventListener;
 import org.hibernate.event.spi.PreCollectionRecreateEvent;
 import org.hibernate.event.spi.PreCollectionRecreateEventListener;
 import org.hibernate.persister.collection.CollectionPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The action for recreating a collection
@@ -43,6 +45,7 @@ public final class CollectionRecreateAction extends CollectionAction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void execute() throws HibernateException {
 		// this method is called when a new non-null collection is persisted
 		// or when an existing (non-null) collection is moved to a new owner
@@ -72,30 +75,36 @@ public final class CollectionRecreateAction extends CollectionAction {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void preRecreate() {
 		getEventListenerGroups().eventListenerGroup_PRE_COLLECTION_RECREATE
 				.fireLazyEventOnEachListener( this::newPreCollectionRecreateEvent,
 						PreCollectionRecreateEventListener::onPreRecreateCollection );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private PreCollectionRecreateEvent newPreCollectionRecreateEvent() {
 		return new PreCollectionRecreateEvent( getPersister(), getCollection(), eventSource() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void postRecreate() {
 		getEventListenerGroups().eventListenerGroup_POST_COLLECTION_RECREATE
 				.fireLazyEventOnEachListener( this::newPostCollectionRecreateEvent,
 						PostCollectionRecreateEventListener::onPostRecreateCollection );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private PostCollectionRecreateEvent newPostCollectionRecreateEvent() {
 		return new PostCollectionRecreateEvent( getPersister(), getCollection(), eventSource() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getAffectedOwner() {
 		return affectedOwner;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getAffectedOwnerId() {
 		return affectedOwnerId;
 	}

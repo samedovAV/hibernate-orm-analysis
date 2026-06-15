@@ -5,6 +5,8 @@
 package org.hibernate.sql.ast.spi;
 
 import org.hibernate.sql.ast.tree.from.TableGroupProducer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A generator for new incremental SQL aliases based on a stem
@@ -15,13 +17,16 @@ public interface SqlAliasBase {
 	/**
 	 * The stem for unique alias generation
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getAliasStem();
 
 	/**
 	 * Generates a new alias based on the stem
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String generateNewAlias();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static SqlAliasBase from(
 			SqlAliasBase explicitBase,
 			String explicitSourceAlias,

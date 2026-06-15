@@ -7,6 +7,8 @@ package org.hibernate.type.spi;
 import org.hibernate.service.ServiceRegistry;
 
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Provide a way to customize the {@link org.hibernate.type.Type} instantiation process.
@@ -20,6 +22,8 @@ import java.util.Map;
  * @since 5.4
  */
 public interface TypeBootstrapContext {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Map<String, Object> getConfigurationSettings();
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ServiceRegistry getServiceRegistry();
 }

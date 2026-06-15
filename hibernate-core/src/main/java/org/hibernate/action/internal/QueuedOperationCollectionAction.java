@@ -9,6 +9,8 @@ import org.hibernate.collection.spi.AbstractPersistentCollection;
 import org.hibernate.collection.spi.PersistentCollection;
 import org.hibernate.event.spi.EventSource;
 import org.hibernate.persister.collection.CollectionPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * If a collection has queued ops, we still need to process them.
@@ -38,6 +40,7 @@ public final class QueuedOperationCollectionAction extends CollectionAction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void execute() throws HibernateException {
 		// this QueuedOperationCollectionAction has to be executed before any other
 		// CollectionAction involving the same collection.
@@ -46,6 +49,7 @@ public final class QueuedOperationCollectionAction extends CollectionAction {
 		afterQueuedOperationsProcessed();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void afterQueuedOperationsProcessed() {
 		// TODO: It would be nice if this could be done safely by CollectionPersister#processQueuedOps;
 		//       Can't change the SPI to do this though.

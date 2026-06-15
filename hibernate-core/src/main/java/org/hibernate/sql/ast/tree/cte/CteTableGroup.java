@@ -18,6 +18,8 @@ import org.hibernate.sql.ast.tree.from.TableGroup;
 import org.hibernate.sql.ast.tree.from.TableGroupJoin;
 import org.hibernate.sql.ast.tree.from.TableReference;
 import org.hibernate.sql.ast.tree.from.TableReferenceJoin;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Wraps a {@link NamedTableReference} representing the CTE and adapts it to
@@ -60,11 +62,13 @@ public class CteTableGroup extends AbstractTableGroup {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getGroupAlias() {
 		return cteTableReference.getIdentificationVariable();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public TableReference getTableReference(
 			NavigablePath navigablePath,
 			String tableExpression,
@@ -92,16 +96,19 @@ public class CteTableGroup extends AbstractTableGroup {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applyAffectedTableNames(Consumer<String> nameCollector) {
 		nameCollector.accept( cteTableReference.getTableExpression() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableReference getPrimaryTableReference() {
 		return cteTableReference;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<TableReferenceJoin> getTableReferenceJoins() {
 		return Collections.emptyList();
 	}

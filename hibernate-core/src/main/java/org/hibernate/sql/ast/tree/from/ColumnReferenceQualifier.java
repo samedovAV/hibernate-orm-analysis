@@ -8,12 +8,15 @@ import java.util.Locale;
 
 import org.hibernate.metamodel.mapping.ValuedModelPart;
 import org.hibernate.spi.NavigablePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
  */
 public interface ColumnReferenceQualifier {
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default TableReference resolveTableReference(String tableExpression) {
 		return resolveTableReference( null, tableExpression );
 	}
@@ -27,6 +30,7 @@ public interface ColumnReferenceQualifier {
 	 *
 	 * @throws UnknownTableReferenceException to indicate that the given tableExpression could not be resolved
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default TableReference resolveTableReference(
 			NavigablePath navigablePath,
 			String tableExpression) {
@@ -53,6 +57,7 @@ public interface ColumnReferenceQualifier {
 		return tableReference;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default TableReference resolveTableReference(
 			NavigablePath navigablePath,
 			ValuedModelPart modelPart,
@@ -81,10 +86,12 @@ public interface ColumnReferenceQualifier {
 		return tableReference;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default TableReference getTableReference(NavigablePath navigablePath, String tableExpression) {
 		return getTableReference( navigablePath, tableExpression, false );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default TableReference getTableReference(String tableExpression) {
 		return getTableReference( null, tableExpression, false );
 	}
@@ -96,10 +103,12 @@ public interface ColumnReferenceQualifier {
 	 * @param tableExpression The table expression for which to look up the table reference
 	 * @param resolve Whether to potentially create table reference joins for this table group
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TableReference getTableReference(
 			NavigablePath navigablePath,
 			String tableExpression,
 			boolean resolve);
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default TableReference getTableReference(
 			NavigablePath navigablePath,
 			ValuedModelPart modelPart,

@@ -12,6 +12,8 @@ import org.hibernate.boot.model.naming.Identifier;
 import org.hibernate.tool.schema.extract.spi.ColumnInformation;
 import org.hibernate.tool.schema.extract.spi.IndexInformation;
 import org.hibernate.tool.schema.spi.SchemaManagementException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -26,15 +28,18 @@ public class IndexInformationImpl implements IndexInformation {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Identifier getIndexIdentifier() {
 		return indexIdentifier;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<ColumnInformation> getIndexedColumns() {
 		return columnList;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Builder builder(Identifier indexIdentifier) {
 		return new Builder( indexIdentifier );
 	}
@@ -47,11 +52,13 @@ public class IndexInformationImpl implements IndexInformation {
 			this.indexIdentifier = indexIdentifier;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder addColumn(ColumnInformation columnInformation) {
 			columnList.add( columnInformation );
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public IndexInformationImpl build() {
 			if ( columnList.isEmpty() ) {
 				throw new SchemaManagementException(

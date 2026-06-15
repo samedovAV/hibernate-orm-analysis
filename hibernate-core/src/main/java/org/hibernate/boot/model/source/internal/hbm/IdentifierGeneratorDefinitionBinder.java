@@ -8,6 +8,8 @@ import org.hibernate.boot.jaxb.hbm.spi.JaxbHbmIdentifierGeneratorDefinitionType;
 import org.hibernate.boot.model.IdentifierGeneratorDefinition;
 
 import static org.hibernate.boot.BootLogging.BOOT_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -15,6 +17,7 @@ import static org.hibernate.boot.BootLogging.BOOT_LOGGER;
  */
 public class IdentifierGeneratorDefinitionBinder {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void processIdentifierGeneratorDefinition(
 			HbmLocalMetadataBuildingContext context,
 			JaxbHbmIdentifierGeneratorDefinitionType identifierGenerator) {

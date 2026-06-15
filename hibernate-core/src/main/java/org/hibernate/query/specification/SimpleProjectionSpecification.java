@@ -16,6 +16,8 @@ import org.hibernate.query.restriction.Path;
 import org.hibernate.query.specification.internal.CountProjectionSpecificationImpl;
 import org.hibernate.query.specification.internal.ExistsProjectionSpecificationImpl;
 import org.hibernate.query.specification.internal.SimpleProjectionSpecificationImpl;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Allows a {@link SelectionSpecification} to be augmented with the specification of
@@ -69,6 +71,7 @@ public interface SimpleProjectionSpecification<T,X> extends QuerySpecification<T
 	 * Create a new {@code ProjectionSpecification} which augments the given
 	 * {@link SelectionSpecification}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <T,X> SimpleProjectionSpecification<T,X> create(
 			SelectionSpecification<T> selectionSpecification,
 			Path<T,X> projectedPath) {
@@ -79,6 +82,7 @@ public interface SimpleProjectionSpecification<T,X> extends QuerySpecification<T
 	 * Create a new {@code ProjectionSpecification} which augments the given
 	 * {@link SelectionSpecification}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <T,X> SimpleProjectionSpecification<T,X> create(
 			SelectionSpecification<T> selectionSpecification,
 			SingularAttribute<? super T,X> projectedAttribute) {
@@ -89,6 +93,7 @@ public interface SimpleProjectionSpecification<T,X> extends QuerySpecification<T
 	 * Create a new {@code ProjectionSpecification} which augments the given
 	 * {@link SelectionSpecification} with a {@code count(*)}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <T> SimpleProjectionSpecification<T,Long> count(
 			SelectionSpecification<T> selectionSpecification) {
 		return new CountProjectionSpecificationImpl<>( selectionSpecification );
@@ -98,20 +103,25 @@ public interface SimpleProjectionSpecification<T,X> extends QuerySpecification<T
 	 * Create a new {@code ProjectionSpecification} which augments the given
 	 * {@link SelectionSpecification} with an {@code exists()}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <T> SimpleProjectionSpecification<T,Boolean> exists(
 			SelectionSpecification<T> selectionSpecification) {
 		return new ExistsProjectionSpecificationImpl<>( selectionSpecification );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<X> createQuery(EntityHandler entityHandler);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CriteriaQuery<X> buildCriteria(CriteriaBuilder builder);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TypedQueryReference<X> reference();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SimpleProjectionSpecification<T,X> validate(CriteriaBuilder builder);
 }

@@ -14,6 +14,8 @@ import org.hibernate.boot.registry.classloading.spi.ClassLoaderService;
 import org.hibernate.bytecode.internal.none.BytecodeProviderImpl;
 import org.hibernate.bytecode.spi.BytecodeProvider;
 import org.hibernate.service.spi.ServiceRegistryImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public final class BytecodeProviderInitiator implements StandardServiceInitiator<BytecodeProvider> {
 
@@ -30,6 +32,7 @@ public final class BytecodeProviderInitiator implements StandardServiceInitiator
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BytecodeProvider initiateService(@Nonnull Map<String, Object> configurationValues, @Nonnull ServiceRegistryImplementor registry) {
 		final var bytecodeProviders =
 				registry.requireService( ClassLoaderService.class )
@@ -39,12 +42,14 @@ public final class BytecodeProviderInitiator implements StandardServiceInitiator
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<BytecodeProvider> getServiceInitiated() {
 		return BytecodeProvider.class;
 	}
 
 	@Internal
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static BytecodeProvider buildDefaultBytecodeProvider() {
 		// Use BytecodeProvider's ClassLoader to ensure we can find the service
 		return getBytecodeProvider( ServiceLoader.load(
@@ -55,6 +60,7 @@ public final class BytecodeProviderInitiator implements StandardServiceInitiator
 
 	@Internal
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static BytecodeProvider getBytecodeProvider(@Nonnull Iterable<BytecodeProvider> bytecodeProviders) {
 		final var iterator = bytecodeProviders.iterator();
 		if ( !iterator.hasNext() ) {

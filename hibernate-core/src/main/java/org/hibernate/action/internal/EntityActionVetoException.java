@@ -4,6 +4,8 @@
  */
 package org.hibernate.action.internal;
 import org.hibernate.HibernateException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An exception indicating that an {@link EntityAction} was vetoed.
@@ -25,6 +27,7 @@ public class EntityActionVetoException extends HibernateException {
 		this.entityAction = entityAction;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityAction getEntityAction() {
 		return entityAction;
 	}

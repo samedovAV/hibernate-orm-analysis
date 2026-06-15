@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.source.spi;
 
 import org.hibernate.boot.jaxb.mapping.GenerationTiming;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Source-agnostic description of information needed to bind a singular attribute.
@@ -18,6 +20,7 @@ public interface SingularAttributeSource extends AttributeSource {
 	 * @return {@code true} indicates the attribute is virtual, meaning it does NOT exist on the domain model;
 	 *         {@code false} indicates the attribute physically exists.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isVirtualAttribute();
 
 	/**
@@ -25,6 +28,7 @@ public interface SingularAttributeSource extends AttributeSource {
 	 *
 	 * @return The attribute type nature
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SingularAttributeNature getSingularAttributeNature();
 
 	/**
@@ -32,6 +36,7 @@ public interface SingularAttributeSource extends AttributeSource {
 	 *
 	 * @return The attribute value generation information
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	GenerationTiming getGenerationTiming();
 
 	/**
@@ -39,6 +44,7 @@ public interface SingularAttributeSource extends AttributeSource {
 	 *
 	 * @return {@code true} indicates value(s) should be inserted; {@code false} indicates not.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Boolean isInsertable();
 
 	/**
@@ -46,6 +52,7 @@ public interface SingularAttributeSource extends AttributeSource {
 	 *
 	 * @return {@code true} indicates value(s) should be updated; {@code false} indicates not.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Boolean isUpdatable();
 
 	/**
@@ -53,6 +60,7 @@ public interface SingularAttributeSource extends AttributeSource {
 	 *
 	 * @return {@code true} to indicate the attribute should be lazily loaded by bytecode enhancement?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isBytecodeLazy();
 
 	/**
@@ -60,6 +68,7 @@ public interface SingularAttributeSource extends AttributeSource {
 	 *
 	 * @return The mutability, see enum for meanings
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NaturalIdMutability getNaturalIdMutability();
 
 }

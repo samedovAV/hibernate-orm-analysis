@@ -14,6 +14,8 @@ import static org.hibernate.cfg.PersistenceSettings.JAKARTA_PERSISTENCE_PROVIDER
 import static org.hibernate.cfg.PersistenceSettings.JPA_PERSISTENCE_PROVIDER;
 import static org.hibernate.jpa.internal.JpaLogger.JPA_LOGGER;
 import static org.hibernate.internal.log.DeprecationLogger.DEPRECATION_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Helper for handling checks to see whether Hibernate is the requested
@@ -35,6 +37,7 @@ public final class ProviderChecker {
 	 *
 	 * @return {@code true} if Hibernate should be the provider; {@code false} otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isProvider(PersistenceUnitDescriptor persistenceUnit, Map integration) {
 		// See if we (Hibernate) are the persistence provider
 		return hibernateProviderNamesContain( extractRequestedProviderName( persistenceUnit, integration ) );
@@ -47,6 +50,7 @@ public final class ProviderChecker {
 	 *
 	 * @return {@code true} if Hibernate should be the provider; {@code false} otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean hibernateProviderNamesContain(String requestedProviderName) {
 		JPA_LOGGER.checkingRequestedPersistenceProviderName( requestedProviderName );
 		return HibernatePersistenceProvider.class.getName().equals( requestedProviderName );
@@ -63,6 +67,7 @@ public final class ProviderChecker {
 	 *
 	 * @return The extracted provider name, or {@code null} if none found.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String extractRequestedProviderName(PersistenceUnitDescriptor persistenceUnit, Map integration) {
 		final String integrationProviderName = extractProviderName( integration );
 		if ( integrationProviderName != null ) {
@@ -84,6 +89,7 @@ public final class ProviderChecker {
 		return HibernatePersistenceProvider.class.getName();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static String extractProviderName(Map integration) {
 		if ( integration == null ) {
 			return null;
@@ -105,6 +111,7 @@ public final class ProviderChecker {
 		return setting == null ? null : setting.trim();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static String extractProviderName(PersistenceUnitDescriptor persistenceUnit) {
 		final String persistenceUnitRequestedProvider = persistenceUnit.getProviderClassName();
 		return persistenceUnitRequestedProvider == null ? null : persistenceUnitRequestedProvider.trim();

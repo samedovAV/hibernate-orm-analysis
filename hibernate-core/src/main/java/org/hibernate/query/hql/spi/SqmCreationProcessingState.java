@@ -6,6 +6,8 @@ package org.hibernate.query.hql.spi;
 
 import org.hibernate.Incubating;
 import org.hibernate.query.sqm.tree.SqmQuery;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * State related to SQM creation, like {@link SqmCreationState}, but specific
@@ -22,21 +24,25 @@ public interface SqmCreationProcessingState {
 	 * Intended to be used while processing a sub-query to access the processing
 	 * state of the context in which the sub-query occurs.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqmCreationProcessingState getParentProcessingState();
 
 	/**
 	 * Access to the query currently being processed.  This should be generally considered
 	 * an inflight model - we are still in the process of creating the SQM
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqmQuery<?> getProcessingQuery();
 
 	/**
 	 * The overall SQM creation state
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqmCreationState getCreationState();
 
 	/**
 	 * SqmPathRegistry associated with this state.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqmPathRegistry getPathRegistry();
 }

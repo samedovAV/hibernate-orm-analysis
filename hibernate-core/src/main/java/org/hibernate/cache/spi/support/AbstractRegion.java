@@ -6,6 +6,8 @@ package org.hibernate.cache.spi.support;
 
 import org.hibernate.cache.spi.Region;
 import org.hibernate.cache.spi.RegionFactory;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -26,11 +28,13 @@ public abstract class AbstractRegion implements Region {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return name;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public RegionFactory getRegionFactory() {
 		return regionFactory;
 	}

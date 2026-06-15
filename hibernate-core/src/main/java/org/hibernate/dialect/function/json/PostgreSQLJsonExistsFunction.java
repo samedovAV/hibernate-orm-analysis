@@ -15,6 +15,8 @@ import org.hibernate.sql.ast.tree.expression.Expression;
 import org.hibernate.sql.ast.tree.expression.JsonExistsErrorBehavior;
 import org.hibernate.sql.ast.tree.expression.JsonPathPassingClause;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * PostgreSQL json_exists function.
@@ -26,6 +28,7 @@ public class PostgreSQLJsonExistsFunction extends JsonExistsFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void render(
 			SqlAppender sqlAppender,
 			JsonExistsArguments arguments,
@@ -38,6 +41,7 @@ public class PostgreSQLJsonExistsFunction extends JsonExistsFunction {
 		appendJsonExists( sqlAppender, walker, arguments.jsonDocument(), arguments.jsonPath(), arguments.passingClause() );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static void appendJsonExists(SqlAppender sqlAppender, SqlAstTranslator<?> walker, Expression jsonDocument, Expression jsonPath, @Nullable JsonPathPassingClause passingClause) {
 		sqlAppender.appendSql( "jsonb_path_exists(" );
 		jsonDocument.accept( walker );

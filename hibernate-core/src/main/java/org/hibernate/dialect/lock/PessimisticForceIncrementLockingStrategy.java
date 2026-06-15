@@ -9,6 +9,8 @@ import org.hibernate.LockMode;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.internal.OptimisticLockHelper;
 import org.hibernate.persister.entity.EntityPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A pessimistic locking strategy where a lock is obtained by incrementing
@@ -44,6 +46,7 @@ public class PessimisticForceIncrementLockingStrategy implements LockingStrategy
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void lock(Object id, Object version, Object object, int timeout, SharedSessionContractImplementor session) {
 		final var entry = session.getPersistenceContextInternal().getEntry( object );
 		OptimisticLockHelper.forceVersionIncrement( object, entry, session );
@@ -54,6 +57,7 @@ public class PessimisticForceIncrementLockingStrategy implements LockingStrategy
 	 *
 	 * @return The specific lock mode.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected LockMode getLockMode() {
 		return lockMode;
 	}

@@ -10,6 +10,8 @@ import java.util.Set;
 import org.hibernate.HibernateException;
 import org.hibernate.cache.CacheException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Responsible for managing query result list caching in a specific
@@ -32,6 +34,7 @@ public interface QueryResultsCache {
 	/**
 	 * The underlying cache region being used.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	QueryResultsRegion getRegion();
 
 	/**
@@ -47,6 +50,7 @@ public interface QueryResultsCache {
 	 *
 	 * @throws HibernateException Indicates a problem delegating to the underlying cache.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean put(
 			QueryKey key,
 			List<?> result,
@@ -71,6 +75,7 @@ public interface QueryResultsCache {
 	 *
 	 * @throws HibernateException Indicates a problem delegating to the underlying cache.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<?> get(
 			QueryKey key,
 			Set<String> spaces,
@@ -94,6 +99,7 @@ public interface QueryResultsCache {
 	 *
 	 * @throws HibernateException Indicates a problem delegating to the underlying cache.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<?> get(
 			QueryKey key,
 			String[] spaces,
@@ -104,10 +110,12 @@ public interface QueryResultsCache {
 	 *
 	 * @throws CacheException Indicates a problem delegating to the underlying cache.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void clear() throws CacheException {
 		getRegion().clear();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void destroy() {
 		// nothing to do, the region itself gets destroyed
 	}

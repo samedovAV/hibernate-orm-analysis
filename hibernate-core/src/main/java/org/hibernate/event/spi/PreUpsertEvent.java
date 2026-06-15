@@ -6,6 +6,8 @@ package org.hibernate.event.spi;
 
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.persister.entity.EntityPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents a pre-upsert event, which occurs just prior to
@@ -39,6 +41,7 @@ public class PreUpsertEvent extends AbstractPreDatabaseOperationEvent {
 	 *
 	 * @return The current state.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object[] getState() {
 		return state;
 	}

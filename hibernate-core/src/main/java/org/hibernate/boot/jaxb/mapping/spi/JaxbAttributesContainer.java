@@ -5,6 +5,8 @@
 package org.hibernate.boot.jaxb.mapping.spi;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * JAXB binding interface for commonality between things which contain attributes.
@@ -16,15 +18,21 @@ import java.util.List;
  * @author Steve Ebersole
  */
 public interface JaxbAttributesContainer extends JaxbBaseAttributesContainer {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<JaxbOneToOneImpl> getOneToOneAttributes();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<JaxbElementCollectionImpl> getElementCollectionAttributes();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<JaxbOneToManyImpl> getOneToManyAttributes();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<JaxbManyToManyImpl> getManyToManyAttributes();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<JaxbPluralAnyMappingImpl> getPluralAnyMappingAttributes();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<JaxbTransientImpl> getTransients();
 }

@@ -21,6 +21,8 @@ import org.hibernate.boot.model.source.spi.RelationalValueSource;
 import org.hibernate.boot.model.source.spi.SizeSource;
 import org.hibernate.internal.util.StringHelper;
 import org.hibernate.internal.util.collections.CollectionHelper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -41,21 +43,25 @@ public class PluralAttributeSourceIdBagImpl extends AbstractPluralAttributeSourc
 				null,
 				new RelationalValueSourceHelper.AbstractColumnsAndFormulasSource() {
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public XmlElementMetadata getSourceType() {
 						return XmlElementMetadata.COLLECTION_ID;
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public String getSourceName() {
 						return null;
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public String getColumnAttribute() {
 						return idBagMapping.getCollectionId().getColumnAttribute();
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public SizeSource getSizeSource() {
 						return Helper.interpretSizeSource(
 								idBagMapping.getCollectionId().getLength(),
@@ -65,6 +71,7 @@ public class PluralAttributeSourceIdBagImpl extends AbstractPluralAttributeSourc
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public List<JaxbHbmColumnType> getColumnOrFormulaElements() {
 						return idBagMapping.getCollectionId().getColumn();
 					}
@@ -93,31 +100,37 @@ public class PluralAttributeSourceIdBagImpl extends AbstractPluralAttributeSourc
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PluralAttributeNature getNature() {
 		return PluralAttributeNature.ID_BAG;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionIdSource getCollectionIdSource() {
 		return collectionIdSource;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isOrdered() {
 		return StringHelper.isNotEmpty( getOrder() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getOrder() {
 		return idBagMapping.getOrderBy();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public XmlElementMetadata getSourceType() {
 		return XmlElementMetadata.ID_BAG;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getXmlNodeName() {
 		return idBagMapping.getNode();
 	}
@@ -145,20 +158,24 @@ public class PluralAttributeSourceIdBagImpl extends AbstractPluralAttributeSourc
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public ColumnSource getColumnSource() {
 			return columnSource;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public HibernateTypeSourceImpl getTypeInformation() {
 			return typeSource;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getGeneratorName() {
 			return generator;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Map<String, String> getParameters() {
 			return parameters;
 		}

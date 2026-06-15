@@ -10,6 +10,8 @@ import org.hibernate.type.descriptor.java.JavaType;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Iterator;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * JSON document reader.
@@ -80,6 +82,7 @@ import java.util.Iterator;
  * @author Emmanuel Jannetti
  */
 public interface JsonDocumentReader extends Iterator<JsonDocumentItemType> {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void forEachRemaining() {
 		throw new UnsupportedOperationException("forEachRemaining");
 	}
@@ -88,61 +91,73 @@ public interface JsonDocumentReader extends Iterator<JsonDocumentItemType> {
 	 * Gets the key name once JsonDocumentItemType.VALUE_KEY has been received
 	 * @return the name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getObjectKeyName();
 	/**
 	 * Gets value as String
 	 * @return the value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getStringValue();
 	/**
 	 * Gets value as BigDecimal
 	 * @return the value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	BigDecimal getBigDecimalValue();
 	/**
 	 * Gets value as BigInteger
 	 * @return the value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	BigInteger getBigIntegerValue();
 	/**
 	 * Gets value as double
 	 * @return the value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	double getDoubleValue();
 	/**
 	 * Gets value as float
 	 * @return the value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	float getFloatValue();
 	/**
 	 * Gets value as long
 	 * @return the value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	long getLongValue();
 	/**
 	 * Gets value as int
 	 * @return the value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getIntegerValue();
 	/**
 	 * Gets value as short
 	 * @return the value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	short getShortValue();
 	/**
 	 * Gets value as byte
 	 * @return the value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	byte getByteValue();
 	/**
 	 * Gets value as boolean
 	 * @return the value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean getBooleanValue();
 
 	/**
 	 * Gets value as JavaType
 	 * @return the value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T getValue(JavaType<T> javaType, WrapperOptions options);
 }

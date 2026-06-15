@@ -52,6 +52,8 @@ import static org.hibernate.tool.schema.UniqueConstraintSchemaUpdateStrategy.SKI
 import static org.hibernate.tool.schema.internal.Helper.interpretFormattingEnabled;
 import static org.hibernate.tool.schema.internal.SchemaCreatorImpl.createUserDefinedTypes;
 import static org.hibernate.tool.schema.internal.SchemaDropperImpl.dropUserDefinedTypes;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base implementation of {@link SchemaMigrator}.
@@ -71,6 +73,7 @@ public abstract class AbstractSchemaMigrator implements SchemaMigrator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void doMigration(
 			Metadata metadata,
 			ExecutionOptions options,
@@ -126,12 +129,14 @@ public abstract class AbstractSchemaMigrator implements SchemaMigrator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected DatabaseInformation buildDatabaseInformation(
 			DdlTransactionIsolator ddlTransactionIsolator,
 			SqlStringGenerationContext sqlStringGenerationContext) {
 		return Helper.buildDatabaseInformation( ddlTransactionIsolator, sqlStringGenerationContext, tool );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private SqlStringGenerationContext sqlGenerationContext(Metadata metadata, ExecutionOptions options) {
 		return SqlStringGenerationContextImpl.fromConfigurationMapForMigration(
 				tool.getServiceRegistry().requireService( JdbcEnvironment.class ),
@@ -140,6 +145,7 @@ public abstract class AbstractSchemaMigrator implements SchemaMigrator {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract NameSpaceTablesInformation performTablesMigration(
 			Metadata metadata,
 			DatabaseInformation existingDatabase,
@@ -155,6 +161,7 @@ public abstract class AbstractSchemaMigrator implements SchemaMigrator {
 			SqlStringGenerationContext sqlGenerationContext,
 			GenerationTarget[] targets);
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private void performMigration(
 			Metadata metadata,
 			DatabaseInformation existingDatabase,
@@ -276,6 +283,7 @@ public abstract class AbstractSchemaMigrator implements SchemaMigrator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void applySequence(
 			Sequence sequence,
 			Dialect dialect,
@@ -294,6 +302,7 @@ public abstract class AbstractSchemaMigrator implements SchemaMigrator {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void createTable(
 			Table table,
 			Dialect dialect,
@@ -312,6 +321,7 @@ public abstract class AbstractSchemaMigrator implements SchemaMigrator {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void migrateTable(
 			Table table,
 			TableInformation tableInformation,
@@ -331,6 +341,7 @@ public abstract class AbstractSchemaMigrator implements SchemaMigrator {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void applyIndexes(
 			Table table,
 			TableInformation tableInformation,
@@ -360,10 +371,12 @@ public abstract class AbstractSchemaMigrator implements SchemaMigrator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private IndexInformation findMatchingIndex(Index index, TableInformation tableInformation) {
 		return tableInformation.getIndex( Identifier.toIdentifier( index.getName() ) );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void applyUniqueKeys(
 			Table table,
 			TableInformation tableInfo,
@@ -410,6 +423,7 @@ public abstract class AbstractSchemaMigrator implements SchemaMigrator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private UniqueConstraintSchemaUpdateStrategy determineUniqueConstraintSchemaUpdateStrategy() {
 		final String updateStrategy =
 				tool.getServiceRegistry().requireService( ConfigurationService.class )
@@ -417,6 +431,7 @@ public abstract class AbstractSchemaMigrator implements SchemaMigrator {
 		return UniqueConstraintSchemaUpdateStrategy.interpret( updateStrategy );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void applyForeignKeys(
 			Table table,
 			TableInformation tableInformation,
@@ -455,6 +470,7 @@ public abstract class AbstractSchemaMigrator implements SchemaMigrator {
 	 * @param tableInformation - TableInformation, information of existing keys
 	 * @return boolean, true if key already exists
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean checkForExistingForeignKey(ForeignKey foreignKey, TableInformation tableInformation) {
 		if ( foreignKey.getName() == null || tableInformation == null ) {
 			return false;
@@ -471,6 +487,7 @@ public abstract class AbstractSchemaMigrator implements SchemaMigrator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean equivalentForeignKeyExistsInDatabase(TableInformation tableInformation, String referencingColumn, String referencedTable) {
 		return StreamSupport.stream( tableInformation.getForeignKeys().spliterator(), false )
 				.flatMap( foreignKeyInformation -> StreamSupport.stream( foreignKeyInformation.getColumnReferenceMappings().spliterator(), false ) )
@@ -485,6 +502,7 @@ public abstract class AbstractSchemaMigrator implements SchemaMigrator {
 		} );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void checkExportIdentifier(Exportable exportable, Set<String> exportIdentifiers) {
 		final String exportIdentifier = exportable.getExportIdentifier();
 		if ( exportIdentifiers.contains( exportIdentifier ) ) {
@@ -495,6 +513,7 @@ public abstract class AbstractSchemaMigrator implements SchemaMigrator {
 		exportIdentifiers.add( exportIdentifier );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected static void applySqlStrings(
 			boolean quiet,
 			String[] sqlStrings,
@@ -508,6 +527,7 @@ public abstract class AbstractSchemaMigrator implements SchemaMigrator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void createSchemaAndCatalog(
 			DatabaseInformation existingDatabase,
 			ExecutionOptions options,
@@ -553,6 +573,7 @@ public abstract class AbstractSchemaMigrator implements SchemaMigrator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static void applySqlString(
 			boolean quiet,
 			String sql,

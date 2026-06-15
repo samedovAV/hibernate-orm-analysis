@@ -12,6 +12,8 @@ import org.hibernate.metamodel.mapping.ModelPartContainer;
 import org.hibernate.metamodel.mapping.internal.ToOneAttributeMapping;
 import org.hibernate.metamodel.mapping.ordering.TranslationContext;
 import org.hibernate.spi.NavigablePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class FkDomainPathContinuation extends DomainPathContinuation {
 
@@ -35,6 +37,7 @@ public class FkDomainPathContinuation extends DomainPathContinuation {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SequencePart resolvePathPart(
 			String name,
 			String identifier,

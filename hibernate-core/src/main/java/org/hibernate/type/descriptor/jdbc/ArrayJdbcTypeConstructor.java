@@ -10,6 +10,8 @@ import org.hibernate.type.BasicType;
 import org.hibernate.type.spi.TypeConfiguration;
 
 import java.sql.Types;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Factory for {@link ArrayJdbcType}.
@@ -19,6 +21,7 @@ import java.sql.Types;
 public class ArrayJdbcTypeConstructor implements JdbcTypeConstructor {
 	public static final ArrayJdbcTypeConstructor INSTANCE = new ArrayJdbcTypeConstructor();
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcType resolveType(
 			TypeConfiguration typeConfiguration,
 			Dialect dialect,
@@ -27,6 +30,7 @@ public class ArrayJdbcTypeConstructor implements JdbcTypeConstructor {
 		return resolveType( typeConfiguration, dialect, elementType.getJdbcType(), columnTypeInformation );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcType resolveType(
 			TypeConfiguration typeConfiguration,
 			Dialect dialect,
@@ -36,6 +40,7 @@ public class ArrayJdbcTypeConstructor implements JdbcTypeConstructor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getDefaultSqlTypeCode() {
 		return Types.ARRAY;
 	}

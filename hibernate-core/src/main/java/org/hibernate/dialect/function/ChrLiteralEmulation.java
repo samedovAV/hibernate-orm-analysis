@@ -26,6 +26,8 @@ import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.type.spi.TypeConfiguration;
 
 import static org.hibernate.query.sqm.produce.function.FunctionParameterType.INTEGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A chr implementation that translates integer literals to string literals.
@@ -42,6 +44,7 @@ public class ChrLiteralEmulation extends AbstractSqmSelfRenderingFunctionDescrip
 								StandardArgumentsValidators.exactly(1),
 								new ArgumentsValidator() {
 									@Override
+									@Prove(complexity = Complexity.O_1, n = "", count = {})
 									public void validate(List<? extends SqmTypedNode<?>> arguments, String functionName, BindingContext bindingContext) {
 										final var arg = arguments.get( 0 );
 										if ( !( arg instanceof SqmLiteral<?> ) ) {
@@ -66,6 +69,7 @@ public class ChrLiteralEmulation extends AbstractSqmSelfRenderingFunctionDescrip
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> arguments,

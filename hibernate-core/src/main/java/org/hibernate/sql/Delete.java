@@ -11,6 +11,8 @@ import org.hibernate.Internal;
 import org.hibernate.dialect.Dialect;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.sql.ast.spi.ParameterMarkerStrategy;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A SQL {@code DELETE} statement.
@@ -34,23 +36,27 @@ public class Delete implements RestrictionRenderingContext {
 		this.parameterMarkerStrategy = parameterMarkerStrategy;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Delete setTableName(String tableName) {
 		this.tableName = tableName;
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Delete setComment(String comment) {
 		this.comment = comment;
 		return this;
 	}
 
 	@SuppressWarnings("UnusedReturnValue")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Delete addColumnRestriction(String columnName) {
 		restrictions.add( new ComparisonRestriction( columnName ) );
 		return this;
 	}
 
 	@SuppressWarnings("UnusedReturnValue")
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public Delete addColumnRestriction(String... columnNames) {
 		for ( int i = 0; i < columnNames.length; i++ ) {
 			if ( columnNames[i] == null ) {
@@ -62,17 +68,20 @@ public class Delete implements RestrictionRenderingContext {
 	}
 
 	@SuppressWarnings("UnusedReturnValue")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Delete addColumnIsNullRestriction(String columnName) {
 		restrictions.add( new NullnessRestriction( columnName ) );
 		return this;
 	}
 
 	@SuppressWarnings("UnusedReturnValue")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Delete addColumnIsNotNullRestriction(String columnName) {
 		restrictions.add( new NullnessRestriction( columnName, false ) );
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Delete setVersionColumnName(String versionColumnName) {
 		if ( versionColumnName != null ) {
 			addColumnRestriction( versionColumnName );
@@ -80,6 +89,7 @@ public class Delete implements RestrictionRenderingContext {
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toStatementString() {
 		final StringBuilder buf = new StringBuilder( tableName.length() + 10 );
 
@@ -90,12 +100,14 @@ public class Delete implements RestrictionRenderingContext {
 		return buf.toString();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void applyComment(StringBuilder buf) {
 		if ( comment != null ) {
 			buf.append( "/* " ).append( Dialect.escapeComment( comment ) ).append( " */ " );
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void applyRestrictions(StringBuilder buf) {
 		if ( restrictions.isEmpty() ) {
 			return;
@@ -112,6 +124,7 @@ public class Delete implements RestrictionRenderingContext {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String makeParameterMarker() {
 		return parameterMarkerStrategy.createMarker( ++parameterCount, null );
 	}

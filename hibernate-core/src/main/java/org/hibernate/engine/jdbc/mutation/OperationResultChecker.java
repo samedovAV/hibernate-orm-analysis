@@ -8,6 +8,8 @@ import java.sql.SQLException;
 
 import org.hibernate.Incubating;
 import org.hibernate.engine.jdbc.mutation.group.PreparedStatementDetails;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Used to check the results of a statement execution
@@ -26,5 +28,6 @@ public interface OperationResultChecker {
 	 *
 	 * @return {@code true} indicates an execution that is considered successful; {@code false} indicates unsuccessful
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean checkResult(PreparedStatementDetails statementDetails, int affectedRowCount, int batchPosition) throws SQLException;
 }

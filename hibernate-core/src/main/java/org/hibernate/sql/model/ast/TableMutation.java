@@ -13,6 +13,8 @@ import org.hibernate.sql.ast.tree.Statement;
 import org.hibernate.sql.exec.spi.JdbcParameterBinder;
 import org.hibernate.sql.model.MutationOperation;
 import org.hibernate.sql.model.ValuesAnalysis;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Describes the mutation of a model table (mapped by an entity or collection)
@@ -33,6 +35,7 @@ public interface TableMutation<O extends MutationOperation> extends Statement {
 	/**
 	 * The table being mutated
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutatingTableReference getMutatingTable();
 
 	/**
@@ -40,6 +43,7 @@ public interface TableMutation<O extends MutationOperation> extends Statement {
 	 *
 	 * @see #getMutatingTable()
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default String getTableName() {
 		return getMutatingTable().getTableName();
 	}
@@ -47,16 +51,19 @@ public interface TableMutation<O extends MutationOperation> extends Statement {
 	/**
 	 * The comment to be used in the SQL if enabled and supported
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getMutationComment();
 
 	/**
 	 * Is the mutation a procedure/function?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isCallable();
 
 	/**
 	 * The validation expectation for the mutation
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Expectation getExpectation();
 
 	/**
@@ -67,6 +74,7 @@ public interface TableMutation<O extends MutationOperation> extends Statement {
 	 *
 	 * @see #forEachParameter
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<ColumnValueParameter> getParameters();
 
 	/**
@@ -77,13 +85,16 @@ public interface TableMutation<O extends MutationOperation> extends Statement {
 	 *
 	 * @see #getParameters
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void forEachParameter(Consumer<ColumnValueParameter> consumer);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	O createMutationOperation(ValuesAnalysis valuesAnalysis, SessionFactoryImplementor sessionFactory);
 
 	/**
 	 * A {@link org.hibernate.sql.ast.SqlAstTranslator} callback to create
 	 * an appropriate mutation using the translated sql and parameter binders.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	O createMutationOperation(String sql, List<JdbcParameterBinder> parameterBinders);
 }

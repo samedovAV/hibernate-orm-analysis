@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.source.spi;
 
 import static org.hibernate.internal.util.StringHelper.split;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An attribute path is, generally speaking, the path of attribute names back
@@ -21,16 +23,19 @@ public class AttributePath extends AbstractAttributeKey {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected char getDelimiter() {
 		return DELIMITER;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AttributePath append(String property) {
 		return new AttributePath( this, property );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public AttributePath getParent() {
 		return (AttributePath) super.getParent();
 	}
@@ -39,6 +44,7 @@ public class AttributePath extends AbstractAttributeKey {
 		super( parent, property );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static AttributePath parse(String path) {
 		if ( path != null ) {
 			AttributePath attributePath = new AttributePath();

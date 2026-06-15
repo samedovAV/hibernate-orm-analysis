@@ -14,6 +14,8 @@ import org.hibernate.query.sqm.tree.domain.SqmDomainType;
 import static jakarta.persistence.metamodel.Bindable.BindableType.SINGULAR_ATTRIBUTE;
 import static jakarta.persistence.metamodel.Type.PersistenceType.BASIC;
 import static org.hibernate.metamodel.mapping.EntityDiscriminatorMapping.DISCRIMINATOR_ROLE_NAME;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Abstract SqmPathSource implementation for discriminators
@@ -27,23 +29,27 @@ public abstract class AbstractDiscriminatorSqmPathSource<D> extends AbstractSqmP
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPathSource<?> findSubPathSource(String name) {
 		throw new IllegalStateException( "Entity discriminator cannot be de-referenced" );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistenceType getPersistenceType() {
 		return BASIC;
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<D> getJavaType() {
 		return getExpressibleJavaType().getJavaTypeClass();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable SqmDomainType<D> getSqmType() {
 		return this;
 	}

@@ -5,6 +5,8 @@
 package org.hibernate.type.descriptor.jdbc;
 
 import java.sql.Types;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Descriptor for {@link Types#NUMERIC NUMERIC} handling.
@@ -18,11 +20,13 @@ public class NumericJdbcType extends DecimalJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "NumericTypeDescriptor";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getJdbcTypeCode() {
 		return Types.NUMERIC;
 	}

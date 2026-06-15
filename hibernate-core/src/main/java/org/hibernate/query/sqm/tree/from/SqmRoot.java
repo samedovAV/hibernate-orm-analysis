@@ -29,6 +29,8 @@ import org.hibernate.query.sqm.tree.domain.SqmPath;
 import org.hibernate.query.sqm.tree.domain.SqmTreatedRoot;
 
 import static org.hibernate.internal.util.NullnessUtil.castNonNull;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -75,6 +77,7 @@ public class SqmRoot<E> extends AbstractSqmFrom<E,E> implements JpaRoot<E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmRoot<E> copy(SqmCopyContext context) {
 		final var existing = context.getCopy( this );
 		if ( existing != null ) {
@@ -95,6 +98,7 @@ public class SqmRoot<E> extends AbstractSqmFrom<E,E> implements JpaRoot<E> {
 	}
 
 	@Internal
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void copyTo(SqmRoot<E> target, SqmCopyContext context) {
 		super.copyTo( target, context );
 		if ( orderedJoins != null ) {
@@ -107,19 +111,23 @@ public class SqmRoot<E> extends AbstractSqmFrom<E,E> implements JpaRoot<E> {
 
 	@Nullable
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPath<?> getLhs() {
 		// a root has no LHS
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isAllowJoins() {
 		return allowJoins;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable List<SqmJoin<?, ?>> getOrderedJoins() {
 		return orderedJoins;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addOrderedJoin(SqmJoin<?, ?> join) {
 		if ( orderedJoins == null ) {
 			// If we encounter anything but an attribute join, we need to order joins strictly
@@ -136,6 +144,7 @@ public class SqmRoot<E> extends AbstractSqmFrom<E,E> implements JpaRoot<E> {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void addOrderedJoinTransitive(SqmJoin<?, ?> join) {
 		// The caller will have already initialized `orderedJoin` when this is called.
 		castNonNull( orderedJoins ).add( join );
@@ -143,6 +152,7 @@ public class SqmRoot<E> extends AbstractSqmFrom<E,E> implements JpaRoot<E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void addSqmJoin(SqmJoin<E, ?> join) {
 		if ( !allowJoins ) {
 			throw new IllegalArgumentException(
@@ -154,15 +164,18 @@ public class SqmRoot<E> extends AbstractSqmFrom<E,E> implements JpaRoot<E> {
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmRoot<?> findRoot() {
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getEntityName() {
 		return getModel().getHibernateEntityName();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		final String entityName = getEntityName();
 		final String explicitAlias = getExplicitAlias();
@@ -170,17 +183,20 @@ public class SqmRoot<E> extends AbstractSqmFrom<E,E> implements JpaRoot<E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> X accept(SemanticQueryWalker<X> walker) {
 		return walker.visitRootPath( this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean deepEquals(SqmFrom<?, ?> other) {
 		return super.deepEquals( other )
 			&& Objects.equals( getOrderedJoins(), ((SqmRoot<?>) other).getOrderedJoins() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isDeepCompatible(SqmFrom<?, ?> other) {
 		return super.isDeepCompatible( other )
 			&& SqmCacheable.areCompatible( getOrderedJoins(), ((SqmRoot<?>) other).getOrderedJoins() );
@@ -191,21 +207,25 @@ public class SqmRoot<E> extends AbstractSqmFrom<E,E> implements JpaRoot<E> {
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmEntityDomainType<E> getModel() {
 		return (SqmEntityDomainType<E>) getReferencedPathSource();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityDomainType<E> getManagedType() {
 		return getModel();
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmCorrelatedRoot<E> createCorrelation() {
 		return new SqmCorrelatedRoot<>( this );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean containsOnlyInnerJoins() {
 		for ( var sqmJoin : getSqmJoins() ) {
 			if ( sqmJoin.getSqmJoinType() != SqmJoinType.INNER ) {
@@ -217,36 +237,42 @@ public class SqmRoot<E> extends AbstractSqmFrom<E,E> implements JpaRoot<E> {
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S extends E> SqmTreatedFrom<E,E,S> treatAs(@Nonnull Class<S> treatJavaType) {
 		return treatAs( treatJavaType, null, false );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S extends E> SqmTreatedFrom<E,E,S> treatAs(@Nonnull EntityDomainType<S> treatTarget) {
 		return treatAs( treatTarget, null, false );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S extends E> SqmTreatedFrom<E,E,S> treatAs(@Nonnull Class<S> treatJavaType, @Nullable String alias) {
 		return treatAs( treatJavaType, alias, false );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S extends E> SqmTreatedFrom<E,E,S> treatAs(@Nonnull EntityDomainType<S> treatTarget, @Nullable String alias) {
 		return treatAs( treatTarget, alias, false );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S extends E> SqmTreatedFrom<E,E,S> treatAs(@Nonnull Class<S> treatJavaType, @Nullable String alias, boolean fetch) {
 		return treatAs( nodeBuilder().getDomainModel().entity( treatJavaType ), alias, fetch );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends E> SqmTreatedFrom<E,E,S> treatAs(@Nonnull EntityDomainType<S> treatTarget, @Nullable String alias, boolean fetch) {
 		if ( alias != null ) {
 			throw new TreatException( "Root path treats can not be aliased - " + getNavigablePath().getFullPath() );

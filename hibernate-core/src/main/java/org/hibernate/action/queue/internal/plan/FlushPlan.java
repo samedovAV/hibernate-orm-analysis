@@ -9,6 +9,8 @@ import org.hibernate.action.queue.spi.plan.FlushOperation;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Output of [FlushPlanner] containing
 ///
@@ -22,12 +24,15 @@ public class FlushPlan {
 		this.steps = List.copyOf(steps);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<PlanStep> steps() { return steps; }
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void enqueueFixup(FlushOperation fixup) {
 		fixups.addLast(fixup);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public List<FlushOperation> drainFixupsInOrder() {
 		final ArrayList<FlushOperation> out = new ArrayList<>(fixups.size());
 		while (!fixups.isEmpty()) {

@@ -7,6 +7,8 @@ package org.hibernate.sql.results.graph;
 import org.hibernate.Incubating;
 import org.hibernate.engine.FetchTiming;
 import org.hibernate.spi.NavigablePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for fetches including entity, collection and composite.  Acts as the
@@ -22,6 +24,7 @@ public interface Fetch extends DomainResultGraphNode {
 	 *
 	 * @return The property path
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NavigablePath getNavigablePath();
 
 	/**
@@ -33,12 +36,14 @@ public interface Fetch extends DomainResultGraphNode {
 	 * the parent reference into the fetched instance if it defines
 	 * such injection (e.g. {@link org.hibernate.annotations.Parent})
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	FetchParent getFetchParent();
 
 	/**
 	 * Utility method to avoid {@code instanceof} checks. Returns this if it's
 	 * an instance of {@link FetchParent}, null otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default FetchParent asFetchParent() {
 		return null;
 	}
@@ -46,6 +51,7 @@ public interface Fetch extends DomainResultGraphNode {
 	/**
 	 * The value mapping being fetched
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Fetchable getFetchedMapping();
 
 	/**
@@ -53,14 +59,17 @@ public interface Fetch extends DomainResultGraphNode {
 	 *
 	 * todo (6.0) : should we also expose the fetch-style?  Perhaps the fetch-options?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	FetchTiming getTiming();
 
 	/**
 	 * Is the TableGroup associated with this Fetch defined?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean hasTableGroup();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean containsAnyNonScalarResults() {
 		return true;
 	}
@@ -68,6 +77,7 @@ public interface Fetch extends DomainResultGraphNode {
 	/**
 	 * Create the assembler for this fetch
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	DomainResultAssembler<?> createAssembler(
 			InitializerParent<?> parent,
 			AssemblerCreationState creationState);

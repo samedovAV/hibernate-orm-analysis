@@ -11,6 +11,8 @@ import org.hibernate.service.spi.SessionFactoryServiceInitiator;
 import org.hibernate.service.spi.SessionFactoryServiceInitiatorContext;
 
 import java.util.Set;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @Incubating
 public class ExtensionIntegrationServiceInitiator
@@ -20,12 +22,14 @@ public class ExtensionIntegrationServiceInitiator
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ExtensionIntegrationService initiateService(@Nonnull SessionFactoryServiceInitiatorContext context) {
 		return ExtensionIntegrationServiceImpl.create( Set.of(), context.getSessionFactory().getClassLoaderService() );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<ExtensionIntegrationService> getServiceInitiated() {
 		return ExtensionIntegrationService.class;
 	}

@@ -14,6 +14,8 @@ import org.hibernate.mapping.OneToMany;
 import org.hibernate.mapping.PersistentClass;
 import org.hibernate.mapping.Property;
 import org.hibernate.mapping.Value;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Handles {@link Collate} annotations.
@@ -22,6 +24,7 @@ import org.hibernate.mapping.Value;
  */
 public class CollateBinder implements AttributeBinder<Collate> {
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void bind(Collate collate, MetadataBuildingContext context, PersistentClass entity, Property property) {
 		final Value value = property.getValue();
 		if ( value instanceof OneToMany ) {

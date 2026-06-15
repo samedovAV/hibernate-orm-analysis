@@ -6,6 +6,8 @@ package org.hibernate.action.queue.spi.bind;
 
 import org.hibernate.Incubating;
 import org.hibernate.engine.spi.SessionImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// @author Steve Ebersole
 /// @since 8.0
@@ -20,6 +22,7 @@ public class ChainedPostExecutionCallback implements PostExecutionCallback {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void handle(SessionImplementor session) {
 		first.handle(session);
 		second.handle(session);

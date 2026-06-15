@@ -16,6 +16,8 @@ import org.hibernate.mapping.Column;
 import org.hibernate.mapping.Table;
 
 import static org.hibernate.internal.util.StringHelper.EMPTY_STRINGS;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Abstracts support for database-native row-level security.
@@ -48,12 +50,14 @@ public interface RowLevelSecurity {
 	/**
 	 * Does this dialect natively support row-level security?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean supportsRowLevelSecurity();
 
 	/**
 	 * Does this dialect support RLS policies which use the database user as the
 	 * tenant identifier?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean supportsTenantIdentifierSource(TenantIdentifierSource tenantIdentifierSource) {
 		return true;
 	}
@@ -68,6 +72,7 @@ public interface RowLevelSecurity {
 	 * @param metadata The mapping metadata
 	 * @param tenantIdentifierSource The source used to resolve the tenant id
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void addTenantIdTableInitCommands(
 			InFlightMetadataCollector collector,
 			Table table,
@@ -97,6 +102,7 @@ public interface RowLevelSecurity {
 	 * @param context SQL rendering context
 	 * @param tenantIdentifierSource The source used to resolve the tenant id
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String[] getTenantIdTableCreateStrings(
 			Table table,
 			Column tenantIdentifierColumn,
@@ -115,6 +121,7 @@ public interface RowLevelSecurity {
 	 * @param tenantIdentifier The tenant identifier rendered as a string
 	 * @param root Whether the tenant identifier is a root tenant
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void setTenantIdentifier(Connection connection, String tenantIdentifier, boolean root)
 			throws SQLException {
 	}

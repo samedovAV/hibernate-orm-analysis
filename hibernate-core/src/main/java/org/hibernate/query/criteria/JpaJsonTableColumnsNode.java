@@ -5,6 +5,8 @@
 package org.hibernate.query.criteria;
 
 import org.hibernate.Incubating;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A special expression for the definition of columns within the {@code json_table} function.
@@ -18,6 +20,7 @@ public interface JpaJsonTableColumnsNode {
 	 *
 	 * @return The {@link JpaJsonExistsNode} for the column
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonExistsNode existsColumn(String columnName);
 
 	/**
@@ -26,6 +29,7 @@ public interface JpaJsonTableColumnsNode {
 	 *
 	 * @return The {@link JpaJsonExistsNode} for the column
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonExistsNode existsColumn(String columnName, String jsonPath);
 
 	/**
@@ -33,6 +37,7 @@ public interface JpaJsonTableColumnsNode {
 	 *
 	 * @return The {@link JpaJsonQueryNode} for the column
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonQueryNode queryColumn(String columnName);
 
 	/**
@@ -41,6 +46,7 @@ public interface JpaJsonTableColumnsNode {
 	 *
 	 * @return The {@link JpaJsonQueryNode} for the column
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonQueryNode queryColumn(String columnName, String jsonPath);
 
 	/**
@@ -48,6 +54,7 @@ public interface JpaJsonTableColumnsNode {
 	 *
 	 * @return The {@link JpaJsonValueNode} for the column
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> JpaJsonValueNode<T> valueColumn(String columnName, Class<T> type);
 
 	/**
@@ -55,6 +62,7 @@ public interface JpaJsonTableColumnsNode {
 	 *
 	 * @return The {@link JpaJsonValueNode} for the column
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> JpaJsonValueNode<T> valueColumn(String columnName, Class<T> type, String jsonPath);
 
 	/**
@@ -62,6 +70,7 @@ public interface JpaJsonTableColumnsNode {
 	 *
 	 * @return The {@link JpaJsonValueNode} for the column
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> JpaJsonValueNode<T> valueColumn(String columnName, JpaCastTarget<T> type);
 
 	/**
@@ -69,6 +78,7 @@ public interface JpaJsonTableColumnsNode {
 	 *
 	 * @return The {@link JpaJsonValueNode} for the column
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> JpaJsonValueNode<T> valueColumn(String columnName, JpaCastTarget<T> type, String jsonPath);
 
 	/**
@@ -76,6 +86,7 @@ public interface JpaJsonTableColumnsNode {
 	 *
 	 * @return a new columns node for the nested JSON path
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonTableColumnsNode nested(String jsonPath);
 
 	/**
@@ -84,5 +95,6 @@ public interface JpaJsonTableColumnsNode {
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonTableColumnsNode ordinalityColumn(String columnName);
 }

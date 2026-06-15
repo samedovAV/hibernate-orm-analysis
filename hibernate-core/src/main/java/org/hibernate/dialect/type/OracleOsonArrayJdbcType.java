@@ -32,6 +32,8 @@ import java.sql.SQLException;
 
 import static org.hibernate.dialect.type.OracleOsonJdbcType.OSON_JSON_FACTORY;
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  *
@@ -49,15 +51,18 @@ public class OracleOsonArrayJdbcType extends OracleJsonArrayJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "OracleOsonArrayJdbcType";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> ValueBinder<X> getBinder(JavaType<X> javaType) {
 
 		return new BasicBinder<>( javaType, this ) {
 
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			private <T> byte[] toOsonStream(T value, JavaType<T> javaType, WrapperOptions options) throws Exception {
 				final var domainObjects = javaType.unwrap( value, Object[].class, options );
 				final var out = new ByteArrayOutputStream();
@@ -76,6 +81,7 @@ public class OracleOsonArrayJdbcType extends OracleJsonArrayJdbcType {
 				return out.toByteArray();
 			}
 
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			private boolean useUtf8(WrapperOptions options) {
 				final var elementJavaType = ((BasicPluralJavaType<?>) getJavaType()).getElementJavaType();
 				return elementJavaType instanceof UnknownBasicJavaType<?>
@@ -83,6 +89,7 @@ public class OracleOsonArrayJdbcType extends OracleJsonArrayJdbcType {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBind(PreparedStatement st, X value, int index, WrapperOptions options)
 					throws SQLException {
 				try {
@@ -104,6 +111,7 @@ public class OracleOsonArrayJdbcType extends OracleJsonArrayJdbcType {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBind(CallableStatement st, X value, String name, WrapperOptions options)
 					throws SQLException {
 				try {
@@ -127,10 +135,12 @@ public class OracleOsonArrayJdbcType extends OracleJsonArrayJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> ValueExtractor<X> getExtractor(JavaType<X> javaType) {
 
 		return new BasicExtractor<>( javaType, this ) {
 
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			private X fromOson(InputStream osonBytes, WrapperOptions options) throws Exception {
 				if ( ((BasicPluralJavaType<?>) getJavaType()).getElementJavaType() instanceof UnknownBasicJavaType<?> ) {
 					try ( var oParser = OracleOsonJacksonHelper.createReadSource( osonBytes ) ) {
@@ -148,6 +158,7 @@ public class OracleOsonArrayJdbcType extends OracleJsonArrayJdbcType {
 				}
 			}
 
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			private X doExtraction(OracleJsonDatum datum,  WrapperOptions options) throws SQLException {
 				if ( datum == null ) {
 					return null;
@@ -161,12 +172,14 @@ public class OracleOsonArrayJdbcType extends OracleJsonArrayJdbcType {
 				}
 			}
 
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			private boolean useUtf8(WrapperOptions options) {
 				final var elementJavaType = ((BasicPluralJavaType<?>) getJavaType()).getElementJavaType();
 				return elementJavaType instanceof UnknownBasicJavaType<?>
 					&& !options.getJsonFormatMapper().supportsTargetType( OracleOsonJacksonHelper.READER_CLASS );
 			}
 
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			private X fromString(byte[] json, WrapperOptions options) throws SQLException {
 				if ( json == null ) {
 					return null;
@@ -179,6 +192,7 @@ public class OracleOsonArrayJdbcType extends OracleJsonArrayJdbcType {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(ResultSet rs, int paramIndex, WrapperOptions options) throws SQLException {
 				try {
 					if ( useUtf8( options ) ) {
@@ -205,6 +219,7 @@ public class OracleOsonArrayJdbcType extends OracleJsonArrayJdbcType {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(CallableStatement statement, int index, WrapperOptions options) throws SQLException {
 				try {
 					if ( useUtf8( options ) ) {
@@ -230,6 +245,7 @@ public class OracleOsonArrayJdbcType extends OracleJsonArrayJdbcType {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(CallableStatement statement, String name, WrapperOptions options)
 					throws SQLException {
 				try {

@@ -16,6 +16,8 @@ import org.hibernate.engine.jdbc.env.spi.LobCreatorBuilder;
 import static org.hibernate.engine.jdbc.env.internal.LobCreationHelper.NONE;
 import static org.hibernate.engine.jdbc.env.internal.LobCreationHelper.getSupportedContextualLobTypes;
 import static org.hibernate.engine.jdbc.env.internal.LobCreationLogging.LOB_MESSAGE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Builds {@link LobCreator} instances based on the capabilities of the environment.
@@ -42,6 +44,7 @@ public class LobCreatorBuilderImpl implements LobCreatorBuilder {
 	 * @param jdbcConnection A JDBC {@link Connection} which can be used to gauge the drivers level of support,
 	 * specifically for creating LOB references.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static LobCreatorBuilderImpl makeLobCreatorBuilder(
 			Dialect dialect,
 			Map<String,Object> configValues,
@@ -55,6 +58,7 @@ public class LobCreatorBuilderImpl implements LobCreatorBuilder {
 	 *
 	 * @return Appropriate LobCreatorBuilder
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static LobCreatorBuilderImpl makeLobCreatorBuilder(Dialect dialect) {
 		LOB_MESSAGE_LOGGER.disablingContextualLOBCreationSinceConnectionNull();
 		return new LobCreatorBuilderImpl( dialect.useConnectionToCreateLob(), NONE );
@@ -67,6 +71,7 @@ public class LobCreatorBuilderImpl implements LobCreatorBuilder {
 	 *
 	 * @return The LobCreator
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LobCreator buildLobCreator(LobCreationContext lobCreationContext) {
 		if ( supportedContextualLobTypes.isEmpty() ) {
 			return NonContextualLobCreator.INSTANCE;

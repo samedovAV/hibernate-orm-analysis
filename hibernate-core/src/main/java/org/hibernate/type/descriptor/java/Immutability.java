@@ -8,6 +8,8 @@ import java.io.Serializable;
 
 import org.hibernate.SharedSessionContract;
 import org.hibernate.annotations.Mutability;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Object-typed form of {@link ImmutableMutabilityPlan} for easier use
@@ -26,27 +28,32 @@ public class Immutability implements MutabilityPlan<Object> {
 	@Deprecated( forRemoval = true )
 	public static final Immutability INSTANCE = new Immutability();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <X> MutabilityPlan<X> instance() {
 		//noinspection unchecked
 		return (MutabilityPlan<X>) INSTANCE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isMutable() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object deepCopy(Object value) {
 		return value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Serializable disassemble(Object value, SharedSessionContract session) {
 		return (Serializable) value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object assemble(Serializable cached, SharedSessionContract session) {
 		return cached;
 	}

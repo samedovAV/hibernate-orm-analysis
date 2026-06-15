@@ -9,6 +9,8 @@ import java.io.Serializable;
 import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.descriptor.java.SerializableJavaType;
 import org.hibernate.type.descriptor.jdbc.VarbinaryJdbcType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A type that maps between a {@link java.sql.Types#VARBINARY VARBINARY} and {@link Serializable} classes.
@@ -41,6 +43,7 @@ public class SerializableType<T extends Serializable> extends AbstractSingleColu
 		this.serializableClass = jtd.getJavaTypeClass();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getName() {
 		return (serializableClass==Serializable.class) ? "serializable" : serializableClass.getName();
 	}

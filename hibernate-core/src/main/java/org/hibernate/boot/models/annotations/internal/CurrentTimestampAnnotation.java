@@ -12,6 +12,8 @@ import org.hibernate.models.spi.ModelsContext;
 
 import static org.hibernate.generator.EventType.INSERT;
 import static org.hibernate.generator.EventType.UPDATE;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -44,24 +46,29 @@ public class CurrentTimestampAnnotation implements CurrentTimestamp {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return CurrentTimestamp.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public org.hibernate.generator.EventType[] event() {
 		return event;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void event(org.hibernate.generator.EventType[] value) {
 		this.event = value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public org.hibernate.annotations.SourceType source() {
 		return source;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void source(org.hibernate.annotations.SourceType value) {
 		this.source = value;
 	}

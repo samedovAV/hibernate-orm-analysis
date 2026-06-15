@@ -10,6 +10,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.Incubating;
 import org.hibernate.metamodel.spi.EmbeddableInstantiator;
 import org.hibernate.metamodel.spi.ValueAccess;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * This interface should be implemented by user-defined custom types
@@ -152,30 +154,36 @@ public interface CompositeUserType<J> extends EmbeddableInstantiator {
 	 * @param property the property index
 	 * @return the property value
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getPropertyValue(J component, int property) throws HibernateException;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	J instantiate(ValueAccess values);
 
 	/**
 	 * The class that represents the embeddable mapping of the type.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Class<?> embeddable();
 
 	/**
 	 * The class returned by {@code instantiate()}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Class<J> returnedClass();
 
 	/**
 	 * Compare two instances of the class mapped by this type for persistence "equality".
 	 * Equality of the persistent state.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean equals(J x, J y);
 
 	/**
 	 * Get a hashcode for the instance, consistent with persistence "equality"
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int hashCode(J x);
 
 	/**
@@ -186,6 +194,7 @@ public interface CompositeUserType<J> extends EmbeddableInstantiator {
 	 * @param value the object to be cloned, which may be null
 	 * @return Object a copy
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	J deepCopy(J value);
 
 	/**
@@ -193,6 +202,7 @@ public interface CompositeUserType<J> extends EmbeddableInstantiator {
 	 *
 	 * @return boolean
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isMutable();
 
 	/**
@@ -204,6 +214,7 @@ public interface CompositeUserType<J> extends EmbeddableInstantiator {
 	 * @param value the object to be cached
 	 * @return a cacheable representation of the object
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Serializable disassemble(J value);
 
 	/**
@@ -214,6 +225,7 @@ public interface CompositeUserType<J> extends EmbeddableInstantiator {
 	 * @param owner the owner of the cached object
 	 * @return a reconstructed object from the cacheable representation
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	J assemble(Serializable cached, Object owner);
 
 	/**
@@ -228,14 +240,17 @@ public interface CompositeUserType<J> extends EmbeddableInstantiator {
 	 *
 	 * @return the value to be merged
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	J replace(J detached, J managed, Object owner);
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default boolean isInstance(Object object) {
 		return returnedClass().isInstance( object );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isSameClass(Object object) {
 		return object.getClass().equals( returnedClass() );
 	}

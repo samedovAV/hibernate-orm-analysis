@@ -16,6 +16,8 @@ import org.hibernate.query.sqm.tree.domain.SqmPath;
 import org.hibernate.spi.NavigablePath;
 
 import static org.hibernate.internal.util.NullnessUtil.castNonNull;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * {@link SqmPath} specialization for an embeddable discriminator
@@ -35,22 +37,26 @@ public class EmbeddedDiscriminatorSqmPath<T> extends AbstractSqmPath<T> implemen
 		this.embeddableDomainType = embeddableDomainType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableDomainType<T> getEmbeddableDomainType() {
 		return embeddableDomainType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nonnull SqmPath<?> getLhs() {
 		return castNonNull( super.getLhs() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nonnull EmbeddedDiscriminatorSqmPathSource<T> getExpressible() {
 //		return (EmbeddedDiscriminatorSqmPathSource<T>) getNodeType();
 		return (EmbeddedDiscriminatorSqmPathSource<T>) getReferencedPathSource();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public EmbeddedDiscriminatorSqmPath<T> copy(SqmCopyContext context) {
 		final var existing = context.getCopy( this );
 		if ( existing != null ) {
@@ -64,6 +70,7 @@ public class EmbeddedDiscriminatorSqmPath<T> extends AbstractSqmPath<T> implemen
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> X accept(SemanticQueryWalker<X> walker) {
 		return walker.visitDiscriminatorPath( this );
 	}

@@ -8,6 +8,8 @@ import org.hibernate.boot.CacheRegionDefinition;
 import org.hibernate.cache.spi.access.AccessType;
 
 import static org.hibernate.internal.util.StringHelper.isEmpty;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Models the caching options for an entity, natural id, or collection.
@@ -36,42 +38,52 @@ public class Caching {
 		this.cacheLazyProperties = cacheLazyProperties;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getRegion() {
 		return region;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setRegion(String region) {
 		this.region = region;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AccessType getAccessType() {
 		return accessType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setAccessType(AccessType accessType) {
 		this.accessType = accessType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCacheLazyProperties() {
 		return cacheLazyProperties;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setCacheLazyProperties(boolean cacheLazyProperties) {
 		this.cacheLazyProperties = cacheLazyProperties;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isRequested() {
 		return requested == Boolean.TRUE;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isRequested(boolean defaultValue) {
 		return requested == null ? defaultValue : isRequested();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setRequested(boolean requested) {
 		this.requested = requested;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void overlay(CacheRegionDefinition overrides) {
 		if ( overrides != null ) {
 			requested = true;
@@ -83,6 +95,7 @@ public class Caching {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void overlay(Caching overrides) {
 		if ( overrides != null ) {
 			this.requested = overrides.requested;
@@ -93,6 +106,7 @@ public class Caching {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "Caching{region='" + region + '\''
 				+ ", accessType=" + accessType

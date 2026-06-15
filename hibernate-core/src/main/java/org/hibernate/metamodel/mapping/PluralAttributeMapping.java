@@ -27,6 +27,8 @@ import org.hibernate.sql.results.graph.DomainResultCreationState;
 import org.hibernate.sql.results.graph.Fetchable;
 import org.hibernate.sql.results.graph.FetchableContainer;
 import org.hibernate.sql.results.graph.basic.BasicResult;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Mapping of a plural (collection-valued) attribute
@@ -36,23 +38,29 @@ import org.hibernate.sql.results.graph.basic.BasicResult;
 public interface PluralAttributeMapping
 		extends AttributeMapping, TableGroupJoinProducer, FetchableContainer, Loadable, Restrictable, SoftDeletableModelPart {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CollectionPersister getCollectionDescriptor();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ForeignKeyDescriptor getKeyDescriptor();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CollectionPart getIndexDescriptor();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CollectionMappingType<?> getMappedType();
 
 	@FunctionalInterface
 	interface PredicateConsumer {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void applyPredicate(Predicate predicate);
 	}
 
 	/**
 	 * Apply auxiliary restrictions (soft delete, temporal, audit) in a single pass.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void applyAuxiliaryRestrictions(
 			TableGroup tableGroup,
 			PredicateConsumer predicateConsumer,
@@ -60,21 +68,28 @@ public interface PluralAttributeMapping
 			SqlAliasBaseGenerator sqlAliasBaseGenerator);
 
 	interface IndexMetadata {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		CollectionPart getIndexDescriptor();
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		int getListIndexBase();
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		String getIndexPropertyName();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	IndexMetadata getIndexMetadata();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CollectionPart getElementDescriptor();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CollectionIdentifierDescriptor getIdentifierDescriptor();
 
 	/**
 	 * Mapping for soft-delete support, or {@code null} if soft-delete not defined
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SoftDeleteMapping getSoftDeleteMapping() {
 		return null;
 	}
@@ -83,6 +98,7 @@ public interface PluralAttributeMapping
 	 * Mapping for temporal support, or {@code null} if temporal not defined
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default TemporalMapping getTemporalMapping() {
 		return null;
 	}
@@ -91,14 +107,18 @@ public interface PluralAttributeMapping
 	 * Mapping for audit support, or {@code null} if audit not defined
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default AuditMapping getAuditMapping() {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	OrderByFragment getOrderByFragment();
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	OrderByFragment getManyToManyOrderByFragment();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void visitKeyFetchables(Consumer<? super Fetchable> fetchableConsumer, EntityMappingType treatTargetType) {
 		final CollectionPart indexDescriptor = getIndexDescriptor();
 		if ( indexDescriptor != null ) {
@@ -107,11 +127,13 @@ public interface PluralAttributeMapping
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int getNumberOfKeyFetchables() {
 		return getIndexDescriptor() == null ? 0 : 1;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Fetchable getKeyFetchable(int position) {
 		final CollectionPart indexDescriptor = getIndexDescriptor();
 		if ( indexDescriptor != null && position == 0 ) {
@@ -121,6 +143,7 @@ public interface PluralAttributeMapping
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void visitKeyFetchables(IndexedConsumer<? super Fetchable> fetchableConsumer, EntityMappingType treatTargetType) {
 		final CollectionPart indexDescriptor = getIndexDescriptor();
 		if ( indexDescriptor != null ) {
@@ -129,26 +152,31 @@ public interface PluralAttributeMapping
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void visitFetchables(Consumer<? super Fetchable> fetchableConsumer, EntityMappingType treatTargetType) {
 		fetchableConsumer.accept( getElementDescriptor() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int getNumberOfFetchables() {
 		return 1;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int getNumberOfFetchableKeys() {
 		return getNumberOfKeyFetchables() + getNumberOfFetchables();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void visitFetchables(IndexedConsumer<? super Fetchable> fetchableConsumer, EntityMappingType treatTargetType) {
 		fetchableConsumer.accept( 0, getElementDescriptor() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Fetchable getFetchable(int position) {
 		if ( position == 0 ) {
 			return getElementDescriptor();
@@ -158,6 +186,7 @@ public interface PluralAttributeMapping
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <T> DomainResult<T> createSnapshotDomainResult(
 			NavigablePath navigablePath,
 			TableGroup parentTableGroup,
@@ -166,16 +195,20 @@ public interface PluralAttributeMapping
 		return new BasicResult( 0, null, getJavaType(), null, null, false, false );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getSeparateCollectionTable();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isBidirectionalAttributeName(NavigablePath fetchablePath, ToOneAttributeMapping modelPart);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean incrementFetchDepth(){
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void applyFilterRestrictions(
 			Consumer<Predicate> predicateConsumer,
 			TableGroup tableGroup,
@@ -194,6 +227,7 @@ public interface PluralAttributeMapping
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void applyBaseRestrictions(
 			Consumer<Predicate> predicateConsumer,
 			TableGroup tableGroup,
@@ -213,6 +247,7 @@ public interface PluralAttributeMapping
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void applyBaseManyToManyRestrictions(
 			Consumer<Predicate> predicateConsumer,
 			TableGroup tableGroup,
@@ -224,11 +259,13 @@ public interface PluralAttributeMapping
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default boolean hasWhereRestrictions() {
 		return getCollectionDescriptor().hasWhereRestrictions();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void applyWhereRestrictions(
 			Consumer<Predicate> predicateConsumer,
 			TableGroup tableGroup,
@@ -238,11 +275,13 @@ public interface PluralAttributeMapping
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default PluralAttributeMapping asPluralAttributeMapping() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isPluralAttributeMapping() {
 		return true;
 	}

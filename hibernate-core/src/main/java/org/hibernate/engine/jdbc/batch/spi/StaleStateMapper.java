@@ -7,6 +7,8 @@ package org.hibernate.engine.jdbc.batch.spi;
 import jakarta.annotation.Nullable;
 import org.hibernate.HibernateException;
 import org.hibernate.StaleStateException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Maps a stale-state failure reported while checking a JDBC batch result.
 ///
@@ -30,5 +32,6 @@ public interface StaleStateMapper {
 	///
 	/// @return the exception to throw, or `null` to suppress the stale-state failure
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	HibernateException map(StaleStateException staleStateException);
 }

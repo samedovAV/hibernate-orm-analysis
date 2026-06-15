@@ -8,6 +8,8 @@ import org.hibernate.engine.internal.ForeignKeys;
 import org.hibernate.engine.spi.EntityEntry;
 import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.engine.spi.Status;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public enum EntityState {
 	PERSISTENT, TRANSIENT, DETACHED, DELETED;
@@ -22,6 +24,7 @@ public enum EntityState {
 	 *
 	 * @return The state.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static EntityState getEntityState(
 			Object entity,
 			String entityName,

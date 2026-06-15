@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.boot.model.source.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Additional contract for things which describe foreign keys.
@@ -15,6 +18,7 @@ public interface ForeignKeyContributingSource {
 	 *
 	 * @return The user supplied foreign key name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getExplicitForeignKeyName();
 
 	/**
@@ -22,6 +26,7 @@ public interface ForeignKeyContributingSource {
 	 *
 	 * @return {@code true} if the FK constraint should be created, {@code false} if not.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean createForeignKeyConstraint();
 
 	/**
@@ -30,5 +35,6 @@ public interface ForeignKeyContributingSource {
 	 *
 	 * @return {@code true}, if the cascade delete is enabled; {@code false}, otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isCascadeDeleteEnabled();
 }

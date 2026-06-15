@@ -15,6 +15,8 @@ import org.hibernate.query.sqm.tree.expression.SqmTemporalExpression;
 import org.hibernate.query.sqm.tree.expression.SqmTemporalExpressionImplementor;
 import org.hibernate.query.sqm.tree.expression.SqmTemporalExpressionWrapper;
 import org.hibernate.spi.NavigablePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -40,6 +42,7 @@ public class SqmTemporalValuedSimplePath<T extends Temporal & Comparable<? super
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected SqmTemporalValuedSimplePath<T> createCopy(
 			NavigablePath navigablePath,
 			SqmPathSource<T> referencedPathSource,
@@ -57,24 +60,28 @@ public class SqmTemporalValuedSimplePath<T extends Temporal & Comparable<? super
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmTemporalExpression<T> coalesce(@Nonnull Expression<? extends T> y) {
 		return new SqmTemporalExpressionWrapper<>( nodeBuilder().coalesce( this, y ) );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmTemporalExpression<T> coalesce(T y) {
 		return new SqmTemporalExpressionWrapper<>( nodeBuilder().coalesce( this, y ) );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmTemporalExpression<T> nullif(@Nonnull Expression<? extends T> y) {
 		return new SqmTemporalExpressionWrapper<>( nodeBuilder().nullif( this, y ) );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmTemporalExpression<T> nullif(T y) {
 		return new SqmTemporalExpressionWrapper<>( nodeBuilder().nullif( this, y ) );
 	}

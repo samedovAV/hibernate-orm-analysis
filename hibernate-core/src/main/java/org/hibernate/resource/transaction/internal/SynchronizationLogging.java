@@ -22,6 +22,8 @@ import java.util.Locale;
 import static org.jboss.logging.Logger.Level.ERROR;
 import static org.jboss.logging.Logger.Level.INFO;
 import static org.jboss.logging.Logger.Level.TRACE;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Logging interface for local Synchronization registry operations.
@@ -47,6 +49,7 @@ public interface SynchronizationLogging extends BasicLogger {
 			value = "Notifying Synchronizations (before completion)",
 			id = NAMESPACE + 1
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void notifyingSynchronizationsBefore();
 
 	@LogMessage(level = TRACE)
@@ -54,6 +57,7 @@ public interface SynchronizationLogging extends BasicLogger {
 			value = "Notifying Synchronizations (after completion with status %s)",
 			id = NAMESPACE + 2
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void notifyingSynchronizationsAfter(int status);
 
 	@LogMessage(level = TRACE)
@@ -61,6 +65,7 @@ public interface SynchronizationLogging extends BasicLogger {
 			value = "Clearing local Synchronizations",
 			id = NAMESPACE + 3
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void clearingSynchronizations();
 
 	@LogMessage(level = INFO)
@@ -68,6 +73,7 @@ public interface SynchronizationLogging extends BasicLogger {
 			value = "Synchronization [%s] was already registered",
 			id = NAMESPACE + 4
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void synchronizationAlreadyRegistered(Synchronization synchronization);
 
 	@LogMessage(level = ERROR)
@@ -75,5 +81,6 @@ public interface SynchronizationLogging extends BasicLogger {
 			value = "Exception calling user Synchronization [%s]",
 			id = NAMESPACE + 5
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void synchronizationFailed(Synchronization synchronization, @Cause Throwable t);
 }

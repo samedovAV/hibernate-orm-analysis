@@ -7,6 +7,8 @@ package org.hibernate.internal.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Exposes a {@link Reader} as an {@link InputStream}.
@@ -26,6 +28,7 @@ public class ReaderInputStream extends InputStream {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int read() throws IOException {
 		return reader.read();
 	}

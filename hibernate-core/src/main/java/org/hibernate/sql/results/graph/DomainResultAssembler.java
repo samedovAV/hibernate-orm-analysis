@@ -11,6 +11,8 @@ import org.hibernate.sql.results.jdbc.spi.RowProcessingState;
 import org.hibernate.type.descriptor.java.JavaType;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Responsible for "assembling" a result for inclusion in the domain query
@@ -25,22 +27,26 @@ public interface DomainResultAssembler<J> {
 	/**
 	 * The main "assembly" contract.  Assemble the result and return it.
 	 */
-	@Nullable J assemble(RowProcessingState rowProcessingState);
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	J assemble(RowProcessingState rowProcessingState);
 
 	/**
 	 * The JavaType describing the Java type that this assembler
 	 * assembles.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JavaType<J> getAssembledJavaType();
 
 	/**
 	 * This method is used to resolve the assembler's state, i.e. reading the result values,
 	 * with some performance optimization when we don't need the result object itself
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void resolveState(RowProcessingState rowProcessingState) {
 		assemble( rowProcessingState );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default @Nullable Initializer<?> getInitializer() {
 		return null;
 	}
@@ -49,14 +55,17 @@ public interface DomainResultAssembler<J> {
 	 * Invokes the consumer with every initializer part of this assembler that returns {@code true} for
 	 * {@link Initializer#isResultInitializer()}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <X> void forEachResultAssembler(BiConsumer<Initializer<?>, X> consumer, X arg) {
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default boolean isEager() {
 		final var initializer = getInitializer();
 		return initializer != null && initializer.isEager();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default boolean hasLazySubInitializers() {
 		final var initializer = getInitializer();
 		return initializer != null

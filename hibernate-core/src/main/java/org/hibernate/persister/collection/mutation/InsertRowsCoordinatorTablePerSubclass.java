@@ -20,6 +20,8 @@ import org.hibernate.sql.model.MutationType;
 
 import static org.hibernate.sql.model.ModelMutationLogging.MODEL_MUTATION_LOGGER;
 import static org.hibernate.sql.model.internal.MutationOperationGroupFactory.singleOperation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * OneToMany insert coordinator if the element is a {@link org.hibernate.persister.entity.UnionSubclassEntityPersister}.
@@ -46,16 +48,19 @@ public class InsertRowsCoordinatorTablePerSubclass implements InsertRowsCoordina
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "InsertRowsCoordinator(" + mutationTarget.getRolePath() + ")";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionMutationTarget getMutationTarget() {
 		return mutationTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void insertRows(
 			PersistentCollection<?> collection,
 			Object id,
@@ -122,6 +127,7 @@ public class InsertRowsCoordinatorTablePerSubclass implements InsertRowsCoordina
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private SubclassEntry getSubclassEntry(EntityPersister elementPersister) {
 		final int subclassId = elementPersister.getSubclassId();
 		final var subclassEntry = subclassEntries[subclassId];
@@ -136,6 +142,7 @@ public class InsertRowsCoordinatorTablePerSubclass implements InsertRowsCoordina
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private MutationOperationGroup createOperationGroup(EntityPersister elementPersister) {
 		assert mutationTarget.getTargetPart() != null
 			&& mutationTarget.getTargetPart().getKeyDescriptor() != null;

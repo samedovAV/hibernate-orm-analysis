@@ -28,6 +28,8 @@ import org.hibernate.type.BasicType;
 import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Defines a context for things available during the process of bootstrapping
@@ -41,11 +43,13 @@ public interface BootstrapContext {
 	/**
 	 * The service registry available to bootstrapping
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StandardServiceRegistry getServiceRegistry();
 
 	/**
 	 * In-flight form of {@link org.hibernate.jpa.spi.JpaCompliance}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutableJpaCompliance getJpaCompliance();
 
 	/**
@@ -53,12 +57,14 @@ public interface BootstrapContext {
 	 *
 	 * @see TypeConfiguration
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TypeConfiguration getTypeConfiguration();
 
 	/**
 	 * Access to the {@code hibernate-models} {@linkplain ModelsContext}
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ModelsContext getModelsContext();
 
 	/**
@@ -66,6 +72,7 @@ public interface BootstrapContext {
 	 *
 	 * @see SqmFunctionRegistry
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqmFunctionRegistry getFunctionRegistry();
 
 	/**
@@ -73,26 +80,31 @@ public interface BootstrapContext {
 	 *
 	 * @implNote Usually a {@link org.hibernate.boot.internal.TypeBeanInstanceProducer}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	BeanInstanceProducer getCustomTypeProducer();
 
 	/**
 	 * Options specific to building the {@linkplain Metadata boot metamodel}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MetadataBuildingOptions getMetadataBuildingOptions();
 
 	/**
 	 * Access to the {@link ClassLoaderService}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ClassLoaderService getClassLoaderService();
 
 	/**
 	 * Access to the {@link ManagedBeanRegistry}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ManagedBeanRegistry getManagedBeanRegistry();
 
 	/**
 	 * Access to the {@link ConfigurationService}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ConfigurationService getConfigurationService();
 
 	/**
@@ -102,6 +114,7 @@ public interface BootstrapContext {
 	 *
 	 * @see #markAsJpaBootstrap()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isJpaBootstrap();
 
 	/**
@@ -110,6 +123,7 @@ public interface BootstrapContext {
 	 * @implSpec Internally, {@code false} is the assumed value.
 	 *           We only need to call this to mark it {@code true}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void markAsJpaBootstrap();
 
 	/**
@@ -119,11 +133,13 @@ public interface BootstrapContext {
 	 *
 	 * @return The temporary {@code ClassLoader}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ClassLoader getJpaTempClassLoader();
 
 	/**
 	 * Access to class loading capabilities.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ClassLoaderAccess getClassLoaderAccess();
 
 	/**
@@ -131,6 +147,7 @@ public interface BootstrapContext {
 	 *
 	 * @return The {@link ArchiveDescriptorFactory}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ArchiveDescriptorFactory getArchiveDescriptorFactory();
 
 	/**
@@ -146,6 +163,7 @@ public interface BootstrapContext {
 	 *
 	 * @return The scanner
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getScanning();
 
 	/**
@@ -157,6 +175,7 @@ public interface BootstrapContext {
 	 * @deprecated Set via the {@code hibernate-models} setting {@code hibernate.models.jandex.index} instead
 	 */
 	@Deprecated
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getJandexView();
 
 	/**
@@ -168,6 +187,7 @@ public interface BootstrapContext {
 	 *
 	 * @return The {@link SqmFunctionDescriptor}s registered via {@code MetadataBuilder}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Map<String, SqmFunctionDescriptor> getSqlFunctions();
 
 	/**
@@ -179,6 +199,7 @@ public interface BootstrapContext {
 	 *
 	 * @return The {@link AuxiliaryDatabaseObject}s registered via {@code MetadataBuilder}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Collection<AuxiliaryDatabaseObject> getAuxiliaryDatabaseObjectList();
 
 	/**
@@ -188,6 +209,7 @@ public interface BootstrapContext {
 	 *
 	 * @return The {@link ConverterDescriptor}s registered via {@code MetadataBuilder}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Collection<ConverterDescriptor<?, ?>> getAttributeConverters();
 
 	/**
@@ -197,30 +219,36 @@ public interface BootstrapContext {
 	 *
 	 * @return Explicit cache region mappings
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Collection<CacheRegionDefinition> getCacheRegionDefinitions();
 
 	/**
 	 * @see ManagedTypeRepresentationResolver
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ManagedTypeRepresentationResolver getRepresentationStrategySelector();
 
 	/**
 	 * Releases the "bootstrap only" resources held by this {@code BootstrapContext}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void release();
 
 	/**
 	 * To support Envers.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void registerAdHocBasicType(BasicType<?> basicType);
 
 	/**
 	 * To support Envers.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> BasicType<T> resolveAdHocBasicType(String key);
 
 	/**
 	 * Find a previously registered ad-hoc BasicTypeImpl based on java and jdbc type.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> BasicType<T> findAdHocBasicType(JavaType<T> javaType, JdbcType jdbcType);
 }

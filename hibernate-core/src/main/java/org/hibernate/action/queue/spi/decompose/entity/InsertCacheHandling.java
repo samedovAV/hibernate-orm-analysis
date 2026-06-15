@@ -13,6 +13,8 @@ import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.stat.internal.StatsHelper;
 
 import static org.hibernate.cache.spi.entry.CacheEntryHelper.buildStructuredCacheEntry;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Second-level cache bookkeeping for graph-based entity inserts.
 ///
@@ -25,19 +27,23 @@ public class InsertCacheHandling {
 		private Object version;
 		private Object id;
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Object cacheEntry() {
 			return cacheEntry;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Object version() {
 			return version;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Object id() {
 			return id;
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void putIfNecessary(
 			AbstractEntityInsertAction action,
 			CacheInsert cacheInsert,
@@ -71,6 +77,7 @@ public class InsertCacheHandling {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void afterTransactionCompletion(
 			boolean success,
 			AbstractEntityInsertAction action,
@@ -98,6 +105,7 @@ public class InsertCacheHandling {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isCachePutEnabled(
 			EntityPersister persister,
 			SharedSessionContractImplementor session) {
@@ -106,6 +114,7 @@ public class InsertCacheHandling {
 			&& session.getCacheMode().isPutEnabled();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean cacheInsert(
 			AbstractEntityInsertAction action,
 			CacheInsert cacheInsert,
@@ -140,6 +149,7 @@ public class InsertCacheHandling {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean cacheAfterInsert(
 			AbstractEntityInsertAction action,
 			CacheInsert cacheInsert,

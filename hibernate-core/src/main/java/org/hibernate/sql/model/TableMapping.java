@@ -6,6 +6,8 @@ package org.hibernate.sql.model;
 
 import org.hibernate.jdbc.Expectation;
 import org.hibernate.metamodel.mapping.TableDetails;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Describes a table as far as Hibernate understands it from mapping details
@@ -19,8 +21,10 @@ public interface TableMapping extends TableDetails {
 	/**
 	 * The name of the mapped table
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getTableName();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean containsTableName(String tableName) {
 		return getTableName().equals( tableName );
 	}
@@ -28,31 +32,37 @@ public interface TableMapping extends TableDetails {
 	/**
 	 * The position of the table relative to others for the {@link MutationTarget}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int relativePosition();
 
 	/**
 	 * Whether the table is mapped as optional
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isOptional();
 
 	/**
 	 * Whether the table is mapped as inverse
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isInverse();
 
 	/**
 	 * Whether this table holds the identifier for the {@link MutationTarget}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isIdentifierTable();
 
 	/**
 	 * Details for insertion into this table
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationDetails getInsertDetails();
 
 	/**
 	 * Details for updating this table
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationDetails getUpdateDetails();
 
 	/**
@@ -63,11 +73,13 @@ public interface TableMapping extends TableDetails {
 	 *
 	 * @see org.hibernate.annotations.OnDelete
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isCascadeDeleteEnabled();
 
 	/**
 	 * Details for deleting from this table
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationDetails getDeleteDetails();
 
 
@@ -111,6 +123,7 @@ public interface TableMapping extends TableDetails {
 		/**
 		 * The type of mutation being detailed
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public MutationType getMutationType() {
 			return mutationType;
 		}
@@ -118,6 +131,7 @@ public interface TableMapping extends TableDetails {
 		/**
 		 * The expectation for this mutation
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Expectation getExpectation() {
 			return expectation;
 		}
@@ -127,6 +141,7 @@ public interface TableMapping extends TableDetails {
 		 * Will return {@code null} if no custom SQL was provided indicating
 		 * Hibernate will generate the SQL based on the mapping
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getCustomSql() {
 			return customSql;
 		}
@@ -134,10 +149,12 @@ public interface TableMapping extends TableDetails {
 		/**
 		 * Whether {@linkplain #getCustomSql() custom SQL} should be treated as callable (function / procedure)
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean isCallable() {
 			return callable;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean isDynamicMutation() {
 			return dynamicMutation;
 		}

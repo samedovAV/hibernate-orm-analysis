@@ -14,6 +14,8 @@ import org.hibernate.query.sqm.tree.SqmCopyContext;
 import org.hibernate.query.sqm.tree.SqmRenderContext;
 import org.hibernate.query.sqm.tree.from.SqmRoot;
 import org.hibernate.spi.NavigablePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -55,6 +57,7 @@ public class SqmTreatedRoot<E, S extends E>
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmTreatedRoot<E, S> copy(SqmCopyContext context) {
 		final var existing = context.getCopy( this );
 		if ( existing != null ) {
@@ -74,42 +77,50 @@ public class SqmTreatedRoot<E, S extends E>
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityDomainType<S> getTreatTarget() {
 		return treatTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityDomainType<S> getManagedType() {
 		return getTreatTarget();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmRoot<E> getWrappedPath() {
 		return wrappedPath;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nonnull SqmBindableType<S> getNodeType() {
 		return treatTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmEntityDomainType<S> getReferencedPathSource() {
 		return treatTarget;
 	}
 
 	@Nullable
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmPath<?> getLhs() {
 		return wrappedPath.getLhs();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> X accept(SemanticQueryWalker<X> walker) {
 		return walker.visitTreatedPath( this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPath<?> resolvePathPart(
 			String name,
 			boolean isTerminal,
@@ -120,6 +131,7 @@ public class SqmTreatedRoot<E, S extends E>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void appendHqlString(StringBuilder hql, SqmRenderContext context) {
 		hql.append( "treat(" );
 		wrappedPath.appendHqlString( hql, context );
@@ -130,6 +142,7 @@ public class SqmTreatedRoot<E, S extends E>
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S1 extends S> SqmTreatedFrom<S, S, S1> treatAs(
 			@Nonnull EntityDomainType<S1> treatTarget,
 			@Nullable String alias,

@@ -15,6 +15,8 @@ import org.hibernate.sql.model.ast.MutatingTableReference;
 import org.hibernate.sql.model.jdbc.JdbcDeleteMutation;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Deletion defined using custom sql-delete
@@ -58,22 +60,26 @@ public class TableDeleteCustomSql extends AbstractTableDelete implements CustomS
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCustomSql() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getCustomSql() {
 		return mutationDetails.getCustomSql();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isCallable() {
 		return mutationDetails.isCallable();
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker walker) {
 		walker.visitCustomTableDelete( this );
 	}

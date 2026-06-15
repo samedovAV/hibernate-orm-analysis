@@ -10,6 +10,8 @@ import org.hibernate.Incubating;
 import org.hibernate.service.JavaServiceLoadable;
 import org.hibernate.service.Service;
 import org.hibernate.tool.schema.internal.exec.JdbcContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for schema management tool integration.
@@ -24,16 +26,23 @@ import org.hibernate.tool.schema.internal.exec.JdbcContext;
 @Incubating
 @JavaServiceLoadable
 public interface SchemaManagementTool extends Service {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SchemaCreator getSchemaCreator(Map<String,Object> options);
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SchemaDropper getSchemaDropper(Map<String,Object> options);
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SchemaMigrator getSchemaMigrator(Map<String,Object> options);
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SchemaValidator getSchemaValidator(Map<String,Object> options);
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SchemaPopulator getSchemaPopulator(Map<String,Object> options) {
 		throw new UnsupportedOperationException("Schema populator is not supported by this schema management tool.");
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SchemaTruncator getSchemaTruncator(Map<String,Object> options) {
 		throw new UnsupportedOperationException("Schema truncator is not supported by this schema management tool.");
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default GeneratorSynchronizer getSequenceSynchronizer(Map<String,Object> options) {
 		throw new UnsupportedOperationException("Schema populator is not supported by this schema management tool.");
 	}
@@ -45,14 +54,17 @@ public interface SchemaManagementTool extends Service {
 	 * access rather than needing a JDBC connection.
 	 * @param generationTarget the custom instance to use.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setCustomDatabaseGenerationTarget(GenerationTarget generationTarget);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ExtractionTool getExtractionTool();
 
 	/**
 	 * Resolves the {@linkplain GenerationTarget targets} to which to
 	 * send the DDL commands based on configuration
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default GenerationTarget[] buildGenerationTargets(
 			TargetDescriptor targetDescriptor,
 			JdbcContext jdbcContext,

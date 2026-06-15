@@ -19,6 +19,8 @@ import org.hibernate.internal.util.config.ConfigurationException;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -32,11 +34,13 @@ public class ConfigurationBinder extends AbstractBinder<JaxbPersistenceImpl> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isValidationEnabled() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected <X extends JaxbPersistenceImpl> Binding<X> doBind(
 			XMLEventReader staxEventReader,
 			StartElement rootElementStartEvent,
@@ -53,6 +57,7 @@ public class ConfigurationBinder extends AbstractBinder<JaxbPersistenceImpl> {
 	}
 
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JAXBContext jaxbContext() {
 		if ( jaxbContext == null ) {
 			try {

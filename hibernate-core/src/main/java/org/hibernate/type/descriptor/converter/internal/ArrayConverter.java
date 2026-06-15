@@ -11,6 +11,8 @@ import org.hibernate.type.descriptor.java.JavaType;
 
 import static java.lang.reflect.Array.newInstance;
 import static org.hibernate.internal.util.ReflectHelper.arrayClass;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Given a {@link BasicValueConverter} for array elements, handles conversion
@@ -40,6 +42,7 @@ public class ArrayConverter<T, E, F> implements BasicValueConverter<T, F[]> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public T toDomainValue(F[] relationalForm) {
 		if ( relationalForm == null ) {
 			return null;
@@ -53,6 +56,7 @@ public class ArrayConverter<T, E, F> implements BasicValueConverter<T, F[]> {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private T convertTo(F[] relationalArray, Class<E> elementClass) {
 		//TODO: the following implementation only handles conversion between non-primitive arrays!
 		final var domainArray =
@@ -64,6 +68,7 @@ public class ArrayConverter<T, E, F> implements BasicValueConverter<T, F[]> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public F[] toRelationalValue(T domainForm) {
 		if ( domainForm == null ) {
 			return null;
@@ -77,6 +82,7 @@ public class ArrayConverter<T, E, F> implements BasicValueConverter<T, F[]> {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private F[] convertFrom(E[] domainArray, Class<F> elementClass) {
 		//TODO: the following implementation only handles conversion between non-primitive arrays!
 		final var relationalArray =
@@ -88,11 +94,13 @@ public class ArrayConverter<T, E, F> implements BasicValueConverter<T, F[]> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<T> getDomainJavaType() {
 		return domainJavaType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<F[]> getRelationalJavaType() {
 		return relationalJavaType;
 	}

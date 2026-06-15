@@ -10,6 +10,8 @@ import org.hibernate.metamodel.mapping.JdbcMappingContainer;
 import org.hibernate.metamodel.mapping.SqlExpressible;
 import org.hibernate.sql.ast.SqlAstWalker;
 import org.hibernate.sql.ast.tree.SqlAstNode;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -25,34 +27,41 @@ public class Overflow implements Expression, SqlExpressible, SqlAstNode {
 		this.withCount = withCount;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression getSeparatorExpression() {
 		return separatorExpression;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression getFillerExpression() {
 		return fillerExpression;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isWithCount() {
 		return withCount;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcMapping getJdbcMapping() {
 		return ( (SqlExpressible) separatorExpression ).getJdbcMapping();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcMappingContainer getExpressionType() {
 		return separatorExpression.getExpressionType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker sqlTreeWalker) {
 		sqlTreeWalker.visitOverflow( this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int forEachJdbcType(int offset, IndexedConsumer<JdbcMapping> action) {
 		action.accept( offset, getJdbcMapping() );
 		return getJdbcTypeCount();

@@ -18,6 +18,8 @@ import org.hibernate.resource.beans.spi.BeanInstanceProducer;
 import static org.hibernate.resource.beans.internal.BeansMessageLogger.BEANS_MSG_LOGGER;
 
 import java.util.Set;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link BeanLifecycleStrategy} to use when JPA compliance is required
@@ -39,6 +41,7 @@ public class JpaCompliantLifecycleStrategy implements BeanLifecycleStrategy {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <B> ContainedBeanImplementor<B> createBean(
 			Class<B> beanClass,
 			BeanInstanceProducer fallbackProducer,
@@ -51,6 +54,7 @@ public class JpaCompliantLifecycleStrategy implements BeanLifecycleStrategy {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <B> ContainedBeanImplementor<B> createBean(
 			String beanName,
 			Class<B> beanClass,
@@ -84,11 +88,13 @@ public class JpaCompliantLifecycleStrategy implements BeanLifecycleStrategy {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Class<B> getBeanClass() {
 			return beanType;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public B getBeanInstance() {
 			if ( beanInstance == null ) {
 				initialize();
@@ -98,6 +104,7 @@ public class JpaCompliantLifecycleStrategy implements BeanLifecycleStrategy {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void initialize() {
 			if ( beanInstance != null ) {
 				return;
@@ -158,6 +165,7 @@ public class JpaCompliantLifecycleStrategy implements BeanLifecycleStrategy {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public void release() {
 			if ( beanInstance == null ) {
 				return;
@@ -208,11 +216,13 @@ public class JpaCompliantLifecycleStrategy implements BeanLifecycleStrategy {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Class<B> getBeanClass() {
 			return beanType;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public B getBeanInstance() {
 			if ( beanInstance == null ) {
 				initialize();
@@ -221,6 +231,7 @@ public class JpaCompliantLifecycleStrategy implements BeanLifecycleStrategy {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void initialize() {
 			if ( beanInstance != null ) {
 				return;
@@ -270,12 +281,14 @@ public class JpaCompliantLifecycleStrategy implements BeanLifecycleStrategy {
 		}
 
 		@SuppressWarnings("unchecked")
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private Bean<B> resolveBean() {
 			final Set<Bean<?>> beans = beanManager.getBeans( beanType, new NamedBeanQualifier( beanName ) );
 			return (Bean<B>) beanManager.resolve( beans );
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public void release() {
 			if ( beanInstance == null ) {
 				return;

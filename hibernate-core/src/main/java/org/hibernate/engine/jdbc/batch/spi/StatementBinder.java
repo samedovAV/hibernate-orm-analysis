@@ -9,6 +9,8 @@ import java.sql.SQLException;
 
 import org.hibernate.Incubating;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Binds one row worth of values to a JDBC statement.
 ///
@@ -35,5 +37,6 @@ public interface StatementBinder {
 	/// @param session the session associated with the batch
 	///
 	/// @throws SQLException if binding fails
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void bind(PreparedStatement statement, SharedSessionContractImplementor session) throws SQLException;
 }

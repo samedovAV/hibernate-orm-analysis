@@ -8,6 +8,8 @@ import java.util.Locale;
 
 import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.descriptor.java.JavaTypedExpressible;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Describes a mapping related to any part of the app's domain model,
@@ -20,9 +22,11 @@ public interface ValueMapping extends MappingModelExpressible, JavaTypedExpressi
 	/**
 	 * Descriptor for the type of this mapping
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MappingType getMappedType();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default JavaType<?> getExpressibleJavaType() {
 		return getMappedType().getMappedJavaType();
 	}
@@ -38,6 +42,7 @@ public interface ValueMapping extends MappingModelExpressible, JavaTypedExpressi
 	 * things the ValueMapping itself implements.
 	 *
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <X> X treatAs(Class<X> targetType) {
 		if ( targetType.isInstance( this ) ) {
 			return targetType.cast( this );

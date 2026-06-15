@@ -7,6 +7,8 @@ package org.hibernate.graph.internal.parse;
 
 import org.hibernate.graph.spi.GraphParserEntityNameResolver;
 import org.hibernate.metamodel.model.domain.ManagedDomainType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -23,6 +25,7 @@ public enum PathQualifierType {
 			: attributeNode.addValueSubgraph().addTreatedSubgraph( managedType( subtypeName, entityNameResolver ) )
 	);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static <T> ManagedDomainType<T> managedType(String subtypeName, GraphParserEntityNameResolver resolver) {
 		final var entityDomainType = resolver.resolveEntityName( subtypeName );
 		if ( entityDomainType == null ) {
@@ -38,6 +41,7 @@ public enum PathQualifierType {
 		this.subGraphCreator = subgraphCreator;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SubGraphGenerator getSubGraphCreator() {
 		return subGraphCreator;
 	}

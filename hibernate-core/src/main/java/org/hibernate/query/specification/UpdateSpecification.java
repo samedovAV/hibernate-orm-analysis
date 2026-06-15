@@ -12,6 +12,8 @@ import org.hibernate.query.restriction.Restriction;
 import org.hibernate.query.specification.internal.UpdateSpecificationImpl;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specialization of {@link MutationSpecification} for programmatic customization
@@ -44,6 +46,7 @@ public interface UpdateSpecification<T> extends MutationSpecification<T> {
 	 *
 	 * @return {@code this} for method chaining.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	UpdateSpecification<T> assign(Assignment<? super T> assignment);
 
 	/**
@@ -55,15 +58,19 @@ public interface UpdateSpecification<T> extends MutationSpecification<T> {
 	 *
 	 * @return {@code this} for method chaining.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	UpdateSpecification<T> reassign(List<? extends Assignment<? super T>> assignments);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	UpdateSpecification<T> restrict(Restriction<? super T> restriction);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	UpdateSpecification<T> augment(Augmentation<T> augmentation);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	UpdateSpecification<T> validate(CriteriaBuilder builder);
 
 	/**
@@ -75,6 +82,7 @@ public interface UpdateSpecification<T> extends MutationSpecification<T> {
 	 *
 	 * @param <T> The root entity type for the mutation (the "target").
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <T> UpdateSpecification<T> create(Class<T> targetEntityClass) {
 		return new UpdateSpecificationImpl<>( targetEntityClass );
 	}
@@ -89,6 +97,7 @@ public interface UpdateSpecification<T> extends MutationSpecification<T> {
 	 *
 	 * @param <T> The root entity type for the mutation (the "target").
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <T> UpdateSpecification<T> create(CriteriaUpdate<T> criteriaUpdate) {
 		return new UpdateSpecificationImpl<>( criteriaUpdate );
 	}

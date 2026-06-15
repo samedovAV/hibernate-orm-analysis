@@ -8,6 +8,8 @@ import org.hibernate.jpa.spi.JpaCompliance;
 
 import static org.hibernate.resource.transaction.spi.TransactionStatus.ACTIVE;
 import static org.hibernate.resource.transaction.spi.TransactionStatus.MARKED_ROLLBACK;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Models the coordination of all transaction related flows.
@@ -18,6 +20,7 @@ public interface TransactionCoordinator {
 	/**
 	 * Access to the builder that generated this coordinator
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TransactionCoordinatorBuilder getTransactionCoordinatorBuilder();
 
 	/**
@@ -25,6 +28,7 @@ public interface TransactionCoordinator {
 	 *
 	 * @return The control delegate.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TransactionDriver getTransactionDriverControl();
 
 	/**
@@ -32,9 +36,11 @@ public interface TransactionCoordinator {
 	 *
 	 * @return The local Synchronization registry
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SynchronizationRegistry getLocalSynchronizations();
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaCompliance getJpaCompliance();
 
 	/**
@@ -42,6 +48,7 @@ public interface TransactionCoordinator {
 	 * around {@link jakarta.persistence.EntityManager#joinTransaction()}, and generally speaking only has an impact in
 	 * JTA environments
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void explicitJoin();
 
 	/**
@@ -50,11 +57,13 @@ public interface TransactionCoordinator {
 	 * @return {@code true} if there is an active transaction this coordinator is already joined to; {@code false}
 	 * otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isJoined();
 
 	/**
 	 * Used by owner of the "JDBC session" as a means to indicate that implicit joining should be done if needed.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void pulse();
 
 	/**
@@ -68,6 +77,7 @@ public interface TransactionCoordinator {
 	 *
 	 * @throws org.hibernate.HibernateException Indicates a problem checking the transaction status.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isActive();
 
 	/**
@@ -75,6 +85,7 @@ public interface TransactionCoordinator {
 	 *
 	 * @return An isolation delegate.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	IsolationDelegate createIsolationDelegate();
 
 	/**
@@ -84,6 +95,7 @@ public interface TransactionCoordinator {
 	 *
 	 * @param observer The observer to add.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addObserver(TransactionObserver observer);
 
 	/**
@@ -91,17 +103,22 @@ public interface TransactionCoordinator {
 	 *
 	 * @param observer The observer to remove.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void removeObserver(TransactionObserver observer);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setTimeOut(int seconds);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getTimeOut();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isTransactionActive() {
 		return isJoined()
 			&& getTransactionDriverControl().isActive();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void invalidate(){}
 
 	/**
@@ -114,28 +131,35 @@ public interface TransactionCoordinator {
 		/**
 		 * Begin the physical transaction
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void begin();
 
 		/**
 		 * Commit the physical transaction
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void commit();
 
 		/**
 		 * Rollback the physical transaction
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void rollback();
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		TransactionStatus getStatus();
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void markRollbackOnly();
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		default boolean isActive() {
 			final var status = getStatus();
 			return status == ACTIVE
 				|| status == MARKED_ROLLBACK;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		default boolean isActiveAndNoMarkedForRollback() {
 			return getStatus() == ACTIVE;
 		}

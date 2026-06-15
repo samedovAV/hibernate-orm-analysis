@@ -13,6 +13,8 @@ import java.util.List;
 import org.hibernate.dialect.Dialect;
 import org.hibernate.tool.schema.spi.SqlScriptCommandExtractor;
 import org.hibernate.tool.schema.spi.SqlScriptException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Class responsible for extracting SQL statements from an import script.
@@ -30,6 +32,7 @@ public class SingleLineSqlScriptExtractor implements SqlScriptCommandExtractor {
 	public static final SqlScriptCommandExtractor INSTANCE = new SingleLineSqlScriptExtractor();
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public List<String> extractCommands(Reader reader, Dialect dialect) {
 		final List<String> statementList = new LinkedList<>();
 		final var bufferedReader = new BufferedReader( reader );
@@ -52,6 +55,7 @@ public class SingleLineSqlScriptExtractor implements SqlScriptCommandExtractor {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean isComment(final String line) {
 		return line.startsWith( "--" ) || line.startsWith( "//" ) || line.startsWith( "/*" );
 	}

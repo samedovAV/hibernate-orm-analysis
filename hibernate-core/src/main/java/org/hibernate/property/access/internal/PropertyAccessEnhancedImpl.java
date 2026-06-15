@@ -24,6 +24,8 @@ import static org.hibernate.internal.util.ReflectHelper.findSetterMethod;
 import static org.hibernate.internal.util.ReflectHelper.getterMethodOrNull;
 import static org.hibernate.property.access.internal.AccessStrategyHelper.fieldOrNull;
 import static org.hibernate.property.access.internal.AccessStrategyHelper.getAccessType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link PropertyAccess} for byte code enhanced entities. Enhanced setter methods ( if available ) are used for
@@ -81,6 +83,7 @@ public class PropertyAccessEnhancedImpl implements PropertyAccess {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Getter propertyGetter(@Nullable AccessType classAccessType, Class<?> containerJavaType, String propertyName, Method getterMethod) {
 		if ( classAccessType != null ) {
 			final var explicitAccessType = getAccessType( containerJavaType, propertyName );
@@ -95,6 +98,7 @@ public class PropertyAccessEnhancedImpl implements PropertyAccess {
 		return new GetterMethodImpl( containerJavaType, propertyName, getterMethod );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Setter propertySetter(@Nullable AccessType classAccessType, Class<?> containerJavaType, String propertyName, Class<?> fieldType) {
 		if ( classAccessType != null ) {
 			final var explicitAccessType = getAccessType( containerJavaType, propertyName );
@@ -111,16 +115,19 @@ public class PropertyAccessEnhancedImpl implements PropertyAccess {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PropertyAccessStrategy getPropertyAccessStrategy() {
 		return strategy;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Getter getGetter() {
 		return getter;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Setter getSetter() {
 		return setter;
 	}

@@ -9,6 +9,8 @@ import java.util.function.BiConsumer;
 
 import org.hibernate.sql.ast.tree.MutationStatement;
 import org.hibernate.sql.ast.tree.expression.ColumnReference;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specialization of MutationStatement for inserts
@@ -19,6 +21,7 @@ public interface InsertStatement extends MutationStatement {
 	/**
 	 * Get all target columns
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<ColumnReference> getTargetColumns();
 
 	/**
@@ -27,6 +30,7 @@ public interface InsertStatement extends MutationStatement {
 	 * @implNote By default, returns the size of {@link #getTargetColumns()}
 	 * which may be appropriate or not
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int getNumberOfTargetColumns() {
 		return getTargetColumns().size();
 	}
@@ -34,5 +38,6 @@ public interface InsertStatement extends MutationStatement {
 	/**
 	 * Iterates each target column
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void forEachTargetColumn(BiConsumer<Integer, ColumnReference> consumer);
 }

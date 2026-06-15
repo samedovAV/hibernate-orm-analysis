@@ -15,6 +15,8 @@ import org.hibernate.collection.spi.PersistentSortedMap;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.metamodel.CollectionClassification;
 import org.hibernate.persister.collection.CollectionPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -29,16 +31,19 @@ public class StandardSortedMapSemantics<K,V> extends AbstractMapSemantics<Sorted
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionClassification getCollectionClassification() {
 		return CollectionClassification.SORTED_MAP;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<SortedMap> getCollectionJavaType() {
 		return SortedMap.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TreeMap<K,V> instantiateRaw(
 			int anticipatedSize,
 			CollectionPersister collectionDescriptor) {
@@ -48,6 +53,7 @@ public class StandardSortedMapSemantics<K,V> extends AbstractMapSemantics<Sorted
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <KK, VV> SortedMap<KK, VV> instantiateWithElements(
 			int anticipatedSize,
 			CollectionPersister collectionDescriptor,
@@ -60,6 +66,7 @@ public class StandardSortedMapSemantics<K,V> extends AbstractMapSemantics<Sorted
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistentCollection<V> instantiateWrapper(
 			Object key,
 			CollectionPersister collectionDescriptor,
@@ -69,6 +76,7 @@ public class StandardSortedMapSemantics<K,V> extends AbstractMapSemantics<Sorted
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistentCollection<V> wrap(
 			SortedMap<K,V> rawCollection,
 			CollectionPersister collectionDescriptor,

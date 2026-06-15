@@ -19,6 +19,8 @@ import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.descriptor.java.MutabilityPlan;
 import org.hibernate.type.descriptor.java.SerializableJavaType;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -33,6 +35,7 @@ public class RegistryHelper {
 	private RegistryHelper() {
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <J> JavaType<J> createTypeDescriptor(
 			Type javaType,
 			Supplier<MutabilityPlan<J>> fallbackMutabilityPlanResolver,
@@ -41,6 +44,7 @@ public class RegistryHelper {
 				javaTypeClass -> mutabilityPlan( javaTypeClass, fallbackMutabilityPlanResolver, typeConfiguration ) );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <J> JavaType<J> createTypeDescriptor(
 			Class<J> javaType,
 			Supplier<MutabilityPlan<J>> fallbackMutabilityPlanResolver,
@@ -49,6 +53,7 @@ public class RegistryHelper {
 				javaTypeClass -> mutabilityPlan( javaTypeClass, fallbackMutabilityPlanResolver, typeConfiguration ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private <J> MutabilityPlan<J> mutabilityPlan(
 			Class<J> javaTypeClass,
 			Supplier<MutabilityPlan<J>> fallbackMutabilityPlanResolver,
@@ -57,10 +62,12 @@ public class RegistryHelper {
 		return mutabilityPlan == null ? fallbackMutabilityPlanResolver.get() : mutabilityPlan;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MutabilityPlan<?> determineMutabilityPlan(Type javaType, TypeConfiguration typeConfiguration) {
 		return determineMutabilityPlan( determineJavaTypeClass( javaType ), typeConfiguration );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <J> MutabilityPlan<J> determineMutabilityPlan(Class<J> javaTypeClass, TypeConfiguration typeConfiguration) {
 		if ( javaTypeClass.isAnnotationPresent( Immutable.class ) ) {
 			return ImmutableMutabilityPlan.instance();
@@ -81,6 +88,7 @@ public class RegistryHelper {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private <J> BasicJavaType<J> createTypeDescriptor(
 			Class<J> javaTypeClass,
 			Function<Class<J>, MutabilityPlan<J>> mutabilityPlanResolver) {
@@ -100,6 +108,7 @@ public class RegistryHelper {
 		return new UnknownBasicJavaType<>( javaTypeClass, plan );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private <J> Class<J> determineJavaTypeClass(Type javaType) {
 		return ReflectHelper.getClass( javaType );
 	}

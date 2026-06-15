@@ -16,6 +16,8 @@ import org.hibernate.tool.schema.extract.spi.IndexInformation;
 import org.hibernate.tool.schema.extract.spi.InformationExtractor;
 import org.hibernate.tool.schema.extract.spi.PrimaryKeyInformation;
 import org.hibernate.tool.schema.extract.spi.TableInformation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Provides access to information about existing schema objects (tables, sequences etc) of existing database.
@@ -53,21 +55,25 @@ public class TableInformationImpl implements TableInformation {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QualifiedTableName getName() {
 		return tableName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isPhysicalTable() {
 		return physicalTable;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getComment() {
 		return comment;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ColumnInformation getColumn(Identifier columnIdentifier) {
 		return columns.get( new Identifier(
 				identifierHelper.toMetaDataObjectName( columnIdentifier ),
@@ -76,6 +82,7 @@ public class TableInformationImpl implements TableInformation {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public PrimaryKeyInformation getPrimaryKey() {
 		if ( ! wasPrimaryKeyLoaded ) {
 			primaryKey = extractor.getPrimaryKey( this );
@@ -85,10 +92,12 @@ public class TableInformationImpl implements TableInformation {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Iterable<ForeignKeyInformation> getForeignKeys() {
 		return foreignKeys().values();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected Map<Identifier, ForeignKeyInformation> foreignKeys() {
 		if ( foreignKeys == null ) {
 			final Map<Identifier, ForeignKeyInformation> result = new HashMap<>();
@@ -101,6 +110,7 @@ public class TableInformationImpl implements TableInformation {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ForeignKeyInformation getForeignKey(Identifier fkIdentifier) {
 		return foreignKeys().get( new Identifier(
 				identifierHelper.toMetaDataObjectName( fkIdentifier ),
@@ -109,10 +119,12 @@ public class TableInformationImpl implements TableInformation {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Iterable<IndexInformation> getIndexes() {
 		return indexes().values();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected Map<Identifier, IndexInformation> indexes() {
 		if ( indexes == null ) {
 			final Map<Identifier, IndexInformation> indexMap = new HashMap<>();
@@ -125,11 +137,13 @@ public class TableInformationImpl implements TableInformation {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addColumn(ColumnInformation columnIdentifier) {
 		columns.put( columnIdentifier.getColumnIdentifier(), columnIdentifier );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public IndexInformation getIndex(Identifier indexName) {
 		return indexes().get( new Identifier(
 				identifierHelper.toMetaDataObjectName( indexName ),
@@ -138,6 +152,7 @@ public class TableInformationImpl implements TableInformation {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String toString() {
 		return "TableInformationImpl(" + tableName.toString() + ')';
 	}

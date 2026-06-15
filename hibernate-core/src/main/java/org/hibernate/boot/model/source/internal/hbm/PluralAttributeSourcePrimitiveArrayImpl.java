@@ -10,6 +10,8 @@ import org.hibernate.boot.model.source.spi.PluralAttributeIndexSource;
 import org.hibernate.boot.model.source.spi.PluralAttributeNature;
 import org.hibernate.boot.model.source.spi.PluralAttributeSequentialIndexSource;
 import org.hibernate.boot.model.source.spi.PluralAttributeSourceArray;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -35,26 +37,31 @@ public class PluralAttributeSourcePrimitiveArrayImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PluralAttributeIndexSource getIndexSource() {
 		return indexSource;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PluralAttributeNature getNature() {
 		return PluralAttributeNature.ARRAY;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public XmlElementMetadata getSourceType() {
 		return XmlElementMetadata.PRIMITIVE_ARRAY;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getXmlNodeName() {
 		return jaxbArrayMapping.getNode();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getElementClass() {
 		return null;
 	}

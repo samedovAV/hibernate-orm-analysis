@@ -5,6 +5,8 @@
 package org.hibernate.boot.xsd;
 
 import org.hibernate.Internal;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Support for XSD handling related to Hibernate's `cfg.xml` and
@@ -20,6 +22,7 @@ import org.hibernate.Internal;
 @SuppressWarnings("unused")
 public class ConfigXsdSupport {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static XsdDescriptor latestDescriptor() {
 		return _80();
 	}
@@ -41,10 +44,12 @@ public class ConfigXsdSupport {
 	 */
 	private static final XsdDescriptor[] xsdCache = new XsdDescriptor[11];
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public XsdDescriptor latestJpaDescriptor() {
 		return getJPA40();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean shouldBeMappedToLatestJpaDescriptor(String uri) {
 		// Any namespace prior to move to Jakarta (3.0) needs to be remapped
 		//		NOTE:
@@ -54,6 +59,7 @@ public class ConfigXsdSupport {
 
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public XsdDescriptor jpaXsd(String version) {
 		switch ( version ) {
 			case "1.0": {
@@ -86,6 +92,7 @@ public class ConfigXsdSupport {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static XsdDescriptor cfgXsd() {
 		final int index = 0;
 		synchronized ( xsdCache ) {
@@ -102,6 +109,7 @@ public class ConfigXsdSupport {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static XsdDescriptor configurationXsd() {
 		final int index = 1;
 		synchronized ( xsdCache ) {
@@ -118,6 +126,7 @@ public class ConfigXsdSupport {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static XsdDescriptor getJPA10() {
 		final int index = 2;
 		synchronized ( xsdCache ) {
@@ -134,6 +143,7 @@ public class ConfigXsdSupport {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static XsdDescriptor getJPA20() {
 		final int index = 2;
 		synchronized ( xsdCache ) {
@@ -150,6 +160,7 @@ public class ConfigXsdSupport {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static XsdDescriptor getJPA21() {
 		final int index = 4;
 		synchronized ( xsdCache ) {
@@ -166,6 +177,7 @@ public class ConfigXsdSupport {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static XsdDescriptor getJPA22() {
 		final int index = 5;
 		synchronized ( xsdCache ) {
@@ -182,6 +194,7 @@ public class ConfigXsdSupport {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static XsdDescriptor getJPA30() {
 		final int index = 6;
 		synchronized ( xsdCache ) {
@@ -198,6 +211,7 @@ public class ConfigXsdSupport {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static XsdDescriptor getJPA31() {
 		final int index = 7;
 		synchronized ( xsdCache ) {
@@ -214,6 +228,7 @@ public class ConfigXsdSupport {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static XsdDescriptor getJPA32() {
 		final int index = 8;
 		synchronized ( xsdCache ) {
@@ -230,6 +245,7 @@ public class ConfigXsdSupport {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static XsdDescriptor getJPA40() {
 		final int index = 10;
 		synchronized ( xsdCache ) {
@@ -246,6 +262,7 @@ public class ConfigXsdSupport {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static XsdDescriptor _80() {
 		final int index = 9;
 		synchronized ( xsdCache ) {

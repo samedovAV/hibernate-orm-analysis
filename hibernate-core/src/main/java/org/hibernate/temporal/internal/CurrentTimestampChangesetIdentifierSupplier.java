@@ -8,12 +8,15 @@ import org.hibernate.SharedSessionContract;
 import org.hibernate.temporal.spi.ChangesetIdentifierSupplier;
 
 import java.time.Instant;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Simple implementation that queries the database current timestamp.
  */
 public class CurrentTimestampChangesetIdentifierSupplier implements ChangesetIdentifierSupplier<Instant> {
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Instant generateIdentifier(SharedSessionContract session) {
 		return session.createSelectionQuery( "select instant", Instant.class ).getSingleResult();
 	}

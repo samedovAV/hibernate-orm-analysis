@@ -8,6 +8,8 @@ import org.hibernate.cache.spi.CacheImplementor;
 import org.hibernate.cache.spi.TimestampsCache;
 import org.hibernate.cache.spi.TimestampsCacheFactory;
 import org.hibernate.cache.spi.TimestampsRegion;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard Hibernate implementation of the QueryCacheFactory interface.  Returns instances of
@@ -20,6 +22,7 @@ public class StandardTimestampsCacheFactory implements TimestampsCacheFactory {
 	public static final StandardTimestampsCacheFactory INSTANCE = new StandardTimestampsCacheFactory();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TimestampsCache buildTimestampsCache(
 			CacheImplementor cacheManager,
 			TimestampsRegion timestampsRegion) {

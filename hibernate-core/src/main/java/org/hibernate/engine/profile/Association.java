@@ -5,6 +5,8 @@
 package org.hibernate.engine.profile;
 
 import org.hibernate.persister.entity.EntityPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Identifies the association referenced by a {@link Fetch}.
@@ -31,6 +33,7 @@ public class Association {
 	/**
 	 * The persister of the owning entity.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityPersister getOwner() {
 		return owner;
 	}
@@ -38,6 +41,7 @@ public class Association {
 	/**
 	 * The property path
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getAssociationPath() {
 		return associationPath;
 	}
@@ -45,11 +49,13 @@ public class Association {
 	/**
 	 * The fully qualified role name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getRole() {
 		return role;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "Association[" + role + "]";
 	}

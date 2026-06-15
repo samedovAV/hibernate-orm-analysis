@@ -14,6 +14,8 @@ import org.hibernate.metamodel.spi.ValueAccess;
 
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
 import static org.hibernate.internal.util.ReflectHelper.getDefaultConstructor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Support for instantiating embeddables as POJO representation
@@ -33,6 +35,7 @@ public class EmbeddableInstantiatorPojoStandard
 		this.constructor = resolveConstructor( embeddableClass );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected static Constructor<?> resolveConstructor(Class<?> mappedPojoClass) {
 		try {
 			return getDefaultConstructor( mappedPojoClass );
@@ -44,6 +47,7 @@ public class EmbeddableInstantiatorPojoStandard
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object instantiate(ValueAccess valuesAccess) {
 		if ( isAbstract() ) {
 			throw new InstantiationException(

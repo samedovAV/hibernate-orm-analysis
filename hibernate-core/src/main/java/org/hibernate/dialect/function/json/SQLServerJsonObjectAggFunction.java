@@ -16,6 +16,8 @@ import org.hibernate.sql.ast.tree.predicate.Predicate;
 import org.hibernate.type.spi.TypeConfiguration;
 
 import static org.hibernate.dialect.function.json.SQLServerJsonArrayAggFunction.needsConversion;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * SQL Server json_objectagg function.
@@ -30,6 +32,7 @@ public class SQLServerJsonObjectAggFunction extends JsonObjectAggFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void render(
 			SqlAppender sqlAppender,
 			JsonObjectAggArguments arguments,
@@ -62,6 +65,7 @@ public class SQLServerJsonObjectAggFunction extends JsonObjectAggFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderArgument(
 			SqlAppender sqlAppender,
 			Expression arg,

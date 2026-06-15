@@ -24,6 +24,8 @@ import org.hibernate.sql.ast.tree.expression.QueryTransformer;
 import org.hibernate.sql.ast.tree.predicate.Predicate;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specialized SemanticQueryWalker (SQM visitor) for producing SQL AST.
@@ -31,48 +33,60 @@ import jakarta.annotation.Nullable;
  * @author Steve Ebersole
  */
 public interface SqmToSqlAstConverter extends SemanticQueryWalker<Object>, SqlAstCreationState {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Stack<Clause> getCurrentClauseStack();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Stack<SqmQueryPart<?>> getSqmQueryPartStack();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SqmQueryPart<?> getCurrentSqmQueryPart() {
 		return getSqmQueryPartStack().getCurrent();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void registerQueryTransformer(QueryTransformer transformer);
 
 	/**
 	 * Returns the {@link SqlAstJoinType} of the currently processing join if there is one, or {@code null}.
 	 * This is used to determine the join type for implicit joins happening in the {@code ON} clause.
 	 */
-	@Nullable SqlAstJoinType getCurrentlyProcessingJoinType();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	SqlAstJoinType getCurrentlyProcessingJoinType();
 
 	/**
 	 * Returns whether the state of the translation is currently in type inference mode.
 	 * This is useful to avoid type inference based on other incomplete inference information.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isInTypeInference();
 
 	/**
 	 * Returns the function return type implied from the context within which it is used.
 	 * If there is no current function being processed or no context implied type, the return is <code>null</code>.
 	 */
-	@Nullable MappingModelExpressible<?> resolveFunctionImpliedReturnType();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	MappingModelExpressible<?> resolveFunctionImpliedReturnType();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MappingModelExpressible<?> determineValueMapping(SqmExpression<?> sqmExpression);
 
 	/**
 	 * Visits the given node with the given inferred type access.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object visitWithInferredType(SqmVisitableNode node, Supplier<MappingModelExpressible<?>> inferredTypeAccess);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<Expression> expandSelfRenderingFunctionMultiValueParameter(SqmParameter<?> sqmParameter);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Predicate visitNestedTopLevelPredicate(SqmPredicate predicate);
 
 	/**
 	 * Resolve a generic metadata object from the provided source, using the specified producer.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <S, M> M resolveMetadata(S source, Function<S, M> producer) {
 		return producer.apply( source );
 	}

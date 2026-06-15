@@ -12,6 +12,8 @@ import org.hibernate.sql.results.jdbc.spi.JdbcValues;
 import org.hibernate.sql.results.jdbc.spi.JdbcValuesSourceProcessingOptions;
 import org.hibernate.sql.results.jdbc.spi.JdbcValuesSourceProcessingState;
 import org.hibernate.sql.results.spi.RowReader;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Implementation of {@link org.hibernate.ScrollableResults} which can handle collection fetches.
@@ -51,11 +53,13 @@ public class FetchingScrollableResultsImpl<R> extends AbstractScrollableResults<
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected R getCurrentRow() {
 		return currentRow;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean next() {
 		if ( afterLast || isResultSetEmpty() ) {
 			return false;
@@ -95,6 +99,7 @@ public class FetchingScrollableResultsImpl<R> extends AbstractScrollableResults<
 
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public boolean previous() {
 		if ( beforeFirst || isResultSetEmpty() ) {
 			return false;
@@ -169,6 +174,7 @@ public class FetchingScrollableResultsImpl<R> extends AbstractScrollableResults<
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean scroll(int positions) {
 		boolean more = false;
 		if ( positions > 0 ) {
@@ -199,11 +205,13 @@ public class FetchingScrollableResultsImpl<R> extends AbstractScrollableResults<
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean position(int position) {
 		return setRowNumber( position );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean last() {
 		boolean more = false;
 		if ( maxPosition != null ) {
@@ -232,6 +240,7 @@ public class FetchingScrollableResultsImpl<R> extends AbstractScrollableResults<
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean first() {
 		beforeFirst();
 		final boolean more = next();
@@ -240,6 +249,7 @@ public class FetchingScrollableResultsImpl<R> extends AbstractScrollableResults<
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void beforeFirst() {
 		getRowProcessingState().beforeFirst();
 		beforeFirst = true;
@@ -249,6 +259,7 @@ public class FetchingScrollableResultsImpl<R> extends AbstractScrollableResults<
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void afterLast() {
 		// TODO : not sure the best way to handle this.
 		// The non-performant way :
@@ -258,26 +269,31 @@ public class FetchingScrollableResultsImpl<R> extends AbstractScrollableResults<
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isFirst() {
 		return currentPosition == 1;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isLast() {
 		return maxPosition != null && currentPosition == maxPosition;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getRowNumber() {
 		return currentPosition - 1;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getPosition() {
 		return currentPosition;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean setRowNumber(int rowNumber) {
 		if ( rowNumber == 1 ) {
 			return first();
@@ -298,6 +314,7 @@ public class FetchingScrollableResultsImpl<R> extends AbstractScrollableResults<
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private boolean prepareCurrentRow() {
 		final var rowProcessingState = getRowProcessingState();
 		final var rowReader = getRowReader();
@@ -346,10 +363,12 @@ public class FetchingScrollableResultsImpl<R> extends AbstractScrollableResults<
 	}
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean isResultSetEmpty() {
 		return currentPosition == 0 && !beforeFirst && !afterLast;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private EntityKey getEntityKey() {
 		return getRowReader().resolveSingleResultEntityKey( getRowProcessingState() );
 	}

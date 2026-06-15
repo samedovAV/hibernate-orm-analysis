@@ -19,6 +19,8 @@ import java.lang.invoke.MethodHandles;
 import java.util.Locale;
 
 import static org.jboss.logging.Logger.Level.WARN;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Logging related to UUID/GUID identifier generators
@@ -42,13 +44,16 @@ public interface UUIDLogger extends BasicLogger {
 
 	@LogMessage(level = WARN)
 	@Message(value = "Unable to instantiate UUID generation strategy class", id = 90301)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void unableToInstantiateUuidGenerationStrategy(@Cause Exception ignore);
 
 	@LogMessage(level = WARN)
 	@Message(value = "Unable to locate requested UUID generation strategy class: %s", id = 90302)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void unableToLocateUuidGenerationStrategy(String strategyClassName);
 
 	@LogMessage(level = WARN)
 	@Message(value = "GUID identifier generated: %s", id = 90305)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void guidGenerated(String result);
 }

@@ -28,6 +28,8 @@ import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
 
 import static org.hibernate.boot.jaxb.JaxbLogger.JAXB_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -40,9 +42,11 @@ public abstract class AbstractBinder<T> implements Binder<T> {
 		this.xmlResourceResolver = new LocalXmlResourceResolver( resourceStreamLocator );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public abstract boolean isValidationEnabled();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X extends T> Binding<X> bind(InputStream stream, Origin origin) {
 		final XMLEventReader eventReader = createReader( stream, origin );
 		try {
@@ -58,6 +62,7 @@ public abstract class AbstractBinder<T> implements Binder<T> {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected XMLEventReader createReader(InputStream stream, Origin origin) {
 		try {
 			// create a standard StAX reader
@@ -71,11 +76,13 @@ public abstract class AbstractBinder<T> implements Binder<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X extends T> Binding<X> bind(Source source, Origin origin) {
 		final XMLEventReader eventReader = createReader( source, origin );
 		return doBind( eventReader, origin );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected XMLEventReader createReader(Source source, Origin origin) {
 		try {
 			// create a standard StAX reader
@@ -88,6 +95,7 @@ public abstract class AbstractBinder<T> implements Binder<T> {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private <X extends T> Binding<X> doBind(XMLEventReader eventReader, Origin origin) {
 		try {
 			final StartElement rootElementStartEvent = seekRootElementStartEvent( eventReader, origin );
@@ -105,6 +113,7 @@ public abstract class AbstractBinder<T> implements Binder<T> {
 
 	private XMLInputFactory staxFactory;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private XMLInputFactory staxFactory() {
 		if ( staxFactory == null ) {
 			staxFactory = buildStaxFactory();
@@ -112,12 +121,14 @@ public abstract class AbstractBinder<T> implements Binder<T> {
 		return staxFactory;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private XMLInputFactory buildStaxFactory() {
 		XMLInputFactory staxFactory = XMLInputFactory.newInstance();
 		staxFactory.setXMLResolver( xmlResourceResolver );
 		return staxFactory;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected StartElement seekRootElementStartEvent(XMLEventReader staxEventReader, Origin origin) {
 		XMLEvent rootElementStartEvent;
 		try {
@@ -138,13 +149,16 @@ public abstract class AbstractBinder<T> implements Binder<T> {
 		return rootElementStartEvent.asStartElement();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract <X extends T> Binding<X> doBind(XMLEventReader staxEventReader, StartElement rootElementStartEvent, Origin origin);
 
 	@SuppressWarnings("unused")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected static boolean hasNamespace(StartElement startElement) {
 		return StringHelper.isNotEmpty( startElement.getName().getNamespaceURI() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected <X extends T> X jaxb(XMLEventReader reader, Schema xsd, JAXBContext jaxbContext, Origin origin) {
 		final ContextProvidingValidationEventHandler handler = new ContextProvidingValidationEventHandler();
 

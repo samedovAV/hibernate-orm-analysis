@@ -18,6 +18,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import static org.hibernate.pretty.MessageHelper.infoString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Abstract {@link org.hibernate.generator.values.GeneratedValuesMutationDelegate} implementation where
@@ -40,6 +42,7 @@ public abstract class AbstractReturningDelegate
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public GeneratedValues performGraphMutation(
 			FlushOperation operation,
 			Object entity,
@@ -67,6 +70,7 @@ public abstract class AbstractReturningDelegate
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public GeneratedValues performMutation(
 			PreparedStatementDetails statementDetails,
 			JdbcValueBindings valueBindings,
@@ -89,6 +93,7 @@ public abstract class AbstractReturningDelegate
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final GeneratedValues performInsertReturning(String sql, SharedSessionContractImplementor session, Binder binder) {
 		session.getJdbcServices().getSqlStatementLogger().logStatement( sql );
 		session.getJdbcSessionContext().getStatementObserver().performingSql( sql, -1 );
@@ -112,6 +117,7 @@ public abstract class AbstractReturningDelegate
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract GeneratedValues executeAndExtractReturning(
 			String sql,
 			PreparedStatement preparedStatement,

@@ -14,6 +14,8 @@ import org.hibernate.engine.jdbc.spi.JdbcServices;
 import org.hibernate.internal.util.config.ConfigurationHelper;
 import org.hibernate.service.spi.ServiceRegistryImplementor;
 import org.hibernate.sql.ast.spi.ParameterMarkerStrategy;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -25,6 +27,7 @@ public class ParameterMarkerStrategyInitiator implements StandardServiceInitiato
 	public static final ParameterMarkerStrategyInitiator INSTANCE = new ParameterMarkerStrategyInitiator();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ParameterMarkerStrategy initiateService(@Nonnull Map<String, Object> configurationValues, @Nonnull ServiceRegistryImplementor registry) {
 		final boolean useNativeMarkers = ConfigurationHelper.getBoolean(
 				AvailableSettings.DIALECT_NATIVE_PARAM_MARKERS,
@@ -45,6 +48,7 @@ public class ParameterMarkerStrategyInitiator implements StandardServiceInitiato
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<ParameterMarkerStrategy> getServiceInitiated() {
 		return ParameterMarkerStrategy.class;
 	}

@@ -8,6 +8,8 @@ import jakarta.transaction.Synchronization;
 import jakarta.transaction.TransactionSynchronizationRegistry;
 
 import static org.hibernate.engine.transaction.internal.jta.JtaStatusHelper.isActive;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Implementation of the {@link JtaSynchronizationStrategy} contract based on using a
@@ -23,12 +25,14 @@ public class SynchronizationRegistryBasedSynchronizationStrategy implements JtaS
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void registerSynchronization(Synchronization synchronization) {
 		synchronizationRegistryAccess.getSynchronizationRegistry()
 				.registerInterposedSynchronization( synchronization );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean canRegisterSynchronization() {
 		final var registry = synchronizationRegistryAccess.getSynchronizationRegistry();
 		return isActive( registry.getTransactionStatus() )

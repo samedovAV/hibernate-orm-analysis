@@ -24,6 +24,8 @@ import org.hibernate.sql.results.jdbc.spi.JdbcValuesSourceProcessingState;
 import org.hibernate.sql.results.spi.LoadContexts;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -42,6 +44,7 @@ import jakarta.annotation.Nullable;
  */
 public interface PersistenceContext {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isStateless();
 
 	/**
@@ -49,6 +52,7 @@ public interface PersistenceContext {
 	 *
 	 * @return The session.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionContractImplementor getSession();
 
 	/**
@@ -56,8 +60,10 @@ public interface PersistenceContext {
 	 *
 	 * @return The load context
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	LoadContexts getLoadContexts();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean hasLoadContext() {
 		getLoadContexts();
 		return true;
@@ -73,6 +79,7 @@ public interface PersistenceContext {
 	 *
 	 * @return The unowned collection, or {@code null}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PersistentCollection<?> useUnownedCollection(CollectionKey key);
 
 	/**
@@ -80,11 +87,13 @@ public interface PersistenceContext {
 	 *
 	 * @return The batch fetch queue in effect for this persistence context
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	BatchFetchQueue getBatchFetchQueue();
 
 	/**
 	 * Clear the state of the persistence context
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void clear();
 
 	/**
@@ -93,11 +102,13 @@ public interface PersistenceContext {
 	 * @param entry The entry for which to set the status
 	 * @param status The new status
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setEntryStatus(EntityEntry entry, Status status);
 
 	/**
 	 * Called after transactions end
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void afterTransactionCompletion();
 
 	/**
@@ -112,6 +123,7 @@ public interface PersistenceContext {
 	 *
 	 * @see #getCachedDatabaseSnapshot
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object[] getDatabaseSnapshot(Object id, EntityPersister persister);
 
 	/**
@@ -128,6 +140,7 @@ public interface PersistenceContext {
 	 * @return The cached snapshot
 	 * @throws IllegalStateException if the cached snapshot was {@code NO_ROW}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object[] getCachedDatabaseSnapshot(EntityKey key);
 
 	/**
@@ -139,6 +152,7 @@ public interface PersistenceContext {
 	 *
 	 * @return The current (non-cached) snapshot of the entity's natural id state.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getNaturalIdSnapshot(Object id, EntityPersister persister);
 
 	/**
@@ -147,6 +161,7 @@ public interface PersistenceContext {
 	 * @param key The key under which to add an entity
 	 * @param entity The entity instance to add
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addEntity(EntityKey key, Object entity);
 
 	/**
@@ -156,6 +171,7 @@ public interface PersistenceContext {
 	 *
 	 * @return The matching entity, or {@code null}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getEntity(EntityKey key);
 
 	/**
@@ -165,6 +181,7 @@ public interface PersistenceContext {
 	 *
 	 * @return {@code true} indicates an entity was found; otherwise {@code false}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean containsEntity(EntityKey key);
 
 	/**
@@ -174,6 +191,7 @@ public interface PersistenceContext {
 	 *
 	 * @return The matching entity
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object removeEntity(EntityKey key);
 
 	/**
@@ -182,6 +200,7 @@ public interface PersistenceContext {
 	 * @param euk The unique (non-primary) key under which to add an entity
 	 * @param entity The entity instance
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addEntity(EntityUniqueKey euk, Object entity);
 
 	/**
@@ -191,6 +210,7 @@ public interface PersistenceContext {
 	 *
 	 * @return The located entity
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getEntity(EntityUniqueKey euk);
 
 	/**
@@ -199,6 +219,7 @@ public interface PersistenceContext {
 	 * @param entity The entity instance for which to locate the corresponding entry
 	 * @return The entry
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityEntry getEntry(Object entity);
 
 	/**
@@ -207,6 +228,7 @@ public interface PersistenceContext {
 	 * @param entity The entity instance for which to remove the corresponding entry
 	 * @return The matching entry
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityEntry removeEntry(Object entity);
 
 	/**
@@ -216,6 +238,7 @@ public interface PersistenceContext {
 	 *
 	 * @return {@code true} indicates a matching entry was found.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isEntryFor(Object entity);
 
 	/**
@@ -225,11 +248,13 @@ public interface PersistenceContext {
 	 *
 	 * @return The matching collection entry
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CollectionEntry getCollectionEntry(PersistentCollection<?> coll);
 
 	/**
 	 * Adds an entity to the internal caches.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityEntry addEntity(
 			final Object entity,
 			final Status status,
@@ -244,6 +269,7 @@ public interface PersistenceContext {
 	 * Generates an appropriate EntityEntry instance and adds it
 	 * to the event source's internal caches.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityEntry addEntry(
 			final Object entity,
 			final Status status,
@@ -255,6 +281,7 @@ public interface PersistenceContext {
 			final boolean existsInDatabase,
 			final EntityPersister persister);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityEntry addReferenceEntry(
 			final Object entity,
 			final Status status);
@@ -262,11 +289,13 @@ public interface PersistenceContext {
 	/**
 	 * Is the given collection associated with this persistence context?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean containsCollection(PersistentCollection<?> collection);
 
 	/**
 	 * Is the given proxy associated with this persistence context?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean containsProxy(Object proxy);
 
 	/**
@@ -275,12 +304,14 @@ public interface PersistenceContext {
 	 * @param value The possible proxy to be reassociated.
 	 * @return Whether the passed value represented an actual proxy which got initialized.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean reassociateIfUninitializedProxy(Object value) ;
 
 	/**
 	 * If a deleted entity instance is re-saved, and it has a proxy, we need to
 	 * reset the identifier of the proxy
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void reassociateProxy(Object value, Object id);
 
 	/**
@@ -290,6 +321,7 @@ public interface PersistenceContext {
 	 * @deprecated No longer used
 	 */
 	@Deprecated(since = "7.2", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Object unproxy(Object maybeProxy) {
 		return ProxyUtil.assertInitialized( maybeProxy );
 	}
@@ -300,6 +332,7 @@ public interface PersistenceContext {
 	 * @param maybeProxy The reference to be unproxied if it currently represents a proxy.
 	 * @return The unproxied instance.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object unproxyAndReassociate(Object maybeProxy);
 
 	/**
@@ -308,6 +341,7 @@ public interface PersistenceContext {
 	 *
 	 * @param object The entity reference against which to perform the uniqueness check.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void checkUniqueness(EntityKey key, Object object);
 
 	/**
@@ -322,6 +356,7 @@ public interface PersistenceContext {
 	 * @param object (optional) the actual proxied entity instance.
 	 * @return An appropriately narrowed instance.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object narrowProxy(Object proxy, EntityPersister persister, EntityKey key, Object object);
 
 	/**
@@ -329,6 +364,7 @@ public interface PersistenceContext {
 	 * third argument (the entity associated with the key) if no proxy exists. Init
 	 * the proxy to the target implementation, if necessary.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object proxyFor(EntityPersister persister, EntityKey key, Object impl);
 
 	/**
@@ -336,6 +372,7 @@ public interface PersistenceContext {
 	 * argument (the entity associated with the key) if no proxy exists.
 	 * (slower than the form above)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object proxyFor(Object impl);
 
 	/**
@@ -343,17 +380,20 @@ public interface PersistenceContext {
 	 * the given {@link EntityHolder}, or the {@linkplain EntityHolder#getEntity() entity}
 	 * if no proxy exists.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object proxyFor(EntityHolder holder, EntityPersister persister);
 
 	/**
 	 * Cross between {@link #addEntity(EntityKey, Object)} and {@link #addProxy(EntityKey, Object)}
 	 * for use with enhancement-as-proxy
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addEnhancedProxy(EntityKey key, PersistentAttributeInterceptable entity);
 
 	/**
 	 * Get the entity that owns this persistent collection
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getCollectionOwner(Object key, CollectionPersister collectionPersister);
 
 	/**
@@ -363,6 +403,7 @@ public interface PersistenceContext {
 	 * @return the owner if its entity ID is available from the collection's loaded key
 	 * and the owner entity is in the persistence context; otherwise, returns null
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getLoadedCollectionOwnerOrNull(PersistentCollection<?> collection);
 
 	/**
@@ -371,17 +412,20 @@ public interface PersistenceContext {
 	 * @param collection The persistent collection
 	 * @return the owner ID if available from the collection's loaded key; otherwise, returns null
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getLoadedCollectionOwnerIdOrNull(PersistentCollection<?> collection);
 
 	/**
 	 * add a collection we just loaded up (still needs initializing)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addUninitializedCollection(
 			CollectionPersister persister,
 			PersistentCollection<?> collection,
 			Object id,
 			boolean readOnly);
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void addUninitializedCollection(
 			CollectionPersister persister,
 			PersistentCollection<?> collection,
@@ -392,6 +436,7 @@ public interface PersistenceContext {
 	/**
 	 * add a detached uninitialized collection
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addUninitializedDetachedCollection(CollectionPersister persister, PersistentCollection<?> collection);
 
 	/**
@@ -399,12 +444,14 @@ public interface PersistenceContext {
 	 * application, with no database state or snapshot)
 	 * @param collection The collection to be associated with the persistence context
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addNewCollection(CollectionPersister persister, PersistentCollection<?> collection);
 
 	/**
 	 * add an (initialized) collection that was created by another session and passed
 	 * into update() (ie. one with a snapshot and existing state on the database)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addInitializedDetachedCollection(CollectionPersister collectionPersister, PersistentCollection<?> collection);
 
 	/**
@@ -414,17 +461,20 @@ public interface PersistenceContext {
 	 * @param collection The collection to be associated with the persistence context
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void replaceCollection(CollectionPersister persister, PersistentCollection<?> oldCollection, PersistentCollection<?> collection);
 
 	/**
 	 * add a collection we just pulled out of the cache (does not need initializing)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CollectionEntry addInitializedCollection(
 			CollectionPersister persister,
 			PersistentCollection<?> collection,
 			Object id,
 			boolean readOnly);
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default CollectionEntry addInitializedCollection(
 			CollectionPersister persister,
 			PersistentCollection<?> collection,
@@ -435,12 +485,14 @@ public interface PersistenceContext {
 	/**
 	 * Get the collection instance associated with the {@code CollectionKey}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PersistentCollection<?> getCollection(CollectionKey collectionKey);
 
 	/**
 	 * Register a collection for non-lazy loading at the end of the
 	 * two-phase load
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addNonLazyCollection(PersistentCollection<?> collection);
 
 	/**
@@ -448,6 +500,7 @@ public interface PersistenceContext {
 	 * the current two-phase load (actually, this is a no-op, unless this
 	 * is the "outermost" load)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void initializeNonLazyCollections() throws HibernateException;
 
 	/**
@@ -460,11 +513,13 @@ public interface PersistenceContext {
 	 * @param initializeAction the function that initialize the collection
 	 */
 	// Used by Hibernate Reactive
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void initializeNonLazyCollections(Consumer<PersistentCollection<?>> initializeAction);
 
 	/**
 	 * Get the {@code PersistentCollection} object for an array
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PersistentCollection<?> getCollectionHolder(Object array);
 
 	/**
@@ -472,17 +527,20 @@ public interface PersistenceContext {
 	 * Associates a holder with an array - MUST be called after loading
 	 * array, since the array instance is not created until endLoad().
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addCollectionHolder(PersistentCollection<?> holder);
 
 	/**
 	 * Remove the mapping of collection to holder during eviction
 	 * of the owning entity
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PersistentCollection<?> removeCollectionHolder(Object array);
 
 	/**
 	 * Get the snapshot of the pre-flush collection state
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Serializable getSnapshot(PersistentCollection<?> coll);
 
 //	/**
@@ -499,11 +557,13 @@ public interface PersistenceContext {
 	/**
 	 * Get an existing proxy by key
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getProxy(EntityKey key);
 
 	/**
 	 * Add a proxy to the session cache
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addProxy(EntityKey key, Object proxy);
 
 	/**
@@ -515,6 +575,7 @@ public interface PersistenceContext {
 	 * @param key The key of the entity proxy to be removed
 	 * @return The proxy reference.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object removeProxy(EntityKey key);
 
 	/**
@@ -527,6 +588,7 @@ public interface PersistenceContext {
 	 * @param initializer The initializer to claim the entity instance
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityHolder claimEntityHolderIfPossible(
 			EntityKey key,
 			@Nullable Object entity,
@@ -534,41 +596,51 @@ public interface PersistenceContext {
 			EntityInitializer<?> initializer);
 
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityHolder addEntityHolder(EntityKey key, Object entity);
 
-	@Nullable EntityHolder getEntityHolder(EntityKey key);
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	EntityHolder getEntityHolder(EntityKey key);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean containsEntityHolder(EntityKey key);
 
-	@Nullable EntityHolder removeEntityHolder(EntityKey key);
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	EntityHolder removeEntityHolder(EntityKey key);
 
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void postLoad(JdbcValuesSourceProcessingState processingState, Consumer<EntityHolder> loadedConsumer);
 
 	/**
 	 * Doubly internal
 	 */
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Map<EntityKey,Object> getEntitiesByKey();
 
 	// Used by Hibernate Reactive
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Map<EntityKey,Object> getEntitySnapshotsByKey();
 
 	// Used by Hibernate Reactive
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Map<EntityKey,Object> getOrInitializeEntitySnapshotsByKey();
 
 	/**
 	 * Doubly internal
 	 */
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Map<EntityKey,EntityHolder> getEntityHoldersByKey();
 
 	/**
 	 * Provides access to the entity/EntityEntry combos associated with the persistence context in a manner that
 	 * is safe from reentrant access.  Specifically, it is safe from additions/removals while iterating.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Map.Entry<Object,EntityEntry>[] reentrantSafeEntityEntries();
 
 //	/**
@@ -581,19 +653,22 @@ public interface PersistenceContext {
 //	@Deprecated
 //	Map getEntityEntries();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getNumberOfManagedEntities();
 
 	/**
 	 * Doubly internal
 	 */
 	@Internal
-	@Nullable Map<PersistentCollection<?>,CollectionEntry> getCollectionEntries();
+	@Nullable@Prove(complexity = Complexity.O_1, n = "", count = {})
+ Map<PersistentCollection<?>,CollectionEntry> getCollectionEntries();
 
 	/**
 	 * Execute some action on each entry of the collectionEntries map, optionally iterating on a defensive copy.
 	 * @param action the lambda to apply on each PersistentCollection,CollectionEntry map entry of the PersistenceContext.
 	 * @param concurrent set this to false for improved efficiency, but that would make it illegal to make changes to the underlying collectionEntries map.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void forEachCollectionEntry(BiConsumer<PersistentCollection<?>,CollectionEntry> action, boolean concurrent);
 
 	/**
@@ -604,62 +679,74 @@ public interface PersistenceContext {
 	 * N.B. This might return an immutable map: do not use for mutations!
 	 */
 	@Deprecated
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Map<CollectionKey,PersistentCollection<?>> getCollectionsByKey();
 
 	/**
 	 * How deep are we cascaded?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getCascadeLevel();
 
 	/**
 	 * Called before cascading
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int incrementCascadeLevel();
 
 	/**
 	 * Called after cascading
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int decrementCascadeLevel();
 
 	/**
 	 * Is a flush cycle currently in process?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isFlushing();
 
 	/**
 	 * Called before and after the flush cycle
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setFlushing(boolean flushing);
 
 	/**
 	 * Access to collection action state for the current flush.
 	 */
-	@Nullable CollectionFlushActionTracker getCollectionFlushActionTracker();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	CollectionFlushActionTracker getCollectionFlushActionTracker();
 
 	/**
 	 * Set the collection action state for the current flush.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setCollectionFlushActionTracker(@Nullable CollectionFlushActionTracker collectionFlushActionTracker);
 
 	/**
 	 * Call this before beginning a two-phase load
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void beforeLoad();
 
 	/**
 	 * Call this after finishing a two-phase load
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void afterLoad();
 
 	/**
 	 * Is in a two-phase load?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isLoadFinished();
 	/**
 	 * Returns a string representation of the object.
 	 *
 	 * @return a string representation of the object.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String toString();
 
 	/**
@@ -683,23 +770,27 @@ public interface PersistenceContext {
 	 * @return The id of the entityName instance which is said to own the child; null if an appropriate owner not
 	 * located.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getOwnerId(String entityName, String propertyName, Object childEntity, Map<?, ?> mergeMap);
 
 	/**
 	 * Search the persistence context for an index of the child object,
 	 * given a collection role
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getIndexInOwner(String entity, String property, Object childObject, Map<?, ?> mergeMap);
 
 	/**
 	 * Record the fact that the association belonging to the keyed
 	 * entity is null.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addNullProperty(EntityKey ownerKey, String propertyName);
 
 	/**
 	 * Is the association property belonging to the keyed entity null?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isPropertyNull(EntityKey ownerKey, String propertyName);
 
 	/**
@@ -715,6 +806,7 @@ public interface PersistenceContext {
 	 * @see org.hibernate.Session#isDefaultReadOnly()
 	 * @see org.hibernate.Session#isReadOnly(Object)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isDefaultReadOnly();
 
 	/**
@@ -741,6 +833,7 @@ public interface PersistenceContext {
 	 * @see org.hibernate.query.Query#setReadOnly(boolean)
 	 * @see org.hibernate.Session#isReadOnly(Object)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setDefaultReadOnly(boolean readOnly);
 
 	/**
@@ -754,6 +847,7 @@ public interface PersistenceContext {
 	 * @return {@code true} if the object is read-only; otherwise {@code false} to indicate that the object is
 	 * modifiable.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isReadOnly(Object entityOrProxy);
 
 	/**
@@ -779,17 +873,23 @@ public interface PersistenceContext {
 	 * @see org.hibernate.Session#setReadOnly
 	 * @see org.hibernate.query.Query#setReadOnly
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setReadOnly(Object entityOrProxy, boolean readOnly);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isRemovingOrphanBeforeUpdates();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void beginRemoveOrphanBeforeUpdates();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void endRemoveOrphanBeforeUpdates();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void replaceDelayedEntityIdentityInsertKeys(EntityKey oldKey, Object generatedId);
 
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void replaceEntityEntryRowId(Object entity, Object rowId);
 
 	/**
@@ -798,6 +898,7 @@ public interface PersistenceContext {
 	 * @param child The child of the relationship
 	 * @param parent The parent of the relationship
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addChildParent(Object child, Object parent);
 
 	/**
@@ -805,6 +906,7 @@ public interface PersistenceContext {
 	 *
 	 * @param child The child to be removed.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void removeChildParent(Object child);
 
 	/**
@@ -812,6 +914,7 @@ public interface PersistenceContext {
 	 *  @param persister The entity persister
 	 * @param id The id
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void registerInsertedKey(EntityPersister persister, Object id);
 
 	/**
@@ -822,6 +925,7 @@ public interface PersistenceContext {
 	 *
 	 * @return True if inserted during this transaction, false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean wasInsertedDuringTransaction(EntityPersister persister, Object id);
 
 	/**
@@ -832,25 +936,32 @@ public interface PersistenceContext {
 	 * @return true if the EntityKey had been registered before using {@link #registerNullifiableEntityKey(EntityKey)}
 	 * @see #registerNullifiableEntityKey(EntityKey)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean containsNullifiableEntityKey(Supplier<EntityKey> sek);
 
 	/**
 	 * Registers an {@link EntityKey} as nullifiable on this {@link PersistenceContext}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void registerNullifiableEntityKey(EntityKey key);
 
 	/**
 	 * @return true if no {@link EntityKey} was registered as nullifiable on this {@link PersistenceContext}.
 	 * @see #registerNullifiableEntityKey(EntityKey)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isNullifiableEntityKeysEmpty();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean containsDeletedUnloadedEntityKey(EntityKey ek);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void registerDeletedUnloadedEntityKey(EntityKey key);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void removeDeletedUnloadedEntityKey(EntityKey key);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean containsDeletedUnloadedEntityKeys();
 
 	/**
@@ -858,6 +969,7 @@ public interface PersistenceContext {
 	 * (The map is not exposed directly, but the size is often useful)
 	 * @return the size
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getCollectionEntriesSize();
 
 	/**
@@ -865,11 +977,13 @@ public interface PersistenceContext {
 	 * @param collection the collection to remove
 	 * @return the matching {@link CollectionEntry}, if any was removed.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CollectionEntry removeCollectionEntry(PersistentCollection<?> collection);
 
 	/**
 	 * Remove all state of the collections-by-key map.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void clearCollectionsByKey();
 
 	/**
@@ -877,17 +991,20 @@ public interface PersistenceContext {
 	 *
 	 * @return the previous collection, it the key was already mapped.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PersistentCollection<?> addCollectionByKey(CollectionKey collectionKey, PersistentCollection<?> persistentCollection);
 
 	/**
 	 * Remove a collection-by-key mapping.
 	 * @param collectionKey the key to clear
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void removeCollectionByKey(CollectionKey collectionKey);
 
 	/**
 	 * A read-only iterator on all entities managed by this persistence context
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Iterator<Object> managedEntitiesIterator();
 
 	/**
@@ -895,11 +1012,13 @@ public interface PersistenceContext {
 	 *
 	 * @return This persistence context's natural-id helper
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NaturalIdResolutions getNaturalIdResolutions();
 
 	/**
 		Remove the {@link EntityHolder} and set its state to {@code DETACHED}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default @Nullable EntityHolder detachEntity(EntityKey key) {
 		return removeEntityHolder( key );
 	}

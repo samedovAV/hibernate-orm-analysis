@@ -12,6 +12,8 @@ import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 
 import static org.hibernate.internal.util.NullnessUtil.castNonNull;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A specialized Getter implementation for handling getting values from
@@ -30,11 +32,13 @@ public class EnhancedGetterFieldImpl extends GetterFieldImpl {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nonnull Method getMethod() {
 		return castNonNull( super.getMethod() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Member getMember() {
 		return getMethod();
 	}

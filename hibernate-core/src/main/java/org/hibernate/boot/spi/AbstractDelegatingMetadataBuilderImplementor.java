@@ -24,6 +24,8 @@ import org.hibernate.usertype.UserType;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.SharedCacheMode;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Convenience base class for custom implementors of {@link MetadataBuilderImplementor} using delegation.
@@ -37,6 +39,7 @@ public abstract class AbstractDelegatingMetadataBuilderImplementor<T extends Met
 
 	private final MetadataBuilderImplementor delegate;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected MetadataBuilderImplementor delegate() {
 		return delegate;
 	}
@@ -50,188 +53,220 @@ public abstract class AbstractDelegatingMetadataBuilderImplementor<T extends Met
 	 * href="http://www.angelikalanger.com/GenericsFAQ/FAQSections/ProgrammingIdioms.html#FAQ206">What is the
 	 * "getThis trick?"</a>.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract T getThis();
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MetadataBuilder applyImplicitSchemaName(String implicitSchemaName) {
 		delegate.applyImplicitSchemaName( implicitSchemaName );
 		return getThis();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MetadataBuilder applyImplicitCatalogName(String implicitCatalogName) {
 		delegate.applyImplicitCatalogName( implicitCatalogName );
 		return getThis();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MetadataBuilder applyImplicitNamingStrategy(ImplicitNamingStrategy namingStrategy) {
 		delegate.applyImplicitNamingStrategy( namingStrategy );
 		return getThis();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MetadataBuilder applyPhysicalNamingStrategy(PhysicalNamingStrategy namingStrategy) {
 		delegate.applyPhysicalNamingStrategy( namingStrategy );
 		return getThis();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MetadataBuilder applyColumnOrderingStrategy(ColumnOrderingStrategy columnOrderingStrategy) {
 		delegate.applyColumnOrderingStrategy( columnOrderingStrategy );
 		return getThis();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MetadataBuilder applySharedCacheMode(SharedCacheMode cacheMode) {
 		delegate.applySharedCacheMode( cacheMode );
 		return getThis();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MetadataBuilder applyAccessType(AccessType accessType) {
 		delegate.applyAccessType( accessType );
 		return getThis();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MetadataBuilder applyIndexView(Object jandexView) {
 		delegate.applyIndexView( jandexView );
 		return getThis();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MetadataBuilder applyScanning(ScanningProvider scanningProvider) {
 		delegate.applyScanning( scanningProvider );
 		return getThis();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MetadataBuilder applyArchiveDescriptorFactory(ArchiveDescriptorFactory factory) {
 		delegate.applyArchiveDescriptorFactory( factory );
 		return getThis();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MetadataBuilder enableExplicitDiscriminatorsForJoinedSubclassSupport(boolean enabled) {
 		delegate.enableExplicitDiscriminatorsForJoinedSubclassSupport( enabled );
 		return getThis();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MetadataBuilder enableImplicitDiscriminatorsForJoinedSubclassSupport(boolean enabled) {
 		delegate.enableImplicitDiscriminatorsForJoinedSubclassSupport( enabled );
 		return getThis();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MetadataBuilder enableImplicitForcingOfDiscriminatorsInSelect(boolean supported) {
 		delegate.enableImplicitForcingOfDiscriminatorsInSelect( supported );
 		return getThis();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MetadataBuilder enableGlobalNationalizedCharacterDataSupport(boolean enabled) {
 		delegate.enableGlobalNationalizedCharacterDataSupport( enabled );
 		return getThis();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MetadataBuilder applyDefaultToOneFetchType(FetchType defaultToOneFetchType) {
 		delegate.applyDefaultToOneFetchType( defaultToOneFetchType );
 		return getThis();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MetadataBuilder applyBasicType(BasicType<?> type) {
 		delegate.applyBasicType( type );
 		return getThis();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MetadataBuilder applyBasicType(BasicType<?> type, String... keys) {
 		delegate.applyBasicType( type, keys );
 		return getThis();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MetadataBuilder applyBasicType(UserType<?> type, String... keys) {
 		delegate.applyBasicType( type, keys );
 		return getThis();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MetadataBuilder applyTypes(TypeContributor typeContributor) {
 		delegate.applyTypes( typeContributor );
 		return getThis();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MetadataBuilder applyCacheRegionDefinition(CacheRegionDefinition cacheRegionDefinition) {
 		delegate.applyCacheRegionDefinition( cacheRegionDefinition );
 		return getThis();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MetadataBuilder applyTempClassLoader(ClassLoader tempClassLoader) {
 		delegate.applyTempClassLoader( tempClassLoader );
 		return getThis();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MetadataBuilder applyFunctions(FunctionContributor functionContributor) {
 		delegate.applyFunctions( functionContributor );
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MetadataBuilder applySqlFunction(String functionName, SqmFunctionDescriptor function) {
 		delegate.applySqlFunction( functionName, function );
 		return getThis();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MetadataBuilder applyAuxiliaryDatabaseObject(AuxiliaryDatabaseObject auxiliaryDatabaseObject) {
 		delegate.applyAuxiliaryDatabaseObject( auxiliaryDatabaseObject );
 		return getThis();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MetadataBuilder applyAttributeConverter(ConverterDescriptor<?,?> descriptor) {
 		delegate.applyAttributeConverter( descriptor );
 		return getThis();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <O, R> MetadataBuilder applyAttributeConverter(Class<? extends AttributeConverter<O, R>> attributeConverterClass) {
 		delegate.applyAttributeConverter( attributeConverterClass );
 		return getThis();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <O,R> MetadataBuilder applyAttributeConverter(Class<? extends AttributeConverter<O,R>> attributeConverterClass, boolean autoApply) {
 		delegate.applyAttributeConverter( attributeConverterClass, autoApply );
 		return getThis();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MetadataBuilder applyAttributeConverter(AttributeConverter attributeConverter) {
 		delegate.applyAttributeConverter( attributeConverter );
 		return getThis();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MetadataBuilder applyAttributeConverter(AttributeConverter attributeConverter, boolean autoApply) {
 		delegate.applyAttributeConverter( attributeConverter, autoApply );
 		return getThis();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MetadataBuildingOptions getMetadataBuildingOptions() {
 		return delegate.getMetadataBuildingOptions();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Metadata build() {
 		return delegate.build();
 	}

@@ -15,6 +15,8 @@ import org.hibernate.sql.model.MutationOperationGroup;
 import org.hibernate.sql.model.ast.builder.TableUpdateBuilderStandard;
 
 import static org.hibernate.persister.entity.mutation.AbstractTemporalUpdateCoordinator.applyTemporalEnding;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Delete coordinator for
@@ -32,6 +34,7 @@ public class DeleteCoordinatorTemporal extends AbstractDeleteCoordinator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void applyStaticDeleteTableDetails(
 			Object id,
 			Object rowId,
@@ -45,6 +48,7 @@ public class DeleteCoordinatorTemporal extends AbstractDeleteCoordinator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void applyDynamicDeleteTableDetails(
 			Object id,
 			Object rowId,
@@ -56,6 +60,7 @@ public class DeleteCoordinatorTemporal extends AbstractDeleteCoordinator {
 		bindTemporalEndingValue( session, mutationExecutor.getJdbcValueBindings() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void bindTemporalEndingValue(
 			SharedSessionContractImplementor session,
 			JdbcValueBindings jdbcValueBindings) {
@@ -70,6 +75,7 @@ public class DeleteCoordinatorTemporal extends AbstractDeleteCoordinator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected MutationOperationGroup generateOperationGroup(
 			Object rowId,
 			Object[] loadedState,

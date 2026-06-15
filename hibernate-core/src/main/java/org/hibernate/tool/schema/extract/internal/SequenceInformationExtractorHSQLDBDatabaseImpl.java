@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.tool.schema.extract.internal;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * @author Vlad Mihalcea
@@ -14,6 +17,7 @@ public class SequenceInformationExtractorHSQLDBDatabaseImpl extends SequenceInfo
 	public static final SequenceInformationExtractorHSQLDBDatabaseImpl INSTANCE = new SequenceInformationExtractorHSQLDBDatabaseImpl();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String sequenceStartValueColumn() {
 		return "start_with";
 	}

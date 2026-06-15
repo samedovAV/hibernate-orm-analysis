@@ -14,6 +14,8 @@ import org.hibernate.Version;
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
 import static org.hibernate.internal.util.ConfigHelper.getResourceAsStream;
 import static org.hibernate.internal.util.config.ConfigurationHelper.maskOut;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Provides access to configuration properties passed in {@link Properties} objects.
@@ -180,6 +182,7 @@ public final class Environment implements AvailableSettings {
 	 * The {@linkplain System#getProperties() system properties}, extended
 	 * with all additional properties specified in {@code hibernate.properties}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Properties getProperties() {
 		final var copy = new Properties();
 		copy.putAll(GLOBAL_PROPERTIES);

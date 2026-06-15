@@ -6,6 +6,8 @@ package org.hibernate.dialect.sequence;
 
 import org.hibernate.MappingException;
 import org.hibernate.internal.util.StringHelper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A set of operations providing support for sequences in a
@@ -20,6 +22,7 @@ public interface SequenceSupport {
 	 *
 	 * @return True if sequences supported; false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean supportsSequences() {
 		return true;
 	}
@@ -32,6 +35,7 @@ public interface SequenceSupport {
 	 * @see #getCreateSequenceStrings(String, int, int)
 	 * @see #getCreateSequenceString(String, int, int)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean supportsPooledSequences() {
 		return supportsSequences();
 	}
@@ -47,6 +51,7 @@ public interface SequenceSupport {
 	 * @return The "next value" fragment.
 	 * @throws MappingException If sequences are not supported.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getSelectSequenceNextValString(String sequenceName) throws MappingException;
 
 	/**
@@ -60,6 +65,7 @@ public interface SequenceSupport {
 	 * @return The "previous value" fragment.
 	 * @throws MappingException If sequences are not supported.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String getSelectSequencePreviousValString(String sequenceName) throws MappingException {
 		throw new UnsupportedOperationException( "No support for retrieving previous value" );
 	}
@@ -74,6 +80,7 @@ public interface SequenceSupport {
 	 * @return String The select "next value" statement.
 	 * @throws MappingException If sequences are not supported.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String getSequenceNextValString(String sequenceName) throws MappingException {
 		return "select " + getSelectSequenceNextValString( sequenceName ) + getFromDual();
 	}
@@ -88,10 +95,12 @@ public interface SequenceSupport {
 	 * @return String The select "previous value" statement.
 	 * @throws MappingException If sequences are not supported.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String getSequencePreviousValString(String sequenceName) throws MappingException {
 		return "select " + getSelectSequencePreviousValString( sequenceName ) + getFromDual();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String getFromDual() {
 		return "";
 	}
@@ -107,6 +116,7 @@ public interface SequenceSupport {
 	 * @return String The select "next value" statement.
 	 * @throws MappingException If sequences are not supported.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default String getSequenceNextValString(String sequenceName, int increment) throws MappingException {
 		return getSequenceNextValString( sequenceName );
 	}
@@ -121,6 +131,7 @@ public interface SequenceSupport {
 	 * @return The sequence creation commands
 	 * @throws MappingException If sequences are not supported.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String[] getCreateSequenceStrings(String sequenceName, int initialValue, int incrementSize, String options)
 			throws MappingException {
 		return new String[] {
@@ -140,6 +151,7 @@ public interface SequenceSupport {
 	 * @return The sequence creation commands
 	 * @throws MappingException If sequences are not supported.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String[] getCreateSequenceStrings(String sequenceName, int initialValue, int incrementSize) throws MappingException {
 		return new String[] { getCreateSequenceString( sequenceName, initialValue, incrementSize ) };
 	}
@@ -164,6 +176,7 @@ public interface SequenceSupport {
 	 * @return The sequence creation command
 	 * @throws MappingException If sequences are not supported.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String getCreateSequenceString(String sequenceName) throws MappingException {
 		return "create sequence " + sequenceName;
 	}
@@ -190,6 +203,7 @@ public interface SequenceSupport {
 	 * @return The sequence creation command
 	 * @throws MappingException If sequences are not supported.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default String getCreateSequenceString(String sequenceName, int initialValue, int incrementSize) throws MappingException {
 		if ( incrementSize == 0 ) {
 			throw new MappingException( "Unable to create the sequence [" + sequenceName + "]: the increment size must not be 0" );
@@ -207,6 +221,7 @@ public interface SequenceSupport {
 	 * @return The sequence drop commands
 	 * @throws MappingException If sequences are not supported.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String[] getDropSequenceStrings(String sequenceName) throws MappingException {
 		return new String[]{ getDropSequenceString( sequenceName ) };
 	}
@@ -225,6 +240,7 @@ public interface SequenceSupport {
 	 * @return The sequence drop commands
 	 * @throws MappingException If sequences are not supported.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String getDropSequenceString(String sequenceName) throws MappingException {
 		return "drop sequence " + sequenceName;
 	}
@@ -236,6 +252,7 @@ public interface SequenceSupport {
 	 * @param startWith The value to restart at
 	 * @return The {@code alter sequence ... restart} command
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String getRestartSequenceString(String sequenceName, long startWith) {
 		return "alter sequence " + sequenceName + " restart with " + startWith;
 	}
@@ -245,10 +262,12 @@ public interface SequenceSupport {
 	 * {@code maxvalue} when the initial value doesn't have
 	 * the same sign as the increment?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean sometimesNeedsStartingValue() {
 		return false;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String startingValue(int initialValue, int incrementSize) {
 		if ( sometimesNeedsStartingValue() ) {
 			if (incrementSize > 0 && initialValue <= 0) {

@@ -12,6 +12,8 @@ import org.hibernate.exception.spi.SQLExceptionConverter;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -29,6 +31,7 @@ public class StandardSQLExceptionConverter implements SQLExceptionConverter {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public JDBCException convert(SQLException sqlException, String message, String sql) {
 		for ( var delegate : delegates ) {
 			final var jdbcException = delegate.convert( sqlException, message, sql );

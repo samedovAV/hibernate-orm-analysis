@@ -15,6 +15,8 @@ import org.hibernate.sql.ast.tree.expression.JsonQueryEmptyBehavior;
 import org.hibernate.sql.ast.tree.expression.JsonQueryErrorBehavior;
 import org.hibernate.sql.ast.tree.expression.JsonQueryWrapMode;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * H2 json_query function.
@@ -26,6 +28,7 @@ public class H2JsonQueryFunction extends JsonQueryFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void render(
 			SqlAppender sqlAppender,
 			JsonQueryArguments arguments,
@@ -50,6 +53,7 @@ public class H2JsonQueryFunction extends JsonQueryFunction {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static void appendJsonQuery(
 			SqlAppender sqlAppender,
 			Expression jsonDocument,
@@ -69,6 +73,7 @@ public class H2JsonQueryFunction extends JsonQueryFunction {
 		appendJsonQuery( sqlAppender, jsonDocument, isJsonType, jsonPath, passingClause, wrapMode, emptyBehavior, walker );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static void appendJsonQuery(
 			SqlAppender sqlAppender,
 			Expression jsonDocument,

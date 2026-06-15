@@ -9,6 +9,8 @@ import java.lang.reflect.Method;
 
 import org.hibernate.internal.util.ReflectHelper;
 import org.hibernate.property.access.spi.PropertyAccessSerializationException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base Serializable form for setter methods
@@ -31,26 +33,32 @@ public abstract class AbstractSetterMethodSerialForm implements Serializable {
 		this.argumentType = method.getParameterTypes()[0];
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getContainerClass() {
 		return containerClass;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getPropertyName() {
 		return propertyName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getDeclaringClass() {
 		return declaringClass;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getMethodName() {
 		return methodName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getArgumentType() {
 		return argumentType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Method resolveMethod() {
 		try {
 			final var method = declaringClass.getDeclaredMethod( methodName, argumentType );

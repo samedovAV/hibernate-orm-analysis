@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.hibernate.service.ServiceRegistry;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A factory for {@link ConnectionCreator}.
@@ -17,6 +19,7 @@ import org.hibernate.service.ServiceRegistry;
  */
 public interface ConnectionCreatorFactory {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ConnectionCreator create(
 			Driver driver,
 			ServiceRegistry serviceRegistry,

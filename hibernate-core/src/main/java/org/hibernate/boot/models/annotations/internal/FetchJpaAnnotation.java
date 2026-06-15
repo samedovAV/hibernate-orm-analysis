@@ -17,6 +17,8 @@ import jakarta.persistence.QueryHint;
 
 import static org.hibernate.boot.models.JpaAnnotations.FETCH;
 import static org.hibernate.boot.models.internal.OrmAnnotationHelper.extractJdkValue;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -69,69 +71,84 @@ public class FetchJpaAnnotation implements Fetch {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return Fetch.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String graph() {
 		return graph;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void graph(String value) {
 		this.graph = value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] subgraph() {
 		return subgraph;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void subgraph(String[] value) {
 		this.subgraph = value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchType type() {
 		return type;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void type(FetchType value) {
 		this.type = value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int batchSize() {
 		return batchSize;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void batchSize(int value) {
 		this.batchSize = value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CacheStoreMode cacheStoreMode() {
 		return cacheStoreMode;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void cacheStoreMode(CacheStoreMode value) {
 		this.cacheStoreMode = value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CacheRetrieveMode cacheRetrieveMode() {
 		return cacheRetrieveMode;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void cacheRetrieveMode(CacheRetrieveMode value) {
 		this.cacheRetrieveMode = value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QueryHint[] hints() {
 		return hints;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void hints(QueryHint[] value) {
 		this.hints = value;
 	}

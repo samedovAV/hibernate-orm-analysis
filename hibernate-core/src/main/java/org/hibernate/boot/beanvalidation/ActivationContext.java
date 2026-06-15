@@ -10,6 +10,8 @@ import org.hibernate.boot.Metadata;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.service.spi.SessionFactoryServiceRegistry;
 import org.hibernate.tool.schema.ValidationConstraintDdlInfluence;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Defines the context needed to call the {@link TypeSafeActivator}.
@@ -26,6 +28,7 @@ public interface ActivationContext {
 	 *
 	 * @return The requested validation modes
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Set<ValidationMode> getValidationModes();
 
 	/**
@@ -33,6 +36,7 @@ public interface ActivationContext {
 	 *
 	 * @return The mapping metadata
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Metadata getMetadata();
 
 	/**
@@ -40,6 +44,7 @@ public interface ActivationContext {
 	 *
 	 * @return The SessionFactory being built
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryImplementor getSessionFactory();
 
 	/**
@@ -47,10 +52,12 @@ public interface ActivationContext {
 	 *
 	 * @return The SessionFactoryServiceRegistry
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryServiceRegistry getServiceRegistry();
 
 	/**
 	 * @return Resolved validation constraint influence on DDL.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ValidationConstraintDdlInfluence getValidationConstraintDdlInfluence();
 }

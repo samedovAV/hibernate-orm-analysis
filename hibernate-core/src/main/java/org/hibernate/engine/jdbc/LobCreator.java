@@ -9,6 +9,8 @@ import java.io.Reader;
 import java.sql.Blob;
 import java.sql.Clob;
 import java.sql.NClob;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for creating various LOB references.
@@ -31,6 +33,7 @@ public interface LobCreator {
 	 * @return The wrapped blob which will be castable to {@link Blob}
 	 * as well as {@link org.hibernate.engine.jdbc.proxy.WrappedBlob}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Blob wrap(Blob blob);
 
 	/**
@@ -40,6 +43,7 @@ public interface LobCreator {
 	 * @return The wrapped clob which will be castable to {@link Clob}
 	 * as well as {@link org.hibernate.engine.jdbc.proxy.WrappedClob}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Clob wrap(Clob clob);
 
 	/**
@@ -49,6 +53,7 @@ public interface LobCreator {
 	 * @return The wrapped nclob which will be castable to {@link NClob}
 	 * as well as {@link org.hibernate.engine.jdbc.proxy.WrappedNClob}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NClob wrap(NClob nclob);
 
 	/**
@@ -57,6 +62,7 @@ public interface LobCreator {
 	 * @param bytes The byte array to wrap as a blob.
 	 * @return The created blob, castable to {@link Blob} as well as {@link BlobImplementer}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Blob createBlob(byte[] bytes);
 
 	/**
@@ -66,6 +72,7 @@ public interface LobCreator {
 	 * @param length The length of the stream.
 	 * @return The created blob, castable to {@link Blob} as well as {@link BlobImplementer}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Blob createBlob(InputStream stream, long length);
 
 	/**
@@ -74,6 +81,7 @@ public interface LobCreator {
 	 * @param string The String to wrap as a clob.
 	 * @return The created clob, castable to {@link Clob} as well as {@link ClobImplementer}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Clob createClob(String string);
 
 	/**
@@ -83,6 +91,7 @@ public interface LobCreator {
 	 * @param length The length of the reader data.
 	 * @return The created clob, castable to {@link Clob} as well as {@link ClobImplementer}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Clob createClob(Reader reader, long length);
 
 	/**
@@ -92,6 +101,7 @@ public interface LobCreator {
 	 * @return The created NCLOB, castable as {@link Clob} as well as {@link NClobImplementer}.  In JDK 1.6
 	 * environments, also castable to java.sql.NClob
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NClob createNClob(String string);
 
 	/**
@@ -102,6 +112,7 @@ public interface LobCreator {
 	 * @return The created NCLOB, castable as {@link Clob} as well as {@link NClobImplementer}.  In JDK 1.6
 	 * environments, also castable to java.sql.NClob
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NClob createNClob(Reader reader, long length);
 
 	/**
@@ -116,6 +127,7 @@ public interface LobCreator {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Blob toJdbcBlob(Blob clob);
 
 	/**
@@ -130,6 +142,7 @@ public interface LobCreator {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Clob toJdbcClob(Clob clob);
 
 	/**
@@ -144,5 +157,6 @@ public interface LobCreator {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NClob toJdbcNClob(NClob clob);
 }

@@ -8,6 +8,8 @@ package org.hibernate.type.format;
 import org.hibernate.type.descriptor.WrapperOptions;
 import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -22,24 +24,28 @@ public interface JsonDocumentWriter {
 	 * Starts a new JSON Objects.
 	 * @return this instance
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JsonDocumentWriter startObject();
 
 	/**
 	 * Ends a new JSON Objects
 	 * @return this instance
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JsonDocumentWriter endObject();
 
 	/**
 	 * Starts a new JSON array.
 	 * @return this instance
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JsonDocumentWriter startArray();
 
 	/**
 	 * Ends a new JSON array.
 	 * @return this instance
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JsonDocumentWriter endArray();
 
 	/**
@@ -48,12 +54,14 @@ public interface JsonDocumentWriter {
 	 * @return this instance
 	 * @throws IllegalArgumentException key name does not follow JSON specification.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JsonDocumentWriter objectKey(String key);
 
 	/**
 	 * Adds a new JSON element null value.
 	 * @return this instance
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JsonDocumentWriter nullValue();
 
 	/**
@@ -61,6 +69,7 @@ public interface JsonDocumentWriter {
 	 * @return this instance
 	 * @param value the element numeric name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JsonDocumentWriter numericValue(Number value);
 
 	/**
@@ -68,6 +77,7 @@ public interface JsonDocumentWriter {
 	 * @return this instance
 	 * @param value the element boolean name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JsonDocumentWriter booleanValue(boolean value);
 
 	/**
@@ -75,6 +85,7 @@ public interface JsonDocumentWriter {
 	 * @return this instance
 	 * @param value the element string name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JsonDocumentWriter stringValue(String value);
 
 	/**
@@ -85,6 +96,7 @@ public interface JsonDocumentWriter {
 	 * @param options the wrapping options
 	 * @return this instance
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> JsonDocumentWriter serializeJsonValue(Object value,
 							JavaType<T> javaType,
 							JdbcType jdbcType,

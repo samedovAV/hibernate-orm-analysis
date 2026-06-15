@@ -15,6 +15,8 @@ import org.hibernate.persister.entity.EntityPersister;
 
 import static org.hibernate.cache.spi.entry.CacheEntryHelper.buildStructuredCacheEntry;
 import static org.hibernate.stat.internal.StatsHelper.getRootEntityRole;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public final class OptimisticLockHelper {
 
@@ -22,6 +24,7 @@ public final class OptimisticLockHelper {
 		//utility class, not to be constructed
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void forceVersionIncrement(Object object, EntityEntry entry, SharedSessionContractImplementor session) {
 		final var persister = entry.getPersister();
 		final Object previousVersion = entry.getVersion();
@@ -64,6 +67,7 @@ public final class OptimisticLockHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Object updateCacheItem(
 			Object entity,
 			Object previousVersion,
@@ -92,6 +96,7 @@ public final class OptimisticLockHelper {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean updateCache(
 			EntityPersister persister,
 			Object cacheEntry,
@@ -122,6 +127,7 @@ public final class OptimisticLockHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static boolean isCacheInvalidationRequired(
 			EntityPersister persister,
 			SharedSessionContractImplementor session) {
@@ -154,6 +160,7 @@ public final class OptimisticLockHelper {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void doAfterTransactionCompletion(boolean success, SharedSessionContractImplementor session) {
 			final var cache = persister.getCacheAccessStrategy();
 			if ( cacheUpdateRequired( success, persister, session ) ) {
@@ -164,12 +171,14 @@ public final class OptimisticLockHelper {
 			}
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private static boolean cacheUpdateRequired(boolean success, EntityPersister persister, SharedSessionContractImplementor session) {
 			return success
 				&& !persister.isCacheInvalidationRequired()
 				&& session.getCacheMode().isPutEnabled();
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		protected void cacheAfterUpdate(EntityDataAccess cache, Object cacheKey, SharedSessionContractImplementor session) {
 			final var eventListenerManager = session.getEventListenerManager();
 			final var eventMonitor = session.getEventMonitor();

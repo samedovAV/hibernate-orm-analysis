@@ -11,6 +11,8 @@ import org.hibernate.query.spi.QueryEngine;
 import org.hibernate.query.sqm.produce.function.ArgumentsValidator;
 import org.hibernate.query.sqm.produce.function.SetReturningFunctionTypeResolver;
 import org.hibernate.query.sqm.tree.SqmTypedNode;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A factory for SQM nodes representing invocations of a certain
@@ -55,6 +57,7 @@ public interface SqmSetReturningFunctionDescriptor {
 	 * portable between databases.
 	 *
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> SelfRenderingSqmSetReturningFunction<T> generateSqmExpression(
 			List<? extends SqmTypedNode<?>> arguments,
 			QueryEngine queryEngine);
@@ -65,6 +68,7 @@ public interface SqmSetReturningFunctionDescriptor {
 	 * @param name the function name
 	 * @return the signature of the function
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String getSignature(String name) {
 		return name;
 	}
@@ -74,6 +78,7 @@ public interface SqmSetReturningFunctionDescriptor {
 	 *
 	 * @return an instance of {@link ArgumentsValidator}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ArgumentsValidator getArgumentsValidator();
 
 }

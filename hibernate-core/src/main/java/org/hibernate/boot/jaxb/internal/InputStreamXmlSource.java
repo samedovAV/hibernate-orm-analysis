@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import static org.hibernate.boot.jaxb.JaxbLogger.JAXB_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Support for processing mapping XML from a {@linkplain InputStream} reference.
@@ -28,6 +30,7 @@ public class InputStreamXmlSource {
 	 *
 	 * @apiNote This method does not close the given {@code inputStream}.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static Binding<? extends JaxbBindableMappingDescriptor> fromStream(
 			InputStream inputStream,
 			MappingBinder mappingBinder) {
@@ -48,6 +51,7 @@ public class InputStreamXmlSource {
 	 * @param autoClose Whether to {@linkplain InputStream#close() close} the stream after we have processed it
 	 * @param binder The JAXB binder to use
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Binding<? extends JaxbBindableMappingDescriptor> fromStream(
 			InputStream stream,
 			Origin origin,

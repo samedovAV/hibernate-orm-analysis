@@ -6,6 +6,8 @@ package org.hibernate.stat.spi;
 
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.service.JavaServiceLoadable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Factory for custom implementations of {@link StatisticsImplementor}.
@@ -18,5 +20,6 @@ import org.hibernate.service.JavaServiceLoadable;
  */
 @JavaServiceLoadable
 public interface StatisticsFactory {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StatisticsImplementor buildStatistics(SessionFactoryImplementor sessionFactory);
 }

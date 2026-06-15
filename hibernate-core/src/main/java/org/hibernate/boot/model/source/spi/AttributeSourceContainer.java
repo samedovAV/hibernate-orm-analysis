@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.source.spi;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for a container of {@link AttributeSource} references.  Entities,
@@ -16,7 +18,9 @@ import java.util.List;
  * @author Steve Ebersole
  */
 public interface AttributeSourceContainer extends ToolingHintContextContainer {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	AttributePath getAttributePathBase();
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	AttributeRole getAttributeRoleBase();
 
 	/**
@@ -24,6 +28,7 @@ public interface AttributeSourceContainer extends ToolingHintContextContainer {
 	 *
 	 * @return The attribute sources.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<AttributeSource> attributeSources();
 
 	/**
@@ -31,5 +36,6 @@ public interface AttributeSourceContainer extends ToolingHintContextContainer {
 	 *
 	 * @return The local binding context
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	LocalMetadataBuildingContext getLocalMetadataBuildingContext();
 }

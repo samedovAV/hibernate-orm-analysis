@@ -24,6 +24,8 @@ import static org.hibernate.boot.models.xml.internal.attr.CommonAttributeProcess
 import static org.hibernate.boot.models.xml.internal.attr.CommonAttributeProcessing.applyOptimisticLock;
 import static org.hibernate.boot.models.xml.internal.attr.CommonPluralAttributeProcessing.applyPluralAttributeStructure;
 import static org.hibernate.internal.util.NullnessHelper.coalesce;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -31,6 +33,7 @@ import static org.hibernate.internal.util.NullnessHelper.coalesce;
 public class ManyToManyAttributeProcessing {
 
 	@SuppressWarnings("UnusedReturnValue")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static MutableMemberDetails processManyToManyAttribute(
 			JaxbManyToManyImpl jaxbManyToMany,
 			MutableClassDetails declarer,
@@ -81,6 +84,7 @@ public class ManyToManyAttributeProcessing {
 		return memberDetails;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void applyTarget(
 			JaxbManyToManyImpl jaxbManyToMany,
 			XmlDocumentContext xmlDocumentContext,
@@ -98,6 +102,7 @@ public class ManyToManyAttributeProcessing {
 		targetAnn.value( xmlDocumentContext.resolveClassName( jaxbManyToMany.getTargetEntity() ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static ManyToManyJpaAnnotation applyManyToMany(
 			JaxbManyToManyImpl jaxbManyToMany,
 			MutableMemberDetails memberDetails,

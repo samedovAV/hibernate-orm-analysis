@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.query.sqm;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Indicates that a reference to an entity, that is, a given entity name
@@ -27,6 +30,7 @@ public class EntityTypeException extends IllegalArgumentException {
 	/**
 	 * The entity name or the name of the Java class.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getReference() {
 		return reference;
 	}

@@ -6,6 +6,8 @@ package org.hibernate.cache.spi;
 
 import org.hibernate.boot.spi.SessionFactoryOptions;
 import org.hibernate.cache.CacheException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for a named cache "region".  A logical region might not
@@ -32,16 +34,19 @@ public interface Region {
 	/**
 	 * Retrieve the unqualified name of this region.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getName();
 
 	/**
 	 * The RegionFactory that generated this Region
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	RegionFactory getRegionFactory();
 
 	/**
 	 * Clear all data cached in the region
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void clear();
 
 	/**
@@ -51,5 +56,6 @@ public interface Region {
 	 *
 	 * @throws CacheException Indicates problem shutting down
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void destroy() throws CacheException;
 }

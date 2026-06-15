@@ -15,6 +15,8 @@ import jakarta.persistence.MapKeyJoinColumn;
 import jakarta.persistence.MapKeyJoinColumns;
 
 import static org.hibernate.boot.models.internal.OrmAnnotationHelper.extractJdkValue;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -53,25 +55,30 @@ public class MapKeyJoinColumnsJpaAnnotation implements MapKeyJoinColumns, Repeat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return MapKeyJoinColumns.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.MapKeyJoinColumn[] value() {
 		return value;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void value(jakarta.persistence.MapKeyJoinColumn[] value) {
 		this.value = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.ForeignKey foreignKey() {
 		return foreignKey;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void foreignKey(jakarta.persistence.ForeignKey value) {
 		this.foreignKey = value;
 	}

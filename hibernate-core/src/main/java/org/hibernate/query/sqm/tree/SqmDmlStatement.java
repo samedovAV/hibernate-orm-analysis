@@ -10,6 +10,8 @@ import org.hibernate.query.criteria.JpaRoot;
 import org.hibernate.query.sqm.tree.cte.SqmCteContainer;
 import org.hibernate.query.sqm.tree.delete.SqmDeleteStatement;
 import org.hibernate.query.sqm.tree.from.SqmRoot;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Common extension of SqmStatement for DML (delete, update and insert-select)
@@ -25,11 +27,13 @@ public interface SqmDmlStatement<E> extends SqmStatement<E>, SqmCteContainer, Jp
 	 */
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqmRoot<E> getTarget();
 
 	/**
 	 * Set the root path
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setTarget(@Nonnull JpaRoot<E> root);
 }

@@ -19,6 +19,8 @@ import org.hibernate.boot.model.source.spi.NaturalIdMutability;
 import org.hibernate.boot.model.source.spi.PluralAttributeIndexNature;
 import org.hibernate.boot.model.source.spi.PluralAttributeMapKeySourceEmbedded;
 import org.hibernate.boot.model.source.spi.ToolingHintContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gail Badner
@@ -38,16 +40,19 @@ public class PluralAttributeMapKeySourceEmbeddedImpl
 				pluralAttributeSource,
 				new EmbeddableMapping() {
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public String getClazz() {
 						return jaxbCompositeIndexElement.getClazz();
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public List<JaxbHbmTuplizerType> getTuplizer() {
 						return Collections.emptyList();
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public String getParent() {
 						return null;
 					}
@@ -65,16 +70,19 @@ public class PluralAttributeMapKeySourceEmbeddedImpl
 				pluralAttributeSource,
 				new EmbeddableMapping() {
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public String getClazz() {
 						return jaxbCompositeMapKey.getClazz();
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public List<JaxbHbmTuplizerType> getTuplizer() {
 						return Collections.emptyList();
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public String getParent() {
 						return null;
 					}
@@ -93,16 +101,19 @@ public class PluralAttributeMapKeySourceEmbeddedImpl
 				mappingDocument,
 				new EmbeddableSourceContainer() {
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public AttributeRole getAttributeRoleBase() {
 						return pluralAttributeSource.getAttributeRole().append( "key" );
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public AttributePath getAttributePathBase() {
 						return pluralAttributeSource.getAttributePath().append( "key" );
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public ToolingHintContext getToolingHintContextBaselineForEmbeddable() {
 						return pluralAttributeSource.getToolingHintContext();
 					}
@@ -117,21 +128,25 @@ public class PluralAttributeMapKeySourceEmbeddedImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PluralAttributeIndexNature getNature() {
 		return PluralAttributeIndexNature.AGGREGATE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableSource getEmbeddableSource() {
 		return embeddableSource;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernateTypeSource getTypeInformation() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getXmlNodeName() {
 		return null;
 	}

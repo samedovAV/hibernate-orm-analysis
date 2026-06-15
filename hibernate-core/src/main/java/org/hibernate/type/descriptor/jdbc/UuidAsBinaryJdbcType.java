@@ -15,6 +15,8 @@ import java.sql.Types;
 import java.util.Arrays;
 
 import static org.hibernate.type.SqlTypes.UUID;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Jan Schatteman
@@ -24,31 +26,37 @@ public class UuidAsBinaryJdbcType extends BinaryJdbcType {
 	public static final UuidAsBinaryJdbcType INSTANCE = new UuidAsBinaryJdbcType();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getDdlTypeCode() {
 		return Types.BINARY;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getDefaultSqlTypeCode() {
 		return UUID;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> ValueExtractor<X> getExtractor( JavaType<X> javaType ) {
 		return new BasicExtractor<>( javaType, this ) {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract( ResultSet rs, int paramIndex, WrapperOptions options ) throws SQLException {
 				final byte[] bytes = rs.getBytes( paramIndex );
 				return javaType.wrap( bytes == null || bytes.length == 16 ? bytes : Arrays.copyOf( bytes, 16 ), options );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract( CallableStatement statement, int index, WrapperOptions options ) throws SQLException {
 				final byte[] bytes = statement.getBytes( index );
 				return javaType.wrap( bytes == null || bytes.length == 16 ? bytes : Arrays.copyOf( bytes, 16 ), options );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract( CallableStatement statement, String name, WrapperOptions options )
 					throws SQLException {
 				final byte[] bytes = statement.getBytes( name );

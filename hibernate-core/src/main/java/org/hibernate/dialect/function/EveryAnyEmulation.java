@@ -24,6 +24,8 @@ import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.type.spi.TypeConfiguration;
 
 import static org.hibernate.query.sqm.produce.function.FunctionParameterType.BOOLEAN;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Most databases don't have a function like {@code every()} or {@code any()}.
@@ -65,6 +67,7 @@ public class EveryAnyEmulation extends AbstractSqmSelfRenderingFunctionDescripto
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,
@@ -107,6 +110,7 @@ public class EveryAnyEmulation extends AbstractSqmSelfRenderingFunctionDescripto
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender, List<? extends SqlAstNode> sqlAstArguments,
 			ReturnableType<?> returnType,

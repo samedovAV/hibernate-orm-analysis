@@ -33,6 +33,8 @@ import static org.hibernate.boot.model.internal.BinderHelper.getPath;
 import static org.hibernate.boot.model.internal.DialectOverridesAnnotationHelper.getOverridableAnnotation;
 import static org.hibernate.internal.util.StringHelper.nullIfEmpty;
 import static org.hibernate.internal.util.collections.CollectionHelper.isNotEmpty;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Do the initial discovery of columns metadata and apply defaults.
@@ -67,14 +69,17 @@ class ColumnsBuilder {
 		this.buildingContext = buildingContext;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AnnotatedColumns getColumns() {
 		return columns;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AnnotatedJoinColumns getJoinColumns() {
 		return joinColumns;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public ColumnsBuilder extractMetadata() {
 		columns = null;
 		joinColumns = buildExplicitJoinColumns( property, inferredData );
@@ -146,6 +151,7 @@ class ColumnsBuilder {
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private AnnotatedJoinColumns buildDefaultJoinColumnsForToOne(
 			MemberDetails property,
 			PropertyData inferredData) {
@@ -174,6 +180,7 @@ class ColumnsBuilder {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private AnnotatedJoinColumns buildExplicitJoinColumns(MemberDetails property, PropertyData inferredData) {
 		// process @JoinColumns before @Columns to handle collection of entities properly
 		final var joinColumns = getJoinColumnAnnotations( property );
@@ -213,6 +220,7 @@ class ColumnsBuilder {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private JoinColumnOrFormula[] joinColumnOrFormulaAnnotations(MemberDetails property) {
 		final var annotations = property.getRepeatedAnnotationUsages(
 				HibernateAnnotations.JOIN_COLUMN_OR_FORMULA,
@@ -221,6 +229,7 @@ class ColumnsBuilder {
 		return isNotEmpty( annotations ) ? annotations : null;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private JoinColumn[] getJoinColumnAnnotations(MemberDetails property) {
 		final var modelsContext = buildingContext.getBootstrapContext().getModelsContext();
 		final var joinColumns = property.getRepeatedAnnotationUsages( JpaAnnotations.JOIN_COLUMN, modelsContext );
@@ -253,6 +262,7 @@ class ColumnsBuilder {
 	/**
 	 * Useful to override a column either by {@code @MapsId} or by {@code @IdClass}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	AnnotatedColumns overrideColumnFromMapperOrMapsIdProperty(PropertyData override) {
 		if ( override != null ) {
 			final var memberDetails = override.getAttributeMember();

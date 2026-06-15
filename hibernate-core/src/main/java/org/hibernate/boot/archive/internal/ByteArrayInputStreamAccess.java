@@ -9,6 +9,8 @@ import org.hibernate.boot.archive.spi.InputStreamAccess;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.Serializable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// An InputStreamAccess implementation based on a byte array
 ///
@@ -23,11 +25,13 @@ public class ByteArrayInputStreamAccess implements InputStreamAccess, Serializab
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getStreamName() {
 		return name;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public InputStream accessInputStream() {
 		return new ByteArrayInputStream( bytes );
 	}

@@ -6,6 +6,8 @@ package org.hibernate.action.queue.spi.decompose;
 
 import org.hibernate.Incubating;
 import org.hibernate.action.queue.spi.bind.DelayedValueAccess;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Context for decomposition operations, providing information about entities being
 /// mutated in the current flush.
@@ -26,16 +28,19 @@ public interface DecompositionContext {
 	///
 	/// @param entity the entity to check
 	/// @return true if the entity has an INSERT action in this flush, false otherwise
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isBeingInsertedInCurrentFlush(Object entity);
 
 	/// Check if an entity is being deleted in the current flush.
 	///
 	/// @param entity the entity to check
 	/// @return true if the entity has a DELETE action in this flush, false otherwise
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isBeingDeletedInCurrentFlush(Object entity);
 
 	/// Attribute indexes updated for an entity that is also deleted in the current flush.
 	/// These attributes may already have been changed in the database before the DELETE executes.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int[] getUpdatedAttributeIndexesForDeletedEntity(Object entity) {
 		return null;
 	}
@@ -44,6 +49,7 @@ public interface DecompositionContext {
 	///
 	/// Returns `null` when the entity identifier is already known, or when the
 	/// entity is not part of this decomposition context.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default DelayedValueAccess getGeneratedIdentifierHandle(Object entity) {
 		return null;
 	}
@@ -52,6 +58,7 @@ public interface DecompositionContext {
 	///
 	/// @return `true` when callbacks should be fired by the caller; `false`
 	/// when another action already registered them for the same owner.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean registerOwnerUpdateCallbacks(Object owner) {
 		return true;
 	}

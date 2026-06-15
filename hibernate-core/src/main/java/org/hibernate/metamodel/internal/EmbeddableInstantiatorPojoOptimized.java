@@ -10,6 +10,8 @@ import org.hibernate.metamodel.mapping.EmbeddableMappingType;
 import org.hibernate.metamodel.spi.ValueAccess;
 
 import static org.hibernate.bytecode.spi.ReflectionOptimizer.InstantiationOptimizer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Support for instantiating embeddables as POJO representation
@@ -31,6 +33,7 @@ public class EmbeddableInstantiatorPojoOptimized
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object instantiate(ValueAccess valuesAccess) {
 		final Object embeddable = instantiationOptimizer.newInstance();
 		final var embeddableMapping = embeddableMappingAccess.get();

@@ -10,6 +10,8 @@ import org.hibernate.sql.ast.tree.SqlAstNode;
 import org.hibernate.type.spi.TypeConfiguration;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Validates the arguments provided to an HQL function invocation.
@@ -26,6 +28,7 @@ public interface ArgumentsValidator {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void validate(List<? extends SqmTypedNode<?>> arguments, String functionName, BindingContext bindingContext) {
 		validate( arguments, functionName, bindingContext.getTypeConfiguration() );
 	}
@@ -36,6 +39,7 @@ public interface ArgumentsValidator {
 	 * @deprecated Implement {@link #validate(List, String, BindingContext)} instead
 	 */
 	@Deprecated(since = "7.0", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void validate(List<? extends SqmTypedNode<?>> arguments, String functionName, TypeConfiguration typeConfiguration) {
 		throw new UnsupportedOperationException( "Deprecated operation not implemented" );
 	}
@@ -43,6 +47,7 @@ public interface ArgumentsValidator {
 	/**
 	 * Pretty-print the signature of the argument list.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String getSignature() {
 		return "( ... )";
 	}
@@ -50,6 +55,7 @@ public interface ArgumentsValidator {
 	/**
 	 * Perform validation that requires the {@link SqlAstNode} tree and assigned JDBC types.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void validateSqlTypes(List<? extends SqlAstNode> arguments, String functionName) {}
 
 }

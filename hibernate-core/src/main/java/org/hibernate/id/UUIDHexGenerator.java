@@ -12,6 +12,8 @@ import org.hibernate.generator.GeneratorCreationContext;
 
 import static org.hibernate.internal.log.DeprecationLogger.DEPRECATION_LOGGER;
 import static org.hibernate.internal.util.config.ConfigurationHelper.getString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The legacy id generator named {@code uuid} / {@code uuid.hex}.
@@ -50,16 +52,19 @@ public class UUIDHexGenerator extends AbstractUUIDGenerator {
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void configure(GeneratorCreationContext creationContext, Properties parameters) throws MappingException {
 		sep = getString( SEPARATOR, parameters, "" );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getGeneratedType() {
 		return String.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object generate(SharedSessionContractImplementor session, Object obj) {
 		return format( getIP() ) + sep
 				+ format( getJVM() ) + sep
@@ -68,6 +73,7 @@ public class UUIDHexGenerator extends AbstractUUIDGenerator {
 				+ format( getCount() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String format(int intValue) {
 		String formatted = Integer.toHexString( intValue );
 		StringBuilder buf = new StringBuilder( "00000000" );
@@ -75,6 +81,7 @@ public class UUIDHexGenerator extends AbstractUUIDGenerator {
 		return buf.toString();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String format(short shortValue) {
 		String formatted = Integer.toHexString( shortValue );
 		StringBuilder buf = new StringBuilder( "0000" );

@@ -8,6 +8,8 @@ import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for extracting {@link ResultSet}s from {@link Statement}s, executing the statements,
@@ -29,6 +31,7 @@ public interface ResultSetReturn {
 	 *
 	 * @return The extracted {@link ResultSet}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ResultSet extract(PreparedStatement statement, String sql);
 
 	/**
@@ -39,6 +42,7 @@ public interface ResultSetReturn {
 	 *
 	 * @return The resulting {@link ResultSet}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ResultSet extract(Statement statement, String sql);
 
 	/**
@@ -50,6 +54,7 @@ public interface ResultSetReturn {
 	 *
 	 * @return The extracted {@link ResultSet}, or {@code null}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ResultSet execute(PreparedStatement statement, String sql);
 
 	/**
@@ -61,6 +66,7 @@ public interface ResultSetReturn {
 	 *
 	 * @return The extracted {@link ResultSet}, or {@code null}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ResultSet execute(Statement statement, String sql);
 
 	/**
@@ -71,6 +77,7 @@ public interface ResultSetReturn {
 	 *
 	 * @return The {@link PreparedStatement#executeUpdate()} result
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int executeUpdate(PreparedStatement statement, String sql);
 
 	/**
@@ -81,5 +88,6 @@ public interface ResultSetReturn {
 	 *
 	 * @return The {@link PreparedStatement#executeUpdate(String)} result
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int executeUpdate(Statement statement, String sql);
 }

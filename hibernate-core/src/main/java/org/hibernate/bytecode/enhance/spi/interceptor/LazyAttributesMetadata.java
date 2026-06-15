@@ -20,6 +20,8 @@ import org.hibernate.mapping.PersistentClass;
 import static java.util.Collections.unmodifiableMap;
 import static java.util.Collections.unmodifiableSet;
 import static org.hibernate.internal.util.collections.CollectionHelper.toSmallSet;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Information about the bytecode lazy attributes for an entity
@@ -32,6 +34,7 @@ public class LazyAttributesMetadata implements Serializable {
 	 * Build a LazyFetchGroupMetadata based on the attributes defined for the
 	 * PersistentClass
 	 */
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public static LazyAttributesMetadata from(
 			PersistentClass mappedEntity,
 			boolean isEnhanced,
@@ -81,6 +84,7 @@ public class LazyAttributesMetadata implements Serializable {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static LazyAttributesMetadata nonEnhanced(String entityName) {
 		return new LazyAttributesMetadata( entityName );
 	}
@@ -107,18 +111,22 @@ public class LazyAttributesMetadata implements Serializable {
 		this.lazyAttributeNames = toSmallSet( unmodifiableSet( lazyAttributeDescriptorMap.keySet() ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getEntityName() {
 		return entityName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasLazyAttributes() {
 		return !lazyAttributeDescriptorMap.isEmpty();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int lazyAttributeCount() {
 		return lazyAttributeDescriptorMap.size();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Set<String> getLazyAttributeNames() {
 		return lazyAttributeNames;
 	}
@@ -126,22 +134,27 @@ public class LazyAttributesMetadata implements Serializable {
 	/**
 	 * @return an immutable set
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Set<String> getFetchGroupNames() {
 		return fetchGroupNames;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isLazyAttribute(String attributeName) {
 		return lazyAttributeDescriptorMap.containsKey( attributeName );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getFetchGroupName(String attributeName) {
 		return lazyAttributeDescriptorMap.get( attributeName ).getFetchGroupName();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Set<String> getAttributesInFetchGroup(String fetchGroupName) {
 		return fetchGroupToAttributeMap.get( fetchGroupName );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public List<LazyAttributeDescriptor> getFetchGroupAttributeDescriptors(String groupName) {
 		final var attributeNames = fetchGroupToAttributeMap.get( groupName );
 		final List<LazyAttributeDescriptor> list = new ArrayList<>( attributeNames.size() );

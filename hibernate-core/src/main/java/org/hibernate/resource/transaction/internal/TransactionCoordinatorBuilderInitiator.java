@@ -15,6 +15,8 @@ import org.hibernate.service.spi.ServiceRegistryImplementor;
 
 import static org.hibernate.cfg.TransactionSettings.TRANSACTION_COORDINATOR_STRATEGY;
 import static org.hibernate.internal.log.DeprecationLogger.DEPRECATION_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * StandardServiceInitiator for initiating the TransactionCoordinatorBuilder service.
@@ -31,6 +33,7 @@ public class TransactionCoordinatorBuilderInitiator implements StandardServiceIn
 	public static final TransactionCoordinatorBuilderInitiator INSTANCE = new TransactionCoordinatorBuilderInitiator();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TransactionCoordinatorBuilder initiateService(@Nonnull Map<String, Object> configurationValues, @Nonnull ServiceRegistryImplementor registry) {
 		return registry.requireService( StrategySelector.class )
 				.resolveDefaultableStrategy( TransactionCoordinatorBuilder.class,
@@ -38,6 +41,7 @@ public class TransactionCoordinatorBuilderInitiator implements StandardServiceIn
 						JdbcResourceLocalTransactionCoordinatorBuilderImpl.INSTANCE );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Object determineStrategySelection(Map<String, Object> configurationValues) {
 		final Object coordinatorStrategy = configurationValues.get( TRANSACTION_COORDINATOR_STRATEGY );
 		if ( coordinatorStrategy != null ) {
@@ -59,6 +63,7 @@ public class TransactionCoordinatorBuilderInitiator implements StandardServiceIn
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<TransactionCoordinatorBuilder> getServiceInitiated() {
 		return TransactionCoordinatorBuilder.class;
 	}

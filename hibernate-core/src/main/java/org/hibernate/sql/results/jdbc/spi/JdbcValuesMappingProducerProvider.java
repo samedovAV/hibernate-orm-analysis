@@ -9,6 +9,8 @@ import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.query.results.spi.ResultSetMapping;
 import org.hibernate.service.Service;
 import org.hibernate.sql.ast.tree.select.SelectStatement;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Pluggable contract for providing custom {@link JdbcValuesMappingProducer} implementations.
@@ -21,10 +23,12 @@ public interface JdbcValuesMappingProducerProvider extends Service {
 	/**
 	 * Provide the JdbcValuesMappingProducer to use for the given SQL AST
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcValuesMappingProducer buildMappingProducer(SelectStatement sqlAst, SessionFactoryImplementor sessionFactory);
 
 	/**
 	 * Provide a dynamically built JdbcValuesMappingProducer
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ResultSetMapping buildResultSetMapping(String name, boolean isDynamic, SessionFactoryImplementor sessionFactory);
 }

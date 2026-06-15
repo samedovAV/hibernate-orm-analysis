@@ -15,6 +15,8 @@ import java.util.Set;
 
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
 import static org.hibernate.internal.util.collections.ArrayHelper.EMPTY_STRING_ARRAY;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Encapsulates behavior needed for after transaction processing
@@ -28,15 +30,18 @@ class AfterTransactionCompletionProcessQueue
 		super( session );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addSpaceToInvalidate(String space) {
 		querySpacesToInvalidate.add( space );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	boolean hasActions() {
 		return super.hasActions() || !querySpacesToInvalidate.isEmpty();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	void afterTransactionCompletion(boolean success) {
 		AfterCompletionCallback process;
 		while ( (process = processes.poll()) != null ) {
@@ -45,12 +50,14 @@ class AfterTransactionCompletionProcessQueue
 		invalidateCaches();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void executePendingBulkOperationCleanUpActions() {
 		if ( performBulkOperationCallbacks() ) {
 			invalidateCaches();
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private boolean performBulkOperationCallbacks() {
 		boolean hasPendingBulkOperationCleanUpActions = false;
 		var iterator = processes.iterator();
@@ -66,6 +73,7 @@ class AfterTransactionCompletionProcessQueue
 		return hasPendingBulkOperationCleanUpActions;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean callAfterCompletion(boolean success, AfterCompletionCallback process) {
 		try {
 			process.doAfterTransactionCompletion( success, session );
@@ -82,6 +90,7 @@ class AfterTransactionCompletionProcessQueue
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void invalidateCaches() {
 		final var factory = session.getFactory();
 		if ( factory.getSessionFactoryOptions().isQueryCacheEnabled() ) {

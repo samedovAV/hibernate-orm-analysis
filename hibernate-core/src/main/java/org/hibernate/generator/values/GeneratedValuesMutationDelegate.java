@@ -15,6 +15,8 @@ import org.hibernate.sql.model.ast.builder.TableMutationBuilder;
 import org.hibernate.sql.results.jdbc.spi.JdbcValuesMappingProducer;
 
 import java.sql.PreparedStatement;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Each implementation defines a strategy for retrieving values
@@ -35,11 +37,13 @@ public interface GeneratedValuesMutationDelegate {
 	/**
 	 * Create a {@link TableMutationBuilder} instance used to build table mutations for this delegate.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TableMutationBuilder<?> createTableMutationBuilder(Expectation expectation, SessionFactoryImplementor sessionFactory);
 
 	/**
 	 * Create a {@link PreparedStatement} from the provided {@code sql} based on the delegate needs.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PreparedStatement prepareStatement(String sql, SharedSessionContractImplementor session);
 
 	/**
@@ -47,6 +51,7 @@ public interface GeneratedValuesMutationDelegate {
 	 *
 	 * @see #createTableMutationBuilder
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	GeneratedValues performMutation(
 			PreparedStatementDetails statementDetails,
 			JdbcValueBindings valueBindings,
@@ -58,6 +63,7 @@ public interface GeneratedValuesMutationDelegate {
 	 *
 	 * @see #createTableMutationBuilder
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	GeneratedValues performGraphMutation(
 			FlushOperation operation,
 			Object entity,
@@ -66,21 +72,25 @@ public interface GeneratedValuesMutationDelegate {
 	/**
 	 * Returns the timing this generated values delegate handles.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EventType getTiming();
 
 	/**
 	 * Returns {@code true} when this delegate supports retrieving arbitrary generated values,
 	 * or {@code false} when it only supports identifiers.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean supportsArbitraryValues();
 
 	/**
 	 * Returns {@code true} when this delegate supports retrieving the {@link org.hibernate.annotations.RowId} value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean supportsRowId();
 
 	/**
 	 * Retrieve the {@linkplain JdbcValuesMappingProducer mapping producer} used to read the generated values.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcValuesMappingProducer getGeneratedValuesMappingProducer();
 }

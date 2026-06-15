@@ -6,6 +6,8 @@ package org.hibernate.sql.ast.spi;
 
 import org.hibernate.service.Service;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Strategy for generating parameter markers used in {@linkplain java.sql.PreparedStatement preparable} SQL strings.
@@ -27,5 +29,6 @@ public interface ParameterMarkerStrategy extends Service {
 	 * @param position The 1-based position of the parameter.
 	 * @param jdbcType The type of the parameter, if known - may be {@code null}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String createMarker(int position, JdbcType jdbcType);
 }

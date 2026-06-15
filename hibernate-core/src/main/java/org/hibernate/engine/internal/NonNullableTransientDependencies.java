@@ -12,6 +12,8 @@ import java.util.Set;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 
 import static java.util.Collections.emptyList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Tracks non-nullable transient entities that would cause a particular entity insert to fail.
@@ -23,10 +25,12 @@ public final class NonNullableTransientDependencies {
 	// for the map value.
 	private Map<Object,Set<String>> propertyPathsByTransientEntity; // lazily initialized
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void add(String propertyName, Object transientEntity) {
 		getPropertyPaths( transientEntity ).add( propertyName );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Set<String> getPropertyPaths(Object transientEntity) {
 		if ( propertyPathsByTransientEntity == null ) {
 			propertyPathsByTransientEntity = new IdentityHashMap<>();
@@ -39,6 +43,7 @@ public final class NonNullableTransientDependencies {
 		return propertyPaths;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Iterable<Object> getNonNullableTransientEntities() {
 		return propertyPathsByTransientEntity == null
 				? emptyList()
@@ -52,6 +57,7 @@ public final class NonNullableTransientDependencies {
 	 *
 	 * @return The property paths
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Iterable<String> getNonNullableTransientPropertyPaths(final Object entity) {
 		return propertyPathsByTransientEntity == null
 				? emptyList()
@@ -63,6 +69,7 @@ public final class NonNullableTransientDependencies {
 	 *
 	 * @return {@code true} indicates there are no path tracked here currently
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isEmpty() {
 		return propertyPathsByTransientEntity == null
 			|| propertyPathsByTransientEntity.isEmpty();
@@ -75,6 +82,7 @@ public final class NonNullableTransientDependencies {
 	 *
 	 * @throws IllegalStateException If the entity had tracked paths
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void resolveNonNullableTransientEntity(Object entity) {
 		if ( propertyPathsByTransientEntity != null
 				&& propertyPathsByTransientEntity.remove( entity ) == null ) {
@@ -89,6 +97,7 @@ public final class NonNullableTransientDependencies {
 	 *
 	 * @return The loggable representation
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String toLoggableString(SharedSessionContractImplementor session) {
 		final var result = new StringBuilder( getClass().getSimpleName() ).append( '[' );
 		if ( propertyPathsByTransientEntity != null ) {

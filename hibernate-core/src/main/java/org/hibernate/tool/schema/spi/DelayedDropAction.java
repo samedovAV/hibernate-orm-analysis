@@ -5,6 +5,8 @@
 package org.hibernate.tool.schema.spi;
 
 import org.hibernate.service.ServiceRegistry;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Memento representing the dropping of a schema as part of create-drop
@@ -21,5 +23,6 @@ public interface DelayedDropAction {
 	 *
 	 * @param serviceRegistry Access to the ServiceRegistry
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void perform(ServiceRegistry serviceRegistry);
 }

@@ -7,6 +7,8 @@ package org.hibernate.boot.spi;
 import org.hibernate.boot.MetadataBuilder;
 import org.hibernate.boot.model.FunctionContributor;
 import org.hibernate.boot.model.TypeContributor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A bootstrap process hook for contributing settings to {@link MetadataBuilder}.
@@ -32,5 +34,6 @@ public interface MetadataBuilderContributor {
 	 *
 	 * @param metadataBuilder The {@link MetadataBuilder}, to which to contribute.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void contribute(MetadataBuilder metadataBuilder);
 }

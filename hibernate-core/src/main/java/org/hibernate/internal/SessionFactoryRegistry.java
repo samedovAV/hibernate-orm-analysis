@@ -25,6 +25,8 @@ import org.hibernate.engine.spi.SessionFactoryImplementor;
 
 import static org.hibernate.internal.SessionFactoryRegistryMessageLogger.REGISTRY_LOGGER;
 import static org.hibernate.internal.util.StringHelper.isNotEmpty;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A registry of all {@link SessionFactory} instances for the same classloader as this class.
@@ -57,6 +59,7 @@ public class SessionFactoryRegistry {
 	/**
 	 * Create a new instance of the package-private class {@link SessionFactoryImpl}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static SessionFactoryImplementor instantiateSessionFactory(
 			MetadataImplementor bootMetamodel,
 			SessionFactoryOptions options,
@@ -73,6 +76,7 @@ public class SessionFactoryRegistry {
 	 * @param instance The SessionFactory instance
 	 * @param jndiService The JNDI service, so we can register a listener if name is a JNDI name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addSessionFactory(
 			String uuid,
 			String name,
@@ -97,6 +101,7 @@ public class SessionFactoryRegistry {
 		bindToJndi( jndiName, instance, jndiService );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void bindToJndi(String jndiName, SessionFactoryImplementor instance, JndiService jndiService) {
 		try {
 			REGISTRY_LOGGER.attemptingToBindFactoryToJndi( jndiName );
@@ -125,6 +130,7 @@ public class SessionFactoryRegistry {
 	 * @param jndiName An optional name to use for binding the SessionFactory nto JNDI
 	 * @param jndiService The JNDI service
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void removeSessionFactory(
 			String uuid,
 			String name,
@@ -158,6 +164,7 @@ public class SessionFactoryRegistry {
 	 *
 	 * @return The SessionFactory
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SessionFactoryImplementor getNamedSessionFactory(String name) {
 		REGISTRY_LOGGER.jndiLookupByName( name );
 		final String uuid = nameUuidXref.get( name );
@@ -165,6 +172,7 @@ public class SessionFactoryRegistry {
 		return uuid == null ? null : getSessionFactory( uuid );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SessionFactoryImplementor getSessionFactory(String uuid) {
 		REGISTRY_LOGGER.jndiLookupByUuid( uuid );
 		final var sessionFactory = sessionFactoryMap.get( uuid );
@@ -175,6 +183,7 @@ public class SessionFactoryRegistry {
 		return sessionFactory;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SessionFactoryImplementor findSessionFactory(String uuid, String name) {
 		final var sessionFactory = getSessionFactory( uuid );
 		return sessionFactory == null && isNotEmpty( name )
@@ -186,10 +195,12 @@ public class SessionFactoryRegistry {
 	/**
 	 * Does this registry currently contain registrations?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasRegistrations() {
 		return !sessionFactoryMap.isEmpty();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void clearRegistrations() {
 		nameUuidXref.clear();
 		for ( var factory : sessionFactoryMap.values() ) {
@@ -208,6 +219,7 @@ public class SessionFactoryRegistry {
 	 */
 	private final NamespaceChangeListener listener = new NamespaceChangeListener() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void objectAdded(NamingEvent evt) {
 			if ( REGISTRY_LOGGER.isDebugEnabled() ) {
 				REGISTRY_LOGGER.factoryBoundToJndi( evt.getNewBinding().getName() );
@@ -215,6 +227,7 @@ public class SessionFactoryRegistry {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void objectRemoved(NamingEvent evt) {
 			final String jndiName = evt.getOldBinding().getName();
 			REGISTRY_LOGGER.factoryUnboundFromName( jndiName );
@@ -230,6 +243,7 @@ public class SessionFactoryRegistry {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void objectRenamed(NamingEvent namingEvent) {
 			final String oldJndiName = namingEvent.getOldBinding().getName();
 			final String newJndiName = namingEvent.getNewBinding().getName();
@@ -239,6 +253,7 @@ public class SessionFactoryRegistry {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void namingExceptionThrown(NamingExceptionEvent namingExceptionEvent) {
 			REGISTRY_LOGGER.namingExceptionAccessingFactory( namingExceptionEvent.getException() );
 		}
@@ -246,6 +261,7 @@ public class SessionFactoryRegistry {
 
 	public static class ObjectFactoryImpl implements ObjectFactory {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Object getObjectInstance(Object reference, Name name, Context nameCtx, Hashtable<?, ?> environment) {
 			REGISTRY_LOGGER.jndiLookupByName( String.valueOf( name ) );
 			final var refAddr = ((Reference) reference).get( 0 );

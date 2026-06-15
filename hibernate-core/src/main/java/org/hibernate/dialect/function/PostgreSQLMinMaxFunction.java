@@ -23,6 +23,8 @@ import org.hibernate.sql.ast.tree.predicate.Predicate;
 import org.hibernate.type.SqlTypes;
 
 import static org.hibernate.query.sqm.produce.function.FunctionParameterType.COMPARABLE;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * PostgreSQL doesn't support min/max for uuid yet,
@@ -45,6 +47,7 @@ public class PostgreSQLMinMaxFunction extends AbstractSqmSelfRenderingFunctionDe
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,
@@ -54,6 +57,7 @@ public class PostgreSQLMinMaxFunction extends AbstractSqmSelfRenderingFunctionDe
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,
@@ -91,6 +95,7 @@ public class PostgreSQLMinMaxFunction extends AbstractSqmSelfRenderingFunctionDe
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String renderArgument(SqlAppender sqlAppender, SqlAstTranslator<?> translator, Expression arg) {
 		final JdbcMapping sourceMapping = arg.getExpressionType().getSingleJdbcMapping();
 		// Cast uuid expressions to "text" first, aggregate that, and finally cast to uuid again
@@ -107,6 +112,7 @@ public class PostgreSQLMinMaxFunction extends AbstractSqmSelfRenderingFunctionDe
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getArgumentListSignature() {
 		return "(COMPARABLE arg)";
 	}

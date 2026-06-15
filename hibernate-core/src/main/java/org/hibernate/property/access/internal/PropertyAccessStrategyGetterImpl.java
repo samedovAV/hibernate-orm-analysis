@@ -6,6 +6,8 @@ package org.hibernate.property.access.internal;
 
 import org.hibernate.property.access.spi.PropertyAccess;
 import org.hibernate.property.access.spi.PropertyAccessStrategy;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A PropertyAccessStrategy that selects between available getter method or field.
@@ -19,6 +21,7 @@ public class PropertyAccessStrategyGetterImpl implements PropertyAccessStrategy 
 	public static final PropertyAccessStrategy INSTANCE = new PropertyAccessStrategyGetterImpl();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PropertyAccess buildPropertyAccess(Class<?> containerJavaType, String propertyName, boolean setterRequired) {
 		return new PropertyAccessGetterImpl( this, containerJavaType, propertyName );
 	}

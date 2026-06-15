@@ -13,12 +13,15 @@ import org.hibernate.type.descriptor.java.spi.EntityJavaType;
 import java.util.Collection;
 
 import static org.hibernate.proxy.HibernateProxy.extractLazyInitializer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gavin King
  */
 public class QueryArguments {
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static boolean isInstance(Object value, JavaType<?> javaType) {
 		try {
 			if ( value == null ) {
@@ -48,6 +51,7 @@ public class QueryArguments {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static boolean isInstance(
 			Type<?> parameterType, Object value,
 			BindingContext bindingContext) {
@@ -60,6 +64,7 @@ public class QueryArguments {
 		return isInstance( value, javaType );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static boolean areInstances(
 			Type<?> parameterType, Collection<?> values,
 			BindingContext bindingContext) {
@@ -77,6 +82,7 @@ public class QueryArguments {
 		return true;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static boolean areInstances(
 			Type<?> parameterType, Object[] values,
 			BindingContext bindingContext) {
@@ -98,6 +104,7 @@ public class QueryArguments {
 		return true;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static <T> T cast(Object value, JavaType<T> javaType) {
 		if ( value == null ) {
 			return null;

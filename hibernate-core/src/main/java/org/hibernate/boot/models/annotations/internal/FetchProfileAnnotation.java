@@ -12,6 +12,8 @@ import org.hibernate.boot.models.HibernateAnnotations;
 import org.hibernate.models.spi.ModelsContext;
 
 import static org.hibernate.boot.models.internal.OrmAnnotationHelper.extractJdkValue;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -48,25 +50,30 @@ public class FetchProfileAnnotation implements FetchProfile {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return FetchProfile.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String name() {
 		return name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void name(String value) {
 		this.name = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public org.hibernate.annotations.FetchProfile.FetchOverride[] fetchOverrides() {
 		return fetchOverrides;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void fetchOverrides(org.hibernate.annotations.FetchProfile.FetchOverride[] value) {
 		this.fetchOverrides = value;
 	}

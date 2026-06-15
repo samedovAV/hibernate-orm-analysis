@@ -7,6 +7,8 @@ package org.hibernate.service.spi;
 import jakarta.annotation.Nonnull;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.service.JavaServiceLoadable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for contributing services.
@@ -23,5 +25,6 @@ public interface ServiceContributor {
 	 *
 	 * @param serviceRegistryBuilder The builder to which services (or initiators) should be contributed.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void contribute(@Nonnull StandardServiceRegistryBuilder serviceRegistryBuilder);
 }

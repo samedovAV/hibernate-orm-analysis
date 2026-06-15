@@ -6,6 +6,8 @@ package org.hibernate.service.spi;
 
 import jakarta.annotation.Nonnull;
 import org.hibernate.service.JavaServiceLoadable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -17,5 +19,6 @@ public interface SessionFactoryServiceContributor {
 	 *
 	 * @param serviceRegistryBuilder The builder to which services (or initiators) should be contributed.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void contribute(@Nonnull SessionFactoryServiceRegistryBuilder serviceRegistryBuilder);
 }

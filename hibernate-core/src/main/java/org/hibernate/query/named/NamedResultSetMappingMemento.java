@@ -12,6 +12,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.internal.ResultSetMappingResolutionContext;
 import org.hibernate.query.results.spi.ResultBuilder;
 import org.hibernate.query.results.spi.ResultSetMapping;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Used to keep information about named result mappings defined by the
@@ -32,11 +34,13 @@ public interface NamedResultSetMappingMemento {
 	/**
 	 * The name associated with this memento
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getName();
 
 	/**
 	 * Obtain the memento for each result in the mapping.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<ResultMemento> getResultMementos();
 
 	/**
@@ -44,6 +48,7 @@ public interface NamedResultSetMappingMemento {
 	 * instances for each defined result and registering them with the passed {@code resultSetMapping}.
 	 * Any known query spaces should be passed to the {@code querySpaceConsumer}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void resolve(
 			ResultSetMapping resultSetMapping,
 			Consumer<String> querySpaceConsumer,
@@ -56,6 +61,7 @@ public interface NamedResultSetMappingMemento {
 	 *
 	 * @since 8.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R> boolean canBeTreatedAsResultSetMapping(Class<R> resultType, SessionFactory sessionFactory);
 
 	/**
@@ -65,5 +71,6 @@ public interface NamedResultSetMappingMemento {
 	 *
 	 * @since 8.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R> jakarta.persistence.sql.ResultSetMapping<R> toJpaMapping(SessionFactory sessionFactory);
 }

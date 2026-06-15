@@ -10,6 +10,8 @@ import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.sql.model.MutationOperationGroup;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Delete coordinator for audited entities.
@@ -26,11 +28,13 @@ public class DeleteCoordinatorAudit extends AbstractAuditCoordinator implements 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MutationOperationGroup getStaticMutationOperationGroup() {
 		return currentDeleteCoordinator.getStaticMutationOperationGroup();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void delete(
 			Object entity,
 			Object id,

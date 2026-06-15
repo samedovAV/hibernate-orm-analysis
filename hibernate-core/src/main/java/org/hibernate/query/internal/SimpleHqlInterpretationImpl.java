@@ -14,6 +14,8 @@ import org.hibernate.query.sqm.tree.select.SqmSelectStatement;
 
 import static org.hibernate.query.sqm.internal.SqmUtil.checkQueryReturnType;
 import static org.hibernate.query.sqm.internal.SqmUtil.isResultTypeAlwaysAllowed;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Default implementation if {@link HqlInterpretation}.
@@ -37,21 +39,25 @@ public class SimpleHqlInterpretationImpl<R> implements HqlInterpretation<R> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmStatement<R> getSqmStatement() {
 		return sqmStatement;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ParameterMetadataImplementor getParameterMetadata() {
 		return parameterMetadata;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainParameterXref getDomainParameterXref() {
 		return domainParameterXref.copy();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void validateResultType(Class<?> resultType) {
 		assert sqmStatement instanceof SqmSelectStatement<?>;
 		if ( resultType != null && !isResultTypeAlwaysAllowed( resultType ) ) {

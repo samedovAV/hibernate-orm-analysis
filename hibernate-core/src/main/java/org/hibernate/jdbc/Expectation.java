@@ -17,6 +17,8 @@ import static org.hibernate.jdbc.Expectations.checkBatched;
 import static org.hibernate.jdbc.Expectations.checkNonBatched;
 import static org.hibernate.jdbc.Expectations.sqlExceptionHelper;
 import static org.hibernate.jdbc.Expectations.toCallableStatement;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Defines an expected DML operation outcome.
@@ -57,6 +59,7 @@ public interface Expectation {
 	 *
 	 * @see PreparedStatement#executeBatch()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean canBeBatched() {
 		return true;
 	}
@@ -66,6 +69,7 @@ public interface Expectation {
 	 * {@link OutParameter} requires a single OUT parameter for reading
 	 * back the number of affected rows.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int getNumberOfParametersUsed() {
 		return 0;
 	}
@@ -103,6 +107,7 @@ public interface Expectation {
 	 * @see PreparedStatement#executeUpdate()
 	 * @see PreparedStatement#executeBatch()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void verifyOutcome(int rowCount, PreparedStatement statement, int batchPosition, String sql)
 			throws SQLException, HibernateException;
 
@@ -117,6 +122,7 @@ public interface Expectation {
 	 *
 	 * @see CallableStatement#registerOutParameter(int, int)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int prepare(PreparedStatement statement)
 			throws SQLException, HibernateException {
 		return 0;
@@ -135,6 +141,7 @@ public interface Expectation {
 	 *
 	 * @since 6.5
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void validate(boolean callable) throws MappingException {
 	}
 
@@ -149,6 +156,7 @@ public interface Expectation {
 	class None implements Expectation {
 		public static final None INSTANCE = new None();
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void verifyOutcome(int rowCount, PreparedStatement statement, int batchPosition, String sql) {
 			// nothing to do
 		}
@@ -167,6 +175,7 @@ public interface Expectation {
 		public static final RowCount INSTANCE = new RowCount();
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public final void verifyOutcome(int rowCount, PreparedStatement statement, int batchPosition, String sql) {
 			if ( batchPosition < 0 ) {
 				checkNonBatched( expectedRowCount(), rowCount, sql );
@@ -176,6 +185,7 @@ public interface Expectation {
 			}
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		protected int expectedRowCount() {
 			return 1;
 		}
@@ -190,6 +200,7 @@ public interface Expectation {
 	 */
 	class OptionalRowCount implements Expectation {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public final void verifyOutcome(int rowCount, PreparedStatement statement, int batchPosition, String sql) {
 			if ( rowCount != 0 ) {
 				if ( batchPosition < 0 ) {
@@ -201,6 +212,7 @@ public interface Expectation {
 			}
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		protected int expectedRowCount() {
 			return 1;
 		}
@@ -217,6 +229,7 @@ public interface Expectation {
 	 */
 	class OutParameter implements Expectation {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public final void verifyOutcome(int rowCount, PreparedStatement statement, int batchPosition, String sql) {
 			final int result;
 			try {
@@ -235,6 +248,7 @@ public interface Expectation {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void validate(boolean callable) throws MappingException {
 			if ( !callable ) {
 				throw new MappingException( "Expectation.OutParameter operates exclusively on CallableStatements" );
@@ -242,25 +256,30 @@ public interface Expectation {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public int getNumberOfParametersUsed() {
 			return 1;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public int prepare(PreparedStatement statement) throws SQLException, HibernateException {
 			toCallableStatement( statement ).registerOutParameter( parameterIndex(), Types.NUMERIC );
 			return 1;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean canBeBatched() {
 			return false;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		protected int parameterIndex() {
 			return 1;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		protected int expectedRowCount() {
 			return 1;
 		}

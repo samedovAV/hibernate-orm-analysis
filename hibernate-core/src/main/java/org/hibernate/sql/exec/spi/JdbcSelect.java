@@ -11,6 +11,8 @@ import org.hibernate.sql.exec.internal.lock.LoadedValuesCollectorFactory;
 import org.hibernate.sql.results.jdbc.spi.JdbcValuesMappingProducer;
 
 import java.sql.Connection;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Primary operation which is a {@code SELECT} performed via JDBC.
@@ -19,11 +21,17 @@ import java.sql.Connection;
  */
 @Incubating
 public interface JdbcSelect extends PrimaryOperation, CacheableJdbcOperation {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcValuesMappingProducer getJdbcValuesMappingProducer();
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcLockStrategy getLockStrategy();
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean usesLimitParameters();
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcParameter getLimitParameter();
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getRowsToSkip();
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getMaxRows();
 
 	/**
@@ -32,6 +40,7 @@ public interface JdbcSelect extends PrimaryOperation, CacheableJdbcOperation {
 	 * May be {@code null}.
 	 */
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	LoadedValuesCollectorFactory getLoadedValuesCollectorFactory();
 
 	/**
@@ -45,6 +54,7 @@ public interface JdbcSelect extends PrimaryOperation, CacheableJdbcOperation {
 	 * @param jdbcConnection The JDBC Connection.
 	 * @param executionContext Access to contextual information useful while executing.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void performPreActions(StatementAccess jdbcStatementAccess, Connection jdbcConnection, ExecutionContext executionContext);	/**
 	 * Perform any post-actions.
 	 * <p>
@@ -58,6 +68,7 @@ public interface JdbcSelect extends PrimaryOperation, CacheableJdbcOperation {
 	 * @param executionContext Access to contextual information useful while executing.
 	 * @param loadedValuesCollector Access to the collector of values loaded as part of the primary operation.  This is useful for post-actions that need to know what was loaded in order to perform their work.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void performPostActions(
 			boolean succeeded,
 			StatementAccess jdbcStatementAccess,

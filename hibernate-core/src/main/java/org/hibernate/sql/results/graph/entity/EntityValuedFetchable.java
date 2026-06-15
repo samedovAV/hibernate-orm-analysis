@@ -10,6 +10,8 @@ import org.hibernate.sql.results.graph.FetchParent;
 import org.hibernate.sql.results.graph.Fetchable;
 import org.hibernate.metamodel.mapping.EntityValuedModelPart;
 import org.hibernate.spi.NavigablePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Fetchable which is entity-valued
@@ -18,6 +20,7 @@ import org.hibernate.spi.NavigablePath;
  */
 public interface EntityValuedFetchable extends Fetchable, EntityValuedModelPart {
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityFetch generateFetch(
 			FetchParent fetchParent,
 			NavigablePath fetchablePath,
@@ -26,7 +29,9 @@ public interface EntityValuedFetchable extends Fetchable, EntityValuedModelPart 
 			String resultVariable,
 			DomainResultCreationState creationState);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isOptional();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isUnwrapProxy();
 }

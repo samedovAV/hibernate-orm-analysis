@@ -24,6 +24,8 @@ import org.hibernate.type.spi.TypeConfiguration;
 import static org.hibernate.query.sqm.produce.function.FunctionParameterType.IMPLICIT_XML;
 import static org.hibernate.query.sqm.produce.function.FunctionParameterType.STRING;
 import static org.hibernate.query.sqm.produce.function.FunctionParameterType.XML;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard xmlquery function.
@@ -48,6 +50,7 @@ public class XmlQueryFunction extends AbstractSqmSelfRenderingFunctionDescriptor
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,

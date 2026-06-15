@@ -14,6 +14,8 @@ import org.hibernate.metamodel.mapping.BasicEntityIdentifierMapping;
 import org.hibernate.persister.entity.EntityPersister;
 
 import static org.hibernate.generator.values.internal.GeneratedValuesHelper.getGeneratedValues;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specialized {@link GetGeneratedKeysDelegate} which appends the database
@@ -29,6 +31,7 @@ public class SybaseJConnGetGeneratedKeysDelegate extends GetGeneratedKeysDelegat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String prepareIdentifierGeneratingInsert(String insertSQL) {
 		final var identifierMapping =
 				(BasicEntityIdentifierMapping)
@@ -38,6 +41,7 @@ public class SybaseJConnGetGeneratedKeysDelegate extends GetGeneratedKeysDelegat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public GeneratedValues executeAndExtractReturning(
 			String sql,
 			PreparedStatement preparedStatement,

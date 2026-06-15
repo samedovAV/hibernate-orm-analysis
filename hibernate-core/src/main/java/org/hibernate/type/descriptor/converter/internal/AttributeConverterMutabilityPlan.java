@@ -11,6 +11,8 @@ import org.hibernate.SharedSessionContract;
 import org.hibernate.type.descriptor.converter.spi.JpaAttributeConverter;
 import org.hibernate.type.descriptor.java.MutableMutabilityPlan;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The default {@link org.hibernate.type.descriptor.java.MutabilityPlan} for a
@@ -50,21 +52,25 @@ public final class AttributeConverterMutabilityPlan<T,S> extends MutableMutabili
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isMutable() {
 		return mutable;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected T deepCopyNotNull(T value) {
 		return converter.toDomainValue( converter.toRelationalValue( value ) );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Serializable disassemble(T value, SharedSessionContract session) {
 		return mutable ? (Serializable) converter.toRelationalValue( value ) : (Serializable) value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public T assemble(Serializable cached, SharedSessionContract session) {
 		return mutable ? converter.toDomainValue( (S) cached) : (T) cached;
 	}

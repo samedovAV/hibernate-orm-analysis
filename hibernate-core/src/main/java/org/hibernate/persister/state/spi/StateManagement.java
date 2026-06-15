@@ -16,6 +16,8 @@ import org.hibernate.persister.state.internal.HistoryStateManagement;
 import org.hibernate.persister.state.internal.SoftDeleteStateManagement;
 import org.hibernate.persister.state.internal.StandardStateManagement;
 import org.hibernate.persister.state.internal.TemporalStateManagement;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Integrates a state-management strategy with Hibernate's mapping model and
 /// mutation execution infrastructure.
@@ -58,6 +60,7 @@ public interface StateManagement {
 	/// Auxiliary mappings are rooted in the mapping model.  Legacy-only mutation
 	/// behavior is exposed separately through
 	/// [org.hibernate.metamodel.mapping.LegacyAuxiliaryMutationSupport].
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	AuxiliaryMapping createAuxiliaryMapping(
 			EntityPersister persister,
 			RootClass bootDescriptor,
@@ -70,6 +73,7 @@ public interface StateManagement {
 	/// Auxiliary mappings are rooted in the mapping model.  Legacy-only mutation
 	/// behavior is exposed separately through
 	/// [org.hibernate.metamodel.mapping.LegacyAuxiliaryMutationSupport].
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	AuxiliaryMapping createAuxiliaryMapping(
 			PluralAttributeMapping pluralAttributeMapping,
 			Collection bootDescriptor,
@@ -80,6 +84,7 @@ public interface StateManagement {
 	///
 	/// The default integration contributes standard entity and collection
 	/// mutation plans.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default StateManagementGraphIntegration getGraphIntegration() {
 		return StateManagementGraphIntegration.STANDARD;
 	}
@@ -90,5 +95,6 @@ public interface StateManagement {
 	/// This is the coordinator-based integration used by the legacy queue.  It
 	/// is intentionally isolated from the root contract so the legacy surface can
 	/// be retired without disturbing mapping semantics or graph integration.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StateManagementLegacyIntegration getLegacyIntegration();
 }

@@ -13,6 +13,8 @@ import org.hibernate.query.sqm.SqmBindableType;
 import org.hibernate.query.sqm.tree.SqmCopyContext;
 import org.hibernate.query.sqm.tree.SqmTypedNode;
 import org.hibernate.query.sqm.tree.domain.SqmDomainType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Defines a SQM AST node that can be used as a selection in the query,
@@ -29,11 +31,14 @@ public interface SqmSelectableNode<T> extends JpaSelection<T>, SqmTypedNode<T> {
 	 * @see JpaSelection#getSelectionItems()
 	 * @see Selection#getCompoundSelectionItems()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitSubSelectableNodes(Consumer<SqmSelectableNode<?>> jpaSelectionConsumer);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqmSelectableNode<T> copy(SqmCopyContext context);
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default @Nullable Integer getTupleLength() {
 		final SqmBindableType<T> nodeType = getExpressible();
 		final SqmDomainType<T> sqmType = nodeType == null ? null : nodeType.getSqmType();

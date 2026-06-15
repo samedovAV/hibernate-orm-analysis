@@ -41,6 +41,8 @@ import org.hibernate.sql.ast.tree.select.SelectClause;
 import org.hibernate.sql.ast.tree.select.SortSpecification;
 import org.hibernate.sql.ast.tree.update.UpdateStatement;
 import org.hibernate.sql.exec.spi.JdbcOperation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A SQL AST translator for Sybase.
@@ -57,11 +59,13 @@ public class SybaseSqlAstTranslator<T extends JdbcOperation> extends AbstractSql
 		this.fullJoinEmulations.push( new FullJoinEmulation( this ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private FullJoinEmulation currentFullJoinEmulationHelper() {
 		return fullJoinEmulations.getFirst();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void visitInsertStatementOnly(InsertSelectStatement statement) {
 		if ( statement.getConflictClause() == null || statement.getConflictClause().isDoNothing() ) {
 			// Render plain insert statement and possibly run into unique constraint violation
@@ -74,6 +78,7 @@ public class SybaseSqlAstTranslator<T extends JdbcOperation> extends AbstractSql
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderDeleteClause(DeleteStatement statement) {
 		appendSql( "delete " );
 		final Stack<Clause> clauseStack = getClauseStack();
@@ -88,11 +93,13 @@ public class SybaseSqlAstTranslator<T extends JdbcOperation> extends AbstractSql
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderFromClauseAfterUpdateSet(UpdateStatement statement) {
 		visitFromClause( statement.getFromClause() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void visitConflictClause(ConflictClause conflictClause) {
 		if ( conflictClause != null ) {
 			if ( conflictClause.isDoUpdate() && conflictClause.getConstraintName() != null ) {
@@ -106,6 +113,7 @@ public class SybaseSqlAstTranslator<T extends JdbcOperation> extends AbstractSql
 	// so we cast the first result arm if we encounter this condition
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void visitAnsiCaseSearchedExpression(
 			CaseSearchedExpression caseSearchedExpression,
 			Consumer<Expression> resultRenderer) {
@@ -131,6 +139,7 @@ public class SybaseSqlAstTranslator<T extends JdbcOperation> extends AbstractSql
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void visitAnsiCaseSimpleExpression(
 			CaseSimpleExpression caseSimpleExpression,
 			Consumer<Expression> resultRenderer) {
@@ -156,6 +165,7 @@ public class SybaseSqlAstTranslator<T extends JdbcOperation> extends AbstractSql
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	protected boolean renderNamedTableReference(NamedTableReference tableReference, LockMode lockMode) {
 		final String tableExpression = tableReference.getTableExpression();
 		if ( tableReference instanceof UnionTableReference && lockMode != LockMode.NONE && tableExpression.charAt( 0 ) == '(' ) {
@@ -183,11 +193,13 @@ public class SybaseSqlAstTranslator<T extends JdbcOperation> extends AbstractSql
 		return true;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void renderLockHint(LockMode lockMode) {
 		append( determineLockHint( lockMode ) );
 	}
 
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String determineLockHint(LockMode lockMode) {
 		if ( LockMode.READ.lessThan( lockMode ) ) {
 			return " holdlock";
@@ -196,6 +208,7 @@ public class SybaseSqlAstTranslator<T extends JdbcOperation> extends AbstractSql
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected LockStrategy determineLockingStrategy(
 			QuerySpec querySpec,
 			Locking.FollowOn followOnStrategy) {
@@ -204,11 +217,13 @@ public class SybaseSqlAstTranslator<T extends JdbcOperation> extends AbstractSql
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void visitValuesList(List<Values> valuesList) {
 		visitValuesListEmulateSelectUnion( valuesList );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void visitValuesTableReference(ValuesTableReference tableReference) {
 		append( '(' );
 		visitValuesListEmulateSelectUnion( tableReference.getValuesList() );
@@ -217,6 +232,7 @@ public class SybaseSqlAstTranslator<T extends JdbcOperation> extends AbstractSql
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void visitOffsetFetchClause(QueryPart queryPart) {
 		if ( !currentFullJoinEmulationHelper().isFullJoinEmulationQueryPart( queryPart ) ) {
 			assertRowsOnlyFetchClauseType( queryPart );
@@ -227,6 +243,7 @@ public class SybaseSqlAstTranslator<T extends JdbcOperation> extends AbstractSql
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void visitQuerySpec(QuerySpec querySpec) {
 		final var helper = currentFullJoinEmulationHelper();
 		final boolean needsNestedHelper =
@@ -250,6 +267,7 @@ public class SybaseSqlAstTranslator<T extends JdbcOperation> extends AbstractSql
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void visitSelectClause(SelectClause selectClause) {
 		if ( !currentFullJoinEmulationHelper().renderSelectClauseIfNeeded( selectClause ) ) {
 			super.visitSelectClause( selectClause );
@@ -257,16 +275,19 @@ public class SybaseSqlAstTranslator<T extends JdbcOperation> extends AbstractSql
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void visitOrderBy(List<SortSpecification> sortSpecifications) {
 		currentFullJoinEmulationHelper().renderOrderByIfNeeded( getCurrentQueryPart(), sortSpecifications, super::visitOrderBy );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderComparison(Expression lhs, ComparisonOperator operator, Expression rhs) {
 		renderComparisonEmulateIntersect( lhs, operator, rhs );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderSelectTupleComparison(
 			List<SqlSelection> lhsExpressions,
 			SqlTuple tuple,
@@ -275,6 +296,7 @@ public class SybaseSqlAstTranslator<T extends JdbcOperation> extends AbstractSql
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderPartitionItem(Expression expression) {
 		if ( expression instanceof Literal ) {
 			// Note that this depends on the SqmToSqlAstConverter to add a dummy table group
@@ -292,6 +314,7 @@ public class SybaseSqlAstTranslator<T extends JdbcOperation> extends AbstractSql
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void visitBinaryArithmeticExpression(BinaryArithmeticExpression arithmeticExpression) {
 		appendSql( OPEN_PARENTHESIS );
 		visitArithmeticOperand( arithmeticExpression.getLeftHandOperand() );
@@ -301,11 +324,13 @@ public class SybaseSqlAstTranslator<T extends JdbcOperation> extends AbstractSql
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean needsRowsToSkip() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean needsMaxRows() {
 		return true;
 	}

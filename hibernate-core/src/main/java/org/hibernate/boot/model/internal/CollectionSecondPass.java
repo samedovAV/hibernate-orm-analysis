@@ -15,6 +15,8 @@ import org.hibernate.mapping.PersistentClass;
 import org.hibernate.mapping.Value;
 
 import static org.hibernate.boot.BootLogging.BOOT_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Collection second pass
@@ -30,6 +32,7 @@ public abstract class CollectionSecondPass implements SecondPass {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void doSecondPass(Map<String, PersistentClass> persistentClasses)
 			throws MappingException {
 		if ( BOOT_LOGGER.isTraceEnabled() ) {
@@ -55,8 +58,10 @@ public abstract class CollectionSecondPass implements SecondPass {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	abstract public void secondPass(Map<String, PersistentClass> persistentClasses) throws MappingException;
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static String columns(Value val) {
 		final var columns = new StringBuilder();
 		for ( var selectable : val.getSelectables() ) {

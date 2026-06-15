@@ -14,6 +14,8 @@ import org.hibernate.sql.ast.spi.SqlExpressionResolver;
 import org.hibernate.sql.results.graph.DomainResult;
 import org.hibernate.sql.results.graph.DomainResultCreationState;
 import org.hibernate.sql.results.graph.basic.BasicResult;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A duration expressed in terms of a given temporal unit.
@@ -38,20 +40,24 @@ public class Duration implements Expression, DomainResultProducer {
 		this.type = type;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TemporalUnit getUnit() {
 		return unit;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression getMagnitude() {
 		return magnitude;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker walker) {
 		walker.visitDuration(this);
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResult createDomainResult(
 			String resultVariable,
 			DomainResultCreationState creationState) {
@@ -68,6 +74,7 @@ public class Duration implements Expression, DomainResultProducer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applySqlSelections(DomainResultCreationState creationState) {
 		final SqlAstCreationState sqlAstCreationState = creationState.getSqlAstCreationState();
 		final SqlExpressionResolver sqlExpressionResolver = sqlAstCreationState.getSqlExpressionResolver();
@@ -81,6 +88,7 @@ public class Duration implements Expression, DomainResultProducer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BasicValuedMapping getExpressionType() {
 		return type;
 	}

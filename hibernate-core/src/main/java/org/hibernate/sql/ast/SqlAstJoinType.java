@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.sql.ast;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * @author Steve Ebersole
@@ -40,10 +43,12 @@ public enum SqlAstJoinType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return text;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getText() {
 		return text;
 	}

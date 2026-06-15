@@ -8,6 +8,8 @@ import org.hibernate.dialect.Database;
 import org.hibernate.dialect.Dialect;
 import org.hibernate.engine.jdbc.dialect.spi.DialectResolutionInfo;
 import org.hibernate.engine.jdbc.dialect.spi.DialectResolver;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The standard {@link DialectResolver} implementation
@@ -19,6 +21,7 @@ public final class StandardDialectResolver implements DialectResolver {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Dialect resolveDialect(DialectResolutionInfo info) {
 
 		for ( Database database : Database.values() ) {

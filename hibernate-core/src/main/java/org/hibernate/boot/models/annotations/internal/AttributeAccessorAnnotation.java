@@ -10,6 +10,8 @@ import java.util.Map;
 import org.hibernate.annotations.AttributeAccessor;
 import org.hibernate.models.spi.ModelsContext;
 import org.hibernate.property.access.spi.PropertyAccessStrategy;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
@@ -39,15 +41,18 @@ public class AttributeAccessorAnnotation implements AttributeAccessor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return AttributeAccessor.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public java.lang.Class<? extends PropertyAccessStrategy> strategy() {
 		return strategy;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void strategy(java.lang.Class<? extends PropertyAccessStrategy> value) {
 		this.strategy = value;
 	}

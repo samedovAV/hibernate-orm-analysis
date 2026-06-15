@@ -5,6 +5,8 @@
 package org.hibernate.engine.spi;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The base contract for determining transient status versus detached status.
@@ -21,7 +23,8 @@ public interface UnsavedValueStrategy {
 	 * indicates the value does not corresponds to unsaved data (aka, detached state); {@code null} indicates that
 	 * this strategy was not able to determine conclusively.
 	 */
-	@Nullable Boolean isUnsaved(@Nullable Object test);
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	Boolean isUnsaved(@Nullable Object test);
 
 	/**
 	 * Get a default value meant to indicate transience.
@@ -30,5 +33,6 @@ public interface UnsavedValueStrategy {
 	 *
 	 * @return The default transience value.
 	 */
-	@Nullable Object getDefaultValue(@Nullable Object currentValue);
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	Object getDefaultValue(@Nullable Object currentValue);
 }

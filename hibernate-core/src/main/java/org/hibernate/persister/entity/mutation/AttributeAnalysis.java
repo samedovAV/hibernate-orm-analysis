@@ -6,6 +6,8 @@ package org.hibernate.persister.entity.mutation;
 
 import org.hibernate.Incubating;
 import org.hibernate.metamodel.mapping.AttributeMapping;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Results of analyzing an {@linkplain #getAttribute() attribute} in terms of
@@ -18,23 +20,27 @@ public interface AttributeAnalysis {
 	/**
 	 * The attribute analyzed here
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	AttributeMapping getAttribute();
 
 	/**
 	 * Whether the attribute should be included in setting the
 	 * values on the database.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean includeInSet();
 
 	/**
 	 * Whether the attribute should be included in
 	 * optimistic locking (where-clause restriction)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean includeInLocking();
 
 	/**
 	 * Whether the attribute is considered dirty
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	DirtynessStatus getDirtynessStatus();
 
 	/**
@@ -43,6 +49,7 @@ public interface AttributeAnalysis {
 	 * @see #includeInSet
 	 * @see #includeInLocking
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isSkipped() {
 		return !includeInSet() && !includeInLocking();
 	}
@@ -58,6 +65,7 @@ public interface AttributeAnalysis {
 		DIRTY,
 		NOT_DIRTY {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			boolean isDirty() {
 				return false;
 			}
@@ -67,6 +75,7 @@ public interface AttributeAnalysis {
 		/**
 		 * @return both DIRTY and CONSIDER_LIKE_DIRTY states will return {@code true}
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		boolean isDirty() {
 			return true;
 		}

@@ -10,6 +10,8 @@ import org.hibernate.JDBCException;
 import org.hibernate.exception.internal.SQLStateConversionDelegate;
 import org.hibernate.exception.internal.StandardSQLExceptionConverter;
 import org.hibernate.exception.spi.SQLExceptionConverter;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A helper to centralize conversion of {@link SQLException}s to {@link JDBCException}s.
@@ -39,6 +41,7 @@ public class BasicSQLExceptionConverter {
 	 * @param sqlException The exception to convert.
 	 * @return The converted exception.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JDBCException convert(SQLException sqlException) {
 		return CONVERTER.convert( sqlException, "Unable to query java.sql.DatabaseMetaData", null );
 	}

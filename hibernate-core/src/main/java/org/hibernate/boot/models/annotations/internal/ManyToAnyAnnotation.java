@@ -11,6 +11,8 @@ import org.hibernate.annotations.ManyToAny;
 import org.hibernate.boot.models.annotations.spi.AttributeMarker;
 import org.hibernate.models.spi.ModelsContext;
 import jakarta.persistence.CascadeType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -44,24 +46,29 @@ public class ManyToAnyAnnotation
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return ManyToAny.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.FetchType fetch() {
 		return fetch;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void fetch(jakarta.persistence.FetchType value) {
 		this.fetch = value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CascadeType[] cascade() {
 		return cascade;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void cascade(CascadeType[] value) {
 		this.cascade = value;
 	}

@@ -14,6 +14,8 @@ import java.sql.Connection;
 import java.time.Instant;
 import java.util.TimeZone;
 import java.util.function.UnaryOperator;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Allows creation of a child {@link StatelessSession} which shares some options
@@ -68,81 +70,101 @@ public interface SharedStatelessSessionBuilder extends StatelessSessionBuilder, 
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StatelessSession open();
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedStatelessSessionBuilder connection();
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedStatelessSessionBuilder interceptor();
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedStatelessSessionBuilder interceptor(@Nullable Interceptor interceptor);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedStatelessSessionBuilder noInterceptor();
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedStatelessSessionBuilder noSessionInterceptorCreation();
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedStatelessSessionBuilder statementInspector(@Nullable UnaryOperator<String> operator);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedStatelessSessionBuilder statementInspector();
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedStatelessSessionBuilder noStatementInspector();
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedStatelessSessionBuilder tenantIdentifier(Object tenantIdentifier);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedStatelessSessionBuilder readOnly(boolean readOnly);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedStatelessSessionBuilder jdbcBatchSize(int batchSize);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedStatelessSessionBuilder initialCacheMode(@Nonnull CacheMode cacheMode);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedStatelessSessionBuilder cacheStoreMode(@Nullable CacheStoreMode cacheStoreMode);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedStatelessSessionBuilder cacheRetrieveMode(@Nullable CacheRetrieveMode cacheRetrieveMode);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedStatelessSessionBuilder connection(@Nonnull Connection connection);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedStatelessSessionBuilder connectionHandling(@Nonnull ConnectionAcquisitionMode acquisitionMode, @Nonnull ConnectionReleaseMode releaseMode);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedStatelessSessionBuilder jdbcTimeZone(@Nullable TimeZone timeZone);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedStatelessSessionBuilder asOf(@Nullable Instant instant);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedStatelessSessionBuilder atChangeset(@Nullable Object changesetId);
 }

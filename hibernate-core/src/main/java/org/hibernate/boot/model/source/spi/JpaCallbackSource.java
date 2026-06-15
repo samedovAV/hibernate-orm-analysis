@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.source.spi;
 
 import java.lang.annotation.Annotation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -17,6 +19,7 @@ public interface JpaCallbackSource {
 	 * @return the name of the JPA callback method defined for the associated {@linkplain jakarta.persistence.Entity entity} or {@linkplain jakarta.persistence.MappedSuperclass
 	 *         mapped superclass} and for the supplied callback annotation class.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getCallbackMethod(Class<? extends Annotation> callbackType);
 
 	/**
@@ -24,11 +27,13 @@ public interface JpaCallbackSource {
 	 *         {@linkplain jakarta.persistence.MappedSuperclass mapped superclass} are defined. This can be either the entity/mapped superclass itself or an
 	 *         {@linkplain jakarta.persistence.EntityListeners entity listener}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getName();
 
 	/**
 	 * @return <code>true</code> if this callback class represents callbacks defined within an {@link jakarta.persistence.EntityListeners entity
 	 *         listener}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isListener();
 }

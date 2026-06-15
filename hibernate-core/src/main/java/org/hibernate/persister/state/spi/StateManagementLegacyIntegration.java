@@ -14,6 +14,8 @@ import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.persister.entity.mutation.DeleteCoordinator;
 import org.hibernate.persister.entity.mutation.InsertCoordinator;
 import org.hibernate.persister.entity.mutation.UpdateCoordinator;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Legacy action-queue integration for a state-management strategy.
 ///
@@ -28,26 +30,34 @@ import org.hibernate.persister.entity.mutation.UpdateCoordinator;
 @Incubating
 public interface StateManagementLegacyIntegration {
 	/// Creates the entity insert coordinator for the given persister.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	InsertCoordinator createInsertCoordinator(EntityPersister persister);
 
 	/// Creates the entity update coordinator for the given persister.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	UpdateCoordinator createUpdateCoordinator(EntityPersister persister);
 
 	/// Creates the entity merge coordinator for the given persister.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	UpdateCoordinator createMergeCoordinator(EntityPersister persister);
 
 	/// Creates the entity delete coordinator for the given persister.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	DeleteCoordinator createDeleteCoordinator(EntityPersister persister);
 
 	/// Creates the collection row-insert coordinator for the given persister.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	InsertRowsCoordinator createInsertRowsCoordinator(CollectionPersister persister);
 
 	/// Creates the collection row-update coordinator for the given persister.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	UpdateRowsCoordinator createUpdateRowsCoordinator(CollectionPersister persister);
 
 	/// Creates the collection row-delete coordinator for the given persister.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	DeleteRowsCoordinator createDeleteRowsCoordinator(CollectionPersister persister);
 
 	/// Creates the collection remove coordinator for the given persister.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	RemoveCoordinator createRemoveCoordinator(CollectionPersister persister);
 }

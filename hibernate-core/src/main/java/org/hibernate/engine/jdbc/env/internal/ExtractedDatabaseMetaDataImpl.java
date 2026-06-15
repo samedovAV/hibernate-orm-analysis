@@ -24,6 +24,8 @@ import static java.util.Collections.emptyList;
 import static java.util.stream.StreamSupport.stream;
 import static org.hibernate.engine.jdbc.JdbcLogging.JDBC_LOGGER;
 import static org.hibernate.engine.jdbc.env.spi.SQLStateType.interpretReportedSQLStateType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard implementation of {@link ExtractedDatabaseMetaData}
@@ -120,106 +122,127 @@ public class ExtractedDatabaseMetaDataImpl implements ExtractedDatabaseMetaData 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsRefCursors() {
 		return supportsRefCursors;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcEnvironment getJdbcEnvironment() {
 		return jdbcEnvironment;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsSchemas() {
 		return supportsSchemas;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsCatalogs() {
 		return supportsCatalogs;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsNamedParameters() {
 		return supportsNamedParameters;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsScrollableResults() {
 		return supportsScrollableResults;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsGetGeneratedKeys() {
 		return supportsGetGeneratedKeys;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsBatchUpdates() {
 		return supportsBatchUpdates;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsDataDefinitionInTransaction() {
 		return supportsDataDefinitionInTransaction;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean doesDataDefinitionCauseTransactionCommit() {
 		return doesDataDefinitionCauseTransactionCommit;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SQLStateType getSqlStateType() {
 		return sqlStateType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getConnectionCatalogName() {
 		return connectionCatalogName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getConnectionSchemaName() {
 		return connectionSchemaName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getDatabaseProductName() {
 		return databaseProductName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getDatabaseProductVersion() {
 		return databaseProductVersion;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getUrl() {
 		return url;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getDriver() {
 		return driver;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getTransactionIsolation() {
 		return transactionIsolation;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getDefaultTransactionIsolation() {
 		return defaultTransactionIsolation;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getDefaultFetchSize() {
 		return defaultFetchSize;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public synchronized List<SequenceInformation> getSequenceInformationList() {
 		if ( jdbcMetadataAccessible ) {
 			//Loading the sequence information can take a while on large databases,
@@ -237,10 +260,12 @@ public class ExtractedDatabaseMetaDataImpl implements ExtractedDatabaseMetaData 
 	}
 
 	// For tests
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isJdbcMetadataAccessible() {
 		return jdbcMetadataAccessible;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static int defaultFetchSize(Connection connection) {
 		try ( var statement = connection.createStatement() ) {
 			return statement.getFetchSize();
@@ -255,6 +280,7 @@ public class ExtractedDatabaseMetaDataImpl implements ExtractedDatabaseMetaData 
 	 *
 	 * @return sequence information List
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private List<SequenceInformation> sequenceInformationList() {
 		Connection connection = null;
 		try {
@@ -277,15 +303,18 @@ public class ExtractedDatabaseMetaDataImpl implements ExtractedDatabaseMetaData 
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Iterable<SequenceInformation> sequenceInformation(Connection connection, JdbcEnvironment jdbcEnvironment)
 			throws SQLException {
 		return jdbcEnvironment.getDialect().getSequenceInformationExtractor().extractMetadata(
 				new ExtractionContext.EmptyExtractionContext() {
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public Connection getJdbcConnection() {
 						return connection;
 					}
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public JdbcEnvironment getJdbcEnvironment() {
 						return jdbcEnvironment;
 					}

@@ -10,6 +10,8 @@ import org.hibernate.generator.values.GeneratedValues;
 import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.audit.ModificationType;
 import org.hibernate.sql.model.MutationOperationGroup;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Update coordinator for audited entities.
@@ -26,11 +28,13 @@ public class UpdateCoordinatorAudit extends AbstractAuditCoordinator implements 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MutationOperationGroup getStaticMutationOperationGroup() {
 		return currentUpdateCoordinator.getStaticMutationOperationGroup();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public GeneratedValues update(
 			Object entity,
 			Object id,
@@ -59,6 +63,7 @@ public class UpdateCoordinatorAudit extends AbstractAuditCoordinator implements 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void forceVersionIncrement(
 			Object id,
 			Object currentVersion,
@@ -67,6 +72,7 @@ public class UpdateCoordinatorAudit extends AbstractAuditCoordinator implements 
 		currentUpdateCoordinator.forceVersionIncrement( id, currentVersion, nextVersion, session );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	boolean shouldAuditUpdate(int[] dirtyAttributeIndexes, boolean hasDirtyCollection) {
 		if ( dirtyAttributeIndexes == null || dirtyAttributeIndexes.length == 0 ) {
 			return true;

@@ -8,6 +8,8 @@ import org.hibernate.event.jpa.spi.Callback;
 import org.hibernate.jpa.event.spi.CallbackType;
 
 import java.util.function.Consumer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -22,11 +24,13 @@ public class AddedCallbackImpl<E> implements Callback<E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CallbackType getCallbackType() {
 		return callbackType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends E> void performCallback(S entity) {
 		listener.accept( entity );
 	}

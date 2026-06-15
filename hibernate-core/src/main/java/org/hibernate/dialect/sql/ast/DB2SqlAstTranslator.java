@@ -52,6 +52,8 @@ import org.hibernate.type.SqlTypes;
 
 import static org.hibernate.internal.util.collections.CollectionHelper.isEmpty;
 import static org.hibernate.internal.util.collections.CollectionHelper.isNotEmpty;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A SQL AST translator for DB2.
@@ -68,11 +70,13 @@ public class DB2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean needsRecursiveKeywordInWithClause() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	protected void renderTableReferenceJoins(TableGroup tableGroup, LockMode lockMode, int swappedJoinIndex, boolean forceLeftJoin) {
 		// When we are in a recursive CTE, we can't render joins on DB2...
 		// See https://modern-sql.com/feature/with-recursive/db2/error-345-state-42836
@@ -105,6 +109,7 @@ public class DB2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void renderTableGroupJoin(TableGroupJoin tableGroupJoin, List<TableGroupJoin> tableGroupJoinCollector) {
 		if ( isInRecursiveQueryPart() ) {
 			switch ( tableGroupJoin.getJoinType() ) {
@@ -127,16 +132,19 @@ public class DB2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderExpressionAsClauseItem(Expression expression) {
 		expression.accept( this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void visitArithmeticOperand(Expression expression) {
 		render( expression, SqlAstNodeRenderingMode.NO_PLAIN_PARAMETER );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void visitBooleanExpressionPredicate(BooleanExpressionPredicate booleanExpressionPredicate) {
 		final boolean isNegated = booleanExpressionPredicate.isNegated();
 		if ( isNegated ) {
@@ -153,6 +161,7 @@ public class DB2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslat
 	// so we cast the first result arm if we encounter this condition
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void visitAnsiCaseSearchedExpression(
 			CaseSearchedExpression caseSearchedExpression,
 			Consumer<Expression> resultRenderer) {
@@ -177,6 +186,7 @@ public class DB2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void visitAnsiCaseSimpleExpression(
 			CaseSimpleExpression caseSimpleExpression,
 			Consumer<Expression> resultRenderer) {
@@ -200,6 +210,7 @@ public class DB2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslat
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean shouldEmulateFetchClause(QueryPart queryPart) {
 		// Check if current query part is already row numbering to avoid infinite recursion
 		if ( getQueryPartForRowNumbering() == queryPart ) {
@@ -209,11 +220,13 @@ public class DB2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslat
 		return useOffsetFetchClause( queryPart ) && !isRowsOnlyFetchClauseType( queryPart );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean supportsOffsetClause() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void visitQueryPartTableReference(QueryPartTableReference tableReference) {
 		final boolean oldLateral = inLateral;
 		inLateral = tableReference.isLateral();
@@ -222,6 +235,7 @@ public class DB2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void renderDerivedTableReference(DerivedTableReference tableReference) {
 		if ( tableReference instanceof FunctionTableReference && tableReference.isLateral() ) {
 			// No need for a lateral keyword for functions
@@ -233,6 +247,7 @@ public class DB2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void renderNamedSetReturningFunction(String functionName, List<? extends SqlAstNode> sqlAstArguments, AnonymousTupleTableGroupProducer tupleType, String tableIdentifierVariable, SqlAstNodeRenderingMode argumentRenderingMode) {
 		final ModelPart ordinalitySubPart = tupleType.findSubPart( CollectionPart.Nature.INDEX.getName(), null );
 		if ( ordinalitySubPart != null ) {
@@ -250,6 +265,7 @@ public class DB2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void visitSelectStatement(SelectStatement statement) {
 		if ( getQueryPartForRowNumbering() == statement.getQueryPart() && inLateral ) {
 			appendSql( "lateral " );
@@ -258,6 +274,7 @@ public class DB2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void emulateFetchOffsetWithWindowFunctionsVisitQueryPart(QueryPart queryPart) {
 		if ( inLateral ) {
 			appendSql( "lateral " );
@@ -271,12 +288,14 @@ public class DB2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslat
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean shouldEmulateFetch(QueryPart queryPart) {
 		return shouldEmulateFetchClause( queryPart )
 			|| getQueryPartForRowNumbering() != queryPart && !supportsOffsetClause() && hasOffset( queryPart );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void visitQueryGroup(QueryGroup queryGroup) {
 		if ( shouldEmulateFetch( queryGroup ) ) {
 			emulateFetchOffsetWithWindowFunctions( queryGroup, true );
@@ -287,6 +306,7 @@ public class DB2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void visitQuerySpec(QuerySpec querySpec) {
 		if ( shouldEmulateFetch( querySpec ) ) {
 			emulateFetchOffsetWithWindowFunctions( querySpec, true );
@@ -297,6 +317,7 @@ public class DB2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void visitOffsetFetchClause(QueryPart queryPart) {
 		if ( !isRowNumberingCurrentQueryPart() ) {
 			if ( supportsOffsetClause() || !hasOffset( queryPart ) ) {
@@ -312,6 +333,7 @@ public class DB2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void renderOffsetExpression(Expression offsetExpression) {
 		if ( supportsParameterOffsetFetchExpression() ) {
 			super.renderOffsetExpression( offsetExpression );
@@ -322,6 +344,7 @@ public class DB2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void renderFetchExpression(Expression fetchExpression) {
 		if ( supportsParameterOffsetFetchExpression() ) {
 			super.renderFetchExpression( fetchExpression );
@@ -332,6 +355,7 @@ public class DB2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void visitDeleteStatementOnly(DeleteStatement statement) {
 		final boolean closeWrapper = renderReturningClause( statement );
 		super.visitDeleteStatementOnly( statement );
@@ -341,6 +365,7 @@ public class DB2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void visitUpdateStatementOnly(UpdateStatement statement) {
 		final boolean closeWrapper = renderReturningClause( statement );
 		if ( supportsFromClauseInUpdate() || !hasNonTrivialFromClause( statement.getFromClause() ) ) {
@@ -360,11 +385,13 @@ public class DB2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslat
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean supportsFromClauseInUpdate() {
 		return getDB2Version().isSameOrAfter( 11 );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void visitInsertStatementOnly(InsertSelectStatement statement) {
 		final boolean closeWrapper = renderReturningClause( statement );
 		if ( statement.getConflictClause() == null || statement.getConflictClause().isDoNothing() ) {
@@ -380,6 +407,7 @@ public class DB2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void visitConflictClause(ConflictClause conflictClause) {
 		if ( conflictClause != null ) {
 			if ( conflictClause.isDoUpdate() && conflictClause.getConstraintName() != null ) {
@@ -389,6 +417,7 @@ public class DB2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void renderDmlTargetTableExpression(NamedTableReference tableReference) {
 		super.renderDmlTargetTableExpression( tableReference );
 		if ( getClauseStack().getCurrent() != Clause.INSERT ) {
@@ -397,10 +426,12 @@ public class DB2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderFromClauseAfterUpdateSet(UpdateStatement statement) {
 		renderFromClauseExcludingDmlTargetReference( statement );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected boolean renderReturningClause(MutationStatement statement) {
 		final List<ColumnReference> returningColumns = statement.getReturningColumns();
 		if ( isEmpty( returningColumns ) ) {
@@ -424,6 +455,7 @@ public class DB2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslat
 		return true;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getNewTableChangeModifier() {
 		// Use 'from new table' to also see data from triggers
 		// See https://www.ibm.com/docs/en/db2/10.5?topic=clause-table-reference#:~:text=FOR%20sequence%20reference-,FINAL%20TABLE,-Specifies%20that%20the
@@ -431,6 +463,7 @@ public class DB2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void visitStandardTableInsert(TableInsertStandard tableInsert) {
 		final List<ColumnReference> returningColumns = tableInsert.getReturningColumns();
 		if ( isNotEmpty( returningColumns ) ) {
@@ -455,6 +488,7 @@ public class DB2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void visitStandardTableUpdate(TableUpdateStandard tableUpdate) {
 		final List<ColumnReference> returningColumns = tableUpdate.getReturningColumns();
 		if ( isNotEmpty( returningColumns ) ) {
@@ -477,6 +511,7 @@ public class DB2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderComparison(Expression lhs, ComparisonOperator operator, Expression rhs) {
 		if ( getDB2Version().isSameOrAfter( 11, 1 ) ) {
 			renderComparisonStandard( lhs, operator, rhs );
@@ -529,6 +564,7 @@ public class DB2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void renderComparisonStandard(Expression lhs, ComparisonOperator operator, Expression rhs) {
 		final JdbcMappingContainer lhsExpressionType = lhs.getExpressionType();
 		if ( lhsExpressionType != null && lhsExpressionType.getJdbcTypeCount() == 1
@@ -556,11 +592,13 @@ public class DB2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderSelectExpression(Expression expression) {
 		renderSelectExpressionWithCastedOrInlinedPlainParameters( expression );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderSelectTupleComparison(
 			List<SqlSelection> lhsExpressions,
 			SqlTuple tuple,
@@ -569,14 +607,17 @@ public class DB2SqlAstTranslator<T extends JdbcOperation> extends SqlAstTranslat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void visitReturningColumns(List<ColumnReference> returningColumns) {
 		// For DB2 we use #renderReturningClause to render a wrapper around the DML statement
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DatabaseVersion getDB2Version() {
 		return this.getDialect().getVersion();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean supportsParameterOffsetFetchExpression() {
 		return getDB2Version().isSameOrAfter( 11 );
 	}

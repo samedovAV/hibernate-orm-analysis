@@ -10,6 +10,8 @@ import org.hibernate.Incubating;
 
 import jakarta.persistence.Tuple;
 import jakarta.persistence.criteria.CriteriaQuery;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A representation of SqmInsertSelectStatement at the
@@ -36,9 +38,11 @@ import jakarta.persistence.criteria.CriteriaQuery;
 public interface JpaCriteriaInsertSelect<T> extends JpaCriteriaInsert<T> {
 
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaCriteriaInsertSelect<T> select(CriteriaQuery<Tuple> criteriaQuery);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaCriteriaInsertSelect<T> onConflict(@Nullable JpaConflictClause<T> conflictClause);
 }

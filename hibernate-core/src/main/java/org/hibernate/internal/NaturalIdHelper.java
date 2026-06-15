@@ -12,12 +12,15 @@ import org.hibernate.persister.entity.EntityPersister;
 
 import static org.hibernate.engine.internal.NaturalIdLogging.NATURAL_ID_LOGGER;
 import static org.hibernate.pretty.MessageHelper.infoString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gavin King
  */
 public class NaturalIdHelper {
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String[] getNaturalIdPropertyNames(EntityPersister persister) {
 		final int[] naturalIdPropertyIndices = persister.getNaturalIdentifierProperties();
 		if ( naturalIdPropertyIndices == null ) {
@@ -36,6 +39,7 @@ public class NaturalIdHelper {
 		return propertyNames;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void performAnyNeededCrossReferenceSynchronizations(
 			boolean synchronizationEnabled,
 			EntityMappingType entityMappingType,

@@ -8,6 +8,8 @@ import jakarta.transaction.TransactionManager;
 import jakarta.transaction.UserTransaction;
 
 import org.hibernate.engine.jndi.JndiException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * JtaPlatform definition for JBoss Application Server.
@@ -21,11 +23,13 @@ public class JBossAppServerJtaPlatform extends AbstractJtaPlatform {
 	public static final String UT_NAME = "java:comp/UserTransaction";
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean canCacheUserTransactionByDefault() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected TransactionManager locateTransactionManager() {
 		try {
 			return (TransactionManager) jndiService().locate( AS7_TM_NAME );
@@ -41,6 +45,7 @@ public class JBossAppServerJtaPlatform extends AbstractJtaPlatform {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected UserTransaction locateUserTransaction() {
 		try {
 			return (UserTransaction) jndiService().locate( JBOSS_UT_NAME );

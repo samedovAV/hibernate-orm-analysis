@@ -5,6 +5,8 @@
 package org.hibernate;
 
 import static org.hibernate.internal.util.StringHelper.qualify;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Thrown when the state of an entity cannot be made persistent
@@ -51,6 +53,7 @@ public class TransientPropertyValueException extends TransientObjectException {
 	 * Returns the entity name for the transient entity.
 	 * @return the entity name for the transient entity.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getTransientEntityName() {
 		return transientEntityName;
 	}
@@ -62,6 +65,7 @@ public class TransientPropertyValueException extends TransientObjectException {
 	 * @return the entity name for entity that owns the association
 	 * property
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getPropertyOwnerEntityName() {
 		return propertyOwnerEntityName;
 	}
@@ -71,11 +75,13 @@ public class TransientPropertyValueException extends TransientObjectException {
 	 *
 	 * @return the property name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getPropertyName() {
 		return propertyName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getMessage() {
 		return super.getMessage() + " ["
 				+ qualify( propertyOwnerEntityName, propertyName )

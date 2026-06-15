@@ -12,6 +12,8 @@ import org.hibernate.service.spi.ServiceRegistryImplementor;
 import org.hibernate.service.spi.SessionFactoryServiceContributor;
 import org.hibernate.service.spi.SessionFactoryServiceRegistry;
 import org.hibernate.service.spi.SessionFactoryServiceRegistryFactory;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Acts as a service in the {@link org.hibernate.boot.registry.internal.StandardServiceRegistryImpl} whose
@@ -28,6 +30,7 @@ public class SessionFactoryServiceRegistryFactoryImpl implements SessionFactoryS
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionFactoryServiceRegistry buildServiceRegistry(
 			@Nonnull SessionFactoryImplementor sessionFactory,
 			@Nonnull SessionFactoryOptions options) {

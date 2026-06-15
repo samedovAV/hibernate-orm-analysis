@@ -8,6 +8,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.event.spi.EventSource;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An operation which may be scheduled for later execution. Usually, the
@@ -23,6 +25,7 @@ public interface Executable {
 	 *
 	 * @return The spaces affected by this action.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String[] getPropertySpaces();
 
 	/**
@@ -30,6 +33,7 @@ public interface Executable {
 	 *
 	 * @throws HibernateException Indicates a problem during preparation.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void beforeExecutions() throws HibernateException;
 
 	/**
@@ -37,6 +41,7 @@ public interface Executable {
 	 *
 	 * @throws HibernateException Indicates a problem during execution.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void execute() throws HibernateException;
 
 	/**
@@ -45,7 +50,8 @@ public interface Executable {
 	 * @return The after-transaction-completion process, or null if we have no
 	 * after-transaction-completion process
 	 */
-	@Nullable AfterTransactionCompletionProcess getAfterTransactionCompletionProcess();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	AfterTransactionCompletionProcess getAfterTransactionCompletionProcess();
 
 	/**
 	 * Get the before-transaction-completion process, if any, for this action.
@@ -53,12 +59,14 @@ public interface Executable {
 	 * @return The before-transaction-completion process, or null if we have no
 	 * before-transaction-completion process
 	 */
-	@Nullable BeforeTransactionCompletionProcess getBeforeTransactionCompletionProcess();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	BeforeTransactionCompletionProcess getBeforeTransactionCompletionProcess();
 
 	/**
 	 * Reconnect to session after deserialization
 	 *
 	 * @param session The session being deserialized; must be an EventSource
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void afterDeserialize(EventSource session);
 }

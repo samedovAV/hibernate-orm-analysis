@@ -9,6 +9,8 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.engine.spi.TransactionCompletionCallbacks.CompletionCallback;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Collection of transaction completion {@linkplain CompletionCallback callbacks}.
@@ -25,12 +27,14 @@ abstract class AbstractTransactionCompletionProcessQueue<T extends CompletionCal
 		this.session = session;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void register(@Nullable T process) {
 		if ( process != null ) {
 			processes.add( process );
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean hasActions() {
 		return !processes.isEmpty();
 	}

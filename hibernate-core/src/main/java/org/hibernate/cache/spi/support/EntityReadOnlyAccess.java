@@ -13,6 +13,8 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 
 
 import static org.hibernate.cache.spi.SecondLevelCacheLogger.L2CACHE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard support for {@link org.hibernate.cache.spi.access.EntityDataAccess}
@@ -34,28 +36,33 @@ public class EntityReadOnlyAccess extends AbstractEntityDataAccess {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AccessType getAccessType() {
 		return AccessType.READ_ONLY;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean insert(SharedSessionContractImplementor session, Object key, Object value, Object version) {
 		// wait until tx complete - see `#afterInsert`
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean afterInsert(SharedSessionContractImplementor session, Object key, Object value, Object version) {
 		getStorageAccess().putIntoCache( key, value, session );
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void unlockItem(SharedSessionContractImplementor session, Object key, SoftLock lock) {
 		evict( key );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean update(
 			SharedSessionContractImplementor session,
 			Object key,
@@ -67,6 +74,7 @@ public class EntityReadOnlyAccess extends AbstractEntityDataAccess {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean afterUpdate(
 			SharedSessionContractImplementor session,
 			Object key,

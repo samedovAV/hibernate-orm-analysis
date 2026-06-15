@@ -11,6 +11,8 @@ import org.hibernate.internal.util.collections.ArrayHelper;
 import org.hibernate.metamodel.mapping.JdbcMappingContainer;
 import org.hibernate.sql.ast.SqlAstWalker;
 import org.hibernate.sql.ast.tree.expression.Expression;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -47,19 +49,23 @@ public class InListPredicate extends AbstractPredicate {
 		this.listExpressions = listExpressions;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression getTestExpression() {
 		return testExpression;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<Expression> getListExpressions() {
 		return listExpressions;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addExpression(Expression expression) {
 		listExpressions.add( expression );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker sqlTreeWalker) {
 		sqlTreeWalker.visitInListPredicate( this );
 	}

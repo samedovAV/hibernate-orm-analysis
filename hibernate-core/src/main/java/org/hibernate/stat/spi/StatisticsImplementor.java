@@ -11,6 +11,8 @@ import org.hibernate.stat.Statistics;
 import java.util.Map;
 
 import static java.util.Collections.emptyMap;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A service SPI for collecting statistics about various events occurring at runtime.
@@ -23,31 +25,37 @@ public interface StatisticsImplementor extends Statistics, Service {
 	/**
 	 * Callback about a session being opened.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void openSession();
 
 	/**
 	 * Callback about a session being closed.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void closeSession();
 
 	/**
 	 * Callback about a flush occurring
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void flush();
 
 	/**
 	 * Callback about a connection being obtained from {@link org.hibernate.engine.jdbc.connections.spi.ConnectionProvider}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void connect();
 
 	/**
 	 * Callback about a statement being prepared.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void prepareStatement();
 
 	/**
 	 * Callback about a statement being closed.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void closeStatement();
 
 	/**
@@ -55,6 +63,7 @@ public interface StatisticsImplementor extends Statistics, Service {
 	 *
 	 * @param success Was the transaction successful?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void endTransaction(boolean success);
 
 	/**
@@ -63,6 +72,7 @@ public interface StatisticsImplementor extends Statistics, Service {
 	 *
 	 * @param entityName The name of the entity loaded.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void loadEntity(String entityName);
 
 	/**
@@ -71,6 +81,7 @@ public interface StatisticsImplementor extends Statistics, Service {
 	 *
 	 * @param entityName The name of the entity fetched.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void fetchEntity(String entityName);
 
 	/**
@@ -78,6 +89,7 @@ public interface StatisticsImplementor extends Statistics, Service {
 	 *
 	 * @param entityName The name of the entity updated.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void updateEntity(String entityName);
 
 	/**
@@ -85,6 +97,7 @@ public interface StatisticsImplementor extends Statistics, Service {
 	 *
 	 * @param entityName The name of the entity upserted.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void upsertEntity(String entityName);
 
 	/**
@@ -92,6 +105,7 @@ public interface StatisticsImplementor extends Statistics, Service {
 	 *
 	 * @param entityName The name of the entity inserted
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void insertEntity(String entityName);
 
 	/**
@@ -99,6 +113,7 @@ public interface StatisticsImplementor extends Statistics, Service {
 	 *
 	 * @param entityName The name of the entity deleted.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void deleteEntity(String entityName);
 
 	/**
@@ -106,6 +121,7 @@ public interface StatisticsImplementor extends Statistics, Service {
 	 *
 	 * @param entityName The name of the entity.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void optimisticFailure(String entityName);
 
 	/**
@@ -114,6 +130,7 @@ public interface StatisticsImplementor extends Statistics, Service {
 	 *
 	 * @param role The collection role.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void loadCollection(String role);
 
 	/**
@@ -122,6 +139,7 @@ public interface StatisticsImplementor extends Statistics, Service {
 	 *
 	 * @param role The collection role.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void fetchCollection(String role);
 
 	/**
@@ -129,6 +147,7 @@ public interface StatisticsImplementor extends Statistics, Service {
 	 *
 	 * @param role The collection role.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void updateCollection(String role);
 
 	/**
@@ -136,6 +155,7 @@ public interface StatisticsImplementor extends Statistics, Service {
 	 *
 	 * @param role The collection role.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void recreateCollection(String role);
 
 	/**
@@ -143,6 +163,7 @@ public interface StatisticsImplementor extends Statistics, Service {
 	 *
 	 * @param role The collection role.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void removeCollection(String role);
 
 	/**
@@ -150,6 +171,7 @@ public interface StatisticsImplementor extends Statistics, Service {
 	 *
 	 * @apiNote {@code entityName} should be the root entity name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void entityCachePut(NavigableRole entityName, String regionName);
 
 	/**
@@ -157,6 +179,7 @@ public interface StatisticsImplementor extends Statistics, Service {
 	 *
 	 * @apiNote {@code entityName} should be the root entity name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void entityCacheHit(NavigableRole entityName, String regionName);
 
 	/**
@@ -164,6 +187,7 @@ public interface StatisticsImplementor extends Statistics, Service {
 	 *
 	 * @apiNote {@code entityName} should be the root entity name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void entityCacheMiss(NavigableRole entityName, String regionName);
 
 	/**
@@ -171,6 +195,7 @@ public interface StatisticsImplementor extends Statistics, Service {
 	 *
 	 * @apiNote {@code entityName} should be the root entity name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void entityCacheRemove(NavigableRole rootEntityRole, String name);
 
 	/**
@@ -179,6 +204,7 @@ public interface StatisticsImplementor extends Statistics, Service {
 	 * @param collectionRole The collection's "path"
 	 * @param regionName The name of the cache region
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void collectionCachePut(NavigableRole collectionRole, String regionName);
 
 	/**
@@ -187,6 +213,7 @@ public interface StatisticsImplementor extends Statistics, Service {
 	 * @param collectionRole The collection's "path"
 	 * @param regionName The name of the cache region
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void collectionCacheHit(NavigableRole collectionRole, String regionName);
 
 	/**
@@ -195,26 +222,31 @@ public interface StatisticsImplementor extends Statistics, Service {
 	 * @param collectionRole The collection's "path"
 	 * @param regionName The name of the cache region
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void collectionCacheMiss(NavigableRole collectionRole, String regionName);
 
 	/**
 	 * Callback indicating a put into natural id cache.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void naturalIdCachePut(NavigableRole rootEntityName, String regionName);
 
 	/**
 	 * Callback indicating a get from natural id cache resulted in a hit.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void naturalIdCacheHit(NavigableRole rootEntityName, String regionName);
 
 	/**
 	 * Callback indicating a get from natural id cache resulted in a miss.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void naturalIdCacheMiss(NavigableRole rootEntityName, String regionName);
 
 	/**
 	 * Callback indicating execution of a natural id query
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void naturalIdQueryExecuted(String rootEntityName, long executionTime);
 
 	/**
@@ -223,6 +255,7 @@ public interface StatisticsImplementor extends Statistics, Service {
 	 * @param hql The query
 	 * @param regionName The cache region
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void queryCachePut(String hql, String regionName);
 
 	/**
@@ -231,6 +264,7 @@ public interface StatisticsImplementor extends Statistics, Service {
 	 * @param hql The query
 	 * @param regionName The name of the cache region
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void queryCacheHit(String hql, String regionName);
 
 	/**
@@ -239,6 +273,7 @@ public interface StatisticsImplementor extends Statistics, Service {
 	 * @param hql The query
 	 * @param regionName The name of the cache region
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void queryCacheMiss(String hql, String regionName);
 
 	/**
@@ -248,21 +283,25 @@ public interface StatisticsImplementor extends Statistics, Service {
 	 * @param rows Number of rows returned
 	 * @param time execution time
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void queryExecuted(String query, int rows, long time);
 
 	/**
 	 * Callback indicating a hit to the timestamp cache
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void updateTimestampsCacheHit();
 
 	/**
 	 * Callback indicating a miss to the timestamp cache
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void updateTimestampsCacheMiss();
 
 	/**
 	 * Callback indicating a put to the timestamp cache
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void updateTimestampsCachePut();
 
 	/**
@@ -270,6 +309,7 @@ public interface StatisticsImplementor extends Statistics, Service {
 	 *
 	 * @param query The query
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void queryPlanCacheHit(String query) {
 		//For backward compatibility
 	}
@@ -279,6 +319,7 @@ public interface StatisticsImplementor extends Statistics, Service {
 	 *
 	 * @param query The query
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void queryPlanCacheMiss(String query) {
 		//For backward compatibility
 	}
@@ -289,6 +330,7 @@ public interface StatisticsImplementor extends Statistics, Service {
 	 * @param hql The query
 	 * @param microseconds execution time
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void queryCompiled(String hql, long microseconds) {
 		//For backward compatibility
 	}
@@ -296,16 +338,19 @@ public interface StatisticsImplementor extends Statistics, Service {
 	/**
 	 * Register the execution of a slow SQL query.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void slowQuery(String sql, long executionTime) {
 		//For backward compatibility
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Map<String, Long> getSlowQueries() {
 		//For backward compatibility
 		return emptyMap();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void normalizeNaturalId(String entityName) {
 		//For backward compatibility
 	}

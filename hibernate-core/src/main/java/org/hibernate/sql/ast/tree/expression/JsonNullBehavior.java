@@ -6,6 +6,8 @@ package org.hibernate.sql.ast.tree.expression;
 
 import org.hibernate.sql.ast.SqlAstWalker;
 import org.hibernate.sql.ast.tree.SqlAstNode;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @since 7.0
@@ -15,6 +17,7 @@ public enum JsonNullBehavior implements SqlAstNode {
 	ABSENT;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker sqlTreeWalker) {
 		throw new UnsupportedOperationException("JsonNullBehavior doesn't support walking");
 	}

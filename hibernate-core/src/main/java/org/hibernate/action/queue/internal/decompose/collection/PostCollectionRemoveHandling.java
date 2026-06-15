@@ -10,6 +10,8 @@ import org.hibernate.cache.spi.access.CollectionDataAccess;
 import org.hibernate.collection.spi.PersistentCollection;
 import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.persister.collection.CollectionPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Post-execution callback for collection remove actions.
 ///
@@ -45,6 +47,7 @@ public class PostCollectionRemoveHandling implements PostExecutionCallback {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handle(SessionImplementor session) {
 		// 1. Update CollectionEntry state
 		if (collection != null) {
@@ -73,6 +76,7 @@ public class PostCollectionRemoveHandling implements PostExecutionCallback {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void evict(SessionImplementor session, Object cacheKey) {
 		if (persister.hasCache() && cacheKey != null) {
 			final CollectionDataAccess cache = persister.getCacheAccessStrategy();

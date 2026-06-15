@@ -7,6 +7,8 @@ package org.hibernate.metamodel.mapping.ordering;
 import org.hibernate.sql.ast.spi.SqlAstCreationState;
 import org.hibernate.sql.ast.tree.from.TableGroup;
 import org.hibernate.sql.ast.tree.select.QuerySpec;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents the translation result.  Defines the ability to apply the indicated ordering to the SQL AST
@@ -22,6 +24,7 @@ public interface OrderByFragment {
 	 * @param tableGroup The TableGroup the order-by is applied "against"
 	 * @param creationState The SQL AST creation state
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void apply(QuerySpec ast, TableGroup tableGroup, SqlAstCreationState creationState);
 
 }

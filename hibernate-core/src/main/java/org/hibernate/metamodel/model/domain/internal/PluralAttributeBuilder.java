@@ -24,6 +24,8 @@ import org.hibernate.query.sqm.tree.domain.SqmDomainType;
 import org.hibernate.type.descriptor.java.JavaType;
 
 import static org.hibernate.metamodel.internal.AttributeFactory.determineSimpleType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A "parameter object" for creating a plural attribute
@@ -64,6 +66,7 @@ public class PluralAttributeBuilder<D, C, E, K> {
 		this.member = member;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <Y, X> PersistentAttribute<X, Y> build(
 			PluralAttributeMetadata<?,Y,?> attributeMetadata,
 			boolean isGeneric,
@@ -121,6 +124,7 @@ public class PluralAttributeBuilder<D, C, E, K> {
 		throw new UnsupportedMappingException( "Unknown collection: " + attributeJtd.getJavaType() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static SimpleDomainType<?> determineListIndexOrMapKeyType(
 			PluralAttributeMetadata<?,?,?> attributeMetadata,
 			MetadataContext metadataContext) {
@@ -138,38 +142,47 @@ public class PluralAttributeBuilder<D, C, E, K> {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ManagedDomainType<D> getDeclaringType() {
 		return declaringType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AttributeClassification getAttributeClassification() {
 		return attributeClassification;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionClassification getCollectionClassification() {
 		return collectionClassification;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainType<K> getListIndexOrMapKeyType() {
 		return listIndexOrMapKeyType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<C> getCollectionJavaType() {
 		return collectionJtd;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isGeneric() {
 		return isGeneric;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmDomainType<E> getValueType() {
 		return elementType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Property getProperty() {
 		return property;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Member getMember() {
 		return member;
 	}

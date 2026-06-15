@@ -17,6 +17,8 @@ import org.hibernate.persister.entity.EntityPersister;
 import static org.hibernate.event.internal.EventListenerLogging.EVENT_LISTENER_LOGGER;
 import static org.hibernate.pretty.MessageHelper.infoString;
 import static org.hibernate.proxy.HibernateProxy.extractLazyInitializer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Defines the default evict event listener used by hibernate for evicting entities
@@ -35,6 +37,7 @@ public class DefaultEvictEventListener implements EvictEventListener {
 	 *
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void onEvict(EvictEvent event) throws HibernateException {
 		final var source = event.getSession();
 		final var persistenceContext = source.getPersistenceContextInternal();
@@ -79,6 +82,7 @@ public class DefaultEvictEventListener implements EvictEventListener {
 	 * This is different to the legacy Hibernate behavior, but is what JPA 2.1
 	 * requires with EntityManager.detach().
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void checkEntity(Object object, EventSource source) {
 		final String entityName = source.getSession().guessEntityName( object );
 		if ( entityName != null ) {
@@ -96,6 +100,7 @@ public class DefaultEvictEventListener implements EvictEventListener {
 		throw new IllegalArgumentException( "Non-entity object instance passed to evict: " + object);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void doEvict(
 			final Object object,
 			final EntityKey key,

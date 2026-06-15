@@ -18,6 +18,8 @@ import org.hibernate.persister.collection.CollectionPersister;
 
 import static org.hibernate.engine.internal.Collections.skipRemoval;
 import static org.hibernate.event.internal.EventListenerLogging.EVENT_LISTENER_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Flush-local state for collection reachability and logical collection actions.
 ///
@@ -62,6 +64,7 @@ public final class FlushProcessingContext implements CollectionFlushActionTracke
 	/// collection reachability processing begins.
 	///
 	/// @param collection The collection instance
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void beginCollectionFlush(PersistentCollection<?> collection) {
 		collectionStates.put( collection, new CollectionState() );
 	}
@@ -71,6 +74,7 @@ public final class FlushProcessingContext implements CollectionFlushActionTracke
 	/// @param collection The collection instance
 	///
 	/// @return {@code true} if the collection was marked reachable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCollectionReached(PersistentCollection<?> collection) {
 		return state( collection ).reached;
 	}
@@ -78,6 +82,7 @@ public final class FlushProcessingContext implements CollectionFlushActionTracke
 	/// Marks the collection as reachable from a flushed entity.
 	///
 	/// @param collection The collection instance
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void markCollectionReached(PersistentCollection<?> collection) {
 		state( collection ).reached = true;
 	}
@@ -88,6 +93,7 @@ public final class FlushProcessingContext implements CollectionFlushActionTracke
 	/// failure, matching the previous {@link org.hibernate.engine.spi.CollectionEntry} guard.
 	///
 	/// @param collection The collection instance
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void markCollectionProcessed(PersistentCollection<?> collection) {
 		final var state = state( collection );
 		if ( state.processed ) {
@@ -104,6 +110,7 @@ public final class FlushProcessingContext implements CollectionFlushActionTracke
 	/// @param collection The collection instance
 	/// @param persister The collection persister
 	/// @param key The collection key
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void queueCollectionRecreate(PersistentCollection<?> collection, CollectionPersister persister, Object key) {
 		markAction( collection, CollectionActionKind.RECREATE );
 		EVENT_LISTENER_LOGGER.debugf( "Creating CollectionRecreateAction for role=%s, key=%s", persister.getRole(), key );
@@ -126,6 +133,7 @@ public final class FlushProcessingContext implements CollectionFlushActionTracke
 	/// @param persister The collection persister
 	/// @param key The collection key
 	/// @param emptySnapshot Whether the collection had an empty snapshot
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void queueCollectionRemove(
 			PersistentCollection<?> collection,
 			CollectionPersister persister,
@@ -153,6 +161,7 @@ public final class FlushProcessingContext implements CollectionFlushActionTracke
 	/// @param persister The collection persister
 	/// @param key The collection key
 	/// @param emptySnapshot Whether the collection had an empty snapshot
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void queueCollectionUpdate(
 			PersistentCollection<?> collection,
 			CollectionPersister persister,
@@ -169,6 +178,7 @@ public final class FlushProcessingContext implements CollectionFlushActionTracke
 		) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void markAction(PersistentCollection<?> collection, CollectionActionKind actionKind) {
 		final var state = state( collection );
 		if ( state.actions == null ) {
@@ -178,29 +188,34 @@ public final class FlushProcessingContext implements CollectionFlushActionTracke
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean wasCollectionReached(PersistentCollection<?> collection) {
 		final var state = collectionStates.get( collection );
 		return state != null && state.reached;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean wasCollectionProcessed(PersistentCollection<?> collection) {
 		final var state = collectionStates.get( collection );
 		return state != null && state.processed;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasQueuedCollectionAction(PersistentCollection<?> collection) {
 		final var state = collectionStates.get( collection );
 		return state != null && state.actions != null && !state.actions.isEmpty();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasQueuedCollectionRemove(PersistentCollection<?> collection) {
 		final var state = collectionStates.get( collection );
 		return state != null && state.actions != null && state.actions.contains( CollectionActionKind.REMOVE );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private CollectionState state(PersistentCollection<?> collection) {
 		return collectionStates.computeIfAbsent( collection, key -> new CollectionState() );
 	}

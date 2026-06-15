@@ -10,6 +10,8 @@ import java.util.Map;
 import org.hibernate.models.spi.ModelsContext;
 
 import jakarta.persistence.Convert;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -47,35 +49,42 @@ public class ConvertJpaAnnotation implements Convert {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return Convert.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public java.lang.Class<? extends jakarta.persistence.AttributeConverter> converter() {
 		return converter;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void converter(java.lang.Class<? extends jakarta.persistence.AttributeConverter> value) {
 		this.converter = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String attributeName() {
 		return attributeName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void attributeName(String value) {
 		this.attributeName = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean disableConversion() {
 		return disableConversion;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void disableConversion(boolean value) {
 		this.disableConversion = value;
 	}

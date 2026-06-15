@@ -5,6 +5,8 @@
 package org.hibernate.engine.jdbc;
 
 import java.io.Reader;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Wraps a character stream (reader) to also provide the length (number of characters) which is needed
@@ -18,6 +20,7 @@ public interface CharacterStream {
 	 *
 	 * @return The reader.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Reader asReader();
 
 	/**
@@ -25,6 +28,7 @@ public interface CharacterStream {
 	 *
 	 * @return The underlying String data
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String asString();
 
 	/**
@@ -32,10 +36,12 @@ public interface CharacterStream {
 	 *
 	 * @return The number of characters.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	long getLength();
 
 	/**
 	 * Release any underlying resources.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void release();
 }

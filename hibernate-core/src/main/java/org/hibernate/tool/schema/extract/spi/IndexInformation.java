@@ -7,6 +7,8 @@ package org.hibernate.tool.schema.extract.spi;
 import java.util.List;
 
 import org.hibernate.boot.model.naming.Identifier;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Provides access to information about existing index in the database
@@ -20,6 +22,7 @@ public interface IndexInformation {
 	 *
 	 * @return The index identifier.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier getIndexIdentifier();
 
 	/**
@@ -27,5 +30,6 @@ public interface IndexInformation {
 	 *
 	 * @return The columns
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<ColumnInformation> getIndexedColumns();
 }

@@ -15,6 +15,8 @@ import org.hibernate.resource.transaction.spi.TransactionStatus;
 
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
 import static org.hibernate.resource.transaction.spi.TransactionCoordinator.TransactionDriver;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Andrea Boriero
@@ -52,6 +54,7 @@ public class TransactionImpl implements Transaction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void begin() {
 		if ( !session.isOpen() ) {
 			throw new IllegalStateException( "Cannot begin Transaction on closed Session/EntityManager" );
@@ -77,6 +80,7 @@ public class TransactionImpl implements Transaction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void commit() {
 		// allow MARKED_ROLLBACK to propagate through to transactionDriverControl
 		if ( !isActive() ) {
@@ -94,6 +98,7 @@ public class TransactionImpl implements Transaction {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TransactionDriver internalGetTransactionDriverControl() {
 		// NOTE here to help be a more descriptive NullPointerException
 		if ( transactionDriverControl == null ) {
@@ -105,6 +110,7 @@ public class TransactionImpl implements Transaction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void rollback() {
 		if ( !isActive() && jpaCompliance ) {
 			throw new IllegalStateException( "rollback() called on inactive transaction (in JPA compliant mode)" );
@@ -125,6 +131,7 @@ public class TransactionImpl implements Transaction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isActive() {
 		if ( transactionDriverControl == null ) {
 			if ( session.isOpen() ) {
@@ -139,6 +146,7 @@ public class TransactionImpl implements Transaction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public TransactionStatus getStatus() {
 		if ( transactionDriverControl == null ) {
 			if ( session.isOpen() ) {
@@ -153,28 +161,33 @@ public class TransactionImpl implements Transaction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void registerSynchronization(Synchronization synchronization) {
 		transactionCoordinator.getLocalSynchronizations()
 				.registerSynchronization( synchronization );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setTimeout(int seconds) {
 		transactionCoordinator.setTimeOut( seconds );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setTimeout(@Nullable Integer seconds) {
 		transactionCoordinator.setTimeOut( seconds == null ? -1 : seconds );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable Integer getTimeout() {
 		final int timeout = transactionCoordinator.getTimeOut();
 		return timeout == -1 ? null : timeout;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void markRollbackOnly() {
 		// This is the Hibernate-specific API, whereas setRollbackOnly is the
 		// JPA-defined API. In our opinion, it's much more user-friendly to
@@ -187,6 +200,7 @@ public class TransactionImpl implements Transaction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setRollbackOnly() {
 		if ( !isActive() ) {
 			if ( jpaCompliance ) {
@@ -206,6 +220,7 @@ public class TransactionImpl implements Transaction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean getRollbackOnly() {
 		if ( jpaCompliance && !isActive() ) {
 			throw new IllegalStateException( "getRollbackOnly() called on inactive transaction (in JPA compliant mode)" );
@@ -215,6 +230,7 @@ public class TransactionImpl implements Transaction {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean allowFailedCommitToPhysicallyRollback() {
 		return false;
 	}

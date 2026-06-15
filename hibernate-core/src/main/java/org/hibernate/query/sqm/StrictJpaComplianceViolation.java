@@ -5,6 +5,8 @@
 package org.hibernate.query.sqm;
 
 import org.hibernate.query.SemanticException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Indicates violations of strict JPQL syntax while strict JPQL syntax checking was enabled.
@@ -44,6 +46,7 @@ public class StrictJpaComplianceViolation extends SemanticException {
 			this.description = description;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String description() {
 			return description;
 		}
@@ -61,6 +64,7 @@ public class StrictJpaComplianceViolation extends SemanticException {
 		this.type = type;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Type getType() {
 		return type;
 	}

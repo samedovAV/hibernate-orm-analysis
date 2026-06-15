@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.tool.schema.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Contract for hiding the differences between a passed {@code Writer},
@@ -14,6 +17,7 @@ public interface ScriptTargetOutput {
 	/**
 	 * Prepare the script target to {@linkplain #accept(String) accept} commands
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void prepare();
 
 	/**
@@ -21,10 +25,12 @@ public interface ScriptTargetOutput {
 	 *
 	 * @param command The command
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void accept(String command);
 
 	/**
 	 * Release this output
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void release();
 }

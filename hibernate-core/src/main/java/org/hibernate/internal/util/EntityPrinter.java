@@ -17,6 +17,8 @@ import org.hibernate.type.Type;
 
 import static org.hibernate.Hibernate.isInitialized;
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Renders entities and query parameters to a nicely readable string.
@@ -35,6 +37,7 @@ public final class EntityPrinter {
 	 *
 	 * @return the entity rendered to a string
 	 */
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public String toString(String entityName, Object entity) throws HibernateException {
 		final var entityPersister =
 				factory.getMappingMetamodel()
@@ -73,6 +76,7 @@ public final class EntityPrinter {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public String toString(Type[] types, Object[] values) throws HibernateException {
 		final var buffer = new StringBuilder();
 		for ( int i = 0; i < types.length; i++ ) {
@@ -83,6 +87,7 @@ public final class EntityPrinter {
 		return buffer.toString();
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public String toString(Map<String, TypedValue> namedTypedValues) throws HibernateException {
 		final Map<String, String> result = new HashMap<>();
 		for ( var entry : namedTypedValues.entrySet() ) {
@@ -96,6 +101,7 @@ public final class EntityPrinter {
 	}
 
 	// Cannot use Map as an argument because it clashes with the previous method (due to type erasure)
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void logEntities(Iterable<Map.Entry<EntityKey, EntityHolder>> entitiesByEntityKey)
 			throws HibernateException {
 		if ( CORE_LOGGER.isDebugEnabled() && entitiesByEntityKey.iterator().hasNext() ) {

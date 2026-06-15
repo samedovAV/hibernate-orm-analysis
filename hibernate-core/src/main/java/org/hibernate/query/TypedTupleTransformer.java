@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.query;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Extension to TupleTransformer exposing the transformation target type.
@@ -16,5 +19,6 @@ public interface TypedTupleTransformer<T> extends TupleTransformer<T> {
 	/**
 	 * The type resulting from this transformation
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Class<T> getTransformedType();
 }

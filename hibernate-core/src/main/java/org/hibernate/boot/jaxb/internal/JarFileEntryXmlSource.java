@@ -19,6 +19,8 @@ import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
 
 import static org.hibernate.boot.jaxb.JaxbLogger.JAXB_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Support for creating a mapping {@linkplain Binding binding} from a JAR file entry.
@@ -37,6 +39,7 @@ public class JarFileEntryXmlSource {
 	 * @apiNote Assumes that any file named {@code *.hbm.xml} is a mapping document.
 	 * Does not support {@code orm.xml} files.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void fromJar(
 			File jar,
 			MappingBinder mappingBinder,
@@ -61,6 +64,7 @@ public class JarFileEntryXmlSource {
 	/**
 	 * Create a mapping {@linkplain Binding binding} from a JAR file entry.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Binding<? extends JaxbBindableMappingDescriptor> fromJarEntry(
 			JarFile jarFile,
 			ZipEntry jarFileEntry,

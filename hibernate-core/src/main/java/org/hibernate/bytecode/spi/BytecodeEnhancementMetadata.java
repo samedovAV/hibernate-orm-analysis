@@ -13,6 +13,8 @@ import org.hibernate.engine.spi.PersistentAttributeInterceptor;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Encapsulates bytecode enhancement information about a particular entity.
@@ -25,6 +27,7 @@ public interface BytecodeEnhancementMetadata {
 	 *
 	 * @return The entity name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getEntityName();
 
 	/**
@@ -33,8 +36,10 @@ public interface BytecodeEnhancementMetadata {
 	 * @return {@code true} indicates the entity class is enhanced for Hibernate use
 	 * in lazy loading; {@code false} indicates it is not
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isEnhancedForLazyLoading();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	LazyAttributesMetadata getLazyAttributesMetadata();
 
 	/**
@@ -43,6 +48,7 @@ public interface BytecodeEnhancementMetadata {
 	 * @apiNote The `addEmptyEntry` parameter is used to avoid creation of `EntityEntry` instances when we
 	 * do not need them. - mainly from StatelessSession
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PersistentAttributeInterceptable createEnhancedProxy(
 			EntityKey keyToLoad, boolean addEmptyEntry,
 			SharedSessionContractImplementor session);
@@ -58,17 +64,20 @@ public interface BytecodeEnhancementMetadata {
 	 *
 	 * @throws NotInstrumentedException Thrown if {@link #isEnhancedForLazyLoading()} returns {@code false}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	LazyAttributeLoadingInterceptor injectInterceptor(
 			Object entity,
 			Object identifier,
 			SharedSessionContractImplementor session)
 				throws NotInstrumentedException;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void injectInterceptor(
 			Object entity,
 			PersistentAttributeInterceptor interceptor,
 			SharedSessionContractImplementor session);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void injectEnhancedEntityAsProxyInterceptor(
 			Object entity,
 			EntityKey entityKey,
@@ -83,13 +92,17 @@ public interface BytecodeEnhancementMetadata {
 	 *
 	 * @throws NotInstrumentedException Thrown if {@link #isEnhancedForLazyLoading()} returns {@code false}
 	 */
-	@Nullable LazyAttributeLoadingInterceptor extractInterceptor(Object entity)
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	LazyAttributeLoadingInterceptor extractInterceptor(Object entity)
 			throws NotInstrumentedException;
 
-	@Nullable BytecodeLazyAttributeInterceptor extractLazyInterceptor(Object entity)
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	BytecodeLazyAttributeInterceptor extractLazyInterceptor(Object entity)
 			throws NotInstrumentedException;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean hasUnFetchedAttributes(Object entity);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isAttributeLoaded(Object entity, String attributeName);
 }

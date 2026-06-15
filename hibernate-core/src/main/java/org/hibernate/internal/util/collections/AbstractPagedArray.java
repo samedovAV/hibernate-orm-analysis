@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Array-like structures that organizes elements in {@link Page}s, automatically allocating
@@ -36,6 +38,7 @@ public class AbstractPagedArray<E> {
 		/**
 		 * Clears the contents of the page.
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void clear() {
 			// We need to null out everything to prevent GC nepotism (see https://hibernate.atlassian.net/browse/HHH-19047)
 			Arrays.fill( elements, 0, lastNotEmptyOffset + 1, null );
@@ -49,6 +52,7 @@ public class AbstractPagedArray<E> {
 		 * @param element the element to set
 		 * @return the previous element at {@code offset} if one existed, or {@code null}
 		 */
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public E set(int offset, Object element) {
 			if ( offset >= PAGE_CAPACITY ) {
 				throw new IllegalArgumentException( "The required offset is beyond page capacity" );
@@ -80,6 +84,7 @@ public class AbstractPagedArray<E> {
 		 * @param offset the offset in the page where to set the element
 		 * @return the element at {@code index} if one existed, or {@code null}
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public E get(final int offset) {
 			if ( offset >= PAGE_CAPACITY ) {
 				throw new IllegalArgumentException( "The required offset is beyond page capacity" );
@@ -91,6 +96,7 @@ public class AbstractPagedArray<E> {
 			return (E) elements[offset];
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		int lastNotEmptyOffset() {
 			return lastNotEmptyOffset;
 		}
@@ -102,10 +108,12 @@ public class AbstractPagedArray<E> {
 		elementPages = new ArrayList<>();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected static int toPageIndex(final int index) {
 		return index / PAGE_CAPACITY;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected static int toPageOffset(final int index) {
 		return index % PAGE_CAPACITY;
 	}
@@ -116,6 +124,7 @@ public class AbstractPagedArray<E> {
 	 * @param index the absolute index of the array
 	 * @return the page corresponding to the provided index, or {@code null}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Page<E> getPage(int index) {
 		final int pageIndex = toPageIndex( index );
 		if ( pageIndex < elementPages.size() ) {
@@ -130,6 +139,7 @@ public class AbstractPagedArray<E> {
 	 * @param index the absolute index in the underlying array
 	 * @return the value contained in the array at the specified position, or {@code null}
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected E get(int index) {
 		final Page<E> page = getPage( index );
 		return page != null ? page.get( toPageOffset( index ) ) : null;
@@ -142,6 +152,7 @@ public class AbstractPagedArray<E> {
 	 * @param element the element to set
 	 * @return the value previously contained in the array at the specified position, or {@code null}
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected E set(int index, E element) {
 		final Page<E> page = getOrCreateEntryPage( index );
 		return page.set( toPageOffset( index ), element );
@@ -153,6 +164,7 @@ public class AbstractPagedArray<E> {
 	 * @param index the absolute index of the array
 	 * @return the page corresponding to the provided index
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected Page<E> getOrCreateEntryPage(int index) {
 		final int pages = elementPages.size();
 		final int pageIndex = toPageIndex( index );
@@ -174,6 +186,7 @@ public class AbstractPagedArray<E> {
 		return page;
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void clear() {
 		for ( Page<E> entryPage : elementPages ) {
 			if ( entryPage != null ) {
@@ -189,6 +202,7 @@ public class AbstractPagedArray<E> {
 		boolean indexValid; // to avoid unnecessary next computation
 
 		@Override
+		@Prove(complexity = Complexity.O_N2, n = "", count = {})
 		public boolean hasNext() {
 			for ( int i = toPageIndex( index ); i < elementPages.size(); i++ ) {
 				final Page<E> page = elementPages.get( i );
@@ -205,6 +219,7 @@ public class AbstractPagedArray<E> {
 			return false;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		protected int nextIndex() {
 			if ( !indexValid && !hasNext() ) {
 				throw new NoSuchElementException();

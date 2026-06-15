@@ -17,6 +17,8 @@ import org.hibernate.JDBCException;
 import org.hibernate.engine.jdbc.LobCreationContext;
 import org.hibernate.engine.jdbc.LobCreator;
 import org.hibernate.engine.jdbc.proxy.NClobProxy;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * {@link LobCreator} which can use {@link Connection#createBlob} and {@link Connection#createClob},
@@ -56,6 +58,7 @@ public class BlobAndClobCreator extends AbstractLobCreator implements LobCreator
 	 *
 	 * @return The created BLOB reference.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Blob createBlob() {
 		return lobCreationContext.fromContext( CREATE_BLOB_CALLBACK );
 	}
@@ -65,6 +68,7 @@ public class BlobAndClobCreator extends AbstractLobCreator implements LobCreator
 	 * array from a JDBC {@link ResultSet}.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Blob createBlob(byte[] bytes) {
 		final Blob blob = createBlob();
 		try {
@@ -87,6 +91,7 @@ public class BlobAndClobCreator extends AbstractLobCreator implements LobCreator
 	 * just like what {@link NonContextualLobCreator} does.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Blob createBlob(InputStream stream, long length) {
 		return NonContextualLobCreator.INSTANCE.createBlob( stream, length );
 	}
@@ -96,6 +101,7 @@ public class BlobAndClobCreator extends AbstractLobCreator implements LobCreator
 	 *
 	 * @return The created CLOB reference.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Clob createClob() {
 		return lobCreationContext.fromContext( CREATE_CLOB_CALLBACK );
 	}
@@ -105,6 +111,7 @@ public class BlobAndClobCreator extends AbstractLobCreator implements LobCreator
 	 *
 	 * @return The created NCLOB reference.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NClob createNClob() {
 		return lobCreationContext.fromContext( CREATE_NCLOB_CALLBACK );
 	}
@@ -114,6 +121,7 @@ public class BlobAndClobCreator extends AbstractLobCreator implements LobCreator
 	 * from a JDBC {@link ResultSet}.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Clob createClob(String string) {
 		try {
 			final Clob clob = createClob();
@@ -136,16 +144,19 @@ public class BlobAndClobCreator extends AbstractLobCreator implements LobCreator
 	 * just like what {@link NonContextualLobCreator} does.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Clob createClob(Reader reader, long length) {
 		return NonContextualLobCreator.INSTANCE.createClob( reader, length );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public NClob createNClob(String string) {
 		return NonContextualLobCreator.INSTANCE.createNClob( string );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public NClob createNClob(Reader reader, long length) {
 		return NonContextualLobCreator.INSTANCE.createNClob( reader, length );
 	}
@@ -156,6 +167,7 @@ public class BlobAndClobCreator extends AbstractLobCreator implements LobCreator
 	 * {@link java.sql.PreparedStatement#setBlob(int, Blob)}.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Blob toJdbcBlob(Blob blob) {
 		try {
 			if ( useConnectionToCreateLob ) {
@@ -182,6 +194,7 @@ public class BlobAndClobCreator extends AbstractLobCreator implements LobCreator
 	 * {@link java.sql.PreparedStatement#setClob(int, Clob)}.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Clob toJdbcClob(Clob clob) {
 		try {
 			if ( useConnectionToCreateLob ) {
@@ -208,6 +221,7 @@ public class BlobAndClobCreator extends AbstractLobCreator implements LobCreator
 	 * {@link java.sql.PreparedStatement#setNClob(int, NClob)}.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public NClob toJdbcNClob(NClob clob) {
 		try {
 			if ( useConnectionToCreateLob ) {

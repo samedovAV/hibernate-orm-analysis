@@ -20,6 +20,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Optimizer which applies a 'hilo' algorithm in memory to achieve
@@ -83,6 +85,7 @@ public class HiLoOptimizer extends AbstractOptimizer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Serializable generate(AccessCallback callback) {
 		lock.lock();
 		try {
@@ -120,11 +123,13 @@ public class HiLoOptimizer extends AbstractOptimizer {
 	private Map<String,GenerationState> tenantSpecificState;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void reset() {
 		noTenantState = null;
 		tenantSpecificState = null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private GenerationState locateGenerationState(String tenantId) {
 		if ( tenantId == null ) {
 			if ( noTenantState == null ) {
@@ -150,6 +155,7 @@ public class HiLoOptimizer extends AbstractOptimizer {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private GenerationState noTenantGenerationState() {
 		if ( noTenantState == null ) {
 			throw new IllegalStateException( "Could not locate previous generation state for no-tenant" );
@@ -158,6 +164,7 @@ public class HiLoOptimizer extends AbstractOptimizer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Long getLastSourceValue() {
 		lock.lock();
 		try {
@@ -169,6 +176,7 @@ public class HiLoOptimizer extends AbstractOptimizer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean applyIncrementSizeToSourceValues() {
 		return false;
 	}
@@ -180,6 +188,7 @@ public class HiLoOptimizer extends AbstractOptimizer {
 	 *
 	 * @return Value for property 'lastValue'.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getLastValue() {
 		lock.lock();
 		try {
@@ -197,6 +206,7 @@ public class HiLoOptimizer extends AbstractOptimizer {
 	 *
 	 * @return Value for property 'upperLimit'.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getHiValue() {
 		lock.lock();
 		try {
@@ -208,6 +218,7 @@ public class HiLoOptimizer extends AbstractOptimizer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression createLowValueExpression(Expression databaseValue, SessionFactoryImplementor sessionFactory) {
 		BasicValuedMapping integerType = sessionFactory.getTypeConfiguration().getBasicTypeForJavaType( Integer.class );
 		return new BinaryArithmeticExpression(

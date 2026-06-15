@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import org.hibernate.JDBCException;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link JDBCException} indicating that the requested DML operation
@@ -63,6 +65,7 @@ public class ConstraintViolationException extends JDBCException {
 	 * @see jakarta.persistence.UniqueConstraint#name
 	 * @see jakarta.persistence.CheckConstraint#name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable String getConstraintName() {
 		return constraintName;
 	}
@@ -71,6 +74,7 @@ public class ConstraintViolationException extends JDBCException {
 	 * Returns the {@linkplain ConstraintKind kind} of constraint
 	 * that was violated.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ConstraintKind getKind() {
 		return kind;
 	}

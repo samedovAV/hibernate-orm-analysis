@@ -11,10 +11,13 @@ import org.hibernate.procedure.spi.CallableStatementSupport;
 import org.hibernate.query.spi.ProcedureParameterMetadataImplementor;
 import org.hibernate.sql.exec.spi.JdbcCallParameterRegistration;
 import org.hibernate.sql.exec.spi.JdbcOperationQueryCall;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public abstract class AbstractStandardCallableStatementSupport implements CallableStatementSupport {
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void registerParameters(
 			String procedureName,
 			JdbcOperationQueryCall procedureCall,

@@ -19,6 +19,8 @@ import org.hibernate.boot.registry.selector.internal.StrategySelectorBuilder;
 import org.hibernate.integrator.internal.IntegratorServiceImpl;
 import org.hibernate.integrator.spi.Integrator;
 import org.hibernate.service.ServiceRegistry;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Builder for {@link BootstrapServiceRegistry} instances.
@@ -59,6 +61,7 @@ public class BootstrapServiceRegistryBuilder {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BootstrapServiceRegistryBuilder applyIntegrator(Integrator integrator) {
 		providedIntegrators.add( integrator );
 		return this;
@@ -71,6 +74,7 @@ public class BootstrapServiceRegistryBuilder {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BootstrapServiceRegistryBuilder applyClassLoader(ClassLoader classLoader) {
 		if ( providedClassLoaders == null ) {
 			providedClassLoaders = new ArrayList<>();
@@ -84,6 +88,7 @@ public class BootstrapServiceRegistryBuilder {
 	 *
 	 * @param precedence The lookup precedence
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applyTcclLookupPrecedence(TcclLookupPrecedence precedence) {
 		tcclLookupPrecedence = precedence;
 	}
@@ -95,6 +100,7 @@ public class BootstrapServiceRegistryBuilder {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BootstrapServiceRegistryBuilder applyClassLoaderService(ClassLoaderService classLoaderService) {
 		providedClassLoaderService = classLoaderService;
 		return this;
@@ -113,6 +119,7 @@ public class BootstrapServiceRegistryBuilder {
 	 *
 	 * @see org.hibernate.boot.registry.selector.spi.StrategySelector#registerStrategyImplementor(Class, String, Class)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> BootstrapServiceRegistryBuilder applyStrategySelector(Class<T> strategy, String name, Class<? extends T> implementation) {
 		this.strategySelectorBuilder.addExplicitStrategyRegistration( strategy, implementation, name );
 		return this;
@@ -127,6 +134,7 @@ public class BootstrapServiceRegistryBuilder {
 	 *
 	 * @see org.hibernate.boot.registry.selector.spi.StrategySelector#registerStrategyImplementor(Class, String, Class)
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public BootstrapServiceRegistryBuilder applyStrategySelectors(StrategyRegistrationProvider strategyRegistrationProvider) {
 		for ( var strategyRegistration : strategyRegistrationProvider.getStrategyRegistrations() ) {
 			this.strategySelectorBuilder.addExplicitStrategyRegistration( strategyRegistration );
@@ -147,6 +155,7 @@ public class BootstrapServiceRegistryBuilder {
 	 *
 	 * @return this, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BootstrapServiceRegistryBuilder disableAutoClose() {
 		this.autoCloseRegistry = false;
 		return this;
@@ -157,6 +166,7 @@ public class BootstrapServiceRegistryBuilder {
 	 *
 	 * @return this, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BootstrapServiceRegistryBuilder enableAutoClose() {
 		this.autoCloseRegistry = true;
 		return this;
@@ -167,6 +177,7 @@ public class BootstrapServiceRegistryBuilder {
 	 *
 	 * @return The built bootstrap registry
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BootstrapServiceRegistry build() {
 		final var classLoaderService = classLoaderService();
 		return new BootstrapServiceRegistryImpl(
@@ -177,6 +188,7 @@ public class BootstrapServiceRegistryBuilder {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private ClassLoaderService classLoaderService() {
 		if ( providedClassLoaderService == null ) {
 			// Use a set.  As an example, in JPA, OsgiClassLoader may be in both
@@ -197,6 +209,7 @@ public class BootstrapServiceRegistryBuilder {
 	 *
 	 * @param serviceRegistry The registry to be closed.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void destroy(ServiceRegistry serviceRegistry) {
 		if ( serviceRegistry != null ) {
 			((BootstrapServiceRegistryImpl) serviceRegistry).destroy();

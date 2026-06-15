@@ -12,6 +12,8 @@ import org.hibernate.internal.util.BytesHelper;
 import org.hibernate.type.descriptor.WrapperOptions;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
 import org.hibernate.type.descriptor.jdbc.JdbcTypeIndicators;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Descriptor for {@link UUID} handling.
@@ -28,36 +30,43 @@ public class UUIDJavaType extends AbstractClassJavaType<UUID> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isInstance(Object value) {
 		return value instanceof UUID;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public UUID cast(Object value) {
 		return (UUID) value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcType getRecommendedJdbcType(JdbcTypeIndicators context) {
 		return context.getJdbcType( context.getPreferredSqlTypeCodeForUuid() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean useObjectEqualsHashCode() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString(UUID value) {
 		return ToStringTransformer.INSTANCE.transform( value );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public UUID fromString(CharSequence string) {
 		return ToStringTransformer.INSTANCE.parse( string.toString() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public long getDefaultSqlLength(Dialect dialect, JdbcType jdbcType) {
 		if ( jdbcType.isString() ) {
 			return 36L;
@@ -68,6 +77,7 @@ public class UUIDJavaType extends AbstractClassJavaType<UUID> {
 		return super.getDefaultSqlLength( dialect, jdbcType );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> X unwrap(UUID value, Class<X> type, WrapperOptions options) {
 		if ( value == null ) {
 			return null;
@@ -84,6 +94,7 @@ public class UUIDJavaType extends AbstractClassJavaType<UUID> {
 		throw unknownUnwrap( type );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> UUID wrap(X value, WrapperOptions options) {
 		if ( value == null ) {
 			return null;
@@ -101,17 +112,21 @@ public class UUIDJavaType extends AbstractClassJavaType<UUID> {
 	}
 
 	public interface ValueTransformer {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		Serializable transform(UUID uuid);
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		UUID parse(Object value);
 	}
 
 	public static class PassThroughTransformer implements ValueTransformer {
 		public static final PassThroughTransformer INSTANCE = new PassThroughTransformer();
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public UUID transform(UUID uuid) {
 			return uuid;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public UUID parse(Object value) {
 			return (UUID)value;
 		}
@@ -120,10 +135,12 @@ public class UUIDJavaType extends AbstractClassJavaType<UUID> {
 	public static class ToStringTransformer implements ValueTransformer {
 		public static final ToStringTransformer INSTANCE = new ToStringTransformer();
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String transform(UUID uuid) {
 			return uuid.toString();
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public UUID parse(Object value) {
 			return UUID.fromString( (String) value );
 		}
@@ -132,6 +149,7 @@ public class UUIDJavaType extends AbstractClassJavaType<UUID> {
 	public static class NoDashesStringTransformer implements ValueTransformer {
 		public static final NoDashesStringTransformer INSTANCE = new NoDashesStringTransformer();
 
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public String transform(UUID uuid) {
 			final String stringForm = ToStringTransformer.INSTANCE.transform( uuid );
 			return stringForm.substring( 0, 8 )
@@ -141,6 +159,7 @@ public class UUIDJavaType extends AbstractClassJavaType<UUID> {
 					+ stringForm.substring( 24 );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public UUID parse(Object value) {
 			final String stringValue = (String) value;
 			final String uuidString = stringValue.substring( 0, 8 )
@@ -159,6 +178,7 @@ public class UUIDJavaType extends AbstractClassJavaType<UUID> {
 	public static class ToBytesTransformer implements ValueTransformer {
 		public static final ToBytesTransformer INSTANCE = new ToBytesTransformer();
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public byte[] transform(UUID uuid) {
 			byte[] bytes = new byte[16];
 			BytesHelper.fromLong( uuid.getMostSignificantBits(), bytes, 0);
@@ -166,6 +186,7 @@ public class UUIDJavaType extends AbstractClassJavaType<UUID> {
 			return bytes;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public UUID parse(Object value) {
 			byte[] bytea = (byte[]) value;
 			return new UUID( BytesHelper.asLong( bytea, 0 ), BytesHelper.asLong( bytea, 8 ) );

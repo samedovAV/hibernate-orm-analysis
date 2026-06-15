@@ -9,6 +9,8 @@ import java.util.List;
 
 import org.hibernate.dialect.Dialect;
 import org.hibernate.service.Service;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for extracting statements from source/import/init scripts.
@@ -32,5 +34,6 @@ public interface SqlScriptCommandExtractor extends Service {
 	 * Read the commands from the SQL script represented by the incoming reader, returning
 	 * those commands as an array
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<String> extractCommands(Reader reader, Dialect dialect);
 }

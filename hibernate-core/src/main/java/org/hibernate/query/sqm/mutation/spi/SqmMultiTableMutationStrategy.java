@@ -12,6 +12,8 @@ import org.hibernate.query.sqm.internal.DomainParameterXref;
 import org.hibernate.query.sqm.tree.SqmDeleteOrUpdateStatement;
 import org.hibernate.query.sqm.tree.delete.SqmDeleteStatement;
 import org.hibernate.query.sqm.tree.update.SqmUpdateStatement;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Pluggable strategy for defining how mutation ({@code UPDATE} or {@code DELETE}) queries should
@@ -34,6 +36,7 @@ public interface SqmMultiTableMutationStrategy {
 	 * Prepare the strategy for use.  Called one time as the SessionFactory
 	 * is being built.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void prepare(
 			MappingModelCreationProcess mappingModelCreationProcess,
 			JdbcConnectionAccess connectionAccess) {
@@ -44,6 +47,7 @@ public interface SqmMultiTableMutationStrategy {
 	 * Prepare the strategy for use.  Called one time as the SessionFactory
 	 * is being built.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void prepare(MappingModelCreationProcess mappingModelCreationProcess) {
 		prepare( mappingModelCreationProcess,
 				mappingModelCreationProcess.getCreationContext().getJdbcServices().getBootstrapJdbcConnectionAccess() );
@@ -53,6 +57,7 @@ public interface SqmMultiTableMutationStrategy {
 	 * Release the strategy.   Called one time as the SessionFactory is
 	 * being shut down.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void release(SessionFactoryImplementor sessionFactory, JdbcConnectionAccess connectionAccess) {
 		// by default, nothing to do...
 	}
@@ -62,6 +67,7 @@ public interface SqmMultiTableMutationStrategy {
 	 *
 	 * @return The number of rows affected
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MultiTableHandlerBuildResult buildHandler(SqmDeleteOrUpdateStatement<?> sqmStatement, DomainParameterXref domainParameterXref, DomainQueryExecutionContext context);
 
 	/**
@@ -71,6 +77,7 @@ public interface SqmMultiTableMutationStrategy {
 	 * @deprecated Use {@link #buildHandler(SqmDeleteOrUpdateStatement, DomainParameterXref, DomainQueryExecutionContext)} instead
 	 */
 	@Deprecated(forRemoval = true, since = "7.1")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int executeUpdate(
 			SqmUpdateStatement<?> sqmUpdateStatement,
 			DomainParameterXref domainParameterXref,
@@ -86,6 +93,7 @@ public interface SqmMultiTableMutationStrategy {
 	 * @deprecated Use {@link #buildHandler(SqmDeleteOrUpdateStatement, DomainParameterXref, DomainQueryExecutionContext)} instead
 	 */
 	@Deprecated(forRemoval = true, since = "7.1")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int executeDelete(
 			SqmDeleteStatement<?> sqmDeleteStatement,
 			DomainParameterXref domainParameterXref,

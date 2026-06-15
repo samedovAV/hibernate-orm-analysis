@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.function.Function;
 
 import org.hibernate.tool.schema.spi.ScriptSourceInput;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Convenience base class for ScriptSourceInput implementations
@@ -17,11 +19,14 @@ import org.hibernate.tool.schema.spi.ScriptSourceInput;
  */
 public abstract class AbstractScriptSourceInput implements ScriptSourceInput {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract Reader prepareReader();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract void releaseReader(Reader reader);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<String> extract(Function<Reader, List<String>> extractor) {
 		final var inputReader = prepareReader();
 		try {

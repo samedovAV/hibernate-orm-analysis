@@ -23,6 +23,8 @@ import org.hibernate.sql.results.graph.basic.BasicFetch;
 import org.hibernate.sql.results.graph.entity.EntityFetch;
 import org.hibernate.sql.results.graph.entity.EntityInitializer;
 import org.hibernate.sql.results.graph.internal.ImmutableFetchList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -72,56 +74,67 @@ public abstract class AbstractNonJoinedEntityFetch implements EntityFetch,
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigablePath getNavigablePath() {
 		return navigablePath;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ToOneAttributeMapping getFetchedMapping() {
 		return fetchedModelPart;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ToOneAttributeMapping getEntityValuedModelPart() {
 		return fetchedModelPart;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchOptions getFetchOptions() {
 		return fetchOptions;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchParent getFetchParent() {
 		return fetchParent;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ImmutableFetchList getFetches() {
 		return ImmutableFetchList.EMPTY;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Fetch findFetch(Fetchable fetchable) {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasJoinFetches() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean containsCollectionFetches() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasTableGroup() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void collectValueIndexesToCache(BitSet valueIndexes) {
 		if ( keyResult != null ) {
 			keyResult.collectValueIndexesToCache( valueIndexes );
@@ -132,23 +145,28 @@ public abstract class AbstractNonJoinedEntityFetch implements EntityFetch,
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityMappingType getReferencedMappingType() {
 		return fetchedModelPart.getEntityMappingType();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResult<?> getKeyResult() {
 		return keyResult;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BasicFetch<?> getDiscriminatorFetch() {
 		return discriminatorFetch;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isSelectByUniqueKey() {
 		return selectByUniqueKey;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResultAssembler<?> createAssembler(
 			InitializerParent<?> parent,
 			AssemblerCreationState creationState) {
@@ -159,6 +177,7 @@ public abstract class AbstractNonJoinedEntityFetch implements EntityFetch,
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public EntityInitializer<?> createInitializer(
 			AbstractNonJoinedEntityFetch resultGraphNode,
 			InitializerParent<?> parent,
@@ -167,11 +186,13 @@ public abstract class AbstractNonJoinedEntityFetch implements EntityFetch,
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public abstract EntityInitializer<?> createInitializer(InitializerParent<?> parent, AssemblerCreationState creationState);
 
 	/**
 	 * Used By Hibernate Reactive
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected EntityAssembler<?> buildEntityAssembler(EntityInitializer<?> entityInitializer) {
 		return new EntityAssembler<>( getFetchedMapping().getJavaType(), entityInitializer );
 	}

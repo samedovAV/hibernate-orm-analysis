@@ -18,6 +18,8 @@ import org.hibernate.type.descriptor.java.JavaType;
 import org.jboss.logging.Logger;
 
 import static java.util.stream.Collectors.toList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents a dynamic-instantiation (from an SQM query) as a DomainResultProducer
@@ -40,14 +42,17 @@ public class DynamicInstantiation<T> implements DomainResultProducer<T> {
 		this.targetJavaType = targetJavaType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DynamicInstantiationNature getNature() {
 		return nature;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<T> getTargetJavaType() {
 		return targetJavaType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addArgument(String alias, DomainResultProducer<?> argumentResultProducer) {
 		if ( argumentAdditionsComplete ) {
 			throw new ConversionException( "Unexpected call to DynamicInstantiation#addAgument after previously complete" );
@@ -78,21 +83,25 @@ public class DynamicInstantiation<T> implements DomainResultProducer<T> {
 		arguments.add( new DynamicInstantiationArgument<>( argumentResultProducer, alias ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void complete() {
 		// called after all arguments have been registered...
 		argumentAdditionsComplete = true;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<DynamicInstantiationArgument<?>> getArguments() {
 		return arguments;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "DynamicInstantiation(" + getTargetJavaType().getTypeName() + ")";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResult<T> createDomainResult(
 			String resultVariable,
 			DomainResultCreationState creationState) {
@@ -107,6 +116,7 @@ public class DynamicInstantiation<T> implements DomainResultProducer<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applySqlSelections(DomainResultCreationState creationState) {
 		throw new UnsupportedOperationException( "dynamic instantiation in a sub-query is unsupported" );
 	}

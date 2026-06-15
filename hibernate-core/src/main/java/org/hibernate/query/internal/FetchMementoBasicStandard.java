@@ -18,6 +18,8 @@ import org.hibernate.spi.NavigablePath;
 import org.hibernate.query.named.FetchMementoBasic;
 import org.hibernate.query.results.spi.FetchBuilder;
 import org.hibernate.query.results.internal.complete.CompleteFetchBuilderBasicPart;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Memento describing a basic-valued fetch.  A basic-value cannot be
@@ -39,6 +41,7 @@ public class FetchMementoBasicStandard implements FetchMementoBasic {
 		this.columnAlias = columnAlias;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static FetchMementoBasicStandard from(
 			FieldMapping<?, ?> basicMapping,
 			NavigablePath attributePath,
@@ -49,19 +52,23 @@ public class FetchMementoBasicStandard implements FetchMementoBasic {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigablePath getNavigablePath() {
 		return navigablePath;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BasicValuedModelPart getFetchedAttribute() {
 		return fetchedAttribute;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getColumnAlias() {
 		return columnAlias;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchBuilder resolve(
 			Parent parent,
 			Consumer<String> querySpaceConsumer,
@@ -70,6 +77,7 @@ public class FetchMementoBasicStandard implements FetchMementoBasic {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MemberMapping<?> toJpaMemberMapping(Parent container, SessionFactory sessionFactory) {
 		return ResultSetMapping.field(
 				container.getResultJavaType(),

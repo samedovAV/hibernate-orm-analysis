@@ -16,6 +16,8 @@ import org.hibernate.sql.exec.spi.JdbcCallParameterRegistration;
 import org.hibernate.sql.exec.spi.JdbcOperationQueryCall;
 
 import jakarta.persistence.ParameterMode;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Special implementation of CallableStatementSupport for the jTDS driver.
@@ -27,6 +29,7 @@ public class JTDSCallableStatementSupport extends AbstractStandardCallableStatem
 	public static final JTDSCallableStatementSupport INSTANCE = new JTDSCallableStatementSupport();
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcOperationQueryCall interpretCall(ProcedureCallImplementor procedureCall) {
 		final String procedureName = procedureCall.getProcedureName();
 		final FunctionReturnImplementor<?> functionReturn = procedureCall.getFunctionReturn();

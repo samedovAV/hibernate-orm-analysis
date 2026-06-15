@@ -13,6 +13,8 @@ import org.hibernate.metamodel.mapping.JdbcMapping;
 import org.hibernate.metamodel.mapping.SelectableMapping;
 import org.hibernate.metamodel.mapping.SelectablePath;
 import org.hibernate.metamodel.spi.RuntimeModelCreationContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -103,6 +105,7 @@ public class SelectableMappingImpl extends SqlTypedMappingImpl implements Select
 		this.isFormula = isFormula;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static SelectableMapping from(
 			final String containingTableExpression,
 			final Selectable selectable,
@@ -178,6 +181,7 @@ public class SelectableMappingImpl extends SqlTypedMappingImpl implements Select
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return String.format(
 				Locale.ROOT,
@@ -188,61 +192,73 @@ public class SelectableMappingImpl extends SqlTypedMappingImpl implements Select
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getContainingTableExpression() {
 		return containingTableExpression;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSelectionExpression() {
 		return selectionExpression;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getSelectableName() {
 		return selectablePath.getSelectableName();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SelectablePath getSelectablePath() {
 		return selectablePath;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable String getCustomReadExpression() {
 		return customReadExpression;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable String getCustomWriteExpression() {
 		return customWriteExpression;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isLob() {
 		return isLob;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isFormula() {
 		return isFormula;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isNullable() {
 		return nullable;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isInsertable() {
 		return insertable;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isUpdateable() {
 		return updateable;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isPartitioned() {
 		return partitioned;
 	}

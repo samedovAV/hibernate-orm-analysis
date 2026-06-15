@@ -11,6 +11,8 @@ import org.hibernate.sql.exec.spi.JdbcParameterBinder;
 import org.hibernate.sql.model.MutationTarget;
 import org.hibernate.sql.model.MutationType;
 import org.hibernate.sql.model.TableMapping;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Describes the update of a single table
@@ -29,11 +31,13 @@ public class JdbcUpdateMutation extends AbstractJdbcMutation {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutationType getMutationType() {
 		return MutationType.UPDATE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "JdbcUpdateMutation(" + getTableDetails().getTableName() + ")";
 	}

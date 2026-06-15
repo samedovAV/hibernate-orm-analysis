@@ -6,6 +6,8 @@ package org.hibernate.engine.jdbc.mutation.spi;
 
 import org.hibernate.sql.model.jdbc.JdbcValueDescriptor;
 import org.hibernate.type.descriptor.ValueBinder;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Binding of a {@linkplain #getValue() value} for a {@link java.sql.PreparedStatement} parameter
@@ -27,6 +29,7 @@ public class Binding {
 	/**
 	 * The name of the column to which this value is "bound"
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getColumnName() {
 		return columnName;
 	}
@@ -34,14 +37,17 @@ public class Binding {
 	/**
 	 * The value to be bound to the parameter
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getValue() {
 		return value;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setValue(Object newValue) {
 		this.value = newValue;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcValueDescriptor getValueDescriptor() {
 		return valueDescriptor;
 	}
@@ -50,6 +56,7 @@ public class Binding {
 	 * The binder to be used in binding this value
 	 */
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> ValueBinder<T> getValueBinder() {
 		return getValueDescriptor().getJdbcMapping().getJdbcValueBinder();
 	}
@@ -57,16 +64,19 @@ public class Binding {
 	/**
 	 * The JDBC parameter position
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getPosition() {
 		return getValueDescriptor().getJdbcPosition();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int hashCode() {
 		return getPosition();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean equals(Object o) {
 		if ( this == o ) {
 			return true;
@@ -79,6 +89,7 @@ public class Binding {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "Binding(" + columnName + ")";
 	}

@@ -9,6 +9,8 @@ import org.hibernate.JDBCException;
 import org.hibernate.LockMode;
 import org.hibernate.LockOptions;
 import org.hibernate.persister.entity.EntityPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A locking strategy where an optimistic lock is obtained via a select
@@ -36,6 +38,7 @@ public class SelectLockingStrategy extends AbstractSelectLockingStrategy {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected HibernateException convertException(Object entity, JDBCException ex) {
 		return new OptimisticEntityLockException( entity, "could not obtain optimistic lock", ex );
 	}

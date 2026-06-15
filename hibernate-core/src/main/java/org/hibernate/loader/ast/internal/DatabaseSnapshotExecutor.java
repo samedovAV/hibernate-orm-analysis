@@ -36,6 +36,8 @@ import java.util.List;
 import static org.hibernate.internal.util.collections.ArrayHelper.EMPTY_OBJECT_ARRAY;
 import static org.hibernate.loader.LoaderLogging.LOADER_LOGGER;
 import static org.hibernate.pretty.MessageHelper.infoString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -135,6 +137,7 @@ class DatabaseSnapshotExecutor {
 						.translate( null, QueryOptions.NONE );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object[] loadDatabaseSnapshot(Object id, SharedSessionContractImplementor session) {
 		if ( LOADER_LOGGER.isTraceEnabled() ) {
 			LOADER_LOGGER.trace( "Retrieving snapshot of current persistent state for "

@@ -18,6 +18,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Optimizer which uses a pool of values, backed by a <em>logical sequence</em>.
@@ -72,6 +74,7 @@ public class PooledOptimizer extends AbstractOptimizer implements InitialValueAw
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Serializable generate(AccessCallback callback) {
 		lock.lock();
 		try {
@@ -114,11 +117,13 @@ public class PooledOptimizer extends AbstractOptimizer implements InitialValueAw
 	private Map<String,GenerationState> tenantSpecificState;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void reset() {
 		noTenantState = null;
 		tenantSpecificState = null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private GenerationState locateGenerationState(String tenantIdentifier) {
 		if ( tenantIdentifier == null ) {
 			if ( noTenantState == null ) {
@@ -131,6 +136,7 @@ public class PooledOptimizer extends AbstractOptimizer implements InitialValueAw
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private GenerationState generationState(String tenantIdentifier) {
 		if ( tenantSpecificState == null ) {
 			tenantSpecificState = new ConcurrentHashMap<>();
@@ -144,12 +150,14 @@ public class PooledOptimizer extends AbstractOptimizer implements InitialValueAw
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private GenerationState assignNewStateToTenant(String tenantIdentifier) {
 		final var newState = new GenerationState();
 		tenantSpecificState.put( tenantIdentifier, newState );
 		return newState;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private GenerationState noTenantGenerationState() {
 		if ( noTenantState == null ) {
 			throw new IllegalStateException( "Could not locate previous generation state for no-tenant" );
@@ -158,11 +166,13 @@ public class PooledOptimizer extends AbstractOptimizer implements InitialValueAw
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Long getLastSourceValue() {
 		return noTenantGenerationState().hiValue;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean applyIncrementSizeToSourceValues() {
 		return true;
 	}
@@ -174,16 +184,19 @@ public class PooledOptimizer extends AbstractOptimizer implements InitialValueAw
 	 *
 	 * @return Value for property 'lastValue'.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getLastValue() {
 		return noTenantGenerationState().value - 1;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void injectInitialValue(long initialValue) {
 		this.initialValue = initialValue;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression createLowValueExpression(Expression databaseValue, SessionFactoryImplementor sessionFactory) {
 		final var integerType = sessionFactory.getTypeConfiguration().getBasicTypeForJavaType( Integer.class );
 		return new BinaryArithmeticExpression(
@@ -195,6 +208,7 @@ public class PooledOptimizer extends AbstractOptimizer implements InitialValueAw
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getAdjustment() {
 		return incrementSize;
 	}

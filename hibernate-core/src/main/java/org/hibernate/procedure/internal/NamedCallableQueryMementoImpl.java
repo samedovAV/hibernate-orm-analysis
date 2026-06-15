@@ -23,6 +23,8 @@ import org.hibernate.type.BindableType;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Implementation of NamedCallableQueryMemento
@@ -89,41 +91,49 @@ public class NamedCallableQueryMementoImpl extends AbstractQueryMemento<Object> 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getCallableName() {
 		return callableName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<NamedCallableQueryMemento.ParameterMemento> getParameterMementos() {
 		return parameterMementos;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ParameterStrategy getParameterStrategy() {
 		return parameterStrategy;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getResultSetMappingNames() {
 		return resultSetMappingNames;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?>[] getResultSetMappingClasses() {
 		return resultSetMappingClasses;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Set<String> getQuerySpaces() {
 		return querySpaces;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ProcedureCallImplementor makeProcedureCall(SharedSessionContractImplementor session) {
 		return new ProcedureCallImpl( session, this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ProcedureCallImplementor makeProcedureCall(
 			SharedSessionContractImplementor session,
 			String... resultSetMappingNames) {
@@ -131,31 +141,37 @@ public class NamedCallableQueryMementoImpl extends AbstractQueryMemento<Object> 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ProcedureCallImplementor toQuery(SharedSessionContractImplementor session) {
 		return makeProcedureCall( session );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> ProcedureCallImplementor toQuery(SharedSessionContractImplementor session, Class<T> javaType) {
 		return makeProcedureCall( session );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutationQueryImplementor<Object> toMutationQuery(SharedSessionContractImplementor session) {
 		throw new UnsupportedOperationException( "ProcedureCall cannot be treated as a mutation query" );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> MutationQueryImplementor<T> toMutationQuery(SharedSessionContractImplementor session, Class<T> targetType) {
 		throw new UnsupportedOperationException( "ProcedureCall cannot be treated as a mutation query" );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SelectionQueryImplementor<Object> toSelectionQuery(SharedSessionContractImplementor session) {
 		throw new UnsupportedOperationException( "ProcedureCall cannot be treated as a selection query" );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> SelectionQueryImplementor<T> toSelectionQuery(SharedSessionContractImplementor session, Class<T> javaType) {
 		throw new UnsupportedOperationException( "ProcedureCall cannot be treated as a selection query" );
 	}
@@ -163,11 +179,13 @@ public class NamedCallableQueryMementoImpl extends AbstractQueryMemento<Object> 
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NamedQueryMemento<Object> makeCopy(String name) {
 		return new NamedCallableQueryMementoImpl( name, this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void validate(QueryEngine queryEngine) {
 		// anything to do?
 	}
@@ -198,27 +216,33 @@ public class NamedCallableQueryMementoImpl extends AbstractQueryMemento<Object> 
 			this.hibernateType = hibernateType;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Integer getPosition() {
 			return position;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getName() {
 			return name;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public ParameterMode getMode() {
 			return mode;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Class<T> getType() {
 			return type;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public BindableType<T> getHibernateType() {
 			return hibernateType;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public ProcedureParameterImplementor<T> resolve(SharedSessionContractImplementor session) {
 			if ( getName() != null ) {
 				return new ProcedureParameterImpl<>(
@@ -246,6 +270,7 @@ public class NamedCallableQueryMementoImpl extends AbstractQueryMemento<Object> 
 		 *
 		 * @return The memento
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public static <U> ParameterMementoImpl<U> fromRegistration(ProcedureParameterImplementor<U> registration) {
 			return new ParameterMementoImpl<>(
 					registration.getPosition(),

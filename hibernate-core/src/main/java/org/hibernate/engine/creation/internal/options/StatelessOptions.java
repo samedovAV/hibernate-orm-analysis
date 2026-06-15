@@ -12,6 +12,8 @@ import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.internal.util.OptionsHelper;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Mutable collector for options which apply to
 /// [stateless sessions][org.hibernate.StatelessSession].
@@ -32,6 +34,7 @@ public class StatelessOptions extends CommonOptions implements SessionCreationOp
 	/**
 	 * Apply a Jakarta Persistence creation option to this collector.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public StatelessOptions apply(EntityAgent.CreationOption option) {
 		OptionsHelper.applyOption( this, option );
 		return this;
@@ -40,6 +43,7 @@ public class StatelessOptions extends CommonOptions implements SessionCreationOp
 	/**
 	 * Apply Jakarta Persistence creation options to this collector.
 	 */
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public StatelessOptions apply(EntityAgent.CreationOption... options) {
 		if ( options != null ) {
 			for ( var option : options ) {
@@ -50,32 +54,38 @@ public class StatelessOptions extends CommonOptions implements SessionCreationOp
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean shouldAutoJoinTransactions() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FlushMode getInitialSessionFlushMode() {
 		return FlushMode.ALWAYS;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean shouldAutoClose() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean shouldAutoClear() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isIdentifierRollbackEnabled() {
 		// identifier rollback is not yet implemented for StatelessSessions
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<SessionEventListener> getCustomSessionEventListeners() {
 		return null;
 	}

@@ -17,6 +17,8 @@ import org.hibernate.query.sqm.tree.domain.SqmPath;
 import org.hibernate.query.sqm.tree.domain.SqmPluralValuedSimplePath;
 import org.hibernate.query.sqm.tree.domain.SqmTreatedPath;
 import org.hibernate.query.sqm.tree.from.SqmAttributeJoin;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Generic {@link org.hibernate.query.sqm.SemanticQueryWalker} that applies the provided
@@ -32,54 +34,63 @@ public class SqmPathVisitor extends BaseSemanticQueryWalker {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object visitBasicValuedPath(SqmBasicValuedSimplePath<?> path) {
 		pathConsumer.accept( path );
 		return path;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object visitEmbeddableValuedPath(SqmEmbeddedValuedSimplePath<?> path) {
 		pathConsumer.accept( path );
 		return path;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object visitEntityValuedPath(SqmEntityValuedSimplePath<?> path) {
 		pathConsumer.accept( path );
 		return path;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object visitAnyValuedValuedPath(SqmAnyValuedSimplePath<?> path) {
 		pathConsumer.accept( path );
 		return path;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object visitQualifiedAttributeJoin(SqmAttributeJoin<?, ?> path) {
 		pathConsumer.accept( path );
 		return path;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object visitTreatedPath(SqmTreatedPath<?, ?> path) {
 		pathConsumer.accept( path );
 		return path;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object visitDiscriminatorPath(DiscriminatorSqmPath<?> path) {
 		pathConsumer.accept( path );
 		return path;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object visitPluralValuedPath(SqmPluralValuedSimplePath<?> path) {
 		pathConsumer.accept( path );
 		return path;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object visitNonAggregatedCompositeValuedPath(NonAggregatedCompositeSimplePath<?> path) {
 		pathConsumer.accept( path );
 		return path;

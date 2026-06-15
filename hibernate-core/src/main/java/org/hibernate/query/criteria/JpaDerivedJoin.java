@@ -12,6 +12,8 @@ import java.util.List;
 
 import jakarta.annotation.Nullable;
 import org.hibernate.Incubating;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -24,25 +26,31 @@ public interface JpaDerivedJoin<T> extends JpaDerivedFrom<T>, JpaJoin<T,T> {
 	 * but when specifying them as lateral, they are allowed to do so.
 	 * Refer to the SQL standard definition of LATERAL for more details.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isLateral();
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaDerivedJoin<T> on(@Nullable JpaExpression<Boolean> restriction);
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaDerivedJoin<T> on(@Nonnull Expression<Boolean> restriction);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaDerivedJoin<T> on(@Nullable JpaPredicate... restrictions);
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaDerivedJoin<T> on(@Nonnull BooleanExpression... restrictions);
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaDerivedJoin<T> on(@Nonnull List<? extends Expression<Boolean>> restrictions);
 }

@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.source.spi;
 
 import java.util.Set;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for source information pertaining to a physical column definition specific to a particular attribute
@@ -21,6 +23,7 @@ public interface ColumnSource extends RelationalValueSource {
 	 *
 	 * @return The name of the column.  Can be {@code null}, in which case a naming strategy is applied.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getName();
 
 	/**
@@ -28,6 +31,7 @@ public interface ColumnSource extends RelationalValueSource {
 	 *
 	 * @return The SQL read fragment
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getReadFragment();
 
 	/**
@@ -35,6 +39,7 @@ public interface ColumnSource extends RelationalValueSource {
 	 *
 	 * @return The SQL write fragment
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getWriteFragment();
 
 	/**
@@ -42,6 +47,7 @@ public interface ColumnSource extends RelationalValueSource {
 	 *
 	 * @return {@code true} indicates it is nullable; {@code false} non-nullable.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Boolean isNullable();
 
 	/**
@@ -49,6 +55,7 @@ public interface ColumnSource extends RelationalValueSource {
 	 *
 	 * @return THe column default
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getDefaultValue();
 
 	/**
@@ -56,6 +63,7 @@ public interface ColumnSource extends RelationalValueSource {
 	 *
 	 * @return The free-hand column type
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getSqlType();
 
 	/**
@@ -63,6 +71,7 @@ public interface ColumnSource extends RelationalValueSource {
 	 *
 	 * @return The column's SQL data type.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcDataType getDatatype();
 
 	/**
@@ -70,6 +79,7 @@ public interface ColumnSource extends RelationalValueSource {
 	 *
 	 * @return The source for the column size.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SizeSource getSizeSource();
 
 	/**
@@ -77,6 +87,7 @@ public interface ColumnSource extends RelationalValueSource {
 	 *
 	 * @return {@code true} indicates it is unique; {@code false} non-unique.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isUnique();
 
 	/**
@@ -84,6 +95,7 @@ public interface ColumnSource extends RelationalValueSource {
 	 *
 	 * @return Check constraint condition
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getCheckCondition();
 
 	/**
@@ -91,9 +103,12 @@ public interface ColumnSource extends RelationalValueSource {
 	 *
 	 * @return SQL comment
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getComment();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Set<String> getIndexConstraintNames();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Set<String> getUniqueKeyConstraintNames();
 }

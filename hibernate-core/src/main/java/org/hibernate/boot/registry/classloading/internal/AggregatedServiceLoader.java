@@ -16,6 +16,8 @@ import java.util.ServiceLoader;
 import java.util.Set;
 
 import static org.hibernate.service.internal.ServiceLogger.SERVICE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A service loader bound to an {@link AggregatedClassLoader}.
@@ -23,6 +25,7 @@ import static org.hibernate.service.internal.ServiceLogger.SERVICE_LOGGER;
  */
 abstract class AggregatedServiceLoader<S> {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <S> AggregatedServiceLoader<S> create(AggregatedClassLoader aggregatedClassLoader,
 			Class<S> serviceContract) {
 			return new ClassPathAndModulePathAggregatedServiceLoader<>( aggregatedClassLoader, serviceContract );
@@ -31,11 +34,13 @@ abstract class AggregatedServiceLoader<S> {
 	/**
 	 * @return All the loaded services.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public abstract Collection<S> getAll();
 
 	/**
 	 * Release all resources.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public abstract void close();
 
 	/**
@@ -88,6 +93,7 @@ abstract class AggregatedServiceLoader<S> {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Collection<S> getAll() {
 			if ( cache == null ) {
 				/*
@@ -108,6 +114,7 @@ abstract class AggregatedServiceLoader<S> {
 			return cache;
 		}
 
+		@Prove(complexity = Complexity.O_N2, n = "", count = {})
 		private Collection<S> loadAll() {
 			Set<String> alreadyEncountered = new HashSet<>();
 			Set<S> result = new LinkedHashSet<>();
@@ -142,6 +149,7 @@ abstract class AggregatedServiceLoader<S> {
 			return result;
 		}
 
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		private boolean hasNextIgnoringServiceConfigurationError(Iterator<?> iterator) {
 			while ( true ) {
 				try {
@@ -170,6 +178,7 @@ abstract class AggregatedServiceLoader<S> {
 		 * and one provider may return different types of services
 		 * depending on conditions known only to itself.
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void collectServiceIfNotDuplicate(Set<S> result, Set<String> alreadyEncountered, ServiceLoader.Provider<S> provider) {
 			final Class<? extends S> type = provider.type();
 			String typeName = type.getName();
@@ -179,6 +188,7 @@ abstract class AggregatedServiceLoader<S> {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void close() {
 			cache = null;
 		}

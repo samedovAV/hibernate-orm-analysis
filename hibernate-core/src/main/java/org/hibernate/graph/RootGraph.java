@@ -7,6 +7,8 @@ package org.hibernate.graph;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.EntityGraph;
 import jakarta.persistence.metamodel.EntityType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Extends the JPA-defined {@link EntityGraph} with additional operations.
@@ -33,6 +35,7 @@ public interface RootGraph<J> extends Graph<J>, EntityGraph<J> {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	RootGraph<J> makeCopy(boolean mutable);
 
 	/**
@@ -43,6 +46,7 @@ public interface RootGraph<J> extends Graph<J>, EntityGraph<J> {
 	 * simply return this instance.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	RootGraph<J> makeCopy(boolean mutable, String name);
 
 }

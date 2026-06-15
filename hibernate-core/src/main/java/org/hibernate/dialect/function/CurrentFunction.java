@@ -14,6 +14,8 @@ import org.hibernate.sql.ast.tree.SqlAstNode;
 import org.hibernate.type.BasicType;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A "function" with no parameters that returns the current date, time, or timestamp.
@@ -37,6 +39,7 @@ public class CurrentFunction
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> arguments,
@@ -46,11 +49,13 @@ public class CurrentFunction
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getArgumentListSignature() {
 		return "";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean alwaysIncludesParentheses() {
 		return sql.indexOf( '(' ) != -1;
 	}

@@ -6,6 +6,8 @@ package org.hibernate.query.criteria;
 
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.criteria.CriteriaBuilder;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -18,6 +20,7 @@ public interface JpaInPredicate<T> extends JpaPredicate, CriteriaBuilder.In<T>  
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaExpression<T> getExpression();
 
 	/**
@@ -27,6 +30,7 @@ public interface JpaInPredicate<T> extends JpaPredicate, CriteriaBuilder.In<T>  
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaInPredicate<T> value(T value);
 
 	/**
@@ -34,5 +38,6 @@ public interface JpaInPredicate<T> extends JpaPredicate, CriteriaBuilder.In<T>  
 	 *  @param value expression
 	 *  @return in predicate
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaInPredicate<T> value(JpaExpression<? extends T> value);
 }

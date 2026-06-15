@@ -9,6 +9,8 @@ import java.util.Map;
 import org.hibernate.HibernateException;
 import org.hibernate.dialect.Dialect;
 import org.hibernate.service.Service;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A factory for generating {@link Dialect} instances.
@@ -33,5 +35,6 @@ public interface DialectFactory extends Service {
 	 *
 	 * @throws HibernateException No dialect specified and no resolver could make the determination.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Dialect buildDialect(Map<String,Object> configValues, DialectResolutionInfoSource resolutionInfoSource) throws HibernateException;
 }

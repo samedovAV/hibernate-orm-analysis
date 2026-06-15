@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class NameSpaceIndexesInformation {
 	private final IdentifierHelper identifierHelper;
@@ -21,15 +23,18 @@ public class NameSpaceIndexesInformation {
 		this.identifierHelper = identifierHelper;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addIndexInformation(TableInformation tableInformation, IndexInformation indexInformation) {
 		indexes.computeIfAbsent( tableInformation.getName().getTableName().getText(), k -> new ArrayList<>() )
 				.add( indexInformation );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable List<IndexInformation> getIndexesInformation(Table table) {
 		return indexes.get( identifierHelper.toMetaDataObjectName( table.getQualifiedTableName().getTableName() ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable List<IndexInformation> getIndexesInformation(String tableName) {
 		return indexes.get( tableName );
 	}

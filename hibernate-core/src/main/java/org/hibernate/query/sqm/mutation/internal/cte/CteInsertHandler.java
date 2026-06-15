@@ -109,6 +109,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  *
@@ -566,6 +568,7 @@ public class CteInsertHandler implements InsertHandler {
 				jdbcParamsXref,
 				new SqmParameterMappingModelResolutionAccess() {
 					@Override @SuppressWarnings("unchecked")
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public <T> MappingModelExpressible<T> getResolvedMappingModelType(SqmParameter<T> parameter) {
 						return (MappingModelExpressible<T>) resolvedParameterMappingModelTypes.get( parameter );
 					}
@@ -576,11 +579,13 @@ public class CteInsertHandler implements InsertHandler {
 		firstJdbcParameterBindingsConsumer.set( jdbcParameterBindings );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static CteTable createCteTable(CteTable sqmCteTable, List<CteColumn> sqmCteColumns) {
 		return new CteTable( sqmCteTable.getTableExpression(), sqmCteColumns );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcParameterBindings createJdbcParameterBindings(DomainQueryExecutionContext context) {
 		return SqmUtil.createJdbcParameterBindings(
 				context.getQueryParameterBindings(),
@@ -588,6 +593,7 @@ public class CteInsertHandler implements InsertHandler {
 				jdbcParamsXref,
 				new SqmParameterMappingModelResolutionAccess() {
 					@Override @SuppressWarnings("unchecked")
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public <T> MappingModelExpressible<T> getResolvedMappingModelType(SqmParameter<T> parameter) {
 						return (MappingModelExpressible<T>) resolvedParameterMappingModelTypes.get( parameter );
 					}
@@ -597,16 +603,19 @@ public class CteInsertHandler implements InsertHandler {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean dependsOnParameterBindings() {
 		return select.dependsOnParameterBindings();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isCompatibleWith(JdbcParameterBindings jdbcParameterBindings, QueryOptions queryOptions) {
 		return select.isCompatibleWith( jdbcParameterBindings, queryOptions );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int execute(JdbcParameterBindings jdbcParameterBindings, DomainQueryExecutionContext context) {
 		context.getSession().autoFlushIfRequired( select.getAffectedTableNames() );
 		List<Object> list = context.getSession().getFactory().getJdbcServices().getJdbcSelectExecutor().list(
@@ -622,10 +631,12 @@ public class CteInsertHandler implements InsertHandler {
 	}
 
 	// For Hibernate Reactive
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected JdbcSelect getSelect() {
 		return select;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Expression createCountStar(
 			SessionFactoryImplementor factory,
 			MultiTableSqmMutationConverter sqmConverter) {
@@ -635,6 +646,7 @@ public class CteInsertHandler implements InsertHandler {
 				.convertToSqlAst( sqmConverter );
 	}
 
+	@Prove(complexity = Complexity.O_N3, n = "", count = {})
 	protected String addDmlCtes(
 			CteContainer statement,
 			CteStatement queryCte,
@@ -1043,6 +1055,7 @@ public class CteInsertHandler implements InsertHandler {
 		return getCteTableName( rootTableName, factory );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void handleConflictClause(
 			CteTable dmlResultCte,
 			InsertSelectStatement insertStatement,
@@ -1231,6 +1244,7 @@ public class CteInsertHandler implements InsertHandler {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private List<String> buildCteRenaming(
 			QuerySpec renamingSubquery,
 			TableGroup temporaryTableGroup,
@@ -1256,6 +1270,7 @@ public class CteInsertHandler implements InsertHandler {
 		return tableReference.getColumnNames();
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private Predicate buildColumnMatchPredicate(
 			List<String> constraintColumnNames,
 			InsertSelectStatement dmlStatement,
@@ -1321,6 +1336,7 @@ public class CteInsertHandler implements InsertHandler {
 		return predicate;
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private List<Assignment> getCompatibleAssignments(InsertSelectStatement dmlStatement, ConflictClause conflictClause) {
 		if ( conflictClause.isDoNothing() ) {
 			return Collections.emptyList();
@@ -1341,6 +1357,7 @@ public class CteInsertHandler implements InsertHandler {
 		return compatibleAssignments == null ? Collections.emptyList() : compatibleAssignments;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean isIdentifierConflictClause(SqmInsertStatement<?> sqmStatement) {
 		final SqmConflictClause<?> conflictClause = sqmStatement.getConflictClause();
 		assert conflictClause != null;
@@ -1349,6 +1366,7 @@ public class CteInsertHandler implements InsertHandler {
 				&& constraintPaths.get( 0 ).getReferencedPathSource() == sqmStatement.getTarget().getModel().getIdentifierDescriptor();
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private boolean targetColumnsContainAllConstraintColumns(InsertSelectStatement statement, ConflictClause conflictClause) {
 		OUTER: for ( String constraintColumnName : conflictClause.getConstraintColumnNames() ) {
 			for ( ColumnReference targetColumn : statement.getTargetColumns() ) {
@@ -1362,6 +1380,7 @@ public class CteInsertHandler implements InsertHandler {
 		return true;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected NamedTableReference resolveUnionTableReference(
 			TableReference tableReference,
 			String tableExpression) {
@@ -1377,18 +1396,21 @@ public class CteInsertHandler implements InsertHandler {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void collectTableReference(
 			TableReference tableReference,
 			BiConsumer<String, TableReference> consumer) {
 		consumer.accept( tableReference.getIdentificationVariable(), tableReference );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void collectTableReference(
 			TableReferenceJoin tableReferenceJoin,
 			BiConsumer<String, TableReference> consumer) {
 		collectTableReference( tableReferenceJoin.getJoinedTableReference(), consumer );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private TableReference resolveTableReference(
 			ColumnReference columnReference,
 			Map<String, TableReference> tableReferenceByAlias) {
@@ -1400,10 +1422,12 @@ public class CteInsertHandler implements InsertHandler {
 		throw new SemanticException( "Assignment referred to column of a joined association: " + columnReference );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected String getCteTableName(String tableExpression, SessionFactoryImplementor sessionFactory) {
 		return getCteTableName( tableExpression, "", sessionFactory );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getCteTableName(String tableExpression, String subPrefix, SessionFactoryImplementor sessionFactory) {
 		final Dialect dialect = sessionFactory.getJdbcServices().getDialect();
 		if ( Identifier.isQuoted( tableExpression ) ) {

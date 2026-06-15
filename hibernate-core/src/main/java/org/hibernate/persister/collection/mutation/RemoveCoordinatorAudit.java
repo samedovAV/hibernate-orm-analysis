@@ -15,6 +15,8 @@ import org.hibernate.engine.jdbc.mutation.spi.MutationExecutorService;
 import org.hibernate.engine.spi.CollectionKey;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * RemoveCoordinator for audited collections.
@@ -53,16 +55,19 @@ public class RemoveCoordinatorAudit implements RemoveCoordinator, CollectionAudi
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionMutationTarget getMutationTarget() {
 		return mutationTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getSqlString() {
 		return standardCoordinator.getSqlString();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void deleteAllRows(Object key, SharedSessionContractImplementor session) {
 		final var collectionDescriptor = mutationTarget.getTargetPart().getCollectionDescriptor();
 
@@ -91,6 +96,7 @@ public class RemoveCoordinatorAudit implements RemoveCoordinator, CollectionAudi
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void writeCollectionAuditRows(
 			PersistentCollection<?> collection,
 			Object ownerId,
@@ -131,6 +137,7 @@ public class RemoveCoordinatorAudit implements RemoveCoordinator, CollectionAudi
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean isEntityDeletion(Object key, SharedSessionContractImplementor session) {
 		final var pc = session.getPersistenceContextInternal();
 		final var collectionDescriptor = mutationTarget.getTargetPart().getCollectionDescriptor();
@@ -142,6 +149,7 @@ public class RemoveCoordinatorAudit implements RemoveCoordinator, CollectionAudi
 		return true;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private AuditCollectionHelper getAuditHelper() {
 		if ( auditHelper == null ) {
 			auditHelper = new AuditCollectionHelper(

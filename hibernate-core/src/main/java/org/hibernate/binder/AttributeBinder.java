@@ -10,6 +10,8 @@ import org.hibernate.mapping.PersistentClass;
 import org.hibernate.mapping.Property;
 
 import java.lang.annotation.Annotation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Allows a user-written annotation to drive some customized model binding.
@@ -38,5 +40,6 @@ public interface AttributeBinder<A extends Annotation> {
 	 *                        in the case of a property of an embeddable class)
 	 * @param property a {@link Property} object representing the annotated property
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void bind(A annotation, MetadataBuildingContext buildingContext, PersistentClass persistentClass, Property property);
 }

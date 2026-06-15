@@ -19,6 +19,8 @@ import org.hibernate.persister.entity.EntityPersister;
 import static org.hibernate.generator.EventType.INSERT;
 import static org.hibernate.internal.NaturalIdHelper.getNaturalIdPropertyNames;
 import static org.hibernate.generator.values.internal.GeneratedValuesHelper.noCustomSql;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An {@link OnExecutionGenerator} that handles {@code IDENTITY}/"autoincrement"
@@ -43,26 +45,31 @@ public class IdentityGenerator
 	private Class<?> generatedType;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void configure(GeneratorCreationContext creationContext, Properties parameters) {
 		generatedType = creationContext.getType().getReturnedClass();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getGeneratedType() {
 		return generatedType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean referenceColumnsInSql(Dialect dialect) {
 		return dialect.getIdentityColumnSupport().hasIdentityInsertKeyword();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getReferencedColumnValues(Dialect dialect) {
 		return new String[] { dialect.getIdentityColumnSupport().getIdentityInsertString() };
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public InsertGeneratedIdentifierDelegate getGeneratedIdentifierDelegate(EntityPersister persister) {
 		final var dialect = persister.getFactory().getJdbcServices().getDialect();
 		final var sessionFactoryOptions = persister.getFactory().getSessionFactoryOptions();
@@ -93,6 +100,7 @@ public class IdentityGenerator
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean requiresIdentityColumn() {
 		return true;
 	}

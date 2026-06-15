@@ -25,6 +25,8 @@ import org.hibernate.query.sqm.tree.from.SqmTreatedAttributeJoin;
 import org.jboss.logging.Logger;
 
 import static org.hibernate.query.sqm.internal.SqmUtil.findCompatibleFetchJoin;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specialized "intermediate" SemanticPathPart for processing domain model paths.
@@ -82,20 +84,24 @@ public class QualifiedJoinPathConsumer implements DotIdentifierConsumer {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isNested() {
 		return nested;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setNested(boolean nested) {
 		this.nested = nested;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SemanticPathPart getConsumedPart() {
 		return delegate.getConsumedPart();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void consumeIdentifier(String identifier, boolean isBase, boolean isTerminal) {
 		if ( isBase && delegate == null ) {
 			delegate = resolveBase( identifier, !nested && isTerminal );
@@ -113,11 +119,13 @@ public class QualifiedJoinPathConsumer implements DotIdentifierConsumer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void consumeTreat(String entityName, boolean isTerminal) {
 		assert delegate != null;
 		delegate.consumeTreat( entityName, isTerminal );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private ConsumerDelegate resolveBase(String identifier, boolean isTerminal) {
 		final var processingState = creationState.getCurrentProcessingState();
 		final var pathRegistry = processingState.getPathRegistry();
@@ -138,6 +146,7 @@ public class QualifiedJoinPathConsumer implements DotIdentifierConsumer {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private ExpectingEntityJoinDelegate resolveEntityName(String identifier, boolean isTerminal) {
 		return new ExpectingEntityJoinDelegate(
 				identifier,
@@ -150,6 +159,7 @@ public class QualifiedJoinPathConsumer implements DotIdentifierConsumer {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private AttributeJoinDelegate resolveExposed(String identifier, boolean isTerminal, SqmFrom<?, ?> pathRoot) {
 		return new AttributeJoinDelegate(
 				createJoin(
@@ -169,6 +179,7 @@ public class QualifiedJoinPathConsumer implements DotIdentifierConsumer {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private AttributeJoinDelegate resolveAlias(String identifier, boolean isTerminal, SqmFrom<?, Object> pathRootByAlias) {
 		// identifier is an alias (identification variable)
 		if (isTerminal) {
@@ -185,6 +196,7 @@ public class QualifiedJoinPathConsumer implements DotIdentifierConsumer {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private static <U> SqmFrom<?, ?> createJoin(
 			SqmFrom<?, U> lhs,
 			String name,
@@ -226,6 +238,7 @@ public class QualifiedJoinPathConsumer implements DotIdentifierConsumer {
 		return createJoin( lhs, joinType, alias, fetch, isTerminal, allowReuse, creationState, joinSource );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static <U,V> SqmFrom<?, ?> createJoin(
 			SqmFrom<?,U> lhs,
 			SqmJoinType joinType,
@@ -248,8 +261,11 @@ public class QualifiedJoinPathConsumer implements DotIdentifierConsumer {
 	}
 
 	private interface ConsumerDelegate {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void consumeIdentifier(String identifier, boolean isTerminal, boolean allowReuse);
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void consumeTreat(String typeName, boolean isTerminal);
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		SemanticPathPart getConsumedPart();
 	}
 
@@ -276,6 +292,7 @@ public class QualifiedJoinPathConsumer implements DotIdentifierConsumer {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void consumeIdentifier(String identifier, boolean isTerminal, boolean allowReuse) {
 			currentPath = createJoin(
 					currentPath,
@@ -290,11 +307,13 @@ public class QualifiedJoinPathConsumer implements DotIdentifierConsumer {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void consumeTreat(String typeName, boolean isTerminal) {
 			currentPath = treat( typeName, isTerminal );
 			creationState.getCurrentProcessingState().getPathRegistry().register( currentPath );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private SqmTreatedFrom<?, ?, ?> treat(String typeName, boolean isTerminal) {
 			if ( isTerminal ) {
 				return fetch
@@ -306,19 +325,23 @@ public class QualifiedJoinPathConsumer implements DotIdentifierConsumer {
 			}
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private <L,R> SqmTreatedFrom<?, ?, ?> treatNonTerminal(SqmFrom<L,R> path, String typeName) {
 			return path.treatAs( treatTarget( path, typeName ) );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private <L,R> SqmTreatedAttributeJoin<?, ?, ?> treatTerminalFetch(SqmFrom<L,R> path, String typeName) {
 			final var attributeJoin = (SqmAttributeJoin<L,R>) path;
 			return attributeJoin.treatAs( treatTarget( path, typeName ), alias, true );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private <L,R> SqmTreatedFrom<?, ?, ?> treatTerminal(SqmFrom<L,R> path, String typeName) {
 			return path.treatAs( treatTarget( path, typeName ), alias );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private <T> Class<? extends T> treatTarget(SqmPath<T> path, String typeName) {
 			final var javaType =
 					creationState.getCreationContext().getJpaMetamodel()
@@ -327,6 +350,7 @@ public class QualifiedJoinPathConsumer implements DotIdentifierConsumer {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public SemanticPathPart getConsumedPart() {
 			return currentPath;
 		}
@@ -362,6 +386,7 @@ public class QualifiedJoinPathConsumer implements DotIdentifierConsumer {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void consumeIdentifier(String identifier, boolean isTerminal, boolean allowReuse) {
 			if ( !path.isEmpty() ) {
 				path.append( '.' );
@@ -395,11 +420,13 @@ public class QualifiedJoinPathConsumer implements DotIdentifierConsumer {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void consumeTreat(String typeName, boolean isTerminal) {
 			throw new UnsupportedOperationException();
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public SemanticPathPart getConsumedPart() {
 			return join;
 		}

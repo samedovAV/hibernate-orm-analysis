@@ -23,6 +23,8 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Within the context of an active {@linkplain org.hibernate.Session session},
@@ -83,12 +85,14 @@ public interface MutationQuery extends CommonQueryContract, Statement {
 	 * The HQL or native-SQL string, or {@code null} in the case of a criteria query.
 	 */
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getMutationString();
 
 	/**
 	 * The Java type of the thing being mutated, if known.
 	 */
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Class<?> getTargetType();
 
 
@@ -103,6 +107,7 @@ public interface MutationQuery extends CommonQueryContract, Statement {
 	 *         (may differ from the number of affected rows)
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int execute();
 
 	/**
@@ -116,6 +121,7 @@ public interface MutationQuery extends CommonQueryContract, Statement {
 	 */
 	@Override @Deprecated(since = "8")
 	@SuppressWarnings("removal")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int executeUpdate();
 
 
@@ -127,6 +133,7 @@ public interface MutationQuery extends CommonQueryContract, Statement {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery setQueryFlushMode(@Nonnull QueryFlushMode queryFlushMode);
 
 	/**
@@ -135,6 +142,7 @@ public interface MutationQuery extends CommonQueryContract, Statement {
 	@Override
 	@Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery setFlushMode(@Nonnull FlushModeType flushMode);
 
 	/**
@@ -142,6 +150,7 @@ public interface MutationQuery extends CommonQueryContract, Statement {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery setTimeout(int timeout);
 
 	/**
@@ -149,6 +158,7 @@ public interface MutationQuery extends CommonQueryContract, Statement {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery setTimeout(@Nullable Integer timeout);
 
 	/**
@@ -156,6 +166,7 @@ public interface MutationQuery extends CommonQueryContract, Statement {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery setTimeout(@Nullable Timeout timeout);
 
 	/**
@@ -163,6 +174,7 @@ public interface MutationQuery extends CommonQueryContract, Statement {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery setComment(@Nullable String comment);
 
 	/**
@@ -170,6 +182,7 @@ public interface MutationQuery extends CommonQueryContract, Statement {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery setHint(@Nonnull String hintName, @Nullable Object value);
 
 	/**
@@ -177,6 +190,7 @@ public interface MutationQuery extends CommonQueryContract, Statement {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery addOption(@Nonnull Option option);
 
 	/**
@@ -184,6 +198,7 @@ public interface MutationQuery extends CommonQueryContract, Statement {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery addQueryHint(@Nonnull String hint);
 
 
@@ -192,165 +207,206 @@ public interface MutationQuery extends CommonQueryContract, Statement {
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationQuery setConvertedParameter(@Nonnull String name, @Nullable P value, @Nonnull Class<? extends AttributeConverter<P, ?>> converter);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationQuery setConvertedParameter(int position, @Nullable P value, @Nonnull Class<? extends AttributeConverter<P, ?>> converter);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery setParameter(@Nonnull String name, @Nullable Object value);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationQuery setParameter(@Nonnull String name, @Nullable P value, @Nonnull Class<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationQuery setParameter(@Nonnull String name, @Nullable P value, @Nonnull Type<P> type);
 
 	@Override @Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery setParameter(@Nonnull String name, @Nullable Instant value, @Nonnull TemporalType temporalType);
 
 	@Override @Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery setParameter(@Nonnull String name, @Nullable Calendar value, @Nonnull TemporalType temporalType);
 
 	@Override @Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery setParameter(@Nonnull String name, @Nullable Date value, @Nonnull TemporalType temporalType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery setParameter(int position, @Nullable Object value);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery setParameters(@Nonnull Object... arguments);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationQuery setParameter(int position, @Nullable P value, @Nonnull Class<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationQuery setParameter(int position, @Nullable P value, @Nonnull Type<P> type);
 
 	@Override @Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery setParameter(int position, @Nullable Instant value, @Nonnull TemporalType temporalType);
 
 	@Override @Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery setParameter(int position, @Nullable Date value, @Nonnull TemporalType temporalType);
 
 	@Override @Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery setParameter(int position, @Nullable Calendar value, @Nonnull TemporalType temporalType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationQuery setParameter(@Nonnull QueryParameter<P> parameter, @Nullable P value);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationQuery setParameter(@Nonnull QueryParameter<P> parameter, @Nullable P value, @Nonnull Class<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationQuery setParameter(@Nonnull QueryParameter<P> parameter, @Nullable P val, @Nonnull Type<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationQuery setParameter(@Nonnull Parameter<P> param, @Nullable P value);
 
 	@Override @Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery setParameter(@Nonnull Parameter<Calendar> param, @Nullable Calendar value, @Nonnull TemporalType temporalType);
 
 	@Override @Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery setParameter(@Nonnull Parameter<Date> param, @Nullable Date value, @Nonnull TemporalType temporalType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery setParameterList(@Nonnull String name, @SuppressWarnings("rawtypes") @Nonnull Collection values);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationQuery setParameterList(@Nonnull String name, @Nonnull Collection<? extends P> values, @Nonnull Class<P> javaType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationQuery setParameterList(@Nonnull String name, @Nonnull Collection<? extends P> values, @Nonnull Type<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery setParameterList(@Nonnull String name, @Nonnull Object[] values);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationQuery setParameterList(@Nonnull String name, @Nonnull P[] values, @Nonnull Class<P> javaType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationQuery setParameterList(@Nonnull String name, @Nonnull P[] values, @Nonnull Type<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery setParameterList(int position, @SuppressWarnings("rawtypes") @Nonnull Collection values);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationQuery setParameterList(int position, @Nonnull Collection<? extends P> values, @Nonnull Class<P> javaType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationQuery setParameterList(int position, @Nonnull Collection<? extends P> values, @Nonnull Type<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery setParameterList(int position, @Nonnull Object[] values);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationQuery setParameterList(int position, @Nonnull P[] values, @Nonnull Class<P> javaType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationQuery setParameterList(int position, @Nonnull P[] values, @Nonnull Type<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationQuery setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull Collection<? extends P> values);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationQuery setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull Collection<? extends P> values, @Nonnull Class<P> javaType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationQuery setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull Collection<? extends P> values, @Nonnull Type<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationQuery setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull P[] values);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationQuery setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull P[] values, @Nonnull Class<P> javaType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> MutationQuery setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull P[] values, @Nonnull Type<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery setProperties(@Nonnull Object bean);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery setProperties(@SuppressWarnings("rawtypes") @Nonnull Map bean);
 }

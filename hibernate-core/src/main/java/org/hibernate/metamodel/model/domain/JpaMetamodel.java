@@ -14,6 +14,8 @@ import org.hibernate.Incubating;
 import org.hibernate.metamodel.MappingMetamodel;
 import org.hibernate.type.descriptor.java.EnumJavaType;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Extensions to the JPA-defined {@linkplain Metamodel metamodel} of
@@ -36,18 +38,21 @@ public interface JpaMetamodel extends Metamodel {
 	 * Access to a managed type through its name
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ManagedDomainType<?> managedType(@Nullable String typeName);
 
 	/**
 	 * Access to an entity supporting Hibernate's entity-name feature
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityDomainType<?> entity(@Nullable String entityName);
 
 	/**
 	 * Access to an embeddable type from FQN
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EmbeddableDomainType<?> embeddable(@Nullable String embeddableName);
 
 	/**
@@ -56,6 +61,7 @@ public interface JpaMetamodel extends Metamodel {
 	 */
 
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityDomainType<?> getHqlEntityReference(@Nonnull String entityName);
 
 	/**
@@ -63,6 +69,7 @@ public interface JpaMetamodel extends Metamodel {
 	 * an HQL query
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityDomainType<?> resolveHqlEntityReference(@Nonnull String entityName);
 
 	/**
@@ -70,6 +77,7 @@ public interface JpaMetamodel extends Metamodel {
 	 * than throwing an exception
 	 */
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> ManagedDomainType<X> findManagedType(Class<X> cls);
 
 	/**
@@ -77,6 +85,7 @@ public interface JpaMetamodel extends Metamodel {
 	 * than throwing an exception
 	 */
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> EntityDomainType<X> findEntityType(Class<X> cls);
 
 	/**
@@ -84,6 +93,7 @@ public interface JpaMetamodel extends Metamodel {
 	 * than throwing an exception
 	 */
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> EmbeddableDomainType<X> findEmbeddableType(Class<X> cls);
 
 	/**
@@ -91,6 +101,7 @@ public interface JpaMetamodel extends Metamodel {
 	 * than throwing an exception
 	 */
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ManagedDomainType<?> findManagedType(@Nullable String typeName);
 
 	/**
@@ -98,6 +109,7 @@ public interface JpaMetamodel extends Metamodel {
 	 * than throwing an exception
 	 */
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityDomainType<?> findEntityType(@Nullable String entityName);
 
 	/**
@@ -105,23 +117,30 @@ public interface JpaMetamodel extends Metamodel {
 	 * than throwing an exception
 	 */
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EmbeddableDomainType<?> findEmbeddableType(@Nullable String embeddableName);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String qualifyImportableName(String queryName);
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Enumerations and Java constants (useful for interpreting HQL)
 
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Set<String> getEnumTypesForValue(String enumValue);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EnumJavaType<?> getEnumType(String className);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<E extends Enum<E>> E enumValue(EnumJavaType<E> enumType, String enumValueName);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JavaType<?> getJavaConstantType(String className, String fieldName);
 
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<E> E getJavaConstant(String className, String fieldName, Class<E> javaTypeClass);
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -129,14 +148,17 @@ public interface JpaMetamodel extends Metamodel {
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> ManagedDomainType<X> managedType(@Nonnull Class<X> cls);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> EntityDomainType<X> entity(@Nonnull Class<X> cls);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> EmbeddableDomainType<X> embeddable(@Nonnull Class<X> cls);
 
 }

@@ -13,6 +13,8 @@ import org.hibernate.type.descriptor.jdbc.JdbcTypeIndicators;
 
 import static java.lang.System.identityHashCode;
 import static org.hibernate.proxy.HibernateProxy.extractLazyInitializer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Uses object identity for {@code equals}/{@code hashCode} as we ensure that internally.
@@ -26,6 +28,7 @@ public class EntityJavaType<T> extends AbstractClassJavaType<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcType getRecommendedJdbcType(JdbcTypeIndicators context) {
 		return context.getTypeConfiguration().getSessionFactory()
 				.getMappingMetamodel()
@@ -36,16 +39,19 @@ public class EntityJavaType<T> extends AbstractClassJavaType<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int extractHashCode(T value) {
 		return identityHashCode( value );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean areEqual(T one, T another) {
 		return one == another;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isInstance(Object value) {
 		final var lazyInitializer = extractLazyInitializer( value );
 		final var javaTypeClass = getJavaTypeClass();
@@ -59,6 +65,7 @@ public class EntityJavaType<T> extends AbstractClassJavaType<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> X unwrap(T value, Class<X> type, WrapperOptions options) {
 		final var id =
 				options.getSessionFactory().getMappingMetamodel()
@@ -71,6 +78,7 @@ public class EntityJavaType<T> extends AbstractClassJavaType<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> T wrap(X value, WrapperOptions options) {
 		final var entityClass = getJavaTypeClass();
 		final var persister =
@@ -87,6 +95,7 @@ public class EntityJavaType<T> extends AbstractClassJavaType<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "EntityJavaType(" + getTypeName() + ")";
 	}

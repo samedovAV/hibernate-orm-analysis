@@ -5,6 +5,8 @@
 package org.hibernate.type.format.jaxb;
 
 import org.hibernate.type.format.FormatMapper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class JaxbIntegration {
 
@@ -15,6 +17,7 @@ public class JaxbIntegration {
 	private static final JaxbXmlFormatMapper LEGACY_XML_FORMAT_MAPPER =
 			JAXB_XML_AVAILABLE ? new JaxbXmlFormatMapper( true ) : null;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean ableToLoadJakartaJaxb() {
 		try {
 			//N.B. intentionally not using the context classloader
@@ -29,10 +32,12 @@ public class JaxbIntegration {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static FormatMapper getJaxbXmlFormatMapperOrNull() {
 		return XML_FORMAT_MAPPER;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static FormatMapper getJaxbLegacyXmlFormatMapperOrNull() {
 		return LEGACY_XML_FORMAT_MAPPER;
 	}

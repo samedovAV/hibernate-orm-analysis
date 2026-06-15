@@ -5,6 +5,8 @@
 package org.hibernate;
 
 import jakarta.annotation.Nonnull;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An API for directly querying and managing the second-level cache.
@@ -121,6 +123,7 @@ public interface Cache extends jakarta.persistence.Cache {
 	 * The {@link SessionFactory} to which this {@code Cache} belongs.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactory getSessionFactory();
 
 
@@ -137,6 +140,7 @@ public interface Cache extends jakarta.persistence.Cache {
 	 * @return True if the underlying cache contains corresponding data; false
 	 * otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean containsEntity(@Nonnull Class<?> entityClass, @Nonnull Object identifier);
 
 	/**
@@ -148,6 +152,7 @@ public interface Cache extends jakarta.persistence.Cache {
 	 *
 	 * @return True if the underlying cache contains corresponding data; false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean containsEntity(@Nonnull String entityName, @Nonnull Object identifier);
 
 	/**
@@ -159,6 +164,7 @@ public interface Cache extends jakarta.persistence.Cache {
 	 *
 	 * @since 5.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void evictEntityData(@Nonnull Class<?> entityClass, @Nonnull Object identifier);
 
 	/**
@@ -170,6 +176,7 @@ public interface Cache extends jakarta.persistence.Cache {
 	 *
 	 * @since 5.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void evictEntityData(@Nonnull String entityName, @Nonnull Object identifier);
 
 	/**
@@ -182,6 +189,7 @@ public interface Cache extends jakarta.persistence.Cache {
 	 *
 	 * @since 5.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void evictEntityData(@Nonnull Class<?> entityClass);
 
 	/**
@@ -194,6 +202,7 @@ public interface Cache extends jakarta.persistence.Cache {
 	 *
 	 * @since 5.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void evictEntityData(@Nonnull String entityName);
 
 	/**
@@ -202,6 +211,7 @@ public interface Cache extends jakarta.persistence.Cache {
 	 *
 	 * @since 5.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void evictEntityData();
 
 
@@ -216,6 +226,7 @@ public interface Cache extends jakarta.persistence.Cache {
 	 *
 	 * @since 5.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void evictNaturalIdData(@Nonnull Class<?> entityClass);
 
 	/**
@@ -226,6 +237,7 @@ public interface Cache extends jakarta.persistence.Cache {
 	 *
 	 * @since 5.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void evictNaturalIdData(@Nonnull String entityName);
 
 	/**
@@ -233,6 +245,7 @@ public interface Cache extends jakarta.persistence.Cache {
 	 *
 	 * @since 5.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void evictNaturalIdData();
 
 
@@ -251,6 +264,7 @@ public interface Cache extends jakarta.persistence.Cache {
 	 *
 	 * @return True if the underlying cache contains corresponding data; false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean containsCollection(@Nonnull String role, @Nonnull Object ownerIdentifier);
 
 	/**
@@ -263,6 +277,7 @@ public interface Cache extends jakarta.persistence.Cache {
 	 *
 	 * @since 5.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void evictCollectionData(@Nonnull String role, @Nonnull Object ownerIdentifier);
 
 	/**
@@ -274,6 +289,7 @@ public interface Cache extends jakarta.persistence.Cache {
 	 *
 	 * @since 5.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void evictCollectionData(@Nonnull String role);
 
 	/**
@@ -282,6 +298,7 @@ public interface Cache extends jakarta.persistence.Cache {
 	 *
 	 * @since 5.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void evictCollectionData();
 
 
@@ -297,11 +314,13 @@ public interface Cache extends jakarta.persistence.Cache {
 	 *
 	 * @return True if the underlying cache contains corresponding data; false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean containsQuery(@Nonnull String regionName);
 
 	/**
 	 * Evict all cached query results from the default region.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void evictDefaultQueryRegion();
 
 	/**
@@ -309,11 +328,13 @@ public interface Cache extends jakarta.persistence.Cache {
 	 *
 	 * @param regionName The cache name associated to the queries being cached.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void evictQueryRegion(@Nonnull String regionName);
 
 	/**
 	 * Evict all cached query results from every region.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void evictQueryRegions();
 
 
@@ -326,6 +347,7 @@ public interface Cache extends jakarta.persistence.Cache {
 	 *
 	 * @since 5.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void evictRegion(@Nonnull String regionName);
 
 	/**
@@ -338,11 +360,13 @@ public interface Cache extends jakarta.persistence.Cache {
 	 * {@link #evictAllRegions()} instead.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void evictAll();
 
 	/**
 	 * Evict all cached data from every cache region, including cached
 	 * collections, natural id mappings, and cached query results.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void evictAllRegions();
 }

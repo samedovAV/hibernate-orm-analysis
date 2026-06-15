@@ -24,6 +24,8 @@ import static org.hibernate.query.sqm.produce.function.StandardFunctionReturnTyp
 import static org.hibernate.query.sqm.produce.function.StandardFunctionReturnTypeResolvers.extractArgumentValuedMapping;
 import static org.hibernate.query.sqm.produce.function.StandardFunctionReturnTypeResolvers.isAssignableTo;
 import static org.hibernate.query.sqm.produce.function.StandardFunctionReturnTypeResolvers.useImpliedTypeIfPossible;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class CastTargetReturnTypeResolver implements FunctionReturnTypeResolver {
 
@@ -34,6 +36,7 @@ public class CastTargetReturnTypeResolver implements FunctionReturnTypeResolver 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public ReturnableType<?> resolveFunctionReturnType(
 			ReturnableType<?> impliedType,
 			@Nullable SqmToSqlAstConverter converter,
@@ -56,6 +59,7 @@ public class CastTargetReturnTypeResolver implements FunctionReturnTypeResolver 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public BasicValuedMapping resolveFunctionReturnType(
 			Supplier<BasicValuedMapping> impliedTypeAccess,
 			List<? extends SqlAstNode> arguments) {

@@ -10,6 +10,8 @@ import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.sql.ast.tree.expression.Expression;
 
 import java.io.Serializable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Performs optimization on an optimizable identifier generator. Typically.
@@ -43,6 +45,7 @@ public interface Optimizer {
 	 * @param callback Callback to access the underlying value source.
 	 * @return The generated identifier value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Serializable generate(AccessCallback callback);
 
 	/**
@@ -50,6 +53,7 @@ public interface Optimizer {
 	 *
 	 * @since 7.2
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void reset();
 
 	/**
@@ -60,13 +64,15 @@ public interface Optimizer {
 	 * @return The last value we obtained from the underlying source;
 	 * null indicates we have not yet consulted with the source.
 	 */
-	@Nullable Long getLastSourceValue();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	Long getLastSourceValue();
 
 	/**
 	 * Retrieves the defined increment size.
 	 *
 	 * @return The increment size.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getIncrementSize();
 
 	/**
@@ -77,6 +83,7 @@ public interface Optimizer {
 	 * according to the defined increment size; false otherwise, in which
 	 * case the increment size is a completely in-memory construct.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean applyIncrementSizeToSourceValues();
 
 	/**
@@ -91,11 +98,13 @@ public interface Optimizer {
 	 *
 	 * @since 7.1
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Expression createLowValueExpression(Expression databaseValue, SessionFactoryImplementor sessionFactory);
 
 	/**
 	 * @since 7.2
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int getAdjustment() {
 		return 1;
 	}

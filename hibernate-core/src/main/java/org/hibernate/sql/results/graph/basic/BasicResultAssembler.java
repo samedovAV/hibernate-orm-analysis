@@ -13,11 +13,14 @@ import org.hibernate.sql.ast.spi.SqlSelection;
 import org.hibernate.sql.results.graph.DomainResultAssembler;
 import org.hibernate.sql.results.jdbc.spi.RowProcessingState;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
  */
 public class BasicResultAssembler<J> implements DomainResultAssembler<J> {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <X> BasicResultAssembler<X> from(SqlSelection selection, JavaType<X> javaType) {
 		return new BasicResultAssembler<>( selection.getValuesArrayPosition(), javaType );
 	}
@@ -45,6 +48,7 @@ public class BasicResultAssembler<J> implements DomainResultAssembler<J> {
 	/**
 	 * Access to the raw value (unconverted, if a converter applied)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object extractRawValue(RowProcessingState rowProcessingState) {
 		if ( unwrapRowProcessingState ) {
 			rowProcessingState = rowProcessingState.unwrap();
@@ -53,6 +57,7 @@ public class BasicResultAssembler<J> implements DomainResultAssembler<J> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public J assemble(RowProcessingState rowProcessingState) {
 		final Object jdbcValue = extractRawValue( rowProcessingState );
 
@@ -83,11 +88,13 @@ public class BasicResultAssembler<J> implements DomainResultAssembler<J> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void resolveState(RowProcessingState rowProcessingState) {
 		extractRawValue( rowProcessingState );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<J> getAssembledJavaType() {
 		return valueConverter != null
 				? valueConverter.getDomainJavaType()
@@ -98,6 +105,7 @@ public class BasicResultAssembler<J> implements DomainResultAssembler<J> {
 	 * Exposed for testing purposes
 	 */
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BasicValueConverter<J, ?> getValueConverter() {
 		return valueConverter;
 	}

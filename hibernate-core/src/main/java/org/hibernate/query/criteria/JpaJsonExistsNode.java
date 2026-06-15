@@ -5,6 +5,8 @@
 package org.hibernate.query.criteria;
 
 import org.hibernate.Incubating;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The base for {@code json_exists} function nodes.
@@ -17,6 +19,7 @@ public interface JpaJsonExistsNode {
 	 *
 	 * @return the error behavior
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ErrorBehavior getErrorBehavior();
 
 	/**
@@ -24,24 +27,28 @@ public interface JpaJsonExistsNode {
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonExistsNode unspecifiedOnError();
 	/**
 	 * Sets the {@link ErrorBehavior#ERROR} for this json exists expression.
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonExistsNode errorOnError();
 	/**
 	 * Sets the {@link ErrorBehavior#TRUE} for this json exists expression.
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonExistsNode trueOnError();
 	/**
 	 * Sets the {@link ErrorBehavior#FALSE} for this json exists expression.
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonExistsNode falseOnError();
 
 	/**

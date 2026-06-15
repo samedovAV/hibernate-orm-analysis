@@ -16,6 +16,8 @@ import org.hibernate.type.BasicPluralType;
 import jakarta.annotation.Nullable;
 
 import static org.hibernate.dialect.function.array.DdlTypeHelper.getNarrowCastTypeName;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Oracle unnest function.
@@ -32,6 +34,7 @@ public class OracleUnnestFunction extends UnnestFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getDdlType(SqlTypedMapping sqlTypedMapping, int containerSqlTypeCode, SqlAstTranslator<?> translator) {
 		// Oracle's json_table()/xmltable() columns clause doesn't accept
 		// CLOB/NCLOB/BLOB; use the narrow-cast type name, which maps LOB
@@ -42,6 +45,7 @@ public class OracleUnnestFunction extends UnnestFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderUnnest(
 			SqlAppender sqlAppender,
 			Expression array,

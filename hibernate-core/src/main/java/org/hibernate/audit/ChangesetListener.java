@@ -6,6 +6,8 @@ package org.hibernate.audit;
 
 
 import org.hibernate.annotations.Changelog;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A callback invoked when a new
@@ -25,5 +27,6 @@ public interface ChangesetListener {
 	 *
 	 * @param changelog the new changelog entity instance
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void newChangeset(Object changelog);
 }

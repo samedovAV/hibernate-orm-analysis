@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.mapping;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 
 /**
@@ -13,6 +16,7 @@ package org.hibernate.mapping;
  */
 public class SyntheticProperty extends Property {
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isSynthetic() {
 		return true;
 	}

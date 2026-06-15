@@ -13,6 +13,8 @@ import org.hibernate.Incubating;
 
 import jakarta.persistence.criteria.AbstractQuery;
 import jakarta.persistence.criteria.CriteriaQuery;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Common contract for criteria parts that can hold CTEs (common table expressions).
@@ -24,12 +26,14 @@ public interface JpaCteContainer extends JpaCriteriaNode {
 	 * Returns the CTEs that are registered on this container.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Collection<? extends JpaCteCriteria<?>> getCteCriterias();
 
 	/**
 	 * Returns a CTE that is registered by the given name on this container, or any of its parents.
 	 */
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> JpaCteCriteria<T> getCteCriteria(@Nonnull String cteName);
 
 	/**
@@ -43,6 +47,7 @@ public interface JpaCteContainer extends JpaCriteriaNode {
 	 */
 	@Deprecated(since = "7", forRemoval = true)
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> JpaCteCriteria<T> with(@Nonnull AbstractQuery<T> criteria);
 
 	/**
@@ -53,6 +58,7 @@ public interface JpaCteContainer extends JpaCriteriaNode {
 	 * @see JpaCriteriaQuery#from(JpaCteCriteria)
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> JpaCteCriteria<T> withRecursiveUnionAll(@Nonnull AbstractQuery<T> baseCriteria, @Nonnull Function<JpaCteCriteria<T>, AbstractQuery<T>> recursiveCriteriaProducer);
 
 	/**
@@ -63,23 +69,27 @@ public interface JpaCteContainer extends JpaCriteriaNode {
 	 * @see JpaCriteriaQuery#from(JpaCteCriteria)
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> JpaCteCriteria<T> withRecursiveUnionDistinct(@Nonnull AbstractQuery<T> baseCriteria, @Nonnull Function<JpaCteCriteria<T>, AbstractQuery<T>> recursiveCriteriaProducer);
 
 	/**
 	 * Like {@link #with(AbstractQuery)} but assigns an explicit CTE name.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> JpaCteCriteria<T> with(@Nonnull String name, @Nonnull AbstractQuery<T> criteria);
 
 	/**
 	 * Like {@link #withRecursiveUnionAll(AbstractQuery, Function)} but assigns an explicit CTE name.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> JpaCteCriteria<T> withRecursiveUnionAll(@Nonnull String name, @Nonnull AbstractQuery<T> baseCriteria, @Nonnull Function<JpaCteCriteria<T>, AbstractQuery<T>> recursiveCriteriaProducer);
 
 	/**
 	 * Like {@link #withRecursiveUnionDistinct(AbstractQuery, Function)} but assigns an explicit CTE name.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> JpaCteCriteria<T> withRecursiveUnionDistinct(@Nonnull String name, @Nonnull AbstractQuery<T> baseCriteria, @Nonnull Function<JpaCteCriteria<T>, AbstractQuery<T>> recursiveCriteriaProducer);
 }

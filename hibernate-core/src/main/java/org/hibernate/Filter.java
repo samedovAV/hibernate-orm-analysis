@@ -8,6 +8,8 @@ import java.util.Collection;
 
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.engine.spi.FilterDefinition;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Allows control over an enabled {@linkplain FilterDef filter} at runtime.
@@ -40,6 +42,7 @@ public interface Filter {
 	 *
 	 * @return This filter's name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getName();
 
 	/**
@@ -53,6 +56,7 @@ public interface Filter {
 	 *             SPI type, and so this operation is a layer-breaker.
 	 */
 	@Deprecated(since = "6.2")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	FilterDefinition getFilterDefinition();
 
 	/**
@@ -62,6 +66,7 @@ public interface Filter {
 	 * @param value The value to be applied.
 	 * @return This FilterImpl instance (for method chaining).
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Filter setParameter(String name, Object value);
 
 	/**
@@ -72,6 +77,7 @@ public interface Filter {
 	 * @param values The values to be expanded into an SQL IN list.
 	 * @return This FilterImpl instance (for method chaining).
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Filter setParameterList(String name, Collection<?> values);
 
 	/**
@@ -82,6 +88,7 @@ public interface Filter {
 	 * @param values The values to be expanded into an SQL IN list.
 	 * @return This FilterImpl instance (for method chaining).
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Filter setParameterList(String name, Object[] values);
 
 	/**
@@ -90,6 +97,7 @@ public interface Filter {
 	 *
 	 * @throws HibernateException If the state is not currently valid.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void validate() throws HibernateException;
 
 	/**
@@ -98,6 +106,7 @@ public interface Filter {
 	 *
 	 * @return The flag value
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isAutoEnabled();
 
 	/**
@@ -106,6 +115,7 @@ public interface Filter {
 	 *
 	 * @return The flag value
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isAppliedToLoadByKey();
 
 	/**
@@ -118,5 +128,6 @@ public interface Filter {
 	 * @since 7
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getParameterValue(String name);
 }

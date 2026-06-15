@@ -24,6 +24,8 @@ import jakarta.persistence.TableGenerator;
 import static org.hibernate.boot.model.internal.GeneratorAnnotationHelper.findLocalizedMatch;
 import static org.hibernate.boot.model.internal.GeneratorAnnotationHelper.handleSequenceGenerator;
 import static org.hibernate.boot.model.internal.GeneratorStrategies.mapLegacyNamedGenerator;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * SecondPass implementing delayed resolution of id-generators associated with an entity.
@@ -47,6 +49,7 @@ public class IdGeneratorResolverSecondPass extends AbstractEntityIdGeneratorReso
 	// SEQUENCE
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void handleUnnamedSequenceGenerator() {
 		// todo (7.0) : null or entityMapping.getJpaEntityName() for "name from GeneratedValue"?
 
@@ -68,6 +71,7 @@ public class IdGeneratorResolverSecondPass extends AbstractEntityIdGeneratorReso
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void handleNamedSequenceGenerator() {
 		final String generator = generatedValue.generator();
 		final var collector = buildingContext.getMetadataCollector();
@@ -99,6 +103,7 @@ public class IdGeneratorResolverSecondPass extends AbstractEntityIdGeneratorReso
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void validateSequenceGeneration() {
 		// basically, make sure there is neither a TableGenerator nor GenericGenerator with this name
 
@@ -135,6 +140,7 @@ public class IdGeneratorResolverSecondPass extends AbstractEntityIdGeneratorReso
 	// TABLE
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void handleUnnamedTableGenerator() {
 		// todo (7.0) : null or entityMapping.getJpaEntityName() for "name from GeneratedValue"?
 
@@ -151,6 +157,7 @@ public class IdGeneratorResolverSecondPass extends AbstractEntityIdGeneratorReso
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void handleNamedTableGenerator() {
 		final String generator = generatedValue.generator();
 		final var collector = buildingContext.getMetadataCollector();
@@ -181,6 +188,7 @@ public class IdGeneratorResolverSecondPass extends AbstractEntityIdGeneratorReso
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void validateTableGeneration() {
 		// basically, make sure there is neither a SequenceGenerator nor a GenericGenerator with this name
 
@@ -216,6 +224,7 @@ public class IdGeneratorResolverSecondPass extends AbstractEntityIdGeneratorReso
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// AUTO
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean handleAsUuid(ClassDetailsRegistry classDetailsRegistry) {
 		final var idMemberType = idMember.getType();
 		if ( idMemberType.isImplementor( UUID.class ) || idMemberType.isImplementor( String.class ) ) {
@@ -233,6 +242,7 @@ public class IdGeneratorResolverSecondPass extends AbstractEntityIdGeneratorReso
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void handleUnnamedAutoGenerator() {
 		// todo (7.0) : null or entityMapping.getJpaEntityName() for "name from GeneratedValue"?
 
@@ -280,6 +290,7 @@ public class IdGeneratorResolverSecondPass extends AbstractEntityIdGeneratorReso
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void handleNamedAutoGenerator() {
 		if ( handleAsLocalAutoGenerator() ) {
 			return;
@@ -316,6 +327,7 @@ public class IdGeneratorResolverSecondPass extends AbstractEntityIdGeneratorReso
 		handleSequenceGenerator( generator, null, idValue, idMember, buildingContext );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean handleAsLocalAutoGenerator() {
 		if ( "increment".equals( generatedValue.generator() ) ) {
 			final var incrementGenerator =
@@ -367,6 +379,7 @@ public class IdGeneratorResolverSecondPass extends AbstractEntityIdGeneratorReso
 		return false;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean handleAsNamedGlobalAutoGenerator() {
 		final var globalRegistrations = buildingContext.getMetadataCollector().getGlobalRegistrations();
 		final String generator = generatedValue.generator();
@@ -398,6 +411,7 @@ public class IdGeneratorResolverSecondPass extends AbstractEntityIdGeneratorReso
 		return false;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void handleTableGenerator(String nameFromGeneratedValue, TableGenerator generatorAnnotation) {
 		GeneratorAnnotationHelper.handleTableGenerator(
 				nameFromGeneratedValue,

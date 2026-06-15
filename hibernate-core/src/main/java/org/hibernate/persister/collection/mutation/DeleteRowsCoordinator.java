@@ -6,6 +6,8 @@ package org.hibernate.persister.collection.mutation;
 
 import org.hibernate.collection.spi.PersistentCollection;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -30,5 +32,6 @@ public interface DeleteRowsCoordinator extends CollectionOperationCoordinator {
 	/**
 	 * Perform the deletions
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void deleteRows(PersistentCollection<?> collection, Object key, SharedSessionContractImplementor session);
 }

@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.tool.schema.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Describes a schema generation target
@@ -16,6 +19,7 @@ public interface GenerationTarget {
 	 *
 	 * @throws SchemaManagementException If there is a problem preparing the target.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void prepare();
 
 	/**
@@ -24,6 +28,7 @@ public interface GenerationTarget {
 	 * May be used for logging in particular.
 	 * @param scriptSource The source for the script that is about to be executed.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void beforeScript(ScriptSourceInput scriptSource) {
 		// Defaults to no-op
 	}
@@ -35,6 +40,7 @@ public interface GenerationTarget {
 	 *
 	 * @throws SchemaManagementException If there is a problem accepting the action.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void accept(String command);
 
 	/**
@@ -42,5 +48,6 @@ public interface GenerationTarget {
 	 *
 	 * @throws SchemaManagementException If there is a problem releasing the target.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void release();
 }

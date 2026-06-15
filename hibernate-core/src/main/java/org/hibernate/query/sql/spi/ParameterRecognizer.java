@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.query.sql.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Defines the "callback" process of recognizing native query parameters.
@@ -16,6 +19,7 @@ public interface ParameterRecognizer {
 	 *
 	 * @param sourcePosition The position within the query
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void ordinalParameter(int sourcePosition);
 
 	/**
@@ -24,6 +28,7 @@ public interface ParameterRecognizer {
 	 * @param name The recognized parameter name
 	 * @param sourcePosition The position within the query
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void namedParameter(String name, int sourcePosition);
 
 	/**
@@ -32,6 +37,7 @@ public interface ParameterRecognizer {
 	 * @param label The label (identifier) of the JPA-style parameter.  e.g. for a parameter `?2`, the label is `2`
 	 * @param sourcePosition The position within the query
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void jpaPositionalParameter(int label, int sourcePosition);
 
 	/**
@@ -39,11 +45,13 @@ public interface ParameterRecognizer {
 	 *
 	 * @param character The recognized character
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void other(char character);
 
 	/**
 	 * Callback after all parsing is complete
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void complete() {
 		// by default, nothing to do
 	}

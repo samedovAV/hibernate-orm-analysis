@@ -9,6 +9,8 @@ import org.hibernate.models.spi.ModelsContext;
 
 import java.lang.annotation.Annotation;
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -18,15 +20,18 @@ public class CollectionIdJavaClassAnnotation implements CollectionIdJavaClass {
 	private Class<?> idType;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> idType() {
 		return idType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void idType(Class<?> idType) {
 		this.idType = idType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return CollectionIdJavaClass.class;
 	}

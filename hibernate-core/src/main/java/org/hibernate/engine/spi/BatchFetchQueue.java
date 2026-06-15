@@ -25,6 +25,8 @@ import static org.hibernate.internal.util.NullnessUtil.castNonNull;
 import static org.hibernate.internal.util.collections.CollectionHelper.linkedMapOfSize;
 import static org.hibernate.internal.util.collections.CollectionHelper.linkedSetOfSize;
 import static org.hibernate.internal.util.collections.CollectionHelper.mapOfSize;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Keeps track of:<ul>
@@ -77,6 +79,7 @@ public class BatchFetchQueue {
 	 * <p>
 	 * Called after flushing or clearing the session.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void clear() {
 		batchLoadableEntityKeys = null;
 		batchLoadableCollections = null;
@@ -93,6 +96,7 @@ public class BatchFetchQueue {
 	 * @return The fetch descriptor; may return null if no subselect fetch queued for
 	 * this entity key.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable SubselectFetch getSubselect(EntityKey key) {
 		return subselectsByEntityKey == null ? null : subselectsByEntityKey.get( key );
 	}
@@ -103,6 +107,7 @@ public class BatchFetchQueue {
 	 * @param key The entity for which to register the subselect fetch.
 	 * @param subquery The fetch descriptor.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addSubselect(EntityKey key, SubselectFetch subquery) {
 		if ( subselectsByEntityKey == null ) {
 			subselectsByEntityKey = mapOfSize( 12 );
@@ -124,6 +129,7 @@ public class BatchFetchQueue {
 	 * call this after loading the entity, since we might still
 	 * need to load its collections)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void removeSubselect(EntityKey key) {
 		if ( subselectsByEntityKey != null ) {
 			subselectsByEntityKey.remove( key );
@@ -132,6 +138,7 @@ public class BatchFetchQueue {
 
 	// entity batch support ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private LoadQueryInfluencers getLoadQueryInfluencers() {
 		return context.getSession().getLoadQueryInfluencers();
 	}
@@ -146,6 +153,7 @@ public class BatchFetchQueue {
 	 * referenced entity to be included in a batch even though it is
 	 * already associated with the {@link PersistenceContext}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addBatchLoadableEntityKey(EntityKey key) {
 		if ( key.isBatchLoadable( getLoadQueryInfluencers() ) ) {
 			if ( batchLoadableEntityKeys == null ) {
@@ -162,6 +170,7 @@ public class BatchFetchQueue {
 	 * need to batch fetch it anymore, remove it from the queue
 	 * if necessary
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void removeBatchLoadableEntityKey(EntityKey key) {
 		if ( key.isBatchLoadable( getLoadQueryInfluencers() )
 				&& batchLoadableEntityKeys != null ) {
@@ -175,6 +184,7 @@ public class BatchFetchQueue {
 	/**
 	 * Intended for test usage. Really has no use-case in Hibernate proper.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean containsEntityKey(EntityKey key) {
 		if ( key.isBatchLoadable( getLoadQueryInfluencers() )
 				&& batchLoadableEntityKeys != null ) {
@@ -192,6 +202,7 @@ public class BatchFetchQueue {
 	 * creation of concretely typed array for ARRAY param binding to ensure
 	 * the driver does not need to cast/copy the values array.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> void collectBatchLoadableEntityIds(
 			final int domainBatchSize,
 			IndexedConsumer<T> collector,
@@ -241,6 +252,7 @@ public class BatchFetchQueue {
 	 * complex algorithm that tries to grab keys registered immediately after
 	 * the given key.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object [] getBatchLoadableEntityIds(
 			final EntityMappingType entityDescriptor,
 			final Object loadingId,
@@ -291,6 +303,7 @@ public class BatchFetchQueue {
 	 * If a CollectionEntry represents a batch loadable collection, add
 	 * it to the queue.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addBatchLoadableCollection(PersistentCollection<?> collection, CollectionEntry ce) {
 		// TODO we rely on loadedPersister being non-null, which is not always true for some reason.
 		//   We should either make sure it's always non-null,
@@ -308,6 +321,7 @@ public class BatchFetchQueue {
 	 * need to batch fetch it anymore, remove it from the queue
 	 * if necessary
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void removeBatchLoadableCollection(CollectionEntry collectionEntry) {
 		// TODO we rely on loadedPersister being non-null, which is not always true for some reason.
 		//   We should either make sure it's always non-null,
@@ -328,6 +342,7 @@ public class BatchFetchQueue {
 	 * Allows creation of a concretely typed array for ARRAY param binding to
 	 * ensure the driver does not need to cast or copy the values array.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> void collectBatchLoadableCollectionKeys(
 			int batchSize,
 			IndexedConsumer<T> collector,
@@ -395,6 +410,7 @@ public class BatchFetchQueue {
 	 * @param batchSize the maximum number of keys to return
 	 * @return an array of collection keys, of length batchSize (padded with nulls)
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object [] getCollectionBatch(
 			final CollectionPersister collectionPersister,
 			final Object id,
@@ -456,10 +472,12 @@ public class BatchFetchQueue {
 		return keys;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionContractImplementor getSession() {
 		return context.getSession();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean isCached(Object collectionKey, CollectionPersister persister) {
 		final var session = getSession();
 		if ( session.getCacheMode().isGetEnabled() && persister.hasCache() ) {
@@ -474,6 +492,7 @@ public class BatchFetchQueue {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean isCached(EntityKey entityKey, EntityPersister persister) {
 		final var session = getSession();
 		if ( session.getCacheMode().isGetEnabled() && persister.canReadFromCache() ) {

@@ -21,6 +21,8 @@ import org.hibernate.metamodel.mapping.ModelPart.JdbcValueBiConsumer;
 import org.hibernate.persister.entity.EntityPersister;
 
 import java.sql.SQLException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// @author Steve Ebersole
 public class EntityDeleteBindPlan implements BindPlan, OperationResultChecker {
@@ -90,11 +92,13 @@ public class EntityDeleteBindPlan implements BindPlan, OperationResultChecker {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getEntityId() {
 		return identifier;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object[] getLoadedState() {
 		// Prefer loadedState if available (used for optimistic locking scenarios)
 		// Otherwise use state (which is always available from EntityDeleteAction)
@@ -102,6 +106,7 @@ public class EntityDeleteBindPlan implements BindPlan, OperationResultChecker {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void bindValues(
 			JdbcValueBindings valueBindings,
 			FlushOperation flushOperation,
@@ -128,6 +133,7 @@ public class EntityDeleteBindPlan implements BindPlan, OperationResultChecker {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void breakDownKeyJdbcValue(
 			JdbcValueBindings valueBindings,
 			SharedSessionContractImplementor session) {
@@ -160,6 +166,7 @@ public class EntityDeleteBindPlan implements BindPlan, OperationResultChecker {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void applyVersionBasedOptLocking(
 			JdbcValueBindings jdbcValueBindings,
 			SharedSessionContractImplementor session) {
@@ -185,6 +192,7 @@ public class EntityDeleteBindPlan implements BindPlan, OperationResultChecker {
 			}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void applyNonVersionOptLocking(
 			JdbcValueBindings jdbcValueBindings,
 			SharedSessionContractImplementor session) {
@@ -210,6 +218,7 @@ public class EntityDeleteBindPlan implements BindPlan, OperationResultChecker {
 			}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void decomposeAttributeForRestriction(
 			Object value,
 			JdbcValueBindings jdbcValueBindings,
@@ -231,6 +240,7 @@ public class EntityDeleteBindPlan implements BindPlan, OperationResultChecker {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static boolean contains(int[] values, int value) {
 		if ( values == null ) {
 			return false;
@@ -243,6 +253,7 @@ public class EntityDeleteBindPlan implements BindPlan, OperationResultChecker {
 		return false;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void applyPartitionedSelectionRestrictions(
 			JdbcValueBindings jdbcValueBindings,
 			SharedSessionContractImplementor session) {
@@ -279,11 +290,13 @@ public class EntityDeleteBindPlan implements BindPlan, OperationResultChecker {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public OperationResultChecker getOperationResultChecker() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean checkResult(
 			FlushOperation flushOperation,
 			int affectedRowCount,
@@ -300,6 +313,7 @@ public class EntityDeleteBindPlan implements BindPlan, OperationResultChecker {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean checkResult(
 			int affectedRowCount,
 			int batchPosition,
@@ -308,6 +322,7 @@ public class EntityDeleteBindPlan implements BindPlan, OperationResultChecker {
 		return checkResult( tableDescriptor, affectedRowCount, batchPosition, sqlString, sessionFactory );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean checkResult(
 			EntityTableDescriptor tableDescriptor,
 			int affectedRowCount,

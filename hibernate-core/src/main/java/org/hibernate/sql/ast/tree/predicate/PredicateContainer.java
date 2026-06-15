@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.sql.ast.tree.predicate;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Something that can contain predicates
@@ -13,5 +16,6 @@ public interface PredicateContainer {
 	/**
 	 * Apply a predicate to this container
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void applyPredicate(Predicate predicate);
 }

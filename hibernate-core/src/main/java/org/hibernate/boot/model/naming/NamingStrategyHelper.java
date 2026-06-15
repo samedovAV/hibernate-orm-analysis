@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.naming;
 
 import org.hibernate.boot.spi.MetadataBuildingContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Helper contract for dealing with naming strategies.
@@ -26,6 +28,7 @@ public interface NamingStrategyHelper {
 	 *
 	 * @return The implicit name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier determineImplicitName(MetadataBuildingContext buildingContext);
 
 	/**
@@ -45,6 +48,7 @@ public interface NamingStrategyHelper {
 	 *
 	 * @return The strategy-handled name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier handleExplicitName(String explicitName, MetadataBuildingContext buildingContext);
 
 	/**
@@ -64,5 +68,6 @@ public interface NamingStrategyHelper {
 	 *
 	 * @return The physical name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier toPhysicalName(Identifier logicalName, MetadataBuildingContext buildingContext);
 }

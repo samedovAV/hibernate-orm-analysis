@@ -18,6 +18,8 @@ import org.hibernate.type.descriptor.java.spi.PrimitiveJavaType;
 import org.hibernate.usertype.UserCollectionType;
 
 import static org.hibernate.mapping.MappingHelper.classForName;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An array mapping has a primary key consisting of the key columns + index column.
@@ -41,10 +43,12 @@ public class Array extends List {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Array copy() {
 		return new Array( this );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getElementClass() throws MappingException {
 		if ( elementClassName == null ) {
 			final org.hibernate.type.Type elementType = getElement().getType();
@@ -65,11 +69,13 @@ public class Array extends List {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionType getDefaultCollectionType() {
 		return new ArrayType( getRole(), getReferencedPropertyName(), getElementClass() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isArray() {
 		return true;
 	}
@@ -77,6 +83,7 @@ public class Array extends List {
 	/**
 	 * @return Returns the elementClassName.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getElementClassName() {
 		return elementClassName;
 	}
@@ -84,11 +91,13 @@ public class Array extends List {
 	/**
 	 * @param elementClassName The elementClassName to set.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setElementClassName(String elementClassName) {
 		this.elementClassName = elementClassName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object accept(ValueVisitor visitor) {
 		return visitor.accept( this );
 	}

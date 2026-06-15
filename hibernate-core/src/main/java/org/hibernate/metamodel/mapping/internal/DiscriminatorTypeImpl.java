@@ -10,6 +10,8 @@ import org.hibernate.metamodel.mapping.DiscriminatorType;
 import org.hibernate.type.BasicType;
 import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.internal.ConvertedBasicTypeImpl;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specialization of ConvertedBasicTypeImpl to expose access to the
@@ -38,27 +40,32 @@ public class DiscriminatorTypeImpl<O> extends ConvertedBasicTypeImpl<O> implemen
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BasicType<?> getUnderlyingJdbcMapping() {
 		return underlyingJdbcMapping;
 	}
 
 	@Override @SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public DiscriminatorConverter<O,?> getValueConverter() {
 		return (DiscriminatorConverter<O,?>) super.getValueConverter();
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<O> getJavaType() {
 		return domainJavaType.getJavaTypeClass();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean canDoExtraction() {
 		return underlyingJdbcMapping.canDoExtraction();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<O> getExpressibleJavaType() {
 		return domainJavaType;
 	}

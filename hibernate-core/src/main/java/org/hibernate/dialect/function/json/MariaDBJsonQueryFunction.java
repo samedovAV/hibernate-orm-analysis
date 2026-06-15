@@ -12,6 +12,8 @@ import org.hibernate.sql.ast.tree.expression.JsonQueryEmptyBehavior;
 import org.hibernate.sql.ast.tree.expression.JsonQueryErrorBehavior;
 import org.hibernate.sql.ast.tree.expression.JsonQueryWrapMode;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * MariaDB json_query function.
@@ -23,6 +25,7 @@ public class MariaDBJsonQueryFunction extends JsonQueryFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void render(
 			SqlAppender sqlAppender,
 			JsonQueryArguments arguments,
@@ -71,6 +74,7 @@ public class MariaDBJsonQueryFunction extends JsonQueryFunction {
 
 	enum DecorationMode { NONE, WRAP, TRIM }
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static DecorationMode determineDecorationMode(
 			JsonQueryArguments arguments,
 			SqlAstTranslator<?> walker,

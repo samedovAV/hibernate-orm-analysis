@@ -7,6 +7,8 @@ package org.hibernate.sql.ast.spi;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Helper used in creating unique SQL table aliases for a SQL AST
@@ -41,6 +43,7 @@ public class SqlAliasBaseManager implements SqlAliasBaseGenerator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqlAliasBase createSqlAliasBase(String stem) {
 		Integer acronymCount = acronymCountMap.get( stem );
 		if ( acronymCount == null ) {

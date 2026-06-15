@@ -15,6 +15,8 @@ import org.hibernate.sql.ast.tree.expression.JsonNullBehavior;
 import org.hibernate.sql.ast.tree.expression.JsonObjectAggUniqueKeysBehavior;
 import org.hibernate.sql.ast.tree.predicate.Predicate;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * DB2 json_objectagg function.
@@ -26,6 +28,7 @@ public class DB2JsonObjectAggFunction extends JsonObjectAggFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void render(
 			SqlAppender sqlAppender,
 			JsonObjectAggArguments arguments,
@@ -58,6 +61,7 @@ public class DB2JsonObjectAggFunction extends JsonObjectAggFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderArgument(
 			SqlAppender sqlAppender,
 			Expression arg,

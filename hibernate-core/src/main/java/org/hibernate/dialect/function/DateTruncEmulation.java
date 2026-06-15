@@ -30,6 +30,8 @@ import org.hibernate.type.spi.TypeConfiguration;
 import static java.util.Arrays.asList;
 import static org.hibernate.query.sqm.produce.function.FunctionParameterType.TEMPORAL;
 import static org.hibernate.query.sqm.produce.function.FunctionParameterType.TEMPORAL_UNIT;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Emulation of {@code trunc(datetime, temporal_unit)} function that leverages
@@ -51,6 +53,7 @@ public class DateTruncEmulation extends AbstractSqmFunctionDescriptor implements
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,
@@ -65,6 +68,7 @@ public class DateTruncEmulation extends AbstractSqmFunctionDescriptor implements
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected <T> SelfRenderingSqmFunction<T> generateSqmFunctionExpression(
 			List<? extends SqmTypedNode<?>> arguments,
 			ReturnableType<T> impliedResultType,

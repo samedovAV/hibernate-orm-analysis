@@ -18,6 +18,8 @@ import org.hibernate.type.BasicTypeReference;
 import org.hibernate.type.spi.TypeConfiguration;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Simplified API allowing users to contribute
@@ -40,6 +42,7 @@ public class StandardSQLFunction extends NamedSqmFunctionDescriptor {
 	public StandardSQLFunction(String name, boolean useParentheses, BasicTypeReference<?> type) {
 		super( name, useParentheses, null, new FunctionReturnTypeResolver() {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public ReturnableType<?> resolveFunctionReturnType(
 					ReturnableType<?> impliedType,
 					@Nullable SqmToSqlAstConverter converter,
@@ -49,6 +52,7 @@ public class StandardSQLFunction extends NamedSqmFunctionDescriptor {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public BasicValuedMapping resolveFunctionReturnType(Supplier<BasicValuedMapping> impliedTypeAccess, List<? extends SqlAstNode> arguments) {
 				return type == null || impliedTypeAccess == null ? null : impliedTypeAccess.get();
 			}
@@ -56,6 +60,7 @@ public class StandardSQLFunction extends NamedSqmFunctionDescriptor {
 		this.type = type;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BasicTypeReference<?> getType() {
 		return type;
 	}

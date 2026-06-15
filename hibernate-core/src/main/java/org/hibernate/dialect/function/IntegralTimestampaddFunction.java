@@ -27,6 +27,8 @@ import java.util.List;
 
 import static org.hibernate.query.sqm.BinaryArithmeticOperator.DIVIDE;
 import static org.hibernate.query.sqm.BinaryArithmeticOperator.MULTIPLY;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Used in place of {@link TimestampaddFunction} for databases which don't
@@ -51,6 +53,7 @@ public class IntegralTimestampaddFunction
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> arguments,
@@ -70,6 +73,7 @@ public class IntegralTimestampaddFunction
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void renderWithUnitConversion(
 			SqlAppender sqlAppender,
 			Expression magnitude,
@@ -81,6 +85,7 @@ public class IntegralTimestampaddFunction
 				.render( sqlAppender, convertedArguments( field, unit, magnitude, to ), walker );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private List<SqlAstNode> convertedArguments(
 			DurationUnit field,
 			TemporalUnit unit,
@@ -103,6 +108,7 @@ public class IntegralTimestampaddFunction
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Expression convertedArgument(DurationUnit field, TemporalUnit unit, Expression magnitude) {
 		final BasicValuedMapping expressionType = (BasicValuedMapping) magnitude.getExpressionType();
 		final String conversionFactor = field.getUnit().conversionFactorFull( unit, dialect );
@@ -120,6 +126,7 @@ public class IntegralTimestampaddFunction
 				);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private TemporalUnit bestTemporalUnit(Expression magnitude, DurationUnit field) {
 		final JdbcType jdbcType = magnitude.getExpressionType().getSingleJdbcMapping().getJdbcType();
 		if ( jdbcType.isFloat() ) {

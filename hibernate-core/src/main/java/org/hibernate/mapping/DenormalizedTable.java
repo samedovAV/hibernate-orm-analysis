@@ -14,6 +14,8 @@ import org.hibernate.boot.model.naming.Identifier;
 import org.hibernate.boot.model.relational.Namespace;
 import org.hibernate.boot.spi.MetadataBuildingContext;
 import org.hibernate.internal.util.collections.JoinedList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gavin King
@@ -58,6 +60,7 @@ public class DenormalizedTable extends Table {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void createForeignKeys(MetadataBuildingContext context) {
 		includedTable.createForeignKeys( context );
 		for ( var foreignKey : includedTable.getForeignKeyCollection() ) {
@@ -83,6 +86,7 @@ public class DenormalizedTable extends Table {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private ForeignKey createDenormalizedForeignKey(ForeignKey includedTableFk) {
 		final var denormalizedForeignKey = new ForeignKey(this);
 		denormalizedForeignKey.setReferencedEntityName( includedTableFk.getReferencedEntityName() );
@@ -97,17 +101,20 @@ public class DenormalizedTable extends Table {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Column getColumn(Column column) {
 		final var superColumn = super.getColumn( column );
 		return superColumn != null ? superColumn : includedTable.getColumn(column);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Column getColumn(Identifier name) {
 		final var superColumn = super.getColumn( name );
 		return superColumn != null ? superColumn : includedTable.getColumn(name);
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Collection<Column> getColumns() {
 		if ( reorderedColumns != null ) {
 			return reorderedColumns;
@@ -116,21 +123,25 @@ public class DenormalizedTable extends Table {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean containsColumn(Column column) {
 		return super.containsColumn( column ) || includedTable.containsColumn( column );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public PrimaryKey getPrimaryKey() {
 		return includedTable.getPrimaryKey();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Table getIncludedTable() {
 		return includedTable;
 	}
 
 	@Internal
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void reorderColumns(List<Column> columns) {
 		assert includedTable.getColumns().size() + super.getColumns().size() == columns.size()
 				&& columns.containsAll( includedTable.getColumns() )

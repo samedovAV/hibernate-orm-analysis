@@ -11,6 +11,8 @@ import org.hibernate.sql.ast.SqlAstTranslator;
 import org.hibernate.sql.ast.spi.SqlAppender;
 import org.hibernate.sql.ast.tree.expression.Expression;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * H2 xmlelement function.
@@ -22,6 +24,7 @@ public class H2XmlElementFunction extends XmlElementFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void render(
 			SqlAppender sqlAppender,
 			XmlElementArguments arguments,

@@ -16,6 +16,8 @@ import org.hibernate.sql.ast.tree.expression.Expression;
 import org.hibernate.sql.ast.tree.expression.JsonNullBehavior;
 import org.hibernate.type.SqlTypes;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Oracle json_arrayagg function.
@@ -31,6 +33,7 @@ public class OracleJsonArrayAggFunction extends JsonArrayAggFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderArgument(
 			SqlAppender sqlAppender,
 			Expression arg,

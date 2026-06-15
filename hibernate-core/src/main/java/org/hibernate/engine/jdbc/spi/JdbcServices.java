@@ -19,6 +19,8 @@ import org.hibernate.sql.exec.spi.JdbcMutationExecutor;
 import org.hibernate.sql.exec.spi.JdbcOperationQueryMutation;
 import org.hibernate.sql.exec.internal.JdbcOperationQuerySelect;
 import org.hibernate.sql.exec.spi.JdbcSelectExecutor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Provides access to services related to JDBC operations.
@@ -31,17 +33,20 @@ public interface JdbcServices extends Service {
 	/**
 	 * Obtain the {@link JdbcEnvironment} backing this {@code JdbcServices} instance.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcEnvironment getJdbcEnvironment();
 
 	/**
 	 * Obtain a {@link JdbcConnectionAccess} usable from bootstrap actions
 	 * (hbm2ddl.auto, {@code Dialect} resolution, etc).
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcConnectionAccess getBootstrapJdbcConnectionAccess();
 
 	/**
 	 * Obtain the dialect of the database.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Dialect getDialect();
 
 	/**
@@ -49,6 +54,7 @@ public interface JdbcServices extends Service {
 	 *
 	 * @return The SQL statement logger.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqlStatementLogger getSqlStatementLogger();
 
 	/**
@@ -56,6 +62,7 @@ public interface JdbcServices extends Service {
 	 * @return the registered ParameterMarkerStrategy implementation.
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ParameterMarkerStrategy getParameterMarkerStrategy();
 
 	/**
@@ -63,6 +70,7 @@ public interface JdbcServices extends Service {
 	 *
 	 * @return The exception helper service.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqlExceptionHelper getSqlExceptionHelper();
 
 	/**
@@ -72,6 +80,7 @@ public interface JdbcServices extends Service {
 	 *
 	 * @return The extracted database metadata, oddly enough :)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ExtractedDatabaseMetaData getExtractedMetaDataSupport();
 
 	/**
@@ -85,11 +94,13 @@ public interface JdbcServices extends Service {
 	 * @param lobCreationContext The context in which the LOB is being created
 	 * @return The LOB creator.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	LobCreator getLobCreator(LobCreationContext lobCreationContext);
 
 	/**
 	 * Access the executor for {@link JdbcOperationQuerySelect} operations.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default JdbcSelectExecutor getJdbcSelectExecutor() {
 		return JdbcSelectExecutorStandardImpl.INSTANCE;
 	}
@@ -97,6 +108,7 @@ public interface JdbcServices extends Service {
 	/**
 	 * Access the executor for {@link JdbcOperationQueryMutation} operations.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default JdbcMutationExecutor getJdbcMutationExecutor() {
 		return StandardJdbcMutationExecutor.INSTANCE;
 	}

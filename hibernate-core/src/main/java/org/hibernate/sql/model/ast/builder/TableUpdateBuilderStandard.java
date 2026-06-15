@@ -19,6 +19,8 @@ import org.hibernate.sql.model.internal.TableUpdateNoSet;
 import org.hibernate.sql.model.internal.TableUpdateStandard;
 
 import static java.util.Collections.emptyList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard TableUpdateBuilder implementation
@@ -75,6 +77,7 @@ public class TableUpdateBuilderStandard<O extends MutationOperation>
 		this.whereFragment = whereFragment;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getWhereFragment() {
 		return whereFragment;
 	}
@@ -82,6 +85,7 @@ public class TableUpdateBuilderStandard<O extends MutationOperation>
 	//TODO: The unchecked typecasts here are horrible
 	@SuppressWarnings("unchecked")
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LogicalTableUpdate<O> buildMutation() {
 		final var valueBindings = combine( getValueBindings(), getKeyBindings(), getLobValueBindings() );
 		if ( valueBindings.isEmpty() ) {

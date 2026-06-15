@@ -37,6 +37,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
 import java.util.Set;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Within the context of an active {@linkplain org.hibernate.Session session},
@@ -113,25 +115,31 @@ public interface NativeQuery<T>
 		extends SelectionQuery<T>, MutationQuery, SynchronizeableQuery, StatementOrTypedQuery {
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> addOption(TypedQuery.Option option);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> addOption(Statement.Option option);
 
 	@Override
 	@SuppressWarnings({"rawtypes", "unchecked"})
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Set getOptions();
 
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// covariant overrides - SynchronizeableQuery
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> addSynchronizedQuerySpace(String querySpace);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> addSynchronizedEntityName(String entityName) throws MappingException;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> addSynchronizedEntityClass(@SuppressWarnings("rawtypes") Class entityClass) throws MappingException;
 
 
@@ -141,69 +149,86 @@ public interface NativeQuery<T>
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setTimeout(@Nullable Integer timeout);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setQueryPlanCacheable(boolean queryPlanCacheable);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setQueryFlushMode(@Nonnull QueryFlushMode queryFlushMode);
 
 	@Override @Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setFlushMode(@Nonnull FlushModeType flushMode);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setCacheMode(@Nonnull CacheMode cacheMode);
 
 	@Override @SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setCacheStoreMode(@Nonnull CacheStoreMode cacheStoreMode);
 
 	@Override @SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setCacheRetrieveMode(@Nonnull CacheRetrieveMode cacheRetrieveMode);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setCacheable(boolean cacheable);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setCacheRegion(@Nullable String cacheRegion);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setTimeout(int timeout);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setFetchSize(int fetchSize);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setReadOnly(boolean readOnly);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setComment(@Nullable String comment);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> addQueryHint(@Nonnull String hint);
 
 	@Override @SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setMaxResults(int maxResults);
 
 	@Override @SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setFirstResult(int startPosition);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setHint(@Nonnull String hintName, @Nullable Object value);
 
 	/**
@@ -217,6 +242,7 @@ public interface NativeQuery<T>
 	@SuppressWarnings("removal")
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	LockModeType getLockMode();
 
 	/**
@@ -229,6 +255,7 @@ public interface NativeQuery<T>
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	LockMode getHibernateLockMode();
 
 	/**
@@ -243,6 +270,7 @@ public interface NativeQuery<T>
 	 */
 	@Override @SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setLockMode(@Nonnull LockModeType lockMode);
 
 	/**
@@ -255,6 +283,7 @@ public interface NativeQuery<T>
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setHibernateLockMode(@Nonnull LockMode lockMode);
 
 	/**
@@ -265,6 +294,7 @@ public interface NativeQuery<T>
 	 * @return {@code this}, for method chaining
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setTimeout(@Nullable Timeout timeout);
 
 	/**
@@ -275,178 +305,222 @@ public interface NativeQuery<T>
 	 * @return {@code this}, for method chaining
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setLockScope(@Nonnull PessimisticLockScope lockScope);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> SelectionQuery<X> setTupleTransformer(@Nonnull TupleTransformer<X> transformer);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<T> setResultListTransformer(@Nonnull ResultListTransformer<T> transformer);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setParameter(@Nonnull String name, @Nullable Object value);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> NativeQuery<T> setParameter(@Nonnull String name, @Nullable P val, @Nonnull Class<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> NativeQuery<T> setParameter(@Nonnull String name, @Nullable P val, @Nonnull Type<P> type);
 
 	@Override @Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setParameter(@Nonnull String name, @Nullable Instant value, @Nonnull TemporalType temporalType);
 
 	@Override @Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setParameter(@Nonnull String name, @Nullable Calendar value, @Nonnull TemporalType temporalType);
 
 	@Override @Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setParameter(@Nonnull String name, @Nullable Date value, @Nonnull TemporalType temporalType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setParameter(int position, @Nullable Object value);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setParameters(@Nonnull Object... arguments);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> NativeQuery<T> setParameter(int position, @Nullable P val, @Nonnull Class<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> NativeQuery<T> setParameter(int position, @Nullable P val, @Nonnull Type<P> type);
 
 	@Override @Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setParameter(int position, @Nullable Instant value, @Nonnull TemporalType temporalType);
 
 	@Override @Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setParameter(int position, @Nullable Calendar value, @Nonnull TemporalType temporalType);
 
 	@Override @Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setParameter(int position, @Nullable Date value, @Nonnull TemporalType temporalType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> NativeQuery<T> setParameter(@Nonnull QueryParameter<P> parameter, @Nullable P val);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> NativeQuery<T> setParameter(@Nonnull QueryParameter<P> parameter, @Nullable P val, @Nonnull Class<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> NativeQuery<T> setParameter(@Nonnull QueryParameter<P> parameter, @Nullable P val, @Nonnull Type<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> NativeQuery<T> setParameter(@Nonnull Parameter<P> param, @Nullable P value);
 
 	@Override @Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setParameter(@Nonnull Parameter<Calendar> param, @Nullable Calendar value, @Nonnull TemporalType temporalType);
 
 	@Override @Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setParameter(@Nonnull Parameter<Date> param, @Nullable Date value, @Nonnull TemporalType temporalType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setProperties(@Nonnull Object bean);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setProperties(@SuppressWarnings("rawtypes") @Nonnull Map bean);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> NativeQuery<T> setConvertedParameter(@Nonnull String name, @Nullable P value, @Nonnull Class<? extends AttributeConverter<P, ?>> converter);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> NativeQuery<T> setConvertedParameter(int position, @Nullable P value, @Nonnull Class<? extends AttributeConverter<P, ?>> converter);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setParameterList(@Nonnull String name, @SuppressWarnings("rawtypes") @Nonnull Collection values);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> NativeQuery<T> setParameterList(@Nonnull String name, @Nonnull Collection<? extends P> values, @Nonnull Class<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> NativeQuery<T> setParameterList(@Nonnull String name, @Nonnull Collection<? extends P> values, @Nonnull Type<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setParameterList(@Nonnull String name, @Nonnull Object[] values);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> NativeQuery<T> setParameterList(@Nonnull String name, @Nonnull P[] values, @Nonnull Class<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> NativeQuery<T> setParameterList(@Nonnull String name, @Nonnull P[] values, @Nonnull Type<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setParameterList(int position, @SuppressWarnings("rawtypes") @Nonnull Collection values);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> NativeQuery<T> setParameterList(int position, @Nonnull Collection<? extends P> values, @Nonnull Class<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> NativeQuery<T> setParameterList(int position, @Nonnull Collection<? extends P> values, @Nonnull Type<P> javaType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> setParameterList(int position, @Nonnull Object[] values);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> NativeQuery<T> setParameterList(int position, @Nonnull P[] values, @Nonnull Class<P> javaType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> NativeQuery<T> setParameterList(int position, @Nonnull P[] values, @Nonnull Type<P> javaType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> NativeQuery<T> setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull Collection<? extends P> values);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> NativeQuery<T> setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull Collection<? extends P> values, @Nonnull Class<P> javaType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> NativeQuery<T> setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull Collection<? extends P> values, @Nonnull Type<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> NativeQuery<T> setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull P[] values);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> NativeQuery<T> setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull P[] values, @Nonnull Class<P> javaType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> NativeQuery<T> setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull P[] values, @Nonnull Type<P> type);
 
 
@@ -467,6 +541,7 @@ public interface NativeQuery<T>
 	 * <a href="https://github.com/jakartaee/persistence/issues/887">this Jakarta Persistence request</a>.
 	 */
 	@Deprecated(since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> addScalar(String columnAlias);
 
 	/**
@@ -486,6 +561,7 @@ public interface NativeQuery<T>
 	 * <a href="https://github.com/jakartaee/persistence/issues/887">this Jakarta Persistence request</a>.
 	 */
 	@Deprecated(since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> addScalar(String columnAlias, @SuppressWarnings("rawtypes") BasicTypeReference type);
 
 	/**
@@ -505,6 +581,7 @@ public interface NativeQuery<T>
 	 * <a href="https://github.com/jakartaee/persistence/issues/887">this Jakarta Persistence request</a>.
 	 */
 	@Deprecated(since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> addScalar(String columnAlias, @SuppressWarnings("rawtypes") BasicDomainType type);
 
 	/**
@@ -522,6 +599,7 @@ public interface NativeQuery<T>
 	 * <a href="https://github.com/jakartaee/persistence/issues/887">this Jakarta Persistence request</a>.
 	 */
 	@Deprecated(since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> addScalar(String columnAlias, @SuppressWarnings("rawtypes") Class javaType);
 
 	/**
@@ -541,6 +619,7 @@ public interface NativeQuery<T>
 	 * <a href="https://github.com/jakartaee/persistence/issues/887">this Jakarta Persistence request</a>.
 	 */
 	@Deprecated(since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<C> NativeQuery<T> addScalar(String columnAlias, Class<C> relationalJavaType, AttributeConverter<?,C> converter);
 
 	/**
@@ -562,6 +641,7 @@ public interface NativeQuery<T>
 	 * <a href="https://github.com/jakartaee/persistence/issues/887">this Jakarta Persistence request</a>.
 	 */
 	@Deprecated(since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<O,R> NativeQuery<T> addScalar(String columnAlias, Class<O> domainJavaType, Class<R> jdbcJavaType, AttributeConverter<O,R> converter);
 
 	/**
@@ -581,6 +661,7 @@ public interface NativeQuery<T>
 	 * <a href="https://github.com/jakartaee/persistence/issues/887">this Jakarta Persistence request</a>.
 	 */
 	@Deprecated(since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<C> NativeQuery<T> addScalar(String columnAlias, Class<C> relationalJavaType, Class<? extends AttributeConverter<?,C>> converter);
 
 	/**
@@ -602,6 +683,7 @@ public interface NativeQuery<T>
 	 * <a href="https://github.com/jakartaee/persistence/issues/887">this Jakarta Persistence request</a>.
 	 */
 	@Deprecated(since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<O,R> NativeQuery<T> addScalar(
 			String columnAlias,
 			Class<O> domainJavaType,
@@ -614,6 +696,7 @@ public interface NativeQuery<T>
 	 * <a href="https://github.com/jakartaee/persistence/issues/887">this Jakarta Persistence request</a>.
 	 */
 	@Deprecated(since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<J> InstantiationResultNode<J> addInstantiation(Class<J> targetJavaType);
 
 	/**
@@ -630,6 +713,7 @@ public interface NativeQuery<T>
 	 * <a href="https://github.com/jakartaee/persistence/issues/887">this Jakarta Persistence request</a>.
 	 */
 	@Deprecated(since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> addAttributeResult(String columnAlias, @SuppressWarnings("rawtypes") Class entityJavaType, String attributePath);
 
 	/**
@@ -646,6 +730,7 @@ public interface NativeQuery<T>
 	 * <a href="https://github.com/jakartaee/persistence/issues/887">this Jakarta Persistence request</a>.
 	 */
 	@Deprecated(since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> addAttributeResult(String columnAlias, String entityName, String attributePath);
 
 	/**
@@ -664,6 +749,7 @@ public interface NativeQuery<T>
 	 * <a href="https://github.com/jakartaee/persistence/issues/887">this Jakarta Persistence request</a>.
 	 */
 	@Deprecated(since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> addAttributeResult(String columnAlias, @SuppressWarnings("rawtypes") SingularAttribute attribute);
 
 	/**
@@ -682,6 +768,7 @@ public interface NativeQuery<T>
 	 * <a href="https://github.com/jakartaee/persistence/issues/887">this Jakarta Persistence request</a>.
 	 */
 	@Deprecated(since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	RootReturn addRoot(String tableAlias, String entityName);
 
 	/**
@@ -700,6 +787,7 @@ public interface NativeQuery<T>
 	 * <a href="https://github.com/jakartaee/persistence/issues/887">this Jakarta Persistence request</a>.
 	 */
 	@Deprecated(since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	RootReturn addRoot(String tableAlias, @SuppressWarnings("rawtypes") Class entityType);
 
 	/**
@@ -717,6 +805,7 @@ public interface NativeQuery<T>
 	 * <a href="https://github.com/jakartaee/persistence/issues/887">this Jakarta Persistence request</a>.
 	 */
 	@Deprecated(since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> addEntity(String entityName);
 
 	/**
@@ -732,6 +821,7 @@ public interface NativeQuery<T>
 	 * <a href="https://github.com/jakartaee/persistence/issues/887">this Jakarta Persistence request</a>.
 	 */
 	@Deprecated(since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> addEntity(String tableAlias, String entityName);
 
 	/**
@@ -748,6 +838,7 @@ public interface NativeQuery<T>
 	 * <a href="https://github.com/jakartaee/persistence/issues/887">this Jakarta Persistence request</a>.
 	 */
 	@Deprecated(since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> addEntity(String tableAlias, String entityName, LockMode lockMode);
 
 	/**
@@ -763,6 +854,7 @@ public interface NativeQuery<T>
 	 * <a href="https://github.com/jakartaee/persistence/issues/887">this Jakarta Persistence request</a>.
 	 */
 	@Deprecated(since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> addEntity(@SuppressWarnings("rawtypes") Class entityType);
 
 	/**
@@ -778,6 +870,7 @@ public interface NativeQuery<T>
 	 * <a href="https://github.com/jakartaee/persistence/issues/887">this Jakarta Persistence request</a>.
 	 */
 	@Deprecated(since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> addEntity(String tableAlias, @SuppressWarnings("rawtypes") Class entityType);
 
 	/**
@@ -794,6 +887,7 @@ public interface NativeQuery<T>
 	 * <a href="https://github.com/jakartaee/persistence/issues/887">this Jakarta Persistence request</a>.
 	 */
 	@Deprecated(since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> addEntity(String tableAlias, @SuppressWarnings("rawtypes") Class entityClass, LockMode lockMode);
 
 	/**
@@ -813,6 +907,7 @@ public interface NativeQuery<T>
 	 * <a href="https://github.com/jakartaee/persistence/issues/887">this Jakarta Persistence request</a>.
 	 */
 	@Deprecated(since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	FetchReturn addFetch(String tableAlias, String ownerTableAlias, String joinPropertyName);
 
 	/**
@@ -828,6 +923,7 @@ public interface NativeQuery<T>
 	 * <a href="https://github.com/jakartaee/persistence/issues/887">this Jakarta Persistence request</a>.
 	 */
 	@Deprecated(since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> addJoin(String tableAlias, String path);
 
 	/**
@@ -847,6 +943,7 @@ public interface NativeQuery<T>
 	 * <a href="https://github.com/jakartaee/persistence/issues/887">this Jakarta Persistence request</a>.
 	 */
 	@Deprecated(since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> addJoin(String tableAlias, String ownerTableAlias, String joinPropertyName);
 
 	/**
@@ -863,6 +960,7 @@ public interface NativeQuery<T>
 	 * <a href="https://github.com/jakartaee/persistence/issues/887">this Jakarta Persistence request</a>.
 	 */
 	@Deprecated(since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<T> addJoin(String tableAlias, String path, LockMode lockMode);
 
 	/**
@@ -883,10 +981,12 @@ public interface NativeQuery<T>
 	}
 
 	interface InstantiationResultNode<J> extends ReturnableResultNode {
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		default InstantiationResultNode<J> addBasicArgument(String columnAlias) {
 			return addBasicArgument( columnAlias, null );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		InstantiationResultNode<J> addBasicArgument(String columnAlias, String argumentAlias);
 	}
 
@@ -903,6 +1003,7 @@ public interface NativeQuery<T>
 		 *
 		 * @return {@code this}, for method chaining
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		ReturnProperty addColumnAlias(String columnAlias);
 	}
 
@@ -912,16 +1013,21 @@ public interface NativeQuery<T>
 	 */
 	interface RootReturn extends ReturnableResultNode {
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		String getTableAlias();
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		String getDiscriminatorAlias();
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		EntityMappingType getEntityMapping();
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		NavigablePath getNavigablePath();
 
 	@Nullable
-		LockMode getLockMode();
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
+	LockMode getLockMode();
 
 		/**
 		 * Set the lock mode for this return.
@@ -931,8 +1037,10 @@ public interface NativeQuery<T>
 		 * @return {@code this}, for method chaining
 		 */
 	@Nonnull
-		RootReturn setLockMode(LockMode lockMode);
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
+	RootReturn setLockMode(LockMode lockMode);
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		RootReturn addIdColumnAliases(String... aliases);
 
 		/**
@@ -942,6 +1050,7 @@ public interface NativeQuery<T>
 		 *
 		 * @return {@code this}, for method chaining
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		RootReturn setDiscriminatorAlias(String columnAlias);
 
 		/**
@@ -952,6 +1061,7 @@ public interface NativeQuery<T>
 		 *
 		 * @return {@code this}, for method chaining
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		RootReturn addProperty(String propertyName, String columnAlias);
 
 		/**
@@ -961,6 +1071,7 @@ public interface NativeQuery<T>
 		 *
 		 * @return The config object for further control.
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		ReturnProperty addProperty(String propertyName);
 	}
 
@@ -970,10 +1081,13 @@ public interface NativeQuery<T>
 	 */
 	interface CollectionReturn extends ReturnableResultNode {
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		String getTableAlias();
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		PluralAttributeMapping getPluralAttribute();
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		NavigablePath getNavigablePath();
 	}
 
@@ -983,12 +1097,16 @@ public interface NativeQuery<T>
 	 */
 	interface FetchReturn extends ResultNode {
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		String getTableAlias();
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		String getOwnerAlias();
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		Fetchable getFetchable();
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		String getFetchableName();
 
 		/**
@@ -999,7 +1117,8 @@ public interface NativeQuery<T>
 		 * @return {@code this}, for method chaining
 		 */
 	@Nonnull
-		FetchReturn setLockMode(LockMode lockMode);
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
+	FetchReturn setLockMode(LockMode lockMode);
 
 		/**
 		 * Add a simple property-to-one-column mapping.
@@ -1009,6 +1128,7 @@ public interface NativeQuery<T>
 		 *
 		 * @return {@code this}, for method chaining
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		FetchReturn addProperty(String propertyName, String columnAlias);
 
 		/**
@@ -1018,6 +1138,7 @@ public interface NativeQuery<T>
 		 *
 		 * @return The config object for further control.
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		ReturnProperty addProperty(String propertyName);
 	}
 }

@@ -26,6 +26,8 @@ import org.hibernate.sql.model.jdbc.JdbcUpdateMutation;
 import org.hibernate.sql.model.jdbc.OptionalTableUpdateOperation;
 
 import static org.hibernate.sql.model.ast.AbstractTableUpdate.collectParameters;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -70,31 +72,37 @@ public class OptionalTableUpdate
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getLoggableName() {
 		return "OptionalTableUpdate";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCustomSql() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public EntityMutationTarget getMutationTarget() {
 		return (EntityMutationTarget) super.getMutationTarget();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCallable() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Expectation getExpectation() {
 		return getMutatingTable().getTableMapping().getUpdateDetails().getExpectation();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void forEachParameter(Consumer<ColumnValueParameter> consumer) {
 		final BiConsumer<Integer,ColumnValueBinding> intermediateConsumer = (index, binding) -> {
 			for ( ColumnValueParameter parameter : binding.getValueExpression().getParameters() ) {
@@ -107,21 +115,25 @@ public class OptionalTableUpdate
 		forEachThing( getOptimisticLockBindings(), intermediateConsumer );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<ColumnValueBinding> getValueBindings() {
 		return valueBindings;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void forEachValueBinding(BiConsumer<Integer, ColumnValueBinding> consumer) {
 		forEachThing( valueBindings, consumer );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker walker) {
 		walker.visitOptionalTableUpdate( this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutationOperation createMutationOperation(ValuesAnalysis valuesAnalysis, SessionFactoryImplementor factory) {
 		final TableMapping tableMapping = getMutatingTable().getTableMapping();
 		assert ! (valuesAnalysis instanceof InsertCoordinatorStandard.InsertValuesAnalysis );
@@ -143,6 +155,7 @@ public class OptionalTableUpdate
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected MutationOperation createMutationOperation(
 			TableMapping tableDetails,
 			String updateSql,

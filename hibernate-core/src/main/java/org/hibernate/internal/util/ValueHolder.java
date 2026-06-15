@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.internal.util;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Represents a "final" value that is initialized either {@link #ValueHolder(Object) up front} or once at some point
@@ -27,6 +30,7 @@ public class ValueHolder<T> {
 		 *
 		 * @return The initialization value.
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		T initialize();
 	}
 
@@ -48,6 +52,7 @@ public class ValueHolder<T> {
 		this.value = value;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public T getValue() {
 		if ( value == null ) {
 			value = valueInitializer.initialize();
@@ -57,6 +62,7 @@ public class ValueHolder<T> {
 
 	private static final DeferredInitializer NO_DEFERRED_INITIALIZER = new DeferredInitializer() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Void initialize() {
 			return null;
 		}

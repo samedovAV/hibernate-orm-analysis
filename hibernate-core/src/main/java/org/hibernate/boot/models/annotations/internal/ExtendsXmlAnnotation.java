@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.hibernate.boot.internal.Extends;
 import org.hibernate.models.spi.ModelsContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -36,15 +38,18 @@ public class ExtendsXmlAnnotation implements Extends {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return Extends.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String superType() {
 		return superType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void superType(String value) {
 		this.superType = value;
 	}

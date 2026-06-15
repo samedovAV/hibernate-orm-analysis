@@ -12,6 +12,8 @@ import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
 import org.hibernate.engine.jdbc.connections.spi.JdbcConnectionAccess;
 
 import static org.hibernate.engine.jdbc.JdbcLogging.JDBC_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Implementation of JdbcConnectionAccess for use in cases where we
@@ -62,11 +64,13 @@ public class JdbcConnectionAccessConnectionProviderImpl implements JdbcConnectio
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Connection obtainConnection() throws SQLException {
 		return jdbcConnection;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void releaseConnection(Connection connection) throws SQLException {
 		if ( connection != this.jdbcConnection ) {
 			throw new PersistenceException(
@@ -96,6 +100,7 @@ public class JdbcConnectionAccessConnectionProviderImpl implements JdbcConnectio
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsAggressiveRelease() {
 		return false;
 	}

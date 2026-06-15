@@ -6,6 +6,8 @@ package org.hibernate.dialect.temptable;
 
 import org.hibernate.query.sqm.mutation.spi.AfterUseAction;
 import org.hibernate.query.sqm.mutation.spi.BeforeUseAction;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Strategy to interact with global temporary tables.
@@ -15,46 +17,55 @@ public class StandardGlobalTemporaryTableStrategy implements TemporaryTableStrat
 	public static final StandardGlobalTemporaryTableStrategy INSTANCE = new StandardGlobalTemporaryTableStrategy();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String adjustTemporaryTableName(String desiredTableName) {
 		return desiredTableName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TemporaryTableKind getTemporaryTableKind() {
 		return TemporaryTableKind.GLOBAL;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getTemporaryTableCreateOptions() {
 		return "on commit delete rows";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getTemporaryTableCreateCommand() {
 		return "create global temporary table";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getTemporaryTableDropCommand() {
 		return "drop table";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getTemporaryTableTruncateCommand() {
 		return "delete from";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getCreateTemporaryTableColumnAnnotation(int sqlTypeCode) {
 		return "";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AfterUseAction getTemporaryTableAfterUseAction() {
 		return AfterUseAction.CLEAN;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BeforeUseAction getTemporaryTableBeforeUseAction() {
 		return BeforeUseAction.NONE;
 	}

@@ -18,6 +18,8 @@ import org.hibernate.persister.entity.EntityPersister;
 
 import java.util.List;
 import java.util.function.Supplier;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -42,11 +44,13 @@ public class StatelessFindMultipleByKeyOperation<T> extends AbstractFindMultiple
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected StatelessSessionImplementor getSession() {
 		return loadAccessContext.getStatelessSession();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected List<T> withOptions(
 			SharedSessionContractImplementor sharedSession,
 			GraphSemantic graphSemantic,

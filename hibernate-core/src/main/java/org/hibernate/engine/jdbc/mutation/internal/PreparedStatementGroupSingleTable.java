@@ -12,6 +12,8 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.generator.values.GeneratedValuesMutationDelegate;
 import org.hibernate.sql.model.PreparableMutationOperation;
 import org.hibernate.sql.model.TableMapping;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * {@link org.hibernate.engine.jdbc.mutation.group.PreparedStatementGroup}
@@ -39,31 +41,37 @@ public class PreparedStatementGroupSingleTable extends AbstractPreparedStatement
 		this.statementDetails = ModelMutationHelper.standardPreparation( jdbcMutation, delegate, session );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected TableMapping getMutatingTableDetails() {
 		return jdbcMutation.getTableDetails();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getNumberOfStatements() {
 		return 1;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getNumberOfActiveStatements() {
 		return statementDetails.getStatement() == null ? 0 : 1;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PreparedStatementDetails getSingleStatementDetails() {
 		return statementDetails;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void forEachStatement(BiConsumer<String, PreparedStatementDetails> action) {
 		action.accept( getMutatingTableDetails().getTableName(), statementDetails );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PreparedStatementDetails getPreparedStatementDetails(String tableName) {
 		if ( statementDetails == null ) {
 			return null;
@@ -74,17 +82,20 @@ public class PreparedStatementGroupSingleTable extends AbstractPreparedStatement
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PreparedStatementDetails resolvePreparedStatementDetails(String tableName) {
 		assert getMutatingTableDetails().getTableName().equals( tableName );
 		return statementDetails;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasMatching(Predicate<PreparedStatementDetails> filter) {
 		return filter.test( statementDetails );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void release() {
 		if ( statementDetails != null ) {
 			release( statementDetails );

@@ -6,6 +6,8 @@ package org.hibernate.loader.ast.spi;
 
 import org.hibernate.FindMultipleOption;
 import org.hibernate.engine.spi.SessionImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /// Encapsulation of the options for loading multiple entities (of a type)
@@ -22,6 +24,7 @@ public interface MultiIdLoadOptions extends MultiLoadOptions {
 	 *
 	 * @since 7.2
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	FindMultipleOption.SessionCheckMode getSessionCheckMode();
 
 	/**
@@ -32,6 +35,7 @@ public interface MultiIdLoadOptions extends MultiLoadOptions {
 	 * @deprecated Use {@linkplain #getSessionCheckMode()} instead.
 	 */
 	@Deprecated(since = "7.2", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isSessionCheckingEnabled() {
 		return getSessionCheckMode() == FindMultipleOption.SessionCheckMode.ENABLED;
 	}
@@ -42,10 +46,12 @@ public interface MultiIdLoadOptions extends MultiLoadOptions {
 	 *
 	 * @return the session factory cache is checked first
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isSecondLevelCacheCheckingEnabled();
 
 	/**
 	 * Should the entities be loaded in read-only mode?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Boolean getReadOnly(SessionImplementor session);
 }

@@ -12,6 +12,8 @@ import org.hibernate.boot.models.HibernateAnnotations;
 import org.hibernate.models.spi.ModelsContext;
 
 import static org.hibernate.boot.models.internal.OrmAnnotationHelper.extractJdkValue;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -54,54 +56,65 @@ public class FilterDefAnnotation implements FilterDef {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return FilterDef.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String name() {
 		return name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void name(String value) {
 		this.name = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String defaultCondition() {
 		return defaultCondition;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void defaultCondition(String value) {
 		this.defaultCondition = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean autoEnabled() {
 		return autoEnabled;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void autoEnabled(boolean value) {
 		this.autoEnabled = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean applyToLoadByKey() {
 		return applyToLoadByKey;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applyToLoadByKey(boolean value) {
 		this.applyToLoadByKey = value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public org.hibernate.annotations.ParamDef[] parameters() {
 		return parameters;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void parameters(org.hibernate.annotations.ParamDef[] value) {
 		this.parameters = value;
 	}

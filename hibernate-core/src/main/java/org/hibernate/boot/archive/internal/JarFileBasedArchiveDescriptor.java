@@ -27,6 +27,8 @@ import java.util.jar.JarInputStream;
 import java.util.zip.ZipEntry;
 
 import static org.hibernate.internal.log.UrlMessageBundle.URL_MESSAGE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// An `ArchiveDescriptor` implementation leveraging the [JarFile] API for processing.
 ///
@@ -45,6 +47,7 @@ public class JarFileBasedArchiveDescriptor extends AbstractArchiveDescriptor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void visitClassEntries(Consumer<ArchiveEntry> entryConsumer) {
 		final JarFile jarFile = resolveJarFileReference();
 		if ( jarFile == null ) {
@@ -131,6 +134,7 @@ public class JarFileBasedArchiveDescriptor extends AbstractArchiveDescriptor {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private JarFile resolveJarFileReference() {
 		try {
 			final String filePart = getArchiveUrl().getFile();
@@ -152,6 +156,7 @@ public class JarFileBasedArchiveDescriptor extends AbstractArchiveDescriptor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable ArchiveEntry findEntry(String path) {
 		final JarFile jarFile = resolveJarFileReference();
 		if ( jarFile == null ) {
@@ -197,6 +202,7 @@ public class JarFileBasedArchiveDescriptor extends AbstractArchiveDescriptor {
 	}
 
 	@Override @Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ArchiveDescriptor resolveJarFileReference(@Nonnull String jarFileReference) {
 		// try it as a relative reference
 		final ArchiveEntry entry = findEntry( jarFileReference );

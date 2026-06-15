@@ -17,6 +17,8 @@ import org.hibernate.boot.model.source.spi.SingularAttributeSourceBasic;
 import org.hibernate.boot.model.source.spi.ToolingHintContext;
 import org.hibernate.boot.spi.MetadataBuildingContext;
 import org.hibernate.boot.jaxb.mapping.GenerationTiming;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Implementation for {@code <property/>} mappings
@@ -64,61 +66,73 @@ class SingularAttributeSourceBasicImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isSingular() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SingularAttributeNature getSingularAttributeNature() {
 		return SingularAttributeNature.BASIC;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public XmlElementMetadata getSourceType() {
 		return XmlElementMetadata.PROPERTY;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getName() {
 		return propertyElement.getName();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getXmlNodeName() {
 		return propertyElement.getNode();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AttributePath getAttributePath() {
 		return attributePath;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCollectionElement() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AttributeRole getAttributeRole() {
 		return attributeRole;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernateTypeSourceImpl getTypeInformation() {
 		return typeSource;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getPropertyAccessorName() {
 		return propertyElement.getAccess();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public GenerationTiming getGenerationTiming() {
 		return propertyElement.getGenerated();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Boolean isInsertable() {
 		return propertyElement.isInsert() == null
 				? Boolean.TRUE
@@ -126,6 +140,7 @@ class SingularAttributeSourceBasicImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Boolean isUpdatable() {
 		return propertyElement.isUpdate() == null
 				? Boolean.TRUE
@@ -133,41 +148,49 @@ class SingularAttributeSourceBasicImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isBytecodeLazy() {
 		return Helper.getValue( propertyElement.isLazy(), false );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NaturalIdMutability getNaturalIdMutability() {
 		return naturalIdMutability;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isIncludedInOptimisticLocking() {
 		return Helper.getValue( propertyElement.isOptimisticLock(), true );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isVirtualAttribute() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<RelationalValueSource> getRelationalValueSources() {
 		return relationalValueSources;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean areValuesIncludedInInsertByDefault() {
 		return Helper.getValue( propertyElement.isInsert(), true );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean areValuesIncludedInUpdateByDefault() {
 		return Helper.getValue( propertyElement.isUpdate(), true );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean areValuesNullableByDefault() {
 		return ! Helper.getValue(
 				propertyElement.isNotNull(),
@@ -176,11 +199,13 @@ class SingularAttributeSourceBasicImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ToolingHintContext getToolingHintContext() {
 		return toolingHintContext;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MetadataBuildingContext getBuildingContext() {
 		return sourceMappingDocument();
 	}

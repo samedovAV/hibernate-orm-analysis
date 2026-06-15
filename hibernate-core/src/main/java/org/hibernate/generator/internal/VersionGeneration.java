@@ -15,6 +15,8 @@ import static org.hibernate.engine.internal.Versioning.increment;
 import static org.hibernate.engine.internal.Versioning.seed;
 import static org.hibernate.generator.EventType.INSERT;
 import static org.hibernate.generator.EventTypeSets.ALL;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A default {@link org.hibernate.generator.Generator} for {@link jakarta.persistence.Version @Version}
@@ -38,16 +40,19 @@ public class VersionGeneration implements BeforeExecutionGenerator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EnumSet<EventType> getEventTypes() {
 		return ALL;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getGeneratedType() {
 		return versionMapping.getJavaType().getJavaTypeClass();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object generate(SharedSessionContractImplementor session, Object owner, Object current, EventType eventType) {
 		return eventType == INSERT
 				? seed( versionMapping, session )

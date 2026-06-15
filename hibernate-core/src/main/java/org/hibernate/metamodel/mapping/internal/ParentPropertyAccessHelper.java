@@ -15,12 +15,15 @@ import org.hibernate.property.access.spi.PropertyAccess;
 
 import static org.hibernate.internal.util.ReflectHelper.getterMethodOrNull;
 import static org.hibernate.property.access.internal.AccessStrategyHelper.fieldOrNull;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 final class ParentPropertyAccessHelper {
 
 	private ParentPropertyAccessHelper() {
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static PropertyAccess parentPropertyAccess(
 			String parentInjectionAttributeName,
 			EmbeddableMappingType embeddableMappingType) {
@@ -54,10 +57,12 @@ final class ParentPropertyAccessHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean hasParentAnnotation(Field field) {
 		return field != null && field.isAnnotationPresent( Parent.class );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean hasParentAnnotation(Method getterMethod) {
 		return getterMethod != null && getterMethod.isAnnotationPresent( Parent.class );
 	}

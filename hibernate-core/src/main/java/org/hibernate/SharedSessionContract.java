@@ -37,6 +37,8 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 import static org.hibernate.internal.TransactionManagement.manageTransaction;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Declares operations that are common between {@link Session} and {@link StatelessSession}.
@@ -55,6 +57,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @see SessionCreationOption.TenantId
 	 */
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getTenantIdentifier();
 
 	/**
@@ -68,6 +71,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @see SessionCreationOption.TenantId
 	 */
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getTenantIdentifierValue();
 
 	/**
@@ -76,6 +80,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @return the current cache mode
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CacheMode getCacheMode();
 
 	/**
@@ -86,6 +91,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 *
 	 * @param cacheMode the new cache mode
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setCacheMode(@Nonnull CacheMode cacheMode);
 
 	/**
@@ -94,6 +100,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @throws HibernateException Indicates problems cleaning up.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void close() throws HibernateException;
 
 	/**
@@ -101,6 +108,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 *
 	 * @return {@code true} if it is open
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isOpen();
 
 	/**
@@ -108,6 +116,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 *
 	 * @return {@code true} if it is connected
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isConnected();
 
 	/**
@@ -144,6 +153,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @see Transaction#begin()
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Transaction beginTransaction();
 
 	/**
@@ -169,6 +179,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @see jakarta.persistence.EntityManager#getTransaction()
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Transaction getTransaction();
 
 	/**
@@ -178,6 +189,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 *
 	 * @since 6.2
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void joinTransaction();
 
 	/**
@@ -188,6 +200,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 *
 	 * @since 6.2
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isJoinedToTransaction();
 
 	/// Corollary to [#find(Class,Object)] for dynamic models.
@@ -200,6 +213,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	/// @see SessionFactory#createGraphForDynamicEntity(String)
 	/// @see #find(EntityGraph, Object, FindOption...)
 	@Nullable
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default Object find(@Nonnull String entityName, @Nonnull Object id) {
 		return find( entityName, id, LockMode.NONE );
 	}
@@ -218,6 +232,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	/// @see SessionFactory#createGraphForDynamicEntity(String)
 	/// @see #find(EntityGraph,Object,FindOption...)
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object find(@Nonnull String entityName, @Nonnull Object key, @Nullable FindOption... findOptions);
 
 	/// Form of [#find(String,Object)] throwing [jakarta.persistence.EntityNotFoundException]
@@ -233,6 +248,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	/// @see SessionFactory#createGraphForDynamicEntity(String)
 	/// @see #get(EntityGraph, Object, FindOption...)
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default Object get(@Nonnull String entityName, @Nonnull Object id) {
 		return get( entityName, id, LockMode.NONE );
 	}
@@ -254,6 +270,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	/// @see SessionFactory#createGraphForDynamicEntity(String)
 	/// @see #get(EntityGraph,Object,FindOption...)
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object get(@Nonnull String entityName, @Nonnull Object key, @Nullable FindOption... findOptions);
 
 	/**
@@ -306,6 +323,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R> SelectionQuery<R> createQuery(@Nonnull String queryString, @Nonnull Class<R> resultClass);
 
 	/// Synonym for {@linkplain #createQuery(String,Class)}, offering generally easier
@@ -324,6 +342,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	/// 		.list();
 	/// ```
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default <R> SelectionQuery<R> createQuery(@Nonnull Class<R> resultClass, @Nonnull String hqlString) {
 		return createQuery( hqlString, resultClass );
 	}
@@ -333,6 +352,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> SelectionQuery<T> createQuery(@Nonnull String hqlString, @Nonnull EntityGraph<T> entityGraph);
 
 	/**
@@ -386,6 +406,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 *         is an {@code insert}, {@code update} or {@code delete}
 	 *         statement
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R> SelectionQuery<R> createSelectionQuery(String hqlString, Class<R> resultType);
 
 	/**
@@ -426,6 +447,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R> SelectionQuery<R> createSelectionQuery(String hqlString, EntityGraph<R> resultGraph);
 
 	/**
@@ -438,14 +460,17 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @throws IllegalMutationQueryException if the given HQL query
 	 *         is a {@code select} query
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery createMutationQuery(String hqlString);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery createStatement(@Nonnull String hqlString);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery createStatement(@Nonnull StatementReference statementReference);
 
 	/**
@@ -464,6 +489,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R> SelectionQuery<R> createQuery(@Nonnull TypedQueryReference<R> typedQueryReference);
 
 	/**
@@ -474,6 +500,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> SelectionQuery<T> createQuery(@Nonnull CriteriaSelect<T> criteriaSelect);
 
 	/**
@@ -484,6 +511,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery createStatement(@Nonnull CriteriaStatement<?> criteriaStatement);
 
 	/**
@@ -493,6 +521,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @see jakarta.persistence.EntityManager#createQuery(CriteriaSelect)
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R> SelectionQuery<R> createSelectionQuery(@Nonnull CriteriaSelect<R> criteria);
 
 	/**
@@ -502,18 +531,21 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @see jakarta.persistence.EntityManager#createQuery(CriteriaSelect)
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R> SelectionQuery<R> createSelectionQuery(@Nonnull CriteriaQuery<R> criteria);
 
 	/**
 	 * Create a {@link MutationQuery} from the given update criteria tree
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery createMutationQuery(@Nonnull CriteriaStatement<?> criteriaStatement);
 
 	/**
 	 * Create a {@link MutationQuery} from the given insert criteria tree
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery createMutationQuery(@Nonnull JpaCriteriaInsert<?> insert);
 
 	/**
@@ -527,6 +559,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<?> createNativeQuery(@Nonnull String sqlString);
 
 	/**
@@ -555,6 +588,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R> NativeQuery<R> createNativeQuery(@Nonnull String sqlString, @Nonnull Class<R> resultClass);
 
 	/// Synonym for {@linkplain #createNativeQuery(String,Class)}, offering generally easier
@@ -572,6 +606,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	/// 		...
 	/// 		.list();
 	/// ```
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default <R> NativeQuery<R> createNativeQuery(Class<R> resultClass, String queryString) {
 		return createNativeQuery( queryString, resultClass );
 	}
@@ -591,6 +626,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 *
 	 * @see jakarta.persistence.EntityManager#createNativeQuery(String,Class)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R> NativeQuery<R> createNativeQuery(String sqlString, Class<R> resultClass, String tableAlias);
 
 	/**
@@ -608,6 +644,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @see jakarta.persistence.EntityManager#createNativeQuery(String,Class)
 	 * @see jakarta.persistence.SqlResultSetMapping
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R> NativeQuery<R> createNativeQuery(String sqlString, String resultSetMappingName, Class<R> resultClass);
 
 	/**
@@ -617,6 +654,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 *
 	 * @return The NativeQuery instance for manipulation and execution
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery createNativeMutationQuery(String sqlString);
 
 	/**
@@ -637,28 +675,35 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R> SelectionQuery<R> createNamedQuery(@Nonnull String name, @Nonnull Class<R> resultClass);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery createNamedStatement(@Nonnull String name);
 
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R> NativeQuery<R> createNamedQuery(@Nonnull String name, @Nonnull String resultSetMappingName);
 
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R> NativeQuery<R> createNamedQuery(@Nonnull String name, @Nonnull String resultSetMappingName, @Nonnull Class<R> resultClass);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery createNativeStatement(@Nonnull String sql);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NativeQuery<?> createNativeQuery(@Nonnull String sql, @Nonnull String resultSetMapping);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> TypedQuery<T> createNativeQuery(@Nonnull String sql, @Nonnull ResultSetMapping<T> resultSetMapping);
 
 	/**
@@ -669,6 +714,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @throws UnknownNamedQueryException if no query has been defined with the given name
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R> SelectionQuery<R> createNamedSelectionQuery(@Nonnull String name, @Nonnull Class<R> resultType);
 
 	/**
@@ -681,6 +727,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @throws UnknownNamedQueryException if no query has been defined with the given name
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationQuery createNamedMutationQuery(@Nonnull String name);
 
 	/**
@@ -693,6 +740,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @see jakarta.persistence.NamedStoredProcedureQuery
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall getNamedProcedureCall(@Nonnull String name);
 
 	/**
@@ -703,6 +751,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @return The representation of the procedure call.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall createStoredProcedureCall(@Nonnull String procedureName);
 
 	/**
@@ -715,6 +764,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @return The representation of the procedure call.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall createStoredProcedureCall(@Nonnull String procedureName, @Nonnull Class<?>... resultClasses);
 
 	/**
@@ -727,6 +777,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @return The representation of the procedure call.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall createStoredProcedureCall(@Nonnull String procedureName, @Nonnull String... resultSetMappings);
 
 	/**
@@ -739,6 +790,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @see jakarta.persistence.NamedStoredProcedureQuery
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall createNamedStoredProcedureQuery(@Nonnull String name);
 
 	/**
@@ -749,6 +801,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @return The representation of the procedure call.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall createStoredProcedureQuery(@Nonnull String procedureName);
 
 	/**
@@ -761,6 +814,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @return The representation of the procedure call.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall createStoredProcedureQuery(@Nonnull String procedureName, @Nonnull Class<?>... resultClasses);
 
 	/**
@@ -773,6 +827,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @return The representation of the procedure call.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProcedureCall createStoredProcedureQuery(@Nonnull String procedureName, @Nonnull String... resultSetMappings);
 
 	/**
@@ -785,6 +840,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @see org.hibernate.boot.spi.SessionFactoryOptions#getJdbcBatchSize
 	 * @see org.hibernate.boot.SessionFactoryBuilder#applyJdbcBatchSize
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Integer getJdbcBatchSize();
 
 	/**
@@ -810,6 +866,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @see org.hibernate.boot.spi.SessionFactoryOptions#getJdbcBatchSize
 	 * @see org.hibernate.boot.SessionFactoryBuilder#applyJdbcBatchSize
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setJdbcBatchSize(Integer jdbcBatchSize);
 
 	/**
@@ -825,6 +882,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @see SessionFactory#getCriteriaBuilder()
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	HibernateCriteriaBuilder getCriteriaBuilder();
 
 	/**
@@ -837,6 +895,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @apiNote This method competes with the JPA-defined method
 	 *          {@link jakarta.persistence.EntityManager#runWithConnection}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void doWork(@Nonnull Work work) throws HibernateException;
 
 	/**
@@ -853,6 +912,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @apiNote This method competes with the JPA-defined method
 	 *          {@link jakarta.persistence.EntityManager#callWithConnection}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T doReturningWork(@Nonnull ReturningWork<T> work);
 
 	/**
@@ -867,6 +927,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @see org.hibernate.graph.EntityGraphs#createGraph(jakarta.persistence.metamodel.EntityType)
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> RootGraph<T> createEntityGraph(@Nonnull Class<T> rootType);
 
 	/**
@@ -884,6 +945,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 */
 	@Deprecated(since = "8.0", forRemoval = true)
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	RootGraph<?> createEntityGraph(@Nonnull String graphName);
 
 	/**
@@ -904,6 +966,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 */
 	@Deprecated(since = "8.0", forRemoval = true)
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> RootGraph<T> createEntityGraph(@Nonnull Class<T> rootType, @Nonnull String graphName);
 
 	/**
@@ -927,6 +990,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @since 6.3
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	RootGraph<?> getEntityGraph(@Nonnull String graphName);
 
 	/**
@@ -947,6 +1011,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @since 8.0
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> RootGraph<T> getEntityGraph(@Nonnull Class<T> rootType, @Nonnull String graphName);
 
 	/**
@@ -958,6 +1023,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @since 6.3
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> List<EntityGraph<? super T>> getEntityGraphs(@Nonnull Class<T> entityClass);
 
 	/**
@@ -976,6 +1042,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @see org.hibernate.annotations.FilterDef
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Filter enableFilter(@Nonnull String filterName);
 
 	/**
@@ -986,6 +1053,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @return the {@link Filter} instance representing the enabled filter.
 	 */
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Filter getEnabledFilter(@Nonnull String filterName);
 
 	/**
@@ -993,12 +1061,14 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 *
 	 * @param filterName the name of the filter to be disabled.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void disableFilter(@Nonnull String filterName);
 
 	/**
 	 * The factory which created this session.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactory getFactory();
 
 	/**
@@ -1009,6 +1079,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void inTransaction(@Nonnull Consumer<? super Transaction> action) {
 		final Transaction transaction = beginTransaction();
 		manageTransaction( transaction, transaction, action );
@@ -1023,6 +1094,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <R> R fromTransaction(@Nonnull Function<? super Transaction,R> action) {
 		final Transaction transaction = beginTransaction();
 		return manageTransaction( transaction, transaction, action );
@@ -1037,6 +1109,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @since 7.2
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedStatelessSessionBuilder statelessWithOptions();
 
 	/**
@@ -1046,6 +1119,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 * @return the session builder
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionBuilder sessionWithOptions();
 
 
@@ -1060,6 +1134,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery createQuery(@Nonnull String queryString);
 
 	/**
@@ -1070,6 +1145,7 @@ public interface SharedSessionContract extends EntityHandler, AutoCloseable, Ser
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOrSelectionQuery createNamedQuery(@Nonnull String name);
 
 }

@@ -9,6 +9,8 @@ import org.hibernate.LockMode;
 import org.hibernate.action.internal.EntityVerifyVersionProcess;
 import org.hibernate.event.spi.EventSource;
 import org.hibernate.persister.entity.EntityPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An optimistic locking strategy that simply verifies that the
@@ -43,11 +45,13 @@ public class OptimisticLockingStrategy implements LockingStrategy {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void lock(Object id, Object version, Object object, int timeout, EventSource session) {
 		// Register the EntityVerifyVersionProcess action to run just prior to transaction commit.
 		session.getActionQueue().registerCallback( new EntityVerifyVersionProcess( object ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected LockMode getLockMode() {
 		return lockMode;
 	}

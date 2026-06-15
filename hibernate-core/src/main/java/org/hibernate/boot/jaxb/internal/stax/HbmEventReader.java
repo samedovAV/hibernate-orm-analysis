@@ -19,6 +19,8 @@ import javax.xml.stream.util.EventReaderDelegate;
 
 import org.hibernate.boot.xsd.MappingXsdSupport;
 import org.hibernate.internal.util.StringHelper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A StAX EventReader for {@code hbm.xml} files to add namespaces in documents
@@ -45,15 +47,18 @@ public class HbmEventReader extends EventReaderDelegate {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public XMLEvent peek() throws XMLStreamException {
 		return wrap( super.peek() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public XMLEvent nextEvent() throws XMLStreamException {
 		return wrap( super.nextEvent() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private XMLEvent wrap(XMLEvent event) {
 		if ( event != null && event.isStartElement() ) {
 			return applyNamespace( event.asStartElement() );
@@ -62,6 +67,7 @@ public class HbmEventReader extends EventReaderDelegate {
 	}
 
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private StartElement applyNamespace(StartElement startElement) {
 		final List<Namespace> targetNamespaces = new ArrayList<>();
 

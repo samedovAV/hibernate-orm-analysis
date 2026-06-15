@@ -15,6 +15,8 @@ import org.hibernate.metamodel.mapping.NonTransientException;
 import org.hibernate.persister.collection.CollectionPersister;
 import org.hibernate.sql.results.graph.entity.EntityValuedFetchable;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An entity-valued collection-part.
@@ -29,43 +31,53 @@ public interface EntityCollectionPart extends CollectionPart, EntityValuedFetcha
 
 	enum Cardinality { ONE_TO_MANY, MANY_TO_MANY }
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Cardinality getCardinality();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NotFoundAction getNotFoundAction();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityMappingType getAssociatedEntityMappingType();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String getFetchableName() {
 		return getPartName();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default EntityMappingType getPartMappingType() {
 		return getAssociatedEntityMappingType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default EntityMappingType getEntityMappingType() {
 		return getAssociatedEntityMappingType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default JavaType<?> getJavaType() {
 		return getAssociatedEntityMappingType().getJavaType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default JavaType<?> getExpressibleJavaType() {
 		return getJavaType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default int getJdbcTypeCount() {
 		return CollectionPart.super.getJdbcTypeCount();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void addToCacheKey(MutableCacheKeyBuilder cacheKey, Object value, SharedSessionContractImplementor session) {
 		EntityValuedFetchable.super.addToCacheKey( cacheKey, value, session );
 	}
@@ -83,6 +95,7 @@ public interface EntityCollectionPart extends CollectionPart, EntityValuedFetcha
 	 * process to stop immediately
 	 */
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean finishInitialization(
 			CollectionPersister collectionDescriptor,
 			Collection bootValueMapping,

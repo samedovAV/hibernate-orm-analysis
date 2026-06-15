@@ -8,6 +8,8 @@ import java.io.InputStream;
 import javax.xml.transform.Source;
 
 import org.hibernate.boot.jaxb.Origin;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for performing JAXB binding.
@@ -22,6 +24,7 @@ public interface Binder<T> {
 	 * @param origin The descriptor of the source origin
 	 * @return The bound JAXB model
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X extends T> Binding<X> bind(Source source, Origin origin);
 
 	/**
@@ -31,5 +34,6 @@ public interface Binder<T> {
 	 * @param origin The descriptor of the stream origin
 	 * @return The bound JAXB model
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X extends T> Binding<X> bind(InputStream stream, Origin origin);
 }

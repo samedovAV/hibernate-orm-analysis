@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.internal.util;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * @author Christian Beikov
@@ -19,11 +22,13 @@ public final class SubSequence implements CharSequence {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int length() {
 		return length;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public char charAt(int index) {
 		if ( index < 0 || index >= length ) {
 			throw new StringIndexOutOfBoundsException( index );
@@ -32,6 +37,7 @@ public final class SubSequence implements CharSequence {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public CharSequence subSequence(int start, int end) {
 		if ( start < 0 || start > length ) {
 			throw new StringIndexOutOfBoundsException( start );
@@ -42,6 +48,7 @@ public final class SubSequence implements CharSequence {
 		return sequence.subSequence( this.start + start, this.start + end );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int lastIndexOf(char c, int fromIndex, int endIndex) {
 		int idx = CharSequenceHelper.lastIndexOf( sequence, c, start + fromIndex, this.start + endIndex );
 		if ( idx == -1 ) {
@@ -50,6 +57,7 @@ public final class SubSequence implements CharSequence {
 		return idx - this.start;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int indexOf(char c, int fromIndex, int endIndex) {
 		int idx = CharSequenceHelper.indexOf( sequence, c, this.start + fromIndex, this.start + endIndex );
 		if ( idx == -1 ) {
@@ -58,6 +66,7 @@ public final class SubSequence implements CharSequence {
 		return idx - this.start;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int indexOf(String s, int fromIndex, int endIndex) {
 		int idx = CharSequenceHelper.indexOf( sequence, s, this.start + fromIndex, this.start + endIndex );
 		if ( idx == -1 ) {
@@ -67,6 +76,7 @@ public final class SubSequence implements CharSequence {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String toString() {
 		return sequence.subSequence( start, start + length ).toString();
 	}

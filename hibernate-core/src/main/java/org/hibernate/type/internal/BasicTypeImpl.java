@@ -9,6 +9,8 @@ import org.hibernate.type.AbstractSingleColumnStandardBasicType;
 import org.hibernate.type.AdjustableBasicType;
 import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -29,6 +31,7 @@ public class BasicTypeImpl<J> extends AbstractSingleColumnStandardBasicType<J> i
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getRegistrationKeys() {
 		// irrelevant - these are created on-the-fly
 		return NO_REG_KEYS;
@@ -53,11 +56,13 @@ public class BasicTypeImpl<J> extends AbstractSingleColumnStandardBasicType<J> i
 	 * E.g. {@code `basicType@321(java.lang.String,12)`}
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return name;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return name;
 	}

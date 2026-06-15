@@ -30,6 +30,8 @@ import static org.hibernate.boot.model.internal.GeneratorAnnotationHelper.handle
 import static org.hibernate.boot.model.internal.GeneratorBinder.createGeneratorFrom;
 import static org.hibernate.boot.model.internal.GeneratorBinder.makeIdGenerator;
 import static org.hibernate.boot.model.internal.GeneratorStrategies.mapLegacyNamedGenerator;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * IdGeneratorResolver for handling generators assigned to id-bag mappings
@@ -61,6 +63,7 @@ public class IdBagIdGeneratorResolverSecondPass implements IdGeneratorResolver {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void doSecondPass(Map<String, PersistentClass> idGeneratorDefinitionMap) throws MappingException {
 		switch ( idBagMember.getDirectAnnotationUsage( GeneratedValue.class ).strategy() ) {
 			case UUID -> handleUuidStrategy(
@@ -93,6 +96,7 @@ public class IdBagIdGeneratorResolverSecondPass implements IdGeneratorResolver {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void handleTableStrategy(
 			String generatorName,
 			PersistentClass entityMapping,
@@ -138,6 +142,7 @@ public class IdBagIdGeneratorResolverSecondPass implements IdGeneratorResolver {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void handleSequenceStrategy(
 			String generatorName,
 			SimpleValue idValue,
@@ -182,6 +187,7 @@ public class IdBagIdGeneratorResolverSecondPass implements IdGeneratorResolver {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void handleAutoStrategy(
 			String generatorName,
 			SimpleValue idValue,

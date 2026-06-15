@@ -13,6 +13,8 @@ import org.hibernate.boot.models.xml.spi.PersistenceUnitMetadata;
 import org.hibernate.boot.models.xml.spi.XmlDocument;
 import org.hibernate.boot.models.xml.spi.XmlPreProcessingResult;
 import org.hibernate.internal.util.StringHelper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -38,25 +40,30 @@ public class XmlPreProcessingResultImpl implements XmlPreProcessingResult {
 		this( new PersistenceUnitMetadataImpl() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistenceUnitMetadataImpl getPersistenceUnitMetadata() {
 		return persistenceUnitMetadata;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<XmlDocument> getDocuments() {
 		return documents;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<String> getMappedClasses() {
 		return managedClasses;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<String> getMappedNames() {
 		return managedNames;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addDocument(Binding<JaxbEntityMappingsImpl> binding) {
 		final XmlDocumentImpl xmlDocument = XmlDocumentImpl.consume( binding, persistenceUnitMetadata );
 		documents.add( xmlDocument );

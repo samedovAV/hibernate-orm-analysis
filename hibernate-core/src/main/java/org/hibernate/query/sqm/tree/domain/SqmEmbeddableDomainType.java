@@ -7,15 +7,19 @@ package org.hibernate.query.sqm.tree.domain;
 import jakarta.annotation.Nullable;
 import org.hibernate.Incubating;
 import org.hibernate.metamodel.model.domain.EmbeddableDomainType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @Incubating
 public interface SqmEmbeddableDomainType<E> extends EmbeddableDomainType<E>, SqmTreatableDomainType<E> {
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default @Nullable SqmDomainType<E> getSqmType() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SqmEmbeddableDomainType<E> getPathType() {
 		return this;
 	}

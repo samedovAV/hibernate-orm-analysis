@@ -21,6 +21,8 @@ import org.hibernate.query.sqm.tree.SqmStatement;
 
 import java.io.Serializable;
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -48,58 +50,69 @@ public class HqlMutationMementoImpl<T>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getHqlString() {
 		return hqlString;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmStatement<T> getSqmStatement() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, String> getAnticipatedParameterTypes() {
 		return parameterTypes;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NamedSqmQueryMemento<T> makeCopy(String name) {
 		return new HqlMutationMementoImpl<>( name, this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void validate(QueryEngine queryEngine) {
 		final var interpretationCache = queryEngine.getInterpretationCache();
 		interpretationCache.resolveHqlInterpretation( hqlString, queryType, queryEngine.getHqlTranslator() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MutationQueryImplementor<T> toMutationQuery(SharedSessionContractImplementor session) {
 		return toMutationQuery( session, queryType );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> MutationQueryImplementor<X> toMutationQuery(SharedSessionContractImplementor session, Class<X> targetType) {
 		final HqlInterpretation<X> interpretation = QueryHelper.interpretation( this, targetType, session );
 		return new MutationQueryImpl<>( this, interpretation, targetType, session );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QueryImplementor<T> toQuery(SharedSessionContractImplementor session) {
 		return toMutationQuery( session, queryType );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> QueryImplementor<X> toQuery(SharedSessionContractImplementor session, Class<X> javaType) {
 		return toMutationQuery( session, javaType );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SelectionQueryImplementor<T> toSelectionQuery(SharedSessionContractImplementor session) {
 		throw new IllegalSelectQueryException( "Not a NamedSelectionMemento", hqlString );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> SelectionQueryImplementor<X> toSelectionQuery(SharedSessionContractImplementor session, Class<X> javaType) {
 		throw new IllegalSelectQueryException( "Not a NamedSelectionMemento", hqlString );
 	}

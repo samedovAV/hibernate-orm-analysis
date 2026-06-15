@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.internal.util;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Support for mutable boolean references, generally used from within
@@ -20,10 +23,12 @@ public class MutableBoolean {
 		this.value = value;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean getValue() {
 		return value;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setValue(boolean value) {
 		this.value = value;
 	}

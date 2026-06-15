@@ -29,6 +29,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An executor for JdbcSelect operations.
@@ -41,6 +43,7 @@ public interface JdbcSelectExecutor {
 	/**
 	 * @since 6.6
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T, R> T executeQuery(
 			JdbcSelect jdbcSelect,
 			JdbcParameterBindings jdbcParameterBindings,
@@ -53,6 +56,7 @@ public interface JdbcSelectExecutor {
 	/**
 	 * @since 6.6
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default <T, R> T executeQuery(
 			JdbcSelect jdbcSelect,
 			JdbcParameterBindings jdbcParameterBindings,
@@ -76,6 +80,7 @@ public interface JdbcSelectExecutor {
 	/**
 	 * @since 6.6
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default <T, R> T executeQuery(
 			JdbcSelect jdbcSelect,
 			JdbcParameterBindings jdbcParameterBindings,
@@ -96,6 +101,7 @@ public interface JdbcSelectExecutor {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default <R> List<R> list(
 			JdbcSelect jdbcSelect,
 			JdbcParameterBindings jdbcParameterBindings,
@@ -105,6 +111,7 @@ public interface JdbcSelectExecutor {
 		return list( jdbcSelect, jdbcParameterBindings, executionContext, rowTransformer, null, uniqueSemantic );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default <R> List<R> list(
 			JdbcSelect jdbcSelect,
 			JdbcParameterBindings jdbcParameterBindings,
@@ -126,6 +133,7 @@ public interface JdbcSelectExecutor {
 	/**
 	 * @since 6.6
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <R> List<R> list(
 			JdbcSelect jdbcSelect,
 			JdbcParameterBindings jdbcParameterBindings,
@@ -146,6 +154,7 @@ public interface JdbcSelectExecutor {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default <R> ScrollableResults<R> scroll(
 			JdbcSelect jdbcSelect,
 			ScrollMode scrollMode,
@@ -158,6 +167,7 @@ public interface JdbcSelectExecutor {
 	/**
 	 * @since 6.6
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <R> ScrollableResults<R> scroll(
 			JdbcSelect jdbcSelect,
 			ScrollMode scrollMode,
@@ -182,6 +192,7 @@ public interface JdbcSelectExecutor {
 	 */
 	@FunctionalInterface
 	interface StatementCreator {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		PreparedStatement createStatement(ExecutionContext executionContext, String sql) throws SQLException;
 	}
 
@@ -190,6 +201,7 @@ public interface JdbcSelectExecutor {
 		of the `persistenceContext.isDefaultReadOnly()` and of the `queryOptions.isReadOnly()` set at the moment of
 		the Query#scroll() call is created in order to use it when the query will be executed.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private ExecutionContext getScrollContext(ExecutionContext context) {
 		class ScrollableExecutionContext extends BaseExecutionContext implements QueryOptions {
 
@@ -257,126 +269,151 @@ public interface JdbcSelectExecutor {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public boolean isScrollResult() {
 				return true;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public QueryOptions getQueryOptions() {
 				return this;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public Timeout getTimeout() {
 				return timeout;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public FlushMode getFlushMode() {
 				return flushMode;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public Boolean isReadOnly() {
 				return readOnly;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public AppliedGraph getAppliedGraph() {
 				return appliedGraph;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public TupleTransformer<?> getTupleTransformer() {
 				return tupleTransformer;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public ResultListTransformer<?> getResultListTransformer() {
 				return resultListTransformer;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public Boolean isResultCachingEnabled() {
 				return resultCachingEnabled;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public Boolean getQueryPlanCachingEnabled() {
 				return null;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public CacheRetrieveMode getCacheRetrieveMode() {
 				return cacheRetrieveMode;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public CacheStoreMode getCacheStoreMode() {
 				return cacheStoreMode;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public String getResultCacheRegionName() {
 				return resultCacheRegionName;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public LockOptions getLockOptions() {
 				return lockOptions;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public String getComment() {
 				return comment;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public List<String> getDatabaseHints() {
 				return databaseHints;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public Integer getFetchSize() {
 				return fetchSize;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public Limit getLimit() {
 				return limit;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public Boolean isLimitInMemoryEnabled() {
 				return limitInMemoryEnabled;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public Limit peekOriginalLimit() {
 				return originalLimit;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public QueryParameterBindings getQueryParameterBindings() {
 				return context.getQueryParameterBindings();
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public Callback getCallback() {
 				return context.getCallback();
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public boolean hasCallbackActions() {
 				return context.hasCallbackActions();
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public Set<String> getEnabledFetchProfiles() {
 				return null;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public Set<String> getDisabledFetchProfiles() {
 				return null;
 			}

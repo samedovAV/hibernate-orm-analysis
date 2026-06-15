@@ -7,6 +7,8 @@ package org.hibernate.bytecode.enhance.internal.tracker;
 import java.util.Arrays;
 
 import org.hibernate.engine.spi.CompositeOwner;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * small low memory class to keep references to composite owners
@@ -23,6 +25,7 @@ public final class CompositeOwnerTracker {
 		owners = new CompositeOwner[0];
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void add(String name, CompositeOwner owner) {
 		for ( int i = 0; i < names.length; i++ ) {
 			if ( names[i].equals( name ) ) {
@@ -36,6 +39,7 @@ public final class CompositeOwnerTracker {
 		owners[owners.length - 1] = owner;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void callOwner(String fieldName) {
 		for ( int i = 0; i < owners.length ; i++ ) {
 			if ( owners[i] != null ) {
@@ -44,6 +48,7 @@ public final class CompositeOwnerTracker {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void removeOwner(String name) {
 		for ( int i = 0; i < names.length; i++ ) {
 			if ( name.equals( names[i] ) ) {

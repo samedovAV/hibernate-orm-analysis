@@ -12,6 +12,8 @@ import org.hibernate.generator.OnExecutionGenerator;
 import org.hibernate.persister.entity.EntityPersister;
 
 import static org.hibernate.internal.NaturalIdHelper.getNaturalIdPropertyNames;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A generator that {@code select}s the just-{@code insert}ed row to determine the
@@ -85,17 +87,20 @@ public class SelectGenerator
 	private Class<?> generatedType;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void configure(GeneratorCreationContext creationContext, Properties parameters) {
 		uniqueKeyPropertyName = parameters.getProperty( KEY );
 		generatedType = creationContext.getType().getReturnedClass();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getGeneratedType() {
 		return generatedType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getUniqueKeyPropertyNames(EntityPersister persister) {
 		return uniqueKeyPropertyName != null
 				? new String[] { uniqueKeyPropertyName }
@@ -103,11 +108,13 @@ public class SelectGenerator
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean referenceColumnsInSql(Dialect dialect) {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getReferencedColumnValues(Dialect dialect) {
 		return null;
 	}

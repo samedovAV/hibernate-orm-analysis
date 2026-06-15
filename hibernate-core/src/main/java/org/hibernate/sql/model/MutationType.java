@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.sql.model;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * The type of mutation
@@ -20,6 +23,7 @@ public enum MutationType {
 		this.canSkipTables = canSkipTables;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean canSkipTables() {
 		return canSkipTables;
 	}

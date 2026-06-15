@@ -20,6 +20,8 @@ import java.util.Map;
 import static org.hibernate.boot.models.JpaAnnotations.PRIMARY_KEY_JOIN_COLUMN;
 import static org.hibernate.boot.models.internal.OrmAnnotationHelper.extractJdkValue;
 import static org.hibernate.boot.models.xml.internal.XmlAnnotationHelper.collectCheckConstraints;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -74,79 +76,95 @@ public class PrimaryKeyJoinColumnJpaAnnotation implements PrimaryKeyJoinColumn, 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return PrimaryKeyJoinColumn.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String name() {
 		return name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void name(String value) {
 		this.name = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String referencedColumnName() {
 		return referencedColumnName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void referencedColumnName(String value) {
 		this.referencedColumnName = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String comment() {
 		return comment;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void comment(String comment) {
 		this.comment = comment;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String columnDefinition() {
 		return columnDefinition;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void columnDefinition(String value) {
 		this.columnDefinition = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String options() {
 		return options;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void options(String value) {
 		this.options = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.ForeignKey foreignKey() {
 		return foreignKey;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void foreignKey(jakarta.persistence.ForeignKey value) {
 		this.foreignKey = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CheckConstraint[] check() {
 		return check;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void check(CheckConstraint[] check) {
 		this.check = check;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void apply(JaxbPrimaryKeyJoinColumnImpl jaxbColumn, XmlDocumentContext xmlDocumentContext) {
 		if ( StringHelper.isNotEmpty( jaxbColumn.getName() ) ) {
 			name( jaxbColumn.getName() );

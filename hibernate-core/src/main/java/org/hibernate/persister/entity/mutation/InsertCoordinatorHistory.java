@@ -28,6 +28,8 @@ import org.hibernate.sql.model.internal.MutationGroupSingle;
 
 import static org.hibernate.persister.entity.mutation.InsertCoordinatorStandard.getPropertiesToInsert;
 import static org.hibernate.sql.model.internal.MutationOperationGroupFactory.singleOperation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Insert coordinator for
@@ -63,16 +65,19 @@ public class InsertCoordinatorHistory extends AbstractMutationCoordinator implem
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MutationOperationGroup getStaticMutationOperationGroup() {
 		return currentInsertCoordinator.getStaticMutationOperationGroup();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected BatchKey getBatchKey() {
 		return historyBatchKey;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public GeneratedValues insert(Object entity, Object[] values, SharedSessionContractImplementor session) {
 		final var generatedValues = currentInsertCoordinator.insert( entity, values, session );
 		final Object id = entityPersister().getIdentifier( entity, session );
@@ -81,6 +86,7 @@ public class InsertCoordinatorHistory extends AbstractMutationCoordinator implem
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public GeneratedValues insert(
 			Object entity,
 			Object id,
@@ -92,6 +98,7 @@ public class InsertCoordinatorHistory extends AbstractMutationCoordinator implem
 		return generatedValues;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void insertHistoryRow(
 			Object entity,
 			Object id,
@@ -117,6 +124,7 @@ public class InsertCoordinatorHistory extends AbstractMutationCoordinator implem
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private MutationOperationGroup buildHistoryInsertGroup(
 			boolean[] propertyInclusions,
 			Object entity,
@@ -131,6 +139,7 @@ public class InsertCoordinatorHistory extends AbstractMutationCoordinator implem
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void applyHistoryInsertDetails(
 			TableInsertBuilderStandard insertBuilder,
 			boolean[] propertyInclusions,
@@ -165,6 +174,7 @@ public class InsertCoordinatorHistory extends AbstractMutationCoordinator implem
 		identifierTableMapping.getKeyMapping().forEachKeyColumn( insertBuilder::addColumnAssignment );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void addSqlGeneratedValue(
 			TableInsertBuilderStandard insertBuilder,
 			AttributeMapping attributeMapping,
@@ -178,6 +188,7 @@ public class InsertCoordinatorHistory extends AbstractMutationCoordinator implem
 				insertBuilder.addValueColumn( writePropertyValue ? "?" : columnValues[j], mapping ) );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void bindHistoryValues(
 			Object id,
 			Object[] values,
@@ -232,17 +243,20 @@ public class InsertCoordinatorHistory extends AbstractMutationCoordinator implem
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isValueGenerated(Generator generator) {
 		return generator != null
 			&& generator.generatesOnInsert()
 			&& generator.generatedOnExecution();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean isValueGenerationInSql(Generator generator) {
 		assert isValueGenerated( generator );
 		return ( (OnExecutionGenerator) generator ).referenceColumnsInSql( dialect() );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static boolean verifyOutcome(
 			PreparedStatementDetails statementDetails,
 			int affectedRowCount,

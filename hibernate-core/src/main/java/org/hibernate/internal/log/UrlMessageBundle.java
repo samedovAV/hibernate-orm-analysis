@@ -18,6 +18,8 @@ import org.jboss.logging.annotations.MessageLogger;
 import org.jboss.logging.annotations.ValidIdRange;
 
 import static org.jboss.logging.Logger.Level.WARN;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Acts as the {@link MessageLogger} and
@@ -47,6 +49,7 @@ public interface UrlMessageBundle {
 	 */
 	@LogMessage( level = WARN )
 	@Message( value = "Malformed URL: %s", id = 10000001 )
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void logMalformedUrl(URL jarUrl, @Cause URISyntaxException e);
 
 	/**
@@ -58,6 +61,7 @@ public interface UrlMessageBundle {
 	 */
 	@LogMessage( level = WARN )
 	@Message( value = "File or directory named by URL [%s] could not be found.  URL will be ignored", id = 10000002 )
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void logUnableToFindFileByUrl(URL url, @Cause Exception e);
 
 	/**
@@ -70,6 +74,7 @@ public interface UrlMessageBundle {
 	 */
 	@LogMessage( level = WARN )
 	@Message( value = "File or directory named by URL [%s] did not exist.  URL will be ignored", id = 10000003 )
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void logFileDoesNotExist(URL url);
 
 	/**
@@ -82,6 +87,7 @@ public interface UrlMessageBundle {
 	 */
 	@LogMessage( level = WARN )
 	@Message( value = "Expecting resource named by URL [%s] to be a directory, but it was not.  URL will be ignored", id = 10000004 )
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void logFileIsNotDirectory(URL url);
 
 	/**
@@ -95,5 +101,6 @@ public interface UrlMessageBundle {
 	 * @return The message
 	 */
 	@Message( value = "File [%s] referenced by given URL [%s] does not exist", id = 10000005 )
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String fileDoesNotExist(String filePart, URL url);
 }

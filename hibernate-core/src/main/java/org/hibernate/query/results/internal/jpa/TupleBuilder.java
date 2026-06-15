@@ -14,6 +14,8 @@ import org.hibernate.sql.results.graph.DomainResult;
 import org.hibernate.sql.results.graph.DomainResultCreationState;
 import org.hibernate.sql.results.internal.TupleMetadata;
 import org.hibernate.sql.results.jdbc.spi.JdbcValuesMetadata;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -38,6 +40,7 @@ public class TupleBuilder extends AbstractMappingElementBuilder<Tuple> implement
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public DomainResult<?> buildResult(
 			JdbcValuesMetadata jdbcResultsMetadata,
 			int resultPosition,
@@ -50,6 +53,7 @@ public class TupleBuilder extends AbstractMappingElementBuilder<Tuple> implement
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ResultBuilder cacheKeyInstance() {
 		return this;
 	}
@@ -65,12 +69,14 @@ public class TupleBuilder extends AbstractMappingElementBuilder<Tuple> implement
 			aliases = new String[elementCount];
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void add(TupleElement<?> element) {
 			elements[collectionPosition] = element;
 			aliases[collectionPosition] = StringHelper.nullIfBlank( element.getAlias() );
 			collectionPosition++;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public TupleMetadata buildMetadata() {
 			return new TupleMetadata( elements, aliases );
 		}

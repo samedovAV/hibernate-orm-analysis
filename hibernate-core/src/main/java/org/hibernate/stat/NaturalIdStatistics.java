@@ -5,6 +5,8 @@
 package org.hibernate.stat;
 
 import java.io.Serializable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Statistics pertaining to the execution of queries which resolve a natural
@@ -29,24 +31,28 @@ public interface NaturalIdStatistics extends CacheableDataStatistics, Serializab
 	 * Number of times (since last Statistics clearing) the "natural id
 	 * resolution" query has been executed
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	long getExecutionCount();
 
 	/**
 	 * The average amount of time it takes (since last Statistics clearing) for
 	 * the execution of this "natural id resolution" query
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	long getExecutionAvgTime();
 
 	/**
 	 * The maximum amount of time it takes (since last Statistics clearing) for
 	 * the execution of this "natural id resolution" query
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	long getExecutionMaxTime();
 
 	/**
 	 * The minimum amount of time it takes (since last Statistics clearing) for
 	 * the execution of this "natural id resolution" query
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	long getExecutionMinTime();
 
 	/**
@@ -54,5 +60,6 @@ public interface NaturalIdStatistics extends CacheableDataStatistics, Serializab
 	 * {@linkplain org.hibernate.metamodel.mapping.NaturalIdMapping#normalizeInput normalization}
 	 * has been performed.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	long getNormalizationCount();
 }

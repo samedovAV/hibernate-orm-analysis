@@ -7,6 +7,8 @@ package org.hibernate.query;
 import java.util.Collection;
 
 import org.hibernate.MappingException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents the abstract notion of a query whose results are affected by the data stored
@@ -51,6 +53,7 @@ public interface SynchronizeableQuery {
 	 *
 	 * @return The list of query spaces upon which the query is synchronized.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Collection<String> getSynchronizedQuerySpaces();
 
 	/**
@@ -68,6 +71,7 @@ public interface SynchronizeableQuery {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SynchronizeableQuery addSynchronizedQuerySpace(String querySpace);
 
 	/**
@@ -81,6 +85,7 @@ public interface SynchronizeableQuery {
 	 *
 	 * @throws MappingException Indicates the given name could not be resolved as an entity
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SynchronizeableQuery addSynchronizedEntityName(String entityName) throws MappingException;
 
 	/**
@@ -94,5 +99,6 @@ public interface SynchronizeableQuery {
 	 *
 	 * @throws MappingException Indicates the given class could not be resolved as an entity
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SynchronizeableQuery addSynchronizedEntityClass(Class<?> entityClass) throws MappingException;
 }

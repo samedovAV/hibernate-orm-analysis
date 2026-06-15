@@ -15,6 +15,8 @@ import jakarta.persistence.AssociationOverride;
 
 import static org.hibernate.boot.models.JpaAnnotations.ASSOCIATION_OVERRIDE;
 import static org.hibernate.boot.models.internal.OrmAnnotationHelper.extractJdkValue;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -57,45 +59,54 @@ public class AssociationOverrideJpaAnnotation implements AssociationOverride {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return AssociationOverride.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String name() {
 		return name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void name(String value) {
 		this.name = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.JoinColumn[] joinColumns() {
 		return joinColumns;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void joinColumns(jakarta.persistence.JoinColumn[] value) {
 		this.joinColumns = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.ForeignKey foreignKey() {
 		return foreignKey;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void foreignKey(jakarta.persistence.ForeignKey value) {
 		this.foreignKey = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.JoinTable joinTable() {
 		return joinTable;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void joinTable(jakarta.persistence.JoinTable value) {
 		this.joinTable = value;
 	}

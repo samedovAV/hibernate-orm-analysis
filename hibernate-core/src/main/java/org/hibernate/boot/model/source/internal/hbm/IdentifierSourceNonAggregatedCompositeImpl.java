@@ -21,6 +21,8 @@ import org.hibernate.boot.model.source.spi.SingularAttributeSource;
 import org.hibernate.boot.model.source.spi.ToolingHintContext;
 import org.hibernate.id.EntityIdentifierNature;
 import org.hibernate.internal.util.StringHelper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Models a composite identifier with is not not encapsulated in a dedicated "id class".
@@ -59,12 +61,14 @@ class IdentifierSourceNonAggregatedCompositeImpl implements IdentifierSourceNonA
 				rootEntitySource.sourceMappingDocument(),
 				new AttributesHelper.Callback() {
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public AttributeSourceContainer getAttributeSourceContainer() {
 						return IdentifierSourceNonAggregatedCompositeImpl.this;
 					}
 
 					@Override
 					@SuppressWarnings("unchecked")
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public void addAttributeSource(AttributeSource attributeSource) {
 						attributeSources.add( attributeSource );
 					}
@@ -86,6 +90,7 @@ class IdentifierSourceNonAggregatedCompositeImpl implements IdentifierSourceNonA
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private EmbeddableSource interpretIdClass(
 			MappingDocument mappingDocument,
 			JaxbHbmCompositeIdType jaxbHbmCompositeIdMapping) {
@@ -103,6 +108,7 @@ class IdentifierSourceNonAggregatedCompositeImpl implements IdentifierSourceNonA
 		final String idClassQualifiedName = mappingDocument.qualifyClassName( className );
 		final JavaTypeDescriptor idClassTypeDescriptor = new JavaTypeDescriptor() {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public String getName() {
 				return idClassQualifiedName;
 			}
@@ -112,73 +118,87 @@ class IdentifierSourceNonAggregatedCompositeImpl implements IdentifierSourceNonA
 
 	@Override
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<SingularAttributeSource> getAttributeSourcesMakingUpIdentifier() {
 		return attributeSources;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableSource getIdClassSource() {
 		return idClassSource;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public IdentifierGeneratorDefinition getIdentifierGeneratorDescriptor() {
 		return generatorDefinition;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityIdentifierNature getNature() {
 		return EntityIdentifierNature.NON_AGGREGATED_COMPOSITE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaTypeDescriptor getTypeDescriptor() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getParentReferenceAttributeName() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isDynamic() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isUnique() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AttributePath getAttributePathBase() {
 		return attributePathBase;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AttributeRole getAttributeRoleBase() {
 		return attributeRoleBase;
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<AttributeSource> attributeSources() {
 		return attributeSources;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LocalMetadataBuildingContext getLocalMetadataBuildingContext() {
 		return rootEntitySource.metadataBuildingContext();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableSource getEmbeddableSource() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ToolingHintContext getToolingHintContext() {
 		return toolingHintContext;
 	}

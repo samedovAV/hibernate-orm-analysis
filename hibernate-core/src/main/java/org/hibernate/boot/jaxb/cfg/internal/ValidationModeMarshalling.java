@@ -7,11 +7,14 @@ package org.hibernate.boot.jaxb.cfg.internal;
 import org.hibernate.internal.util.StringHelper;
 
 import jakarta.persistence.ValidationMode;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
  */
 public class ValidationModeMarshalling {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static ValidationMode fromXml(String name) {
 		if ( StringHelper.isEmpty( name ) ) {
 			return ValidationMode.AUTO;
@@ -19,6 +22,7 @@ public class ValidationModeMarshalling {
 		return ValidationMode.valueOf( name );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String toXml(ValidationMode validationMode) {
 		if ( validationMode == null ) {
 			return null;

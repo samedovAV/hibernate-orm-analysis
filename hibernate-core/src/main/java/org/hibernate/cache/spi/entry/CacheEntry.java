@@ -5,6 +5,8 @@
 package org.hibernate.cache.spi.entry;
 
 import java.io.Serializable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A cached instance of a persistent class
@@ -18,6 +20,7 @@ public interface CacheEntry extends Serializable {
 	 *
 	 * @return true/false
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isReferenceEntry();
 
 	/**
@@ -26,6 +29,7 @@ public interface CacheEntry extends Serializable {
 	 *
 	 * @return The entry's exact entity type.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getSubclass();
 
 	/**
@@ -33,6 +37,7 @@ public interface CacheEntry extends Serializable {
 	 *
 	 * @return The version of the entity represented by this entry
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getVersion();
 
 	/**
@@ -44,5 +49,6 @@ public interface CacheEntry extends Serializable {
 	 *
 	 * @return The disassembled state
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Serializable[] getDisassembledState();
 }

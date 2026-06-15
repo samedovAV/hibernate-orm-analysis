@@ -17,6 +17,8 @@ import static org.hibernate.cfg.AvailableSettings.LOG_SLOW_QUERY;
 import static org.hibernate.cfg.AvailableSettings.SHOW_SQL;
 import static org.hibernate.internal.util.config.ConfigurationHelper.getBoolean;
 import static org.hibernate.internal.util.config.ConfigurationHelper.getLong;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The {@link SqlStatementLogger} is accessible via {@link org.hibernate.engine.jdbc.spi.JdbcServices},
@@ -31,6 +33,7 @@ public class SqlStatementLoggerInitiator implements StandardServiceInitiator<Sql
 	public static final SqlStatementLoggerInitiator INSTANCE = new SqlStatementLoggerInitiator();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqlStatementLogger initiateService(@Nonnull Map<String, Object> configValues, @Nonnull ServiceRegistryImplementor registry) {
 		final boolean showSQL = getBoolean( SHOW_SQL, configValues );
 		final boolean formatSQL = getBoolean( FORMAT_SQL, configValues );
@@ -46,6 +49,7 @@ public class SqlStatementLoggerInitiator implements StandardServiceInitiator<Sql
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<SqlStatementLogger> getServiceInitiated() {
 		return SqlStatementLogger.class;
 	}

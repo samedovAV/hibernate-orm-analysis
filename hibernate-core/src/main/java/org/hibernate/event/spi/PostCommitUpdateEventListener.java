@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.event.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Called after an entity update is committed to the datastore.
@@ -15,5 +18,6 @@ public interface PostCommitUpdateEventListener extends PostUpdateEventListener {
 	 *
 	 * @param event the update event to be handled
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void onPostUpdateCommitFailed(PostUpdateEvent event);
 }

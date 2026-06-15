@@ -16,6 +16,8 @@ import org.hibernate.sql.ast.tree.from.TableGroup;
 import org.hibernate.sql.ast.tree.predicate.NullnessPredicate;
 import org.hibernate.sql.ast.tree.predicate.Predicate;
 import org.hibernate.sql.exec.spi.JdbcParameterBinding;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * NaturalIdLoader implementation for compound natural-ids
@@ -29,6 +31,7 @@ public class CompoundNaturalIdLoader<T> extends AbstractNaturalIdLoader<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void applyNaturalIdRestriction(
 			Object bindValue,
 			TableGroup rootTableGroup,

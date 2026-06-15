@@ -17,6 +17,8 @@ import org.hibernate.type.descriptor.jdbc.JdbcType;
 import java.io.OutputStream;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -50,6 +52,7 @@ public class StringJsonDocumentWriter extends StringJsonDocument implements Json
 	 * Callback to be called when the start of an JSON object is encountered.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JsonDocumentWriter startObject() {
 		// Note: startArray and startObject must not call moveProcessingStateMachine()
 		if ( this.processingStates.getCurrent() == JsonProcessingState.STARTING_ARRAY ) {
@@ -73,6 +76,7 @@ public class StringJsonDocumentWriter extends StringJsonDocument implements Json
 	 * Callback to be called when the end of an JSON object is encountered.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JsonDocumentWriter endObject() {
 		this.appender.append( StringJsonDocumentMarker.OBJECT_END.getMarkerCharacter() );
 		this.processingStates.push( JsonProcessingState.ENDING_OBJECT );
@@ -84,6 +88,7 @@ public class StringJsonDocumentWriter extends StringJsonDocument implements Json
 	 * Callback to be called when the start of an array is encountered.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JsonDocumentWriter startArray() {
 		this.processingStates.push( JsonProcessingState.STARTING_ARRAY );
 		// Note: startArray and startObject do not call moveProcessingStateMachine()
@@ -95,6 +100,7 @@ public class StringJsonDocumentWriter extends StringJsonDocument implements Json
 	 * Callback to be called when the end of an array is encountered.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JsonDocumentWriter endArray() {
 		this.appender.append( StringJsonDocumentMarker.ARRAY_END.getMarkerCharacter() );
 		this.processingStates.push( JsonProcessingState.ENDING_ARRAY );
@@ -103,6 +109,7 @@ public class StringJsonDocumentWriter extends StringJsonDocument implements Json
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JsonDocumentWriter objectKey(String key) {
 		if ( key == null || key.isEmpty() ) {
 			throw new IllegalArgumentException( "key cannot be null or empty" );
@@ -125,6 +132,7 @@ public class StringJsonDocumentWriter extends StringJsonDocument implements Json
 	 * as such, it must be called at the beginning of all methods
 	 * Separator is to separate array items or key/value pairs in an object.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void addItemsSeparator() {
 		if ( this.processingStates.getCurrent().equals( JsonProcessingState.ARRAY ) ) {
 			// We started to serialize an array and already added item to it:add a separator anytime.
@@ -153,6 +161,7 @@ public class StringJsonDocumentWriter extends StringJsonDocument implements Json
 	 *
 	 *    </pre>
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void moveProcessingStateMachine() {
 		switch ( this.processingStates.getCurrent() ) {
 			case STARTING_OBJECT:
@@ -195,6 +204,7 @@ public class StringJsonDocumentWriter extends StringJsonDocument implements Json
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JsonDocumentWriter nullValue() {
 		addItemsSeparator();
 		this.appender.append( "null" );
@@ -203,6 +213,7 @@ public class StringJsonDocumentWriter extends StringJsonDocument implements Json
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JsonDocumentWriter numericValue(Number value) {
 		addItemsSeparator();
 		appender.append( value.toString() );
@@ -211,6 +222,7 @@ public class StringJsonDocumentWriter extends StringJsonDocument implements Json
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JsonDocumentWriter booleanValue(boolean value) {
 		addItemsSeparator();
 		BooleanJavaType.INSTANCE.appendEncodedString( this.appender, value );
@@ -219,6 +231,7 @@ public class StringJsonDocumentWriter extends StringJsonDocument implements Json
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JsonDocumentWriter stringValue(String value) {
 		addItemsSeparator();
 
@@ -233,6 +246,7 @@ public class StringJsonDocumentWriter extends StringJsonDocument implements Json
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> JsonDocumentWriter serializeJsonValue(Object value, JavaType<T> javaType, JdbcType jdbcType, WrapperOptions options) {
 		addItemsSeparator();
 		convertedBasicValueToString( value, options, this.appender, javaType, jdbcType );
@@ -240,6 +254,7 @@ public class StringJsonDocumentWriter extends StringJsonDocument implements Json
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private <T> void convertedCastBasicValueToString(Object value, WrapperOptions options, JsonAppender appender, JavaType<T> javaType, JdbcType jdbcType) {
 		assert javaType.isInstance( value );
 		//noinspection unchecked
@@ -255,6 +270,7 @@ public class StringJsonDocumentWriter extends StringJsonDocument implements Json
 	 * @param jdbcType the JDBC SQL type of the value
 	 * @param options the wapping options.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private <T> void convertedBasicValueToString(
 			Object value,
 			WrapperOptions options,
@@ -377,11 +393,13 @@ public class StringJsonDocumentWriter extends StringJsonDocument implements Json
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getJson() {
 		return appender.toString();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String toString() {
 		return appender.toString();
 	}
@@ -398,56 +416,67 @@ public class StringJsonDocumentWriter extends StringJsonDocument implements Json
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void appendSql(String fragment) {
 			append( fragment );
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void appendSql(char fragment) {
 			append( fragment );
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void appendSql(int value) {
 			sb.append( value );
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void appendSql(long value) {
 			sb.append( value );
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void appendSql(boolean value) {
 			sb.append( value );
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void appendSql(double value) {
 			sb.append( value );
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void appendSql(float value) {
 			sb.append( value );
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public String toString() {
 			return sb.toString();
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void startEscaping() {
 			assert !escape;
 			escape = true;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void endEscaping() {
 			assert escape;
 			escape = false;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public JsonAppender append(char fragment) {
 			if ( escape ) {
 				appendEscaped( fragment );
@@ -459,11 +488,13 @@ public class StringJsonDocumentWriter extends StringJsonDocument implements Json
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public JsonAppender append(CharSequence csq) {
 			return append( csq, 0, csq.length() );
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N2, n = "", count = {})
 		public JsonAppender append(CharSequence csq, int start, int end) {
 			if ( escape ) {
 				int len = end - start;
@@ -479,6 +510,7 @@ public class StringJsonDocumentWriter extends StringJsonDocument implements Json
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void write(int v) {
 			final String hex = Integer.toHexString( v );
 			sb.ensureCapacity( sb.length() + hex.length() + 1 );
@@ -489,11 +521,13 @@ public class StringJsonDocumentWriter extends StringJsonDocument implements Json
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public void write(byte[] bytes) {
 			write( bytes, 0, bytes.length );
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public void write(byte[] bytes, int off, int len) {
 			sb.ensureCapacity( sb.length() + (len << 1) );
 			for ( int i = 0; i < len; i++ ) {
@@ -503,6 +537,7 @@ public class StringJsonDocumentWriter extends StringJsonDocument implements Json
 			}
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void appendEscaped(char fragment) {
 			switch ( fragment ) {
 				case 0:

@@ -19,6 +19,8 @@ import org.hibernate.type.descriptor.java.ShortJavaType;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.NoSuchElementException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Implementation of <code>JsonDocumentReader</code> for String representation of JSON objects.
@@ -49,10 +51,12 @@ public class StringJsonDocumentReader extends StringJsonDocument implements Json
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasNext() {
 		return this.position < this.limit;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void skipWhiteSpace() {
 		for (;this.position  < this.limit; this.position++ ) {
 			if (!Character.isWhitespace( this.jsonString.charAt(this.position))) {
@@ -61,6 +65,7 @@ public class StringJsonDocumentReader extends StringJsonDocument implements Json
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void resetValueWindow() {
 		this.jsonValueStart = 0;
 		this.jsonValueEnd = 0;
@@ -71,6 +76,7 @@ public class StringJsonDocumentReader extends StringJsonDocument implements Json
 	 *
 	 * @param marker the marker we just read
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void moveStateMachine(StringJsonDocumentMarker marker) {
 		JsonProcessingState currentState = this.processingStates.getCurrent();
 		switch (marker) {
@@ -139,6 +145,7 @@ public class StringJsonDocumentReader extends StringJsonDocument implements Json
 	 * @throws IllegalStateException not a well-formed JSON string.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JsonDocumentItemType next() {
 
 		if ( !hasNext()) throw new NoSuchElementException("no more elements");
@@ -240,6 +247,7 @@ public class StringJsonDocumentReader extends StringJsonDocument implements Json
 	 * @param jsonValueChar the value
 	 * @return the type of the value
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private JsonDocumentItemType getUnquotedValueType(char jsonValueChar) {
 		switch(jsonValueChar) {
 			case 't': {
@@ -272,6 +280,7 @@ public class StringJsonDocumentReader extends StringJsonDocument implements Json
 			}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void moveBufferPosition(int shift) {
 		this.position += shift;
 	}
@@ -283,6 +292,7 @@ public class StringJsonDocumentReader extends StringJsonDocument implements Json
 	 * @throws IllegalStateException if we encounter an unexpected character other than white spaces before the desired one.
 	 */
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void moveTo(char character) throws IllegalStateException {
 		int pointer = this.position;
 		while ( pointer < this.limit) {
@@ -302,6 +312,7 @@ public class StringJsonDocumentReader extends StringJsonDocument implements Json
 		throw new IllegalStateException("character [" + character + "] is not the next non-blank character");
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private int nextQuote() {
 		int pointer = this.position;
 
@@ -323,6 +334,7 @@ public class StringJsonDocumentReader extends StringJsonDocument implements Json
 	 * Consume a non-quoted value
 	 * @return the length of this value. can be 0, -1 in case of error
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private int consumeNonStringValue() {
 		int newViewLimit = 0;
 		boolean allGood = false;
@@ -349,6 +361,7 @@ public class StringJsonDocumentReader extends StringJsonDocument implements Json
 	 * Consumes a quoted value
 	 * @return the length of this value. can be 0, -1 in case of error
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void consumeQuotedString() {
 
 		// be sure we are at a meaningful place
@@ -375,6 +388,7 @@ public class StringJsonDocumentReader extends StringJsonDocument implements Json
 	 * Ensures that the current state is on value.
 	 * @throws IllegalStateException if not on "value" state
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void ensureValueState() throws IllegalStateException {
 		if ( (this.processingStates.getCurrent() != JsonProcessingState.OBJECT ) &&
 			this.processingStates.getCurrent() != JsonProcessingState.ARRAY)  {
@@ -385,6 +399,7 @@ public class StringJsonDocumentReader extends StringJsonDocument implements Json
 	 * Ensures that we have a value ready to be exposed. i.e we just consume one.
 	 * @throws IllegalStateException if no value available
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void ensureAvailableValue() throws IllegalStateException {
 		if (this.jsonValueEnd == 0 ) {
 			throw new IllegalStateException( "No available value");
@@ -392,6 +407,7 @@ public class StringJsonDocumentReader extends StringJsonDocument implements Json
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getObjectKeyName() {
 		if ( this.processingStates.getCurrent() != JsonProcessingState.OBJECT_KEY_NAME ) {
 			throw new IllegalStateException( "unexpected processing state: " + this.processingStates.getCurrent() );
@@ -401,6 +417,7 @@ public class StringJsonDocumentReader extends StringJsonDocument implements Json
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getStringValue() {
 		ensureValueState();
 		ensureAvailableValue();
@@ -412,6 +429,7 @@ public class StringJsonDocumentReader extends StringJsonDocument implements Json
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BigDecimal getBigDecimalValue() {
 		ensureValueState();
 		ensureAvailableValue();
@@ -419,6 +437,7 @@ public class StringJsonDocumentReader extends StringJsonDocument implements Json
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BigInteger getBigIntegerValue() {
 		ensureValueState();
 		ensureAvailableValue();
@@ -426,6 +445,7 @@ public class StringJsonDocumentReader extends StringJsonDocument implements Json
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public double getDoubleValue() {
 		ensureValueState();
 		ensureAvailableValue();
@@ -433,6 +453,7 @@ public class StringJsonDocumentReader extends StringJsonDocument implements Json
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public float getFloatValue() {
 		ensureValueState();
 		ensureAvailableValue();
@@ -440,6 +461,7 @@ public class StringJsonDocumentReader extends StringJsonDocument implements Json
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getLongValue() {
 		ensureValueState();
 		ensureAvailableValue();
@@ -447,6 +469,7 @@ public class StringJsonDocumentReader extends StringJsonDocument implements Json
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getIntegerValue() {
 		ensureValueState();
 		ensureAvailableValue();
@@ -454,6 +477,7 @@ public class StringJsonDocumentReader extends StringJsonDocument implements Json
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public short getShortValue() {
 		ensureValueState();
 		ensureAvailableValue();
@@ -461,6 +485,7 @@ public class StringJsonDocumentReader extends StringJsonDocument implements Json
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public byte getByteValue() {
 		ensureValueState();
 		ensureAvailableValue();
@@ -468,6 +493,7 @@ public class StringJsonDocumentReader extends StringJsonDocument implements Json
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean getBooleanValue() {
 		ensureValueState();
 		ensureAvailableValue();
@@ -475,6 +501,7 @@ public class StringJsonDocumentReader extends StringJsonDocument implements Json
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> T getValue(JavaType<T> javaType, WrapperOptions options) {
 		return javaType.fromEncodedString( this.jsonString.subSequence( this.jsonValueStart,this.jsonValueEnd ));
 	}
@@ -484,6 +511,7 @@ public class StringJsonDocumentReader extends StringJsonDocument implements Json
 	 *
 	 * @return <code>true</code> if escape is found
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private boolean currentValueHasEscape() {
 		for (int i = this.jsonValueStart; i<this.jsonValueEnd; i++) {
 			if (this.jsonString.charAt( i ) == '\\') return true;
@@ -498,6 +526,7 @@ public class StringJsonDocumentReader extends StringJsonDocument implements Json
 	 * @param end the end index within the string
 	 * @return the unescaped string
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static String unescape(String string, int start, int end) {
 		final StringBuilder sb = new StringBuilder( end - start );
 		for ( int i = start; i < end; i++ ) {

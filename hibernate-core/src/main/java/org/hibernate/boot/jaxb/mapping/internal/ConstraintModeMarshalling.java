@@ -5,6 +5,8 @@
 package org.hibernate.boot.jaxb.mapping.internal;
 
 import jakarta.persistence.ConstraintMode;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * JAXB marshalling for JPA's {@link ConstraintMode}
@@ -12,10 +14,12 @@ import jakarta.persistence.ConstraintMode;
  * @author Steve Ebersole
  */
 public class ConstraintModeMarshalling {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static ConstraintMode fromXml(String name) {
 		return name == null ? null : ConstraintMode.valueOf( name );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String toXml(ConstraintMode constraintMode) {
 		return constraintMode == null ? null : constraintMode.name();
 	}

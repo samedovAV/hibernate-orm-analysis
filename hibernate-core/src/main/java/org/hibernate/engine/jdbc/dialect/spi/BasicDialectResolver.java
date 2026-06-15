@@ -8,6 +8,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.dialect.Dialect;
 
 import static org.hibernate.engine.jdbc.dialect.spi.DialectResolutionInfo.NO_VERSION;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Intended as support for custom resolvers which match a single db name (with optional version info).
@@ -61,6 +63,7 @@ public class BasicDialectResolver implements DialectResolver {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final Dialect resolveDialect(DialectResolutionInfo info) {
 		final String databaseName = info.getDatabaseName();
 		final int databaseMajorVersion = info.getDatabaseMajorVersion();

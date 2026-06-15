@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.naming;
 
 import org.hibernate.boot.model.source.spi.AttributePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -12,6 +14,7 @@ import org.hibernate.boot.model.source.spi.AttributePath;
  */
 public interface ImplicitIndexColumnNameSource extends ImplicitNameSource {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	AttributePath getPluralAttributePath();
 
 }

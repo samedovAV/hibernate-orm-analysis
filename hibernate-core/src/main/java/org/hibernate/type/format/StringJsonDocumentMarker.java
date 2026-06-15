@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.type.format;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Enum class for JSON object markers.
@@ -24,10 +27,12 @@ public enum StringJsonDocumentMarker {
 	StringJsonDocumentMarker() {
 		this.val = 0;
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public char getMarkerCharacter() {
 		return this.val;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static StringJsonDocumentMarker markerOf(char ch) {
 		switch (ch) {
 			case ']':

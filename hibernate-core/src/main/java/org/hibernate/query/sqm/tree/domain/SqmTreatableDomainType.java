@@ -8,13 +8,17 @@ import jakarta.annotation.Nullable;
 import org.hibernate.Incubating;
 import org.hibernate.metamodel.model.domain.TreatableDomainType;
 import org.hibernate.query.sqm.SqmPathSource;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @Incubating
 public interface SqmTreatableDomainType<T>
 		extends TreatableDomainType<T>, SqmPathSource<T>, SqmManagedDomainType<T> {
 	@Override
-	@Nullable SqmDomainType<T> getSqmType();
+	@Nullable@Prove(complexity = Complexity.O_1, n = "", count = {})
+ SqmDomainType<T> getSqmType();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getTypeName();
 }

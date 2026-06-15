@@ -5,6 +5,8 @@
 package org.hibernate.query.criteria;
 
 import org.hibernate.Incubating;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A special expression for the {@code xmltable} function.
@@ -18,6 +20,7 @@ public interface JpaXmlTableFunction {
 	 *
 	 * @return The {@link JpaXmlTableColumnNode} for the column
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaXmlTableColumnNode<String> queryColumn(String columnName);
 
 	/**
@@ -26,6 +29,7 @@ public interface JpaXmlTableFunction {
 	 *
 	 * @return The {@link JpaXmlTableColumnNode} for the column
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaXmlTableColumnNode<String> queryColumn(String columnName, String xpath);
 
 	/**
@@ -33,6 +37,7 @@ public interface JpaXmlTableFunction {
 	 *
 	 * @return The {@link JpaXmlTableColumnNode} for the column
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> JpaXmlTableColumnNode<X> valueColumn(String columnName, Class<X> type);
 
 	/**
@@ -40,6 +45,7 @@ public interface JpaXmlTableFunction {
 	 *
 	 * @return The {@link JpaXmlTableColumnNode} for the column
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> JpaXmlTableColumnNode<X> valueColumn(String columnName, JpaCastTarget<X> castTarget);
 
 	/**
@@ -48,6 +54,7 @@ public interface JpaXmlTableFunction {
 	 *
 	 * @return The {@link JpaXmlTableColumnNode} for the column
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> JpaXmlTableColumnNode<X> valueColumn(String columnName, Class<X> type, String xpath);
 
 	/**
@@ -55,6 +62,7 @@ public interface JpaXmlTableFunction {
 	 *
 	 * @return The {@link JpaXmlTableColumnNode} for the column
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> JpaXmlTableColumnNode<X> valueColumn(String columnName, JpaCastTarget<X> castTarget, String xpath);
 
 	/**
@@ -63,5 +71,6 @@ public interface JpaXmlTableFunction {
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaXmlTableFunction ordinalityColumn(String columnName);
 }

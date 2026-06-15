@@ -14,6 +14,8 @@ import org.hibernate.boot.models.xml.spi.XmlDocumentContext;
 import org.hibernate.internal.util.StringHelper;
 import org.hibernate.internal.util.collections.CollectionHelper;
 import org.hibernate.models.spi.ClassDetails;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -21,6 +23,7 @@ import org.hibernate.models.spi.ClassDetails;
 public class FilterProcessing {
 	private static final SqlFragmentAlias[] NO_ALIASES = new SqlFragmentAlias[0];
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static SqlFragmentAlias[] collectSqlFragmentAliases(
 			List<JaxbFilterImpl.JaxbAliasesImpl> jaxbAliases,
 			XmlDocumentContext xmlDocumentContext) {

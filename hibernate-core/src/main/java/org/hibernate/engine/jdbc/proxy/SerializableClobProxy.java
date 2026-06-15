@@ -13,6 +13,8 @@ import java.sql.Clob;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Internal;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Manages aspects of proxying {@link Clob}s to add serializability.
@@ -42,6 +44,7 @@ public class SerializableClobProxy implements InvocationHandler, Serializable {
 	 *
 	 * @return The wrapped Clob reference
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Clob getWrappedClob() {
 		if ( clob == null ) {
 			throw new IllegalStateException( "Clobs may not be accessed after serialization" );
@@ -52,6 +55,7 @@ public class SerializableClobProxy implements InvocationHandler, Serializable {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 		if ( "getWrappedClob".equals( method.getName() ) ) {
 			return getWrappedClob();
@@ -73,6 +77,7 @@ public class SerializableClobProxy implements InvocationHandler, Serializable {
 	 * @param clob The Clob to wrap.
 	 * @return The generated proxy.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Clob generateProxy(Clob clob) {
 		return (Clob) Proxy.newProxyInstance( getProxyClassLoader(), PROXY_INTERFACES, new SerializableClobProxy( clob ) );
 	}
@@ -83,6 +88,7 @@ public class SerializableClobProxy implements InvocationHandler, Serializable {
 	 *
 	 * @return The class loader appropriate for proxy construction.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static ClassLoader getProxyClassLoader() {
 		return WrappedClob.class.getClassLoader();
 	}

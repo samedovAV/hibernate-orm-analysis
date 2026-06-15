@@ -15,6 +15,8 @@ import org.hibernate.sql.model.MutationOperation;
 import org.hibernate.sql.model.MutationTarget;
 import org.hibernate.sql.model.TableMapping;
 import org.hibernate.sql.model.jdbc.JdbcUpdateMutation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base support for TableUpdate implementations
@@ -64,6 +66,7 @@ public abstract class AbstractTableUpdate<O extends MutationOperation>
 		this.valueBindings = valueBindings;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static List<ColumnValueParameter> collectParameters(
 			List<ColumnValueBinding> valueBindings,
 			List<ColumnValueBinding> keyRestrictionBindings,
@@ -85,26 +88,31 @@ public abstract class AbstractTableUpdate<O extends MutationOperation>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getLoggableName() {
 		return "TableUpdate";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Expectation getExpectation() {
 		return getMutatingTable().getTableMapping().getUpdateDetails().getExpectation();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<ColumnValueBinding> getValueBindings() {
 		return valueBindings;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void forEachValueBinding(BiConsumer<Integer, ColumnValueBinding> consumer) {
 		forEachThing( valueBindings, consumer );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void forEachParameter(Consumer<ColumnValueParameter> consumer) {
 		final BiConsumer<Integer,ColumnValueBinding> intermediateConsumer = (index, binding) -> {
 			for ( ColumnValueParameter parameter : binding.getValueExpression().getParameters() ) {
@@ -118,6 +126,7 @@ public abstract class AbstractTableUpdate<O extends MutationOperation>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected O createMutationOperation(TableMapping tableDetails, String sql, List<JdbcParameterBinder> effectiveBinders) {
 		//noinspection unchecked
 		return (O) new JdbcUpdateMutation(

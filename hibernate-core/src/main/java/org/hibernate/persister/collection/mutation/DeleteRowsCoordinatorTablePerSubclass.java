@@ -19,6 +19,8 @@ import org.hibernate.sql.model.MutationType;
 
 import static org.hibernate.sql.model.ModelMutationLogging.MODEL_MUTATION_LOGGER;
 import static org.hibernate.sql.model.internal.MutationOperationGroupFactory.singleOperation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * OneToMany delete coordinator if the element is a {@link org.hibernate.persister.entity.UnionSubclassEntityPersister}.
@@ -46,11 +48,13 @@ public class DeleteRowsCoordinatorTablePerSubclass implements DeleteRowsCoordina
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionMutationTarget getMutationTarget() {
 		return mutationTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void deleteRows(PersistentCollection<?> collection, Object key, SharedSessionContractImplementor session) {
 		if ( MODEL_MUTATION_LOGGER.isTraceEnabled() ) {
 			MODEL_MUTATION_LOGGER.deletingRemovedCollectionRows( mutationTarget.getRolePath(), key );
@@ -112,6 +116,7 @@ public class DeleteRowsCoordinatorTablePerSubclass implements DeleteRowsCoordina
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private SubclassEntry getSubclassEntry(EntityPersister elementPersister) {
 		final int subclassId = elementPersister.getSubclassId();
 		final var subclassEntry = subclassEntries[subclassId];
@@ -126,6 +131,7 @@ public class DeleteRowsCoordinatorTablePerSubclass implements DeleteRowsCoordina
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private MutationOperationGroup createOperationGroup(EntityPersister elementPersister) {
 		assert mutationTarget.getTargetPart() != null
 			&&  mutationTarget.getTargetPart().getKeyDescriptor() != null;

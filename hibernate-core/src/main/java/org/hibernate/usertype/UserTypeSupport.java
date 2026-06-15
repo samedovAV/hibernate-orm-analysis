@@ -10,6 +10,8 @@ import org.hibernate.type.descriptor.java.BasicJavaType;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
 import org.hibernate.type.spi.TypeConfiguration;
 import org.hibernate.type.spi.TypeConfigurationAware;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -26,6 +28,7 @@ public class UserTypeSupport<T> extends BaseUserTypeSupport<T> implements TypeCo
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void resolve(BiConsumer<BasicJavaType<T>, JdbcType> resolutionConsumer) {
 		assert typeConfiguration != null;
 		final var descriptor =
@@ -40,11 +43,13 @@ public class UserTypeSupport<T> extends BaseUserTypeSupport<T> implements TypeCo
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TypeConfiguration getTypeConfiguration() {
 		return typeConfiguration;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setTypeConfiguration(TypeConfiguration typeConfiguration) {
 		this.typeConfiguration = typeConfiguration;
 	}

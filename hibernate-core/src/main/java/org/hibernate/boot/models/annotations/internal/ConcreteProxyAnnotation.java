@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.hibernate.annotations.ConcreteProxy;
 import org.hibernate.models.spi.ModelsContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -33,6 +35,7 @@ public class ConcreteProxyAnnotation implements ConcreteProxy {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return ConcreteProxy.class;
 	}

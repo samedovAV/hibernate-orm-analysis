@@ -5,6 +5,8 @@
 package org.hibernate.generator;
 
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A generator that is called to produce a value just before a row is written to the database.
@@ -43,9 +45,11 @@ public interface BeforeExecutionGenerator extends Generator {
 	 * @param eventType    The type of event that has triggered generation of a new value
 	 * @return The generated value
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object generate(SharedSessionContractImplementor session, Object owner, Object currentValue, EventType eventType);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean generatedOnExecution() {
 		return false;
 	}

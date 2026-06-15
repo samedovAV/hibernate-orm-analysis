@@ -20,6 +20,8 @@ import org.hibernate.sql.results.graph.DomainResultCreationState;
 import org.hibernate.sql.results.graph.basic.BasicResult;
 import org.hibernate.type.BasicType;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -36,6 +38,7 @@ public class EmbeddableTypeLiteral
 		this.basicType = basicType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getEmbeddableClass() {
 		return embeddableClass;
 	}
@@ -44,51 +47,61 @@ public class EmbeddableTypeLiteral
 	// BasicValuedMapping
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MappingModelExpressible<?> getExpressionType() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcMapping getJdbcMapping() {
 		return basicType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MappingType getMappedType() {
 		return basicType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int getJdbcTypeCount() {
 		return basicType.getJdbcTypeCount();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcMapping getJdbcMapping(int index) {
 		return basicType.getJdbcMapping( index );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcMapping getSingleJdbcMapping() {
 		return basicType.getSingleJdbcMapping();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int forEachJdbcType(int offset, IndexedConsumer<JdbcMapping> action) {
 		return basicType.forEachJdbcType( offset, action );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object disassemble(Object value, SharedSessionContractImplementor session) {
 		return basicType.disassemble( value, session );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void addToCacheKey(MutableCacheKeyBuilder cacheKey, Object value, SharedSessionContractImplementor session) {
 		basicType.addToCacheKey( cacheKey, value, session );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <X, Y> int forEachDisassembledJdbcValue(
 			Object value,
 			int offset,
@@ -100,6 +113,7 @@ public class EmbeddableTypeLiteral
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <X, Y> int forEachJdbcValue(
 			Object value,
 			int offset,
@@ -115,11 +129,13 @@ public class EmbeddableTypeLiteral
 	// DomainResultProducer
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applySqlSelections(DomainResultCreationState creationState) {
 		createSqlSelection( creationState );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResult<Object> createDomainResult(String resultVariable, DomainResultCreationState creationState) {
 		return new BasicResult<>(
 				createSqlSelection( creationState ).getValuesArrayPosition(),
@@ -128,6 +144,7 @@ public class EmbeddableTypeLiteral
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private SqlSelection createSqlSelection(DomainResultCreationState creationState) {
 		return creationState.getSqlAstCreationState().getSqlExpressionResolver().resolveSqlSelection(
 				this,
@@ -138,11 +155,13 @@ public class EmbeddableTypeLiteral
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker sqlTreeWalker) {
 		sqlTreeWalker.visitEmbeddableTypeLiteral( this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JavaType getExpressibleJavaType() {
 		return basicType.getExpressibleJavaType();
 	}

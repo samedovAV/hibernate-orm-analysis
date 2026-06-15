@@ -15,6 +15,8 @@ import org.hibernate.boot.model.source.spi.SizeSource;
 
 import static java.util.Collections.addAll;
 import static org.hibernate.internal.util.StringHelper.splitAtCommas;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -67,36 +69,43 @@ class ColumnSourceImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Nature getNature() {
 		return Nature.COLUMN;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getName() {
 		return columnElement.getName();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Boolean isNullable() {
 		return nullable;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getDefaultValue() {
 		return columnElement.getDefault();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getSqlType() {
 		return columnElement.getSqlType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcDataType getDatatype() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SizeSource getSizeSource() {
 		return Helper.interpretSizeSource(
 				columnElement.getLength(),
@@ -106,46 +115,55 @@ class ColumnSourceImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getReadFragment() {
 		return columnElement.getRead();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getWriteFragment() {
 		return columnElement.getWrite();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isUnique() {
 		return columnElement.isUnique() != null
 			&& columnElement.isUnique();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getCheckCondition() {
 		return columnElement.getCheck();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getComment() {
 		return columnElement.getComment();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getContainingTableName() {
 		return tableName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Set<String> getIndexConstraintNames() {
 		return indexConstraintNames;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Set<String> getUniqueKeyConstraintNames() {
 		return ukConstraintNames;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Set<String> splitAndCombine(Set<String> stringSet, String values) {
 		if ( values == null || values.isEmpty() ) {
 			return stringSet;

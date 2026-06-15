@@ -6,6 +6,8 @@ package org.hibernate.boot.models.annotations.spi;
 
 import org.hibernate.boot.jaxb.mapping.spi.JaxbFilterImpl;
 import org.hibernate.boot.models.xml.spi.XmlDocumentContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Commonality for filter annotations
@@ -16,5 +18,6 @@ import org.hibernate.boot.models.xml.spi.XmlDocumentContext;
  * @author Steve Ebersole
  */
 public interface FilterDetails {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void apply(JaxbFilterImpl jaxbFilter, XmlDocumentContext xmlDocumentContext);
 }

@@ -7,6 +7,8 @@ package org.hibernate.usertype;
 import java.util.Comparator;
 
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A user type that may be used for a version property
@@ -22,6 +24,7 @@ public interface UserVersionType<T> extends UserType<T>, Comparator<T> {
 	 * the "unsaved value" of entities.
 	 * @return an instance of the type
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	T seed(SharedSessionContractImplementor session);
 
 	/**
@@ -31,5 +34,6 @@ public interface UserVersionType<T> extends UserType<T>, Comparator<T> {
 	 * @param current the current version
 	 * @return an instance of the type
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	T next(T current, SharedSessionContractImplementor session);
 }

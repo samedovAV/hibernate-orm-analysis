@@ -5,6 +5,8 @@
 package org.hibernate.jpa.spi;
 
 import org.hibernate.Transaction;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Encapsulates settings controlling whether Hibernate complies strictly
@@ -27,6 +29,7 @@ public interface JpaCompliance {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#JPA_QUERY_COMPLIANCE
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isJpaQueryComplianceEnabled();
 
 	/**
@@ -38,6 +41,7 @@ public interface JpaCompliance {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#JPA_TRANSACTION_COMPLIANCE
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isJpaTransactionComplianceEnabled();
 
 	/**
@@ -54,6 +58,7 @@ public interface JpaCompliance {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#JPA_CLOSED_COMPLIANCE
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isJpaClosedComplianceEnabled();
 
 	/**
@@ -72,6 +77,7 @@ public interface JpaCompliance {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#JPA_PROXY_COMPLIANCE
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isJpaProxyComplianceEnabled();
 
 	/**
@@ -87,6 +93,7 @@ public interface JpaCompliance {
 	 * @see org.hibernate.cfg.AvailableSettings#JPA_CACHING_COMPLIANCE
 	 * @see org.hibernate.persister.entity.AbstractEntityPersister#isCacheInvalidationRequired()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isJpaCacheComplianceEnabled();
 
 	/**
@@ -98,6 +105,7 @@ public interface JpaCompliance {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#JPA_ID_GENERATOR_GLOBAL_SCOPE_COMPLIANCE
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isGlobalGeneratorScopeEnabled();
 
 	/**
@@ -109,6 +117,7 @@ public interface JpaCompliance {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#JPA_ORDER_BY_MAPPING_COMPLIANCE
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isJpaOrderByMappingComplianceEnabled();
 
 	/**
@@ -129,6 +138,7 @@ public interface JpaCompliance {
 	 *
 	 * @since 6.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isLoadByIdComplianceEnabled();
 
 }

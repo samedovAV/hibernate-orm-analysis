@@ -22,6 +22,8 @@ import org.hibernate.sql.ast.tree.expression.Expression;
 import org.hibernate.type.BottomType;
 
 import static org.hibernate.query.sqm.internal.TypecheckUtil.areTypesComparable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class ArrayConstructorFunction extends AbstractSqmSelfRenderingFunctionDescriptor {
 
@@ -40,6 +42,7 @@ public class ArrayConstructorFunction extends AbstractSqmSelfRenderingFunctionDe
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> arguments,
@@ -71,6 +74,7 @@ public class ArrayConstructorFunction extends AbstractSqmSelfRenderingFunctionDe
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public void validate(
 				List<? extends SqmTypedNode<?>> arguments,
 				String functionName,
@@ -96,6 +100,7 @@ public class ArrayConstructorFunction extends AbstractSqmSelfRenderingFunctionDe
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public void validateSqlTypes(List<? extends SqlAstNode> arguments, String functionName) {
 			final int size = arguments.size();
 			JdbcMappingContainer firstType = null;

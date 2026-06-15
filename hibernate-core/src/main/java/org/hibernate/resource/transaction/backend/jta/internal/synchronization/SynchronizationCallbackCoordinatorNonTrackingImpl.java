@@ -6,6 +6,8 @@ package org.hibernate.resource.transaction.backend.jta.internal.synchronization;
 
 import static org.hibernate.engine.transaction.internal.jta.JtaStatusHelper.isCommitted;
 import static org.hibernate.resource.transaction.backend.jta.internal.JtaLogging.JTA_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Manages callbacks from the {@link jakarta.transaction.Synchronization} registered by Hibernate.
@@ -21,10 +23,12 @@ public class SynchronizationCallbackCoordinatorNonTrackingImpl implements Synchr
 		reset();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void reset() {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void synchronizationRegistered() {
 		// Nothing to do here
 	}
@@ -32,6 +36,7 @@ public class SynchronizationCallbackCoordinatorNonTrackingImpl implements Synchr
 	// sync callbacks ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void beforeCompletion() {
 		JTA_LOGGER.synchronizationCoordinatorBeforeCompletion();
 		if ( target.isActive() ) {
@@ -40,11 +45,13 @@ public class SynchronizationCallbackCoordinatorNonTrackingImpl implements Synchr
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void afterCompletion(int status) {
 		JTA_LOGGER.synchronizationCoordinatorAfterCompletion( status );
 		doAfterCompletion( isCommitted( status ), false );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void doAfterCompletion(boolean successful, boolean delayed) {
 		JTA_LOGGER.synchronizationCoordinatorDoAfterCompletion( successful, delayed );
 		try {
@@ -56,6 +63,7 @@ public class SynchronizationCallbackCoordinatorNonTrackingImpl implements Synchr
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void processAnyDelayedAfterCompletion() {
 	}
 }

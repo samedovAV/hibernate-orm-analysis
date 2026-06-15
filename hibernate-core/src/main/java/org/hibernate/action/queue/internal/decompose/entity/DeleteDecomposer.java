@@ -14,6 +14,8 @@ import org.hibernate.sql.model.ast.TableMutation;
 
 import java.util.Map;
 import java.util.function.Consumer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Decomposer contract for entity delete actions.
 ///
@@ -28,10 +30,12 @@ public interface DeleteDecomposer extends EntityActionDecomposer<EntityDeleteAct
 	/// Static set of table mutations used to perform the entity delete.
 	/// These may come from [org.hibernate.action.queue.spi.decompose.entity.EntityMutationPlanContributor] for certain
 	/// [org.hibernate.persister.state.spi.StateManagement] strategies.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Map<String, ? extends TableMutation<?>> getStaticDeleteOperations();
 
 	/// Decompose the delete action into one-or-more [operations][FlushOperation].
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void decompose(
 			EntityDeleteAction action,
 			int ordinalBase,

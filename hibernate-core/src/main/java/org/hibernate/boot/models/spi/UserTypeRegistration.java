@@ -5,6 +5,8 @@
 package org.hibernate.boot.models.spi;
 
 import org.hibernate.models.spi.ClassDetails;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Registration for a {@linkplain org.hibernate.usertype.UserType}
@@ -22,10 +24,12 @@ public class UserTypeRegistration {
 		this.userTypeClass = userTypeClass;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ClassDetails getDomainClass() {
 		return domainClass;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ClassDetails getUserTypeClass() {
 		return userTypeClass;
 	}

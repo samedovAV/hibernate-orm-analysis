@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.dialect.pagination;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * A {@link LimitHandler} for DB2 11.1 which supports the
@@ -22,6 +25,7 @@ public class DB2LimitHandler extends OffsetFetchLimitHandler {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String insert(String offsetFetch, String sql) {
 		//on DB2, offset/fetch comes after all the
 		//various "for update"ish clauses

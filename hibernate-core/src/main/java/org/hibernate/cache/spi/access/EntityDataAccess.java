@@ -10,6 +10,8 @@ import org.hibernate.cache.CacheException;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.persister.entity.EntityPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for managing transactional and concurrent access to cached entity
@@ -39,6 +41,7 @@ public interface EntityDataAccess extends CachedDomainDataAccess {
 	 * todo (6.0) : the access for an entity knows the entity hierarchy and the factory.  why pass them in?
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object generateCacheKey(
 			Object id,
 			EntityPersister rootEntityDescriptor,
@@ -51,6 +54,7 @@ public interface EntityDataAccess extends CachedDomainDataAccess {
 	 * @param cacheKey key previously returned from {@link #generateCacheKey}
 	 * @return original id passed to {@link #generateCacheKey}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getCacheKeyId(Object cacheKey);
 
 	/**
@@ -65,6 +69,7 @@ public interface EntityDataAccess extends CachedDomainDataAccess {
 	 * @return Were the contents of the cache actually changed by this operation?
 	 * @throws CacheException Propagated from underlying cache provider
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean insert(SharedSessionContractImplementor session, Object key, Object value, Object version);
 
 	/**
@@ -78,6 +83,7 @@ public interface EntityDataAccess extends CachedDomainDataAccess {
 	 * @return Were the contents of the cache actual changed by this operation?
 	 * @throws CacheException Propagated from underlying cache provider
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean afterInsert(SharedSessionContractImplementor session, Object key, Object value, Object version);
 
 	/**
@@ -93,6 +99,7 @@ public interface EntityDataAccess extends CachedDomainDataAccess {
 	 * @return Were the contents of the cache actually changed by this operation?
 	 * @throws CacheException Propagated from underlying cache provider
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean update(
 			SharedSessionContractImplementor session,
 			Object key,
@@ -113,6 +120,7 @@ public interface EntityDataAccess extends CachedDomainDataAccess {
 	 * @return Were the contents of the cache actually changed by this operation?
 	 * @throws CacheException Propagated from underlying cache provider
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean afterUpdate(
 			SharedSessionContractImplementor session,
 			Object key,

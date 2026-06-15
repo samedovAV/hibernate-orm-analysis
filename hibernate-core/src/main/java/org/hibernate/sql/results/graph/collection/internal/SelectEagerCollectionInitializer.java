@@ -14,6 +14,8 @@ import org.hibernate.sql.results.graph.InitializerParent;
 import jakarta.annotation.Nullable;
 
 import static org.hibernate.internal.log.LoggingHelper.toLoggableString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Andrea Boriero
@@ -40,16 +42,19 @@ public class SelectEagerCollectionInitializer
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void resolveInstance(CollectionInitializerData data) {
 		resolveInstance( data, true );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void resolveInstance(@Nullable Object instance, CollectionInitializerData data) {
 		resolveInstance( instance, data, true );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void initializeInstanceFromParent(Object parentInstance, CollectionInitializerData data) {
 		final Object instance = getInitializedPart().getValue( parentInstance );
 		if ( instance == null ) {
@@ -70,6 +75,7 @@ public class SelectEagerCollectionInitializer
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "SelectEagerCollectionInitializer(" + toLoggableString( getNavigablePath() ) + ")";
 	}

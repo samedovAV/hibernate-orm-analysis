@@ -15,6 +15,8 @@ import org.hibernate.sql.results.graph.FetchParent;
 import org.hibernate.sql.results.graph.Fetchable;
 import org.hibernate.sql.results.graph.basic.BasicFetch;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Mapping of a discriminator, for either {@linkplain EntityMappingType#getDiscriminatorMapping() entity} or
@@ -31,6 +33,7 @@ public interface DiscriminatorMapping extends VirtualModelPart, BasicValuedModel
 	/**
 	 * Information about the value mappings
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	DiscriminatorConverter<?,?> getValueConverter();
 
 	/**
@@ -38,16 +41,19 @@ public interface DiscriminatorMapping extends VirtualModelPart, BasicValuedModel
 	 *
 	 * @throws HibernateException if there is value matching the provided one
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default DiscriminatorValueDetails resolveDiscriminatorValue(Object discriminatorValue) {
 		return getValueConverter().getDetailsForDiscriminatorValue( discriminatorValue );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcMapping getUnderlyingJdbcMapping();
 
 	/**
 	 * The domain Java form, which is either {@code JavaType<Class>} (entity class)
 	 * or {@code JavaType<String>} (entity name).
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default JavaType<?> getDomainJavaType() {
 		return getValueConverter().getDomainJavaType();
 	}
@@ -56,6 +62,7 @@ public interface DiscriminatorMapping extends VirtualModelPart, BasicValuedModel
 	 * The relational Java form.  This will typically be some form of integer
 	 * or character value.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default JavaType<?> getRelationalJavaType() {
 		return getValueConverter().getRelationalJavaType();
 	}
@@ -66,6 +73,7 @@ public interface DiscriminatorMapping extends VirtualModelPart, BasicValuedModel
 	 * @param jdbcMappingToUse The JDBC mapping to use.  This allows opting between
 	 * the "domain result type" (aka Class) and the "underlying type" (Integer, String, etc)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Expression resolveSqlExpression(
 			NavigablePath navigablePath,
 			JdbcMapping jdbcMappingToUse,
@@ -73,6 +81,7 @@ public interface DiscriminatorMapping extends VirtualModelPart, BasicValuedModel
 			SqlAstCreationState creationState);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	BasicFetch<?> generateFetch(
 			FetchParent fetchParent,
 			NavigablePath fetchablePath,

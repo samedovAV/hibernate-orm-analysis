@@ -16,6 +16,8 @@ import org.hibernate.sql.model.TableMapping;
 import org.hibernate.sql.model.ast.ColumnValueBinding;
 import org.hibernate.sql.model.ast.MutatingTableReference;
 import org.hibernate.sql.model.ast.TableInsert;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base support for TableInsertBuilder implementations
@@ -46,23 +48,28 @@ public abstract class AbstractTableInsertBuilder
 		this.sqlComment = "insert for " + mutationTarget.getRolePath();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSqlComment() {
 		return sqlComment;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setSqlComment(String sqlComment) {
 		this.sqlComment = sqlComment;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected List<ColumnValueBinding> getValueBindingList() {
 		return valueBindingList;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected List<ColumnValueBinding> getLobValueBindingList() {
 		return lobValueBindingList;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addColumnAssignment(ColumnValueBinding valueBinding) {
 		if ( hasColumnAssignment( valueBinding ) ) {
 			return;
@@ -80,28 +87,33 @@ public abstract class AbstractTableInsertBuilder
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void addColumnAssignment(SelectableMapping columnMapping) {
 		addColumnAssignment( columnMapping, columnMapping.getWriteExpression() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void addColumnAssignment(SelectableMapping columnMapping, String assignment) {
 		addColumnAssignment( createValueBinding( assignment, columnMapping ) );
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasAssignmentBindings() {
 		return !valueBindingList.isEmpty() || CollectionHelper.isNotEmpty( lobValueBindingList );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasColumnAssignment(SelectableMapping selectableMapping) {
 		return valueBindingList.stream().anyMatch( binding -> binding.matches( selectableMapping ) )
 			|| lobValueBindingList != null
 					&& lobValueBindingList.stream().anyMatch( binding -> binding.matches( selectableMapping ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean hasColumnAssignment(ColumnValueBinding valueBinding) {
 		return valueBindingList.stream().anyMatch( binding -> binding.equals( valueBinding ) )
 			|| lobValueBindingList != null

@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 
 import static java.util.Collections.unmodifiableMap;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Metadata about the tuple structure.
@@ -32,6 +34,7 @@ public final class TupleMetadata {
 		this.aliases = aliases;
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public Integer get(TupleElement<?> element) {
 		if ( elementIndex == null ) {
 			final Map<TupleElement<?>, Integer> map = new IdentityHashMap<>( elements.length );
@@ -43,6 +46,7 @@ public final class TupleMetadata {
 		return elementIndex.get( element );
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public Integer get(String name) {
 		if ( nameIndex == null ) {
 			final Map<String, Integer> map = new HashMap<>( aliases.length );
@@ -54,6 +58,7 @@ public final class TupleMetadata {
 		return nameIndex.get( name );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<TupleElement<?>> getList() {
 		if ( list == null ) {
 			list = List.of( elements );
@@ -61,6 +66,7 @@ public final class TupleMetadata {
 		return list;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<String> getAliases() {
 		if ( aliasList != null ) {
 			aliasList = List.of( aliases );

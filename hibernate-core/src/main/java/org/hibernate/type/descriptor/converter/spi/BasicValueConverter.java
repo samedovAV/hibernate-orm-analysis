@@ -8,6 +8,8 @@ import org.hibernate.Incubating;
 import org.hibernate.type.descriptor.java.JavaType;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Support for {@linkplain org.hibernate.type basic-typed} value conversions.
@@ -28,21 +30,25 @@ public interface BasicValueConverter<D,R> {
 	 * Convert the relational form just retrieved from JDBC ResultSet into
 	 * the domain form.
 	 */
-	@Nullable D toDomainValue(@Nullable R relationalForm);
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	D toDomainValue(@Nullable R relationalForm);
 
 	/**
 	 * Convert the domain form into the relational form in preparation for
 	 * storage into JDBC
 	 */
-	@Nullable R toRelationalValue(@Nullable D domainForm);
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	R toRelationalValue(@Nullable D domainForm);
 
 	/**
 	 * Descriptor for the Java type for the domain portion of this converter
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JavaType<D> getDomainJavaType();
 
 	/**
 	 * Descriptor for the Java type for the relational portion of this converter
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JavaType<R> getRelationalJavaType();
 }

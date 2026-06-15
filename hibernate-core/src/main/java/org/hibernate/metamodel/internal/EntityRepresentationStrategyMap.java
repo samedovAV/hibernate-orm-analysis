@@ -23,6 +23,8 @@ import org.hibernate.proxy.map.MapProxyFactory;
 import org.hibernate.type.descriptor.java.JavaType;
 
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -47,6 +49,7 @@ public class EntityRepresentationStrategyMap implements EntityRepresentationStra
 		createProxyFactory( bootType );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static ProxyFactory createProxyFactory(PersistentClass bootType) {
 		try {
 			final var proxyFactory = new MapProxyFactory();
@@ -67,16 +70,19 @@ public class EntityRepresentationStrategyMap implements EntityRepresentationStra
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public RepresentationMode getMode() {
 		return RepresentationMode.MAP;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ReflectionOptimizer getReflectionOptimizer() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PropertyAccess resolvePropertyAccess(Property bootAttributeDescriptor) {
 		return PropertyAccessStrategyMapImpl.INSTANCE.buildPropertyAccess(
 				null,
@@ -85,26 +91,31 @@ public class EntityRepresentationStrategyMap implements EntityRepresentationStra
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityInstantiator getInstantiator() {
 		return instantiator;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ProxyFactory getProxyFactory() {
 		return proxyFactory;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<?> getMappedJavaType() {
 		return mapJavaType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<?> getProxyJavaType() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void visitEntityNameResolvers(Consumer<EntityNameResolver> consumer) {
 		consumer.accept( EntityInstantiatorDynamicMap.ENTITY_NAME_RESOLVER );
 	}

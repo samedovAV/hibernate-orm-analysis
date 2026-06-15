@@ -17,6 +17,8 @@ import static org.hibernate.collection.spi.AbstractPersistentCollection.checkPer
 import static org.hibernate.event.internal.EventListenerLogging.EVENT_LISTENER_LOGGER;
 import static org.hibernate.loader.internal.CacheLoadHelper.initializeCollectionFromCache;
 import static org.hibernate.pretty.MessageHelper.collectionInfoString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gavin King
@@ -27,6 +29,7 @@ public class DefaultInitializeCollectionEventListener implements InitializeColle
 	 * called by a collection that wants to initialize itself
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void onInitializeCollection(InitializeCollectionEvent event) throws HibernateException {
 		final var collection = event.getCollection();
 		final var source = event.getSession();
@@ -62,6 +65,7 @@ public class DefaultInitializeCollectionEventListener implements InitializeColle
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void handlePotentiallyEmptyCollection(
 			PersistentCollection<?> collection,
 			PersistenceContext persistenceContext,
@@ -91,6 +95,7 @@ public class DefaultInitializeCollectionEventListener implements InitializeColle
 	 * @return true if we were able to initialize the collection from the cache;
 	 *         false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean initializeFromCache(
 			Object id,
 			CollectionPersister persister,

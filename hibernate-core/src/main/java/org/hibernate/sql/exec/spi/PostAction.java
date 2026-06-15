@@ -8,6 +8,8 @@ import jakarta.annotation.Nullable;
 import org.hibernate.Incubating;
 
 import java.sql.Connection;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An action to be performed after a {@linkplain PrimaryOperation}.
@@ -27,11 +29,13 @@ public interface PostAction extends SecondaryAction {
 	 * @param executionContext Access to contextual information useful while executing.
 	 * @param loadedValuesCollector Access to the collector of values loaded as part of the primary operation.  This is useful for post-actions that need to know what was loaded in order to perform their work.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void performPostAction(StatementAccess jdbcStatementAccess, Connection jdbcConnection, ExecutionContext executionContext, @Nullable LoadedValuesCollector loadedValuesCollector);
 
 	/**
 	 * Should this post-action always be run even if the primary operation fails?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean shouldRunAfterFail() {
 		return false;
 	}

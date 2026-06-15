@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.Set;
 
 import org.hibernate.pretty.MessageHelper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * {@code MergeContext} is a specialized {@link Map} implementation used by a
@@ -99,6 +101,7 @@ public class MergeContext implements Map<Object,Object> {
 	/**
 	 * Clears the MergeContext.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void clear() {
 		mergeToManagedEntityXref.clear();
 		managedToMergeEntityXref.clear();
@@ -113,6 +116,7 @@ public class MergeContext implements Map<Object,Object> {
 	 * @return true if this MergeContext contains a cross-reference for the specified merge entity
 	 * @throws NullPointerException if mergeEntity is null
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean containsKey(Object mergeEntity) {
 		if ( mergeEntity == null ) {
 			throw new NullPointerException( "null entities are not supported by " + getClass().getName() );
@@ -128,6 +132,7 @@ public class MergeContext implements Map<Object,Object> {
 	 * to a merge entity
 	 * @throws NullPointerException if managedEntity is null
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean containsValue(Object managedEntity) {
 		if ( managedEntity == null ) {
 			throw new NullPointerException( "null copies are not supported by " + getClass().getName() );
@@ -141,6 +146,7 @@ public class MergeContext implements Map<Object,Object> {
 	 *
 	 * @see Collections#unmodifiableSet(Set)
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Set<Map.Entry<Object,Object>> entrySet() {
 		return Collections.unmodifiableSet( mergeToManagedEntityXref.entrySet() );
 	}
@@ -151,6 +157,7 @@ public class MergeContext implements Map<Object,Object> {
 	 * @return  the managed entity associated with the specified merge Entity
 	 * @throws NullPointerException if mergeEntity is null
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object get(Object mergeEntity) {
 		if ( mergeEntity == null ) {
 			throw new NullPointerException( "null entities are not supported by " + getClass().getName() );
@@ -162,6 +169,7 @@ public class MergeContext implements Map<Object,Object> {
 	 * Returns true if this MergeContext contains no merge-to-managed entity cross-references.
 	 * @return true if this MergeContext contains no merge-to-managed entity cross-references.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isEmpty() {
 		return mergeToManagedEntityXref.isEmpty();
 	}
@@ -172,6 +180,7 @@ public class MergeContext implements Map<Object,Object> {
 	 *
 	 * @see Collections#unmodifiableSet(Set)
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Set<Object> keySet() {
 		return Collections.unmodifiableSet( mergeToManagedEntityXref.keySet() );
 	}
@@ -195,6 +204,7 @@ public class MergeContext implements Map<Object,Object> {
 	 * managed entity associated with <code>merge entity</code>
 	 * @throws IllegalStateException if internal cross-references are out of sync,
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object put(Object mergeEntity, Object managedEntity) {
 		return put( mergeEntity, managedEntity, Boolean.FALSE );
 	}
@@ -216,6 +226,7 @@ public class MergeContext implements Map<Object,Object> {
 	 * managed entity associated with {@code mergeEntity}
 	 * @throws IllegalStateException if internal cross-references are out of sync,
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object put(Object mergeEntity, Object managedEntity, boolean isOperatedOn) {
 		if ( mergeEntity == null || managedEntity == null ) {
 			throw new NullPointerException( "null merge and managed entities are not supported by " + getClass().getName() );
@@ -274,6 +285,7 @@ public class MergeContext implements Map<Object,Object> {
 	 * but associated value in <code>map</code> is different from the previous value in this MergeContext.
 	 * @throws IllegalStateException if internal cross-references are out of sync,
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void putAll(Map<?,?> map) {
 		for ( var entry : map.entrySet() ) {
 			put( entry.getKey(), entry.getValue() );
@@ -285,6 +297,7 @@ public class MergeContext implements Map<Object,Object> {
 	 * @param mergeEntity the merge entity.
 	 * @throws UnsupportedOperationException if called.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object remove(Object mergeEntity) {
 		throw new UnsupportedOperationException(
 				String.format( "Operation not supported: %s.remove()", getClass().getName() )
@@ -295,6 +308,7 @@ public class MergeContext implements Map<Object,Object> {
 	 * Returns the number of merge-to-managed entity cross-references in this MergeContext
 	 * @return the number of merge-to-managed entity cross-references in this MergeContext
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int size() {
 		return mergeToManagedEntityXref.size();
 	}
@@ -305,6 +319,7 @@ public class MergeContext implements Map<Object,Object> {
 	 *
 	 * @see Collections#unmodifiableSet(Set)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Collection<Object> values() {
 		return Collections.unmodifiableSet( managedToMergeEntityXref.keySet() );
 	}
@@ -316,6 +331,7 @@ public class MergeContext implements Map<Object,Object> {
 	 * false, if there is no mapping for mergeEntity.
 	 * @throws NullPointerException if mergeEntity is null
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isOperatedOn(Object mergeEntity) {
 		if ( mergeEntity == null ) {
 			throw new NullPointerException( "null merge entities are not supported by " + getClass().getName() );
@@ -331,6 +347,7 @@ public class MergeContext implements Map<Object,Object> {
 	 * @throws NullPointerException if mergeEntity is null
 	 * @throws IllegalStateException if this MergeContext does not contain a a cross-reference for mergeEntity
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setOperatedOn(Object mergeEntity, boolean isOperatedOn) {
 		if ( mergeEntity == null ) {
 			throw new NullPointerException( "null entities are not supported by " + getClass().getName() );
@@ -353,10 +370,12 @@ public class MergeContext implements Map<Object,Object> {
 	 *
 	 * @see Collections#unmodifiableMap(Map)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<Object,Object> invertMap() {
 		return Collections.unmodifiableMap( managedToMergeEntityXref );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String printEntity(Object entity) {
 		if ( session.getPersistenceContextInternal().getEntry( entity ) != null ) {
 			return MessageHelper.infoString( session.getEntityName( entity ), session.getIdentifier( entity ) );
@@ -368,6 +387,7 @@ public class MergeContext implements Map<Object,Object> {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EventSource getEventSource() {
 		return session;
 	}

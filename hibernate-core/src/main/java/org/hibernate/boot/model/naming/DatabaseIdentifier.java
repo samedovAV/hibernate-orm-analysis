@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.naming;
 
 import static org.hibernate.internal.util.StringHelper.isEmpty;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Models an identifier (name), retrieved from the database.
@@ -23,6 +25,7 @@ public class DatabaseIdentifier extends Identifier {
 		super( text );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static DatabaseIdentifier toIdentifier(String text) {
 		if ( isEmpty( text ) ) {
 			return null;

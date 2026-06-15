@@ -25,6 +25,8 @@ import static org.hibernate.id.PersistentIdentifierGenerator.SCHEMA;
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
 import static org.hibernate.internal.util.StringHelper.splitAtCommas;
 import static org.hibernate.internal.util.config.ConfigurationHelper.getString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An {@link IdentifierGenerator} that returns a {@code long}, constructed by counting
@@ -63,11 +65,13 @@ public class IncrementGenerator implements IdentifierGenerator {
 	 * @deprecated Exposed for tests only.
 	 */
 	@Deprecated
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getAllSqlForTests() {
 		return new String[] { sql };
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public synchronized Object generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
 		if ( sql != null ) {
 			initializePreviousValue( session );
@@ -76,11 +80,13 @@ public class IncrementGenerator implements IdentifierGenerator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getGeneratedType() {
 		return returnClass;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void configure(GeneratorCreationContext creationContext, Properties parameters) throws MappingException {
 		returnClass = creationContext.getType().getReturnedClass();
 
@@ -100,6 +106,7 @@ public class IncrementGenerator implements IdentifierGenerator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void initialize(SqlStringGenerationContext context) {
 		final var union = new StringBuilder();
 		for ( int i = 0; i < physicalTableNames.size(); i++ ) {
@@ -128,6 +135,7 @@ public class IncrementGenerator implements IdentifierGenerator {
 		sql = "select max(" + maxColumn + ") from " + union;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void initializePreviousValue(SharedSessionContractImplementor session) {
 		if ( CORE_LOGGER.isTraceEnabled() ) {
 			CORE_LOGGER.tracef( "Fetching initial value: %s", sql );

@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.dialect;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * @author Marco Belladelli
@@ -60,16 +63,19 @@ public class FunctionalDependencyAnalysisSupportImpl implements FunctionalDepend
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsAnalysis() {
 		return supportsAnalysis;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsTableGroups() {
 		return supportsTableGroups;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsConstants() {
 		return supportsConstants;
 	}

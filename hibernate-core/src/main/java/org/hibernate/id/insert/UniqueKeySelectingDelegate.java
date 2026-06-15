@@ -20,6 +20,8 @@ import org.hibernate.type.Type;
 
 import static org.hibernate.generator.values.internal.GeneratedValuesHelper.getActualGeneratedModelPart;
 import static org.hibernate.internal.util.StringHelper.EMPTY_STRINGS;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Uses a unique key of the inserted entity to locate the newly inserted row.
@@ -65,17 +67,20 @@ public class UniqueKeySelectingDelegate extends AbstractSelectingDelegate {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getSelectSQL() {
 		return selectString;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableMutationBuilder<?> createTableMutationBuilder(
 			Expectation expectation,
 			SessionFactoryImplementor factory) {
 		return new TableInsertBuilderStandard( persister, persister.getIdentifierTableMapping(), factory );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void bindParameters(Object entity, PreparedStatement ps, SharedSessionContractImplementor session)
 			throws SQLException {
 		int index = 1;

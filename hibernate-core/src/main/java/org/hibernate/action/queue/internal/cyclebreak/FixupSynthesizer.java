@@ -8,6 +8,8 @@ import jakarta.annotation.Nullable;
 import org.hibernate.Incubating;
 import org.hibernate.action.queue.spi.plan.FlushOperation;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Factory for building cycle break fixup operations.
 ///
@@ -32,6 +34,7 @@ public class FixupSynthesizer {
 	/// Build the fix up operation (which is always an update), if one is needed, for
 	/// the initial `cycleBrokenOp` FlushOperation.
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FlushOperation synthesizeFixupOperationIfNeeded(
 			FlushOperation cycleBrokenOp,
 			Object entityId,

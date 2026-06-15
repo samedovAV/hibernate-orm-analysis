@@ -15,6 +15,8 @@ import org.hibernate.query.sqm.tree.SqmCopyContext;
 
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.metamodel.EntityType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Andrea Boriero
@@ -32,6 +34,7 @@ public class NonAggregatedCompositeSimplePath<T> extends SqmEntityValuedSimplePa
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public NonAggregatedCompositeSimplePath<T> copy(SqmCopyContext context) {
 		final var existing = context.getCopy( this );
 		if ( existing != null ) {
@@ -53,42 +56,49 @@ public class NonAggregatedCompositeSimplePath<T> extends SqmEntityValuedSimplePa
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> X accept(SemanticQueryWalker<X> walker) {
 		return walker.visitNonAggregatedCompositeValuedPath( this );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends T> SqmTreatedEntityValuedSimplePath<T, S> treatAs(@Nonnull Class<S> treatJavaType) {
 		throw new TreatException( "Non-aggregate composite paths cannot be TREAT-ed" );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends T> SqmTreatedSimplePath<T, S> treatAs(@Nonnull EntityDomainType<S> treatTarget) {
 		throw new TreatException( "Non-aggregate composite paths cannot be TREAT-ed" );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends T> SqmTreatedSimplePath<T, S> treatAs(@Nonnull Class<S> treatJavaType, @Nullable String alias) {
 		throw new TreatException( "Non-aggregate composite paths cannot be TREAT-ed" );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends T> SqmTreatedSimplePath<T, S> treatAs(@Nonnull EntityDomainType<S> treatTarget, @Nullable String alias) {
 		throw new TreatException( "Non-aggregate composite paths cannot be TREAT-ed" );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends T> SqmTreatedPath<T, S> treatAs(@Nonnull Class<S> treatJavaType, @Nullable String alias, boolean fetch) {
 		throw new TreatException( "Non-aggregate composite paths cannot be TREAT-ed" );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends T> SqmTreatedPath<T, S> treatAs(@Nonnull EntityDomainType<S> treatTarget, @Nullable String alias, boolean fetch) {
 		throw new TreatException( "Non-aggregate composite paths cannot be TREAT-ed" );
 	}

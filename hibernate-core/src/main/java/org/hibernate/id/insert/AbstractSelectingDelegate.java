@@ -21,6 +21,8 @@ import java.sql.SQLException;
 import static java.sql.Statement.NO_GENERATED_KEYS;
 import static org.hibernate.generator.values.internal.GeneratedValuesHelper.getGeneratedValues;
 import static org.hibernate.pretty.MessageHelper.infoString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Abstract {@link org.hibernate.generator.values.GeneratedValuesMutationDelegate} implementation where
@@ -46,8 +48,10 @@ public abstract class AbstractSelectingDelegate
 	 *
 	 * @return The SQL command string
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract String getSelectSQL();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void bindParameters(Object entity, PreparedStatement ps, SharedSessionContractImplementor session)
 			throws SQLException {
 	}
@@ -55,18 +59,21 @@ public abstract class AbstractSelectingDelegate
 	/**
 	 * Extract the generated key value from the given result set after execution of {@link #getSelectSQL()}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private GeneratedValues extractReturningValues(ResultSet resultSet, PreparedStatement statement, SharedSessionContractImplementor session)
 			throws SQLException {
 		return getGeneratedValues( resultSet, statement, persister, getTiming(), session );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public PreparedStatement prepareStatement(String insertSql, SharedSessionContractImplementor session) {
 		return session.getJdbcCoordinator().getMutationStatementPreparer()
 				.prepareStatement( insertSql, NO_GENERATED_KEYS );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public GeneratedValues performGraphMutation(
 			FlushOperation operation,
 			Object entity,
@@ -97,6 +104,7 @@ public abstract class AbstractSelectingDelegate
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public GeneratedValues performMutation(
 			PreparedStatementDetails statementDetails,
 			JdbcValueBindings jdbcValueBindings,
@@ -121,6 +129,7 @@ public abstract class AbstractSelectingDelegate
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final GeneratedValues performInsertReturning(String sql, SharedSessionContractImplementor session, Binder binder) {
 		final var jdbcCoordinator = session.getJdbcCoordinator();
 		// prepare and execute the insert
@@ -146,6 +155,7 @@ public abstract class AbstractSelectingDelegate
 		return selectGeneratedId( session, binder.getEntity() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private GeneratedValues selectGeneratedId(SharedSessionContractImplementor session, Object entity) {
 		final String idSelectSql = getSelectSQL();
 		var jdbcCoordinator = session.getJdbcCoordinator();
@@ -173,6 +183,7 @@ public abstract class AbstractSelectingDelegate
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void bindParameters(
 			Object entity,
 			SharedSessionContractImplementor session,

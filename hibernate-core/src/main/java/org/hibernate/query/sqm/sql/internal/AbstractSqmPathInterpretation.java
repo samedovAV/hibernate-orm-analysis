@@ -9,6 +9,8 @@ import org.hibernate.spi.NavigablePath;
 import org.hibernate.sql.ast.tree.from.TableGroup;
 import org.hibernate.sql.results.graph.DomainResult;
 import org.hibernate.sql.results.graph.DomainResultCreationState;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Andrea Boriero
@@ -33,20 +35,24 @@ public abstract class AbstractSqmPathInterpretation<T> implements SqmPathInterpr
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigablePath getNavigablePath() {
 		return navigablePath;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ModelPart getExpressionType() {
 		return mapping;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableGroup getTableGroup() {
 		return tableGroup;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public DomainResult<T> createDomainResult(
 			String resultVariable,
 			DomainResultCreationState creationState) {
@@ -59,6 +65,7 @@ public abstract class AbstractSqmPathInterpretation<T> implements SqmPathInterpr
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void applySqlSelections(DomainResultCreationState creationState) {
 		mapping.applySqlSelections( getNavigablePath(), tableGroup, creationState );
 	}

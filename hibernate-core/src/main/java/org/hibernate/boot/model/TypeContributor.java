@@ -6,6 +6,8 @@ package org.hibernate.boot.model;
 
 import org.hibernate.service.JavaServiceLoadable;
 import org.hibernate.service.ServiceRegistry;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An object that contributes custom types and type descriptors, eventually to
@@ -38,6 +40,7 @@ public interface TypeContributor {
 	 * @param typeContributions The callback for adding contributed types
 	 * @param serviceRegistry The service registry
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void contribute(TypeContributions typeContributions, ServiceRegistry serviceRegistry);
 
 	/**
@@ -53,6 +56,7 @@ public interface TypeContributor {
 	 *
 	 * @return the ordinal for this TypeContributor
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int ordinal(){
 		return 1000;
 	}

@@ -12,6 +12,8 @@ import org.hibernate.mapping.PersistentClass;
 import org.hibernate.mapping.Set;
 import org.hibernate.resource.beans.spi.ManagedBean;
 import org.hibernate.usertype.UserCollectionType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link CollectionBinder} for {@link org.hibernate.collection.spi.PersistentSet sets},
@@ -29,6 +31,7 @@ public class SetBinder extends CollectionBinder {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Collection createCollection(PersistentClass persistentClass) {
 		return new Set( getCustomTypeBeanResolver(), persistentClass, getBuildingContext() );
 	}

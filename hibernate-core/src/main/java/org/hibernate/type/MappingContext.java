@@ -5,6 +5,8 @@
 package org.hibernate.type;
 
 import org.hibernate.MappingException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Declares operations used by implementors of {@link Type} that are common to the fully-"compiled"
@@ -19,9 +21,12 @@ import org.hibernate.MappingException;
  * @since 7.0
  */
 public interface MappingContext {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Type getIdentifierType(String className) throws MappingException;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getIdentifierPropertyName(String className) throws MappingException;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Type getReferencedPropertyType(String className, String propertyName) throws MappingException;
 }

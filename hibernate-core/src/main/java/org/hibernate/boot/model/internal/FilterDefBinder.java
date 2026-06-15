@@ -29,12 +29,15 @@ import static org.hibernate.boot.model.internal.AnnotationHelper.resolveJavaType
 import static org.hibernate.boot.model.internal.AnnotationHelper.resolveUserType;
 import static org.hibernate.boot.BootLogging.BOOT_LOGGER;
 import static org.hibernate.internal.util.collections.CollectionHelper.isEmpty;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gavin King
  */
 public class FilterDefBinder {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void bindFilterDefs(AnnotationTarget annotatedElement, MetadataBuildingContext context) {
 		final var modelsContext = context.getBootstrapContext().getModelsContext();
 		annotatedElement.forEachAnnotationUsage( FilterDef.class, modelsContext, (usage) -> {
@@ -42,6 +45,7 @@ public class FilterDefBinder {
 		} );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void bindFilterDef(FilterDef filterDef, MetadataBuildingContext context) {
 		final String name = filterDef.name();
 		if ( context.getMetadataCollector().getFilterDefinition( name ) != null ) {
@@ -96,6 +100,7 @@ public class FilterDefBinder {
 	}
 
 	@SuppressWarnings({"rawtypes", "unchecked"})
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static ManagedBean<? extends Supplier<?>> resolveParamResolver(Class<? extends Supplier> resolverClass, MetadataBuildingContext context) {
 		assert resolverClass != Supplier.class;
 		final var bootstrapContext = context.getBootstrapContext();
@@ -105,6 +110,7 @@ public class FilterDefBinder {
 	}
 
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static JdbcMapping resolveFilterParamType(Class<?> type, MetadataBuildingContext context) {
 		if ( UserType.class.isAssignableFrom( type ) ) {
 			return resolveUserType( (Class<UserType<?>>) type, context );

@@ -32,12 +32,15 @@ import static org.hibernate.boot.models.spi.LifecycleEventHandler.listenersForTa
 import static org.hibernate.internal.util.collections.CollectionHelper.isNotEmpty;
 import static org.hibernate.internal.util.StringHelper.isEmpty;
 import static org.hibernate.internal.util.StringHelper.qualifier;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Resolves JPA callback definitions
 ///
 /// @author Steve Ebersole
 public final class CallbackDefinitionResolver {
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private static List<CallbackDefinition> resolveEntityCallbacks(
 			InFlightMetadataCollector metadataCollector,
 			ClassDetails entityClass,
@@ -120,6 +123,7 @@ public final class CallbackDefinitionResolver {
 		return callbackDefinitions;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static CallbackDefinition resolveListenerCallback(
 			LifecycleEventHandler listenerRegistration,
 			ClassDetails entityClass,
@@ -142,10 +146,12 @@ public final class CallbackDefinitionResolver {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isCompatibleCallbackTarget(MethodDetails callbackMethod, ClassDetails entityClass) {
 		return callbackMethod.getArgumentTypes().get( 0 ).toJavaClass().isAssignableFrom( entityClass.toJavaClass() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void collectTargetedListenerRegistrations(
 			InFlightMetadataCollector metadataCollector,
 			ClassDetails entityClass,
@@ -179,6 +185,7 @@ public final class CallbackDefinitionResolver {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private static void applyListeners(
 			ClassDetails currentClazz,
 			ClassDetails entityClass,
@@ -216,6 +223,7 @@ public final class CallbackDefinitionResolver {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void applyPackageListeners(
 			ClassDetails entityClass,
 			List<LifecycleEventHandler> listOfListeners,
@@ -236,6 +244,7 @@ public final class CallbackDefinitionResolver {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void applyListener(
 			ClassDetails listenerClassDetails,
 			ClassDetails entityClass,
@@ -247,6 +256,7 @@ public final class CallbackDefinitionResolver {
 	 * Uses {@link LifecycleEventHandler} for listener descriptors while retaining the JPA hierarchy
 	 * and exclusion rules handled here.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void resolveLifecycleCallbacks(
 			ClassDetails entityClass,
 			PersistentClass persistentClass,

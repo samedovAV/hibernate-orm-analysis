@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import static java.util.Collections.emptyList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * TableGroup wrapping a {@linkplain TableLock table to be locked}.
@@ -45,31 +47,37 @@ public class LockingTableGroup implements TableGroup {
 		this.keyColumnMappings = keyColumnMappings;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SelectableMappings getKeyColumnMappings() {
 		return keyColumnMappings;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigablePath getNavigablePath() {
 		return navigablePath;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getGroupAlias() {
 		return "";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ModelPartContainer getModelPart() {
 		return modelPart;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSourceAlias() {
 		return "";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<TableGroupJoin> getTableGroupJoins() {
 		return tableGroupJoins == null
 				? emptyList()
@@ -77,16 +85,19 @@ public class LockingTableGroup implements TableGroup {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<TableGroupJoin> getNestedTableGroupJoins() {
 		return List.of();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean canUseInnerJoins() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addTableGroupJoin(TableGroupJoin join) {
 		if ( join.getJoinedGroup().isRealTableGroup() ) {
 			throw new UnsupportedOperationException();
@@ -99,16 +110,19 @@ public class LockingTableGroup implements TableGroup {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void prependTableGroupJoin(NavigablePath navigablePath, TableGroupJoin join) {
 		addTableGroupJoin( join );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addNestedTableGroupJoin(TableGroupJoin join) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void visitTableGroupJoins(Consumer<TableGroupJoin> consumer) {
 		if ( tableGroupJoins != null ) {
 			tableGroupJoins.forEach( consumer );
@@ -116,30 +130,36 @@ public class LockingTableGroup implements TableGroup {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void visitNestedTableGroupJoins(Consumer<TableGroupJoin> consumer) {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applyAffectedTableNames(Consumer<String> nameCollector) {
 		nameCollector.accept( tableName );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableReference getPrimaryTableReference() {
 		return tableReference;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<TableReferenceJoin> getTableReferenceJoins() {
 		return List.of();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ModelPart getExpressionType() {
 		return modelPart;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableReference getTableReference(NavigablePath navigablePath, String tableExpression, boolean resolve) {
 		return tableName.equals( tableExpression ) ? tableReference : null;
 	}

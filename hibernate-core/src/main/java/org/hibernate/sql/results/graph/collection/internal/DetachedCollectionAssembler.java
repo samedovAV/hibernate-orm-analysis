@@ -9,6 +9,8 @@ import org.hibernate.metamodel.mapping.PluralAttributeMapping;
 import org.hibernate.sql.results.graph.DomainResultAssembler;
 import org.hibernate.sql.results.jdbc.spi.RowProcessingState;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gavin King
@@ -32,6 +34,7 @@ public class DetachedCollectionAssembler<T> implements DomainResultAssembler<T> 
 
 	@Override
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public T assemble(RowProcessingState rowProcessingState) {
 		final Object collectionKey = collectionKeyAssembler.assemble( rowProcessingState );
 		return (T) DetachedCollectionHelper.loadAndCopy(
@@ -44,11 +47,13 @@ public class DetachedCollectionAssembler<T> implements DomainResultAssembler<T> 
 
 	@Override
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<T> getAssembledJavaType() {
 		return (JavaType<T>) resultJavaType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void resolveState(RowProcessingState rowProcessingState) {
 		collectionKeyAssembler.resolveState( rowProcessingState );
 	}

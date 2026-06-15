@@ -5,6 +5,8 @@
 package org.hibernate.event.spi;
 
 import org.hibernate.HibernateException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Defines the contract for handling of collection initialization events
@@ -13,5 +15,6 @@ import org.hibernate.HibernateException;
  * @author Gavin King
  */
 public interface InitializeCollectionEventListener {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void onInitializeCollection(InitializeCollectionEvent event) throws HibernateException;
 }

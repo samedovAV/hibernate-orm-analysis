@@ -19,6 +19,8 @@ import org.hibernate.persister.entity.SingleTableEntityPersister;
 import org.hibernate.persister.entity.UnionSubclassEntityPersister;
 import org.hibernate.persister.spi.PersisterClassResolver;
 import org.hibernate.persister.spi.UnknownPersisterException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -26,6 +28,7 @@ import org.hibernate.persister.spi.UnknownPersisterException;
 public class StandardPersisterClassResolver implements PersisterClassResolver {
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends EntityPersister> getEntityPersisterClass(PersistentClass model) {
 		// todo : make sure this is based on an attribute kept on the metamodel in the new code,
 		//        not the concrete PersistentClass impl found!
@@ -54,27 +57,33 @@ public class StandardPersisterClassResolver implements PersisterClassResolver {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends EntityPersister> singleTableEntityPersister() {
 		return SingleTableEntityPersister.class;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends EntityPersister> joinedSubclassEntityPersister() {
 		return JoinedSubclassEntityPersister.class;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends EntityPersister> unionSubclassEntityPersister() {
 		return UnionSubclassEntityPersister.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends CollectionPersister> getCollectionPersisterClass(Collection metadata) {
 		return metadata.isOneToMany() ? oneToManyPersister() : basicCollectionPersister();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Class<OneToManyPersister> oneToManyPersister() {
 		return OneToManyPersister.class;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Class<BasicCollectionPersister> basicCollectionPersister() {
 		return BasicCollectionPersister.class;
 	}

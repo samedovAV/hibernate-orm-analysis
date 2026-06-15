@@ -6,6 +6,8 @@ package org.hibernate.metamodel.mapping.internal;
 
 import org.hibernate.metamodel.mapping.BasicValuedModelPart;
 import org.hibernate.metamodel.mapping.ForeignKeyDescriptor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -23,11 +25,13 @@ public class SimpleForeignKeyDescriptorSide implements ForeignKeyDescriptor.Side
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ForeignKeyDescriptor.Nature getNature() {
 		return nature;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BasicValuedModelPart getModelPart() {
 		return modelPart;
 	}

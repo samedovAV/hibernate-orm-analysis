@@ -20,6 +20,8 @@ import java.util.Locale;
 import static org.jboss.logging.Logger.Level.DEBUG;
 import static org.jboss.logging.Logger.Level.TRACE;
 import static org.jboss.logging.Logger.Level.WARN;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Sub-system logging related to PersistenceContext runtime events
@@ -38,50 +40,62 @@ public interface PersistenceContextLogging extends BasicLogger {
 
 	@LogMessage(level = TRACE)
 	@Message("Setting proxy identifier: %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void settingProxyIdentifier(Object id);
 
 	@LogMessage(level = WARN)
 	@Message("Narrowing proxy to %s - this operation breaks ==")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void narrowingProxy(Class<?> concreteProxyClass);
 
 	@LogMessage(level = TRACE)
 	@Message("Serializing persistence context")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void serializingPersistenceContext();
 
 	@LogMessage(level = TRACE)
 	@Message("Deserializing persistence context")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void deserializingPersistenceContext();
 
 	@LogMessage(level = TRACE)
 	@Message("Encountered pruned proxy")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void encounteredPrunedProxy();
 
 	@LogMessage(level = TRACE)
 	@Message("Starting serialization of [%s] %s entries")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void startingSerializationOfEntries(int count, String keysName);
 
 	@LogMessage(level = TRACE)
 	@Message("Starting deserialization of [%s] %s entries")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void startingDeserializationOfEntries(int count, String keysName);
 
 	// Merge and reachability logs (DEBUG/TRACE variants matching existing usage)
 	@LogMessage(level = TRACE)
 	@Message("Detached object being merged (corresponding with a managed entity) has a collection that [%s] the detached child")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void detachedManagedContainsChild(String containsOrNot);
 
 	@LogMessage(level = DEBUG)
 	@Message("Detached proxy being merged has a collection that [%s] the managed child")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void detachedProxyContainsManagedChild(String containsOrNot);
 
 	@LogMessage(level = DEBUG)
 	@Message("Detached proxy being merged has a collection that [%s] the detached child being merged")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void detachedProxyContainsDetachedChild(String containsOrNot);
 
 	@LogMessage(level = DEBUG)
 	@Message("A detached object being merged (corresponding to a parent in parentsByChild) has an indexed collection that [%s] the detached child being merged. ")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void detachedParentIndexedContainsDetachedChild(String containsOrNot);
 
 	@LogMessage(level = DEBUG)
 	@Message("A detached object being merged (corresponding to a managed entity) has an indexed collection that [%s] the detached child being merged. ")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void detachedManagedIndexedContainsDetachedChild(String containsOrNot);
 }

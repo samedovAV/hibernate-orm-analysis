@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A compound name.
@@ -24,7 +26,8 @@ public interface DotIdentifierSequence {
 	 * Given the sequence {@code a.b.c}, returns the sequence
 	 * {@code a.b}.
 	 */
-	@Nullable DotIdentifierSequence getParent();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	DotIdentifierSequence getParent();
 
 	/**
 	 * The name of this leaf sequence part.
@@ -32,6 +35,7 @@ public interface DotIdentifierSequence {
 	 * Given the sequence {@code a.b.c}, returns the string
 	 * {@code "c"}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getLocalName();
 
 	/**
@@ -44,6 +48,7 @@ public interface DotIdentifierSequence {
 	 *           string and should be avoided for critical paths
 	 *           (comparisons,for example).
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getFullPath();
 
 	/**
@@ -53,14 +58,17 @@ public interface DotIdentifierSequence {
 	 * Given the sequence {@code a.b.c}, appending {@code d}
 	 * results in the new sequence {@code a.b.c.d}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	DotIdentifierSequence append(String subPathName);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default DotIdentifierSequence[] getParts() {
 		final List<DotIdentifierSequence> list = new ArrayList<>();
 		parts( list );
 		return list.toArray(new DotIdentifierSequence[0]);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void parts(List<DotIdentifierSequence> list) {
 		DotIdentifierSequence parent = getParent();
 		if ( parent != null ) {
@@ -74,6 +82,7 @@ public interface DotIdentifierSequence {
 	 * <p>
 	 * Same as checking the nullness of {@link #getParent()}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isRoot() {
 		return getParent() == null;
 	}

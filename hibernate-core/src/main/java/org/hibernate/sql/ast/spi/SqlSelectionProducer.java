@@ -7,6 +7,8 @@ package org.hibernate.sql.ast.spi;
 import org.hibernate.sql.results.jdbc.spi.RowProcessingState;
 import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -22,6 +24,7 @@ public interface SqlSelectionProducer {
 	 * @param virtual Whether the select is virtual or real. See {@link SqlSelection#isVirtual()}
 	 * @param typeConfiguration The associated TypeConfiguration
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqlSelection createSqlSelection(
 			int jdbcPosition,
 			int valuesArrayPosition,

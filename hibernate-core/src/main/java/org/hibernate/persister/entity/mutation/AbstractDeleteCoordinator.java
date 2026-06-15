@@ -23,6 +23,8 @@ import org.hibernate.sql.model.internal.MutationGroupSingle;
 import java.util.function.Function;
 
 import static org.hibernate.sql.model.internal.MutationOperationGroupFactory.singleOperation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Template support for DeleteCoordinator implementations.  Mainly
@@ -51,15 +53,18 @@ public abstract class AbstractDeleteCoordinator
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutationOperationGroup getStaticMutationOperationGroup() {
 		return staticOperationGroup;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BasicBatchKey getBatchKey() {
 		return batchKey;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract MutationOperationGroup generateOperationGroup(
 			Object rowId,
 			Object[] loadedState,
@@ -67,6 +72,7 @@ public abstract class AbstractDeleteCoordinator
 			SharedSessionContractImplementor session);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void delete(
 			Object entity,
 			Object id,
@@ -86,6 +92,7 @@ public abstract class AbstractDeleteCoordinator
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void doDynamicDelete(
 			Object entity,
 			Object id,
@@ -129,6 +136,7 @@ public abstract class AbstractDeleteCoordinator
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void applyDynamicDeleteTableDetails(
 			Object id,
 			Object rowId,
@@ -140,6 +148,7 @@ public abstract class AbstractDeleteCoordinator
 		applyId( id, null, mutationExecutor, operationGroup, session );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void applyLocking(
 			Object version,
 			Object[] loadedState,
@@ -157,6 +166,7 @@ public abstract class AbstractDeleteCoordinator
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void applyAllOrDirtyLocking(
 			Object[] loadedState,
 			SharedSessionContractImplementor session,
@@ -197,6 +207,7 @@ public abstract class AbstractDeleteCoordinator
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void applyVersionLocking(
 			Object version,
 			JdbcValueBindings jdbcValueBindings) {
@@ -212,6 +223,7 @@ public abstract class AbstractDeleteCoordinator
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void applyId(
 			Object id,
 			Object rowId,
@@ -234,6 +246,7 @@ public abstract class AbstractDeleteCoordinator
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void doStaticDelete(
 			Object entity,
 			Object id,
@@ -286,6 +299,7 @@ public abstract class AbstractDeleteCoordinator
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void applyStaticDeleteTableDetails(
 			Object id,
 			Object rowId,
@@ -304,10 +318,12 @@ public abstract class AbstractDeleteCoordinator
 		applyId( id, rowId, mutationExecutor, staticOperationGroup, session );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private MutationExecutor executor(SharedSessionContractImplementor session, MutationOperationGroup group) {
 		return mutationExecutorService.createExecutor( resolveBatchKeyAccess( false, session ), group, session );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected MutationOperationGroup resolveNoVersionDeleteGroup(SharedSessionContractImplementor session) {
 		if ( noVersionDeleteGroup == null ) {
 			noVersionDeleteGroup = generateOperationGroup( "", null, false, session );
@@ -315,6 +331,7 @@ public abstract class AbstractDeleteCoordinator
 		return noVersionDeleteGroup;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void applyOptimisticLocking(
 			OptimisticLockStyle optimisticLockStyle,
 			Function<String,RestrictedTableMutationBuilder<?, ?>> resolver,
@@ -328,6 +345,7 @@ public abstract class AbstractDeleteCoordinator
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void applyVersionBasedOptLocking(Function<String,RestrictedTableMutationBuilder<?, ?>> resolver) {
 		final var versionMapping = entityPersister().getVersionMapping();
 		if ( versionMapping != null ) {
@@ -340,6 +358,7 @@ public abstract class AbstractDeleteCoordinator
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void applyNonVersionOptLocking(
 			OptimisticLockStyle lockStyle,
 			Function<String,RestrictedTableMutationBuilder<?, ?>> resolver,
@@ -363,6 +382,7 @@ public abstract class AbstractDeleteCoordinator
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void breakDownJdbcValues(
 			Function<String,RestrictedTableMutationBuilder<?, ?>> resolver,
 			SharedSessionContractImplementor session,
@@ -390,12 +410,14 @@ public abstract class AbstractDeleteCoordinator
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Function<String,RestrictedTableMutationBuilder<?, ?>> tableMutationBuilderResolver(
 			RestrictedTableMutationBuilder<?, ?> tableMutationBuilder) {
 		final String tableName = tableMutationBuilder.getMutatingTable().getTableName();
 		return name -> tableName.equals( name ) ? tableMutationBuilder : null;
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	protected void applyPartitionKeyRestriction(Function<String,RestrictedTableMutationBuilder<?, ?>> resolver) {
 		final var persister = entityPersister();
 		if ( persister.hasPartitionedSelectionMapping() ) {
@@ -418,6 +440,7 @@ public abstract class AbstractDeleteCoordinator
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOperationGroup createMutationOperationGroup(TableUpdateBuilderStandard<MutationOperation> tableUpdateBuilder) {
 		final var tableMutation = tableUpdateBuilder.buildMutation();
 		return singleOperation(

@@ -22,6 +22,8 @@ import java.sql.Connection;
 import java.time.Instant;
 import java.util.TimeZone;
 import java.util.function.UnaryOperator;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Common options for builders of {@linkplain Session stateful}
@@ -35,6 +37,7 @@ import java.util.function.UnaryOperator;
 public interface CommonBuilder {
 	/// Open the session using the specified options.
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionContract open();
 
 	/// Adds a specific connection to be used to the session options.
@@ -42,6 +45,7 @@ public interface CommonBuilder {
 	/// @param connection The connection to use.
 	/// @return {@code this}, for method chaining
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonBuilder connection(@Nonnull Connection connection);
 
 	/// Specifies the connection handling modes for the session.
@@ -53,6 +57,7 @@ public interface CommonBuilder {
 	///
 	/// @since 7.0
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonBuilder connectionHandling(@Nonnull ConnectionAcquisitionMode acquisitionMode, @Nonnull ConnectionReleaseMode releaseMode);
 
 	/// Adds a specific interceptor to the session options.
@@ -60,6 +65,7 @@ public interface CommonBuilder {
 	/// @param interceptor The interceptor to use.
 	/// @return `this`, for method chaining
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonBuilder interceptor(@Nullable Interceptor interceptor);
 
 	/// Specifies that no {@link Interceptor} should be used.  This indicates to
@@ -71,6 +77,7 @@ public interface CommonBuilder {
 	///
 	/// @apiNote Calling [#interceptor(Interceptor)] with `null` has the same effect
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonBuilder noInterceptor();
 
 	/// Specifies that no [session-scoped interceptor][org.hibernate.cfg.SessionEventSettings#SESSION_SCOPED_INTERCEPTOR]
@@ -86,6 +93,7 @@ public interface CommonBuilder {
 	///
 	/// @since 7.2
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonBuilder noSessionInterceptorCreation();
 
 	/// Applies the given statement inspection function to the session.
@@ -96,6 +104,7 @@ public interface CommonBuilder {
 	///
 	/// @return `this`, for method chaining
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonBuilder statementInspector(@Nullable UnaryOperator<String> operator);
 
 	/// Signifies that no SQL statement inspector should be used.
@@ -108,6 +117,7 @@ public interface CommonBuilder {
 	///
 	/// @apiNote Calling [#statementInspector] with `null` has the same effect.
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonBuilder noStatementInspector();
 
 	/// Specify the tenant identifier to be associated with the opened session.
@@ -123,6 +133,7 @@ public interface CommonBuilder {
 	///
 	/// @return `this`, for method chaining
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonBuilder tenantIdentifier(Object tenantIdentifier);
 
 	/// Specify a [read-only mode][Session#isDefaultReadOnly]
@@ -170,6 +181,7 @@ public interface CommonBuilder {
 	/// @since 7.2
 	@Incubating
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonBuilder readOnly(boolean readOnly);
 
 	/// Specifies a session-specific size for JDBC batching, overriding any
@@ -181,6 +193,7 @@ public interface CommonBuilder {
 	///
 	/// @since 8.0
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonBuilder jdbcBatchSize(int batchSize);
 
 	/// Specify the initial [CacheMode] for the session.
@@ -191,6 +204,7 @@ public interface CommonBuilder {
 	///
 	/// @since 7.2
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonBuilder initialCacheMode(@Nonnull CacheMode cacheMode);
 
 	/// Specify the [CacheStoreMode] for the session.
@@ -199,6 +213,7 @@ public interface CommonBuilder {
 	///
 	/// @since 8.0
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonBuilder cacheStoreMode(@Nullable CacheStoreMode cacheStoreMode);
 
 	/// Specify the [CacheRetrieveMode] for the session.
@@ -207,6 +222,7 @@ public interface CommonBuilder {
 	///
 	/// @since 8.0
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonBuilder cacheRetrieveMode(@Nullable CacheRetrieveMode cacheRetrieveMode);
 
 	/// Specify the [JDBC time zone][org.hibernate.cfg.JdbcSettings#JDBC_TIME_ZONE]
@@ -214,6 +230,7 @@ public interface CommonBuilder {
 	///
 	/// @return `this`, for method chaining
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonBuilder jdbcTimeZone(@Nullable TimeZone timeZone);
 
 	/**
@@ -226,6 +243,7 @@ public interface CommonBuilder {
 	 */
 	@Incubating
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonBuilder asOf(@Nullable Instant instant);
 
 	/**
@@ -242,5 +260,6 @@ public interface CommonBuilder {
 	 */
 	@Incubating
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonBuilder atChangeset(@Nullable Object changesetId);
 }

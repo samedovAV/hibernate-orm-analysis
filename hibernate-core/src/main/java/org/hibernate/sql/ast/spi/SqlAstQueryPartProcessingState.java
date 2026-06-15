@@ -6,6 +6,8 @@ package org.hibernate.sql.ast.spi;
 
 
 import org.hibernate.sql.ast.tree.select.QueryPart;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * SqlAstProcessingState specialization for query parts
@@ -17,5 +19,6 @@ public interface SqlAstQueryPartProcessingState extends SqlAstQueryNodeProcessin
 	 * Get the QueryPart being processed as part of this state.  It is
 	 * considered in-flight as it is probably still being built.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	QueryPart getInflightQueryPart();
 }

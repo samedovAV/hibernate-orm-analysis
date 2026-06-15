@@ -17,6 +17,8 @@ import org.jboss.logging.annotations.ValidIdRange;
 import java.lang.invoke.MethodHandles;
 import java.net.URL;
 import java.util.Locale;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Logging related to {@linkplain Scanner scanning}.
@@ -36,13 +38,16 @@ public interface ScannerLogger extends BasicLogger {
 
 	@LogMessage(level = Logger.Level.WARN)
 	@Message(id = 60001, value = "Multiple ScannerFactory services available; using '%s'")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void multipleScannerFactoriesAvailable(String scannerClassName);
 
 	@LogMessage(level = Logger.Level.DEBUG)
 	@Message(id = 60002, value = "No ScannerFactory available (to enable scanning add 'hibernate-scan-jandex' dependency or supply a custom ScannerFactory)")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void noScannerFactoryAvailable();
 
 	@LogMessage(level = Logger.Level.DEBUG)
 	@Message(id = 60003, value = "Unable to resolve class [%s] named in persistence unit [%s]")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void unableToResolveClass(String className, URL rootUrl);
 }

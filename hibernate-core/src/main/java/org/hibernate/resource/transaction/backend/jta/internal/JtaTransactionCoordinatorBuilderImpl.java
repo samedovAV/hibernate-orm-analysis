@@ -16,6 +16,8 @@ import org.hibernate.service.spi.ServiceRegistryImplementor;
 import org.hibernate.tool.schema.internal.exec.JdbcContext;
 
 import static org.hibernate.resource.jdbc.spi.PhysicalConnectionHandlingMode.DELAYED_ACQUISITION_AND_RELEASE_AFTER_STATEMENT;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Concrete builder for JTA-based TransactionCoordinator instances.
@@ -29,6 +31,7 @@ public class JtaTransactionCoordinatorBuilderImpl implements TransactionCoordina
 	private JtaPlatform jtaPlatform;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TransactionCoordinator buildTransactionCoordinator(TransactionCoordinatorOwner owner, Options options) {
 		return new JtaTransactionCoordinatorImpl(
 				this,
@@ -39,22 +42,26 @@ public class JtaTransactionCoordinatorBuilderImpl implements TransactionCoordina
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isJta() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PhysicalConnectionHandlingMode getDefaultConnectionHandlingMode() {
 		// todo : I want to change this to IMMEDIATE_ACQUISITION_AND_HOLD
 		return DELAYED_ACQUISITION_AND_RELEASE_AFTER_STATEMENT;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DdlTransactionIsolator buildDdlTransactionIsolator(JdbcContext jdbcContext) {
 		return new DdlTransactionIsolatorJtaImpl( jdbcContext );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void injectServices(@Nonnull ServiceRegistryImplementor serviceRegistry) {
 		jtaPlatform = serviceRegistry.getService( JtaPlatform.class );
 	}

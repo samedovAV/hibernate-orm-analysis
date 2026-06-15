@@ -8,6 +8,8 @@ import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.query.sqm.mutation.spi.MultiTableHandler;
 import org.hibernate.query.sqm.tree.SqmDmlStatement;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -32,14 +34,17 @@ public abstract class AbstractMutationHandler implements MultiTableHandler {
 
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmDmlStatement<?> getSqmStatement() {
 		return sqmDmlStatement;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityPersister getEntityDescriptor() {
 		return entityDescriptor;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SessionFactoryImplementor getSessionFactory() {
 		return sessionFactory;
 	}

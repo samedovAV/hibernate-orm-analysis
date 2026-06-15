@@ -15,6 +15,8 @@ import org.hibernate.generator.EventTypeSets;
 import org.hibernate.generator.GeneratorCreationContext;
 
 import static org.hibernate.generator.EventTypeSets.INSERT_ONLY;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A generator that produces the current tenant identifier
@@ -43,16 +45,19 @@ public class TenantIdGeneration implements BeforeExecutionGenerator {
 	 * @return {@link EventTypeSets#INSERT_ONLY}
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EnumSet<EventType> getEventTypes() {
 		return INSERT_ONLY;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getGeneratedType() {
 		return generatedType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object generate(SharedSessionContractImplementor session, Object owner, Object currentValue, EventType eventType) {
 		final var sessionFactory = session.getSessionFactory();
 		final Object tenantId = session.getTenantIdentifierValue();

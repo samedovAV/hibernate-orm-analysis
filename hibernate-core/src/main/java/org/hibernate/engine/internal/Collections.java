@@ -17,6 +17,8 @@ import org.hibernate.type.CollectionType;
 
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
 import static org.hibernate.pretty.MessageHelper.collectionInfoString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Implements book-keeping for the collection persistence by reachability algorithm
@@ -31,6 +33,7 @@ public final class Collections {
 	 * @param collection The collection to be updated by unreachability.
 	 * @param session The session
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void processUnreachableCollection(
 			PersistentCollection<?> collection,
 			EventSource session,
@@ -43,6 +46,7 @@ public final class Collections {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void processDereferencedCollection(
 			PersistentCollection<?> collection,
 			EventSource session,
@@ -82,6 +86,7 @@ public final class Collections {
 
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Object getOwnerId(
 			PersistentCollection<?> collection,
 			SessionImplementor session,
@@ -110,6 +115,7 @@ public final class Collections {
 		return ownerId;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void processNeverReferencedCollection(
 			PersistentCollection<?> collection,
 			EventSource session,
@@ -139,6 +145,7 @@ public final class Collections {
 	 * @param entity The owner of the collection.
 	 * @param session The session from which this request originates
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void processReachableCollection(
 			PersistentCollection<?> collection,
 			CollectionType type,
@@ -191,6 +198,7 @@ public final class Collections {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void logReachedCollection(
 			PersistentCollection<?> collection,
 			SessionImplementor session,
@@ -236,6 +244,7 @@ public final class Collections {
 	 * 1. record the collection role that this collection is referenced by
 	 * 2. decide if the collection needs deleting/creating/updating
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void prepareCollectionForUpdate(
 			PersistentCollection<?> collection,
 			CollectionEntry collectionEntry,
@@ -293,6 +302,7 @@ public final class Collections {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void checkOnChangedOwner(PersistentCollection<?> collection, CollectionEntry collectionEntry, CollectionPersister loadedPersister, CollectionPersister currentPersister) {
 		final boolean immutableDereferenced =
 				collectionEntry.isReadOnly()
@@ -315,6 +325,7 @@ public final class Collections {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isOwnerDeletedOrGone(PersistentCollection<?> collection) {
 		final Object owner = collection.getOwner();
 		assert owner != null;
@@ -328,6 +339,7 @@ public final class Collections {
 	 * Check if the key changed.
 	 * Excludes marking key changed when the loaded key is a {@code DelayedPostInsertIdentifier}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean wasKeyChanged(
 			CollectionEntry entry, SessionFactoryImplementor factory, CollectionPersister currentPersister) {
 		return currentPersister != null
@@ -339,6 +351,7 @@ public final class Collections {
 	 * Determines if we can skip the explicit SQL delete statement, since
 	 * the rows will be deleted by {@code on delete cascade}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean skipRemoval(EventSource session, CollectionPersister persister, Object key) {
 		if ( persister != null
 				// TODO: same optimization for @OneToMany @OnDelete(action=SET_NULL)

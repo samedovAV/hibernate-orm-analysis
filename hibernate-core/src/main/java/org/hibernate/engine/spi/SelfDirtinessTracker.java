@@ -5,6 +5,8 @@
 package org.hibernate.engine.spi;
 
 import org.hibernate.bytecode.enhance.spi.CollectionTracker;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for an entity to report that it tracks the dirtiness of its own state,
@@ -23,6 +25,7 @@ public interface SelfDirtinessTracker extends PrimeAmongSecondarySupertypes {
 	 * @return {@code true} indicates one or more persistent attributes have changed; {@code false}
 	 * indicates none have changed.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean $$_hibernate_hasDirtyAttributes();
 
 	/**
@@ -30,26 +33,31 @@ public interface SelfDirtinessTracker extends PrimeAmongSecondarySupertypes {
 	 *
 	 * @return An array of changed persistent attribute names
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String[] $$_hibernate_getDirtyAttributes();
 
 	/**
 	 * Adds persistent attribute to the set of values that have changed
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void $$_hibernate_trackChange(String attributes);
 
 	/**
 	 * Clear the stored dirty attributes
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void $$_hibernate_clearDirtyAttributes();
 
 	/**
 	 * Temporarily enable / disable dirty tracking
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void $$_hibernate_suspendDirtyTracking(boolean suspend);
 
 	/**
 	 * Get access to the CollectionTracker
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CollectionTracker $$_hibernate_getCollectionTracker();
 
 	/**
@@ -58,6 +66,7 @@ public interface SelfDirtinessTracker extends PrimeAmongSecondarySupertypes {
 	 * @return this same instance
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SelfDirtinessTracker asSelfDirtinessTracker() {
 		return this;
 	}

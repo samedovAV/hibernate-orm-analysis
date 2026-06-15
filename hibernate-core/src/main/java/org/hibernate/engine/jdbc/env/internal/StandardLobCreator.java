@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import org.hibernate.JDBCException;
 import org.hibernate.engine.jdbc.LobCreationContext;
 import org.hibernate.engine.jdbc.LobCreator;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * {@linkplain LobCreator} implementation using {@linkplain Connection#createBlob},
@@ -36,11 +38,13 @@ public class StandardLobCreator extends BlobAndClobCreator {
 	 *
 	 * @return The created NCLOB reference.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NClob createNClob() {
 		return lobCreationContext.fromContext( CREATE_NCLOB_CALLBACK );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public NClob createNClob(String string) {
 		try {
 			final NClob nclob = createNClob();
@@ -53,6 +57,7 @@ public class StandardLobCreator extends BlobAndClobCreator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public NClob createNClob(Reader reader, long length) {
 		// IMPL NOTE : it is inefficient to use JDBC LOB locator creation to create a LOB
 		// backed by a given stream.  So just wrap the stream (which is what the NonContextualLobCreator does).

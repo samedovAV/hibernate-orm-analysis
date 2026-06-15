@@ -5,6 +5,8 @@
 package org.hibernate;
 
 import static org.hibernate.internal.util.StringHelper.qualify;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Thrown when the (illegal) value of a property can not be persisted.
@@ -35,15 +37,18 @@ public class PropertyValueException extends HibernateException {
 		this.propertyName = propertyName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getEntityName() {
 		return entityName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getPropertyName() {
 		return propertyName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getMessage() {
 		return super.getMessage() + " for entity " + qualify( entityName, propertyName );
 	}

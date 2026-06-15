@@ -15,6 +15,8 @@ import org.hibernate.query.sqm.tree.expression.SqmFunction;
 import org.hibernate.sql.ast.tree.expression.Expression;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Pluggable strategy for resolving a function argument type for a specific call.
@@ -33,7 +35,8 @@ public interface FunctionArgumentTypeResolver {
 	 * @deprecated Use {@link #resolveFunctionArgumentType(List, int, SqmToSqlAstConverter)} instead
 	 */
 	@Deprecated(forRemoval = true, since = "7.0")
-	@Nullable MappingModelExpressible<?> resolveFunctionArgumentType(
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	MappingModelExpressible<?> resolveFunctionArgumentType(
 			SqmFunction<?> function,
 			int argumentIndex,
 			SqmToSqlAstConverter converter);
@@ -48,6 +51,7 @@ public interface FunctionArgumentTypeResolver {
 	 * @return The resolved type.
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default @Nullable MappingModelExpressible<?> resolveFunctionArgumentType(
 			List<? extends SqmTypedNode<?>> arguments,
 			int argumentIndex,
@@ -61,11 +65,13 @@ public interface FunctionArgumentTypeResolver {
 						converter.getSqmCreationContext().getNodeBuilder()
 				) {
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public Expression convertToSqlAst(SqmToSqlAstConverter walker) {
 						throw new UnsupportedOperationException();
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public SqmExpression<Object> copy(SqmCopyContext context) {
 						throw new UnsupportedOperationException();
 					}

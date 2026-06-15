@@ -20,6 +20,8 @@ import org.hibernate.type.spi.TypeConfiguration;
 import java.util.List;
 
 import static java.util.Arrays.asList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The HQL {@code str()} function is now considered a synonym for {@code cast(x as String)}.
@@ -48,6 +50,7 @@ public class CastStrEmulation
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected <T> SelfRenderingSqmFunction<T> generateSqmFunctionExpression(
 			List<? extends SqmTypedNode<?>> arguments,
 			ReturnableType<T> impliedResultType,

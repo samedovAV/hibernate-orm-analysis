@@ -11,6 +11,8 @@ import java.util.ListIterator;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.XMLEvent;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Buffers XML events for later re-reading
@@ -44,11 +46,13 @@ public class BufferedXMLEventReader extends BaseXMLEventReader {
 	/**
 	 * @return A copy of the current buffer
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<XMLEvent> getBuffer() {
 		return new ArrayList<>(this.eventBuffer);
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected XMLEvent internalNextEvent() throws XMLStreamException {
 		//If there is an iterator to read from reset was called, use the iterator
 		//until it runs out of events.
@@ -80,11 +84,13 @@ public class BufferedXMLEventReader extends BaseXMLEventReader {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean hasNext() {
 		return this.bufferReader != null || super.hasNext();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public XMLEvent peek() throws XMLStreamException {
 		if (this.bufferReader != null) {
 			final XMLEvent event = this.bufferReader.next();
@@ -97,6 +103,7 @@ public class BufferedXMLEventReader extends BaseXMLEventReader {
 	/**
 	 * Same as calling {@link #mark(int)} with -1.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void mark() {
 		this.mark(-1);
 	}
@@ -105,6 +112,7 @@ public class BufferedXMLEventReader extends BaseXMLEventReader {
 	 * Start buffering events
 	 * @param eventLimit the maximum number of events to buffer. -1 will buffer all events, 0 will buffer no events.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void mark(int eventLimit) {
 		this.eventLimit = eventLimit;
 
@@ -137,6 +145,7 @@ public class BufferedXMLEventReader extends BaseXMLEventReader {
 	/**
 	 * Reset the reader to these start of the buffered events.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void reset() {
 		if (this.eventBuffer.isEmpty()) {
 			this.bufferReader = null;
@@ -147,6 +156,7 @@ public class BufferedXMLEventReader extends BaseXMLEventReader {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void close() throws XMLStreamException {
 		this.mark(0);
 		super.close();
@@ -155,6 +165,7 @@ public class BufferedXMLEventReader extends BaseXMLEventReader {
 	/**
 	 * @return The number of events in the buffer.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int bufferSize() {
 		return this.eventBuffer.size();
 	}
@@ -163,6 +174,7 @@ public class BufferedXMLEventReader extends BaseXMLEventReader {
 	 * If reading from the buffer after a {@link #reset()} call an {@link IllegalStateException} will be thrown.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void remove() {
 		if (this.bufferReader != null && this.bufferReader.hasNext()) {
 			throw new IllegalStateException("Cannot remove a buffered element");

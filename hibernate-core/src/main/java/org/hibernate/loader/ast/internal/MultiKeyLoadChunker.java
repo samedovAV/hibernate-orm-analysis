@@ -15,6 +15,8 @@ import org.hibernate.sql.exec.spi.JdbcParametersList;
 import org.hibernate.sql.exec.spi.JdbcSelect;
 import org.hibernate.sql.results.internal.RowTransformerStandardImpl;
 import org.hibernate.sql.results.spi.ManagedResultConsumer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * When the number of ids to initialize exceeds a certain threshold, IN-predicate based
@@ -26,6 +28,7 @@ import org.hibernate.sql.results.spi.ManagedResultConsumer;
 public class MultiKeyLoadChunker<K> {
 	@FunctionalInterface
 	interface SqlExecutionContextCreator {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		ExecutionContext createContext(
 				JdbcParameterBindings parameterBindings,
 				SharedSessionContractImplementor session);
@@ -33,16 +36,19 @@ public class MultiKeyLoadChunker<K> {
 
 	@FunctionalInterface
 	interface KeyCollector<K> {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void collect(K key, int relativePosition, int absolutePosition);
 	}
 
 	@FunctionalInterface
 	interface ChunkStartListener {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void chunkStartNotification(int startIndex);
 	}
 
 	@FunctionalInterface
 	interface ChunkBoundaryListener {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void chunkBoundaryNotification(int startIndex, int nonNullElementCount);
 	}
 
@@ -79,6 +85,7 @@ public class MultiKeyLoadChunker<K> {
 	 * @param keyCollector Called for each key as it is processed
 	 * @param boundaryListener Notifications that processing a chunk has completed
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void processChunks(
 			K[] keys,
 			int nonNullElementCount,
@@ -96,6 +103,7 @@ public class MultiKeyLoadChunker<K> {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void processChunk(
 			K[] keys,
 			int startIndex,

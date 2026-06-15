@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import org.hibernate.service.ServiceRegistry;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A specialized {@link ConnectionCreator} which uses {@link DriverManager#getConnection(String, Properties)}
@@ -29,6 +31,7 @@ public class DriverManagerConnectionCreator extends BasicConnectionCreator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Connection makeConnection(String url, Properties connectionProps) {
 		try {
 			return DriverManager.getConnection( url, connectionProps );

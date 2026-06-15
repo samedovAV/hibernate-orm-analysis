@@ -5,6 +5,8 @@
 package org.hibernate.tool.schema.spi;
 
 import org.hibernate.boot.model.relational.ContributableDatabaseObject;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Matcher for whether tables and sequences should be included based on its
@@ -24,5 +26,6 @@ public interface ContributableMatcher {
 	/**
 	 * Does the given `contributed` match this matcher?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean matches(ContributableDatabaseObject contributed);
 }

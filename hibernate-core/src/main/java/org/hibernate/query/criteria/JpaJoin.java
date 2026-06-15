@@ -15,6 +15,8 @@ import java.util.List;
 
 import org.hibernate.metamodel.model.domain.EntityDomainType;
 import org.hibernate.metamodel.model.domain.PersistentAttribute;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Consolidates the {@link Join} and {@link Fetch} hierarchies since that is how we implement them.
@@ -26,35 +28,44 @@ public interface JpaJoin<L, R> extends JpaFrom<L,R>, Join<L,R> {
 
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PersistentAttribute<? super L, ?> getAttribute();
 
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJoin<L, R> on(@Nullable JpaExpression<Boolean> restriction);
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJoin<L, R> on(@Nonnull Expression<Boolean> restriction);
 
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJoin<L, R> on(@Nullable JpaPredicate... restrictions);
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJoin<L, R> on(@Nonnull BooleanExpression... restrictions);
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJoin<L, R> on(@Nonnull List<? extends Expression<Boolean>> restrictions);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<S extends R> JpaTreatedJoin<L,R,S> treatAs(Class<S> treatAsType);
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <S extends R> JpaJoin<L, S> treat(@Nonnull Class<S> treatAsType) {
 		return treatAs( treatAsType );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<S extends R> JpaTreatedJoin<L,R,S> treatAs(EntityDomainType<S> treatAsType);
 }

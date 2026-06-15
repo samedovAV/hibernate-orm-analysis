@@ -11,6 +11,8 @@ import org.hibernate.query.sqm.SqmPathSource;
 import org.hibernate.query.sqm.tree.domain.SqmPath;
 import org.hibernate.query.sqm.tree.domain.SqmDomainType;
 import org.hibernate.query.sqm.tree.domain.SqmEntityDomainType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * SqmPathSource implementation for entity discriminator
@@ -30,15 +32,18 @@ public class EntityDiscriminatorSqmPathSource<D> extends AbstractDiscriminatorSq
 		this.entityMapping = entityMapping;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityDomainType<?> getEntityDomainType() {
 		return entityDomainType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityMappingType getEntityMapping() {
 		return entityMapping;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPath<D> createSqmPath(SqmPath<?> lhs, @Nullable SqmPathSource<?> intermediatePathSource) {
 		return new EntityDiscriminatorSqmPath<>(
 				PathHelper.append( lhs, this, intermediatePathSource ),

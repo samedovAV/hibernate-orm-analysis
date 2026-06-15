@@ -7,6 +7,8 @@ package org.hibernate.query.results.spi;
 import org.hibernate.sql.results.graph.DomainResultCreationState;
 import org.hibernate.sql.results.graph.entity.EntityResult;
 import org.hibernate.sql.results.jdbc.spi.JdbcValuesMetadata;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * ResultBuilder specialization for cases involving entity results.
@@ -17,6 +19,7 @@ import org.hibernate.sql.results.jdbc.spi.JdbcValuesMetadata;
  */
 public interface ResultBuilderEntityValued extends ResultBuilder {
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityResult<?> buildResult(
 			JdbcValuesMetadata jdbcResultsMetadata,
 			int resultPosition,

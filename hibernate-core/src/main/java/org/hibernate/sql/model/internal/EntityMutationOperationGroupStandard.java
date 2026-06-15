@@ -10,6 +10,8 @@ import org.hibernate.sql.model.EntityMutationOperationGroup;
 import org.hibernate.persister.entity.mutation.EntityMutationTarget;
 import org.hibernate.sql.model.MutationOperation;
 import org.hibernate.sql.model.MutationType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class EntityMutationOperationGroupStandard implements EntityMutationOperationGroup {
 
@@ -54,21 +56,25 @@ public class EntityMutationOperationGroupStandard implements EntityMutationOpera
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutationType getMutationType() {
 		return mutationType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityMutationTarget getMutationTarget() {
 		return mutationTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getNumberOfOperations() {
 		return operations.length;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutationOperation getSingleOperation() {
 		if ( operations.length == 1 ) {
 			return operations[0];
@@ -86,11 +92,13 @@ public class EntityMutationOperationGroupStandard implements EntityMutationOpera
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutationOperation getOperation(int idx) {
 		return operations[idx];
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MutationOperation getOperation(final String tableName) {
 		for ( int i = 0; i < operations.length; i++ ) {
 			final MutationOperation operation = operations[i];

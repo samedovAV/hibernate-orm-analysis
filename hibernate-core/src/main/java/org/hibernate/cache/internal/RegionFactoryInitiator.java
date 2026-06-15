@@ -21,6 +21,8 @@ import static org.hibernate.cfg.CacheSettings.CACHE_REGION_FACTORY;
 import static org.hibernate.cfg.CacheSettings.USE_QUERY_CACHE;
 import static org.hibernate.cfg.CacheSettings.USE_SECOND_LEVEL_CACHE;
 import static org.hibernate.internal.util.config.ConfigurationHelper.getBooleanWrapper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Initiator for the {@link RegionFactory} service.
@@ -37,11 +39,13 @@ public class RegionFactoryInitiator implements StandardServiceInitiator<RegionFa
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<RegionFactory> getServiceInitiated() {
 		return RegionFactory.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public RegionFactory initiateService(@Nonnull Map<String, Object> configurationValues, @Nonnull ServiceRegistryImplementor registry) {
 		final var regionFactory = resolveRegionFactory( configurationValues, registry );
 		if ( regionFactory instanceof NoCachingRegionFactory ) {
@@ -54,6 +58,7 @@ public class RegionFactoryInitiator implements StandardServiceInitiator<RegionFa
 	}
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected RegionFactory resolveRegionFactory(Map<String,Object> configurationValues, ServiceRegistryImplementor registry) {
 		final var properties = new Properties();
 		properties.putAll( configurationValues );
@@ -123,6 +128,7 @@ public class RegionFactoryInitiator implements StandardServiceInitiator<RegionFa
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected RegionFactory getFallback(Map<?,?> configurationValues, ServiceRegistryImplementor registry) {
 		return null;
 	}

@@ -8,6 +8,8 @@ import java.util.Collection;
 
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.metamodel.EmbeddableType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Hibernate extension to the JPA {@link EmbeddableType} contract.
@@ -22,8 +24,10 @@ public interface EmbeddableDomainType<J>
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Collection<? extends EmbeddableDomainType<? extends J>> getSubTypes();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isPolymorphic() {
 		return getSuperType() != null || !getSubTypes().isEmpty();
 	}

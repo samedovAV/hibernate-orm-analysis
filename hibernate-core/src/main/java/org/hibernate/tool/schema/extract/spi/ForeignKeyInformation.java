@@ -5,6 +5,8 @@
 package org.hibernate.tool.schema.extract.spi;
 
 import org.hibernate.boot.model.naming.Identifier;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -15,6 +17,7 @@ public interface ForeignKeyInformation {
 	 *
 	 * @return The FK identifier.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier getForeignKeyIdentifier();
 
 	/**
@@ -22,6 +25,7 @@ public interface ForeignKeyInformation {
 	 *
 	 * @return The sequential column reference mappings.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Iterable<ColumnReferenceMapping> getColumnReferenceMappings();
 
 	interface ColumnReferenceMapping {
@@ -31,6 +35,7 @@ public interface ForeignKeyInformation {
 		 *
 		 * @return The referencing column.
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		ColumnInformation getReferencingColumnMetadata();
 
 		/**
@@ -38,6 +43,7 @@ public interface ForeignKeyInformation {
 		 *
 		 * @return The referenced column
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		ColumnInformation getReferencedColumnMetadata();
 	}
 }

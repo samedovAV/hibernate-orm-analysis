@@ -18,6 +18,8 @@ import org.hibernate.sql.results.graph.InitializerParent;
 import jakarta.annotation.Nullable;
 
 import static java.util.Collections.newSetFromMap;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base support for CollectionInitializer implementations that don't join data
@@ -46,6 +48,7 @@ public abstract class AbstractNonJoinCollectionInitializer<Data extends Abstract
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void resolveInstance(Data data, boolean isEager) {
 		if ( data.getState() == State.KEY_RESOLVED ) {
 			resolveCollectionKey( data, false );
@@ -136,6 +139,7 @@ public abstract class AbstractNonJoinCollectionInitializer<Data extends Abstract
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void resolveInstance(Object instance, Data data, boolean isEager) {
 		if ( instance == null ) {
 			setMissing( data );
@@ -160,6 +164,7 @@ public abstract class AbstractNonJoinCollectionInitializer<Data extends Abstract
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void addBatchLoadableCollection(
 			PersistentCollection<?> collection,
 			SharedSessionContractImplementor session) {
@@ -181,6 +186,7 @@ public abstract class AbstractNonJoinCollectionInitializer<Data extends Abstract
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void addNonLazyCollection(Data data, PersistentCollection<?> collection) {
 		if ( hasLocalFetchOptions() ) {
 			var nonLazyCollections = data.nonLazyCollections;
@@ -195,11 +201,13 @@ public abstract class AbstractNonJoinCollectionInitializer<Data extends Abstract
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean hasLocalFetchOptions() {
 		return fetchOptions.hasOptions();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void endLoading(Data data) {
 		super.endLoading( data );
 		final var nonLazyCollections = data.nonLazyCollections;

@@ -13,6 +13,8 @@ import org.hibernate.internal.util.StringHelper;
 import org.hibernate.models.spi.ModelsContext;
 
 import jakarta.persistence.StoredProcedureParameter;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -52,40 +54,48 @@ public class StoredProcedureParameterJpaAnnotation implements StoredProcedurePar
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return StoredProcedureParameter.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String name() {
 		return name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void name(String value) {
 		this.name = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.ParameterMode mode() {
 		return mode;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void mode(jakarta.persistence.ParameterMode value) {
 		this.mode = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public java.lang.Class<?> type() {
 		return type;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void type(java.lang.Class<?> value) {
 		this.type = value;
 	}
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void apply(JaxbStoredProcedureParameterImpl jaxbParam, XmlDocumentContext xmlDocumentContext) {
 		if ( StringHelper.isNotEmpty( jaxbParam.getName() ) ) {
 			name( jaxbParam.getName() );

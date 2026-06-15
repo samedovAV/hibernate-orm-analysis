@@ -8,6 +8,8 @@ import jakarta.persistence.AttributeConverter;
 import org.hibernate.boot.model.convert.spi.ConverterDescriptor;
 
 import java.lang.reflect.Type;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Factory for {@link org.hibernate.boot.model.convert.spi.ConverterDescriptor}.
@@ -16,16 +18,19 @@ import java.lang.reflect.Type;
  */
 public class ConverterDescriptors {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <X,Y> ConverterDescriptor<X,Y> of(
 			AttributeConverter<X,Y> converterInstance) {
 		return new InstanceBasedConverterDescriptor<>( converterInstance, null );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <X,Y> ConverterDescriptor<X,Y> of(
 			AttributeConverter<X,Y> converterInstance, boolean autoApply) {
 		return new InstanceBasedConverterDescriptor<>( converterInstance, autoApply );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <X,Y> ConverterDescriptor<X,Y> of(
 			Class<? extends AttributeConverter<? extends X, ? extends Y>> converterClass,
 			Boolean autoApply, boolean overrideable) {
@@ -34,6 +39,7 @@ public class ConverterDescriptors {
 		return new ClassBasedConverterDescriptor<>( converterType, autoApply, overrideable );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <X,Y> ConverterDescriptor<X,Y> of(
 			Class<? extends AttributeConverter<? extends X, ? extends Y>> converterClass) {
 		@SuppressWarnings("unchecked") // work around weird fussiness in wildcard capture
@@ -41,6 +47,7 @@ public class ConverterDescriptors {
 		return new ClassBasedConverterDescriptor<>( converterType, null, false );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <X,Y> ConverterDescriptor<X,Y> of(
 			Class<? extends AttributeConverter<? extends X, ? extends Y>> converterType,
 			Type domainTypeToMatch, Type relationalType, boolean autoApply) {

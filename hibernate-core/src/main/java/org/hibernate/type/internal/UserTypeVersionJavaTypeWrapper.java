@@ -8,6 +8,8 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.type.CustomType;
 import org.hibernate.type.descriptor.java.VersionJavaType;
 import org.hibernate.usertype.UserVersionType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  *
@@ -20,6 +22,7 @@ public class UserTypeVersionJavaTypeWrapper<J> extends UserTypeJavaTypeWrapper<J
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public J seed(
 			Long length,
 			Integer precision,
@@ -28,6 +31,7 @@ public class UserTypeVersionJavaTypeWrapper<J> extends UserTypeJavaTypeWrapper<J
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public J next(
 			J current,
 			Long length,

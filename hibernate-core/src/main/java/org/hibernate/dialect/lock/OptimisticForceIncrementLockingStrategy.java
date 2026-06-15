@@ -9,6 +9,8 @@ import org.hibernate.LockMode;
 import org.hibernate.action.internal.EntityIncrementVersionProcess;
 import org.hibernate.event.spi.EventSource;
 import org.hibernate.persister.entity.EntityPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An optimistic locking strategy that verifies that the version
@@ -44,12 +46,14 @@ public class OptimisticForceIncrementLockingStrategy implements LockingStrategy 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void lock(Object id, Object version, Object object, int timeout, EventSource session) {
 //		final EntityEntry entry = session.getPersistenceContextInternal().getEntry( object );
 		// Register the EntityIncrementVersionProcess action to run just prior to transaction commit.
 		session.getActionQueue().registerCallback( new EntityIncrementVersionProcess( object ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected LockMode getLockMode() {
 		return lockMode;
 	}

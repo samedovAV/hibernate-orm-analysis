@@ -7,6 +7,8 @@ package org.hibernate.boot.jaxb.hbm.spi;
 import java.util.List;
 
 import org.hibernate.LockMode;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Commonality for non-scalar root returns for a native query result mapping
@@ -20,6 +22,7 @@ public interface NativeQueryNonScalarRootReturn extends NativeQueryReturn {
 	 *
 	 * @return The alias
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getAlias();
 
 	/**
@@ -27,6 +30,7 @@ public interface NativeQueryNonScalarRootReturn extends NativeQueryReturn {
 	 *
 	 * @return The LockMode
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	LockMode getLockMode();
 
 	/**
@@ -34,5 +38,6 @@ public interface NativeQueryNonScalarRootReturn extends NativeQueryReturn {
 	 *
 	 * @return The nested property mappings
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<JaxbHbmNativeQueryPropertyReturnType> getReturnProperty();
 }

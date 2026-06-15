@@ -5,6 +5,8 @@
 package org.hibernate.sql.ast.tree.from;
 
 import org.hibernate.HibernateException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Thrown when a {@link TableReference} cannot be resolved
@@ -22,6 +24,7 @@ public class UnknownTableReferenceException extends HibernateException {
 		this.tableExpression = tableExpression;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getTableExpression() {
 		return tableExpression;
 	}

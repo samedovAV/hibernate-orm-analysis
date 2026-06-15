@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.source.spi;
 
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Defines the source of filter information.  May have an associated {@link org.hibernate.engine.spi.FilterDefinition}.
@@ -18,6 +20,7 @@ public interface FilterSource {
 	 *
 	 * @return The name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getName();
 
 	/**
@@ -28,6 +31,7 @@ public interface FilterSource {
 	 *
 	 * @see org.hibernate.boot.model.source.internal.hbm.FilterSourceImpl#getCondition()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getCondition();
 
 	/**
@@ -36,6 +40,7 @@ public interface FilterSource {
 	 *
 	 * @return {@code true} indicates auto injection should occur; {@code false} that it should not
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean shouldAutoInjectAliases();
 
 	/**
@@ -43,6 +48,7 @@ public interface FilterSource {
 	 *
 	 * @return The alias to table map
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Map<String, String> getAliasToTableMap();
 
 	/**
@@ -50,5 +56,6 @@ public interface FilterSource {
 	 *
 	 * @return The alias to entity map
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Map<String, String> getAliasToEntityMap();
 }

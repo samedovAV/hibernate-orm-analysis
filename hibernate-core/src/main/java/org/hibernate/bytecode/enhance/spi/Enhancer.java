@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.bytecode.enhance.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Class responsible for performing enhancement.
@@ -27,6 +30,7 @@ public interface Enhancer {
 	 *
 	 * @throws EnhancementException Indicates a problem performing the enhancement
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	byte[] enhance(String className, byte[] originalBytes) throws EnhancementException;
 
 	/**
@@ -40,5 +44,6 @@ public interface Enhancer {
 	 * @throws EnhancementException Indicates a problem during type discovery
 	 * @since 6.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void discoverTypes(String className, byte[] originalBytes) throws EnhancementException;
 }

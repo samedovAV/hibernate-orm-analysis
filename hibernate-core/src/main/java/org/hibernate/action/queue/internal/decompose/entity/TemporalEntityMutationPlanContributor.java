@@ -29,6 +29,8 @@ import org.hibernate.sql.model.ast.TableInsert;
 import org.hibernate.sql.model.ast.builder.TableUpdateBuilderStandard;
 
 import static org.hibernate.generator.EventType.UPDATE;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Graph mutation plan contributor for single-table temporal entity mutations.
 ///
@@ -51,6 +53,7 @@ public class TemporalEntityMutationPlanContributor implements EntityMutationPlan
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean contributeReplacementUpdate(
 			UpdateContext context,
 			Consumer<FlushOperation> operationConsumer) {
@@ -95,6 +98,7 @@ public class TemporalEntityMutationPlanContributor implements EntityMutationPlan
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean contributeReplacementDelete(
 			DeleteContext context,
 			Consumer<FlushOperation> operationConsumer) {
@@ -123,6 +127,7 @@ public class TemporalEntityMutationPlanContributor implements EntityMutationPlan
 		return true;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private FlushOperation createEndOperation(
 			int ordinalBase,
 			String description,
@@ -151,6 +156,7 @@ public class TemporalEntityMutationPlanContributor implements EntityMutationPlan
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void contributeReplacementInsert(
 			UpdateContext context,
 			Consumer<FlushOperation> operationConsumer) {
@@ -224,6 +230,7 @@ public class TemporalEntityMutationPlanContributor implements EntityMutationPlan
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private int[] preUpdateInMemoryValueGeneration(
 			Object object,
 			Object[] newValues,
@@ -255,6 +262,7 @@ public class TemporalEntityMutationPlanContributor implements EntityMutationPlan
 		return org.hibernate.internal.util.collections.ArrayHelper.EMPTY_INT_ARRAY;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean needsDynamicEndOperation(
 			Object rowId,
 			Object[] loadedState,
@@ -264,6 +272,7 @@ public class TemporalEntityMutationPlanContributor implements EntityMutationPlan
 			|| entityPersister.hasPartitionedSelectionMapping() && loadedState != null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private OptimisticLockStyle effectiveOptimisticLockStyle(Object version, Object[] loadedState) {
 		final OptimisticLockStyle optimisticLockStyle = entityPersister.optimisticLockStyle();
 		if ( optimisticLockStyle.isVersion() ) {
@@ -276,6 +285,7 @@ public class TemporalEntityMutationPlanContributor implements EntityMutationPlan
 				: optimisticLockStyle;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private MutationOperation buildEndOperation(
 			Object rowId,
 			Object[] loadedState,
@@ -303,6 +313,7 @@ public class TemporalEntityMutationPlanContributor implements EntityMutationPlan
 		return updateBuilder.buildMutation().createMutationOperation( null, sessionFactory );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void addKeyRestriction(
 			TableUpdateBuilderStandard<MutationOperation> updateBuilder,
 			EntityTableDescriptor tableDescriptor,
@@ -315,6 +326,7 @@ public class TemporalEntityMutationPlanContributor implements EntityMutationPlan
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void addTemporalEnding(TableUpdateBuilderStandard<MutationOperation> updateBuilder) {
 		final var endingColumn = new ColumnReference(
 				updateBuilder.getMutatingTable(),
@@ -324,6 +336,7 @@ public class TemporalEntityMutationPlanContributor implements EntityMutationPlan
 		updateBuilder.addNonKeyRestriction( temporalMapping.createNullEndingValueBinding( endingColumn ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void addVersionRestriction(
 			TableUpdateBuilderStandard<MutationOperation> updateBuilder,
 			EntityTableDescriptor tableDescriptor) {
@@ -335,6 +348,7 @@ public class TemporalEntityMutationPlanContributor implements EntityMutationPlan
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void addPartitionedSelectionRestrictions(
 			TableUpdateBuilderStandard<MutationOperation> updateBuilder,
 			EntityTableDescriptor tableDescriptor,
@@ -352,6 +366,7 @@ public class TemporalEntityMutationPlanContributor implements EntityMutationPlan
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void addNonVersionOptimisticLockRestrictions(
 			TableUpdateBuilderStandard<MutationOperation> updateBuilder,
 			EntityTableDescriptor tableDescriptor,

@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.bytecode.enhance.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Options for the {@linkplain Enhancer enhancement} process.
@@ -15,6 +18,7 @@ public interface EnhancementOptions {
 	/**
 	 * Whether to enable support for inline dirtiness checking.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default boolean doDirtyCheckingInline() {
 		return doDirtyCheckingInline( null );
 	}
@@ -25,6 +29,7 @@ public interface EnhancementOptions {
 	 * @deprecated Will be removed without replacement. See HHH-19661
 	 */
 	@Deprecated(forRemoval = true, since = "7.1")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default boolean doExtendedEnhancement() {
 		return doExtendedEnhancement( null );
 	}
@@ -35,6 +40,7 @@ public interface EnhancementOptions {
 	 * @deprecated Will be removed without replacement. See HHH-19660
 	 */
 	@Deprecated(forRemoval = true, since = "7.1")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default boolean doBiDirectionalAssociationManagement() {
 		return doBiDirectionalAssociationManagement( null );
 	}
@@ -50,6 +56,7 @@ public interface EnhancementOptions {
 	 * @deprecated Use {@linkplain #doDirtyCheckingInline()} instead.
 	 */
 	@Deprecated(forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean doDirtyCheckingInline(UnloadedClass classDescriptor);
 
 	/**
@@ -63,6 +70,7 @@ public interface EnhancementOptions {
 	 * @deprecated Use {@linkplain #doExtendedEnhancement()} instead.
 	 */
 	@Deprecated(forRemoval = true, since = "7.1")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean doExtendedEnhancement(UnloadedClass classDescriptor);
 
 	/**
@@ -77,5 +85,6 @@ public interface EnhancementOptions {
 	 * @deprecated Use {@linkplain #doBiDirectionalAssociationManagement()} instead.
 	 */
 	@Deprecated(forRemoval = true, since = "7.1")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean doBiDirectionalAssociationManagement(UnloadedField field);
 }

@@ -7,6 +7,8 @@ package org.hibernate.type.descriptor.java;
 import org.hibernate.HibernateException;
 import org.hibernate.internal.util.ReflectHelper;
 import org.hibernate.type.descriptor.WrapperOptions;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Descriptor for {@link Class} handling.
@@ -22,26 +24,31 @@ public class ClassJavaType extends AbstractClassJavaType<Class<?>> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isInstance(Object value) {
 		return value instanceof Class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> cast(Object value) {
 		return (Class<?>) value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean useObjectEqualsHashCode() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString(Class<?> value) {
 		return value.getName();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> fromString(CharSequence string) {
 		if ( string == null ) {
 			return null;
@@ -56,6 +63,7 @@ public class ClassJavaType extends AbstractClassJavaType<Class<?>> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> X unwrap(Class<?> value, Class<X> type, WrapperOptions options) {
 		if ( value == null ) {
 			return null;
@@ -70,6 +78,7 @@ public class ClassJavaType extends AbstractClassJavaType<Class<?>> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> Class<?> wrap(X value, WrapperOptions options) {
 		if ( value == null ) {
 			return null;

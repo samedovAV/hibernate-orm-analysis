@@ -44,22 +44,27 @@ import org.hibernate.type.descriptor.java.ZoneOffsetJavaType;
 import org.hibernate.type.descriptor.java.ZonedDateTimeJavaType;
 
 import jakarta.persistence.TemporalType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
  */
 public abstract class AbstractUserTypeCases implements UserTypeCases {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract void applyJavaTypeAnnotation(
 			MutableMemberDetails memberDetails,
 			Class<? extends BasicJavaType<?>> descriptor,
 			XmlDocumentContext xmlDocumentContext);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract void applyTemporalPrecision(
 			MutableMemberDetails memberDetails,
 			@SuppressWarnings("deprecation") TemporalType temporalType,
 			XmlDocumentContext xmlDocumentContext);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleNone(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -67,6 +72,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleCharacter(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -75,6 +81,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleString(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -83,6 +90,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleByte(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -91,6 +99,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleBoolean(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -99,6 +108,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleShort(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -107,6 +117,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleInteger(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -115,6 +126,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleLong(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -123,6 +135,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleDouble(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -131,6 +144,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleFloat(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -139,6 +153,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleBigInteger(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -147,6 +162,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleBigDecimal(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -155,6 +171,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleUuid(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -163,6 +180,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleUrl(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -171,6 +189,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleInetAddress(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -179,6 +198,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleCurrency(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -187,6 +207,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleLocale(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -195,6 +216,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleClass(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -203,6 +225,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleBlob(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -211,6 +234,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleClob(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -219,6 +243,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleNClob(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -227,6 +252,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleInstant(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -235,6 +261,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleDuration(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -243,6 +270,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleYear(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -251,6 +279,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleLocalDateTime(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -259,6 +288,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleLocalDate(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -267,6 +297,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleLocalTime(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -275,6 +306,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleZonedDateTime(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -283,6 +315,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleOffsetDateTime(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -291,6 +324,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleOffsetTime(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -299,6 +333,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleZoneId(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -307,6 +342,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleZoneOffset(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -315,6 +351,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleTimestamp(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -325,6 +362,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleDate(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -335,6 +373,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleTime(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -345,6 +384,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleCalendar(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,
@@ -353,6 +393,7 @@ public abstract class AbstractUserTypeCases implements UserTypeCases {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleTimeZone(
 			JaxbUserTypeImpl jaxbType,
 			MutableMemberDetails memberDetails,

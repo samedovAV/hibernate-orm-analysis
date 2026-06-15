@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static java.util.Locale.ROOT;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link TupleTransformer} for handling {@link Map} results from native queries.
@@ -23,6 +25,7 @@ public class NativeQueryMapTransformer implements TupleTransformer<Map<String,Ob
 	public static final NativeQueryMapTransformer INSTANCE = new NativeQueryMapTransformer();
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Map<String,Object> transformTuple(Object[] tuple, String[] aliases) {
 		Map<String,Object> map = new HashMap<>( aliases.length );
 		for ( int i = 0; i < aliases.length; i++ ) {

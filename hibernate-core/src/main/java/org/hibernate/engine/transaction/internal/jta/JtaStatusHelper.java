@@ -16,6 +16,8 @@ import static jakarta.transaction.Status.STATUS_MARKED_ROLLBACK;
 import static jakarta.transaction.Status.STATUS_ROLLEDBACK;
 import static jakarta.transaction.Status.STATUS_ROLLING_BACK;
 import static jakarta.transaction.Status.STATUS_UNKNOWN;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Utility for dealing with JTA statuses.
@@ -35,6 +37,7 @@ public final class JtaStatusHelper {
 	 *
 	 * @throws TransactionException If the {@link UserTransaction} reports the status as unknown
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static int getStatus(UserTransaction userTransaction) {
 		try {
 			final int status = userTransaction.getStatus();
@@ -58,6 +61,7 @@ public final class JtaStatusHelper {
 	 *
 	 * @throws TransactionException If the {@link TransactionManager} reports the status as unknown
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static int getStatus(TransactionManager transactionManager) {
 		try {
 			final int status = transactionManager.getStatus();
@@ -78,6 +82,7 @@ public final class JtaStatusHelper {
 	 *
 	 * @return True if the code indicates active; false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isActive(int status) {
 		return status == STATUS_ACTIVE;
 	}
@@ -89,6 +94,7 @@ public final class JtaStatusHelper {
 	 *
 	 * @return True if the transaction is active; false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static boolean isActive(UserTransaction userTransaction) {
 		final int status = getStatus( userTransaction );
 		return isActive( status );
@@ -101,6 +107,7 @@ public final class JtaStatusHelper {
 	 *
 	 * @return True if the transaction is active; false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static boolean isActive(TransactionManager transactionManager) {
 		return isActive( getStatus( transactionManager ) );
 	}
@@ -112,6 +119,7 @@ public final class JtaStatusHelper {
 	 *
 	 * @return True if the code indicates a roll back; false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isRollback(int status) {
 		return status == STATUS_MARKED_ROLLBACK
 			|| status == STATUS_ROLLING_BACK
@@ -125,6 +133,7 @@ public final class JtaStatusHelper {
 	 *
 	 * @return True if the transaction indicates roll back; false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static boolean isRollback(UserTransaction userTransaction) {
 		return isRollback( getStatus( userTransaction ) );
 	}
@@ -136,6 +145,7 @@ public final class JtaStatusHelper {
 	 *
 	 * @return True if the transaction indicates roll back; false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static boolean isRollback(TransactionManager transactionManager) {
 		return isRollback( getStatus( transactionManager ) );
 	}
@@ -147,6 +157,7 @@ public final class JtaStatusHelper {
 	 *
 	 * @return True if the code indicates a roll back; false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isCommitted(int status) {
 		return status == STATUS_COMMITTED;
 	}
@@ -158,6 +169,7 @@ public final class JtaStatusHelper {
 	 *
 	 * @return True if the transaction indicates commit; false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static boolean isCommitted(UserTransaction userTransaction) {
 		return isCommitted( getStatus( userTransaction ) );
 	}
@@ -169,6 +181,7 @@ public final class JtaStatusHelper {
 	 *
 	 * @return True if the transaction indicates commit; false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static boolean isCommitted(TransactionManager transactionManager) {
 		return isCommitted( getStatus( transactionManager ) );
 	}
@@ -181,6 +194,7 @@ public final class JtaStatusHelper {
 	 * @return True if the code indicates a roll back; false otherwise.
 	 */
 	@SuppressWarnings("unused")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isMarkedForRollback(int status) {
 		return status == STATUS_MARKED_ROLLBACK;
 	}

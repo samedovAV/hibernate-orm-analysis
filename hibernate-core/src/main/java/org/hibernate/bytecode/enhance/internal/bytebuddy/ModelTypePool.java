@@ -8,6 +8,8 @@ import net.bytebuddy.dynamic.ClassFileLocator;
 import net.bytebuddy.pool.TypePool;
 
 import java.util.Objects;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A TypePool suitable for loading user's classes,
@@ -38,6 +40,7 @@ public class ModelTypePool extends TypePool.Default implements EnhancerClassLoca
 	 * @return the newly created EnhancerClassLocator
 	 * @see CoreTypePool
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static EnhancerClassLocator buildModelTypePool(ClassLoader classLoader) {
 		return buildModelTypePool( ClassFileLocator.ForClassLoader.of( classLoader ) );
 	}
@@ -50,6 +53,7 @@ public class ModelTypePool extends TypePool.Default implements EnhancerClassLoca
 	 * @param classFileLocator
 	 * @return the newly created EnhancerClassLocator
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static EnhancerClassLocator buildModelTypePool(ClassFileLocator classFileLocator) {
 		return buildModelTypePool( classFileLocator, new CoreTypePool() );
 	}
@@ -65,6 +69,7 @@ public class ModelTypePool extends TypePool.Default implements EnhancerClassLoca
 	 * @param coreTypePool
 	 * @return
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static EnhancerClassLocator buildModelTypePool(ClassFileLocator classFileLocator, CoreTypePool coreTypePool) {
 		return buildModelTypePool( classFileLocator, coreTypePool, new EnhancerCacheProvider() );
 	}
@@ -77,6 +82,7 @@ public class ModelTypePool extends TypePool.Default implements EnhancerClassLoca
 	 * @param cacheProvider
 	 * @return
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static EnhancerClassLocator buildModelTypePool(ClassFileLocator classFileLocator, CoreTypePool coreTypePool, EnhancerCacheProvider cacheProvider) {
 		Objects.requireNonNull( classFileLocator );
 		Objects.requireNonNull( coreTypePool );
@@ -86,6 +92,7 @@ public class ModelTypePool extends TypePool.Default implements EnhancerClassLoca
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void registerClassNameAndBytes(final String className, final byte[] bytes) {
 		final var currentEnhancementState = poolCache.getEnhancementState();
 		if ( currentEnhancementState != null ) {
@@ -100,11 +107,13 @@ public class ModelTypePool extends TypePool.Default implements EnhancerClassLoca
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void deregisterClassNameAndBytes(String className) {
 		poolCache.removeEnhancementState();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ClassFileLocator asClassFileLocator() {
 		return locator;
 	}

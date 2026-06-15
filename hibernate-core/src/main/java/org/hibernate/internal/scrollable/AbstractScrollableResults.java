@@ -12,6 +12,8 @@ import org.hibernate.sql.results.jdbc.spi.JdbcValues;
 import org.hibernate.sql.results.jdbc.spi.JdbcValuesSourceProcessingOptions;
 import org.hibernate.sql.results.jdbc.spi.JdbcValuesSourceProcessingState;
 import org.hibernate.sql.results.spi.RowReader;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base implementation of the ScrollableResults interface intended for sharing between
@@ -45,6 +47,7 @@ public abstract class AbstractScrollableResults<R> implements ScrollableResults<
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final R get() throws HibernateException {
 		if ( closed ) {
 			throw new IllegalStateException( "ScrollableResults is closed" );
@@ -52,42 +55,52 @@ public abstract class AbstractScrollableResults<R> implements ScrollableResults<
 		return getCurrentRow();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract R getCurrentRow();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected JdbcValues getJdbcValues() {
 		return jdbcValues;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected JdbcValuesSourceProcessingOptions getProcessingOptions() {
 		return processingOptions;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected JdbcValuesSourceProcessingState getJdbcValuesSourceProcessingState() {
 		return jdbcValuesSourceProcessingState;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected RowProcessingStateStandardImpl getRowProcessingState() {
 		return rowProcessingState;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected RowReader<R> getRowReader() {
 		return rowReader;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected SharedSessionContractImplementor getPersistenceContext() {
 		return persistenceContext;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void afterScrollOperation() {
 		getPersistenceContext().afterScrollOperation();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void setFetchSize(int fetchSize) {
 		getJdbcValues().setFetchSize( fetchSize );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final void close() {
 		if ( !closed ) {
 			rowReader.finishUp( rowProcessingState );
@@ -99,6 +112,7 @@ public abstract class AbstractScrollableResults<R> implements ScrollableResults<
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isClosed() {
 		return closed;
 	}

@@ -10,6 +10,8 @@ import java.sql.SQLException;
 
 import org.hibernate.engine.jdbc.cursor.spi.RefCursorSupport;
 import org.hibernate.engine.jdbc.spi.JdbcServices;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -22,6 +24,7 @@ public class FallbackRefCursorSupport implements RefCursorSupport {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void registerRefCursorParameter(CallableStatement statement, int position) {
 		try {
 			jdbcServices.getDialect().registerResultSetOutParameter( statement, position );
@@ -33,6 +36,7 @@ public class FallbackRefCursorSupport implements RefCursorSupport {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void registerRefCursorParameter(CallableStatement statement, String name) {
 		try {
 			jdbcServices.getDialect().registerResultSetOutParameter( statement, name );
@@ -44,6 +48,7 @@ public class FallbackRefCursorSupport implements RefCursorSupport {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public ResultSet getResultSet(CallableStatement statement, int position) {
 		try {
 			return jdbcServices.getDialect().getResultSet( statement, position );
@@ -57,6 +62,7 @@ public class FallbackRefCursorSupport implements RefCursorSupport {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public ResultSet getResultSet(CallableStatement statement, String name) {
 		try {
 			return jdbcServices.getDialect().getResultSet( statement, name );

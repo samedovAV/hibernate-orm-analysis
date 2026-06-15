@@ -13,6 +13,8 @@ import org.hibernate.query.sqm.tree.expression.SqmTextExpression;
 import org.hibernate.query.sqm.tree.expression.SqmTextExpressionImplementor;
 import org.hibernate.query.sqm.tree.expression.SqmTextExpressionWrapper;
 import org.hibernate.spi.NavigablePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -38,6 +40,7 @@ public class SqmTextValuedSimplePath
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected SqmTextValuedSimplePath createCopy(
 			NavigablePath navigablePath,
 			SqmPathSource<String> referencedPathSource,
@@ -55,24 +58,28 @@ public class SqmTextValuedSimplePath
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmTextExpression coalesce(@Nonnull Expression<? extends String> y) {
 		return new SqmTextExpressionWrapper( nodeBuilder().coalesce( this, y ) );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmTextExpression coalesce(String y) {
 		return new SqmTextExpressionWrapper( nodeBuilder().coalesce( this, y ) );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmTextExpression nullif(@Nonnull Expression<? extends String> y) {
 		return new SqmTextExpressionWrapper( nodeBuilder().nullif( this, y ) );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmTextExpression nullif(String y) {
 		return new SqmTextExpressionWrapper( nodeBuilder().nullif( this, y ) );
 	}

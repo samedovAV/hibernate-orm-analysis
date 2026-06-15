@@ -13,6 +13,8 @@ import org.hibernate.sql.ast.spi.SqlAppender;
 import org.hibernate.type.descriptor.WrapperOptions;
 import org.hibernate.type.descriptor.jdbc.JdbcLiteralFormatter;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * DB2 json_value function.
@@ -24,6 +26,7 @@ public class DB2JsonValueFunction extends JsonValueFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void render(
 			SqlAppender sqlAppender,
 			JsonValueArguments arguments,
@@ -53,6 +56,7 @@ public class DB2JsonValueFunction extends JsonValueFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void renderReturningClause(SqlAppender sqlAppender, JsonValueArguments arguments, SqlAstTranslator<?> walker) {
 		// No return type for booleans, this is handled via decode
 		if ( arguments.returningType() != null && !isEncodedBoolean( arguments.returningType().getJdbcMapping() ) ) {
@@ -60,6 +64,7 @@ public class DB2JsonValueFunction extends JsonValueFunction {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static boolean isEncodedBoolean(JdbcMapping type) {
 		return type.getJdbcType().isBoolean();
 	}

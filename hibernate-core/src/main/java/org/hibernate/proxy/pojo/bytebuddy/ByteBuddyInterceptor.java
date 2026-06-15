@@ -14,6 +14,8 @@ import org.hibernate.type.CompositeType;
 
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
 import static org.hibernate.internal.util.ReflectHelper.isPublic;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class ByteBuddyInterceptor
 		extends BasicLazyInitializer
@@ -36,11 +38,13 @@ public class ByteBuddyInterceptor
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object intercept(Object proxy, Method method, Object[] args) throws Throwable {
 		return invoke( method, args, proxy );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Object call(Object proxy, Method method, Object[] args) throws Throwable {
 		final Object target = getImplementation();
 		final Object returnValue;
@@ -77,6 +81,7 @@ public class ByteBuddyInterceptor
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Object serializableProxy() {
 		return new SerializableProxy(
 				getEntityName(),

@@ -5,6 +5,8 @@
 package org.hibernate;
 
 import org.hibernate.query.Query;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Thrown when the application calls {@link Query#getSingleResult()} or
@@ -36,6 +38,7 @@ public class NonUniqueResultException extends HibernateException {
 	 * Get the number of actual results.
 	 * @return number of actual results
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getResultCount() {
 		return this.resultCount;
 	}

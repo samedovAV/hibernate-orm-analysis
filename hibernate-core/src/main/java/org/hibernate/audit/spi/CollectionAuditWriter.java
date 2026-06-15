@@ -6,6 +6,8 @@ package org.hibernate.audit.spi;
 
 import org.hibernate.collection.spi.PersistentCollection;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for writing collection audit rows to the audit
@@ -25,6 +27,7 @@ public interface CollectionAuditWriter {
 	 * or {@code null} for new collections
 	 * @param session the current session
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void writeCollectionAuditRows(
 			PersistentCollection<?> collection,
 			Object ownerId,

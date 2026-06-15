@@ -9,6 +9,8 @@ import org.hibernate.boot.model.relational.Namespace;
 import org.hibernate.boot.model.relational.Sequence;
 import org.hibernate.mapping.Table;
 import org.hibernate.tool.schema.internal.DefaultSchemaFilter;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Defines a filter for Hibernate's schema tooling.
@@ -26,6 +28,7 @@ public interface SchemaFilter {
 	 *
 	 * @return {@code true} to include the namespace; {@code false} otherwise
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean includeNamespace(Namespace namespace);
 
 	/**
@@ -37,6 +40,7 @@ public interface SchemaFilter {
 	 *
 	 * @return {@code true} to include the table; {@code false} otherwise
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean includeTable(Table table);
 
 	/**
@@ -48,6 +52,7 @@ public interface SchemaFilter {
 	 *
 	 * @return {@code true} to include the sequence; {@code false} otherwise
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean includeSequence(Sequence sequence);
 
 	/**

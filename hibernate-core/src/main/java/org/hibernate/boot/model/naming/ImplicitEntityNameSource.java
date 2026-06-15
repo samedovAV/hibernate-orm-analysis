@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.boot.model.naming;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Context for determining the implicit name of an entity's primary table
@@ -15,5 +18,6 @@ public interface ImplicitEntityNameSource extends ImplicitNameSource {
 	 *
 	 * @return The entity's name information
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityNaming getEntityNaming();
 }

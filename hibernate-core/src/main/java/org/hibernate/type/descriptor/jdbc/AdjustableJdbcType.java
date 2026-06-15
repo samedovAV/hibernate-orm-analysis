@@ -5,6 +5,8 @@
 package org.hibernate.type.descriptor.jdbc;
 
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Extension contract for JdbcType implementations that understand how to
@@ -18,5 +20,6 @@ public interface AdjustableJdbcType extends JdbcType {
 	/**
 	 * Perform the adjustment
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcType resolveIndicatedType(JdbcTypeIndicators indicators, JavaType<?> domainJtd);
 }

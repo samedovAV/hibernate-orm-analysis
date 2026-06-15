@@ -6,6 +6,8 @@ package org.hibernate.context.spi;
 
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A callback registered with the {@link org.hibernate.SessionFactory} that is
@@ -28,6 +30,7 @@ public interface CurrentTenantIdentifierResolver<T> {
 	 * @return The current tenant identifier
 	 */
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	T resolveCurrentTenantIdentifier();
 
 	/**
@@ -40,6 +43,7 @@ public interface CurrentTenantIdentifierResolver<T> {
 	 *
 	 * @see org.hibernate.context.TenantIdentifierMismatchException
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean validateExistingCurrentSessions();
 
 	/**
@@ -49,6 +53,7 @@ public interface CurrentTenantIdentifierResolver<T> {
 	 *
 	 * @return true is this is root tenant
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isRoot(T tenantId) {
 		return false;
 	}

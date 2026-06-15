@@ -23,6 +23,8 @@ import org.hibernate.persister.entity.EntityPersister;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Support for loading multiple entities (of a type) by key (either [id][KeyType#IDENTIFIER] or [natural-id][KeyType#NATURAL]).
 ///
@@ -48,11 +50,13 @@ public class StatefulFindMultipleByKeyOperation<T> extends AbstractFindMultipleB
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected SessionImplementor getSession() {
 		return loadAccessContext.getSession();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected List<T> withOptions(
 			SharedSessionContractImplementor sharedSession,
 			GraphSemantic graphSemantic,

@@ -5,6 +5,8 @@
 package org.hibernate.cache.spi.support;
 
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specialization of {@link StorageAccess} for domain data regions.
@@ -19,6 +21,7 @@ public interface DomainDataStorageAccess extends StorageAccess {
 	 *
 	 * @implNote the method default is to call {@link #putIntoCache}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void putFromLoad(Object key, Object value, SharedSessionContractImplementor session) {
 		putIntoCache( key, value, session );
 	}

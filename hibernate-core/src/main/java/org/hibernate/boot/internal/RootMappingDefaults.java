@@ -15,6 +15,8 @@ import jakarta.persistence.CascadeType;
 
 import static org.hibernate.internal.util.NullnessHelper.coalesce;
 import static org.hibernate.internal.util.NullnessHelper.coalesceSuppliedValues;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base set of defaults for all mappings
@@ -91,71 +93,85 @@ public class RootMappingDefaults implements EffectiveMappingDefaults {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getDefaultCatalogName() {
 		return catalog;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getDefaultSchemaName() {
 		return schema;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isDefaultQuoteIdentifiers() {
 		return quoteIdentifiers;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getDefaultIdColumnName() {
 		return idColumnName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getDefaultDiscriminatorColumnName() {
 		return discriminatorColumnName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getDefaultTenantIdColumnName() {
 		return tenantIdColumnName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getDefaultPackageName() {
 		return packageName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isDefaultAutoImport() {
 		return autoImport;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EnumSet<CascadeType> getDefaultCascadeTypes() {
 		return cascadeTypes;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AccessType getDefaultPropertyAccessType() {
 		return propertyAccessType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getDefaultAccessStrategyName() {
 		return propertyAccessStrategyName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isDefaultEntityLaziness() {
 		return entityLaziness;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isDefaultCollectionLaziness() {
 		return collectionLaziness;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public org.hibernate.cache.spi.access.AccessType getDefaultCacheAccessType() {
 		return cacheAccessType;
 	}

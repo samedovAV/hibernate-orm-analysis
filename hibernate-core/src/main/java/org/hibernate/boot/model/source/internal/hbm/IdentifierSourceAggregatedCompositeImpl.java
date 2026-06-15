@@ -22,6 +22,8 @@ import org.hibernate.boot.model.source.spi.NaturalIdMutability;
 import org.hibernate.boot.model.source.spi.SingularAttributeSourceEmbedded;
 import org.hibernate.boot.model.source.spi.ToolingHintContext;
 import org.hibernate.id.EntityIdentifierNature;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Models a {@code <composite-id/>} mapping where we have a named (embeddable) attribute.
@@ -55,31 +57,37 @@ class IdentifierSourceAggregatedCompositeImpl implements IdentifierSourceAggrega
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SingularAttributeSourceEmbedded getIdentifierAttributeSource() {
 		return attributeSource;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<MapsIdSource> getMapsIdSources() {
 		return Collections.emptyList();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public IdentifierGeneratorDefinition getIdentifierGeneratorDescriptor() {
 		return generatorDefinition;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityIdentifierNature getNature() {
 		return EntityIdentifierNature.AGGREGATED_COMPOSITE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public EmbeddableSource getEmbeddableSource() {
 		return attributeSource.getEmbeddableSource();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ToolingHintContext getToolingHintContext() {
 		return toolingHintContext;
 	}
@@ -110,46 +118,55 @@ class IdentifierSourceAggregatedCompositeImpl implements IdentifierSourceAggrega
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Boolean isInsertable() {
 			return true;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Boolean isUpdatable() {
 			return false;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean isBytecodeLazy() {
 			return false;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public XmlElementMetadata getSourceType() {
 			return XmlElementMetadata.COMPOSITE_ID;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public String getXmlNodeName() {
 			return compositeIdAdapter.getXmlNodeName();
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public AttributePath getAttributePath() {
 			return getEmbeddableSource().getAttributePathBase();
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public AttributeRole getAttributeRole() {
 			return getEmbeddableSource().getAttributeRoleBase();
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean isIncludedInOptimisticLocking() {
 			return false;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public ToolingHintContext getToolingHintContext() {
 			return compositeIdAdapter.toolingHintContext;
 		}
@@ -179,64 +196,77 @@ class IdentifierSourceAggregatedCompositeImpl implements IdentifierSourceAggrega
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public String getName() {
 			return jaxbCompositeIdMapping.getName();
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public String getAccess() {
 			return jaxbCompositeIdMapping.getAccess();
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public String getClazz() {
 			return jaxbCompositeIdMapping.getClazz();
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public List<JaxbHbmTuplizerType> getTuplizer() {
 			return Collections.emptyList();
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getParent() {
 			return null;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public List<JaxbHbmToolingHintType> getToolingHints() {
 			return jaxbCompositeIdMapping.getToolingHints();
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public AttributeRole getAttributeRoleBase() {
 			return idAttributeRole;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public AttributePath getAttributePathBase() {
 			return idAttributePath;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public ToolingHintContext getToolingHintContextBaselineForEmbeddable() {
 			return toolingHintContext;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public List getAttributes() {
 			return jaxbCompositeIdMapping.getKeyPropertyOrKeyManyToOne();
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getXmlNodeName() {
 			return jaxbCompositeIdMapping.getNode();
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean isUnique() {
 			return false;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public EmbeddableMapping getEmbeddableMapping() {
 			return this;
 		}

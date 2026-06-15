@@ -5,6 +5,8 @@
 package org.hibernate.engine.spi;
 
 import org.hibernate.Incubating;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Collection of {@linkplain BeforeCompletionCallback before} and {@linkplain AfterCompletionCallback after}
@@ -29,6 +31,7 @@ public interface TransactionCompletionCallbacks {
 		 *
 		 * @param session The session on which the transaction is preparing to complete.
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void doBeforeTransactionCompletion(SharedSessionContractImplementor session);
 
 	}
@@ -40,6 +43,7 @@ public interface TransactionCompletionCallbacks {
 		 * @param success Did the transaction complete successfully?  True means it did.
 		 * @param session The session on which the transaction is completing.
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void doAfterTransactionCompletion(boolean success, SharedSessionContractImplementor session);
 	}
 
@@ -48,6 +52,7 @@ public interface TransactionCompletionCallbacks {
 	 *
 	 * @param process The callback.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void registerCallback(BeforeCompletionCallback process);
 
 	/**
@@ -55,5 +60,6 @@ public interface TransactionCompletionCallbacks {
 	 *
 	 * @param process The callback.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void registerCallback(AfterCompletionCallback process);
 }

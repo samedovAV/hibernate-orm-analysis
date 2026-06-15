@@ -16,6 +16,8 @@ import org.hibernate.sql.ast.tree.expression.CastTarget;
 import org.hibernate.sql.ast.tree.expression.Expression;
 import org.hibernate.type.SqlTypes;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Oracle json_object function.
@@ -31,6 +33,7 @@ public class OracleJsonObjectFunction extends JsonObjectFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderValue(SqlAppender sqlAppender, SqlAstNode value, SqlAstTranslator<?> walker) {
 		if ( ExpressionTypeHelper.isNonNativeBoolean( value ) ) {
 			CastFunction castFunction = this.castFunction;

@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static org.hibernate.internal.util.NullnessUtil.castNonNull;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -31,25 +33,30 @@ public class Compatibility {
 		map( double.class, Double.class );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void map(Class<?> primitive, Class<?> wrapper) {
 		primitiveToWrapper.put( primitive, wrapper );
 		wrapperToPrimitive.put( wrapper, primitive );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isWrapper(Class<?> potentialWrapper) {
 		return wrapperToPrimitive.containsKey( potentialWrapper );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Class<?> primitiveEquivalent(Class<?> potentialWrapper) {
 		assert isWrapper( potentialWrapper );
 		return castNonNull( wrapperToPrimitive.get( potentialWrapper ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Class<?> wrapperEquivalent(Class<?> primitive) {
 		assert primitive.isPrimitive();
 		return castNonNull( primitiveToWrapper.get( primitive ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean areAssignmentCompatible(Class<?> to, Class<?> from) {
 		assert to != null;
 		assert from != null;
@@ -76,6 +83,7 @@ public class Compatibility {
 		return false;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean areAssignmentCompatiblePrimitive(Class<?> to, Class<?> from) {
 		assert to != null;
 		assert from != null;
@@ -109,6 +117,7 @@ public class Compatibility {
 		return false;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isIntegralType(Class<?> potentialIntegral) {
 		if ( potentialIntegral.isPrimitive() ) {
 			return isIntegralTypePrimitive( potentialIntegral );
@@ -119,6 +128,7 @@ public class Compatibility {
 
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isIntegralTypePrimitive(Class<?> potentialIntegral) {
 		assert potentialIntegral.isPrimitive();
 
@@ -127,6 +137,7 @@ public class Compatibility {
 			|| potentialIntegral == long.class;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isCompatibleIntegralTypePrimitive(Class<?> to, Class<?> from) {
 		assert isIntegralTypePrimitive( to );
 		assert from.isPrimitive();
@@ -143,6 +154,7 @@ public class Compatibility {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isFloatingType(Class<?> potentialFloating) {
 		if ( potentialFloating.isPrimitive() ) {
 			return isFloatingTypePrimitive( potentialFloating );
@@ -153,6 +165,7 @@ public class Compatibility {
 
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isFloatingTypePrimitive(Class<?> potentialFloating) {
 		assert potentialFloating.isPrimitive();
 
@@ -160,6 +173,7 @@ public class Compatibility {
 			|| potentialFloating == double.class;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isCompatibleFloatingTypePrimitive(Class<?> to, Class<?> from) {
 		assert isFloatingTypePrimitive( to );
 		assert from.isPrimitive();

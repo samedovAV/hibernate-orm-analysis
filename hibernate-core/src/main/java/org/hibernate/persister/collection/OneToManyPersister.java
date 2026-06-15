@@ -63,6 +63,8 @@ import static org.hibernate.internal.util.collections.ArrayHelper.isAnyTrue;
 import static org.hibernate.internal.util.collections.CollectionHelper.arrayList;
 import static org.hibernate.persister.collection.mutation.RowMutationOperations.DEFAULT_RESTRICTOR;
 import static org.hibernate.sql.model.ast.builder.TableUpdateBuilder.NULL;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link CollectionPersister} for {@linkplain jakarta.persistence.OneToMany
@@ -115,6 +117,7 @@ public class OneToManyPersister extends AbstractCollectionPersister {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void prepareMappingModel(MappingModelCreationProcess creationProcess, Collection bootCollectionDescriptor) {
 		super.prepareMappingModel( creationProcess, bootCollectionDescriptor );
 
@@ -127,6 +130,7 @@ public class OneToManyPersister extends AbstractCollectionPersister {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void postInstantiate() throws MappingException {
 		super.postInstantiate();
 
@@ -134,6 +138,7 @@ public class OneToManyPersister extends AbstractCollectionPersister {
 		decomposer = buildCollectionDecomposer();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected CollectionDecomposer buildCollectionDecomposer() {
 		final var mutationPlanContributor = stateManagement.getGraphIntegration()
 				.createCollectionMutationPlanContributor( this );
@@ -142,42 +147,51 @@ public class OneToManyPersister extends AbstractCollectionPersister {
 				: new StandardOneToManyDecomposer( this, getFactory(), mutationPlanContributor );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isDoWriteEvenWhenInverse() {
 		return doWriteEvenWhenInverse;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public RowMutationOperations getRowMutationOperations() {
 		return rowMutationOperations;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public InsertRowsCoordinator getInsertRowsCoordinator() {
 		return insertRowsCoordinator;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public UpdateRowsCoordinator getUpdateRowsCoordinator() {
 		return updateRowsCoordinator;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DeleteRowsCoordinator getDeleteRowsCoordinator() {
 		return deleteRowsCoordinator;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public RemoveCoordinator getRemoveCoordinator() {
 		return removeCoordinator;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public WriteIndexCoordinator getWriteIndexCoordinator() {
 		return writeIndexCoordinator;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isRowDeleteEnabled() {
 		return super.isRowDeleteEnabled() && keyIsNullable;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void recreate(PersistentCollection<?> collection, Object id, SharedSessionContractImplementor session)
 			throws HibernateException {
 		getInsertRowsCoordinator().insertRows( collection, id, collection::includeInRecreate, session );
@@ -185,6 +199,7 @@ public class OneToManyPersister extends AbstractCollectionPersister {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void insertRows(PersistentCollection<?> collection, Object id, SharedSessionContractImplementor session)
 			throws HibernateException {
 		getInsertRowsCoordinator().insertRows( collection, id, collection::includeInInsert, session );
@@ -192,22 +207,26 @@ public class OneToManyPersister extends AbstractCollectionPersister {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void updateRows(PersistentCollection<?> collection, Object id, SharedSessionContractImplementor session) {
 		getUpdateRowsCoordinator().updateRows( id, collection, session );
 //		oldUpdateRows( collection, id, session );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void deleteRows(PersistentCollection<?> collection, Object key, SharedSessionContractImplementor session) {
 		getDeleteRowsCoordinator().deleteRows( collection, key, session );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void doProcessQueuedOps(PersistentCollection<?> collection, Object id, SharedSessionContractImplementor session)
 			throws HibernateException {
 		writeIndex( collection, collection.queuedAdditionIterator(), id, false, session );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void writeIndex(
 			PersistentCollection<?> collection,
 			Iterator<?> entries,
@@ -217,20 +236,24 @@ public class OneToManyPersister extends AbstractCollectionPersister {
 		writeIndexCoordinator.writeIndex( collection, entries, key, resetIndex, session );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isOneToMany() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isManyToMany() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getTableName() {
 		return getElementPersister().getTableName();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void applyWhereFragments(
 			Consumer<Predicate> predicateConsumer,
 			String alias,
@@ -246,17 +269,20 @@ public class OneToManyPersister extends AbstractCollectionPersister {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public FilterAliasGenerator getFilterAliasGenerator(String rootAlias) {
 		return getElementPersister().getFilterAliasGenerator( rootAlias );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public FilterAliasGenerator getFilterAliasGenerator(TableGroup rootTableGroup) {
 		return getElementPersister().getFilterAliasGenerator( rootTableGroup );
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public RestrictedTableMutation<JdbcMutationOperation> generateDeleteAllAst(MutatingTableReference tableReference) {
 		final var attributeMapping = getAttributeMapping();
 		assert attributeMapping != null;
@@ -313,6 +339,7 @@ public class OneToManyPersister extends AbstractCollectionPersister {
 	}
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private RowMutationOperations buildRowMutationOperations() {
 		final OperationProducer insertRowOperationProducer;
 		final RowMutationOperations.Values insertRowValues;
@@ -371,6 +398,7 @@ public class OneToManyPersister extends AbstractCollectionPersister {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private WriteIndexCoordinator buildWriteIndexCoordinator() {
 		if ( doWriteEvenWhenInverse ) {
 			return new WriteIndexCoordinatorStandard( this, rowMutationOperations, getFactory() );
@@ -380,12 +408,14 @@ public class OneToManyPersister extends AbstractCollectionPersister {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private JdbcMutationOperation generateDeleteRowOperation(MutatingTableReference tableReference) {
 		return getSqlAstTranslatorFactory()
 				.buildModelMutationTranslator( generateDeleteRowAst( tableReference ), getFactory() )
 				.translate( null, MutationQueryOptions.INSTANCE );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public RestrictedTableMutation<JdbcMutationOperation> generateDeleteRowAst(MutatingTableReference tableReference) {
 		// note that custom SQL delete row details are handled by CollectionRowUpdateBuilder
 		final var updateBuilder = new org.hibernate.sql.model.ast.builder.CollectionRowDeleteByUpdateSetNullBuilder(
@@ -438,6 +468,7 @@ public class OneToManyPersister extends AbstractCollectionPersister {
 		return (RestrictedTableMutation) updateBuilder.buildMutation();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void applyDeleteRowRestrictions(
 			PersistentCollection<?> collection,
 			Object keyValue,
@@ -469,12 +500,14 @@ public class OneToManyPersister extends AbstractCollectionPersister {
 	}
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private JdbcMutationOperation generateInsertRowOperation(MutatingTableReference tableReference) {
 		// NOTE: `TableUpdateBuilderStandard` and `TableUpdate` already handle custom-sql
 		return buildTableUpdate( tableReference )
 				.createMutationOperation( null, getFactory() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private TableUpdate<JdbcMutationOperation> buildTableUpdate(MutatingTableReference tableReference) {
 		final TableUpdateBuilderStandard<JdbcMutationOperation> updateBuilder =
 				new TableUpdateBuilderStandard<>( this, tableReference, getFactory(), sqlWhereString );
@@ -491,6 +524,7 @@ public class OneToManyPersister extends AbstractCollectionPersister {
 		return (TableUpdate<JdbcMutationOperation>) updateBuilder.buildMutation();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void applyInsertRowValues(
 			PersistentCollection<?> collection,
 			Object keyValue,
@@ -541,6 +575,7 @@ public class OneToManyPersister extends AbstractCollectionPersister {
 	}
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private JdbcMutationOperation generateWriteIndexOperation(MutatingTableReference tableReference) {
 		// note that custom SQL update details are handled by TableUpdateBuilderStandard
 		final var factory = getFactory();
@@ -564,6 +599,7 @@ public class OneToManyPersister extends AbstractCollectionPersister {
 				.createMutationOperation( null, factory );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void applyWriteIndexValues(
 			PersistentCollection<?> collection,
 			Object key,
@@ -585,6 +621,7 @@ public class OneToManyPersister extends AbstractCollectionPersister {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void applyWriteIndexRestrictions(
 			PersistentCollection<?> collection,
 			Object key,
@@ -627,6 +664,7 @@ public class OneToManyPersister extends AbstractCollectionPersister {
 	private CollectionDecomposer decomposer;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void decompose(
 			CollectionRecreateAction action,
 			int ordinalBase,
@@ -637,6 +675,7 @@ public class OneToManyPersister extends AbstractCollectionPersister {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void decompose(
 			CollectionUpdateAction action,
 			int ordinalBase,
@@ -647,6 +686,7 @@ public class OneToManyPersister extends AbstractCollectionPersister {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void decompose(
 			CollectionRemoveAction action,
 			int ordinalBase,
@@ -656,6 +696,7 @@ public class OneToManyPersister extends AbstractCollectionPersister {
 		decomposer.decomposeRemove( action, ordinalBase, session, decompositionContext, operationConsumer );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void decompose(
 			QueuedOperationCollectionAction action,
 			int ordinalBase,

@@ -20,6 +20,8 @@ import org.hibernate.type.descriptor.java.JavaType;
 
 import static jakarta.persistence.metamodel.Bindable.BindableType.ENTITY_TYPE;
 import static jakarta.persistence.metamodel.Type.PersistenceType.MAPPED_SUPERCLASS;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Implementation of {@link jakarta.persistence.metamodel.MappedSuperclassType}.
@@ -69,28 +71,33 @@ public class MappedSuperclassTypeImpl<J>
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<J> getBindableJavaType() {
 		return getJavaType();
 	}
 
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmDomainType<J> getSqmType() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getPathName() {
 		return getTypeName();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmMappedSuperclassDomainType<J> getPathType() {
 		return this;
 	}
 
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPathSource<?> findSubPathSource(@Nonnull String name) {
 		final var attribute = findAttribute( name );
 		if ( attribute != null ) {
@@ -106,12 +113,14 @@ public class MappedSuperclassTypeImpl<J>
 
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmPathSource<?> getIdentifierDescriptor() {
 		return super.getIdentifierDescriptor();
 	}
 
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmPersistentAttribute<? super J, ?> findAttribute(@Nonnull String name) {
 		final var attribute = super.findAttribute( name );
 		if ( attribute != null ) {
@@ -127,22 +136,26 @@ public class MappedSuperclassTypeImpl<J>
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BindableType getBindableType() {
 		return ENTITY_TYPE;
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistenceType getPersistenceType() {
 		return MAPPED_SUPERCLASS;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean isIdMappingRequired() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPath<J> createSqmPath(SqmPath<?> lhs, @Nullable SqmPathSource<?> intermediatePathSource) {
 		throw new UnsupportedMappingException(
 				"MappedSuperclassType cannot be used to create an SqmPath - that would be an SqmFrom which are created directly"

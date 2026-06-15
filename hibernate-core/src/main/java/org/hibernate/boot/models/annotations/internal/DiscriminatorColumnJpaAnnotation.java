@@ -16,6 +16,8 @@ import org.hibernate.internal.util.StringHelper;
 import org.hibernate.models.spi.ModelsContext;
 
 import jakarta.persistence.DiscriminatorColumn;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -67,70 +69,84 @@ public class DiscriminatorColumnJpaAnnotation implements DiscriminatorColumn, Co
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return DiscriminatorColumn.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String name() {
 		return name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void name(String value) {
 		this.name = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.DiscriminatorType discriminatorType() {
 		return discriminatorType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void discriminatorType(jakarta.persistence.DiscriminatorType value) {
 		this.discriminatorType = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String comment() {
 		return comment;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void comment(String comment) {
 		this.comment = comment;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String columnDefinition() {
 		return columnDefinition;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void columnDefinition(String value) {
 		this.columnDefinition = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String options() {
 		return options;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void options(String value) {
 		this.options = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int length() {
 		return length;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void length(int value) {
 		this.length = value;
 	}
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void apply(JaxbDiscriminatorColumnImpl jaxbColumn, XmlDocumentContext xmlDocumentContext) {
 		if ( StringHelper.isNotEmpty( jaxbColumn.getName() ) ) {
 			name( jaxbColumn.getName() );

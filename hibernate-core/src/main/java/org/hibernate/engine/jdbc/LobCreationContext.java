@@ -5,6 +5,8 @@
 package org.hibernate.engine.jdbc;
 import java.sql.Connection;
 import java.sql.SQLException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Provides callback access into the context in which the LOB is to be created.
@@ -26,8 +28,10 @@ public interface LobCreationContext {
 		 *
 		 * @throws SQLException Indicates trouble accessing the JDBC driver to create the LOB
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		T executeOnConnection(Connection connection) throws SQLException;
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		default T from(Connection connection) throws SQLException {
 			return executeOnConnection( connection );
 		}
@@ -42,8 +46,10 @@ public interface LobCreationContext {
 	 *
 	 * @return The LOB created by the callback.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T execute(Callback<T> callback);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <T> T fromContext(Callback<T> callback) {
 		return execute( callback );
 	}

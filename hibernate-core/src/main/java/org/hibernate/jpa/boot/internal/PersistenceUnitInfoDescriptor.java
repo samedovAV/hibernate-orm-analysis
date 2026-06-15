@@ -24,6 +24,8 @@ import jakarta.persistence.PersistenceUnitTransactionType;
 
 
 import static org.hibernate.jpa.internal.JpaLogger.JPA_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Wraps a JPA {@linkplain PersistenceUnitInfo} as Hibernate's {@linkplain PersistenceUnitDescriptor}
 ///
@@ -43,101 +45,121 @@ public class PersistenceUnitInfoDescriptor implements PersistenceUnitDescriptor 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public URL getPersistenceUnitRootUrl() {
 		return persistenceUnitInfo.getPersistenceUnitRootUrl();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return persistenceUnitInfo.getPersistenceUnitName();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object getNonJtaDataSource() {
 		return persistenceUnitInfo.getNonJtaDataSource();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object getJtaDataSource() {
 		return persistenceUnitInfo.getJtaDataSource();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getProviderClassName() {
 		return persistenceUnitInfo.getPersistenceProviderClassName();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistenceUnitTransactionType getPersistenceUnitTransactionType() {
 		return persistenceUnitInfo.getTransactionType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isUseQuotedIdentifiers() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Properties getProperties() {
 		return persistenceUnitInfo.getProperties();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public ClassLoader getClassLoader() {
 		return persistenceUnitInfo.getClassLoader();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ClassLoader getTempClassLoader() {
 		return persistenceUnitInfo.getNewTempClassLoader();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isExcludeUnlistedClasses() {
 		return persistenceUnitInfo.excludeUnlistedClasses();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public FetchType getDefaultToOneFetchType() {
 		return persistenceUnitInfo.getDefaultToOneFetchType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public ValidationMode getValidationMode() {
 		return persistenceUnitInfo.getValidationMode();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedCacheMode getSharedCacheMode() {
 		return persistenceUnitInfo.getSharedCacheMode();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public List<String> getManagedClassNames() {
 		return persistenceUnitInfo.getManagedClassNames();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public List<String> getAllClassNames() {
 		return persistenceUnitInfo.getAllClassNames();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public List<String> getMappingFileNames() {
 		return persistenceUnitInfo.getMappingFileNames();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public List<URL> getJarFileUrls() {
 		return persistenceUnitInfo.getJarFileUrls();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isClassTransformerRegistrationDisabled() {
 		return disableClassTransformerRegistration;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ClassTransformer pushClassTransformer(EnhancementContext enhancementContext) {
 		if ( this.classTransformer != null ) {
 			throw new PersistenceException(

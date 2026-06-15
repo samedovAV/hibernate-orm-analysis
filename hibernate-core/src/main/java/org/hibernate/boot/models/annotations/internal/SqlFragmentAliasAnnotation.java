@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.hibernate.annotations.SqlFragmentAlias;
 import org.hibernate.models.spi.ModelsContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -44,35 +46,42 @@ public class SqlFragmentAliasAnnotation implements SqlFragmentAlias {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return SqlFragmentAlias.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String alias() {
 		return alias;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void alias(String value) {
 		this.alias = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String table() {
 		return table;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void table(String value) {
 		this.table = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public java.lang.Class<?> entity() {
 		return entity;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void entity(java.lang.Class<?> value) {
 		this.entity = value;
 	}

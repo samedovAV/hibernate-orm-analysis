@@ -9,6 +9,8 @@ import org.hibernate.dialect.lock.OptimisticEntityLockException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 
 import static org.hibernate.pretty.MessageHelper.infoString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link BeforeTransactionCompletionProcess} impl to verify an entity
@@ -30,6 +32,7 @@ public class EntityVerifyVersionProcess implements BeforeTransactionCompletionPr
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void doBeforeTransactionCompletion(SharedSessionContractImplementor session) {
 		final var entry = session.getPersistenceContext().getEntry( object );
 		// Don't check the version for an entity that is not in the PersistenceContext

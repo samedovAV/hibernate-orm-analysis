@@ -21,6 +21,8 @@ import static org.hibernate.jpa.LegacySpecHints.HINT_JAVAEE_FETCH_GRAPH;
 import static org.hibernate.jpa.LegacySpecHints.HINT_JAVAEE_LOAD_GRAPH;
 import static org.hibernate.jpa.SpecHints.HINT_SPEC_FETCH_GRAPH;
 import static org.hibernate.jpa.SpecHints.HINT_SPEC_LOAD_GRAPH;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Think of this as the composite modeling of a graph and the semantic.
@@ -64,11 +66,13 @@ public class EffectiveEntityGraph implements AppliedGraph, Serializable {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable GraphSemantic getSemantic() {
 		return semantic;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable RootGraphImplementor<?> getGraph() {
 		return graph;
 	}
@@ -80,6 +84,7 @@ public class EffectiveEntityGraph implements AppliedGraph, Serializable {
 	 * @throws IllegalArgumentException Thrown if the semantic is null
 	 * @throws IllegalStateException If previous state is still available (hasn't been cleared).
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applyGraph(RootGraphImplementor<?> graph, GraphSemantic semantic) {
 		if ( semantic == null ) {
 			throw new IllegalArgumentException( "Graph semantic cannot be null" );
@@ -90,6 +95,7 @@ public class EffectiveEntityGraph implements AppliedGraph, Serializable {
 		this.graph = graph;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void verifyWriteability() {
 		if ( ! allowOverwrite ) {
 			if ( semantic != null ) {
@@ -109,6 +115,7 @@ public class EffectiveEntityGraph implements AppliedGraph, Serializable {
 	 * @throws IllegalArgumentException If both kinds of graphs were present in the properties/hints
 	 * @throws IllegalStateException If previous state is still available (hasn't been cleared).
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applyConfiguredGraph(@Nullable Map<String,?> properties) {
 		if ( properties != null && !properties.isEmpty() ) {
 			var fetchHint = (RootGraphImplementor<?>) properties.get( HINT_JAVAEE_FETCH_GRAPH );
@@ -136,11 +143,13 @@ public class EffectiveEntityGraph implements AppliedGraph, Serializable {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void clear() {
 		semantic = null;
 		graph = null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void withAppliedGraph(GraphSemantic semantic, RootGraphImplementor<?> graph, Runnable action) {
 		var currentSemantic = this.semantic;
 		var currentGraph = this.graph;
@@ -154,6 +163,7 @@ public class EffectiveEntityGraph implements AppliedGraph, Serializable {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> T fromAppliedGraph(GraphSemantic semantic, RootGraphImplementor<?> graph, Supplier<T> action) {
 		var currentSemantic = this.semantic;
 		var currentGraph = this.graph;

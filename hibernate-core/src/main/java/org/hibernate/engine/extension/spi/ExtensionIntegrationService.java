@@ -6,6 +6,8 @@ package org.hibernate.engine.extension.spi;
 
 import org.hibernate.Incubating;
 import org.hibernate.service.Service;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @Incubating
 public interface ExtensionIntegrationService extends Service {
@@ -14,5 +16,6 @@ public interface ExtensionIntegrationService extends Service {
 	 *
 	 * @return All extensions.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Iterable<ExtensionIntegration<?>> extensionIntegrations();
 }

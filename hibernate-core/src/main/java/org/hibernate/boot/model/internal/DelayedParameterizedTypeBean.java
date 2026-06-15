@@ -8,6 +8,8 @@ import java.util.Properties;
 
 import org.hibernate.resource.beans.spi.ManagedBean;
 import org.hibernate.usertype.ParameterizedType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * ManagedBean implementation for delayed {@link ParameterizedType}
@@ -28,11 +30,13 @@ public class DelayedParameterizedTypeBean<T> implements ManagedBean<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Class<T> getBeanClass() {
 		return underlyingBean.getBeanClass();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public T getBeanInstance() {
 		if ( instance == null ) {
 			instance = underlyingBean.getBeanInstance();

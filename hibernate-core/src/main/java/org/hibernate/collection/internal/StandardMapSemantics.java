@@ -13,6 +13,8 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.internal.util.collections.CollectionHelper;
 import org.hibernate.metamodel.CollectionClassification;
 import org.hibernate.persister.collection.CollectionPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * CollectionSemantics for maps
@@ -29,11 +31,13 @@ public class StandardMapSemantics<K,V> extends AbstractMapSemantics<Map<K,V>,K,V
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionClassification getCollectionClassification() {
 		return CollectionClassification.MAP;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<K,V> instantiateRaw(
 			int anticipatedSize,
 			CollectionPersister collectionDescriptor) {
@@ -41,6 +45,7 @@ public class StandardMapSemantics<K,V> extends AbstractMapSemantics<Map<K,V>,K,V
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <KK, VV> Map<KK, VV> instantiateWithElements(
 			int anticipatedSize,
 			CollectionPersister collectionDescriptor,
@@ -51,6 +56,7 @@ public class StandardMapSemantics<K,V> extends AbstractMapSemantics<Map<K,V>,K,V
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistentCollection<V> instantiateWrapper(
 			Object key,
 			CollectionPersister collectionDescriptor,
@@ -59,6 +65,7 @@ public class StandardMapSemantics<K,V> extends AbstractMapSemantics<Map<K,V>,K,V
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistentCollection<V> wrap(
 			Map<K,V> rawCollection,
 			CollectionPersister collectionDescriptor,

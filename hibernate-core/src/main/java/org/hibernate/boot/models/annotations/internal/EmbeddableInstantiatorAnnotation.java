@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.hibernate.annotations.EmbeddableInstantiator;
 import org.hibernate.models.spi.ModelsContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -40,15 +42,18 @@ public class EmbeddableInstantiatorAnnotation implements EmbeddableInstantiator 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return EmbeddableInstantiator.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public java.lang.Class<? extends org.hibernate.metamodel.spi.EmbeddableInstantiator> value() {
 		return value;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void value(java.lang.Class<? extends org.hibernate.metamodel.spi.EmbeddableInstantiator> value) {
 		this.value = value;
 	}

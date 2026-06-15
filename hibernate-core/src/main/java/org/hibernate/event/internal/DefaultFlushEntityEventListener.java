@@ -43,6 +43,8 @@ import static org.hibernate.engine.internal.Versioning.setVersion;
 import static org.hibernate.event.internal.EventListenerLogging.EVENT_LISTENER_LOGGER;
 import static org.hibernate.internal.util.collections.ArrayHelper.EMPTY_INT_ARRAY;
 import static org.hibernate.pretty.MessageHelper.infoString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An event that occurs for each entity instance at flush time
@@ -54,6 +56,7 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 	/**
 	 * Make sure user didn't mangle the id.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void checkId(Object object, EntityPersister persister, EntityEntry entry, SessionImplementor session)
 			throws HibernateException {
 		final Object entryId = entry.getId();
@@ -76,11 +79,13 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 	}
 
 	// Used by Hibernate Reactive
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void throwIdentifiedAlteredException(EntityPersister persister, Object entryId, Object currentId) {
 		throw new HibernateException( "Identifier of an instance of '" + persister.getEntityName()
 									+ "' was altered from " + entryId + " to " + currentId );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void checkNaturalId(
 			EntityPersister persister,
 			Object entity,
@@ -96,6 +101,7 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isUninitializedEnhanced(Object entity) {
 		if ( isPersistentAttributeInterceptable( entity ) ) {
 			final var interceptor =
@@ -113,6 +119,7 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 	 * an update action, if necessary
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void onFlushEntity(FlushEntityEvent event) throws HibernateException {
 		final Object entity = event.getEntity();
 		final var entry = event.getEntityEntry();
@@ -162,6 +169,7 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private Object[] getValues(Object entity, EntityEntry entry, boolean mightBeDirty, SessionImplementor session) {
 		if ( entry.getStatus() == Status.DELETED ) {
 			//grab its state saved at deletion
@@ -187,6 +195,7 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 	 * Wrap up any new collections directly referenced by the object
 	 * or its components.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean wrapCollections(
 			FlushEntityEvent event,
 			Object[] values) {
@@ -207,6 +216,7 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private boolean isUpdateNecessary(final FlushEntityEvent event, final boolean mightBeDirty) {
 		final var entry = event.getEntityEntry();
 		if ( mightBeDirty || entry.getStatus() == Status.DELETED ) {
@@ -229,10 +239,12 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void useTracker(final ManagedEntity entity) {
 		entity.$$_hibernate_setUseTracker( true );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean scheduleUpdate(final FlushEntityEvent event) {
 		final var entry = event.getEntityEntry();
 		final var session = event.getSession();
@@ -260,6 +272,7 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 	}
 
 	// Used by Hibernate Reactive
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void addEntityUpdateActionToActionQueue(FlushEntityEvent event, EventSource session, EntityEntry entry, Object[] values, int[] dirtyProperties, Status status, EntityPersister persister, Object entity, Object nextVersion) {
 		// schedule the update
 		// note that we intentionally do _not_ pass in currentPersistentState!
@@ -282,6 +295,7 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static int[] getDirtyProperties(FlushEntityEvent event, boolean intercepted) {
 		final int[] dirtyProperties = event.getDirtyProperties();
 		if ( event.isDirtyCheckPossible() && dirtyProperties == null ) {
@@ -298,6 +312,7 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void logScheduleUpdate(
 			EntityEntry entry, SessionFactoryImplementor factory, Status status, EntityPersister persister) {
 		if ( EVENT_LISTENER_LOGGER.isTraceEnabled() ) {
@@ -319,6 +334,7 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean handleInterception(FlushEntityEvent event) {
 		//give the Interceptor a chance to modify property values
 		final boolean intercepted = invokeInterceptor( event );
@@ -329,6 +345,7 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 		return intercepted;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean invokeInterceptor(FlushEntityEvent event) {
 		final var entry = event.getEntityEntry();
 		final Object entity = event.getEntity();
@@ -356,6 +373,7 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 		return stateModified || isDirty;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private boolean copyState(Object entity, Type[] types, Object[] state, SessionFactoryImplementor factory) {
 		// copy the entity state into the state array and return true if the state has changed
 		final Object[] newState = currentState( entity, factory );
@@ -369,6 +387,7 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 		return isDirty;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Object[] currentState(Object entity, SessionFactoryImplementor factory) {
 		return factory.getMappingMetamodel()
 				.getEntityDescriptor( entity.getClass() )
@@ -376,6 +395,7 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 				.getValues( entity );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isDirty(Type types, Object state, Object newState) {
 		return state == UNFETCHED_PROPERTY && newState != UNFETCHED_PROPERTY
 			|| state != newState && !types.isEqual( state, newState );
@@ -384,6 +404,7 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 	/**
 	 * Convenience method to retrieve an entities next version value
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Object getNextVersion(FlushEntityEvent event) throws HibernateException {
 		final var entry = event.getEntityEntry();
 		final var persister = entry.getPersister();
@@ -401,6 +422,7 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static boolean isVersionIncrementRequired(FlushEntityEvent event, EntityEntry entry) {
 		if ( entry.getStatus() == Status.DELETED ) {
 			return false;
@@ -421,12 +443,14 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 	 * to synchronize its state to the database. Modifies the event by side effect!
 	 * Note: this method is quite slow, avoid calling if possible!
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected final boolean isUpdateNecessary(FlushEntityEvent event) throws HibernateException {
 		return !event.isDirtyCheckPossible()
 			|| event.hasDirtyProperties()
 			|| hasDirtyCollections( event );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private boolean hasDirtyCollections(FlushEntityEvent event) {
 		final var entityEntry = event.getEntityEntry();
 		final var persister = entityEntry.getPersister();
@@ -440,6 +464,7 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean hasDirtyCollections(FlushEntityEvent event, EntityPersister persister) {
 		final boolean includeNonVersionedCollections = hasUpdateCallbacks( persister );
 		final var visitor = new DirtyCollectionSearchVisitor(
@@ -452,12 +477,14 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 		return visitor.wasDirtyCollectionFound();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean isCollectionDirtyCheckNecessary(EntityPersister persister, Status status) {
 		return ( status == Status.MANAGED || status == Status.READ_ONLY )
 			&& persister.hasCollections()
 			&& ( persister.isVersioned() || persister.getAuditMapping() != null || hasUpdateCallbacks( persister ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean hasUpdateCallbacks(EntityPersister persister) {
 		final var entityCallbacks = persister.getEntityCallbacks();
 		return entityCallbacks.hasRegisteredCallbacks( CallbackType.PRE_UPDATE )
@@ -467,6 +494,7 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 	/**
 	 * Perform a dirty check, and attach the results to the event
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void dirtyCheck(final FlushEntityEvent event) throws HibernateException {
 		int[] dirtyProperties = getDirtyProperties( event );
 		event.setDatabaseSnapshot( null );
@@ -484,6 +512,7 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 		logDirtyProperties( event.getEntityEntry(), dirtyProperties );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static int[] performDirtyCheck(FlushEntityEvent event) {
 		final var session = event.getSession();
 		final boolean dirtyCheckPossible;
@@ -548,6 +577,7 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 	 * Attempt to get the dirty properties from either the Interceptor,
 	 * the bytecode enhancement, or a custom dirtiness strategy.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static int[] getDirtyProperties(FlushEntityEvent event) {
 		final int[] dirtyProperties = getDirtyPropertiesFromInterceptor( event );
 		if ( dirtyProperties != null ) {
@@ -561,6 +591,7 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static int[] getDirtyPropertiesFromInterceptor(FlushEntityEvent event) {
 		final var entry = event.getEntityEntry();
 		final var persister = entry.getPersister();
@@ -575,11 +606,13 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 				) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static int[] getDirtyPropertiesFromCustomEntityDirtinessStrategy(FlushEntityEvent event) {
 		// see if the custom dirtiness strategy can tell us...
 		class DirtyCheckContextImpl implements CustomEntityDirtinessStrategy.DirtyCheckContext {
 			private int[] found;
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public void doDirtyChecking(CustomEntityDirtinessStrategy.AttributeChecker attributeChecker) {
 				found = new DirtyCheckAttributeInfoImpl( event ).visitAttributes( attributeChecker );
 				if ( found.length == 0 ) {
@@ -593,6 +626,7 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 		return context.found;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static int[] getDirtyPropertiesFromSelfDirtinessTracker(SelfDirtinessTracker tracker, FlushEntityEvent event) {
 		final var entry = event.getEntityEntry();
 		final var persister = entry.getPersister();
@@ -601,6 +635,7 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 				: EMPTY_INT_ARRAY;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static int[] resolveDirtyAttributeIndex(
 			SelfDirtinessTracker tracker,
 			FlushEntityEvent event,
@@ -627,26 +662,31 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public EntityPersister getContainingPersister() {
 			return persister;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public int getAttributeIndex() {
 			return index;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getName() {
 			return persister.getPropertyNames()[index];
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Type getType() {
 			return persister.getPropertyTypes()[index];
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Object getCurrentValue() {
 			return event.getPropertyValues()[index];
 		}
@@ -654,6 +694,7 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 		Object[] databaseSnapshot;
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Object getLoadedValue() {
 			if ( databaseSnapshot == null ) {
 				databaseSnapshot = getDatabaseSnapshot( persister, event.getEntityEntry().getId(), event.getSession() );
@@ -661,6 +702,7 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 			return databaseSnapshot[index];
 		}
 
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public int[] visitAttributes(CustomEntityDirtinessStrategy.AttributeChecker attributeChecker) {
 			databaseSnapshot = null;
 			final int[] indexes = new int[numberOfAttributes];
@@ -674,6 +716,7 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void logDirtyProperties(EntityEntry entry, int[] dirtyProperties) {
 		if ( dirtyProperties != null && dirtyProperties.length > 0 && EVENT_LISTENER_LOGGER.isTraceEnabled() ) {
 			final var persister = entry.getPersister();
@@ -689,6 +732,7 @@ public class DefaultFlushEntityEventListener implements FlushEntityEventListener
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static Object[] getDatabaseSnapshot(EntityPersister persister, Object id, SessionImplementor session) {
 		final var persistenceContext = session.getPersistenceContextInternal();
 		if ( persister.isSelectBeforeUpdateRequired() ) {

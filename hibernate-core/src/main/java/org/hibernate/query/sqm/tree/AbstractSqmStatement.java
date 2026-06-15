@@ -20,6 +20,8 @@ import jakarta.persistence.criteria.ParameterExpression;
 import static java.util.Collections.emptySet;
 import static java.util.Collections.unmodifiableSet;
 import static org.hibernate.query.sqm.tree.jpa.ParameterCollector.collectParameters;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -44,6 +46,7 @@ public abstract class AbstractSqmStatement<T> extends AbstractSqmNode implements
 		this.parameters = parameters;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected @Nullable Set<SqmParameter<?>> copyParameters(SqmCopyContext context) {
 		if ( parameters == null ) {
 			return null;
@@ -58,11 +61,13 @@ public abstract class AbstractSqmStatement<T> extends AbstractSqmNode implements
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmQuerySource getQuerySource() {
 		return querySource;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addParameter(SqmParameter<?> parameter) {
 		if ( parameters == null ) {
 			parameters = new LinkedHashSet<>();
@@ -71,6 +76,7 @@ public abstract class AbstractSqmStatement<T> extends AbstractSqmNode implements
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Set<SqmParameter<?>> getSqmParameters() {
 		if ( querySource == SqmQuerySource.CRITERIA ) {
 			assert parameters == null : "SqmSelectStatement (as Criteria) should not have collected parameters";
@@ -82,12 +88,14 @@ public abstract class AbstractSqmStatement<T> extends AbstractSqmNode implements
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public ParameterResolutions resolveParameters() {
 		return SqmUtil.resolveParameters( this );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Set<ParameterExpression<?>> getParameters() {
 		// At this level, the number of parameters may still be growing as
 		// nodes are added to the Criteria, so we recalculate this every time.
@@ -99,6 +107,7 @@ public abstract class AbstractSqmStatement<T> extends AbstractSqmNode implements
 	private int aliasCounter = 0;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String generateAlias() {
 		return "var_" + (++aliasCounter);
 	}

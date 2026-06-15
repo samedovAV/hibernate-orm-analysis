@@ -12,6 +12,8 @@ import org.hibernate.metamodel.spi.RuntimeModelCreationContext;
 import org.hibernate.sql.ast.spi.SqlAppender;
 import org.hibernate.type.descriptor.jdbc.AggregateJdbcType;
 import org.hibernate.type.descriptor.jdbc.JsonJdbcType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -27,6 +29,7 @@ public class MariaDBCastingJsonJdbcType extends JsonJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AggregateJdbcType resolveAggregateJdbcType(
 			EmbeddableMappingType mappingType,
 			String sqlType,
@@ -35,6 +38,7 @@ public class MariaDBCastingJsonJdbcType extends JsonJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void appendWriteExpression(
 			String writeExpression,
 			@Nullable Size size,
@@ -46,6 +50,7 @@ public class MariaDBCastingJsonJdbcType extends JsonJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isWriteExpressionTyped(Dialect dialect) {
 		return true;
 	}

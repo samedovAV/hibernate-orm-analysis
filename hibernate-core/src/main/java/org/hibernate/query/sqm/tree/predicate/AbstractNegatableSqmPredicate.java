@@ -8,6 +8,8 @@ import jakarta.annotation.Nullable;
 import jakarta.annotation.Nonnull;
 import org.hibernate.query.sqm.NodeBuilder;
 import org.hibernate.query.sqm.SqmBindableType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -30,19 +32,23 @@ public abstract class AbstractNegatableSqmPredicate extends AbstractSqmPredicate
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isNegated() {
 		return negated;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void negate() {
 		negated = !negated;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract SqmNegatablePredicate createNegatedNode();
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmNegatablePredicate not() {
 		// in certain cases JPA required that this always return
 		// a new instance.

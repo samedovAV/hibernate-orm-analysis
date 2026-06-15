@@ -22,6 +22,8 @@ import org.hibernate.sql.ast.tree.expression.JsonValueEmptyBehavior;
 import org.hibernate.sql.ast.tree.expression.JsonValueErrorBehavior;
 import org.hibernate.type.SqlTypes;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * MySQL json_table function.
@@ -33,6 +35,7 @@ public class MySQLJsonTableFunction extends JsonTableFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderJsonTable(
 			SqlAppender sqlAppender,
 			JsonTableArguments arguments,
@@ -68,6 +71,7 @@ public class MySQLJsonTableFunction extends JsonTableFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected int renderJsonNestedColumnDefinition(SqlAppender sqlAppender, JsonTableNestedColumnDefinition definition, int clauseLevel, SqlAstTranslator<?> walker) {
 		// MySQL docs way that "path" is optional, but it isn't...
 		sqlAppender.appendSql( "nested path " );
@@ -76,6 +80,7 @@ public class MySQLJsonTableFunction extends JsonTableFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderJsonValueColumnDefinition(SqlAppender sqlAppender, JsonTableValueColumnDefinition definition, int clauseLevel, SqlAstTranslator<?> walker) {
 		sqlAppender.appendSql( definition.name() );
 		sqlAppender.appendSql( ' ' );
@@ -119,6 +124,7 @@ public class MySQLJsonTableFunction extends JsonTableFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderJsonQueryColumnDefinition(SqlAppender sqlAppender, JsonTableQueryColumnDefinition definition, int clauseLevel, SqlAstTranslator<?> walker) {
 		// Conditional wrapper is the default behavior on MySQL
 		if ( definition.wrapMode() != null && definition.wrapMode() != JsonQueryWrapMode.WITH_CONDITIONAL_WRAPPER ) {
@@ -162,6 +168,7 @@ public class MySQLJsonTableFunction extends JsonTableFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderJsonExistsColumnDefinition(SqlAppender sqlAppender, JsonTableExistsColumnDefinition definition, int clauseLevel, SqlAstTranslator<?> walker) {
 		// jsonb_path_exists errors by default
 		if ( definition.errorBehavior() != null && definition.errorBehavior() != JsonExistsErrorBehavior.ERROR ) {

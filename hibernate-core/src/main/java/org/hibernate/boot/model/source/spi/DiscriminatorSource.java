@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.source.spi;
 
 import org.hibernate.boot.model.naming.ImplicitDiscriminatorColumnNameSource;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for sources of information about a mapped discriminator.
@@ -18,6 +20,7 @@ public interface DiscriminatorSource extends ImplicitDiscriminatorColumnNameSour
 	 *
 	 * @return The column/formula information
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	RelationalValueSource getDiscriminatorRelationalValueSource();
 
 	/**
@@ -27,6 +30,7 @@ public interface DiscriminatorSource extends ImplicitDiscriminatorColumnNameSour
 	 *
 	 * @return The discriminator type
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getExplicitHibernateTypeName();
 
 	/**
@@ -36,6 +40,7 @@ public interface DiscriminatorSource extends ImplicitDiscriminatorColumnNameSour
 	 * @return {@code true} in case the discriminator value should be forces, {@code false}
 	 * otherwise. Default is {@code false}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isForced();
 
 	/**
@@ -45,5 +50,6 @@ public interface DiscriminatorSource extends ImplicitDiscriminatorColumnNameSour
 	 * @return {@code true} in case the discriminator value should be included in inserts,
 	 * {@code false} otherwise.  Default is {@code true}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isInserted();
 }

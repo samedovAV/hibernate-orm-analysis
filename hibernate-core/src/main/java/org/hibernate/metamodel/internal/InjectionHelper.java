@@ -18,9 +18,12 @@ import static java.lang.Character.isJavaIdentifierPart;
 import static java.lang.reflect.Modifier.isPublic;
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
 import static org.hibernate.internal.util.ReflectHelper.ensureAccessibility;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class InjectionHelper {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void injectEntityGraph(
 			NamedEntityGraphDefinition definition,
 			Class<?> metamodelClass,
@@ -38,6 +41,7 @@ public class InjectionHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void injectTypedQueryReference(NamedQueryDefinition<?> definition, Class<?> metamodelClass) {
 		if ( metamodelClass != null ) {
 			final String fieldName =
@@ -51,6 +55,7 @@ public class InjectionHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void injectResultSetMapping(
 			NamedResultSetMappingDescriptor definition,
 			Class<?> metamodelClass,
@@ -76,6 +81,7 @@ public class InjectionHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String javaIdentifier(String name) {
 		final var result = new StringBuilder();
 		int position = 0;
@@ -87,6 +93,7 @@ public class InjectionHelper {
 		return result.toString();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void injectField(
 			Class<?> metamodelClass, String name, Object model,
 			boolean allowNonDeclaredFieldReference)

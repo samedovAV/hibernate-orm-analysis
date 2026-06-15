@@ -31,6 +31,8 @@ import org.hibernate.type.descriptor.jdbc.JdbcLiteralFormatter;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Convenience base class for {@link BasicType} implementations.
@@ -70,111 +72,133 @@ public abstract class AbstractStandardBasicType<T>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ValueExtractor<T> getJdbcValueExtractor() {
 		return jdbcValueExtractor;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ValueBinder<T> getJdbcValueBinder() {
 		return jdbcValueBinder;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcLiteralFormatter<T> getJdbcLiteralFormatter() {
 		return jdbcLiteralFormatter;
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Class<T> getJavaType() {
 		return BasicType.super.getJavaType();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public T fromString(CharSequence string) {
 		return javaType.fromString( string );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected MutabilityPlan<T> getMutabilityPlan() {
 		return mutabilityPlan;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean[] toColumnNullness(Object value, MappingContext mapping) {
 		return value == null ? ArrayHelper.FALSE : ArrayHelper.TRUE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getRegistrationKeys() {
 		return registerUnderJavaType()
 				? new String[] { getName(), javaType.getTypeName() }
 				: new String[] { getName() };
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean registerUnderJavaType() {
 		return false;
 	}
 
 	// final implementations ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final JavaType<T> getJavaTypeDescriptor() {
 		return javaType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final JdbcType getJdbcType() {
 		return jdbcType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final Class<?> getReturnedClass() {
 		return javaTypeClass;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final int getColumnSpan(MappingContext mapping) throws MappingException {
 		return 1;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final int[] getSqlTypeCodes(MappingContext mappingContext) throws MappingException {
 		return sqlTypes;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final boolean isAssociationType() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final boolean isCollectionType() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final boolean isComponentType() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final boolean isEntityType() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final boolean isAnyType() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final boolean isSame(Object x, Object y) {
 		return isEqual( x, y );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final boolean isEqual(Object x, Object y, SessionFactoryImplementor factory) {
 		return isEqual( x, y );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isEqual(Object one, Object another) {
 		if ( one == another ) {
 			return true;
@@ -191,6 +215,7 @@ public abstract class AbstractStandardBasicType<T>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getHashCode(Object object) {
 		return typeForEqualsHashCode == null
 				? object.hashCode()
@@ -198,30 +223,36 @@ public abstract class AbstractStandardBasicType<T>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final int getHashCode(Object x, SessionFactoryImplementor factory) {
 		return getHashCode( x );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable Type getTypeForEqualsHashCode() {
 		return typeForEqualsHashCode;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final int compare(Object x, Object y) {
 		return this.javatypeComparator.compare( javaType.cast( x ) , javaType.cast( y )  );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final boolean isDirty(Object old, Object current, SharedSessionContractImplementor session) {
 		return isDirty( old, current );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final boolean isDirty(Object old, Object current, boolean[] checkable, SharedSessionContractImplementor session) {
 		return checkable[0] && isDirty( old, current );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected final boolean isDirty(Object old, Object current) {
 		// MutableMutabilityPlan.INSTANCE is a special plan for which we always
 		// have to assume the value is dirty, because we can't actually copy a
@@ -231,6 +262,7 @@ public abstract class AbstractStandardBasicType<T>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final boolean isModified(
 			Object oldHydratedState,
 			Object currentState,
@@ -240,6 +272,7 @@ public abstract class AbstractStandardBasicType<T>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final void nullSafeSet(
 			PreparedStatement st,
 			Object value,
@@ -249,12 +282,14 @@ public abstract class AbstractStandardBasicType<T>
 		nullSafeSet( st, javaType.cast( value ) , index, (WrapperOptions) session );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void nullSafeSet(PreparedStatement st, T value, int index, WrapperOptions options)
 			throws SQLException {
 		getJdbcValueBinder().bind( st, value, index, options );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final String toLoggableString(Object value, SessionFactoryImplementor factory) {
 		return value == LazyPropertyInitializer.UNFETCHED_PROPERTY
 			|| !Hibernate.isInitialized( value )
@@ -264,26 +299,31 @@ public abstract class AbstractStandardBasicType<T>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final boolean isMutable() {
 		return getMutabilityPlan().isMutable();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object deepCopy(Object value, SessionFactoryImplementor factory) {
 		return getMutabilityPlan().deepCopy( javaType.cast( value ) );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final Serializable disassemble(Object value, SharedSessionContractImplementor session, Object owner) {
 		return getMutabilityPlan().disassemble( javaType.cast( value ), session );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final Object assemble(Serializable cached, SharedSessionContractImplementor session, Object owner) {
 		return getMutabilityPlan().assemble( cached, session );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final Object replace(Object original, Object target, SharedSessionContractImplementor session, Object owner, Map<Object, Object> copyCache) {
 		return original == null && target == null
 				? null
@@ -292,6 +332,7 @@ public abstract class AbstractStandardBasicType<T>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object replace(
 			Object original,
 			Object target,
@@ -308,21 +349,25 @@ public abstract class AbstractStandardBasicType<T>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean canDoExtraction() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public T extract(CallableStatement statement, int startIndex, final SharedSessionContractImplementor session) throws SQLException {
 		return getJdbcValueExtractor().extract( statement, startIndex, session );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public T extract(CallableStatement statement, String paramName, final SharedSessionContractImplementor session) throws SQLException {
 		return getJdbcValueExtractor().extract( statement, paramName, session );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void nullSafeSet(
 			PreparedStatement st,
 			Object value,
@@ -334,20 +379,24 @@ public abstract class AbstractStandardBasicType<T>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void nullSafeSet(CallableStatement st, T value, String name, SharedSessionContractImplementor session) throws SQLException {
 		nullSafeSet( st, value, name, (WrapperOptions) session );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected final void nullSafeSet(CallableStatement st, Object value, String name, WrapperOptions options) throws SQLException {
 		getJdbcValueBinder().bind( st, javaType.cast( value ), name, options );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean canDoSetting() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public CastType getCastType() {
 		// The following is only necessary because we interpret a model part, e.g.
 		//

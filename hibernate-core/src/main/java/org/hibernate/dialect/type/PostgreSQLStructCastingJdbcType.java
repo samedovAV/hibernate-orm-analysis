@@ -20,6 +20,8 @@ import org.hibernate.type.descriptor.WrapperOptions;
 import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.descriptor.jdbc.AggregateJdbcType;
 import org.hibernate.type.descriptor.jdbc.BasicBinder;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -39,6 +41,7 @@ public class PostgreSQLStructCastingJdbcType extends AbstractPostgreSQLStructJdb
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AggregateJdbcType resolveAggregateJdbcType(
 			EmbeddableMappingType mappingType,
 			String sqlType,
@@ -55,6 +58,7 @@ public class PostgreSQLStructCastingJdbcType extends AbstractPostgreSQLStructJdb
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void appendWriteExpression(
 			String writeExpression,
 			@Nullable Size size,
@@ -68,14 +72,17 @@ public class PostgreSQLStructCastingJdbcType extends AbstractPostgreSQLStructJdb
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isWriteExpressionTyped(Dialect dialect) {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> ValueBinder<X> getBinder(JavaType<X> javaType) {
 		return new BasicBinder<>( javaType, this ) {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBind(PreparedStatement st, X value, int index, WrapperOptions options)
 					throws SQLException {
 				final String stringValue = ( (PostgreSQLStructCastingJdbcType) getJdbcType() ).toString(
@@ -87,6 +94,7 @@ public class PostgreSQLStructCastingJdbcType extends AbstractPostgreSQLStructJdb
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBind(CallableStatement st, X value, String name, WrapperOptions options)
 					throws SQLException {
 				final String stringValue = ( (PostgreSQLStructCastingJdbcType) getJdbcType() ).toString(
@@ -98,6 +106,7 @@ public class PostgreSQLStructCastingJdbcType extends AbstractPostgreSQLStructJdb
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public Object getBindValue(X value, WrapperOptions options) throws SQLException {
 				return ( (PostgreSQLStructCastingJdbcType) getJdbcType() ).getBindValue( value, options );
 			}

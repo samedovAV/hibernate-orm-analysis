@@ -13,6 +13,8 @@ import org.hibernate.sql.ast.spi.SqlAstProcessingState;
 import org.hibernate.sql.ast.spi.SqlExpressionResolver;
 import org.hibernate.sql.ast.tree.from.FromClause;
 import org.hibernate.sql.ast.tree.predicate.Predicate;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class SqlAstQueryNodeProcessingStateImpl
 		extends AbstractSqlAstQueryNodeProcessingStateImpl {
@@ -40,15 +42,18 @@ public class SqlAstQueryNodeProcessingStateImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FromClause getFromClause() {
 		return fromClause;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Predicate getPredicate() {
 		return predicate;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applyPredicate(Predicate predicate) {
 		this.predicate = Predicate.combinePredicates( this.predicate, predicate );
 	}

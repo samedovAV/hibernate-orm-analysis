@@ -21,6 +21,8 @@ import org.hibernate.graph.spi.GraphParserEntityNameResolver;
 import org.hibernate.graph.spi.GraphImplementor;
 import org.hibernate.graph.spi.RootGraphImplementor;
 import org.hibernate.metamodel.model.domain.EntityDomainType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Helper for dealing with graph text parsing.
@@ -29,6 +31,7 @@ import org.hibernate.metamodel.model.domain.EntityDomainType;
  */
 public class GraphParsing {
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static <T> RootGraphImplementor<T> parse(
 			EntityDomainType<T> entityDomainType,
 			String graphText,
@@ -40,6 +43,7 @@ public class GraphParsing {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static <T> RootGraphImplementor<T> parse(
 			Class<T> entityClass,
 			String graphText,
@@ -48,6 +52,7 @@ public class GraphParsing {
 				graphText, sessionFactory );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static RootGraphImplementor<?> parse(
 			String entityName,
 			String graphText,
@@ -57,6 +62,7 @@ public class GraphParsing {
 	}
 
 	@Deprecated(forRemoval = true)
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static RootGraphImplementor<?> parse(
 			String graphText,
 			SessionFactoryImplementor sessionFactory) {
@@ -64,6 +70,7 @@ public class GraphParsing {
 		return getGraphParsingStrategy( sessionFactory ).parse( graphText, sessionFactory );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static <T> RootGraphImplementor<T> visit(
 			EntityDomainType<T> rootType,
 			LegacyGraphLanguageParser.AttributeListContext attributeListContext,
@@ -71,6 +78,7 @@ public class GraphParsing {
 		return visit( rootType, attributeListContext, sessionFactory.getJpaMetamodel()::findEntityType );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static <T> RootGraphImplementor<T> visit(
 			EntityDomainType<T> rootType,
 			LegacyGraphLanguageParser.AttributeListContext attributeListContext,
@@ -79,18 +87,21 @@ public class GraphParsing {
 	}
 
 	@Deprecated(forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static @Nonnull LegacyGraphLanguageParser.GraphContext parseLegacyGraphText(String graphText) {
 		final var lexer = new GraphLanguageLexer( CharStreams.fromString( graphText ) );
 		final var parser = new LegacyGraphLanguageParser( new CommonTokenStream( lexer ) );
 		return parser.graph();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static @Nonnull GraphLanguageParser.GraphContext parseText(String graphText) {
 		final var lexer = new GraphLanguageLexer( CharStreams.fromString( graphText ) );
 		final var parser = new GraphLanguageParser( new CommonTokenStream( lexer ) );
 		return parser.graph();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <T> RootGraphImplementor<T> visit(
 			@Nullable String name,
 			EntityDomainType<T> rootType,
@@ -100,6 +111,7 @@ public class GraphParsing {
 		return LegacyGraphParsingStrategy.parse( name, rootType, graphElementListContext, entityNameResolver );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <T> RootGraphImplementor<T> visit(
 			@Nullable String name,
 			EntityDomainType<T> rootType,
@@ -113,6 +125,7 @@ public class GraphParsing {
 	 * Parse the passed graph textual representation into the passed Graph.
 	 * Essentially overlays the text representation on top of the graph.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void parseInto(
 			GraphImplementor<?> targetGraph,
 			CharSequence graphString,
@@ -121,6 +134,7 @@ public class GraphParsing {
 		getGraphParsingStrategy( sessionFactory ).parseInto( targetGraph, graphString.toString(), sessionFactory );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static GraphParsingStrategy getGraphParsingStrategy(SessionFactoryImplementor sessionFactory) {
 		final GraphParserMode mode = sessionFactory.getSessionFactoryOptions().getGraphParserMode();
 

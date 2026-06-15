@@ -55,6 +55,8 @@ import static org.hibernate.internal.util.StringHelper.nullIfEmpty;
 import static org.hibernate.internal.util.StringHelper.qualify;
 import static org.hibernate.type.ForeignKeyDirection.FROM_PARENT;
 import static org.hibernate.type.ForeignKeyDirection.TO_PARENT;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Responsible for interpreting {@link ManyToOne} and {@link OneToOne} associations
@@ -67,6 +69,7 @@ import static org.hibernate.type.ForeignKeyDirection.TO_PARENT;
  */
 public class ToOneBinder {
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static void bindManyToOne(
 			PropertyHolder propertyHolder,
 			Nullability nullability,
@@ -111,6 +114,7 @@ public class ToOneBinder {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isIdentifier(
 			PropertyHolder propertyHolder,
 			PropertyBinder propertyBinder,
@@ -121,6 +125,7 @@ public class ToOneBinder {
 			|| isIdentifierMapper;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isMandatory(boolean optional, MemberDetails property, NotFoundAction notFoundAction) {
 		// @MapsId means the columns belong to the pk;
 		// A @MapsId association (obviously) must be non-null when the entity is first persisted.
@@ -135,6 +140,7 @@ public class ToOneBinder {
 			|| property.hasDirectAnnotationUsage( MapsId.class ) && notFoundAction != NotFoundAction.IGNORE;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static void bindManyToOne(
 			EnumSet<CascadeType> cascadeStrategy,
 			AnnotatedJoinColumns joinColumns,
@@ -217,6 +223,7 @@ public class ToOneBinder {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static void handleMapsId(AnnotatedJoinColumns joinColumns, MemberDetails memberDetails) {
 		if ( memberDetails.hasDirectAnnotationUsage( MapsId.class ) ) {
 			// read-only
@@ -228,11 +235,13 @@ public class ToOneBinder {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static OnDeleteAction onDeleteAction(MemberDetails property) {
 		final var onDelete = property.getDirectAnnotationUsage( OnDelete.class );
 		return onDelete == null ? null : onDelete.action();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static NotFoundAction notFoundAction(PropertyHolder propertyHolder, MemberDetails property, FetchType fetchType) {
 		final var notFound = property.getDirectAnnotationUsage( NotFound.class );
 		final var notFoundAction = notFound == null ? null : notFound.action();
@@ -242,6 +251,7 @@ public class ToOneBinder {
 		return notFoundAction;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static org.hibernate.mapping.ManyToOne handleJoinTable(
 			AnnotatedJoinColumns joinColumns,
 			JoinTable joinTable,
@@ -278,6 +288,7 @@ public class ToOneBinder {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static boolean isTargetAnnotatedEntity(ClassDetails targetEntity, MemberDetails property) {
 		final var target =
 				isDefault( targetEntity )
@@ -286,6 +297,7 @@ public class ToOneBinder {
 		return isEntity( target );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void processManyToOneProperty(
 			EnumSet<CascadeType> cascadeStrategy,
 			AnnotatedJoinColumns columns,
@@ -319,6 +331,7 @@ public class ToOneBinder {
 				.setOptional( optional && isNullable( joinColumns, joinColumn ) );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static boolean isNullable(JoinColumns joinColumns, JoinColumn joinColumn) {
 		if ( joinColumn != null ) {
 			return joinColumn.nullable();
@@ -336,6 +349,7 @@ public class ToOneBinder {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static void defineFetchingStrategy(
 			ToOne toOne,
 			MemberDetails property,
@@ -346,6 +360,7 @@ public class ToOneBinder {
 		handleFetchProfileOverrides( toOne, property, propertyHolder, inferredData );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void handleLazy(ToOne toOne, MemberDetails property) {
 		if ( property.hasDirectAnnotationUsage( NotFound.class ) ) {
 			toOne.setLazy( false );
@@ -359,6 +374,7 @@ public class ToOneBinder {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void handleFetchProfileOverrides(
 			ToOne toOne,
 			MemberDetails property,
@@ -372,6 +388,7 @@ public class ToOneBinder {
 						propertyHolder, inferredData.getPropertyName(), context ) ));
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void handleFetch(ToOne toOne, MemberDetails property, PropertyHolder propertyHolder) {
 		final var fetchAnnotationUsage = property.getDirectAnnotationUsage( Fetch.class );
 		if ( fetchAnnotationUsage != null ) {
@@ -383,6 +400,7 @@ public class ToOneBinder {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void setHibernateFetchStyle(ToOne toOne, FetchMode fetchMode, PropertyHolder propertyHolder) {
 		switch ( fetchMode ) {
 			case JOIN:
@@ -402,10 +420,12 @@ public class ToOneBinder {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isEager(MemberDetails property, MetadataBuildingContext context) {
 		return getJpaFetchType( property, context ) == EAGER;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static FetchType getJpaFetchType(MemberDetails property, MetadataBuildingContext context) {
 		final var jpaFetch = getGraphlessJpaFetch( property, context );
 		if ( jpaFetch != null ) {
@@ -425,6 +445,7 @@ public class ToOneBinder {
 		throw new AssertionFailure("Define fetch strategy on a property not annotated with @OneToMany nor @OneToOne");
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static jakarta.persistence.Fetch getGraphlessJpaFetch(MemberDetails property, MetadataBuildingContext context) {
 		final var result = new jakarta.persistence.Fetch[1];
 		property.forEachRepeatedAnnotationUsages(
@@ -441,12 +462,14 @@ public class ToOneBinder {
 		return result[0];
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static FetchType handlingDefault(FetchType specifiedType, MetadataBuildingContext context) {
 		return specifiedType == DEFAULT
 				? context.getEffectiveDefaults().isDefaultEntityLaziness() ? LAZY : EAGER
 				: specifiedType;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static void bindOneToOne(
 			PropertyHolder propertyHolder,
 			Nullability nullability,
@@ -496,6 +519,7 @@ public class ToOneBinder {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void bindOneToOne(
 			EnumSet<CascadeType> cascadeStrategy,
 			AnnotatedJoinColumns joinColumns,
@@ -546,6 +570,7 @@ public class ToOneBinder {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void bindTrueOneToOne(
 			EnumSet<CascadeType> cascadeStrategy,
 			AnnotatedJoinColumns joinColumns,
@@ -621,6 +646,7 @@ public class ToOneBinder {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isMappedToPrimaryKey(
 			AnnotatedJoinColumns joinColumns,
 			PropertyHolder propertyHolder,
@@ -654,6 +680,7 @@ public class ToOneBinder {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void bindForeignKeyNameAndDefinition(
 			SimpleValue value,
 			MemberDetails memberDetails,
@@ -668,6 +695,7 @@ public class ToOneBinder {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static ForeignKey nestedForeignKey(MemberDetails memberDetails) {
 		final var joinColumn = memberDetails.getDirectAnnotationUsage( JoinColumn.class );
 		final var joinColumns = memberDetails.getDirectAnnotationUsage( JoinColumns.class );
@@ -682,20 +710,24 @@ public class ToOneBinder {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String getReferenceEntityName(PropertyData propertyData, ClassDetails targetEntity) {
 		return isDefault( targetEntity )
 				? propertyData.getClassOrElementName()
 				: targetEntity.getName();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String getReferenceEntityName(PropertyData propertyData, MetadataBuildingContext context) {
 		return getReferenceEntityName( propertyData, getTargetEntity( propertyData, context ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static ClassDetails getTargetEntity(PropertyData propertyData, MetadataBuildingContext context) {
 		return getTargetEntityClass( propertyData.getAttributeMember(), context );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static ClassDetails getTargetEntityClass(MemberDetails property, MetadataBuildingContext context) {
 		final var classDetailsRegistry =
 				context.getBootstrapContext().getModelsContext().getClassDetailsRegistry();

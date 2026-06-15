@@ -7,6 +7,8 @@ package org.hibernate.bytecode.enhance.spi.interceptor;
 import org.hibernate.mapping.Property;
 import org.hibernate.type.CollectionType;
 import org.hibernate.type.Type;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Descriptor for an attribute which is enabled for bytecode lazy fetching
@@ -14,6 +16,7 @@ import org.hibernate.type.Type;
  * @author Steve Ebersole
  */
 public class LazyAttributeDescriptor {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static LazyAttributeDescriptor from(
 			Property property,
 			int attributeIndex,
@@ -59,6 +62,7 @@ public class LazyAttributeDescriptor {
 	 *
 	 * @return The persister attribute index
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getAttributeIndex() {
 		return attributeIndex;
 	}
@@ -68,6 +72,7 @@ public class LazyAttributeDescriptor {
 	 *
 	 * @return The persister lazy attribute index
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getLazyIndex() {
 		return lazyIndex;
 	}
@@ -77,6 +82,7 @@ public class LazyAttributeDescriptor {
 	 *
 	 * @return The attribute name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return name;
 	}
@@ -86,6 +92,7 @@ public class LazyAttributeDescriptor {
 	 *
 	 * @return The attribute type
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Type getType() {
 		return type;
 	}
@@ -95,6 +102,7 @@ public class LazyAttributeDescriptor {
 	 *
 	 * @return The name of the fetch group the attribute belongs to
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getFetchGroupName() {
 		return fetchGroupName;
 	}

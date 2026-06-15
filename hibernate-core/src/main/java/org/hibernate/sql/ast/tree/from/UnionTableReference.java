@@ -10,6 +10,8 @@ import java.util.function.Function;
 import org.hibernate.spi.NavigablePath;
 
 import static org.hibernate.internal.util.StringHelper.isEmpty;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Andrea Boriero
@@ -35,6 +37,7 @@ public class UnionTableReference extends NamedTableReference {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableReference resolveTableReference(
 			NavigablePath navigablePath,
 			String tableExpression) {
@@ -54,6 +57,7 @@ public class UnionTableReference extends NamedTableReference {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableReference getTableReference(
 			NavigablePath navigablePath,
 			String tableExpression,
@@ -64,6 +68,7 @@ public class UnionTableReference extends NamedTableReference {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private boolean hasTableExpression(String tableExpression) {
 		for ( String expression : subclassTableSpaceExpressions ) {
 			if ( tableExpression.equals( expression ) ) {
@@ -74,11 +79,13 @@ public class UnionTableReference extends NamedTableReference {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean containsAffectedTableName(String requestedName) {
 		return isEmpty( requestedName ) || hasTableExpression( requestedName );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Boolean visitAffectedTableNames(Function<String, Boolean> nameCollector) {
 		for ( String expression : subclassTableSpaceExpressions ) {
 			final Boolean result = nameCollector.apply( expression );

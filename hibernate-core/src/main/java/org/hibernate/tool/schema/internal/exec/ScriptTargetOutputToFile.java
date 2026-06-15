@@ -14,6 +14,8 @@ import org.hibernate.tool.schema.spi.SchemaManagementException;
 import org.hibernate.tool.schema.spi.ScriptTargetOutput;
 
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * ScriptTargetOutput implementation for writing to supplied File references
@@ -54,6 +56,7 @@ public class ScriptTargetOutputToFile extends AbstractScriptTargetOutput impleme
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Writer writer() {
 		if ( writer == null ) {
 			throw new SchemaManagementException( "Illegal state : writer null - not prepared" );
@@ -62,12 +65,14 @@ public class ScriptTargetOutputToFile extends AbstractScriptTargetOutput impleme
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void prepare() {
 		super.prepare();
 		this.writer = toFileWriter( this.file, this.charsetName, append );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void release() {
 		if ( writer != null ) {
 			try {
@@ -83,6 +88,7 @@ public class ScriptTargetOutputToFile extends AbstractScriptTargetOutput impleme
 	}
 
 	@SuppressWarnings("ResultOfMethodCallIgnored")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static Writer toFileWriter(File file, String charsetName, boolean append) {
 		try {
 			if ( !file.exists() ) {

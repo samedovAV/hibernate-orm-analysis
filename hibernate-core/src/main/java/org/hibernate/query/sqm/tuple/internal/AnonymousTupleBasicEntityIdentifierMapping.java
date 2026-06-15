@@ -15,6 +15,8 @@ import org.hibernate.metamodel.mapping.MappingType;
 import org.hibernate.metamodel.mapping.SelectableMapping;
 import org.hibernate.property.access.spi.PropertyAccess;
 import org.hibernate.query.sqm.SqmExpressible;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -46,46 +48,55 @@ public class AnonymousTupleBasicEntityIdentifierMapping
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Nature getNature() {
 		return Nature.SIMPLE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public IdentifierValue getUnsavedStrategy() {
 		return delegate.getUnsavedStrategy();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object getIdentifier(Object entity) {
 		return delegate.getIdentifier( entity );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object getIdentifier(Object entity, MergeContext mergeContext) {
 		return delegate.getIdentifier( entity, mergeContext );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void setIdentifier(Object entity, Object id, SharedSessionContractImplementor session) {
 		delegate.setIdentifier( entity, id, session );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object instantiate() {
 		return delegate.instantiate();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public PropertyAccess getPropertyAccess() {
 		return delegate.getPropertyAccess();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getAttributeName() {
 		return getPartName();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public ManagedMappingType getDeclaringType() {
 		return (ManagedMappingType) super.getDeclaringType();
 	}

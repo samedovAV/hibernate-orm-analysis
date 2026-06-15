@@ -9,6 +9,8 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.service.JavaServiceLoadable;
 import org.hibernate.service.Service;
 import org.hibernate.sql.model.MutationOperationGroup;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Service for creating executors for model mutation operations.
@@ -26,6 +28,7 @@ public interface MutationExecutorService extends Service {
 	/**
 	 * Create an executor for the given {@code operationGroup}, potentially using batching
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationExecutor createExecutor(
 			BatchKeyAccess batchKeySupplier,
 			MutationOperationGroup operationGroup,
@@ -35,6 +38,7 @@ public interface MutationExecutorService extends Service {
 	/**
 	 * Create an executor for the given {@code operationGroup}, potentially using batching.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationExecutor createExecutor(
 			BatchKeyAccess batchKeySupplier,
 			MutationOperationGroup operationGroup,

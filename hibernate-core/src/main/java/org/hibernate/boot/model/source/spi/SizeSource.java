@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.boot.model.source.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * @author Steve Ebersole
@@ -13,6 +16,7 @@ public interface SizeSource {
 	 *
 	 * @return The length, or {@code null} if not defined.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Integer getLength();
 
 	/**
@@ -20,6 +24,7 @@ public interface SizeSource {
 	 *
 	 * @return The precision, or {@code null} if not defined.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Integer getPrecision();
 
 	/**
@@ -27,5 +32,6 @@ public interface SizeSource {
 	 *
 	 * @return The scale, or {@code null} if not defined.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Integer getScale();
 }

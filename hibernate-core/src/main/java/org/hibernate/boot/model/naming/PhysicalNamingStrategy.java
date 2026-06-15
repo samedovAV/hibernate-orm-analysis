@@ -6,6 +6,8 @@ package org.hibernate.boot.model.naming;
 
 import org.hibernate.Incubating;
 import org.hibernate.engine.jdbc.env.spi.JdbcEnvironment;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A set of rules for determining the physical names of objects in a relational
@@ -43,31 +45,37 @@ public interface PhysicalNamingStrategy {
 	/**
 	 * Determine the physical catalog name from the given logical name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier toPhysicalCatalogName(Identifier logicalName, JdbcEnvironment jdbcEnvironment);
 
 	/**
 	 * Determine the physical schema name from the given logical name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier toPhysicalSchemaName(Identifier logicalName, JdbcEnvironment jdbcEnvironment);
 
 	/**
 	 * Determine the physical table name from the given logical name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier toPhysicalTableName(Identifier logicalName, JdbcEnvironment jdbcEnvironment);
 
 	/**
 	 * Determine the physical sequence name from the given logical name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier toPhysicalSequenceName(Identifier logicalName, JdbcEnvironment jdbcEnvironment);
 
 	/**
 	 * Determine the physical column name from the given logical name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier toPhysicalColumnName(Identifier logicalName, JdbcEnvironment jdbcEnvironment);
 
 	/**
 	 * Determine the physical UDT type name from the given logical name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Identifier toPhysicalTypeName(Identifier logicalName, JdbcEnvironment jdbcEnvironment) {
 		return toPhysicalTableName( logicalName, jdbcEnvironment );
 	}

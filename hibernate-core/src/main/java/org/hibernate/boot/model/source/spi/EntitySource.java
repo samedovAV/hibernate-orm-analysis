@@ -10,6 +10,8 @@ import java.util.Map;
 import org.hibernate.boot.jaxb.hbm.spi.JaxbHbmNamedNativeQueryType;
 import org.hibernate.boot.jaxb.hbm.spi.JaxbHbmNamedQueryType;
 import org.hibernate.boot.model.CustomSql;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract describing source of information related to mapping an entity.
@@ -22,6 +24,7 @@ public interface EntitySource extends IdentifiableTypeSource, ToolingHintContext
 	 *
 	 * @return The primary table.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TableSpecificationSource getPrimaryTable();
 
 	/**
@@ -29,8 +32,10 @@ public interface EntitySource extends IdentifiableTypeSource, ToolingHintContext
 	 *
 	 * @return returns an iterator over the secondary tables for this entity
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Map<String,SecondaryTableSource> getSecondaryTableMap();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getXmlNodeName();
 
 	/**
@@ -38,6 +43,7 @@ public interface EntitySource extends IdentifiableTypeSource, ToolingHintContext
 	 *
 	 * @return The custom persister class name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getCustomPersisterClassName();
 
 	/**
@@ -45,6 +51,7 @@ public interface EntitySource extends IdentifiableTypeSource, ToolingHintContext
 	 *
 	 * @return {@code true} indicates the entity is lazy; {@code false} non-lazy.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isLazy();
 
 	/**
@@ -52,6 +59,7 @@ public interface EntitySource extends IdentifiableTypeSource, ToolingHintContext
 	 *
 	 * @return The proxy interface name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getProxy();
 
 	/**
@@ -59,6 +67,7 @@ public interface EntitySource extends IdentifiableTypeSource, ToolingHintContext
 	 *
 	 * @return returns the batch-size.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getBatchSize();
 
 	/**
@@ -69,6 +78,7 @@ public interface EntitySource extends IdentifiableTypeSource, ToolingHintContext
 	 * @return {@code true} indicates the entity is abstract; {@code false} non-abstract; {@code null}
 	 * indicates that a reflection check should be done when building the persister.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Boolean isAbstract();
 
 	/**
@@ -76,6 +86,7 @@ public interface EntitySource extends IdentifiableTypeSource, ToolingHintContext
 	 *
 	 * @return {@code true} indicates dynamic inserts will be used; {@code false} otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isDynamicInsert();
 
 	/**
@@ -83,6 +94,7 @@ public interface EntitySource extends IdentifiableTypeSource, ToolingHintContext
 	 *
 	 * @return {@code true} indicates dynamic updates will be used; {@code false} otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isDynamicUpdate();
 
 	/**
@@ -90,6 +102,7 @@ public interface EntitySource extends IdentifiableTypeSource, ToolingHintContext
 	 *
 	 * @return {@code true} indicates selects will be done; {@code false} otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isSelectBeforeUpdate();
 
 	/**
@@ -97,6 +110,7 @@ public interface EntitySource extends IdentifiableTypeSource, ToolingHintContext
 	 *
 	 * @return THe custom loader query name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getCustomLoaderName();
 
 	/**
@@ -104,6 +118,7 @@ public interface EntitySource extends IdentifiableTypeSource, ToolingHintContext
 	 *
 	 * @return The custom insert SQL
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CustomSql getCustomSqlInsert();
 
 	/**
@@ -111,6 +126,7 @@ public interface EntitySource extends IdentifiableTypeSource, ToolingHintContext
 	 *
 	 * @return The custom update SQL
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CustomSql getCustomSqlUpdate();
 
 	/**
@@ -118,6 +134,7 @@ public interface EntitySource extends IdentifiableTypeSource, ToolingHintContext
 	 *
 	 * @return The custom delete SQL
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CustomSql getCustomSqlDelete();
 
 	/**
@@ -125,6 +142,7 @@ public interface EntitySource extends IdentifiableTypeSource, ToolingHintContext
 	 *
 	 * @return Additional synchronized table names or 0 sized String array, never return null.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String[] getSynchronizedTableNames();
 
 	/**
@@ -133,6 +151,7 @@ public interface EntitySource extends IdentifiableTypeSource, ToolingHintContext
 	 * @return the actual discriminator value in case of a single table inheritance or {@code null} in case there is no
 	 *         explicit value or a different inheritance scheme
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getDiscriminatorMatchValue();
 
 	/**
@@ -140,9 +159,12 @@ public interface EntitySource extends IdentifiableTypeSource, ToolingHintContext
 	 *
 	 * @return returns an array of the filters for this entity.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	FilterSource[] getFilterSources();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<JaxbHbmNamedQueryType> getNamedQueries();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<JaxbHbmNamedNativeQueryType> getNamedNativeQueries();
 }

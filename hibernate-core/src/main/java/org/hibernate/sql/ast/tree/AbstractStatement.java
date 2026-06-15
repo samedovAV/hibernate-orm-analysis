@@ -10,6 +10,8 @@ import java.util.Map;
 import org.hibernate.sql.ast.tree.cte.CteContainer;
 import org.hibernate.sql.ast.tree.cte.CteObject;
 import org.hibernate.sql.ast.tree.cte.CteStatement;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -34,11 +36,13 @@ public abstract class AbstractStatement implements Statement, CteContainer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, CteStatement> getCteStatements() {
 		return cteStatements;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public CteStatement getCteStatement(String cteLabel) {
 		final var cteStatement = cteStatements.get( cteLabel );
 		return cteStatement == null && parentCteContainer != null
@@ -47,6 +51,7 @@ public abstract class AbstractStatement implements Statement, CteContainer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addCteStatement(CteStatement cteStatement) {
 		final String tableExpression = cteStatement.getCteTable().getTableExpression();
 		if ( cteStatements.putIfAbsent( tableExpression, cteStatement ) != null ) {
@@ -55,11 +60,13 @@ public abstract class AbstractStatement implements Statement, CteContainer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, CteObject> getCteObjects() {
 		return cteObjects;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public CteObject getCteObject(String cteObjectName) {
 		final var cteObject = cteObjects.get( cteObjectName );
 		return cteObject == null
@@ -69,6 +76,7 @@ public abstract class AbstractStatement implements Statement, CteContainer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addCteObject(CteObject cteObject) {
 		final String name = cteObject.getName();
 		if ( cteObjects.putIfAbsent( name, cteObject ) != null ) {

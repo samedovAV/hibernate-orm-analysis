@@ -19,6 +19,8 @@ import org.hibernate.type.spi.TypeConfiguration;
 import java.util.List;
 
 import static org.hibernate.type.spi.TypeConfiguration.getSqlTemporalType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  *  uses unix_seconds function for EPOCH unit
@@ -29,6 +31,7 @@ public class SpannerExtractFunction extends ExtractFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,
@@ -38,6 +41,7 @@ public class SpannerExtractFunction extends ExtractFunction {
 	}
 
 	@SuppressWarnings("deprecation")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private String extractPattern(List<? extends SqlAstNode> sqlAstArguments) {
 		var field = (ExtractUnit) sqlAstArguments.get( 0 );
 		if ( field.getUnit() == TemporalUnit.EPOCH ) {

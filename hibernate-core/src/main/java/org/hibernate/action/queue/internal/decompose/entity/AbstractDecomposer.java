@@ -14,6 +14,8 @@ import org.hibernate.generator.OnExecutionGenerator;
 import org.hibernate.metamodel.mapping.AttributeMapping;
 import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.sql.model.ast.builder.AssigningTableMutationBuilder;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 ;
 
@@ -34,6 +36,7 @@ public abstract class AbstractDecomposer<T extends EntityAction> implements Enti
 		this.sessionFactory = sessionFactory;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected EntityTableDescriptor findTableDescriptor(String tableName) {
 		for ( EntityTableDescriptor tableDescriptor : entityPersister.getTableDescriptors() ) {
 			if ( tableDescriptor.name().equals( tableName ) ) {
@@ -43,6 +46,7 @@ public abstract class AbstractDecomposer<T extends EntityAction> implements Enti
 		throw new IllegalArgumentException( "Unknown entity table `" + tableName + "`" );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void handleValueGeneration(
 			AttributeMapping attributeMapping,
 			AssigningTableMutationBuilder<?> builder,
@@ -50,6 +54,7 @@ public abstract class AbstractDecomposer<T extends EntityAction> implements Enti
 		handleValueGeneration( attributeMapping, builder, generator, null );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void handleValueGeneration(
 			AttributeMapping attributeMapping,
 			AssigningTableMutationBuilder<?> builder,

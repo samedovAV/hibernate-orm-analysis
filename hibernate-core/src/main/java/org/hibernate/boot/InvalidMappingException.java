@@ -5,6 +5,8 @@
 package org.hibernate.boot;
 
 import org.hibernate.boot.jaxb.Origin;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Indicates a problem parsing the mapping document at a given {@link Origin}.
@@ -32,6 +34,7 @@ public class InvalidMappingException extends org.hibernate.InvalidMappingExcepti
 		this.origin = origin;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Origin getOrigin() {
 		return origin;
 	}

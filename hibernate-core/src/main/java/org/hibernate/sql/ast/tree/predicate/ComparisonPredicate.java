@@ -8,6 +8,8 @@ import org.hibernate.metamodel.mapping.JdbcMappingContainer;
 import org.hibernate.query.sqm.ComparisonOperator;
 import org.hibernate.sql.ast.SqlAstWalker;
 import org.hibernate.sql.ast.tree.expression.Expression;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -36,29 +38,35 @@ public class ComparisonPredicate implements Predicate {
 		this.expressionType = expressionType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression getLeftHandExpression() {
 		return leftHandExpression;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression getRightHandExpression() {
 		return rightHandExpression;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ComparisonOperator getOperator() {
 		return operator;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isEmpty() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker sqlTreeWalker) {
 		sqlTreeWalker.visitRelationalPredicate( this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcMappingContainer getExpressionType() {
 		return expressionType;
 	}

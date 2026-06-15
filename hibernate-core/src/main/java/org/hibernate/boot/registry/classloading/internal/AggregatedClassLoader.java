@@ -9,6 +9,8 @@ import java.net.URL;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 public class AggregatedClassLoader extends ClassLoader {
@@ -21,6 +23,7 @@ public class AggregatedClassLoader extends ClassLoader {
 		tcclLookupPrecedence = precedence;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Iterator<ClassLoader> newClassLoaderIterator() {
 		final ClassLoader threadClassLoader = locateTCCL();
 		if ( tcclLookupPrecedence == TcclLookupPrecedence.NEVER || threadClassLoader == null ) {
@@ -37,6 +40,7 @@ public class AggregatedClassLoader extends ClassLoader {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Iterator<ClassLoader> newTcclBeforeIterator(final ClassLoader threadContextClassLoader) {
 		final ClassLoader systemClassLoader = locateSystemClassLoader();
 		return new Iterator<ClassLoader>() {
@@ -45,6 +49,7 @@ public class AggregatedClassLoader extends ClassLoader {
 			private boolean sysCLReturned = false;
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public boolean hasNext() {
 				if ( !tcCLReturned ) {
 					return true;
@@ -60,6 +65,7 @@ public class AggregatedClassLoader extends ClassLoader {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public ClassLoader next() {
 				if ( !tcCLReturned ) {
 					tcCLReturned = true;
@@ -78,6 +84,7 @@ public class AggregatedClassLoader extends ClassLoader {
 		};
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Iterator<ClassLoader> newTcclAfterIterator(final ClassLoader threadContextClassLoader) {
 		final ClassLoader systemClassLoader = locateSystemClassLoader();
 		return new Iterator<ClassLoader>() {
@@ -86,6 +93,7 @@ public class AggregatedClassLoader extends ClassLoader {
 			private boolean sysCLReturned = false;
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public boolean hasNext() {
 				if ( currentIndex < individualClassLoaders.length ) {
 					return true;
@@ -101,6 +109,7 @@ public class AggregatedClassLoader extends ClassLoader {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public ClassLoader next() {
 				if ( currentIndex < individualClassLoaders.length ) {
 					currentIndex += 1;
@@ -119,6 +128,7 @@ public class AggregatedClassLoader extends ClassLoader {
 		};
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Iterator<ClassLoader> newTcclNeverIterator() {
 		final ClassLoader systemClassLoader = locateSystemClassLoader();
 		return new Iterator<>() {
@@ -126,6 +136,7 @@ public class AggregatedClassLoader extends ClassLoader {
 			private boolean sysCLReturned = false;
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public boolean hasNext() {
 				if ( currentIndex < individualClassLoaders.length ) {
 					return true;
@@ -138,6 +149,7 @@ public class AggregatedClassLoader extends ClassLoader {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public ClassLoader next() {
 				if ( currentIndex < individualClassLoaders.length ) {
 					currentIndex += 1;
@@ -153,6 +165,7 @@ public class AggregatedClassLoader extends ClassLoader {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public Enumeration<URL> getResources(String name) throws IOException {
 		final LinkedHashSet<URL> resourceUrls = new LinkedHashSet<>();
 		final Iterator<ClassLoader> clIterator = newClassLoaderIterator();
@@ -168,11 +181,13 @@ public class AggregatedClassLoader extends ClassLoader {
 			final Iterator<URL> resourceUrlIterator = resourceUrls.iterator();
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public boolean hasMoreElements() {
 				return resourceUrlIterator.hasNext();
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public URL nextElement() {
 				return resourceUrlIterator.next();
 			}
@@ -180,6 +195,7 @@ public class AggregatedClassLoader extends ClassLoader {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	protected URL findResource(String name) {
 		final var clIterator = newClassLoaderIterator();
 		while ( clIterator.hasNext() ) {
@@ -193,6 +209,7 @@ public class AggregatedClassLoader extends ClassLoader {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected Class<?> findClass(String name) throws ClassNotFoundException {
 		final var clIterator = newClassLoaderIterator();
 		final var exception = new ClassNotFoundException( "Could not load requested class: " + name );
@@ -208,6 +225,7 @@ public class AggregatedClassLoader extends ClassLoader {
 		throw exception;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static ClassLoader locateSystemClassLoader() {
 		try {
 			return ClassLoader.getSystemClassLoader();
@@ -217,6 +235,7 @@ public class AggregatedClassLoader extends ClassLoader {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static ClassLoader locateTCCL() {
 		try {
 			return Thread.currentThread().getContextClassLoader();

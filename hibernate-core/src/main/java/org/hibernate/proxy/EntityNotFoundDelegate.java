@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.proxy;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Delegate to handle the scenario of an entity not found by a specified id.
@@ -13,5 +16,6 @@ package org.hibernate.proxy;
  * @author Steve Ebersole
  */
 public interface EntityNotFoundDelegate {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void handleEntityNotFound(String entityName, Object id);
 }

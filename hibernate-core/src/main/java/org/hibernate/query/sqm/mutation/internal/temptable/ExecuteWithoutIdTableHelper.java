@@ -15,6 +15,8 @@ import org.hibernate.sql.ast.tree.from.TableReference;
 import org.hibernate.sql.ast.tree.predicate.Predicate;
 import org.hibernate.sql.ast.tree.select.QuerySpec;
 import org.hibernate.sql.results.internal.SqlSelectionImpl;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -23,6 +25,7 @@ public final class ExecuteWithoutIdTableHelper {
 	private ExecuteWithoutIdTableHelper() {
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static QuerySpec createIdMatchingSubQuerySpec(
 			NavigablePath navigablePath,
 			TableReference rootTableReference,

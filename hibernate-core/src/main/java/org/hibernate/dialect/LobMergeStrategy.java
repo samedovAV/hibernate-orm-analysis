@@ -9,6 +9,8 @@ import java.sql.Clob;
 import java.sql.NClob;
 
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Strategy for how dialects need {@code LOB} values to be merged.
@@ -25,6 +27,7 @@ public interface LobMergeStrategy {
 	 *
 	 * @return The merged {@code BLOB} state
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Blob mergeBlob(Blob original, Blob target, SharedSessionContractImplementor session);
 
 	/**
@@ -36,6 +39,7 @@ public interface LobMergeStrategy {
 	 *
 	 * @return The merged {@code CLOB} state
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Clob mergeClob(Clob original, Clob target, SharedSessionContractImplementor session);
 
 	/**
@@ -47,5 +51,6 @@ public interface LobMergeStrategy {
 	 *
 	 * @return The merged {@code NCLOB} state
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NClob mergeNClob(NClob original, NClob target, SharedSessionContractImplementor session);
 }

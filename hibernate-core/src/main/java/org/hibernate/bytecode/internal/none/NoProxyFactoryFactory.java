@@ -8,6 +8,8 @@ import org.hibernate.bytecode.spi.BasicProxyFactory;
 import org.hibernate.bytecode.spi.ProxyFactoryFactory;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.proxy.ProxyFactory;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * When entities are enhanced in advance, proxies are not needed.
@@ -15,11 +17,13 @@ import org.hibernate.proxy.ProxyFactory;
 final class NoProxyFactoryFactory implements ProxyFactoryFactory {
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ProxyFactory buildProxyFactory(SessionFactoryImplementor sessionFactory) {
 		return DisallowedProxyFactory.INSTANCE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BasicProxyFactory buildBasicProxyFactory(Class superClassOrInterface) {
 		return new NoneBasicProxyFactory( superClassOrInterface );
 	}

@@ -18,6 +18,8 @@ import org.hibernate.service.spi.ServiceRegistryImplementor;
 import jakarta.annotation.Nullable;
 
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard initiator for the standard {@link JtaPlatform}
@@ -29,11 +31,13 @@ public class JtaPlatformInitiator implements StandardServiceInitiator<JtaPlatfor
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<JtaPlatform> getServiceInitiated() {
 		return JtaPlatform.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable JtaPlatform initiateService(@Nonnull Map<String, Object> configurationValues, @Nonnull ServiceRegistryImplementor registry) {
 		final Object setting = configurationValues.get( AvailableSettings.JTA_PLATFORM );
 		JtaPlatform platform =
@@ -60,6 +64,7 @@ public class JtaPlatformInitiator implements StandardServiceInitiator<JtaPlatfor
 		return platform;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected @Nullable JtaPlatform getFallbackProvider(Map<?,?> configurationValues, ServiceRegistryImplementor registry) {
 		return null;
 	}

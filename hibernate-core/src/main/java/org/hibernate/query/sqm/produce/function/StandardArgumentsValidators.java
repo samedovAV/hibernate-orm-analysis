@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Locale;
 
 import static java.util.Arrays.asList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -27,6 +29,7 @@ public final class StandardArgumentsValidators {
 	 */
 	public static final ArgumentsValidator NONE = new ArgumentsValidator() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void validate(
 				List<? extends SqmTypedNode<?>> arguments,
 				String functionName,
@@ -34,6 +37,7 @@ public final class StandardArgumentsValidators {
 			// nothing to do
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getSignature() {
 			return "([arg0[, ...]])";
 		}
@@ -44,6 +48,7 @@ public final class StandardArgumentsValidators {
 	 */
 	public static final ArgumentsValidator NO_ARGS = new ArgumentsValidator() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void validate(
 				List<? extends SqmTypedNode<?>> arguments,
 				String functionName,
@@ -61,17 +66,20 @@ public final class StandardArgumentsValidators {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getSignature() {
 			return "()";
 		}
 	};
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static ArgumentsValidator min(int minNumOfArgs) {
 		if (minNumOfArgs<1) {
 			throw new IllegalArgumentException();
 		}
 		return new ArgumentsValidator() {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public void validate(
 					List<? extends SqmTypedNode<?>> arguments,
 					String functionName,
@@ -90,6 +98,7 @@ public final class StandardArgumentsValidators {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public String getSignature() {
 				final var sig = new StringBuilder("(");
 				for (int i=0; i<minNumOfArgs; i++) {
@@ -106,9 +115,11 @@ public final class StandardArgumentsValidators {
 		};
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static ArgumentsValidator exactly(int number) {
 		return new ArgumentsValidator() {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public void validate(
 					List<? extends SqmTypedNode<?>> arguments,
 					String functionName,
@@ -127,6 +138,7 @@ public final class StandardArgumentsValidators {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public String getSignature() {
 				final var sig = new StringBuilder("(");
 				for (int i=0; i<number; i++) {
@@ -145,9 +157,11 @@ public final class StandardArgumentsValidators {
 		};
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static ArgumentsValidator max(int maxNumOfArgs) {
 		return new ArgumentsValidator() {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public void validate(
 					List<? extends SqmTypedNode<?>> arguments,
 					String functionName,
@@ -166,6 +180,7 @@ public final class StandardArgumentsValidators {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public String getSignature() {
 				final var sig = new StringBuilder("([");
 				for (int i=0; i<maxNumOfArgs; i++) {
@@ -180,9 +195,11 @@ public final class StandardArgumentsValidators {
 		};
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static ArgumentsValidator between(int minNumOfArgs, int maxNumOfArgs) {
 		return new ArgumentsValidator() {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public void validate(
 					List<? extends SqmTypedNode<?>> arguments,
 					String functionName,
@@ -202,6 +219,7 @@ public final class StandardArgumentsValidators {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public String getSignature() {
 				final var sig = new StringBuilder("(");
 				for (int i=0; i<maxNumOfArgs; i++) {
@@ -219,9 +237,11 @@ public final class StandardArgumentsValidators {
 		};
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static ArgumentsValidator of(Class<?> javaType) {
 		return new ArgumentsValidator() {
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public void validate(
 					List<? extends SqmTypedNode<?>> arguments,
 					String functionName,
@@ -244,13 +264,16 @@ public final class StandardArgumentsValidators {
 		};
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static ArgumentsValidator composite(ArgumentsValidator... validators) {
 		return composite( asList( validators ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static ArgumentsValidator composite(List<ArgumentsValidator> validators) {
 		return new ArgumentsValidator() {
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public void validate(
 					List<? extends SqmTypedNode<?>> arguments,
 					String functionName,

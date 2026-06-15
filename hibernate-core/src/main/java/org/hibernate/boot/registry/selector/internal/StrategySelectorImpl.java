@@ -23,6 +23,8 @@ import org.hibernate.boot.registry.selector.spi.NamedStrategyContributor;
 
 import static java.util.Collections.emptySet;
 import static org.hibernate.boot.BootLogging.BOOT_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard implementation of the {@link StrategySelector} contract.
@@ -57,6 +59,7 @@ public class StrategySelectorImpl implements StrategySelector {
 
 	@Override
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> Class<? extends T> selectStrategyImplementor(Class<T> strategy, String name) {
 		final var namedStrategyImplementorMap = namedStrategyImplementorByStrategyMap.get( strategy );
 		if ( namedStrategyImplementorMap != null ) {
@@ -86,11 +89,13 @@ public class StrategySelectorImpl implements StrategySelector {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> T resolveStrategy(Class<T> strategy, Object strategyReference) {
 		return resolveDefaultableStrategy( strategy, strategyReference, (T) null );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> T resolveDefaultableStrategy(Class<T> strategy, Object strategyReference, final T defaultValue) {
 		return resolveDefaultableStrategy(
 				strategy,
@@ -101,6 +106,7 @@ public class StrategySelectorImpl implements StrategySelector {
 
 	@Override
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> T resolveDefaultableStrategy(
 			Class<T> strategy,
 			Object strategyReference,
@@ -110,6 +116,7 @@ public class StrategySelectorImpl implements StrategySelector {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> T resolveStrategy(
 			Class<T> strategy,
 			Object strategyReference,
@@ -124,6 +131,7 @@ public class StrategySelectorImpl implements StrategySelector {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> Collection<Class<? extends T>> getRegisteredStrategyImplementors(Class<T> strategy) {
 		final var lazyServiceResolver = lazyStrategyImplementorByStrategyMap.get( strategy );
 		if ( lazyServiceResolver != null ) {
@@ -153,6 +161,7 @@ public class StrategySelectorImpl implements StrategySelector {
 
 	@SuppressWarnings("unchecked")
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> T resolveStrategy(
 			Class<T> strategy,
 			Object strategyReference,
@@ -187,6 +196,7 @@ public class StrategySelectorImpl implements StrategySelector {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static <T> T create(Class<T> strategyClass) {
 		try {
 			return strategyClass.getDeclaredConstructor().newInstance();
@@ -202,6 +212,7 @@ public class StrategySelectorImpl implements StrategySelector {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Lifecycle
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> void registerStrategyLazily(Class<T> strategy, LazyServiceResolver<T> resolver) {
 		final var previous = lazyStrategyImplementorByStrategyMap.put( strategy, resolver );
 		if ( previous != null ) {
@@ -209,6 +220,7 @@ public class StrategySelectorImpl implements StrategySelector {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private <T> void contributeImplementation(Class<T> strategy, Class<? extends T> implementation, String... names) {
 		final var namedStrategyImplementorMap =
 				namedStrategyImplementorByStrategyMap.computeIfAbsent( strategy, clazz -> new ConcurrentHashMap<>() );
@@ -234,6 +246,7 @@ public class StrategySelectorImpl implements StrategySelector {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private <T> void removeImplementation(Class<T> strategy, Class<? extends T> implementation) {
 		final var namedStrategyImplementorMap = namedStrategyImplementorByStrategyMap.get( strategy );
 		if ( namedStrategyImplementorMap == null ) {
@@ -255,6 +268,7 @@ public class StrategySelectorImpl implements StrategySelector {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void stop() {
 		for ( var contributor : contributors ) {
 			contributor.clearStrategyImplementations( new ShutdownContributions() );
@@ -263,11 +277,13 @@ public class StrategySelectorImpl implements StrategySelector {
 
 	private class StartupContributions implements NamedStrategyContributions {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public <T> void contributeStrategyImplementor(Class<T> strategy, Class<? extends T> implementation, String... names) {
 			contributeImplementation( strategy, implementation, names );
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public <T> void removeStrategyImplementor(Class<T> strategy, Class<? extends T> implementation) {
 			removeImplementation( strategy, implementation );
 		}
@@ -275,17 +291,20 @@ public class StrategySelectorImpl implements StrategySelector {
 
 	private class ShutdownContributions extends StartupContributions {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public <T> void contributeStrategyImplementor(Class<T> strategy, Class<? extends T> implementation, String... names) {
 			throw new IllegalStateException( "Should not register strategies during shutdown" );
 		}
 	}
 
 	@Override @Deprecated(forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> void registerStrategyImplementor(Class<T> strategy, String name, Class<? extends T> implementation) {
 		contributeImplementation( strategy, implementation, name );
 	}
 
 	@Override @Deprecated(forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> void unRegisterStrategyImplementor(Class<T> strategy, Class<? extends T> implementation) {
 		removeImplementation( strategy, implementation );
 	}

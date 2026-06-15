@@ -5,6 +5,8 @@
 package org.hibernate.type.format.jakartajson;
 
 import org.hibernate.type.format.FormatMapper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public final class JakartaJsonIntegration {
 
@@ -17,6 +19,7 @@ public final class JakartaJsonIntegration {
 		//To not be instantiated: static helpers only
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean ableToLoadJakartaJsonB() {
 		try {
 			//N.B. intentionally not using the context classloader
@@ -31,6 +34,7 @@ public final class JakartaJsonIntegration {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static FormatMapper getJakartaJsonBFormatMapperOrNull() {
 		return JSON_FORMAT_MAPPER;
 	}

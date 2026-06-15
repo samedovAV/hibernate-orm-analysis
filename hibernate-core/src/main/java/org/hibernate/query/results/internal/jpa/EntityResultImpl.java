@@ -28,6 +28,8 @@ import org.hibernate.sql.results.jdbc.spi.JdbcValuesMetadata;
 import org.hibernate.type.descriptor.java.JavaType;
 
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// [EntityResult] implementation for handling [jakarta.persistence.sql.EntityMapping].
 ///
@@ -104,6 +106,7 @@ class EntityResultImpl<E> implements EntityResult<E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResultAssembler<E> createResultAssembler(
 			InitializerParent<?> parent,
 			AssemblerCreationState creationState) {
@@ -116,6 +119,7 @@ class EntityResultImpl<E> implements EntityResult<E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Initializer<?> createInitializer(
 			InitializerParent<?> parent,
 			AssemblerCreationState creationState) {
@@ -136,46 +140,55 @@ class EntityResultImpl<E> implements EntityResult<E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<E> getResultJavaType() {
 		return javaType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getResultVariable() {
 		return resultAlias;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchableContainer getReferencedMappingType() {
 		return entityDescriptor;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigablePath getNavigablePath() {
 		return navigablePath;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ImmutableFetchList getFetches() {
 		return fetches;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Fetch findFetch(Fetchable fetchable) {
 		return fetches.get( fetchable );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean hasJoinFetches() {
 		return fetches.hasJoinFetches();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean containsCollectionFetches() {
 		return fetches.containsCollectionFetches();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityValuedModelPart getEntityValuedModelPart() {
 		return entityDescriptor;
 	}

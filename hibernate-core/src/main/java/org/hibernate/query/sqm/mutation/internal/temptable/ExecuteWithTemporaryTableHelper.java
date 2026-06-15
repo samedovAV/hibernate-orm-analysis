@@ -46,6 +46,8 @@ import java.util.function.Function;
 
 import static org.hibernate.dialect.TempTableDdlTransactionHandling.ISOLATE_AND_TRANSACT;
 import static org.hibernate.dialect.TempTableDdlTransactionHandling.NONE;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -54,6 +56,7 @@ public final class ExecuteWithTemporaryTableHelper {
 	private ExecuteWithTemporaryTableHelper() {
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static CacheableSqmInterpretation<InsertSelectStatement, JdbcOperationQueryMutation> createMatchingIdsIntoIdTableInsert(
 			MultiTableSqmMutationConverter sqmConverter,
 			Predicate suppliedPredicate,
@@ -119,6 +122,7 @@ public final class ExecuteWithTemporaryTableHelper {
 		return createTemporaryTableInsert( idTableInsert, jdbcParameterBindings, executionContext );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static CacheableSqmInterpretation<InsertSelectStatement, JdbcOperationQueryMutation> createTemporaryTableInsert(
 			InsertSelectStatement temporaryTableInsert,
 			JdbcParameterBindings jdbcParameterBindings,
@@ -153,6 +157,7 @@ public final class ExecuteWithTemporaryTableHelper {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static int saveIntoTemporaryTable(
 			JdbcOperationQueryMutation jdbcInsert,
 			JdbcParameterBindings jdbcParameterBindings,
@@ -167,6 +172,7 @@ public final class ExecuteWithTemporaryTableHelper {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static QuerySpec createIdTableSelectQuerySpec(
 			TemporaryTable idTable,
 			JdbcParameter sessionUidParameter,
@@ -181,6 +187,7 @@ public final class ExecuteWithTemporaryTableHelper {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static QuerySpec createIdTableSelectQuerySpec(
 			TemporaryTable idTable,
 			ModelPart fkModelPart,
@@ -212,6 +219,7 @@ public final class ExecuteWithTemporaryTableHelper {
 		return querySpec;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static void applyIdTableSelections(
 			QuerySpec querySpec,
 			TableReference tableReference,
@@ -256,6 +264,7 @@ public final class ExecuteWithTemporaryTableHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void applyIdTableRestrictions(
 			QuerySpec querySpec,
 			TableReference idTableReference,
@@ -279,6 +288,7 @@ public final class ExecuteWithTemporaryTableHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static boolean performBeforeTemporaryTableUseActions(
 			TemporaryTable temporaryTable,
 			TemporaryTableStrategy temporaryTableStrategy,
@@ -290,6 +300,7 @@ public final class ExecuteWithTemporaryTableHelper {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean performBeforeTemporaryTableUseActions(
 			TemporaryTable temporaryTable,
 			BeforeUseAction beforeUseAction,
@@ -311,6 +322,7 @@ public final class ExecuteWithTemporaryTableHelper {
 //		return loadInsertedRowNumbers( sqlSelect, temporaryTable, sessionUidAccess, rows, executionContext );
 //	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static int[] loadInsertedRowNumbers(
 			String sqlSelect,
 			TemporaryTable temporaryTable,
@@ -361,6 +373,7 @@ public final class ExecuteWithTemporaryTableHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String createInsertedRowNumbersSelectSql(
 			TemporaryTable temporaryTable,
 			ExecutionContext executionContext) {
@@ -382,6 +395,7 @@ public final class ExecuteWithTemporaryTableHelper {
 		return simpleSelect.toStatementString();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void performAfterTemporaryTableUseActions(
 			TemporaryTable temporaryTable,
 			Function<SharedSessionContractImplementor, String> sessionUidAccess,
@@ -404,6 +418,7 @@ public final class ExecuteWithTemporaryTableHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static <T> T doWork(
 			ExecutionContext executionContext, Dialect dialect,
 			AbstractReturningWork<T> temporaryTableCreationWork) {
@@ -421,6 +436,7 @@ public final class ExecuteWithTemporaryTableHelper {
 							ddlTransactionHandling == ISOLATE_AND_TRANSACT );
 		}
 	}
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static void doWork(
 			ExecutionContext executionContext, Dialect dialect,
 			AbstractWork temporaryTableDropWork) {

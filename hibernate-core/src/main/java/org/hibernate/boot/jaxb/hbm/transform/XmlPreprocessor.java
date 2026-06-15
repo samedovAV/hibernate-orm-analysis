@@ -18,12 +18,15 @@ import org.hibernate.boot.jaxb.mapping.spi.JaxbEntityMappingsImpl;
 import org.hibernate.boot.jaxb.spi.Binding;
 
 import static org.hibernate.internal.util.collections.CollectionHelper.arrayList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
  */
 public class XmlPreprocessor {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static List<Binding<JaxbEntityMappingsImpl>> preprocessHbmXml(
 			List<Binding<JaxbHbmHibernateMapping>> hbmXmlBindings,
 			TransformationState transformationState) {
@@ -34,6 +37,7 @@ public class XmlPreprocessor {
 		return mappingBindings;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void preProcessHbmXml(
 			Binding<JaxbHbmHibernateMapping> hbmXmlBinding,
 			List<Binding<JaxbEntityMappingsImpl>> mappingBindings,
@@ -67,6 +71,7 @@ public class XmlPreprocessor {
 				preProcessUnionSubclass( hbmSubclass, hbmRoot, mappingRoot, transformationState ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void preProcessRooEntity(
 			JaxbHbmRootEntityType hbmRootEntity,
 			JaxbHbmHibernateMapping hbmRoot,
@@ -86,6 +91,7 @@ public class XmlPreprocessor {
 				preProcessUnionSubclass( hbmSubclass, hbmRoot, mappingRoot, transformationState ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void commonEntityPreprocessing(
 			EntityInfo hbmEntity,
 			JaxbHbmHibernateMapping hbmRoot,
@@ -105,6 +111,7 @@ public class XmlPreprocessor {
 		// todo (7.0) : walk attributes looking for components
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static void preProcessSubclass(
 			JaxbHbmDiscriminatorSubclassEntityType hbmSubclass,
 			JaxbHbmHibernateMapping hbmRoot,
@@ -117,6 +124,7 @@ public class XmlPreprocessor {
 				preProcessSubclass( hbmSubclassSubclass, hbmRoot, mappingRoot, transformationState ) );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static void preProcessJoinedSubclass(
 			JaxbHbmJoinedSubclassEntityType hbmSubclass,
 			JaxbHbmHibernateMapping hbmRoot,
@@ -129,6 +137,7 @@ public class XmlPreprocessor {
 				preProcessJoinedSubclass( hbmSubclassSubclass, hbmRoot, mappingRoot, transformationState ) );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static void preProcessUnionSubclass(
 			JaxbHbmUnionSubclassEntityType hbmSubclass,
 			JaxbHbmHibernateMapping hbmRoot,

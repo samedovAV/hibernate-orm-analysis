@@ -7,6 +7,8 @@ package org.hibernate.temporal.spi;
 import org.hibernate.Incubating;
 import org.hibernate.cfg.StateManagementSettings;
 import org.hibernate.SharedSessionContract;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -51,5 +53,6 @@ public interface ChangesetIdentifierSupplier<T> {
 	 * @param session the current session
 	 * @return the changeset identifier
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	T generateIdentifier(SharedSessionContract session);
 }

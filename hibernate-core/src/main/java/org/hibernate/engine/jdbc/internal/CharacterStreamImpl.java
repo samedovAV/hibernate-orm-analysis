@@ -10,6 +10,8 @@ import java.io.StringReader;
 
 import org.hibernate.engine.jdbc.CharacterStream;
 import org.hibernate.type.descriptor.java.DataHelper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Implementation of {@link CharacterStream}
@@ -44,6 +46,7 @@ public class CharacterStreamImpl implements CharacterStream {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Reader asReader() {
 		if ( reader == null ) {
 			reader = new StringReader( string );
@@ -52,6 +55,7 @@ public class CharacterStreamImpl implements CharacterStream {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String asString() {
 		if ( string == null ) {
 			string = DataHelper.extractString( reader );
@@ -60,11 +64,13 @@ public class CharacterStreamImpl implements CharacterStream {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getLength() {
 		return length;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void release() {
 		if ( reader == null ) {
 			return;

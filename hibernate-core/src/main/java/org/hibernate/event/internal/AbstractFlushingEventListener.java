@@ -33,6 +33,8 @@ import org.hibernate.persister.entity.EntityPersister;
 
 import static org.hibernate.engine.internal.Collections.processUnreachableCollection;
 import static org.hibernate.event.internal.EventListenerLogging.EVENT_LISTENER_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A convenience base class for listeners whose functionality results in flushing.
@@ -53,6 +55,7 @@ public abstract class AbstractFlushingEventListener {
 	 * @param event The flush event.
 	 * @throws HibernateException Error flushing caches to execution queues.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected FlushProcessingContext prepareFlushProcessing(FlushEvent event) throws HibernateException {
 		EVENT_LISTENER_LOGGER.flushingSession();
 		final var session = event.getSession();
@@ -63,6 +66,7 @@ public abstract class AbstractFlushingEventListener {
 		return flushProcessingContext;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void flushEverythingToExecutions(
 			FlushEvent event,
 			PersistenceContext persistenceContext,
@@ -82,16 +86,19 @@ public abstract class AbstractFlushingEventListener {
 		logFlushResults( event );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected FlushProcessingContext beginFlushProcessing(EventSource session, PersistenceContext persistenceContext) {
 		final var flushProcessingContext = new FlushProcessingContext( session );
 		persistenceContext.setCollectionFlushActionTracker( flushProcessingContext );
 		return flushProcessingContext;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void clearFlushProcessing(PersistenceContext persistenceContext) {
 		persistenceContext.setCollectionFlushActionTracker( null );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void preFlush(
 			EventSource session,
 			PersistenceContext persistenceContext,
@@ -109,6 +116,7 @@ public abstract class AbstractFlushingEventListener {
 		// are ignored until the next flush
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void logFlushResults(FlushEvent event) {
 		if ( EVENT_LISTENER_LOGGER.isDebugEnabled() ) {
 			final var session = event.getSession();
@@ -136,6 +144,7 @@ public abstract class AbstractFlushingEventListener {
 	 * flush to discover any newly referenced entity that must be passed to
 	 * {@code persist()}, and also apply orphan delete.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void prepareEntityFlushes(EventSource session, PersistenceContext persistenceContext)
 			throws HibernateException {
 		EVENT_LISTENER_LOGGER.processingFlushTimeCascades();
@@ -150,6 +159,7 @@ public abstract class AbstractFlushingEventListener {
 		checkForTransientReferences( session, persistenceContext );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	void checkForTransientReferences(EventSource session, PersistenceContext persistenceContext) {
 		// perform these checks after all cascade persist events have been
 		// processed, so that all entities which will be persisted are
@@ -170,6 +180,7 @@ public abstract class AbstractFlushingEventListener {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean flushable(EntityEntry entry) {
 		final var status = entry.getStatus();
 		return status == Status.MANAGED
@@ -177,12 +188,14 @@ public abstract class AbstractFlushingEventListener {
 			|| status == Status.READ_ONLY; // debatable, see HHH-19398
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean checkable(EntityEntry entry) {
 		final var status = entry.getStatus();
 		return status == Status.MANAGED
 			|| status == Status.SAVING;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void cascadeOnFlush(EventSource session, EntityPersister persister, Object object, PersistContext anything)
 			throws HibernateException {
 		final var persistenceContext = session.getPersistenceContextInternal();
@@ -198,6 +211,7 @@ public abstract class AbstractFlushingEventListener {
 	/**
 	 * Initialize flush-local collection state, including the dirty check.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void prepareCollectionFlushes(
 			PersistenceContext persistenceContext,
 			FlushProcessingContext flushProcessingContext) throws HibernateException {
@@ -224,6 +238,7 @@ public abstract class AbstractFlushingEventListener {
 	 * </ol>
 	 */
 	@SuppressWarnings("removal")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private int flushEntities(final FlushEvent event, final PersistenceContext persistenceContext)
 			throws HibernateException {
 		EVENT_LISTENER_LOGGER.flushingEntitiesAndProcessingReferencedCollections();
@@ -263,6 +278,7 @@ public abstract class AbstractFlushingEventListener {
 	 * Reuses a {@link FlushEntityEvent} for a new purpose, if possible;
 	 * or if not possible, a new actual instance is returned.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private FlushEntityEvent createOrReuseEventInstance(
 			FlushEntityEvent possiblyValidExistingInstance,
 			EventSource source,
@@ -283,6 +299,7 @@ public abstract class AbstractFlushingEventListener {
 	 * and sort the collection actions queued during collection processing.
 	 */
 	@SuppressWarnings("removal")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private int flushCollections(
 			final EventSource session,
 			final PersistenceContext persistenceContext,
@@ -316,6 +333,7 @@ public abstract class AbstractFlushingEventListener {
 		return count;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static int processUnreachableCollections(
 			EventSource session,
 			Map<PersistentCollection<?>, CollectionEntry> collectionEntries,
@@ -350,6 +368,7 @@ public abstract class AbstractFlushingEventListener {
 	 *
 	 * @param session The session being flushed
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void performExecutions(EventSource session) {
 		// IMPL NOTE: here we alter the flushing flag of the persistence context to allow
 		//            callbacks occurring during flush more leniency regarding initializing
@@ -384,6 +403,7 @@ public abstract class AbstractFlushingEventListener {
 	 * <li> call {@link Interceptor#postFlush}
 	 * </ol>
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void postFlush(SessionImplementor session, FlushProcessingContext flushProcessingContext)
 			throws HibernateException {
 		EVENT_LISTENER_LOGGER.postFlush();
@@ -417,6 +437,7 @@ public abstract class AbstractFlushingEventListener {
 
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void postPostFlush(SessionImplementor session) {
 		session.runInterceptorCallback(
 				() -> session.getInterceptor()

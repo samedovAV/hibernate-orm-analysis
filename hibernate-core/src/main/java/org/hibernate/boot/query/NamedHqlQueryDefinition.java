@@ -6,6 +6,8 @@ package org.hibernate.boot.query;
 
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.query.named.NamedSqmQueryMemento;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Boot-time descriptor of a named query define using HQL.
@@ -18,9 +20,11 @@ import org.hibernate.query.named.NamedSqmQueryMemento;
  * @author Gavin King
  */
 public interface NamedHqlQueryDefinition<E> extends NamedQueryDefinition<E> {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getHqlString();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NamedSqmQueryMemento<E> resolve(SessionFactoryImplementor factory);
 
 }

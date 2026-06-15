@@ -16,6 +16,8 @@ import org.hibernate.sql.ast.tree.from.TableGroup;
 import org.hibernate.sql.results.graph.DomainResult;
 import org.hibernate.sql.results.graph.DomainResultCreationState;
 import org.hibernate.sql.results.graph.FetchableContainer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Entity-valued model part<ul>
@@ -31,28 +33,34 @@ public interface EntityValuedModelPart extends FetchableContainer {
 	/**
 	 * The descriptor of the entity that is the type for this part
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityMappingType getEntityMappingType();
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default ModelPart findSubPart(String name) {
 		return getEntityMappingType().findSubPart( name, null );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void forEachSubPart(IndexedConsumer<ModelPart> consumer, EntityMappingType treatTarget) {
 		getEntityMappingType().forEachSubPart( consumer, treatTarget );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default ModelPart findSubPart(String name, EntityMappingType targetType) {
 		return getEntityMappingType().findSubPart( name, targetType );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void visitSubParts(Consumer<ModelPart> consumer, EntityMappingType targetType) {
 		getEntityMappingType().visitSubParts( consumer, targetType );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default <T> DomainResult<T> createDomainResult(
 			NavigablePath navigablePath,
 			TableGroup tableGroup,
@@ -64,6 +72,7 @@ public interface EntityValuedModelPart extends FetchableContainer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void applySqlSelections(
 			NavigablePath navigablePath,
 			TableGroup tableGroup,
@@ -74,6 +83,7 @@ public interface EntityValuedModelPart extends FetchableContainer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void applySqlSelections(
 			NavigablePath navigablePath,
 			TableGroup tableGroup,
@@ -85,26 +95,31 @@ public interface EntityValuedModelPart extends FetchableContainer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default int getJdbcTypeCount() {
 		return getEntityMappingType().getJdbcTypeCount();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default int forEachJdbcType(int offset, IndexedConsumer<JdbcMapping> action) {
 		return getEntityMappingType().forEachJdbcType( offset, action );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default Object disassemble(Object value, SharedSessionContractImplementor session) {
 		return getEntityMappingType().disassemble( value, session );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void addToCacheKey(MutableCacheKeyBuilder cacheKey, Object value, SharedSessionContractImplementor session){
 		getEntityMappingType().addToCacheKey( cacheKey, value, session );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default <X, Y> int forEachDisassembledJdbcValue(
 			Object value,
 			int offset,
@@ -116,6 +131,7 @@ public interface EntityValuedModelPart extends FetchableContainer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default <X, Y> int forEachJdbcValue(
 			Object value,
 			int offset,

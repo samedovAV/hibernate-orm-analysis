@@ -21,6 +21,8 @@ import org.hibernate.type.spi.TypeConfiguration;
 
 
 import static org.hibernate.internal.util.ReflectHelper.arrayClass;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @AllowReflection
 public abstract class AbstractArrayJavaType<T, E> extends AbstractClassJavaType<T>
@@ -34,11 +36,13 @@ public abstract class AbstractArrayJavaType<T, E> extends AbstractClassJavaType<
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<E> getElementJavaType() {
 		return componentJavaType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcType getRecommendedJdbcType(JdbcTypeIndicators indicators) {
 		if ( componentJavaType instanceof UnknownBasicJavaType) {
 			throw new MappingException("Basic array has element type '"
@@ -58,12 +62,14 @@ public abstract class AbstractArrayJavaType<T, E> extends AbstractClassJavaType<
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isWider(JavaType<?> javaType) {
 		// Support binding single element value
 		return this == javaType || componentJavaType == javaType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public BasicType<?> resolveType(
 			TypeConfiguration typeConfiguration,
 			Dialect dialect,
@@ -81,6 +87,7 @@ public abstract class AbstractArrayJavaType<T, E> extends AbstractClassJavaType<
 				: createTypeUsingConverter( typeConfiguration, elementType, columnTypeInformation, stdIndicators, valueConverter );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static JdbcType arrayJdbcType(
 			TypeConfiguration typeConfiguration,
 			BasicType<?> elementType,
@@ -92,6 +99,7 @@ public abstract class AbstractArrayJavaType<T, E> extends AbstractClassJavaType<
 				.resolveTypeConstructorDescriptor( arrayTypeCode, elementType, columnTypeInformation );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<F> BasicType<T> createTypeUsingConverter(
 			TypeConfiguration typeConfiguration,
 			BasicType<E> elementType,
@@ -111,6 +119,7 @@ public abstract class AbstractArrayJavaType<T, E> extends AbstractClassJavaType<
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	BasicType<T> resolveType(
 			TypeConfiguration typeConfiguration,
 			AbstractArrayJavaType<T,E> arrayJavaType,
@@ -128,10 +137,12 @@ public abstract class AbstractArrayJavaType<T, E> extends AbstractClassJavaType<
 	// that java.sql.Timestamps in an array can be represented as
 	// instances of java.util.Date (Why do we even allow this?)
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public T deepCopy(Object value) {
 		return getMutabilityPlan().deepCopy( cast( value ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isEqual(Object one, Object another) {
 		return areEqual( cast( one ), cast( another) );
 	}

@@ -5,6 +5,8 @@
 package org.hibernate.tool.schema.internal.exec;
 
 import java.io.Reader;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * ScriptSourceInput implementation for explicitly given Readers.
@@ -24,21 +26,25 @@ public class ScriptSourceInputFromReader extends AbstractScriptSourceInput {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getScriptDescription() {
 		return "[injected ScriptSourceInputFromReader script]";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Reader prepareReader() {
 		return reader;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void releaseReader(Reader reader) {
 		// nothing to do
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "ScriptSourceInputFromReader()";
 	}

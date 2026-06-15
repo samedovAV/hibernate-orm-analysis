@@ -13,6 +13,8 @@ import org.hibernate.sql.model.internal.TableInsertCustomSql;
 import org.hibernate.sql.model.internal.TableInsertStandard;
 
 import java.util.Collections;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard TableInsertBuilder
@@ -39,6 +41,7 @@ public class TableInsertBuilderStandard extends AbstractTableInsertBuilder {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableInsert buildMutation() {
 		if ( isCustomSql ) {
 			return new TableInsertCustomSql(

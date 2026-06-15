@@ -19,6 +19,8 @@ import org.hibernate.sql.ast.tree.from.TableGroup;
 import org.hibernate.sql.results.graph.DomainResultCreationState;
 
 import static org.hibernate.proxy.HibernateProxy.extractLazyInitializer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Support for {@link jakarta.persistence.EmbeddedId}
@@ -47,32 +49,38 @@ public class EmbeddedIdentifierMappingImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getPartName() {
 		return name;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Nature getNature() {
 		return Nature.COMPOSITE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableMappingType getPartMappingType() {
 		return embeddableDescriptor;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableMappingType getMappedIdEmbeddableTypeDescriptor() {
 		return getMappedType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void applySqlSelections(
 			NavigablePath navigablePath, TableGroup tableGroup, DomainResultCreationState creationState) {
 		getEmbeddableTypeDescriptor().applySqlSelections( navigablePath, tableGroup, creationState );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void applySqlSelections(
 			NavigablePath navigablePath,
 			TableGroup tableGroup,
@@ -83,6 +91,7 @@ public class EmbeddedIdentifierMappingImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getIdentifier(Object entity) {
 		final var lazyInitializer = extractLazyInitializer( entity );
 		if ( lazyInitializer != null ) {
@@ -92,32 +101,38 @@ public class EmbeddedIdentifierMappingImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setIdentifier(Object entity, Object id, SharedSessionContractImplementor session) {
 		propertyAccess.getSetter().set( entity, id );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSqlAliasStem() {
 		return name;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getFetchableName() {
 		return name;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PropertyAccess getPropertyAccess() {
 		return propertyAccess;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getAttributeName() {
 		return name;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int compare(Object value1, Object value2) {
 		return getEmbeddableTypeDescriptor().compare( value1, value2 );
 	}

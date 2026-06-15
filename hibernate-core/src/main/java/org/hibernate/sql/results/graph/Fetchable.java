@@ -12,6 +12,8 @@ import org.hibernate.metamodel.mapping.EntityMappingType;
 import org.hibernate.metamodel.mapping.ModelPart;
 import org.hibernate.metamodel.model.domain.NavigableRole;
 import org.hibernate.spi.NavigablePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Parts of the domain model that can be fetched.  In other words,
@@ -27,6 +29,7 @@ public interface Fetchable extends ModelPart {
 	 * @see #getNavigableRole()
 	 * @see NavigableRole#getLocalName()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getFetchableName();
 
 	/**
@@ -37,11 +40,13 @@ public interface Fetchable extends ModelPart {
 	 * <p>
 	 * The main intent of this key is to index e.g. {@link Fetch} objects in an array.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getFetchableKey();
 
 	/**
 	 * The configured fetch timing and style
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	FetchOptions getMappedFetchOptions();
 
 	/**
@@ -51,6 +56,7 @@ public interface Fetchable extends ModelPart {
 	 *
 	 * @return The Fetch representing the circularity; {@code null} indicates the fetch is not circular
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Fetch resolveCircularFetch(
 			NavigablePath fetchablePath,
 			FetchParent fetchParent,
@@ -66,6 +72,7 @@ public interface Fetchable extends ModelPart {
 	 * @param fetchablePath The overall path within the graph
 	 * @param fetchTiming The requested fetch timing
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Fetch generateFetch(
 			FetchParent fetchParent,
 			NavigablePath fetchablePath,
@@ -80,14 +87,17 @@ public interface Fetchable extends ModelPart {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#MAX_FETCH_DEPTH
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean incrementFetchDepth(){
 		return false;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default AttributeMapping asAttributeMapping() {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default boolean isSelectable() {
 		final AttributeMapping attributeMapping = asAttributeMapping();
 		if ( attributeMapping != null && attributeMapping.getAttributeMetadata() != null ) {

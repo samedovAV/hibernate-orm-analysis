@@ -10,6 +10,8 @@ import org.hibernate.resource.beans.container.spi.AbstractCdiBeanContainer;
 import org.hibernate.resource.beans.container.spi.BeanLifecycleStrategy;
 import org.hibernate.resource.beans.container.spi.ContainedBeanImplementor;
 import org.hibernate.resource.beans.spi.BeanInstanceProducer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -22,11 +24,13 @@ public class CdiBeanContainerDelayedAccessImpl extends AbstractCdiBeanContainer 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BeanManager getUsableBeanManager() {
 		return beanManager;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected <B> ContainedBeanImplementor<B> createBean(
 			Class<B> beanType,
 			BeanLifecycleStrategy lifecycleStrategy,
@@ -35,6 +39,7 @@ public class CdiBeanContainerDelayedAccessImpl extends AbstractCdiBeanContainer 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected <B> ContainedBeanImplementor<B> createBean(
 			String name,
 			Class<B> beanType,
@@ -60,11 +65,13 @@ public class CdiBeanContainerDelayedAccessImpl extends AbstractCdiBeanContainer 
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Class<B> getBeanClass() {
 			return beanType;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void initialize() {
 			if ( delegateBean == null ) {
 				delegateBean = lifecycleStrategy.createBean( beanType, fallbackProducer, CdiBeanContainerDelayedAccessImpl.this );
@@ -72,6 +79,7 @@ public class CdiBeanContainerDelayedAccessImpl extends AbstractCdiBeanContainer 
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public B getBeanInstance() {
 			if ( delegateBean == null ) {
 				initialize();
@@ -80,6 +88,7 @@ public class CdiBeanContainerDelayedAccessImpl extends AbstractCdiBeanContainer 
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public void release() {
 			delegateBean.release();
 		}
@@ -105,11 +114,13 @@ public class CdiBeanContainerDelayedAccessImpl extends AbstractCdiBeanContainer 
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Class<B> getBeanClass() {
 			return beanType;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void initialize() {
 			if ( delegateBean == null ) {
 				delegateBean = lifecycleStrategy.createBean( name, beanType, fallbackProducer, CdiBeanContainerDelayedAccessImpl.this );
@@ -117,6 +128,7 @@ public class CdiBeanContainerDelayedAccessImpl extends AbstractCdiBeanContainer 
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public B getBeanInstance() {
 			if ( delegateBean == null ) {
 				initialize();
@@ -125,6 +137,7 @@ public class CdiBeanContainerDelayedAccessImpl extends AbstractCdiBeanContainer 
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public void release() {
 			delegateBean.release();
 		}

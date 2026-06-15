@@ -10,6 +10,8 @@ import java.util.Map;
 import org.hibernate.models.spi.ModelsContext;
 
 import jakarta.persistence.GeneratedValue;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -42,25 +44,30 @@ public class GeneratedValueJpaAnnotation implements GeneratedValue {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return GeneratedValue.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.GenerationType strategy() {
 		return strategy;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void strategy(jakarta.persistence.GenerationType value) {
 		this.strategy = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String generator() {
 		return generator;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void generator(String value) {
 		this.generator = value;
 	}

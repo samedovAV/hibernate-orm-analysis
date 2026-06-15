@@ -9,6 +9,8 @@ import org.hibernate.type.descriptor.java.AbstractClassJavaType;
 import org.hibernate.type.descriptor.java.MutabilityPlan;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
 import org.hibernate.type.descriptor.jdbc.JdbcTypeIndicators;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * {@link AbstractClassJavaType} for cases where we do not know a proper
@@ -26,6 +28,7 @@ public class JavaTypeBasicAdaptor<T> extends AbstractClassJavaType<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcType getRecommendedJdbcType(JdbcTypeIndicators context) {
 		throw new JdbcTypeRecommendationException(
 				"Could not determine recommended JdbcType for '" + getTypeName() + "'"
@@ -33,11 +36,13 @@ public class JavaTypeBasicAdaptor<T> extends AbstractClassJavaType<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean useObjectEqualsHashCode() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> X unwrap(T value, Class<X> type, WrapperOptions options) {
 		throw new UnsupportedOperationException(
 				"Unwrap strategy not known for this Java type: " + getTypeName()
@@ -45,6 +50,7 @@ public class JavaTypeBasicAdaptor<T> extends AbstractClassJavaType<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> T wrap(X value, WrapperOptions options) {
 		throw new UnsupportedOperationException(
 				"Wrap strategy not known for this Java type: " + getTypeName()
@@ -52,6 +58,7 @@ public class JavaTypeBasicAdaptor<T> extends AbstractClassJavaType<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "JavaTypeBasicAdaptor(" + getTypeName() + ")";
 	}

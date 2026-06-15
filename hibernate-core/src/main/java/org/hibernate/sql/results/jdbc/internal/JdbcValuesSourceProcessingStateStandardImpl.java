@@ -20,6 +20,8 @@ import org.hibernate.sql.exec.spi.LoadedValuesCollector;
 import org.hibernate.sql.results.graph.collection.LoadingCollectionEntry;
 import org.hibernate.sql.results.jdbc.spi.JdbcValuesSourceProcessingOptions;
 import org.hibernate.sql.results.jdbc.spi.JdbcValuesSourceProcessingState;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -62,31 +64,37 @@ public class JdbcValuesSourceProcessingStateStandardImpl implements JdbcValuesSo
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ExecutionContext getExecutionContext() {
 		return executionContext;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public QueryOptions getQueryOptions() {
 		return executionContext.getQueryOptions();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcValuesSourceProcessingOptions getProcessingOptions() {
 		return processingOptions;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PreLoadEvent getPreLoadEvent() {
 		return preLoadEvent;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PostLoadEvent getPostLoadEvent() {
 		return postLoadEvent;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void registerLoadingEntityHolder(EntityHolder holder) {
 		if ( loadingEntityHolders == null ) {
 			loadingEntityHolders = new ArrayList<>();
@@ -103,11 +111,13 @@ public class JdbcValuesSourceProcessingStateStandardImpl implements JdbcValuesSo
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<EntityHolder> getLoadingEntityHolders() {
 		return loadingEntityHolders;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void registerReloadedEntityHolder(EntityHolder holder) {
 		if ( reloadedEntityHolders == null ) {
 			reloadedEntityHolders = new ArrayList<>();
@@ -116,16 +126,19 @@ public class JdbcValuesSourceProcessingStateStandardImpl implements JdbcValuesSo
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<EntityHolder> getReloadedEntityHolders() {
 		return reloadedEntityHolders;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LoadingCollectionEntry findLoadingCollectionLocally(CollectionKey key) {
 		return loadingCollectionMap == null ? null : loadingCollectionMap.get( key );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void registerLoadingCollection(CollectionKey key, LoadingCollectionEntry loadingCollectionEntry) {
 		if ( loadingCollectionMap == null ) {
 			loadingCollectionMap = new HashMap<>();
@@ -142,11 +155,13 @@ public class JdbcValuesSourceProcessingStateStandardImpl implements JdbcValuesSo
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SharedSessionContractImplementor getSession() {
 		return executionContext.getSession();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void finishUp() {
 		// now we can finalize loading collections
 		finishLoadingCollections();
@@ -155,11 +170,13 @@ public class JdbcValuesSourceProcessingStateStandardImpl implements JdbcValuesSo
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void registerSubselects() {
 		registerSubselects( loadingEntityHolders );
 		registerSubselects( reloadedEntityHolders );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void registerSubselects(List<EntityHolder> entityHolders) {
 		if ( entityHolders != null ) {
 			for ( var holder : entityHolders ) {
@@ -171,6 +188,7 @@ public class JdbcValuesSourceProcessingStateStandardImpl implements JdbcValuesSo
 	/**
 	 * For Hibernate Reactive
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void finishLoadingCollections() {
 		if ( loadingCollectionMap != null ) {
 			for ( var loadingCollectionEntry : loadingCollectionMap.values() ) {

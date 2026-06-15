@@ -27,6 +27,8 @@ import org.hibernate.exception.spi.AbstractSQLExceptionConversionDelegate;
 import org.hibernate.exception.spi.ConversionContext;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link org.hibernate.exception.spi.SQLExceptionConverter} implementation
@@ -41,6 +43,7 @@ public class SQLExceptionTypeDelegate extends AbstractSQLExceptionConversionDele
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable JDBCException convert(SQLException sqlException, String message, String sql) {
 		if ( sqlException instanceof SQLClientInfoException
 				|| sqlException instanceof SQLInvalidAuthorizationSpecException

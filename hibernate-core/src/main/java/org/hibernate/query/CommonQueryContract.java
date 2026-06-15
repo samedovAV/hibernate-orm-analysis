@@ -24,6 +24,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Defines the aspects of query execution and parameter binding that apply to all
@@ -91,6 +93,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @return The producer of this query
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SharedSessionContract getSession();
 
 
@@ -113,6 +116,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @since 7.0
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	QueryFlushMode getQueryFlushMode();
 
 	/**
@@ -126,6 +130,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @since 7.0
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonQueryContract setQueryFlushMode(@Nonnull QueryFlushMode queryFlushMode);
 
 	/**
@@ -144,6 +149,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @since 8.0
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	FlushMode getEffectiveFlushMode();
 
 	/**
@@ -157,6 +163,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * {@value org.hibernate.cfg.AvailableSettings#USE_SQL_COMMENTS}.
 	 */
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getComment();
 
 	/**
@@ -171,6 +178,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 *
 	 * @see #getComment()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonQueryContract setComment(@Nullable String comment);
 
 	/**
@@ -180,6 +188,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * {@link Dialect#getQueryHintString(String, List)} determines how
 	 * the hint is actually added to the SQL query.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonQueryContract addQueryHint(@Nonnull String hint);
 
 	/**
@@ -197,6 +206,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 */
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Integer getTimeout();
 
 	/**
@@ -211,6 +221,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @see #setTimeout(Timeout)
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonQueryContract setTimeout(int timeout);
 
 	/**
@@ -228,6 +239,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonQueryContract setTimeout(@Nullable Integer timeout);
 
 	/**
@@ -238,6 +250,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonQueryContract setTimeout(@Nullable Timeout timeout);
 
 	/**
@@ -265,6 +278,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 *
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonQueryContract setHint(@Nonnull String hintName, @Nullable Object value);
 
 
@@ -278,6 +292,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @since 7.0
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ParameterMetadata getParameterMetadata();
 
 	/**
@@ -295,12 +310,14 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @return {@code this}, for method chaining
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> CommonQueryContract setParameter(@Nonnull QueryParameter<T> parameter, @Nullable T value);
 
 	/**
 	 * @see jakarta.persistence.Query#setParameter(Parameter, Object)
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> CommonQueryContract setParameter(@Nonnull Parameter<T> param, @Nullable T value);
 
 	/**
@@ -317,6 +334,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @see TypedParameterValue
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonQueryContract setParameter(@Nonnull String parameter, @Nullable Object value);
 
 	/**
@@ -333,6 +351,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @see TypedParameterValue
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonQueryContract setParameter(int parameter, @Nullable Object value);
 
 	/**
@@ -340,6 +359,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonQueryContract setParameters(@Nonnull Object... arguments);
 
 	/**
@@ -357,6 +377,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @see #setParameter(QueryParameter, Object, Type)
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> CommonQueryContract setParameter(@Nonnull QueryParameter<P> parameter, @Nullable P value, @Nonnull Class<P> type);
 
 	/**
@@ -369,6 +390,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @see #setParameter(int, Object, Class)
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> CommonQueryContract setParameter(@Nonnull String parameter, @Nullable P value, @Nonnull Class<P> type);
 
 	/**
@@ -380,6 +402,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @see #setParameter(int, Object, Type)
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> CommonQueryContract setParameter(int parameter, @Nullable P value, @Nonnull Class<P> type);
 
 	/**
@@ -393,6 +416,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @return {@code this}, for method chaining
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> CommonQueryContract setParameter(@Nonnull QueryParameter<P> parameter, @Nullable P val, @Nonnull Type<P> type);
 
 	/**
@@ -400,6 +424,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * {@link Type}.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> CommonQueryContract setParameter(@Nonnull String parameter, @Nullable P value, @Nonnull Type<P> type);
 
 	/**
@@ -407,18 +432,21 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * {@link Type}.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> CommonQueryContract setParameter(int parameter, @Nullable P value, @Nonnull Type<P> type);
 
 	/**
 	 * @see jakarta.persistence.Query#setConvertedParameter(String, Object, Class)
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> CommonQueryContract setConvertedParameter(@Nonnull String name, @Nullable P value, @Nonnull Class<? extends AttributeConverter<P, ?>> converter);
 
 	/**
 	 * @see jakarta.persistence.Query#setConvertedParameter(int, Object, Class)
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> CommonQueryContract setConvertedParameter(int position, @Nullable P value, @Nonnull Class<? extends AttributeConverter<P, ?>> converter);
 
 	/**
@@ -435,6 +463,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @return {@code this}, for method chaining
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonQueryContract setParameterList(@Nonnull String parameter, @SuppressWarnings("rawtypes") @Nonnull Collection values);
 
 	/**
@@ -451,6 +480,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @return {@code this}, for method chaining
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> CommonQueryContract setParameterList(@Nonnull String parameter, @Nonnull Collection<? extends P> values, @Nonnull Class<P> javaType);
 
 	/**
@@ -463,6 +493,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @return {@code this}, for method chaining
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> CommonQueryContract setParameterList(@Nonnull String parameter, @Nonnull Collection<? extends P> values, @Nonnull Type<P> type);
 
 	/**
@@ -477,6 +508,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @return {@code this}, for method chaining
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonQueryContract setParameterList(@Nonnull String parameter, @Nonnull Object[] values);
 
 	/**
@@ -493,6 +525,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @return {@code this}, for method chaining
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> CommonQueryContract setParameterList(@Nonnull String parameter, @Nonnull P[] values, @Nonnull Class<P> javaType);
 
 	/**
@@ -505,6 +538,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @return {@code this}, for method chaining
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> CommonQueryContract setParameterList(@Nonnull String parameter, @Nonnull P[] values, @Nonnull Type<P> type);
 
 	/**
@@ -519,6 +553,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @return {@code this}, for method chaining
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonQueryContract setParameterList(int parameter, @SuppressWarnings("rawtypes") @Nonnull Collection values);
 
 	/**
@@ -535,6 +570,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @return {@code this}, for method chaining
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> CommonQueryContract setParameterList(int parameter, @Nonnull Collection<? extends P> values, Class<P> javaType);
 
 	/**
@@ -547,6 +583,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @return {@code this}, for method chaining
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> CommonQueryContract setParameterList(int parameter, @Nonnull Collection<? extends P> values, Type<P> type);
 
 	/**
@@ -561,6 +598,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @return {@code this}, for method chaining
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonQueryContract setParameterList(int parameter, @Nonnull Object[] values);
 
 	/**
@@ -577,6 +615,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @return {@code this}, for method chaining
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> CommonQueryContract setParameterList(int parameter, @Nonnull P[] values, @Nonnull Class<P> javaType);
 
 	/**
@@ -589,6 +628,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @return {@code this}, for method chaining
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> CommonQueryContract setParameterList(int parameter, @Nonnull P[] values, @Nonnull Type<P> type);
 
 	/**
@@ -604,6 +644,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @return {@code this}, for method chaining
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> CommonQueryContract setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull Collection<? extends P> values);
 
 	/**
@@ -621,6 +662,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @return {@code this}, for method chaining
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> CommonQueryContract setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull Collection<? extends P> values, @Nonnull Class<P> javaType);
 
 	/**
@@ -633,6 +675,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @return {@code this}, for method chaining
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> CommonQueryContract setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull Collection<? extends P> values, @Nonnull Type<P> type);
 
 	/**
@@ -649,6 +692,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @return {@code this}, for method chaining
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> CommonQueryContract setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull P[] values);
 
 	/**
@@ -666,6 +710,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @return {@code this}, for method chaining
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> CommonQueryContract setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull P[] values, @Nonnull Class<P> javaType);
 
 	/**
@@ -678,6 +723,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @return {@code this}, for method chaining
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> CommonQueryContract setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull P[] values, @Nonnull Type<P> type);
 
 	/**
@@ -690,6 +736,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @return {@code this}, for method chaining
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonQueryContract setProperties(@Nonnull Object bean);
 
 	/**
@@ -702,6 +749,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 * @return {@code this}, for method chaining
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonQueryContract setProperties(@SuppressWarnings("rawtypes") @Nonnull Map bean);
 
 
@@ -716,6 +764,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 */
 	@Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonQueryContract setParameter(@Nonnull String parameter, @Nullable Instant value, @Nonnull TemporalType temporalType);
 
 	/**
@@ -725,6 +774,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 */
 	@Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonQueryContract setParameter(@Nonnull String parameter, @Nullable Calendar value, @Nonnull TemporalType temporalType);
 
 	/**
@@ -734,6 +784,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 */
 	@Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonQueryContract setParameter(@Nonnull String parameter, @Nullable Date value, @Nonnull TemporalType temporalType);
 	/**
 	 * Bind an {@link Instant} to an ordinal query parameter using just the
@@ -743,6 +794,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 */
 	@Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonQueryContract setParameter(int parameter, @Nullable Instant value, @Nonnull TemporalType temporalType);
 
 	/**
@@ -752,6 +804,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 */
 	@Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonQueryContract setParameter(int parameter, @Nullable Date value, @Nonnull TemporalType temporalType);
 
 	/**
@@ -761,6 +814,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 */
 	@Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonQueryContract setParameter(int parameter, @Nullable Calendar value, @Nonnull TemporalType temporalType);
 
 	/**
@@ -770,6 +824,7 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 */
 	@Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonQueryContract setParameter(@Nonnull Parameter<Calendar> param, @Nullable Calendar value, @Nonnull TemporalType temporalType);
 
 	/**
@@ -779,5 +834,6 @@ public interface CommonQueryContract extends jakarta.persistence.Query {
 	 */
 	@Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CommonQueryContract setParameter(@Nonnull Parameter<Date> param, @Nullable Date value, @Nonnull TemporalType temporalType);
 }

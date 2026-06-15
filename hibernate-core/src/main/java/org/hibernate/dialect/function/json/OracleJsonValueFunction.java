@@ -14,6 +14,8 @@ import org.hibernate.type.SqlTypes;
 import org.hibernate.type.descriptor.WrapperOptions;
 import org.hibernate.type.descriptor.jdbc.JdbcLiteralFormatter;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Oracle json_value function.
@@ -25,6 +27,7 @@ public class OracleJsonValueFunction extends JsonValueFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void render(
 			SqlAppender sqlAppender,
 			JsonValueArguments arguments,
@@ -54,6 +57,7 @@ public class OracleJsonValueFunction extends JsonValueFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void renderReturningClause(SqlAppender sqlAppender, JsonValueArguments arguments, SqlAstTranslator<?> walker) {
 		if ( arguments.returningType() != null && isEncodedBoolean( arguments.returningType().getJdbcMapping() ) ) {
 			sqlAppender.appendSql( " returning varchar2(5)" );
@@ -63,6 +67,7 @@ public class OracleJsonValueFunction extends JsonValueFunction {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isEncodedBoolean(JdbcMapping type) {
 		return type.getJdbcType().isBoolean() && type.getJdbcType().getDdlTypeCode() != SqlTypes.BOOLEAN;
 	}

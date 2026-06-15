@@ -13,6 +13,8 @@ import org.hibernate.graph.GraphSemantic;
 
 import java.util.Map;
 import java.util.Optional;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Loads an entity by its natural identifier, which may be a
@@ -48,6 +50,7 @@ public interface NaturalIdLoadAccess<T> {
 	 * @param lockMode The lock mode to apply
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default NaturalIdLoadAccess<T> with(LockMode lockMode) {
 		return with( lockMode, PessimisticLockScope.NORMAL );
 	}
@@ -60,6 +63,7 @@ public interface NaturalIdLoadAccess<T> {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NaturalIdLoadAccess<T> with(LockMode lockMode, PessimisticLockScope lockScope);
 
 	/**
@@ -70,6 +74,7 @@ public interface NaturalIdLoadAccess<T> {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NaturalIdLoadAccess<T> with(Timeout timeout);
 
 	/**
@@ -85,6 +90,7 @@ public interface NaturalIdLoadAccess<T> {
 	 * and/or {@linkplain #with(Timeout)} instead.
 	 */
 	@Deprecated(since = "7.0", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NaturalIdLoadAccess<T> with(LockOptions lockOptions);
 
 	/**
@@ -94,6 +100,7 @@ public interface NaturalIdLoadAccess<T> {
 	 *
 	 * @since 6.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default NaturalIdLoadAccess<T> withFetchGraph(EntityGraph<T> graph) {
 		return with( graph, GraphSemantic.FETCH );
 	}
@@ -105,6 +112,7 @@ public interface NaturalIdLoadAccess<T> {
 	 *
 	 * @since 6.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default NaturalIdLoadAccess<T> withLoadGraph(EntityGraph<T> graph) {
 		return with( graph, GraphSemantic.LOAD );
 	}
@@ -116,6 +124,7 @@ public interface NaturalIdLoadAccess<T> {
 	 *
 	 * @since 6.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NaturalIdLoadAccess<T> with(EntityGraph<T> graph, GraphSemantic semantic);
 
 	/**
@@ -128,6 +137,7 @@ public interface NaturalIdLoadAccess<T> {
 	 *
 	 * @since 6.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NaturalIdLoadAccess<T> enableFetchProfile(String profileName);
 
 	/**
@@ -140,6 +150,7 @@ public interface NaturalIdLoadAccess<T> {
 	 *
 	 * @since 6.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NaturalIdLoadAccess<T> disableFetchProfile(String profileName);
 
 	/**
@@ -152,6 +163,7 @@ public interface NaturalIdLoadAccess<T> {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> NaturalIdLoadAccess<T> using(SingularAttribute<? super T, X> attribute, X value);
 
 	/**
@@ -164,6 +176,7 @@ public interface NaturalIdLoadAccess<T> {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NaturalIdLoadAccess<T> using(String attributeName, Object value);
 
 	/**
@@ -179,6 +192,7 @@ public interface NaturalIdLoadAccess<T> {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NaturalIdLoadAccess<T> using(Map<String,?> mappings);
 
 	/**
@@ -209,6 +223,7 @@ public interface NaturalIdLoadAccess<T> {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NaturalIdLoadAccess<T> setSynchronizationEnabled(boolean enabled);
 
 	/**
@@ -228,6 +243,7 @@ public interface NaturalIdLoadAccess<T> {
 	 * with {@linkplain KeyType#NATURAL} as an option.
 	 */
 	@Deprecated
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	T getReference();
 
 	/**
@@ -245,6 +261,7 @@ public interface NaturalIdLoadAccess<T> {
 	 * with {@linkplain KeyType#NATURAL} as an option.
 	 */
 	@Deprecated
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	T load();
 
 	/**
@@ -253,6 +270,7 @@ public interface NaturalIdLoadAccess<T> {
 	 *
 	 * @return The persistent instance, if one, as an {@link Optional}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Optional<T> loadOptional();
 
 }

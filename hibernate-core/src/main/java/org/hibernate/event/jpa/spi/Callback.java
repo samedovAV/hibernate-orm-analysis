@@ -7,6 +7,8 @@ package org.hibernate.event.jpa.spi;
 import org.hibernate.jpa.event.spi.CallbackType;
 
 import java.io.Serializable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents a JPA entity lifecycle callback method.
@@ -26,6 +28,7 @@ public interface Callback<E> extends Serializable {
 	/**
 	 * The type of callback (pre-update, pre-persist, etc) handled
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CallbackType getCallbackType();
 
 	/**
@@ -33,5 +36,6 @@ public interface Callback<E> extends Serializable {
 	 *
 	 * @param entity Reference to the entity for which the callback is triggered.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<S extends E> void performCallback(S entity);
 }

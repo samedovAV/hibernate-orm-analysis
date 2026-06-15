@@ -17,6 +17,8 @@ import org.hibernate.sql.model.ast.GeneratedMutation;
 import org.hibernate.sql.model.ast.MutatingTableReference;
 import org.hibernate.sql.model.ast.TableInsert;
 import org.hibernate.sql.model.jdbc.JdbcInsertMutation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -35,26 +37,31 @@ public class TableInsertStandard extends AbstractTableInsert implements TableIns
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCustomSql() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<ColumnReference> getReturningColumns() {
 		return returningColumns;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void forEachReturningColumn(BiConsumer<Integer,ColumnReference> consumer) {
 		forEachThing( returningColumns, consumer );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCallable() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker walker) {
 		walker.visitStandardTableInsert( this );
 	}

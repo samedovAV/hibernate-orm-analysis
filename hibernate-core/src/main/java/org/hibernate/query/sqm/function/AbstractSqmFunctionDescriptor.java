@@ -18,6 +18,8 @@ import org.hibernate.query.sqm.produce.function.StandardFunctionReturnTypeResolv
 import org.hibernate.query.sqm.tree.SqmTypedNode;
 import org.hibernate.query.sqm.tree.predicate.SqmPredicate;
 import org.hibernate.query.sqm.tree.select.SqmOrderByClause;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -62,38 +64,46 @@ public abstract class AbstractSqmFunctionDescriptor implements SqmFunctionDescri
 				: argumentTypeResolver;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSignature(String name) {
 		return getReturnSignature() + name + getArgumentListSignature();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ArgumentsValidator getArgumentsValidator() {
 		return argumentsValidator;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FunctionReturnTypeResolver getReturnTypeResolver() {
 		return returnTypeResolver;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FunctionArgumentTypeResolver getArgumentTypeResolver() {
 		return functionArgumentTypeResolver;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getReturnSignature() {
 		String result = returnTypeResolver.getReturnType();
 		return result.isEmpty() ? "" : result + " ";
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getArgumentListSignature() {
 		String args = argumentsValidator.getSignature();
 		return alwaysIncludesParentheses() ? args : "()".equals(args) ? "" : "[" + args + "]";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final <T> SelfRenderingSqmFunction<T> generateSqmExpression(
 			List<? extends SqmTypedNode<?>> arguments,
 			ReturnableType<T> impliedResultType,
@@ -108,6 +118,7 @@ public abstract class AbstractSqmFunctionDescriptor implements SqmFunctionDescri
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final <T> SelfRenderingSqmFunction<T> generateAggregateSqmExpression(
 			List<? extends SqmTypedNode<?>> arguments,
 			SqmPredicate filter,
@@ -124,6 +135,7 @@ public abstract class AbstractSqmFunctionDescriptor implements SqmFunctionDescri
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final <T> SelfRenderingSqmFunction<T> generateOrderedSetAggregateSqmExpression(
 			List<? extends SqmTypedNode<?>> arguments,
 			SqmPredicate filter,
@@ -142,6 +154,7 @@ public abstract class AbstractSqmFunctionDescriptor implements SqmFunctionDescri
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final <T> SelfRenderingSqmFunction<T> generateWindowSqmExpression(
 			List<? extends SqmTypedNode<?>> arguments,
 			SqmPredicate filter,
@@ -169,6 +182,7 @@ public abstract class AbstractSqmFunctionDescriptor implements SqmFunctionDescri
 	 * @param arguments         the arguments of the function invocation
 	 * @param impliedResultType the function return type as inferred from its usage
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract <T> SelfRenderingSqmFunction<T> generateSqmFunctionExpression(
 			List<? extends SqmTypedNode<?>> arguments,
 			ReturnableType<T> impliedResultType,
@@ -182,6 +196,7 @@ public abstract class AbstractSqmFunctionDescriptor implements SqmFunctionDescri
 	 * @param arguments         the arguments of the function invocation
 	 * @param impliedResultType the function return type as inferred from its usage
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected <T> SelfRenderingSqmAggregateFunction<T> generateSqmAggregateFunctionExpression(
 			List<? extends SqmTypedNode<?>> arguments,
 			SqmPredicate filter,
@@ -202,6 +217,7 @@ public abstract class AbstractSqmFunctionDescriptor implements SqmFunctionDescri
 	 * @param arguments         the arguments of the function invocation
 	 * @param impliedResultType the function return type as inferred from its usage
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected <T> SelfRenderingSqmAggregateFunction<T> generateSqmOrderedSetAggregateFunctionExpression(
 			List<? extends SqmTypedNode<?>> arguments,
 			SqmPredicate filter,
@@ -223,6 +239,7 @@ public abstract class AbstractSqmFunctionDescriptor implements SqmFunctionDescri
 	 * @param arguments         the arguments of the function invocation
 	 * @param impliedResultType the function return type as inferred from its usage
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected <T> SelfRenderingSqmWindowFunction<T> generateSqmWindowFunctionExpression(
 			List<? extends SqmTypedNode<?>> arguments,
 			SqmPredicate filter,

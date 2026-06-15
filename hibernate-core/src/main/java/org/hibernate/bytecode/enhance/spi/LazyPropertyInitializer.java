@@ -11,6 +11,8 @@ import java.util.Set;
 
 import org.hibernate.bytecode.enhance.spi.interceptor.BytecodeLazyAttributeInterceptor;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for controlling how lazy properties get initialized.
@@ -24,11 +26,13 @@ public interface LazyPropertyInitializer {
 	 */
 	Serializable UNFETCHED_PROPERTY = new Serializable() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String toString() {
 			return "<lazy>";
 		}
 
 		@Serial
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Object readResolve() {
 			return UNFETCHED_PROPERTY;
 		}
@@ -40,10 +44,12 @@ public interface LazyPropertyInitializer {
 	 */
 	@Deprecated
 	interface InterceptorImplementor {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		default Set<String> getInitializedLazyAttributeNames() {
 			return Collections.emptySet();
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		default void attributeInitialized(String name) {
 		}
 	}
@@ -57,6 +63,7 @@ public interface LazyPropertyInitializer {
 	 *
 	 * @return ?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object initializeLazyProperty(String fieldName, Object entity, SharedSessionContractImplementor session);
 
 }

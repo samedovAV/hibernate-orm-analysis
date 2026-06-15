@@ -17,6 +17,8 @@ import org.hibernate.sql.model.MutationType;
 
 import static org.hibernate.sql.model.ModelMutationLogging.MODEL_MUTATION_LOGGER;
 import static org.hibernate.sql.model.internal.MutationOperationGroupFactory.singleOperation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * {@link DeleteRowsCoordinator} implementation for temporal collection tables
@@ -61,11 +63,13 @@ public class DeleteRowsCoordinatorHistory implements DeleteRowsCoordinator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionMutationTarget getMutationTarget() {
 		return mutationTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void deleteRows(PersistentCollection<?> collection, Object key, SharedSessionContractImplementor session) {
 		if ( deleteOperationGroup == null ) {
 			deleteOperationGroup = createOperationGroup();
@@ -144,16 +148,19 @@ public class DeleteRowsCoordinatorHistory implements DeleteRowsCoordinator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private MutationOperationGroup createOperationGroup() {
 		final var operation = rowMutationOperations.getDeleteRowOperation();
 		return operation == null ? null : singleOperation( MutationType.DELETE, mutationTarget, operation );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private MutationOperationGroup createHistoryOperationGroup() {
 		final var operation = rowMutationOperations.getDeleteRowOperation( getHistoryTableMapping() );
 		return operation == null ? null : singleOperation( MutationType.DELETE, mutationTarget, operation );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private CollectionTableMapping getHistoryTableMapping() {
 		if ( historyTableMapping == null ) {
 			final var temporalMapping = mutationTarget.getTargetPart().getTemporalMapping();
@@ -164,6 +171,7 @@ public class DeleteRowsCoordinatorHistory implements DeleteRowsCoordinator {
 		return historyTableMapping;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private HistoryCollectionRowMutationHelper getRowMutationHelper() {
 		if ( rowMutationHelper == null ) {
 			rowMutationHelper = new HistoryCollectionRowMutationHelper(

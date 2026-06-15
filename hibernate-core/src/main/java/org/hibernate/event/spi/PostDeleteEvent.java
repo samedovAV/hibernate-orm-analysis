@@ -6,6 +6,8 @@ package org.hibernate.event.spi;
 
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.persister.entity.EntityPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Occurs after deleting an item from the datastore
@@ -25,6 +27,7 @@ public class PostDeleteEvent extends AbstractPostDatabaseOperationEvent {
 		this.deletedState = deletedState;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object[] getDeletedState() {
 		return deletedState;
 	}

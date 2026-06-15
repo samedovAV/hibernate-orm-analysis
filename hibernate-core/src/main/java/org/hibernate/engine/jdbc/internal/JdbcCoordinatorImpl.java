@@ -42,6 +42,8 @@ import java.util.function.Supplier;
 import static org.hibernate.ConnectionReleaseMode.AFTER_STATEMENT;
 import static org.hibernate.engine.jdbc.JdbcLogging.JDBC_LOGGER;
 import static org.hibernate.engine.jdbc.batch.JdbcBatchLogging.BATCH_MESSAGE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard implementation of {@link JdbcCoordinator}.
@@ -88,6 +90,7 @@ public class JdbcCoordinatorImpl implements JdbcCoordinator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static LogicalConnectionImplementor createLogicalConnection(
 			Connection userSuppliedConnection,
 			JdbcSessionOwner owner) {
@@ -112,6 +115,7 @@ public class JdbcCoordinatorImpl implements JdbcCoordinator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LogicalConnectionImplementor getLogicalConnection() {
 		return logicalConnection;
 	}
@@ -121,6 +125,7 @@ public class JdbcCoordinatorImpl implements JdbcCoordinator {
 	 *
 	 * @return The {@code SqlExceptionHelper}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqlExceptionHelper sqlExceptionHelper() {
 		return jdbcServices.getSqlExceptionHelper();
 	}
@@ -128,6 +133,7 @@ public class JdbcCoordinatorImpl implements JdbcCoordinator {
 	private int flushDepth;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void flushBeginning() {
 		if ( flushDepth == 0 ) {
 			releasesEnabled = false;
@@ -136,6 +142,7 @@ public class JdbcCoordinatorImpl implements JdbcCoordinator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void flushEnding() {
 		flushDepth--;
 		if ( flushDepth < 0 ) {
@@ -149,6 +156,7 @@ public class JdbcCoordinatorImpl implements JdbcCoordinator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Connection close() {
 		if ( TRACE_ENABLED ) {
 			JDBC_LOGGER.closingJdbcCoordinator( hashCode() );
@@ -168,6 +176,7 @@ public class JdbcCoordinatorImpl implements JdbcCoordinator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public GroupedBatch getGroupedBatch(
 			BatchKey key,
 			Integer batchSize,
@@ -180,6 +189,7 @@ public class JdbcCoordinatorImpl implements JdbcCoordinator {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private <B extends Batch> B getBatch(
 			BatchKey key,
 			Class<B> batchType,
@@ -206,6 +216,7 @@ public class JdbcCoordinatorImpl implements JdbcCoordinator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public GroupedBatch getGroupedBatch(BatchKey key, Integer batchSize, PreparableMutationOperation mutationOperation) {
 		final var session = (SharedSessionContractImplementor) owner;
 		return getGroupedBatch(
@@ -216,6 +227,7 @@ public class JdbcCoordinatorImpl implements JdbcCoordinator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SingleStatementBatch getSingleStatementBatch(
 			BatchKey key,
 			Integer batchSize,
@@ -229,6 +241,7 @@ public class JdbcCoordinatorImpl implements JdbcCoordinator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void executeBatch() {
 		if ( currentBatch != null ) {
 			try {
@@ -244,6 +257,7 @@ public class JdbcCoordinatorImpl implements JdbcCoordinator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void conditionallyExecuteBatch(BatchKey key) {
 		if ( currentBatch != null && !currentBatch.getKey().equals( key ) ) {
 			if ( BATCH_MESSAGE_LOGGER.isTraceEnabled() ) {
@@ -263,6 +277,7 @@ public class JdbcCoordinatorImpl implements JdbcCoordinator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void abortBatch() {
 		if ( currentBatch != null ) {
 			if ( BATCH_MESSAGE_LOGGER.isTraceEnabled() ) {
@@ -277,6 +292,7 @@ public class JdbcCoordinatorImpl implements JdbcCoordinator {
 	private transient StatementPreparer statementPreparer;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public StatementPreparer getStatementPreparer() {
 		if ( statementPreparer == null ) {
 			statementPreparer = new StatementPreparerImpl( this, jdbcServices );
@@ -287,6 +303,7 @@ public class JdbcCoordinatorImpl implements JdbcCoordinator {
 	private transient MutationStatementPreparer mutationStatementPreparer;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutationStatementPreparer getMutationStatementPreparer() {
 		if ( mutationStatementPreparer == null ) {
 			mutationStatementPreparer = new MutationStatementPreparerImpl( this, jdbcServices );
@@ -297,6 +314,7 @@ public class JdbcCoordinatorImpl implements JdbcCoordinator {
 	private transient ResultSetReturn resultSetExtractor;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ResultSetReturn getResultSetReturn() {
 		if ( resultSetExtractor == null ) {
 			resultSetExtractor = new ResultSetReturnImpl( this, jdbcServices );
@@ -305,16 +323,19 @@ public class JdbcCoordinatorImpl implements JdbcCoordinator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setTransactionTimeOut(int seconds) {
 		transactionTimeOutInstant = System.currentTimeMillis() + ( seconds * 1000L );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void flushBeforeTransactionCompletion() {
 		getJdbcSessionOwner().flushBeforeTransactionCompletion();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int determineRemainingTransactionTimeOutPeriod() {
 		if ( transactionTimeOutInstant < 0 ) {
 			return -1;
@@ -327,6 +348,7 @@ public class JdbcCoordinatorImpl implements JdbcCoordinator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void afterStatementExecution() {
 		final var connectionReleaseMode = connectionReleaseMode();
 		if ( TRACE_ENABLED ) {
@@ -354,6 +376,7 @@ public class JdbcCoordinatorImpl implements JdbcCoordinator {
 	 * transaction to be marked for rollback (PostgreSQL).
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void afterFailedStatementExecution(SQLException sqlException) {
 		if ( jdbcServices.getDialect().causesRollback( sqlException ) ) {
 			getLogicalConnection().markRollbackOnly();
@@ -361,6 +384,7 @@ public class JdbcCoordinatorImpl implements JdbcCoordinator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void afterTransaction() {
 		transactionTimeOutInstant = -1;
 		switch ( connectionReleaseMode() ) {
@@ -371,15 +395,18 @@ public class JdbcCoordinatorImpl implements JdbcCoordinator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private ConnectionReleaseMode connectionReleaseMode() {
 		return getLogicalConnection().getConnectionHandlingMode().getReleaseMode();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private boolean hasRegisteredResources() {
 		return getLogicalConnection().getResourceRegistry().hasRegisteredResources();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> T coordinateWork(WorkExecutorVisitable<T> work) {
 		final var connection = getLogicalConnection().getPhysicalConnection();
 		try {
@@ -394,6 +421,7 @@ public class JdbcCoordinatorImpl implements JdbcCoordinator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isReadyForSerialization() {
 		return isUserSuppliedConnection
 				? ! getLogicalConnection().isPhysicallyConnected()
@@ -402,6 +430,7 @@ public class JdbcCoordinatorImpl implements JdbcCoordinator {
 
 	@Override
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void registerLastQuery(Statement statement) {
 //		if ( TRACE_ENABLED ) {
 //			LOG.tracef( "Registering last query statement [%s] @%s", statement, hashCode() );
@@ -416,6 +445,7 @@ public class JdbcCoordinatorImpl implements JdbcCoordinator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void cancelLastQuery() {
 		try {
 			if ( lastQuery != null ) {
@@ -430,6 +460,7 @@ public class JdbcCoordinatorImpl implements JdbcCoordinator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private SqlExceptionHelper safeSqlExceptionHelper() {
 		final var sqlExceptionHelper = sqlExceptionHelper();
 		//Should always be non-null, but to make sure as the implementation is lazy:
@@ -437,21 +468,25 @@ public class JdbcCoordinatorImpl implements JdbcCoordinator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void enableReleases() {
 		releasesEnabled = true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void disableReleases() {
 		releasesEnabled = false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isActive() {
 		return owner.getJdbcSessionContext().isActive();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void afterTransactionBegin() {
 		if ( TRACE_ENABLED ) {
 			JDBC_LOGGER.transactionAfterBegin( hashCode() );
@@ -460,6 +495,7 @@ public class JdbcCoordinatorImpl implements JdbcCoordinator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void beforeTransactionCompletion() {
 		if ( TRACE_ENABLED ) {
 			JDBC_LOGGER.transactionBeforeCompletion( hashCode() );
@@ -469,6 +505,7 @@ public class JdbcCoordinatorImpl implements JdbcCoordinator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void afterTransactionCompletion(boolean successful, boolean delayed) {
 		if ( TRACE_ENABLED ) {
 			JDBC_LOGGER.transactionAfterCompletion(
@@ -480,11 +517,13 @@ public class JdbcCoordinatorImpl implements JdbcCoordinator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcSessionOwner getJdbcSessionOwner() {
 		return owner;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcResourceTransaction getResourceLocalTransaction() {
 		return logicalConnection.getPhysicalJdbcTransaction();
 	}
@@ -497,6 +536,7 @@ public class JdbcCoordinatorImpl implements JdbcCoordinator {
 	 * @throws IOException Trouble accessing the stream
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void serialize(ObjectOutputStream oos) throws IOException {
 		if ( !isReadyForSerialization() ) {
 			throw new HibernateException( "Cannot serialize Session while connected" );
@@ -516,6 +556,7 @@ public class JdbcCoordinatorImpl implements JdbcCoordinator {
 	 * @throws IOException Trouble accessing the stream
 	 * @throws ClassNotFoundException Trouble reading the stream
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static JdbcCoordinatorImpl deserialize(ObjectInputStream ois, JdbcSessionOwner owner)
 			throws IOException, ClassNotFoundException {
 		final boolean isUserSuppliedConnection = ois.readBoolean();

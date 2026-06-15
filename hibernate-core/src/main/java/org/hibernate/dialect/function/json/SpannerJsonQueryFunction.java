@@ -9,6 +9,8 @@ import org.hibernate.sql.ast.SqlAstTranslator;
 import org.hibernate.sql.ast.spi.SqlAppender;
 import org.hibernate.sql.ast.tree.expression.JsonQueryWrapMode;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class SpannerJsonQueryFunction extends JsonQueryFunction {
 
@@ -17,6 +19,7 @@ public class SpannerJsonQueryFunction extends JsonQueryFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void render(SqlAppender sqlAppender, JsonQueryArguments arguments, ReturnableType<?> returnType, SqlAstTranslator<?> walker) {
 		if ( arguments.wrapMode() == JsonQueryWrapMode.WITH_WRAPPER ) {
 			sqlAppender.appendSql( "parse_json(concat('[', to_json_string(" );

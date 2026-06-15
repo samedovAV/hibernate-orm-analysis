@@ -20,6 +20,8 @@ import org.hibernate.query.sql.spi.NativeQueryImplementor;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Set;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -55,68 +57,81 @@ public class NativeSelectionMementoImpl<R>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSqlString() {
 		return sqlString;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getOriginalSqlString() {
 		return getSqlString();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSelectionString() {
 		return getSqlString();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getResultMappingName() {
 		return resultSetMappingName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Set<String> getQuerySpaces() {
 		return synchronizationSpaces;
 	}
 
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getEntityGraphName() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NativeSelectionMementoImpl<R> makeCopy(String name) {
 		return new NativeSelectionMementoImpl<>( name, this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void validate(QueryEngine queryEngine) {
 		// nothing to do
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public NativeQueryImplementor<R> toSelectionQuery(SharedSessionContractImplementor session) {
 		return toSelectionQuery( session, null );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> NativeQueryImplementor<X> toSelectionQuery(SharedSessionContractImplementor session, Class<X> javaType) {
 		return new NativeQueryImpl<>( this, javaType, null, session );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NativeQueryImplementor<R> toQuery(SharedSessionContractImplementor session) {
 		return toSelectionQuery( session );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> NativeQueryImplementor<T> toQuery(SharedSessionContractImplementor session, String resultSetMapping) {
 		//noinspection unchecked,rawtypes
 		return new NativeQueryImpl( this, null, resultSetMapping, session );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> NativeQueryImplementor<X> toQuery(SharedSessionContractImplementor session, Class<X> javaType) {
 		return toSelectionQuery( session, javaType );
 	}

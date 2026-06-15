@@ -19,6 +19,8 @@ import org.hibernate.sql.ast.tree.expression.Expression;
 import org.hibernate.type.BasicType;
 import org.hibernate.type.SqlTypes;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Oracle json_array function.
@@ -42,6 +44,7 @@ public class OracleJsonArrayFunction extends JsonArrayFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderValue(SqlAppender sqlAppender, SqlAstNode value, SqlAstTranslator<?> walker) {
 		if ( ExpressionTypeHelper.isNonNativeBoolean( value ) ) {
 			CastFunction castFunction = this.castFunction;
@@ -70,6 +73,7 @@ public class OracleJsonArrayFunction extends JsonArrayFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderReturningClause(SqlAppender sqlAppender, SqlAstTranslator<?> walker) {
 		sqlAppender.appendSql( " returning " );
 		sqlAppender.appendSql( returningType );

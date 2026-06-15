@@ -12,6 +12,8 @@ import org.hibernate.metamodel.mapping.PluralAttributeMapping;
 import org.hibernate.spi.NavigablePath;
 import org.hibernate.sql.results.graph.DomainResult;
 import org.hibernate.sql.results.graph.DomainResultCreationState;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A table group for one-to-many plural attributes.
@@ -36,34 +38,41 @@ public class OneToManyTableGroup extends AbstractColumnReferenceQualifier implem
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PluralAttributeMapping getExpressionType() {
 		return pluralAttributeMapping;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PluralAttributeMapping getModelPart() {
 		return pluralAttributeMapping;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected SessionFactoryImplementor getSessionFactory() {
 		return sessionFactory;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableGroup getElementTableGroup() {
 		return elementTableGroup;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableGroup getIndexTableGroup() {
 		return indexTableGroup;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void registerIndexTableGroup(TableGroupJoin indexTableGroupJoin) {
 		registerIndexTableGroup( indexTableGroupJoin, true );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void registerIndexTableGroup(TableGroupJoin indexTableGroupJoin, boolean nested) {
 		assert this.indexTableGroup == null;
 		this.indexTableGroup = indexTableGroupJoin.getJoinedGroup();
@@ -76,51 +85,61 @@ public class OneToManyTableGroup extends AbstractColumnReferenceQualifier implem
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getGroupAlias() {
 		return elementTableGroup.getGroupAlias();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getSourceAlias() {
 		return elementTableGroup.getSourceAlias();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void applyAffectedTableNames(Consumer<String> nameCollector) {
 		elementTableGroup.applyAffectedTableNames( nameCollector );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public TableReference getPrimaryTableReference() {
 		return elementTableGroup.getPrimaryTableReference();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public List<TableReferenceJoin> getTableReferenceJoins() {
 		return elementTableGroup.getTableReferenceJoins();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public NavigablePath getNavigablePath() {
 		return elementTableGroup.getNavigablePath().getParent();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public List<TableGroupJoin> getTableGroupJoins() {
 		return elementTableGroup.getTableGroupJoins();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public List<TableGroupJoin> getNestedTableGroupJoins() {
 		return elementTableGroup.getNestedTableGroupJoins();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean canUseInnerJoins() {
 		return elementTableGroup.canUseInnerJoins();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void addTableGroupJoin(TableGroupJoin join) {
 		if ( join.getJoinedGroup() != elementTableGroup ) {
 			elementTableGroup.addTableGroupJoin( join );
@@ -128,6 +147,7 @@ public class OneToManyTableGroup extends AbstractColumnReferenceQualifier implem
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void prependTableGroupJoin(NavigablePath navigablePath, TableGroupJoin join) {
 		if ( join.getJoinedGroup() != elementTableGroup ) {
 			elementTableGroup.prependTableGroupJoin( navigablePath, join );
@@ -135,6 +155,7 @@ public class OneToManyTableGroup extends AbstractColumnReferenceQualifier implem
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void addNestedTableGroupJoin(TableGroupJoin join) {
 		if ( join.getJoinedGroup() != elementTableGroup ) {
 			elementTableGroup.addNestedTableGroupJoin( join );
@@ -142,36 +163,43 @@ public class OneToManyTableGroup extends AbstractColumnReferenceQualifier implem
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void visitTableGroupJoins(Consumer<TableGroupJoin> consumer) {
 		elementTableGroup.visitTableGroupJoins( consumer );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void visitNestedTableGroupJoins(Consumer<TableGroupJoin> consumer) {
 		elementTableGroup.visitNestedTableGroupJoins( consumer );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public DomainResult<?> createDomainResult(String resultVariable, DomainResultCreationState creationState) {
 		return elementTableGroup.createDomainResult( resultVariable, creationState );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void applySqlSelections(DomainResultCreationState creationState) {
 		elementTableGroup.applySqlSelections( creationState );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isRealTableGroup() {
 		return elementTableGroup.isRealTableGroup();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isFetched() {
 		return elementTableGroup.isFetched();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public TableReference getTableReference(
 			NavigablePath navigablePath,
 			String tableExpression,

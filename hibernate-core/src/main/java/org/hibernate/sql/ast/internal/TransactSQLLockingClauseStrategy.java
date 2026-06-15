@@ -9,6 +9,8 @@ import org.hibernate.spi.NavigablePath;
 import org.hibernate.sql.ast.spi.SqlAppender;
 
 import java.util.Set;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// LockingClauseStrategy implementation for T-SQL (SQL Server and Sybase)
 ///
@@ -20,18 +22,21 @@ public class TransactSQLLockingClauseStrategy extends AbstractLockingClauseStrat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean containsOuterJoins() {
 		// not used for T-SQL dialects
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean containsJoins() {
 		// not used for T-SQL dialects
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void render(SqlAppender sqlAppender) {
 		// not used for T-SQL dialects
 	}

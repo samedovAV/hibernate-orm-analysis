@@ -10,6 +10,8 @@ import jakarta.annotation.Nonnull;
 import org.hibernate.boot.registry.StandardServiceInitiator;
 import org.hibernate.boot.spi.SessionFactoryBuilderService;
 import org.hibernate.service.spi.ServiceRegistryImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public final class DefaultSessionFactoryBuilderInitiator implements StandardServiceInitiator<SessionFactoryBuilderService> {
 
@@ -19,12 +21,14 @@ public final class DefaultSessionFactoryBuilderInitiator implements StandardServ
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SessionFactoryBuilderService initiateService(@Nonnull Map<String, Object> configurationValues, @Nonnull ServiceRegistryImplementor registry) {
 		return DefaultSessionFactoryBuilderService.INSTANCE;
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<SessionFactoryBuilderService> getServiceInitiated() {
 		return SessionFactoryBuilderService.class;
 	}

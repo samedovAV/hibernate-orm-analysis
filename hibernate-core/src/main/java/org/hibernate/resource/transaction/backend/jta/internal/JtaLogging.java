@@ -22,6 +22,8 @@ import java.util.Locale;
 import static org.jboss.logging.Logger.Level.TRACE;
 import static org.jboss.logging.Logger.Level.WARN;
 import static org.jboss.logging.Logger.Level.DEBUG;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Logging interface for JTA transaction operations.
@@ -49,6 +51,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "Calling TransactionManager.begin() to start a new JTA transaction",
 			id = NAMESPACE + 1
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void callingTransactionManagerBegin();
 
 	@LogMessage(level = TRACE)
@@ -56,6 +59,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "Successfully called TransactionManager.begin()",
 			id = NAMESPACE + 2
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void calledTransactionManagerBegin();
 
 	@LogMessage(level = TRACE)
@@ -63,6 +67,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "Skipping TransactionManager.begin() since there is an active transaction",
 			id = NAMESPACE + 3
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void skippingTransactionManagerBegin();
 
 	@LogMessage(level = TRACE)
@@ -70,6 +75,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "Calling TransactionManager.commit() to commit the JTA transaction",
 			id = NAMESPACE + 4
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void callingTransactionManagerCommit();
 
 	@LogMessage(level = TRACE)
@@ -77,6 +83,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "Successfully called TransactionManager.commit()",
 			id = NAMESPACE + 5
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void calledTransactionManagerCommit();
 
 	@LogMessage(level = TRACE)
@@ -84,6 +91,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "Skipping TransactionManager.commit() since the transaction was not initiated here",
 			id = NAMESPACE + 6
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void skippingTransactionManagerCommit();
 
 	@LogMessage(level = TRACE)
@@ -91,6 +99,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "Calling TransactionManager.rollback() to roll back the JTA transaction",
 			id = NAMESPACE + 7
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void callingTransactionManagerRollback();
 
 	@LogMessage(level = TRACE)
@@ -98,6 +107,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "Successfully called TransactionManager.rollback()",
 			id = NAMESPACE + 8
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void calledTransactionManagerRollback();
 
 	// UserTransaction methods
@@ -107,6 +117,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "Calling UserTransaction.begin() to start a new JTA transaction",
 			id = NAMESPACE + 9
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void callingUserTransactionBegin();
 
 	@LogMessage(level = TRACE)
@@ -114,6 +125,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "Successfully called UserTransaction.begin()",
 			id = NAMESPACE + 10
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void calledUserTransactionBegin();
 
 	@LogMessage(level = TRACE)
@@ -121,6 +133,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "Calling UserTransaction.commit() to commit the JTA transaction",
 			id = NAMESPACE + 11
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void callingUserTransactionCommit();
 
 	@LogMessage(level = TRACE)
@@ -128,6 +141,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "Successfully called UserTransaction.commit()",
 			id = NAMESPACE + 12
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void calledUserTransactionCommit();
 
 	@LogMessage(level = TRACE)
@@ -135,6 +149,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "Calling UserTransaction.rollback() to roll back the JTA transaction",
 			id = NAMESPACE + 13
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void callingUserTransactionRollback();
 
 	@LogMessage(level = TRACE)
@@ -142,6 +157,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "Successfully called UserTransaction.rollback()",
 			id = NAMESPACE + 14
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void calledUserTransactionRollback();
 
 	@LogMessage(level = TRACE)
@@ -149,6 +165,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "Surrounding JTA transaction suspended [%s]",
 			id = NAMESPACE + 15
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void transactionSuspended(Object transaction);
 
 	@LogMessage(level = TRACE)
@@ -156,6 +173,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "Surrounding JTA transaction resumed [%s]",
 			id = NAMESPACE + 16
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void transactionResumed(Object transaction);
 
 	@LogMessage(level = Logger.Level.INFO)
@@ -163,6 +181,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "Unable to roll back isolated transaction on error [%s]",
 			id = NAMESPACE + 17
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void unableToRollBackIsolatedTransaction(Exception original, @Cause Exception ignore);
 
 	@LogMessage(level = Logger.Level.INFO)
@@ -170,6 +189,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "Unable to release isolated connection",
 			id = NAMESPACE + 18
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void unableToReleaseIsolatedConnection(@Cause Throwable ignore);
 
 	@LogMessage(level = WARN)
@@ -178,6 +198,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "Transaction afterCompletion called by a background thread; " +
 					"delaying afterCompletion processing until the original thread can handle it. [status=%s]"
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void rollbackFromBackgroundThread(int status);
 
 	@LogMessage(level = TRACE)
@@ -185,6 +206,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "Suspended transaction to isolate DDL execution [%s]",
 			id = NAMESPACE + 30
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void suspendedTransactionForDdlIsolation(Transaction suspendedTransaction);
 
 	@LogMessage(level = TRACE)
@@ -192,6 +214,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "Resumed transaction after isolated DDL execution",
 			id = NAMESPACE + 31
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void resumedTransactionForDdlIsolation();
 
 	@LogMessage(level = TRACE)
@@ -199,6 +222,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "JTA platform says we cannot currently register synchronization; skipping",
 			id = NAMESPACE + 32
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void cannotRegisterSynchronization();
 
 	@LogMessage(level = TRACE)
@@ -206,6 +230,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "Hibernate RegisteredSynchronization successfully registered with JTA platform",
 			id = NAMESPACE + 33
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void registeredSynchronization();
 
 	@LogMessage(level = TRACE)
@@ -213,6 +238,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "JTA transaction was already joined (RegisteredSynchronization already registered)",
 			id = NAMESPACE + 34
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void alreadyJoinedJtaTransaction();
 
 	@LogMessage(level = TRACE)
@@ -220,6 +246,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "Notifying JTA transaction observers before completion",
 			id = NAMESPACE + 35
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void notifyingJtaObserversBeforeCompletion();
 
 	@LogMessage(level = TRACE)
@@ -227,6 +254,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "Notifying JTA transaction observers after completion",
 			id = NAMESPACE + 36
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void notifyingJtaObserversAfterCompletion();
 
 	@LogMessage(level = TRACE)
@@ -234,6 +262,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "Registered JTA Synchronization: beforeCompletion()",
 			id = NAMESPACE + 37
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void registeredSynchronizationBeforeCompletion();
 
 	@LogMessage(level = TRACE)
@@ -241,6 +270,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "Registered JTA Synchronization: afterCompletion(%s)",
 			id = NAMESPACE + 38
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void registeredSynchronizationAfterCompletion(int status);
 
 	@LogMessage(level = TRACE)
@@ -248,6 +278,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "Synchronization coordinator: beforeCompletion()",
 			id = NAMESPACE + 39
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void synchronizationCoordinatorBeforeCompletion();
 
 	@LogMessage(level = TRACE)
@@ -255,6 +286,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "Synchronization coordinator: afterCompletion(status=%s)",
 			id = NAMESPACE + 40
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void synchronizationCoordinatorAfterCompletion(int status);
 
 	@LogMessage(level = TRACE)
@@ -262,12 +294,14 @@ public interface JtaLogging extends BasicLogger {
 			value = "Synchronization coordinator: doAfterCompletion(successful=%s, delayed=%s)",
 			id = NAMESPACE + 41
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void synchronizationCoordinatorDoAfterCompletion(boolean successful, boolean delayed);
 	@LogMessage(level = DEBUG)
 	@Message(
 			value = "Unable to access TransactionManager, attempting to use UserTransaction instead",
 			id = NAMESPACE + 42
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void unableToAccessTransactionManagerTryingUserTransaction();
 
 	@LogMessage(level = DEBUG)
@@ -275,6 +309,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "Unable to access UserTransaction, attempting to use TransactionManager instead",
 			id = NAMESPACE + 43
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void unableToAccessUserTransactionTryingTransactionManager();
 
 	@LogMessage(level = DEBUG)
@@ -282,6 +317,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "JtaPlatform.retrieveUserTransaction() returned null",
 			id = NAMESPACE + 44
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void userTransactionReturnedNull();
 
 	@LogMessage(level = DEBUG)
@@ -289,6 +325,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "JtaPlatform.retrieveUserTransaction() threw an exception [%s]",
 			id = NAMESPACE + 45
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void exceptionRetrievingUserTransaction(String message, @Cause Exception cause);
 
 	@LogMessage(level = DEBUG)
@@ -296,6 +333,7 @@ public interface JtaLogging extends BasicLogger {
 			value = "JtaPlatform.retrieveTransactionManager() returned null",
 			id = NAMESPACE + 46
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void transactionManagerReturnedNull();
 
 	@LogMessage(level = DEBUG)
@@ -303,5 +341,6 @@ public interface JtaLogging extends BasicLogger {
 			value = "JtaPlatform.retrieveTransactionManager() threw an exception [%s]",
 			id = NAMESPACE + 47
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void exceptionRetrievingTransactionManager(String message, @Cause Exception cause);
 }

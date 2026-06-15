@@ -9,6 +9,8 @@ import org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIs
 import org.hibernate.resource.transaction.backend.jta.internal.DdlTransactionIsolatorJtaImpl;
 import org.hibernate.service.Service;
 import org.hibernate.tool.schema.internal.exec.JdbcContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Builder for {@link TransactionCoordinator} instances.
@@ -30,15 +32,20 @@ public interface TransactionCoordinatorBuilder extends Service {
 		 * @return {@code true} indicates the active transaction should be auto joined; {@code false}
 		 * indicates it should not (until {@link TransactionCoordinator#explicitJoin} is called).
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		boolean shouldAutoJoinTransaction();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TransactionCoordinator buildTransactionCoordinator(TransactionCoordinatorOwner owner, Options options);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isJta();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PhysicalConnectionHandlingMode getDefaultConnectionHandlingMode();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default DdlTransactionIsolator buildDdlTransactionIsolator(JdbcContext jdbcContext) {
 		return isJta()
 				? new DdlTransactionIsolatorJtaImpl( jdbcContext )

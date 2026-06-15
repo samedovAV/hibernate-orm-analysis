@@ -10,6 +10,8 @@ import java.util.Set;
 import org.hibernate.jpa.internal.HintsCollector;
 
 import jakarta.persistence.LockModeType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Combined set of Hibernate and Jakarta Persistence hints.
@@ -23,6 +25,7 @@ import jakarta.persistence.LockModeType;
  * @author Steve Ebersole
  */
 public interface AvailableHints extends HibernateHints, SpecHints {
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static Set<String> getDefinedHints() {
 		return HintsCollector.getDefinedHints();
 	}

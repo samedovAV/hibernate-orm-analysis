@@ -9,6 +9,8 @@ import net.bytebuddy.implementation.Implementation;
 import net.bytebuddy.implementation.bytecode.ByteCodeAppender;
 import net.bytebuddy.jar.asm.MethodVisitor;
 import net.bytebuddy.jar.asm.Opcodes;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class GetPropertyNames implements ByteCodeAppender {
 
@@ -21,6 +23,7 @@ public class GetPropertyNames implements ByteCodeAppender {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Size apply(
 			MethodVisitor methodVisitor,
 			Implementation.Context implementationContext,

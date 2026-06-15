@@ -14,6 +14,8 @@ import org.hibernate.resource.beans.container.spi.ContainedBeanImplementor;
 import org.hibernate.resource.beans.spi.BeanInstanceProducer;
 
 import static org.hibernate.resource.beans.internal.BeansMessageLogger.BEANS_MSG_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link BeanLifecycleStrategy} to use when CDI compliance is required
@@ -34,6 +36,7 @@ public class ContainerManagedLifecycleStrategy implements BeanLifecycleStrategy 
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <B> ContainedBeanImplementor<B> createBean(
 			Class<B> beanClass,
 			BeanInstanceProducer fallbackProducer,
@@ -42,6 +45,7 @@ public class ContainerManagedLifecycleStrategy implements BeanLifecycleStrategy 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <B> ContainedBeanImplementor<B> createBean(
 			String beanName,
 			Class<B> beanClass,
@@ -71,11 +75,13 @@ public class ContainerManagedLifecycleStrategy implements BeanLifecycleStrategy 
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Class<B> getBeanClass() {
 			return beanType;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public B getBeanInstance() {
 			if ( beanInstance == null ) {
 				initialize();
@@ -84,6 +90,7 @@ public class ContainerManagedLifecycleStrategy implements BeanLifecycleStrategy 
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void initialize() {
 			if ( beanInstance != null ) {
 				return;
@@ -105,9 +112,11 @@ public class ContainerManagedLifecycleStrategy implements BeanLifecycleStrategy 
 			this.beanManager = null;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		protected abstract Instance<B> resolveContainerInstance();
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void release() {
 			if ( beanInstance == null ) {
 				return;
@@ -132,6 +141,7 @@ public class ContainerManagedLifecycleStrategy implements BeanLifecycleStrategy 
 			}
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		protected abstract B produceFallbackInstance();
 	}
 
@@ -144,6 +154,7 @@ public class ContainerManagedLifecycleStrategy implements BeanLifecycleStrategy 
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		protected Instance<B> resolveContainerInstance() {
 			final Instance<Object> root;
 			try {
@@ -164,6 +175,7 @@ public class ContainerManagedLifecycleStrategy implements BeanLifecycleStrategy 
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		protected B produceFallbackInstance() {
 			return fallbackProducer.produceBeanInstance( beanType );
 		}
@@ -182,6 +194,7 @@ public class ContainerManagedLifecycleStrategy implements BeanLifecycleStrategy 
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		protected Instance<B> resolveContainerInstance() {
 			final Instance<Object> root;
 			try {
@@ -202,6 +215,7 @@ public class ContainerManagedLifecycleStrategy implements BeanLifecycleStrategy 
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		protected B produceFallbackInstance() {
 			return fallbackProducer.produceBeanInstance( beanName, beanType );
 		}

@@ -8,6 +8,8 @@ import org.hibernate.internal.build.AllowReflection;
 
 import static java.lang.reflect.Array.getLength;
 import static java.lang.reflect.Array.newInstance;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A mutability plan for arrays. Specifically arrays of immutable element type;
@@ -25,6 +27,7 @@ public class ArrayMutabilityPlan<T> extends MutableMutabilityPlan<T> {
 
 	@SuppressWarnings({ "unchecked", "SuspiciousSystemArraycopy" })
 	@AllowReflection
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public T deepCopyNotNull(T value) {
 		final var valueClass = value.getClass();
 		if ( !valueClass.isArray() ) {

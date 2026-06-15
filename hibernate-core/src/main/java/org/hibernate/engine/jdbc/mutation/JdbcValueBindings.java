@@ -10,6 +10,8 @@ import org.hibernate.engine.jdbc.mutation.spi.BindingGroup;
 import org.hibernate.metamodel.mapping.ModelPart;
 import org.hibernate.metamodel.mapping.SelectableMapping;
 import org.hibernate.sql.model.TableMapping;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The JDBC values for a mutation
@@ -21,16 +23,19 @@ public interface JdbcValueBindings {
 	/**
 	 * Get the bindings for the specific table, or {@code null}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	BindingGroup getBindingGroup(String tableName);
 
 	/**
 	 * Binds a value for a specific column+usage
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void bindValue(Object value, String tableName, String columnName, ParameterUsage usage);
 
 	/**
 	 * Binds a value for a specific column+usage
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void bindValue(Object value, SelectableMapping selectableMapping, ParameterUsage usage) {
 		bindValue( value, selectableMapping.getContainingTableExpression(), selectableMapping.getSelectionExpression(), usage );
 	}
@@ -38,17 +43,20 @@ public interface JdbcValueBindings {
 	/**
 	 * Called before the execution of the operation for the specified table
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void beforeStatement(PreparedStatementDetails statementDetails);
 
 	/**
 	 * Called after the execution of the operation for the specified table
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void afterStatement(TableMapping mutatingTable);
 
 	/**
 	 * Form of {@linkplain #bindValue(Object, SelectableMapping, ParameterUsage)} which is intended for use
 	 * as a {@linkplain ModelPart.JdbcValueConsumer} with {@linkplain ParameterUsage#SET} semantics.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void bindAssignment(int valueIndex, Object value, SelectableMapping jdbcValueMapping) {
 		bindValue( value, jdbcValueMapping, ParameterUsage.SET );
 	}
@@ -57,6 +65,7 @@ public interface JdbcValueBindings {
 	 * Form of {@linkplain #bindValue(Object, SelectableMapping, ParameterUsage)} which is intended for use
 	 * as a {@linkplain ModelPart.JdbcValueConsumer} with {@linkplain ParameterUsage#RESTRICT} semantics.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void bindRestriction(int valueIndex, Object value, SelectableMapping jdbcValueMapping) {
 		bindValue( value, jdbcValueMapping, ParameterUsage.RESTRICT );
 	}

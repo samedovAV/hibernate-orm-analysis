@@ -26,6 +26,8 @@ import jakarta.annotation.Nullable;
 
 import static org.hibernate.internal.log.LoggingHelper.toLoggableString;
 import static org.hibernate.proxy.HibernateProxy.extractLazyInitializer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Initializer for discriminated mappings.
@@ -80,25 +82,30 @@ public class DiscriminatedEntityInitializer
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected InitializerData createInitializerData(RowProcessingState rowProcessingState) {
 		return new DiscriminatedEntityInitializerData( rowProcessingState );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable InitializerParent<?> getParent() {
 		return parent;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ModelPart getInitializedPart(){
 		return fetchedPart;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigablePath getNavigablePath() {
 		return navigablePath;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void resolveKey(DiscriminatedEntityInitializerData data) {
 		if ( data.getState() == State.UNINITIALIZED ) {
 			// resolve the key and the discriminator, and then use those to load the indicated entity
@@ -125,6 +132,7 @@ public class DiscriminatedEntityInitializer
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void resolveState(DiscriminatedEntityInitializerData data) {
 		final var rowProcessingState = data.getRowProcessingState();
 		discriminatorValueAssembler.resolveState( rowProcessingState );
@@ -132,6 +140,7 @@ public class DiscriminatedEntityInitializer
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void resolveFromPreviousRow(DiscriminatedEntityInitializerData data) {
 		if ( data.getState() == State.UNINITIALIZED ) {
 			if ( data.getInstance() == null ) {
@@ -148,6 +157,7 @@ public class DiscriminatedEntityInitializer
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void resolveInstance(DiscriminatedEntityInitializerData data) {
 		if ( data.getState() == State.KEY_RESOLVED ) {
 			data.setState( State.INITIALIZED );
@@ -177,6 +187,7 @@ public class DiscriminatedEntityInitializer
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean isResolved(EntityHolder holder, Object instance) {
 		if ( holder == null ) {
 			return false;
@@ -202,6 +213,7 @@ public class DiscriminatedEntityInitializer
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void resolveInstance(Object instance, DiscriminatedEntityInitializerData data) {
 		if ( instance == null ) {
 			data.setState( State.MISSING );
@@ -225,6 +237,7 @@ public class DiscriminatedEntityInitializer
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void resolve(
 			Object instance,
 			DiscriminatedEntityInitializerData data) {
@@ -273,6 +286,7 @@ public class DiscriminatedEntityInitializer
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void initializeInstance(DiscriminatedEntityInitializerData data) {
 		if ( data.getState() == State.RESOLVED ) {
 			data.setState( State.INITIALIZED );
@@ -289,6 +303,7 @@ public class DiscriminatedEntityInitializer
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void initializeInstanceFromParent(Object parentInstance, DiscriminatedEntityInitializerData data) {
 		final var attributeMapping = getInitializedPart().asAttributeMapping();
 		final Object instance =
@@ -314,6 +329,7 @@ public class DiscriminatedEntityInitializer
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void forEachSubInitializer(BiConsumer<Initializer<?>, RowProcessingState> consumer, InitializerData data) {
 		final var initializer = keyValueAssembler.getInitializer();
 		if ( initializer != null ) {
@@ -322,41 +338,49 @@ public class DiscriminatedEntityInitializer
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityPersister getEntityDescriptor() {
 		throw new UnsupportedOperationException("Discriminated association has no static entity type");
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityPersister getConcreteDescriptor(DiscriminatedEntityInitializerData data) {
 		return data.concreteDescriptor;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable Object getEntityIdentifier(DiscriminatedEntityInitializerData data) {
 		return data.entityIdentifier;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isPartOfKey() {
 		return isPartOfKey;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isEager() {
 		return eager || keyIsEager;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasLazySubInitializers() {
 		return hasLazySubInitializer;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isResultInitializer() {
 		return resultInitializer;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "DiscriminatedEntityInitializer("
 				+ toLoggableString( getNavigablePath() ) + ")";

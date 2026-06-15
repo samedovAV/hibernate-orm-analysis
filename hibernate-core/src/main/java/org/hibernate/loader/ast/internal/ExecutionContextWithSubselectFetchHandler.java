@@ -11,6 +11,8 @@ import org.hibernate.engine.spi.SubselectFetch;
 import org.hibernate.query.internal.SimpleQueryOptions;
 import org.hibernate.query.spi.QueryOptions;
 import org.hibernate.sql.exec.internal.BaseExecutionContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 class ExecutionContextWithSubselectFetchHandler extends BaseExecutionContext {
 
@@ -38,11 +40,13 @@ class ExecutionContextWithSubselectFetchHandler extends BaseExecutionContext {
 		this.queryOptions = determineQueryOptions( readOnly, lockOptions );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private QueryOptions determineQueryOptions(boolean readOnly, LockOptions lockOptions) {
 		return new SimpleQueryOptions( lockOptions, readOnly ? true : null );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void registerLoadingEntityHolder(EntityHolder holder) {
 		if ( subSelectFetchableKeysHandler != null ) {
 			subSelectFetchableKeysHandler.addKey( holder );
@@ -50,11 +54,13 @@ class ExecutionContextWithSubselectFetchHandler extends BaseExecutionContext {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QueryOptions getQueryOptions() {
 		return queryOptions;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean upgradeLocks() {
 		return true;
 	}

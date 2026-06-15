@@ -8,6 +8,8 @@ import org.hibernate.boot.archive.spi.ArchiveDescriptor;
 import org.hibernate.boot.jaxb.configuration.spi.JaxbPersistenceImpl;
 
 import java.net.URL;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Coordinates discovery of managed classes.
 ///
@@ -17,6 +19,7 @@ public interface Scanner {
 	/// [org.hibernate.jpa.HibernatePersistenceConfiguration].
 	///
 	/// @param boundaries The boundaries for scanning.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ScanningResult scan(URL... boundaries);
 
 	/// Performs scanning using the expectations defined by the spec.
@@ -44,5 +47,6 @@ public interface Scanner {
 	/// @param jaxbUnit The `<persistence-unit/>` to process.
 	///
 	/// @see org.hibernate.boot.archive.spi.ArchiveDescriptorFactory
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ScanningResult jpaScan(ArchiveDescriptor archiveDescriptor, JaxbPersistenceImpl.JaxbPersistenceUnitImpl jaxbUnit);
 }

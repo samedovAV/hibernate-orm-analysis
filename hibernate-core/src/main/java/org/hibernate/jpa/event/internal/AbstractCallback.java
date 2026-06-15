@@ -6,6 +6,8 @@ package org.hibernate.jpa.event.internal;
 
 import org.hibernate.event.jpa.spi.Callback;
 import org.hibernate.jpa.event.spi.CallbackType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Base support for [Callback] implementations.
 ///
@@ -18,6 +20,7 @@ abstract class AbstractCallback implements Callback<Object> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CallbackType getCallbackType() {
 		return callbackType;
 	}

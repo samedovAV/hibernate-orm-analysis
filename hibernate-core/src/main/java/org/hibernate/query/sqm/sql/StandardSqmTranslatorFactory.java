@@ -14,6 +14,8 @@ import org.hibernate.query.sqm.tree.select.SqmSelectStatement;
 import org.hibernate.sql.ast.spi.SqlAstCreationContext;
 import org.hibernate.sql.ast.tree.MutationStatement;
 import org.hibernate.sql.ast.tree.select.SelectStatement;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard implementation of the SqmTranslatorFactory
@@ -23,6 +25,7 @@ import org.hibernate.sql.ast.tree.select.SelectStatement;
 public class StandardSqmTranslatorFactory implements SqmTranslatorFactory {
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmTranslator<SelectStatement> createSelectTranslator(
 			SqmSelectStatement<?> sqmSelectStatement,
 			QueryOptions queryOptions,
@@ -43,6 +46,7 @@ public class StandardSqmTranslatorFactory implements SqmTranslatorFactory {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmTranslator<? extends MutationStatement> createMutationTranslator(
 			SqmDmlStatement<?> sqmDmlStatement,
 			QueryOptions queryOptions,

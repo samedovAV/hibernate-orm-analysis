@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.boot.model.source.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * @author Steve Ebersole
@@ -15,6 +18,7 @@ public interface ColumnBindingDefaults {
 	 * @return {@code true} Indicates that insertions are enabled by default for all value sources which
 	 * do not explicitly specify.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean areValuesIncludedInInsertByDefault();
 
 	/**
@@ -24,6 +28,7 @@ public interface ColumnBindingDefaults {
 	 * @return {@code true} Indicates that updates are enabled by default for all value sources which
 	 * do not explicitly specify.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean areValuesIncludedInUpdateByDefault();
 
 	/**
@@ -33,5 +38,6 @@ public interface ColumnBindingDefaults {
 	 * @return {@code true} Indicates that insertions are enabled by default for all value sources which
 	 * do not explicitly specify.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean areValuesNullableByDefault();
 }

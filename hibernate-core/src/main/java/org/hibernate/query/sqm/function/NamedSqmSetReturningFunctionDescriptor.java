@@ -18,6 +18,8 @@ import org.hibernate.sql.ast.spi.SqlAppender;
 import org.hibernate.sql.ast.tree.SqlAstNode;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Provides a standard implementation that supports the majority of the HQL
@@ -54,16 +56,19 @@ public class NamedSqmSetReturningFunctionDescriptor
 	 *
 	 * @return The function name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return functionName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getArgumentListSignature() {
 		return argumentListSignature == null ? super.getArgumentListSignature() : argumentListSignature;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,
@@ -74,6 +79,7 @@ public class NamedSqmSetReturningFunctionDescriptor
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return String.format(
 				Locale.ROOT,

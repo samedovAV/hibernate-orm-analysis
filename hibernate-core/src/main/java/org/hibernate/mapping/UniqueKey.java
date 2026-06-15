@@ -9,6 +9,8 @@ import java.util.Map;
 
 import static org.hibernate.internal.util.StringHelper.isNotEmpty;
 import static org.hibernate.internal.util.StringHelper.qualify;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A mapping model object representing a {@linkplain jakarta.persistence.UniqueConstraint unique key}
@@ -26,6 +28,7 @@ public class UniqueKey extends Constraint {
 		super( table );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void addColumn(Column column, String order) {
 		addColumn( column );
 		if ( isNotEmpty( order ) ) {
@@ -33,31 +36,38 @@ public class UniqueKey extends Constraint {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<Column, String> getColumnOrderMap() {
 		return columnOrderMap;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getExportIdentifier() {
 		return qualify( getTable().getExportIdentifier(), "UK-" + getName() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isNameExplicit() {
 		return nameExplicit;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setNameExplicit(boolean nameExplicit) {
 		this.nameExplicit = nameExplicit;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isExplicit() {
 		return explicit;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setExplicit(boolean explicit) {
 		this.explicit = explicit;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean hasNullableColumn() {
 		for ( var column : getColumns() ) {
 			final var tableColumn = getTable().getColumn( column );

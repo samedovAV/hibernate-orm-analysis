@@ -11,6 +11,8 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.internal.util.IndexedConsumer;
 import org.hibernate.metamodel.mapping.JdbcMapping;
 import org.hibernate.metamodel.mapping.MappingModelExpressible;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -28,11 +30,13 @@ public class TupleMappingModelExpressible implements MappingModelExpressible<Obj
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcMapping getJdbcMapping(final int index) {
 		return mappings[ index ];
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public int forEachJdbcType(int offset, IndexedConsumer<JdbcMapping> action) {
 		int span = 0;
 		for ( int i = 0; i < components.length; i++ ) {
@@ -42,6 +46,7 @@ public class TupleMappingModelExpressible implements MappingModelExpressible<Obj
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public Object disassemble(Object value, SharedSessionContractImplementor session) {
 		if ( value == null ) {
 			return null;
@@ -55,6 +60,7 @@ public class TupleMappingModelExpressible implements MappingModelExpressible<Obj
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void addToCacheKey(MutableCacheKeyBuilder cacheKey, Object value, SharedSessionContractImplementor session) {
 		if ( value == null ) {
 			for ( int i = 0; i < components.length; i++ ) {
@@ -70,6 +76,7 @@ public class TupleMappingModelExpressible implements MappingModelExpressible<Obj
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public <X, Y> int forEachDisassembledJdbcValue(
 			Object value,
 			int offset,
@@ -107,6 +114,7 @@ public class TupleMappingModelExpressible implements MappingModelExpressible<Obj
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <X, Y> int forEachJdbcValue(
 			Object value,
 			int offset,

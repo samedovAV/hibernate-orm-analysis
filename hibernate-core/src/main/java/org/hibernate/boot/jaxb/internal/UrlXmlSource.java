@@ -17,6 +17,8 @@ import java.net.URL;
 import java.net.UnknownHostException;
 
 import static org.hibernate.boot.jaxb.JaxbLogger.JAXB_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Support for processing mapping XML from a {@linkplain URL} reference.
@@ -31,6 +33,7 @@ public class UrlXmlSource {
 	 *
 	 * @see #fromUrl(URL, Origin, MappingBinder)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Binding<? extends JaxbBindableMappingDescriptor> fromResource(
 			String resourceName,
 			ClassLoaderService classLoaderService,
@@ -49,6 +52,7 @@ public class UrlXmlSource {
 	 *
 	 * @see #fromUrl(URL, Origin, MappingBinder)
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static Binding<? extends JaxbBindableMappingDescriptor> fromUrl(
 			URL url,
 			MappingBinder mappingBinder) {
@@ -62,6 +66,7 @@ public class UrlXmlSource {
 	 * @param origin Description of the source from which the url came
 	 * @param binder The JAXB binder to use
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Binding<? extends JaxbBindableMappingDescriptor> fromUrl(
 			URL url,
 			Origin origin,

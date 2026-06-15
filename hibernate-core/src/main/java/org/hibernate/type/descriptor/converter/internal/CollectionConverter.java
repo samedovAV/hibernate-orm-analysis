@@ -12,6 +12,8 @@ import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.descriptor.java.spi.BasicCollectionJavaType;
 
 import static java.lang.reflect.Array.newInstance;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Handles conversion to/from a collection of a converted element type.
@@ -32,6 +34,7 @@ public class CollectionConverter<X extends Collection<E>, E, R> implements Basic
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public X toDomainValue(R[] relationalForm) {
 		if ( relationalForm == null ) {
 			return null;
@@ -46,6 +49,7 @@ public class CollectionConverter<X extends Collection<E>, E, R> implements Basic
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public R[] toRelationalValue(X domainForm) {
 		if ( domainForm == null ) {
 			return null;
@@ -59,6 +63,7 @@ public class CollectionConverter<X extends Collection<E>, E, R> implements Basic
 	}
 
 	@AllowReflection
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private R[] newRelationalArray(int size) {
 		final Object result = newInstance( elementConverter.getRelationalJavaType().getJavaTypeClass(), size );
 		//noinspection unchecked
@@ -66,11 +71,13 @@ public class CollectionConverter<X extends Collection<E>, E, R> implements Basic
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<X> getDomainJavaType() {
 		return domainJavaType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<R[]> getRelationalJavaType() {
 		return relationalJavaType;
 	}

@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.source.spi;
 
 import org.hibernate.engine.OptimisticLockStyle;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Models the source-agnostic view of an entity hierarchy.
@@ -17,6 +19,7 @@ public interface EntityHierarchySource {
 	 *
 	 * @return The root type source.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntitySource getRoot();
 
 	/**
@@ -26,6 +29,7 @@ public interface EntityHierarchySource {
 	 *
 	 * @return The inheritance type.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	InheritanceType getHierarchyInheritanceType();
 
 	/**
@@ -33,6 +37,7 @@ public interface EntityHierarchySource {
 	 *
 	 * @return Identifier source information.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	IdentifierSource getIdentifierSource();
 
 	/**
@@ -40,6 +45,7 @@ public interface EntityHierarchySource {
 	 *
 	 * @return the source information about the attribute used for optimistic locking
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	VersionAttributeSource getVersionAttributeSource();
 
 	/**
@@ -47,6 +53,7 @@ public interface EntityHierarchySource {
 	 *
 	 * @return the source information about the discriminator attribute for single table inheritance
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	DiscriminatorSource getDiscriminatorSource();
 
 	/**
@@ -54,6 +61,7 @@ public interface EntityHierarchySource {
 	 *
 	 * @return the source information about the multi-tenancy discriminator for this entity
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MultiTenancySource getMultiTenancySource();
 
 	/**
@@ -61,6 +69,7 @@ public interface EntityHierarchySource {
 	 *
 	 * @return {@code true} indicates mutable; {@code false} non-mutable.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isMutable();
 
 	/**
@@ -68,6 +77,7 @@ public interface EntityHierarchySource {
 	 *
 	 * @return {@code true} indicates explicit polymorphism; {@code false} implicit.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isExplicitPolymorphism();
 
 	/**
@@ -75,6 +85,7 @@ public interface EntityHierarchySource {
 	 *
 	 * @return The extra where condition
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getWhere();
 
 	/**
@@ -82,6 +93,7 @@ public interface EntityHierarchySource {
 	 *
 	 * @return The row-id name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getRowId();
 
 	/**
@@ -89,6 +101,7 @@ public interface EntityHierarchySource {
 	 *
 	 * @return The optimistic locking style.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	OptimisticLockStyle getOptimisticLockStyle();
 
 	/**
@@ -96,6 +109,7 @@ public interface EntityHierarchySource {
 	 *
 	 * @return The caching configuration.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Caching getCaching();
 
 	/**
@@ -103,5 +117,6 @@ public interface EntityHierarchySource {
 	 *
 	 * @return The natural id caching configuration.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Caching getNaturalIdCaching();
 }

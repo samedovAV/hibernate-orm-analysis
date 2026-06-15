@@ -9,6 +9,8 @@ import org.hibernate.action.queue.spi.decompose.collection.CollectionMutationPla
 import org.hibernate.action.queue.spi.decompose.entity.EntityMutationPlanContributor;
 import org.hibernate.persister.collection.CollectionPersister;
 import org.hibernate.persister.entity.EntityPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Graph action-queue integration for a state-management strategy.
 ///
@@ -27,11 +29,13 @@ public interface StateManagementGraphIntegration {
 	};
 
 	/// Creates the entity mutation-plan contributor for the given persister.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default EntityMutationPlanContributor createEntityMutationPlanContributor(EntityPersister persister) {
 		return EntityMutationPlanContributor.STANDARD;
 	}
 
 	/// Creates the collection mutation-plan contributor for the given persister.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default CollectionMutationPlanContributor createCollectionMutationPlanContributor(CollectionPersister persister) {
 		return CollectionMutationPlanContributor.STANDARD;
 	}

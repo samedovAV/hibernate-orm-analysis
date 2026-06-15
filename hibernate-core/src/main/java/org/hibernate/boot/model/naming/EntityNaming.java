@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.boot.model.naming;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * @author Steve Ebersole
@@ -16,6 +19,7 @@ public interface EntityNaming {
 	 *
 	 * @return The entity class name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getClassName();
 
 	/**
@@ -26,6 +30,7 @@ public interface EntityNaming {
 	 *
 	 * @return The Hibernate entity name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getEntityName();
 
 	/**
@@ -34,5 +39,6 @@ public interface EntityNaming {
 	 * @return The JPA entity name, if one was specified.  May return {@code null} if one
 	 * was not explicitly specified.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getJpaEntityName();
 }

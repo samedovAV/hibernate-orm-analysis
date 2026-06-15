@@ -17,6 +17,8 @@ import org.hibernate.cfg.StateManagementSettings;
 import org.hibernate.engine.creation.CommonBuilder;
 import org.hibernate.resource.jdbc.spi.PhysicalConnectionHandlingMode;
 import org.hibernate.resource.jdbc.spi.StatementInspector;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Allows creation of a new [Session] with specific options
 /// overriding the defaults from the [SessionFactory].
@@ -46,32 +48,39 @@ public interface SessionBuilder extends CommonBuilder {
 	/// Open the session using the specified options.
 	/// @see #open
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Session openSession();
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Session open() {
 		return openSession();
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionBuilder interceptor(@Nullable Interceptor interceptor);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionBuilder noInterceptor();
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionBuilder noSessionInterceptorCreation();
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionBuilder noStatementInspector();
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionBuilder statementInspector(@Nullable UnaryOperator<String> operator);
 
 	/**
@@ -87,6 +96,7 @@ public interface SessionBuilder extends CommonBuilder {
 	 */
 	@Deprecated(since = "7.0")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionBuilder statementInspector(@Nonnull StatementInspector statementInspector);
 
 	/**
@@ -98,6 +108,7 @@ public interface SessionBuilder extends CommonBuilder {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionBuilder connection(@Nonnull Connection connection);
 
 	/**
@@ -112,6 +123,7 @@ public interface SessionBuilder extends CommonBuilder {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionBuilder connectionHandling(@Nonnull ConnectionAcquisitionMode acquisitionMode, @Nonnull ConnectionReleaseMode releaseMode);
 
 	/**
@@ -128,6 +140,7 @@ public interface SessionBuilder extends CommonBuilder {
 	 */
 	@Deprecated(since = "7.0")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionBuilder connectionHandlingMode(PhysicalConnectionHandlingMode mode);
 
 	/**
@@ -140,6 +153,7 @@ public interface SessionBuilder extends CommonBuilder {
 	 * @see jakarta.persistence.SynchronizationType#SYNCHRONIZED
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionBuilder autoJoinTransactions(boolean autoJoinTransactions);
 
 	/**
@@ -150,6 +164,7 @@ public interface SessionBuilder extends CommonBuilder {
 	 * @return {@code this}, for method chaining
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionBuilder autoClear(boolean autoClear);
 
 	/**
@@ -162,6 +177,7 @@ public interface SessionBuilder extends CommonBuilder {
 	 * @see jakarta.persistence.PersistenceContextType
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionBuilder flushMode(@Nonnull FlushMode flushMode);
 
 	/**
@@ -174,26 +190,32 @@ public interface SessionBuilder extends CommonBuilder {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionBuilder tenantIdentifier(Object tenantIdentifier);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionBuilder readOnly(boolean readOnly);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionBuilder jdbcBatchSize(int batchSize);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionBuilder initialCacheMode(@Nonnull CacheMode cacheMode);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionBuilder cacheStoreMode(@Nullable CacheStoreMode cacheStoreMode);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionBuilder cacheRetrieveMode(@Nullable CacheRetrieveMode cacheRetrieveMode);
 
 	/**
@@ -205,6 +227,7 @@ public interface SessionBuilder extends CommonBuilder {
 	 * @return {@code this}, for method chaining
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionBuilder eventListeners(@Nonnull SessionEventListener... listeners);
 
 	/**
@@ -214,6 +237,7 @@ public interface SessionBuilder extends CommonBuilder {
 	 * @return {@code this}, for method chaining
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionBuilder clearEventListeners();
 
 	/**
@@ -224,6 +248,7 @@ public interface SessionBuilder extends CommonBuilder {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionBuilder jdbcTimeZone(@Nullable TimeZone timeZone);
 
 	/**
@@ -236,6 +261,7 @@ public interface SessionBuilder extends CommonBuilder {
 	 * @see jakarta.persistence.PersistenceContextType
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionBuilder autoClose(boolean autoClose);
 
 	/**
@@ -248,6 +274,7 @@ public interface SessionBuilder extends CommonBuilder {
 	 * @since 7.0
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionBuilder identifierRollback(boolean identifierRollback);
 
 	/**
@@ -261,6 +288,7 @@ public interface SessionBuilder extends CommonBuilder {
 	 * @since 7.2
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionBuilder defaultBatchFetchSize(int defaultBatchFetchSize);
 
 	/**
@@ -274,6 +302,7 @@ public interface SessionBuilder extends CommonBuilder {
 	 * @since 7.2
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionBuilder subselectFetchEnabled(boolean subselectFetchEnabled);
 
 	/**
@@ -283,6 +312,7 @@ public interface SessionBuilder extends CommonBuilder {
 	 * revisions effective at the given instant.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionBuilder asOf(@Nullable Instant instant);
 
 	/**
@@ -294,5 +324,6 @@ public interface SessionBuilder extends CommonBuilder {
 	 * the session represent the state effective at the given changeset.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionBuilder atChangeset(@Nullable Object changesetId);
 }

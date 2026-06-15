@@ -7,6 +7,8 @@ package org.hibernate.metamodel.mapping;
 import org.hibernate.Incubating;
 import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.sql.model.ast.builder.MutationGroupBuilder;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Optional legacy mutation support for an [AuxiliaryMapping].
 ///
@@ -18,5 +20,6 @@ import org.hibernate.sql.model.ast.builder.MutationGroupBuilder;
 @Incubating
 public interface LegacyAuxiliaryMutationSupport {
 	/// Adds auxiliary columns to the legacy entity insert mutation group.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addToInsertGroup(MutationGroupBuilder insertGroupBuilder, EntityPersister persister);
 }

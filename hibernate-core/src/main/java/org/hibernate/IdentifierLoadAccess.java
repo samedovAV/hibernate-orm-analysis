@@ -12,6 +12,8 @@ import jakarta.persistence.FindOption;
 import jakarta.persistence.PessimisticLockScope;
 import jakarta.persistence.Timeout;
 import org.hibernate.graph.GraphSemantic;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Loads an entity by its primary identifier.
 ///
@@ -53,6 +55,7 @@ public interface IdentifierLoadAccess<T> {
 	/// @param lockMode The lock mode to apply
 	///
 	/// @return `this`, for method chaining
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default IdentifierLoadAccess<T> with(LockMode lockMode) {
 		return with( lockMode, PessimisticLockScope.NORMAL );
 	}
@@ -63,6 +66,7 @@ public interface IdentifierLoadAccess<T> {
 	/// @param lockScope The locking scope (how much to lock).
 	///
 	/// @return `this`, for method chaining
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	IdentifierLoadAccess<T> with(LockMode lockMode, PessimisticLockScope lockScope);
 
 	/// Specify the [timeout][Timeout] to use when querying the database.
@@ -70,6 +74,7 @@ public interface IdentifierLoadAccess<T> {
 	/// @param timeout The timeout to apply to the database operation
 	///
 	/// @return `this`, for method chaining
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	IdentifierLoadAccess<T> with(Timeout timeout);
 
 	/// Specify the [lock options][LockOptions] to use when querying the database.
@@ -82,6 +87,7 @@ public interface IdentifierLoadAccess<T> {
 	/// [#with(LockMode, PessimisticLockScope)]
 	/// and/or [#with(Timeout)] instead.
 	@Deprecated(since = "7.0", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	IdentifierLoadAccess<T> with(LockOptions lockOptions);
 
 	/**
@@ -91,6 +97,7 @@ public interface IdentifierLoadAccess<T> {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	IdentifierLoadAccess<T> with(CacheMode cacheMode);
 
 	/**
@@ -98,6 +105,7 @@ public interface IdentifierLoadAccess<T> {
 	 *
 	 * @see Session#setDefaultReadOnly(boolean)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	IdentifierLoadAccess<T> withReadOnly(boolean readOnly);
 
 	/**
@@ -107,6 +115,7 @@ public interface IdentifierLoadAccess<T> {
 	 *
 	 * @since 6.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default IdentifierLoadAccess<T> withFetchGraph(EntityGraph<T> graph) {
 		return with( graph, GraphSemantic.FETCH );
 	}
@@ -118,6 +127,7 @@ public interface IdentifierLoadAccess<T> {
 	 *
 	 * @since 6.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default IdentifierLoadAccess<T> withLoadGraph(EntityGraph<T> graph) {
 		return with( graph, GraphSemantic.LOAD );
 	}
@@ -126,6 +136,7 @@ public interface IdentifierLoadAccess<T> {
 	 * @deprecated use {@link #withLoadGraph}
 	 */
 	@Deprecated(since = "6.3")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default IdentifierLoadAccess<T> with(EntityGraph<T> graph) {
 		return withLoadGraph( graph );
 	}
@@ -135,6 +146,7 @@ public interface IdentifierLoadAccess<T> {
 	 * {@linkplain jakarta.persistence.EntityGraph entity graph},
 	 * and how it should be {@linkplain GraphSemantic interpreted}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	IdentifierLoadAccess<T> with(EntityGraph<T> graph, GraphSemantic semantic);
 
 	/**
@@ -147,6 +159,7 @@ public interface IdentifierLoadAccess<T> {
 	 *
 	 * @since 6.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	IdentifierLoadAccess<T> enableFetchProfile(String profileName);
 
 	/**
@@ -159,6 +172,7 @@ public interface IdentifierLoadAccess<T> {
 	 *
 	 * @since 6.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	IdentifierLoadAccess<T> disableFetchProfile(String profileName);
 
 	/**
@@ -178,6 +192,7 @@ public interface IdentifierLoadAccess<T> {
 	 * @deprecated Use {@linkplain Session#getReference(Class, Object, KeyType)} instead.
 	 */
 	@Deprecated
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	T getReference(Object id);
 
 	/**
@@ -195,6 +210,7 @@ public interface IdentifierLoadAccess<T> {
 	 * {@linkplain Session#find(EntityGraph, Object, FindOption...)} instead.
 	 */
 	@Deprecated
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	T load(Object id);
 
 	/**
@@ -205,5 +221,6 @@ public interface IdentifierLoadAccess<T> {
 	 *
 	 * @return The persistent instance, if any, as an {@link Optional}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Optional<T> loadOptional(Object id);
 }

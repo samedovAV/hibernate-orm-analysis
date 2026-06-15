@@ -10,6 +10,8 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A service for querying the audit log. Provides access
@@ -35,6 +37,7 @@ public interface AuditLog extends AutoCloseable {
 	 * Close this audit log and release its internal session.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void close();
 
 	/**
@@ -70,6 +73,7 @@ public interface AuditLog extends AutoCloseable {
 	 *
 	 * @return the list of changeset identifiers
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<Object> getChangesets(Class<?> entityClass, Object id);
 
 	/**
@@ -83,6 +87,7 @@ public interface AuditLog extends AutoCloseable {
 	 * @return the modification type, or {@code null} if the
 	 * entity was not modified in that changeset
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ModificationType getModificationType(Class<?> entityClass, Object id, Object changesetId);
 
 	/**
@@ -92,6 +97,7 @@ public interface AuditLog extends AutoCloseable {
 	 *
 	 * @return {@code true} if the entity is audited
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isAudited(Class<?> entityClass);
 
 	/**
@@ -109,6 +115,7 @@ public interface AuditLog extends AutoCloseable {
 	 * {@code null} if the entity did not exist
 	 * (e.g. before creation or after deletion)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T find(Class<T> entityClass, Object id, Object changesetId);
 
 	/**
@@ -130,6 +137,7 @@ public interface AuditLog extends AutoCloseable {
 	 *
 	 * @return the entity state in that changeset
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T find(Class<T> entityClass, Object id, Object changesetId, boolean includeDeletions);
 
 	/**
@@ -143,6 +151,7 @@ public interface AuditLog extends AutoCloseable {
 	 *
 	 * @return the entity state, or {@code null}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T find(Class<T> entityClass, Object id, Instant instant);
 
 	/**
@@ -155,6 +164,7 @@ public interface AuditLog extends AutoCloseable {
 	 *
 	 * @return the entity snapshots modified in that changeset
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> List<T> findEntitiesModifiedAt(Class<T> entityClass, Object changesetId);
 
 	/**
@@ -169,6 +179,7 @@ public interface AuditLog extends AutoCloseable {
 	 *
 	 * @return the matching entity snapshots
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> List<T> findEntitiesModifiedAt(Class<T> entityClass, Object changesetId, ModificationType modificationType);
 
 	/**
@@ -182,6 +193,7 @@ public interface AuditLog extends AutoCloseable {
 	 *
 	 * @return entity snapshots grouped by modification type
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> Map<ModificationType, List<T>> findEntitiesGroupedByModificationType(
 			Class<T> entityClass,
 			Object changesetId);
@@ -204,6 +216,7 @@ public interface AuditLog extends AutoCloseable {
 	 *
 	 * @return the audit history as a list of {@link AuditEntry}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> List<AuditEntry<T>> getHistory(Class<T> entityClass, Object id);
 
 	// --- Cross-type changeset queries ---
@@ -222,6 +235,7 @@ public interface AuditLog extends AutoCloseable {
 	 *
 	 * @throws AuditException if entity change tracking is not enabled
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Set<Class<?>> getEntityTypesModifiedAt(Object changesetId);
 
 	/**
@@ -238,6 +252,7 @@ public interface AuditLog extends AutoCloseable {
 	 *
 	 * @throws AuditException if entity change tracking is not enabled
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<Object> findAllEntitiesModifiedAt(Object changesetId);
 
 	/**
@@ -256,6 +271,7 @@ public interface AuditLog extends AutoCloseable {
 	 *
 	 * @throws AuditException if entity change tracking is not enabled
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<Object> findAllEntitiesModifiedAt(Object changesetId, ModificationType modificationType);
 
 	/**
@@ -272,6 +288,7 @@ public interface AuditLog extends AutoCloseable {
 	 *
 	 * @throws AuditException if entity change tracking is not enabled
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Map<ModificationType, List<Object>> findAllEntitiesGroupedByModificationType(Object changesetId);
 
 	/**
@@ -286,6 +303,7 @@ public interface AuditLog extends AutoCloseable {
 	 * @throws AuditException if no changelog entity is configured
 	 * or the changeset does not exist
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Instant getChangesetTimestamp(Object changesetId);
 
 	/**
@@ -302,6 +320,7 @@ public interface AuditLog extends AutoCloseable {
 	 * @throws AuditException if no changeset exists at or
 	 * before the given instant
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getChangesetId(Instant instant);
 
 	/**
@@ -317,6 +336,7 @@ public interface AuditLog extends AutoCloseable {
 	 * @throws AuditException if no changelog entity is configured
 	 * or the changeset does not exist
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T findChangeset(Class<T> changelogClass, Object changesetId);
 
 	/**
@@ -329,6 +349,7 @@ public interface AuditLog extends AutoCloseable {
 	 *
 	 * @return a map from changeset identifier to changelog entity
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> Map<Object, T> findChangesets(Class<T> changelogClass, Set<?> changesetIds);
 
 }

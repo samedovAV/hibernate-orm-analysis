@@ -10,6 +10,8 @@ import java.util.Map;
 import org.hibernate.boot.internal.Abstract;
 import org.hibernate.boot.internal.AnyKeyType;
 import org.hibernate.models.spi.ModelsContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -39,15 +41,18 @@ public class AnyKeyTypeXmlAnnotation implements AnyKeyType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String value() {
 		return value;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void value(String value) {
 		this.value = value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return Abstract.class;
 	}

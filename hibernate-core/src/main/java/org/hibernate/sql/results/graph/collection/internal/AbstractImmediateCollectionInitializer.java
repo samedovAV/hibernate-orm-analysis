@@ -23,6 +23,8 @@ import org.hibernate.sql.results.jdbc.spi.RowProcessingState;
 import jakarta.annotation.Nullable;
 
 import static org.hibernate.internal.util.NullnessUtil.castNonNull;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base support for CollectionInitializer implementations that represent
@@ -84,11 +86,13 @@ public abstract class AbstractImmediateCollectionInitializer<Data extends Abstra
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected ImmediateCollectionInitializerData createInitializerData(RowProcessingState rowProcessingState) {
 		return new ImmediateCollectionInitializerData( this, rowProcessingState );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void forEachSubInitializer(BiConsumer<Initializer<?>, RowProcessingState> consumer, InitializerData data) {
 		super.forEachSubInitializer( consumer, data );
 		if ( collectionValueKeyResultAssembler != null ) {
@@ -100,6 +104,7 @@ public abstract class AbstractImmediateCollectionInitializer<Data extends Abstra
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void resolveKey(Data data) {
 		if ( data.getState() != State.UNINITIALIZED ) {
 			// already resolved
@@ -121,6 +126,7 @@ public abstract class AbstractImmediateCollectionInitializer<Data extends Abstra
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void resolveState(Data data) {
 		super.resolveState( data );
 		if ( collectionValueKeyResultAssembler != null ) {
@@ -137,6 +143,7 @@ public abstract class AbstractImmediateCollectionInitializer<Data extends Abstra
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void resolveFromPreviousRow(Data data) {
 		super.resolveFromPreviousRow( data );
 		if ( data.getState() == State.RESOLVED ) {
@@ -153,6 +160,7 @@ public abstract class AbstractImmediateCollectionInitializer<Data extends Abstra
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void resolveFromPreviouslyInitializedInstance(Data data) {
 		data.setState( State.INITIALIZED );
 		if ( data.shallowCached ) {
@@ -179,6 +187,7 @@ public abstract class AbstractImmediateCollectionInitializer<Data extends Abstra
 	/**
 	 * Returns whether the collection value key is missing.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean resolveCollectionContentKey(Data data) {
 		assert collectionValueKeyResultAssembler != null;
 		final var rowProcessingState = data.getRowProcessingState();
@@ -206,6 +215,7 @@ public abstract class AbstractImmediateCollectionInitializer<Data extends Abstra
 		return false;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void resolveKeySubInitializers(Data data) {
 		final var rowProcessingState = data.getRowProcessingState();
 		final var indexAssembler = getIndexAssembler();
@@ -222,6 +232,7 @@ public abstract class AbstractImmediateCollectionInitializer<Data extends Abstra
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void resolveInstance(Data data) {
 		if ( data.getState() == State.KEY_RESOLVED ) {// Being a result initializer means that this collection initializer is for lazy loading,
 			// which has a very high chance that a collection resolved of the previous row is the same for the current row,
@@ -325,6 +336,7 @@ public abstract class AbstractImmediateCollectionInitializer<Data extends Abstra
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void initializeShallowCached(Data data) {
 		assert data.shallowCached;
 		// If this is a query cache hit with the shallow query cache layout,
@@ -342,6 +354,7 @@ public abstract class AbstractImmediateCollectionInitializer<Data extends Abstra
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void setMissing(Data data) {
 		super.setMissing( data );
 		data.collectionValueKey = null;
@@ -349,6 +362,7 @@ public abstract class AbstractImmediateCollectionInitializer<Data extends Abstra
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void resolveInstance(Object instance, Data data) {
 		assert data.getState() == State.UNINITIALIZED || instance == data.getCollectionInstance();
 		if ( instance == null ) {
@@ -412,8 +426,10 @@ public abstract class AbstractImmediateCollectionInitializer<Data extends Abstra
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract void resolveInstanceSubInitializers(Data data);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void resolveCollectionContentState(RowProcessingState rowProcessingState) {
 		final var indexAssembler = getIndexAssembler();
 		if ( indexAssembler != null ) {
@@ -422,6 +438,7 @@ public abstract class AbstractImmediateCollectionInitializer<Data extends Abstra
 		getElementAssembler().resolveState( rowProcessingState );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void takeResponsibility(Data data) {
 		data.responsibility =
 				new LoadingCollectionEntryImpl(
@@ -435,6 +452,7 @@ public abstract class AbstractImmediateCollectionInitializer<Data extends Abstra
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void initializeInstance(Data data) {
 		if ( data.getState() == State.RESOLVED && data.responsibility != null ) {
 			data.setState( State.INITIALIZED );
@@ -456,6 +474,7 @@ public abstract class AbstractImmediateCollectionInitializer<Data extends Abstra
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void initializeInstanceFromParent(Object parentInstance, Data data) {
 		data.setCollectionInstance( (PersistentCollection<?>) getInitializedPart().getValue( parentInstance ) );
 		data.setState( State.INITIALIZED );
@@ -463,6 +482,7 @@ public abstract class AbstractImmediateCollectionInitializer<Data extends Abstra
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean hasLazySubInitializers() {
 		final var indexAssembler = getIndexAssembler();
 		return indexAssembler != null && indexAssembler.hasLazySubInitializers()
@@ -470,15 +490,20 @@ public abstract class AbstractImmediateCollectionInitializer<Data extends Abstra
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(Data data, List<Object> objects) {
 		readCollectionRow( data, objects );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract void readCollectionRow(Data data, List<Object> loadingState);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract void initializeSubInstancesFromParent(Data data);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public abstract @Nullable DomainResultAssembler<?> getIndexAssembler();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public abstract DomainResultAssembler<?> getElementAssembler();
 }

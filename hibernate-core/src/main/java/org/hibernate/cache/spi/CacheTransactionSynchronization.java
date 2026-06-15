@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.cache.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Defines a context object that a {@link RegionFactory} is asked to create
@@ -49,6 +52,7 @@ public interface CacheTransactionSynchronization {
 	 *
 	 * An UnsupportedOperationException is thrown if 2LC has not enabled
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	long getCachingTimestamp();
 
 	/**
@@ -57,6 +61,7 @@ public interface CacheTransactionSynchronization {
 	 * @apiNote Implementors can consider this the effective start of a
 	 * transaction.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void transactionJoined();
 
 	/**
@@ -65,6 +70,7 @@ public interface CacheTransactionSynchronization {
 	 * this is only called for successful "begin completion" of the underlying
 	 * resource transaction (not rolling-back, marked-for-rollback, etc)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void transactionCompleting();
 
 	/**
@@ -75,6 +81,7 @@ public interface CacheTransactionSynchronization {
 	 *
 	 * @param successful Was the resource transaction successful?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void transactionCompleted(boolean successful);
 
 	/**
@@ -85,6 +92,7 @@ public interface CacheTransactionSynchronization {
 	 * a feature is proposed.
 	 */
 	@SuppressWarnings("unused")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void transactionSuspended() {
 		// nothing to do since it is currently not used/supported
 	}
@@ -96,6 +104,7 @@ public interface CacheTransactionSynchronization {
 	 * be notified when a transaction is suspended nor resumed
 	 */
 	@SuppressWarnings("unused")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void transactionResumed() {
 		// nothing to do since it is currently not used/supported
 	}

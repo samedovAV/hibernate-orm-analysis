@@ -5,6 +5,8 @@
 package org.hibernate.query.sqm.spi;
 
 import org.hibernate.query.sqm.tree.expression.SqmParameter;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Describes the context in which a parameter is declared.  This is  used mainly to
@@ -18,5 +20,6 @@ public interface ParameterDeclarationContext {
 	 *
 	 * @return {@code true} if they are; {@code false} otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isMultiValuedBindingAllowed();
 }

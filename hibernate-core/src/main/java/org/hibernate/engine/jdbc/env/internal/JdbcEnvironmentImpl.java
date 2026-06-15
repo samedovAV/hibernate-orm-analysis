@@ -35,6 +35,8 @@ import static org.hibernate.cfg.MappingSettings.DEFAULT_SCHEMA;
 import static org.hibernate.engine.config.spi.StandardConverters.STRING;
 import static org.hibernate.engine.jdbc.JdbcLogging.JDBC_LOGGER;
 import static org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl.makeLobCreatorBuilder;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -94,10 +96,12 @@ public class JdbcEnvironmentImpl implements JdbcEnvironment {
 		logJdbcFetchSize( extractedMetaDataSupport.getDefaultFetchSize(), cfgService );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static ConfigurationService configurationService(ServiceRegistryImplementor serviceRegistry) {
 		return serviceRegistry.requireService( ConfigurationService.class );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private IdentifierHelperBuilder identifierHelperBuilder(
 			ConfigurationService cfgService, NameQualifierSupport nameQualifierSupport) {
 		final var builder = IdentifierHelperBuilder.from( this );
@@ -108,6 +112,7 @@ public class JdbcEnvironmentImpl implements JdbcEnvironment {
 		return builder;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static IdentifierHelper identifierHelper(Dialect dialect, IdentifierHelperBuilder builder) {
 		try {
 			final var identifierHelper = dialect.buildIdentifierHelper( builder, null );
@@ -122,11 +127,13 @@ public class JdbcEnvironmentImpl implements JdbcEnvironment {
 		return builder.build();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static SqlAstTranslatorFactory resolveSqlAstTranslatorFactory(Dialect dialect) {
 		final var sqlAstTranslatorFactory = dialect.getSqlAstTranslatorFactory();
 		return sqlAstTranslatorFactory == null ? new StandardSqlAstTranslatorFactory() : sqlAstTranslatorFactory;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean logWarnings(ConfigurationService cfgService, Dialect dialect) {
 		return cfgService.getSetting(
 				JdbcSettings.LOG_JDBC_WARNINGS,
@@ -135,6 +142,7 @@ public class JdbcEnvironmentImpl implements JdbcEnvironment {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean logErrors(ConfigurationService cfgService) {
 		return cfgService.getSetting(
 				JdbcSettings.LOG_JDBC_ERRORS,
@@ -143,6 +151,7 @@ public class JdbcEnvironmentImpl implements JdbcEnvironment {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean globalQuoting(ConfigurationService cfgService) {
 		return cfgService.getSetting(
 				MappingSettings.GLOBALLY_QUOTED_IDENTIFIERS,
@@ -151,6 +160,7 @@ public class JdbcEnvironmentImpl implements JdbcEnvironment {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean globalQuotingSkippedForColumnDefinitions(ConfigurationService cfgService) {
 		return cfgService.getSetting(
 				MappingSettings.GLOBALLY_QUOTED_IDENTIFIERS_SKIP_COLUMN_DEFINITIONS,
@@ -159,6 +169,7 @@ public class JdbcEnvironmentImpl implements JdbcEnvironment {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean autoKeywordQuoting(ConfigurationService cfgService) {
 		return cfgService.getSetting(
 				MappingSettings.KEYWORD_AUTO_QUOTING_ENABLED,
@@ -196,6 +207,7 @@ public class JdbcEnvironmentImpl implements JdbcEnvironment {
 		lobCreatorBuilder = makeLobCreatorBuilder( dialect );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private IdentifierHelper identifierHelper(DatabaseMetaData databaseMetaData, Dialect dialect) {
 		final var identifierHelperBuilder = IdentifierHelperBuilder.from( this );
 		identifierHelperBuilder.setNameQualifierSupport( nameQualifierSupport );
@@ -212,12 +224,14 @@ public class JdbcEnvironmentImpl implements JdbcEnvironment {
 		return identifierHelperBuilder.build();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private NameQualifierSupport nameQualifierSupport(DatabaseMetaData databaseMetaData, Dialect dialect)
 			throws SQLException {
 		final var nameQualifierSupport = dialect.getNameQualifierSupport();
 		return nameQualifierSupport == null ? determineNameQualifierSupport( databaseMetaData ) : nameQualifierSupport;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private NameQualifierSupport determineNameQualifierSupport(DatabaseMetaData databaseMetaData) throws SQLException {
 		final boolean supportsCatalogs = databaseMetaData.supportsCatalogsInTableDefinitions();
 		final boolean supportsSchemas = databaseMetaData.supportsSchemasInTableDefinitions();
@@ -295,6 +309,7 @@ public class JdbcEnvironmentImpl implements JdbcEnvironment {
 		logJdbcFetchSize( extractedMetaDataSupport.getDefaultFetchSize(), cfgService );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private IdentifierHelper identifierHelper(
 			Dialect dialect,
 			DatabaseMetaData databaseMetaData,
@@ -312,6 +327,7 @@ public class JdbcEnvironmentImpl implements JdbcEnvironment {
 		return builder.build();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static SqlExceptionHelper buildSqlExceptionHelper(Dialect dialect, boolean logWarnings, boolean logErrors) {
 		final var dialectDelegate = dialect.buildSQLExceptionConversionDelegate();
 		final var delegates = dialectDelegate == null
@@ -321,55 +337,66 @@ public class JdbcEnvironmentImpl implements JdbcEnvironment {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Dialect getDialect() {
 		return dialect;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqlAstTranslatorFactory getSqlAstTranslatorFactory() {
 		return sqlAstTranslatorFactory;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ExtractedDatabaseMetaData getExtractedDatabaseMetaData() {
 		return extractedMetaDataSupport;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Identifier getCurrentCatalog() {
 		return currentCatalog;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Identifier getCurrentSchema() {
 		return currentSchema;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QualifiedObjectNameFormatter getQualifiedObjectNameFormatter() {
 		return qualifiedObjectNameFormatter;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public IdentifierHelper getIdentifierHelper() {
 		return identifierHelper;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NameQualifierSupport getNameQualifierSupport() {
 		return nameQualifierSupport;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqlExceptionHelper getSqlExceptionHelper() {
 		return sqlExceptionHelper;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LobCreatorBuilder getLobCreatorBuilder() {
 		return lobCreatorBuilder;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void logJdbcFetchSize(int defaultFetchSize, ConfigurationService cfgService) {
 		if ( !cfgService.getSettings().containsKey( JdbcSettings.STATEMENT_FETCH_SIZE ) ) {
 			if ( defaultFetchSize > 0 && defaultFetchSize < 100 ) {

@@ -16,6 +16,8 @@ import org.hibernate.type.descriptor.ValueExtractor;
 import org.hibernate.type.descriptor.WrapperOptions;
 import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.descriptor.sql.spi.DdlTypeRegistry;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specialized type mapping for {@code JSON_ARRAY} and the JSON SQL data type.
@@ -39,21 +41,25 @@ public class JsonAsStringArrayJdbcType extends JsonArrayJdbcType implements Adju
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getJdbcTypeCode() {
 		return nationalized ? SqlTypes.NVARCHAR : SqlTypes.VARCHAR;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getDdlTypeCode() {
 		return ddlTypeCode;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "JsonArrayAsStringJdbcType";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcType resolveIndicatedType(JdbcTypeIndicators indicators, JavaType<?> domainJtd) {
 		// Depending on the size of the column, we might have to adjust the jdbc type code for DDL.
 		// In some DBMS we can compare LOBs with special functions which is handled in the SqlAstTranslators,
@@ -70,6 +76,7 @@ public class JsonAsStringArrayJdbcType extends JsonArrayJdbcType implements Adju
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean needsLob(JdbcTypeIndicators indicators) {
 		final Dialect dialect = indicators.getDialect();
 		final long length = indicators.getColumnLength();
@@ -87,10 +94,12 @@ public class JsonAsStringArrayJdbcType extends JsonArrayJdbcType implements Adju
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <X> ValueBinder<X> getBinder(JavaType<X> javaType) {
 		if ( nationalized ) {
 			return new BasicBinder<>( javaType, this ) {
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected void doBind(PreparedStatement st, X value, int index, WrapperOptions options)
 						throws SQLException {
 					final String json = ( (JsonAsStringArrayJdbcType) getJdbcType() ).toString( value, getJavaType(), options );
@@ -103,6 +112,7 @@ public class JsonAsStringArrayJdbcType extends JsonArrayJdbcType implements Adju
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected void doBind(CallableStatement st, X value, String name, WrapperOptions options)
 						throws SQLException {
 					final String json = ( (JsonAsStringArrayJdbcType) getJdbcType() ).toString( value, getJavaType(), options );
@@ -115,6 +125,7 @@ public class JsonAsStringArrayJdbcType extends JsonArrayJdbcType implements Adju
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_N, n = "", count = {})
 				protected void doBindNull(PreparedStatement st, int index, WrapperOptions options) throws SQLException {
 					if ( options.getDialect().supportsNationalizedMethods() ) {
 						super.doBindNull( st, index, options );
@@ -125,6 +136,7 @@ public class JsonAsStringArrayJdbcType extends JsonArrayJdbcType implements Adju
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_N, n = "", count = {})
 				protected void doBindNull(CallableStatement st, String name, WrapperOptions options)
 						throws SQLException {
 					if ( options.getDialect().supportsNationalizedMethods() ) {
@@ -142,10 +154,12 @@ public class JsonAsStringArrayJdbcType extends JsonArrayJdbcType implements Adju
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <X> ValueExtractor<X> getExtractor(JavaType<X> javaType) {
 		if ( nationalized ) {
 			return new BasicExtractor<>( javaType, this ) {
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected X doExtract(ResultSet rs, int paramIndex, WrapperOptions options) throws SQLException {
 					if ( options.getDialect().supportsNationalizedMethods() ) {
 						return getObject( rs.getNString( paramIndex ), options );
@@ -156,6 +170,7 @@ public class JsonAsStringArrayJdbcType extends JsonArrayJdbcType implements Adju
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected X doExtract(CallableStatement statement, int index, WrapperOptions options)
 						throws SQLException {
 					if ( options.getDialect().supportsNationalizedMethods() ) {
@@ -167,6 +182,7 @@ public class JsonAsStringArrayJdbcType extends JsonArrayJdbcType implements Adju
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected X doExtract(CallableStatement statement, String name, WrapperOptions options)
 						throws SQLException {
 					if ( options.getDialect().supportsNationalizedMethods() ) {
@@ -177,6 +193,7 @@ public class JsonAsStringArrayJdbcType extends JsonArrayJdbcType implements Adju
 					}
 				}
 
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				private X getObject(String json, WrapperOptions options) throws SQLException {
 					return ( (JsonAsStringArrayJdbcType) getJdbcType() ).fromString(
 							json,

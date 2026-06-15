@@ -5,6 +5,8 @@
 package org.hibernate.boot.model;
 
 import org.hibernate.service.JavaServiceLoadable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An object that contributes custom HQL functions, eventually to a
@@ -33,6 +35,7 @@ public interface FunctionContributor {
 	 *
 	 * @param functionContributions The target for the contributions
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void contributeFunctions(FunctionContributions functionContributions);
 
 	/**
@@ -48,6 +51,7 @@ public interface FunctionContributor {
 	 *
 	 * @return the ordinal for this FunctionContributor
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int ordinal(){
 		return 1000;
 	}

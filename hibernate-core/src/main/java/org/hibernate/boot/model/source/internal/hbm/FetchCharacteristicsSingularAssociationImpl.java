@@ -14,6 +14,8 @@ import org.hibernate.engine.FetchStyle;
 import org.hibernate.engine.FetchTiming;
 
 import static org.hibernate.internal.log.DeprecationLogger.DEPRECATION_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * {@code hbm.xml} specific handling for FetchCharacteristicsSingularAssociation
@@ -36,16 +38,19 @@ public class FetchCharacteristicsSingularAssociationImpl implements FetchCharact
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchTiming getFetchTiming() {
 		return fetchTiming;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchStyle getFetchStyle() {
 		return fetchStyle;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isUnwrapProxies() {
 		return unwrapProxies;
 	}
@@ -70,21 +75,25 @@ public class FetchCharacteristicsSingularAssociationImpl implements FetchCharact
 			fetchStyle = FetchStyle.SELECT;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder setFetchTiming(FetchTiming fetchTiming) {
 			this.fetchTiming = fetchTiming;
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder setFetchStyle(FetchStyle fetchStyle) {
 			this.fetchStyle = fetchStyle;
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder setUnwrapProxies(boolean unwrapProxies) {
 			this.unwrapProxies = unwrapProxies;
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public FetchCharacteristicsSingularAssociationImpl createFetchCharacteristics() {
 			return new FetchCharacteristicsSingularAssociationImpl( fetchTiming, fetchStyle, unwrapProxies );
 		}
@@ -94,6 +103,7 @@ public class FetchCharacteristicsSingularAssociationImpl implements FetchCharact
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Static builder methods
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static FetchCharacteristicsSingularAssociationImpl interpretManyToOne(
 			EffectiveMappingDefaults mappingDefaults,
 			JaxbHbmFetchStyleEnum fetchMapping,
@@ -153,6 +163,7 @@ public class FetchCharacteristicsSingularAssociationImpl implements FetchCharact
 	}
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static FetchCharacteristicsSingularAssociationImpl interpretManyToManyElement(
 			EffectiveMappingDefaults mappingDefaults,
 			JaxbHbmFetchStyleEnum fetchMapping,
@@ -194,6 +205,7 @@ public class FetchCharacteristicsSingularAssociationImpl implements FetchCharact
 		return builder.createFetchCharacteristics();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static FetchCharacteristicsSingularAssociationImpl interpretOneToOne(
 			EffectiveMappingDefaults mappingDefaults,
 			JaxbHbmFetchStyleEnum fetchMapping,

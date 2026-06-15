@@ -13,6 +13,8 @@ import org.hibernate.engine.spi.StatelessSessionImplementor;
 import org.hibernate.resource.jdbc.spi.StatementInspector;
 
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -32,6 +34,7 @@ public abstract class StatelessSessionBuilderImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected StatelessSessionBuilder getThis() {
 		return this;
 	}
@@ -41,22 +44,26 @@ public abstract class StatelessSessionBuilderImpl
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public StatelessSession open() {
 		return openStatelessSession();
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public StatelessSession openStatelessSession() {
 		CORE_LOGGER.openingStatelessSession( options.getTenantIdentifierValue() );
 		return createStatelessSession( options );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract StatelessSessionImplementor createStatelessSession(StatelessOptions options);
 
 	@Override
 	@Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public StatelessSessionBuilder statementInspector(@Nonnull StatementInspector statementInspector) {
 		options.statementInspector( statementInspector );
 		return this;

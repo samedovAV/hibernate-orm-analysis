@@ -18,6 +18,8 @@ import org.hibernate.internal.SessionFactoryRegistry;
 import org.hibernate.persister.entity.EntityPersister;
 
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Convenience base class for lazy initialization handlers.  Centralizes the basic plumbing of doing lazy
@@ -67,16 +69,19 @@ public abstract class AbstractLazyInitializer implements LazyInitializer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final String getEntityName() {
 		return entityName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final Object getInternalIdentifier() {
 		return id;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final Object getIdentifier() {
 		if ( isUninitialized() && isInitializeProxyWhenAccessingIdentifier() ) {
 			initialize();
@@ -84,18 +89,22 @@ public abstract class AbstractLazyInitializer implements LazyInitializer {
 		return id;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private SessionFactoryImplementor getFactory() {
 		return session.getFactory();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public EntityPersister getEntityDescriptor() {
 		return getFactory().getMappingMetamodel().getEntityDescriptor( entityName );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private SessionFactoryOptions getSessionFactoryOptions() {
 		return getFactory().getSessionFactoryOptions();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean isInitializeProxyWhenAccessingIdentifier() {
 		return session != null
 			&& getSessionFactoryOptions().getJpaCompliance()
@@ -103,21 +112,25 @@ public abstract class AbstractLazyInitializer implements LazyInitializer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final void setIdentifier(Object id) {
 		this.id = id;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final boolean isUninitialized() {
 		return !initialized;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final SharedSessionContractImplementor getSession() {
 		return session;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final void setSession(SharedSessionContractImplementor session) throws HibernateException {
 		if ( session != this.session ) {
 			// check for session == null first, since it is less expensive
@@ -147,6 +160,7 @@ public abstract class AbstractLazyInitializer implements LazyInitializer {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static EntityKey generateEntityKeyOrNull(Object id, SharedSessionContractImplementor session, String entityName) {
 		if ( id == null || session == null || entityName == null ) {
 			return null;
@@ -160,6 +174,7 @@ public abstract class AbstractLazyInitializer implements LazyInitializer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final void unsetSession() {
 		prepareForPossibleLoadingOutsideTransaction();
 		session = null;
@@ -168,6 +183,7 @@ public abstract class AbstractLazyInitializer implements LazyInitializer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final void initialize() throws HibernateException {
 		if ( !initialized ) {
 			try {
@@ -203,6 +219,7 @@ public abstract class AbstractLazyInitializer implements LazyInitializer {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void permissiveInitialization() {
 		if ( session == null ) {
 			//we have a detached collection that is set to null, reattach
@@ -264,6 +281,7 @@ public abstract class AbstractLazyInitializer implements LazyInitializer {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private Object immediateLoad(SharedSessionContractImplementor session) {
 		if ( temporalIdentifier != null ) {
 			final var influencers = session.getLoadQueryInfluencers();
@@ -288,6 +306,7 @@ public abstract class AbstractLazyInitializer implements LazyInitializer {
 	 * and the entity being proxied has been loaded and added to the persistence
 	 * context of that session since the proxy was created.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final void initializeWithoutLoadIfPossible() {
 		if ( !initialized && session != null && session.isOpenOrWaitingForAutoClose() ) {
 			final var key = session.generateEntityKey( getInternalIdentifier(), getEntityDescriptor() );
@@ -302,6 +321,7 @@ public abstract class AbstractLazyInitializer implements LazyInitializer {
 	 * Initialize internal state based on the currently attached session, in order
 	 * to be ready to load data even after the proxy is detached from the session.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void prepareForPossibleLoadingOutsideTransaction() {
 		if ( session != null ) {
 			allowLoadOutsideTransaction =
@@ -319,6 +339,7 @@ public abstract class AbstractLazyInitializer implements LazyInitializer {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void checkTargetState(SharedSessionContractImplementor session) {
 		if ( !unwrap ) {
 			if ( target == null ) {
@@ -332,10 +353,12 @@ public abstract class AbstractLazyInitializer implements LazyInitializer {
 	 *
 	 * @return Value for property 'connectedToSession'.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected final boolean isConnectedToSession() {
 		return getProxyOrNull() != null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Object getProxyOrNull() {
 		final var entityKey = generateEntityKeyOrNull( getInternalIdentifier(), session, getEntityName() );
 		return entityKey != null && session != null && session.isOpenOrWaitingForAutoClose()
@@ -344,24 +367,28 @@ public abstract class AbstractLazyInitializer implements LazyInitializer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final Object getImplementation() {
 		initialize();
 		return target;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final void setImplementation(Object target) {
 		this.target = target;
 		initialized = true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final Object getImplementation(SharedSessionContractImplementor session) throws HibernateException {
 		final var entityKey = generateEntityKeyOrNull( getInternalIdentifier(), session, getEntityName() );
 		return entityKey == null ? null : session.getPersistenceContext().getEntity( entityKey );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getImplementationEntityName() {
 		if ( session == null ) {
 			throw new LazyInitializationException( "Could not retrieve real entity name ["
@@ -381,15 +408,18 @@ public abstract class AbstractLazyInitializer implements LazyInitializer {
 	 *
 	 * @return Value for property "target".
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected final Object getTarget() {
 		return target;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final boolean isReadOnlySettingAvailable() {
 		return session != null && !session.isClosed();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void errorIfReadOnlySettingNotAvailable() {
 		if ( session == null ) {
 			throw new IllegalStateException(
@@ -406,12 +436,14 @@ public abstract class AbstractLazyInitializer implements LazyInitializer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final boolean isReadOnly() {
 		errorIfReadOnlySettingNotAvailable();
 		return readOnly;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final void setReadOnly(boolean readOnly) {
 		errorIfReadOnlySettingNotAvailable();
 		// only update if readOnly is different from current setting
@@ -445,6 +477,7 @@ public abstract class AbstractLazyInitializer implements LazyInitializer {
 	 *
 	 * @throws IllegalStateException if {@code isReadOnlySettingAvailable() == true}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final Boolean isReadOnlyBeforeAttachedToSession() {
 		if ( isReadOnlySettingAvailable() ) {
 			throw new IllegalStateException(
@@ -465,6 +498,7 @@ public abstract class AbstractLazyInitializer implements LazyInitializer {
 	 * @return {@code true} if out-of-transaction loads are allowed,
 	 *         {@code false} otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean isAllowLoadOutsideTransaction() {
 		return allowLoadOutsideTransaction;
 	}
@@ -477,6 +511,7 @@ public abstract class AbstractLazyInitializer implements LazyInitializer {
 	 *
 	 * @return the session factory UUID.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getSessionFactoryUuid() {
 		return sessionFactoryUuid;
 	}
@@ -489,6 +524,7 @@ public abstract class AbstractLazyInitializer implements LazyInitializer {
 	 *
 	 * @return the session factory name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getSessionFactoryName() {
 		return sessionFactoryName;
 	}
@@ -511,6 +547,7 @@ public abstract class AbstractLazyInitializer implements LazyInitializer {
 	 * @throws IllegalStateException if {@code isReadOnlySettingAvailable() == true}
 	 */
 	/* package-private */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	final void afterDeserialization(Boolean readOnlyBeforeAttachedToSession,
 			String sessionFactoryUuid, String sessionFactoryName, boolean allowLoadOutsideTransaction) {
 		if ( isReadOnlySettingAvailable() ) {
@@ -526,11 +563,13 @@ public abstract class AbstractLazyInitializer implements LazyInitializer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isUnwrap() {
 		return unwrap;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setUnwrap(boolean unwrap) {
 		this.unwrap = unwrap;
 	}

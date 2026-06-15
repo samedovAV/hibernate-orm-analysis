@@ -9,6 +9,8 @@ import java.util.Objects;
 
 import org.hibernate.spi.NavigablePath;
 import org.hibernate.sql.results.graph.Initializer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -26,6 +28,7 @@ public final class NavigablePathMapToInitializer {
 
 	private HashMap<NavigablePath, InitializerHolder> map = null;
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Initializer<?> get(final NavigablePath navigablePath) {
 		if ( map != null && navigablePath != null ) {
 			final InitializerHolder h = map.get( navigablePath );
@@ -36,6 +39,7 @@ public final class NavigablePathMapToInitializer {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void put(final NavigablePath navigablePath, final Initializer<?> initializer) {
 		Objects.requireNonNull( navigablePath );
 		Objects.requireNonNull( initializer );
@@ -45,6 +49,7 @@ public final class NavigablePathMapToInitializer {
 		map.put( navigablePath, new InitializerHolder( initializer ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void logInitializers() {
 		// Disabling for now because way too verbose and messy, and
 		// because it duplicates the 'Registering initializer' logs

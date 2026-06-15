@@ -6,6 +6,8 @@ package org.hibernate.engine.jdbc.mutation.spi;
 
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.sql.model.MutationOperation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Allows supplying a custom [JdbcValueBindingsImplementor] into the executor.
 ///
@@ -13,6 +15,7 @@ import org.hibernate.sql.model.MutationOperation;
 @FunctionalInterface
 public interface JdbcValueBindingsFactory {
 	/// Create the [JdbcValueBindingsImplementor] to use for processing the given operation.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcValueBindingsImplementor create(
 			MutationOperation operation,
 			JdbcValueDescriptorAccess jdbcValueDescriptorAccess,

@@ -7,6 +7,8 @@ package org.hibernate;
 import org.hibernate.internal.build.AllowSysOut;
 
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Information about the version of Hibernate.
@@ -17,6 +19,7 @@ public final class Version {
 
 	private static final String VERSION = initVersion();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static String initVersion() {
 		final String version = Version.class.getPackage().getImplementationVersion();
 		return version != null ? version : "[WORKING]";
@@ -30,6 +33,7 @@ public final class Version {
 	 *
 	 * @return The Hibernate version
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String getVersionString() {
 		return VERSION;
 	}
@@ -37,6 +41,7 @@ public final class Version {
 	/**
 	 * Logs the Hibernate version (using {@link #getVersionString()}) to the logging system.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void logVersion() {
 		CORE_LOGGER.version( getVersionString() );
 	}
@@ -48,6 +53,7 @@ public final class Version {
 	 * @param args n/a
 	 */
 	@AllowSysOut
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void main(String[] args) {
 		System.out.println( "Hibernate ORM core version " + getVersionString() );
 	}

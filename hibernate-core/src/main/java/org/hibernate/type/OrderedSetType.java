@@ -6,6 +6,8 @@ package org.hibernate.type;
 
 import org.hibernate.internal.util.collections.CollectionHelper;
 import org.hibernate.metamodel.CollectionClassification;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A specialization of the set type, with (resultset-based) ordering.
@@ -17,11 +19,13 @@ public class OrderedSetType extends SetType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionClassification getCollectionClassification() {
 		return CollectionClassification.ORDERED_SET;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object instantiate(int anticipatedSize) {
 		return anticipatedSize > 0
 				? CollectionHelper.linkedSetOfSize( anticipatedSize )

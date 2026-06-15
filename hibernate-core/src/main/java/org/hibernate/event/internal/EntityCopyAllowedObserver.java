@@ -7,6 +7,8 @@ package org.hibernate.event.internal;
 import org.hibernate.event.spi.EntityCopyObserver;
 import org.hibernate.event.spi.EntityCopyObserverFactory;
 import org.hibernate.event.spi.EventSource;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An {@link EntityCopyObserver} implementation that allows multiple representations of
@@ -27,6 +29,7 @@ public final class EntityCopyAllowedObserver implements EntityCopyObserver {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void entityCopyDetected(
 			Object managedEntity,
 			Object mergeEntity1,
@@ -35,11 +38,13 @@ public final class EntityCopyAllowedObserver implements EntityCopyObserver {
 		// do nothing.
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void clear() {
 		// do nothing.
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void topLevelMergeComplete(EventSource session) {
 		// do nothing.
 	}

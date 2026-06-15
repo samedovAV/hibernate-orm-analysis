@@ -7,6 +7,8 @@ package org.hibernate.boot.spi;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.service.JavaServiceLoadable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An extension point for integrators that wish to hook into the process of how a {@link Metadata} is built. Intended as
@@ -25,5 +27,6 @@ public interface MetadataBuilderFactory {
 	 * @param defaultBuilder The default builder, may be used as a delegate
 	 * @return a new metadata builder
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MetadataBuilderImplementor getMetadataBuilder(MetadataSources metadatasources, MetadataBuilderImplementor defaultBuilder);
 }

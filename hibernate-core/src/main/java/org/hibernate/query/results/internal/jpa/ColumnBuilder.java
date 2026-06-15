@@ -16,6 +16,8 @@ import org.hibernate.sql.results.jdbc.spi.JdbcValuesMetadata;
 
 import static org.hibernate.query.results.internal.ResultsHelper.jdbcPositionToValuesArrayPosition;
 import static org.hibernate.sql.ast.spi.SqlExpressionResolver.createColumnReferenceKey;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Support for [jakarta.persistence.sql.ColumnMapping].
 ///
@@ -29,11 +31,13 @@ public class ColumnBuilder<T> extends AbstractMappingElementBuilder<T> implement
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ResultBuilder cacheKeyInstance() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BasicResult<T> buildResult(
 			JdbcValuesMetadata jdbcResultsMetadata,
 			int resultPosition,

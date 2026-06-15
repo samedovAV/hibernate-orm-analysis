@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.bytecode.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * A proxy factory for "basic proxy" generation.
@@ -15,5 +18,6 @@ public interface BasicProxyFactory {
 	 *
 	 * @return A proxy reference.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getProxy();
 }

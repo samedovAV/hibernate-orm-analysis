@@ -5,6 +5,8 @@
 package org.hibernate.boot.jaxb.hbm.spi;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for JAXB bindings which are containers of tooling hints.
@@ -12,5 +14,6 @@ import java.util.List;
  * @author Steve Ebersole
  */
 public interface ToolingHintContainer {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<JaxbHbmToolingHintType> getToolingHints();
 }

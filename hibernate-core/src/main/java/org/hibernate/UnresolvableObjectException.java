@@ -5,6 +5,8 @@
 package org.hibernate;
 
 import static org.hibernate.pretty.MessageHelper.infoString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Thrown when Hibernate could not resolve an object by id, especially when
@@ -41,6 +43,7 @@ public class UnresolvableObjectException extends HibernateException {
 	 *
 	 * @throws UnresolvableObjectException Thrown if entity is null
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void throwIfNull(Object entity, Object identifier, String entityName)
 			throws UnresolvableObjectException {
 		if ( entity == null ) {
@@ -48,15 +51,18 @@ public class UnresolvableObjectException extends HibernateException {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getIdentifier() {
 		return identifier;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getEntityName() {
 		return entityName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getMessage() {
 		return super.getMessage() + " for entity " + infoString( entityName, identifier );
 	}

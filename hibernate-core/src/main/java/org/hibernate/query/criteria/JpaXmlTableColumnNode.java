@@ -6,6 +6,8 @@ package org.hibernate.query.criteria;
 
 import jakarta.persistence.criteria.Expression;
 import org.hibernate.Incubating;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A special node for column defined for a {@code xmltable} function.
@@ -19,6 +21,7 @@ public interface JpaXmlTableColumnNode<T> {
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaXmlTableColumnNode<T> defaultValue(T value);
 
 	/**
@@ -26,5 +29,6 @@ public interface JpaXmlTableColumnNode<T> {
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaXmlTableColumnNode<T> defaultExpression(Expression<T> expression);
 }

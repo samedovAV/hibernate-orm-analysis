@@ -29,6 +29,8 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.hibernate.query.sqm.mutation.internal.SqmMutationStrategyHelper.softDeleteTargets;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specialized CteDeleteHandler for soft-delete handling
@@ -48,6 +50,7 @@ public class CteSoftDeleteHandler extends CteDeleteHandler {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void applyDmlOperations(
 			CteContainer statement,
 			CteStatement idSelectCte,
@@ -58,6 +61,7 @@ public class CteSoftDeleteHandler extends CteDeleteHandler {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void addSoftDeleteCte(
 			CteContainer statement,
 			CteStatement idSelectCte,

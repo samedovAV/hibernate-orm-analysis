@@ -6,6 +6,8 @@ package org.hibernate.metamodel.model.domain;
 
 import jakarta.annotation.Nonnull;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Describes any type forming part of the application domain model.
@@ -30,6 +32,7 @@ public interface DomainType<J> {
 	/**
 	 * The {@link JavaType} representing this domain type.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JavaType<J> getExpressibleJavaType();
 
 	/**
@@ -38,6 +41,7 @@ public interface DomainType<J> {
 	 * @see jakarta.persistence.metamodel.Type#getJavaType
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Class<J> getJavaType();
 
 	/**
@@ -46,6 +50,7 @@ public interface DomainType<J> {
 	 * @see ManagedDomainType#getTypeName()
 	 * @see org.hibernate.query.sqm.SqmExpressible#getTypeName()
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default String getTypeName() {
 		return getExpressibleJavaType().getTypeName();
 	}

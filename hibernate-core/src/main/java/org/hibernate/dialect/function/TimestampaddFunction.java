@@ -32,6 +32,8 @@ import static org.hibernate.query.sqm.produce.function.FunctionParameterType.TEM
 import static org.hibernate.query.sqm.produce.function.FunctionParameterType.TEMPORAL_UNIT;
 import static org.hibernate.type.spi.TypeConfiguration.getSqlIntervalType;
 import static org.hibernate.type.spi.TypeConfiguration.getSqlTemporalType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The {@code timestampadd()} or {@code dateadd()} function has a funny
@@ -67,6 +69,7 @@ public class TimestampaddFunction
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> arguments,
@@ -80,6 +83,7 @@ public class TimestampaddFunction
 		patternRenderer( field.getUnit(), magnitude, to ).render( sqlAppender, arguments, walker );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PatternRenderer patternRenderer(TemporalUnit unit, Expression interval, Expression to) {
 		TemporalType temporalType = getSqlTemporalType( to.getExpressionType() );
 		IntervalType intervalType = getSqlIntervalType( interval.getExpressionType().getSingleJdbcMapping() );
@@ -113,6 +117,7 @@ public class TimestampaddFunction
 //				);
 //	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SelfRenderingFunctionSqlAstExpression expression(
 			ReturnableType<?> impliedResultType,
 			SqlAstNode... sqlAstArguments) {
@@ -129,6 +134,7 @@ public class TimestampaddFunction
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getArgumentListSignature() {
 		return "(TEMPORAL_UNIT field, INTEGER magnitude, TEMPORAL datetime)";
 	}

@@ -12,6 +12,8 @@ import org.hibernate.internal.util.StringHelper;
 import org.hibernate.query.named.NamedQueryMemento;
 
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Base support for all types of NamedQueryMemento implementations.
 ///
@@ -55,32 +57,38 @@ public abstract class AbstractQueryMemento<R>
 
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return name;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getRegistrationName() {
 		return name;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FlushMode getFlushMode() {
 		return flushMode;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Timeout getTimeout() {
 		return timeout;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getComment() {
 		return comment;
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, Object> getHints() {
 		return hints;
 	}

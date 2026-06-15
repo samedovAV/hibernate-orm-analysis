@@ -5,6 +5,8 @@
 package org.hibernate.boot.models.spi;
 
 import org.hibernate.models.spi.ClassDetails;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * {@linkplain org.hibernate.type.descriptor.jdbc.JdbcType} registration
@@ -22,10 +24,12 @@ public class JdbcTypeRegistration {
 		this.descriptor = descriptor;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Integer getCode() {
 		return code;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ClassDetails getDescriptor() {
 		return descriptor;
 	}

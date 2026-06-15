@@ -11,6 +11,8 @@ import org.hibernate.sql.model.ast.ColumnValueParameter;
 import org.hibernate.sql.model.jdbc.JdbcValueDescriptor;
 
 import static java.util.Locale.ROOT;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard {@link JdbcValueDescriptor} implementation
@@ -35,26 +37,31 @@ public class JdbcValueDescriptorImpl implements JdbcValueDescriptor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getColumnName() {
 		return columnName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ParameterUsage getUsage() {
 		return usage;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getJdbcPosition() {
 		return jdbcPosition;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcMapping getJdbcMapping() {
 		return jdbcMapping;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return String.format( ROOT, "JdbcValueDescriptor(%s, %s, %d)", columnName, usage, jdbcPosition );
 	}

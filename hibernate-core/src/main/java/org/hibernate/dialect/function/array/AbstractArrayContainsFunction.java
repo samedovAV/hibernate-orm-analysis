@@ -14,6 +14,8 @@ import org.jboss.logging.Logger;
 
 import java.lang.invoke.MethodHandles;
 import java.util.Locale;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Encapsulates the validator, return type and argument type resolvers for the array_contains function.
@@ -39,6 +41,7 @@ public abstract class AbstractArrayContainsFunction extends AbstractSqmSelfRende
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getArgumentListSignature() {
 		return "(ARRAY haystackArray, OBJECT needleElementOrArray)";
 	}

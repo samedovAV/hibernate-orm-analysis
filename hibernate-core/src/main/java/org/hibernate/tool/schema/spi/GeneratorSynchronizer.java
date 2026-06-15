@@ -6,6 +6,8 @@ package org.hibernate.tool.schema.spi;
 
 import org.hibernate.Incubating;
 import org.hibernate.boot.Metadata;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Service delegate for handling sequence resynchronization.
@@ -23,6 +25,7 @@ public interface GeneratorSynchronizer {
 	 * @param contributableInclusionFilter Filter for Contributable instances to use
 	 * @param targetDescriptor description of the target(s) for the drop commands
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void doSynchronize(
 			Metadata metadata,
 			ExecutionOptions options,

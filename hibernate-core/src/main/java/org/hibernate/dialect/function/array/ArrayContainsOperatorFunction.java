@@ -15,6 +15,8 @@ import org.hibernate.sql.ast.tree.SqlAstNode;
 import org.hibernate.sql.ast.tree.expression.Expression;
 import org.hibernate.type.BasicPluralType;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Special array contains function that also applies a cast to the element argument. PostgreSQL needs this,
@@ -27,6 +29,7 @@ public class ArrayContainsOperatorFunction extends ArrayContainsUnnestFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,
@@ -77,6 +80,7 @@ public class ArrayContainsOperatorFunction extends ArrayContainsUnnestFunction {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean needsArrayCasting(Expression elementExpression) {
 		// PostgreSQL doesn't do implicit conversion between text[] and varchar[], so we need casting
 		return elementExpression.getExpressionType().getSingleJdbcMapping().getJdbcType().isString();

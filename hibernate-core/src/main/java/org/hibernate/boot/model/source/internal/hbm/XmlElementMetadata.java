@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.source.internal.hbm;
 
 import java.util.Locale;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Provides meta-information about XML elements.
@@ -155,6 +157,7 @@ public enum XmlElementMetadata {
 	 *
 	 * @return The {@code hbm.xml} element name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getElementName() {
 		return name().toLowerCase(Locale.ROOT);
 	}
@@ -165,6 +168,7 @@ public enum XmlElementMetadata {
 	 * @return {@code true} indicates that the source will refer to just a
 	 * single column.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isInherentlySingleColumn() {
 		return inherentlySingleColumn;
 	}
@@ -175,6 +179,7 @@ public enum XmlElementMetadata {
 	 * @return {@code true} indicates that the source can be named and therefore
 	 * the column (assuming just one) is eligible for implicit naming.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean canBeNamed() {
 		return canBeNamed;
 	}

@@ -5,6 +5,8 @@
 package org.hibernate.event.spi;
 
 import org.hibernate.HibernateException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Defines the contract for handling of load events generated from a session.
@@ -19,6 +21,7 @@ public interface LoadEventListener {
 	 * @param event The load event to be handled.
 	 *
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void onLoad(LoadEvent event, LoadType loadType) throws HibernateException;
 
 	/**
@@ -85,47 +88,57 @@ public interface LoadEventListener {
 			this.name = name;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean isAllowNulls() {
 			return allowNulls;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private LoadType setAllowNulls(boolean allowNulls) {
 			this.allowNulls = allowNulls;
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean isNakedEntityReturned() {
 			return nakedEntityReturned;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private LoadType setNakedEntityReturned(boolean immediateLoad) {
 			this.nakedEntityReturned = immediateLoad;
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean isCheckDeleted() {
 			return checkDeleted;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private LoadType setCheckDeleted(boolean checkDeleted) {
 			this.checkDeleted = checkDeleted;
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean isAllowProxyCreation() {
 			return allowProxyCreation;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private LoadType setAllowProxyCreation(boolean allowProxyCreation) {
 			this.allowProxyCreation = allowProxyCreation;
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getName() {
 			return name;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String toString() {
 			return name;
 		}

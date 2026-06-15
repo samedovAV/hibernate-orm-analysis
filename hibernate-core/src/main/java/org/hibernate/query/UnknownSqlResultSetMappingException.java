@@ -7,6 +7,8 @@ package org.hibernate.query;
 import org.hibernate.MappingException;
 
 import jakarta.persistence.NamedNativeQuery;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Indicates a request for named ResultSet mapping which could not be found
@@ -25,6 +27,7 @@ public class UnknownSqlResultSetMappingException extends MappingException {
 		this.unknownSqlResultSetMappingName = unknownSqlResultSetMappingName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getUnknownSqlResultSetMappingName() {
 		return unknownSqlResultSetMappingName;
 	}

@@ -18,6 +18,8 @@ import org.hibernate.internal.util.collections.StandardStack;
 
 import static org.hibernate.graph.internal.GraphParserLogging.PARSING_LOGGER;
 import static org.hibernate.internal.util.StringHelper.repeat;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Unified access to the Antlr parser for Hibernate's "graph language"
@@ -45,11 +47,13 @@ public class LegacyGraphParser extends LegacyGraphLanguageParserBaseVisitor<Grap
 		this( sessionFactory.getJpaMetamodel()::findEntityType );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Stack<GraphImplementor<?>> getGraphStack() {
 		return graphStack;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AttributeNodeImplementor<?,?,?> visitAttributeNode(LegacyGraphLanguageParser.AttributeNodeContext attributeNodeContext) {
 		final var attributePathContext = attributeNodeContext.attributePath();
 		final var attributeQualifierContext = attributePathContext.attributeQualifier();
@@ -85,6 +89,7 @@ public class LegacyGraphParser extends LegacyGraphLanguageParserBaseVisitor<Grap
 		return attributeNode;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private SubGraphGenerator subGraphCreator(LegacyGraphLanguageParser.AttributeQualifierContext attributeQualifierContext, String attributeName) {
 		if ( attributeQualifierContext == null ) {
 			if ( PARSING_LOGGER.isTraceEnabled() ) {
@@ -110,6 +115,7 @@ public class LegacyGraphParser extends LegacyGraphLanguageParserBaseVisitor<Grap
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private AttributeNodeImplementor<?,?,?> resolveAttributeNode(String attributeName) {
 		final var currentGraph = graphStack.getCurrent();
 		assert currentGraph != null;
@@ -120,6 +126,7 @@ public class LegacyGraphParser extends LegacyGraphLanguageParserBaseVisitor<Grap
 		return attributeNode;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private PathQualifierType resolvePathQualifier(String qualifier) {
 		if ( "key".equalsIgnoreCase( qualifier ) ) {
 			return PathQualifierType.KEY;
@@ -133,6 +140,7 @@ public class LegacyGraphParser extends LegacyGraphLanguageParserBaseVisitor<Grap
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SubGraphImplementor<?> visitSubGraph(LegacyGraphLanguageParser.SubGraphContext subGraphContext) {
 		final String subTypeName =
 				subGraphContext.typeIndicator() == null ? null

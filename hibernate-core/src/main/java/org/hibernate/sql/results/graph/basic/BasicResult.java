@@ -15,6 +15,8 @@ import org.hibernate.sql.results.graph.AssemblerCreationState;
 import org.hibernate.sql.results.graph.DomainResult;
 import org.hibernate.sql.results.graph.DomainResultAssembler;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * DomainResult for a basic-value
@@ -76,6 +78,7 @@ public class BasicResult<T> implements DomainResult<T>, BasicResultGraphNode<T> 
 		this.assembler = assembler( valuesArrayPosition, javaType, converter, coerceResultType, unwrapRowProcessingState );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static <T> BasicResultAssembler<T> assembler(
 			int valuesArrayPosition,
 			JavaType<T> javaType,
@@ -88,16 +91,19 @@ public class BasicResult<T> implements DomainResult<T>, BasicResultGraphNode<T> 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getResultVariable() {
 		return resultVariable;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<T> getResultJavaType() {
 		return javaType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigablePath getNavigablePath() {
 		return navigablePath;
 	}
@@ -106,11 +112,13 @@ public class BasicResult<T> implements DomainResult<T>, BasicResultGraphNode<T> 
 	 * For testing purposes only
 	 */
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResultAssembler<T> getAssembler() {
 		return assembler;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResultAssembler<T> createResultAssembler(
 			InitializerParent<?> parent,
 			AssemblerCreationState creationState) {
@@ -118,6 +126,7 @@ public class BasicResult<T> implements DomainResult<T>, BasicResultGraphNode<T> 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void collectValueIndexesToCache(BitSet valueIndexes) {
 		valueIndexes.set( assembler.valuesArrayPosition );
 	}

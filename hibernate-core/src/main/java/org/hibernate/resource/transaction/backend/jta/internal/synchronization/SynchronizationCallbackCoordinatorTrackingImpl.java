@@ -9,6 +9,8 @@ import org.hibernate.HibernateException;
 import static org.hibernate.engine.transaction.internal.jta.JtaStatusHelper.isCommitted;
 import static org.hibernate.engine.transaction.internal.jta.JtaStatusHelper.isRollback;
 import static org.hibernate.resource.transaction.backend.jta.internal.JtaLogging.JTA_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Extension of {@link SynchronizationCallbackCoordinatorNonTrackingImpl} that adds
@@ -29,6 +31,7 @@ public class SynchronizationCallbackCoordinatorTrackingImpl extends Synchronizat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void reset() {
 		super.reset();
 		// NOTE: reset is typically called:
@@ -43,6 +46,7 @@ public class SynchronizationCallbackCoordinatorTrackingImpl extends Synchronizat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void afterCompletion(int status) {
 		JTA_LOGGER.synchronizationCoordinatorAfterCompletion( status );
 
@@ -70,11 +74,13 @@ public class SynchronizationCallbackCoordinatorTrackingImpl extends Synchronizat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void synchronizationRegistered() {
 		registrationThreadId = Thread.currentThread().getId();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void processAnyDelayedAfterCompletion() {
 		if ( delayedCompletionHandling ) {
 			delayedCompletionHandling = false;

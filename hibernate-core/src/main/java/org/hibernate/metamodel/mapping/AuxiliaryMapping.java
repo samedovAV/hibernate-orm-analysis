@@ -19,6 +19,8 @@ import org.hibernate.sql.ast.tree.from.TableGroup;
 import org.hibernate.sql.ast.tree.from.TableGroupJoin;
 import org.hibernate.sql.ast.tree.from.TableReferenceJoin;
 import org.hibernate.sql.ast.tree.predicate.Predicate;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Runtime mapping contract for state-management state associated with an
 /// entity or collection.
@@ -45,6 +47,7 @@ public interface AuxiliaryMapping {
 	/// joined inheritance or secondary tables, may use this as the primary table
 	/// and resolve table-specific auxiliary names through
 	/// [#resolveTableName(String)].
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getTableName();
 
 	/// Resolves the auxiliary table name corresponding to an original mapped
@@ -53,6 +56,7 @@ public interface AuxiliaryMapping {
 	/// For multi-table inheritance and secondary-table mappings, each source
 	/// table may have its own auxiliary table.  Single-table strategies usually
 	/// return [#getTableName()].
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String resolveTableName(String originalTableName) {
 		return getTableName();
 	}
@@ -61,6 +65,7 @@ public interface AuxiliaryMapping {
 	///
 	/// This form is used when table references may be created lazily as SQL AST
 	/// walking discovers which tables are needed for an entity-valued path.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void applyPredicate(
 			EntityMappingType associatedEntityMappingType,
 			Consumer<Predicate> predicateConsumer,
@@ -73,6 +78,7 @@ public interface AuxiliaryMapping {
 	/// Implementations should add any predicates required to restrict the table
 	/// group to rows visible under the supplied [LoadQueryInfluencers], such as
 	/// non-deleted rows or rows valid for the requested temporal identifier.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void applyPredicate(
 			EntityMappingType associatedEntityDescriptor,
 			Consumer<Predicate> predicateConsumer,
@@ -84,6 +90,7 @@ public interface AuxiliaryMapping {
 	///
 	/// This is the collection counterpart to the entity table-group overload and
 	/// is used for state-management rules attached to plural attributes.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void applyPredicate(
 			PluralAttributeMapping associatedEntityDescriptor,
 			Consumer<Predicate> predicateConsumer,
@@ -95,6 +102,7 @@ public interface AuxiliaryMapping {
 	///
 	/// This form is used when the restriction belongs on the join predicate
 	/// rather than on a surrounding query predicate collector.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void applyPredicate(TableGroupJoin tableGroupJoin, LoadQueryInfluencers loadQueryInfluencers);
 
 	/// Applies the auxiliary row restriction for a resolved root table
@@ -103,6 +111,7 @@ public interface AuxiliaryMapping {
 	/// The predicate collector is supplied lazily because some callers only need
 	/// to allocate a predicate collection when the auxiliary mapping actually
 	/// contributes a restriction.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void applyPredicate(
 			Supplier<Consumer<Predicate>> predicateCollector,
 			SqlAstCreationState creationState,
@@ -115,6 +124,7 @@ public interface AuxiliaryMapping {
 	/// joined source table may have a corresponding auxiliary table.
 	///
 	/// @param originalTableName the original non-auxiliary table name
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void applyPredicate(
 			TableReferenceJoin tableReferenceJoin,
 			NamedTableReference primaryTableReference,
@@ -130,6 +140,7 @@ public interface AuxiliaryMapping {
 	/// Audit mappings use this to expose revision-related columns from union
 	/// branches.  Strategies that do not need extra branch selections return an
 	/// empty list.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default List<String> getExtraSelectExpressions() {
 		return List.of();
 	}
@@ -139,6 +150,7 @@ public interface AuxiliaryMapping {
 	///
 	/// This is used when SQL AST table references need to carry an as-of value
 	/// for dialects that support native temporal table syntax.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcMapping getJdbcMapping();
 
 	/// Whether this mapping should use its auxiliary table for the supplied
@@ -146,6 +158,7 @@ public interface AuxiliaryMapping {
 	///
 	/// Some strategies use the primary table for current-state queries and an
 	/// auxiliary table only for historical or audit views.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean useAuxiliaryTable(LoadQueryInfluencers influencers);
 
 	/// Whether query plans involving this mapping are affected by the supplied
@@ -154,5 +167,6 @@ public interface AuxiliaryMapping {
 	/// Returning `true` tells load-plan caching that influencer-dependent SQL may
 	/// be required, for example when temporal identifiers or audit revision
 	/// options alter table selection or restrictions.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isAffectedByInfluencers(LoadQueryInfluencers influencers);
 }

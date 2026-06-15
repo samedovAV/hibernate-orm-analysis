@@ -11,6 +11,8 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.generator.GeneratorCreationContext;
 
 import static org.hibernate.id.IdentifierGeneratorHelper.getForeignId;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The legacy id generator named {@code foreign}.
@@ -41,6 +43,7 @@ public class ForeignGenerator implements IdentifierGenerator {
 	 *
 	 * @return Value for property 'entityName'.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getEntityName() {
 		return entityName;
 	}
@@ -50,6 +53,7 @@ public class ForeignGenerator implements IdentifierGenerator {
 	 *
 	 * @return Value for property 'propertyName'.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getPropertyName() {
 		return propertyName;
 	}
@@ -60,12 +64,14 @@ public class ForeignGenerator implements IdentifierGenerator {
 	 *
 	 * @return Value for property 'role'.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getRole() {
 		return getEntityName() + '.' + getPropertyName();
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void configure(GeneratorCreationContext creationContext, Properties parameters) throws MappingException {
 		propertyName = parameters.getProperty( PROPERTY );
 		entityName = parameters.getProperty( ENTITY_NAME );
@@ -76,16 +82,19 @@ public class ForeignGenerator implements IdentifierGenerator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getGeneratedType() {
 		return generatedType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object generate(SharedSessionContractImplementor sessionImplementor, Object object) {
 		return getForeignId( entityName, propertyName, sessionImplementor, object );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean allowAssignedIdentifiers() {
 		return true;
 	}

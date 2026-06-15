@@ -14,6 +14,8 @@ import org.hibernate.StatelessSession;
 import org.hibernate.audit.internal.AuditLogImpl;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Factory for obtaining {@link AuditLog} instances.
@@ -48,6 +50,7 @@ public final class AuditLogFactory {
 	 * @param sessionFactory the session factory
 	 * @return a new audit log (must be closed by the caller)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static AuditLog create(SessionFactory sessionFactory) {
 		final var sf = (SessionFactoryImplementor) sessionFactory;
 		final var session = (SharedSessionContractImplementor)
@@ -63,6 +66,7 @@ public final class AuditLogFactory {
 	 * @param entityManagerFactory the entity manager factory
 	 * @return a new audit log (must be closed by the caller)
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static AuditLog create(EntityManagerFactory entityManagerFactory) {
 		return create( entityManagerFactory.unwrap( SessionFactory.class ) );
 	}
@@ -73,6 +77,7 @@ public final class AuditLogFactory {
 	 * @param session the session whose connection to share
 	 * @return a new audit log (must be closed by the caller)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static AuditLog create(Session session) {
 		return createFromSession( session );
 	}
@@ -84,6 +89,7 @@ public final class AuditLogFactory {
 	 * @param session the stateless session whose connection to share
 	 * @return a new audit log (must be closed by the caller)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static AuditLog create(StatelessSession session) {
 		return createFromSession( session );
 	}
@@ -95,10 +101,12 @@ public final class AuditLogFactory {
 	 * @param entityManager the entity manager whose connection to share
 	 * @return a new audit log (must be closed by the caller)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static AuditLog create(EntityManager entityManager) {
 		return createFromSession( entityManager.unwrap( Session.class ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static AuditLog createFromSession(SharedSessionContract session) {
 		final var childSession = (SharedSessionContractImplementor)
 				session.sessionWithOptions()

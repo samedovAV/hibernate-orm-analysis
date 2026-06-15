@@ -5,6 +5,8 @@
 package org.hibernate.boot;
 
 import org.hibernate.boot.jaxb.Origin;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Indicates a problem parsing a mapping document.
@@ -25,6 +27,7 @@ public class MappingException extends org.hibernate.MappingException {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getMessage() {
 		final String message = super.getMessage();
 		return origin != null
@@ -32,6 +35,7 @@ public class MappingException extends org.hibernate.MappingException {
 				: message;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Origin getOrigin() {
 		return origin;
 	}

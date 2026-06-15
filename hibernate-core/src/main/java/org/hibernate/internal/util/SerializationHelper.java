@@ -19,6 +19,8 @@ import org.hibernate.Hibernate;
 import org.hibernate.type.SerializationException;
 
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Assists with the serialization process and performs additional
@@ -64,6 +66,7 @@ public final class SerializationHelper {
 	 *
 	 * @throws SerializationException (runtime) if the serialization fails
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Object clone(Serializable object) throws SerializationException {
 		CORE_LOGGER.trace( "Starting clone through serialization" );
 		if ( object == null ) {
@@ -91,6 +94,7 @@ public final class SerializationHelper {
 	 * @throws IllegalArgumentException if {@code outputStream} is null
 	 * @throws SerializationException (runtime) if the serialization fails
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void serialize(Serializable obj, OutputStream outputStream) throws SerializationException {
 		if ( outputStream == null ) {
 			throw new IllegalArgumentException( "The OutputStream must not be null" );
@@ -123,6 +127,7 @@ public final class SerializationHelper {
 	 *
 	 * @throws SerializationException (runtime) if the serialization fails
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static byte[] serialize(Serializable obj) throws SerializationException {
 		final var byteArrayOutputStream = new ByteArrayOutputStream( 512 );
 		serialize( obj, byteArrayOutputStream );
@@ -145,6 +150,7 @@ public final class SerializationHelper {
 	 * @throws IllegalArgumentException if {@code inputStream} is null
 	 * @throws SerializationException (runtime) if the serialization fails
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <T> T deserialize(InputStream inputStream) throws SerializationException {
 		return doDeserialize( inputStream, defaultClassLoader(), hibernateClassLoader(), null );
 	}
@@ -154,10 +160,12 @@ public final class SerializationHelper {
 	 *
 	 * @return The current TCCL
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static ClassLoader defaultClassLoader() {
 		return Thread.currentThread().getContextClassLoader();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static ClassLoader hibernateClassLoader() {
 		return SerializationHelper.class.getClassLoader();
 	}
@@ -182,10 +190,12 @@ public final class SerializationHelper {
 	 * @throws IllegalArgumentException if <code>inputStream</code> is <code>null</code>
 	 * @throws SerializationException (runtime) if the serialization fails
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Object deserialize(InputStream inputStream, ClassLoader loader) throws SerializationException {
 		return doDeserialize( inputStream, loader, defaultClassLoader(), hibernateClassLoader() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <T> T doDeserialize(
 			InputStream inputStream,
 			ClassLoader loader,
@@ -220,10 +230,12 @@ public final class SerializationHelper {
 	 * @throws IllegalArgumentException if <code>objectData</code> is <code>null</code>
 	 * @throws SerializationException (runtime) if the serialization fails
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Object deserialize(byte[] objectData) throws SerializationException {
 		return doDeserialize( wrap( objectData ), defaultClassLoader(), hibernateClassLoader(), null );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static InputStream wrap(byte[] objectData) {
 		if ( objectData == null ) {
 			throw new IllegalArgumentException( "The byte[] must not be null" );
@@ -245,6 +257,7 @@ public final class SerializationHelper {
 	 * @throws IllegalArgumentException if <code>objectData</code> is <code>null</code>
 	 * @throws SerializationException (runtime) if the serialization fails
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Object deserialize(byte[] objectData, ClassLoader loader) throws SerializationException {
 		return doDeserialize( wrap( objectData ), loader, defaultClassLoader(), hibernateClassLoader() );
 	}
@@ -275,6 +288,7 @@ public final class SerializationHelper {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		protected Class<?> resolveClass(ObjectStreamClass v) throws IOException, ClassNotFoundException {
 			final String className = v.getName();
 			CORE_LOGGER.tracev( "Attempting to locate class [{0}]", className );

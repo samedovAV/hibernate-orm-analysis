@@ -17,6 +17,8 @@ import org.hibernate.models.internal.OrmAnnotationDescriptor;
 import org.hibernate.models.spi.AnnotationDescriptor;
 
 import static org.hibernate.models.spi.AnnotationTarget.Kind;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Details about Hibernate annotations.
@@ -961,6 +963,7 @@ public interface HibernateAnnotations {
 			false
 	);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static void forEachAnnotation(Consumer<AnnotationDescriptor<? extends Annotation>> consumer) {
 		OrmAnnotationHelper.forEachOrmAnnotation( HibernateAnnotations.class, consumer );
 	}

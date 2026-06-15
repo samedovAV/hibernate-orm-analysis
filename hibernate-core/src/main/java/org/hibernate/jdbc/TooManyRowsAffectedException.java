@@ -4,6 +4,8 @@
  */
 package org.hibernate.jdbc;
 import org.hibernate.HibernateException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Indicates that more rows were affected than we were expecting to be.
@@ -22,10 +24,12 @@ public class TooManyRowsAffectedException extends HibernateException {
 		this.actualRowCount = actualRowCount;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getExpectedRowCount() {
 		return expectedRowCount;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getActualRowCount() {
 		return actualRowCount;
 	}

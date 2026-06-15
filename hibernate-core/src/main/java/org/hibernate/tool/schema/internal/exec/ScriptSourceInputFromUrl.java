@@ -12,6 +12,8 @@ import java.net.URL;
 import org.hibernate.tool.schema.spi.SchemaManagementException;
 
 import org.jboss.logging.Logger;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * ScriptSourceInput implementation for URL references.
@@ -37,11 +39,13 @@ public class ScriptSourceInputFromUrl extends AbstractScriptSourceInput {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getScriptDescription() {
 		return url.toExternalForm();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Reader prepareReader() {
 		try {
 			final var stream = url.openStream();
@@ -57,6 +61,7 @@ public class ScriptSourceInputFromUrl extends AbstractScriptSourceInput {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void releaseReader(Reader reader) {
 		try {
 			reader.close();
@@ -67,11 +72,13 @@ public class ScriptSourceInputFromUrl extends AbstractScriptSourceInput {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean containsScript(URL url) {
 		return this.url.equals( url );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "ScriptSourceInputFromUrl(" + url.toExternalForm() + ")";
 	}

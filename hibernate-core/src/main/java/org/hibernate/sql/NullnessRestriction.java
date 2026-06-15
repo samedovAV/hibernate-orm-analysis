@@ -5,6 +5,8 @@
 package org.hibernate.sql;
 
 import org.hibernate.Internal;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Nullness restriction - IS (NOT)? NULL
@@ -26,6 +28,7 @@ public class NullnessRestriction implements Restriction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void render(StringBuilder sqlBuffer, RestrictionRenderingContext context) {
 		sqlBuffer.append( columnName );
 		if ( affirmative ) {

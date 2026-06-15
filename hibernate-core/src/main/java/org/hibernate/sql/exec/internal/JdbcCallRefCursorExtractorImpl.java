@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import org.hibernate.engine.jdbc.cursor.spi.RefCursorSupport;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.sql.exec.spi.JdbcCallRefCursorExtractor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Controls extracting values from REF_CURSOR parameters.
@@ -27,6 +29,7 @@ public class JdbcCallRefCursorExtractorImpl implements JdbcCallRefCursorExtracto
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ResultSet extractResultSet(
 			CallableStatement callableStatement,
 			SharedSessionContractImplementor session) {

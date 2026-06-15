@@ -25,6 +25,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A collection of {@link EntityGraph} utilities.
@@ -46,6 +48,7 @@ public final class EntityGraphs {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <T> EntityGraph<T> createGraph(EntityType<T> rootType) {
 		return new RootGraphImpl<>( null, (EntityDomainType<T>) rootType );
 	}
@@ -62,6 +65,7 @@ public final class EntityGraphs {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static EntityGraph<Map<String,?>> createGraphForDynamicEntity(EntityType<?> rootType) {
 		final var domainType = (EntityDomainType<?>) rootType;
 		if ( domainType.getRepresentationMode() != RepresentationMode.MAP ) {
@@ -86,6 +90,7 @@ public final class EntityGraphs {
 	 * @return The merged graph.
 	 */
 	@SafeVarargs
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static <T> EntityGraph<T> merge(EntityManager entityManager, Class<T> root, Graph<T>... graphs) {
 		return merge( entityManager, root, Arrays.stream(graphs) );
 	}
@@ -104,6 +109,7 @@ public final class EntityGraphs {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static <T> EntityGraph<T> merge(EntityManager entityManager, Class<T> root, List<? extends Graph<T>> graphs) {
 		return merge( entityManager, root, graphs.stream() );
 	}
@@ -122,6 +128,7 @@ public final class EntityGraphs {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static <T> EntityGraph<T> merge(EntityManager entityManager, Class<T> root, Stream<? extends Graph<T>> graphs) {
 		final var merged = ((SessionImplementor) entityManager).createEntityGraph( root );
 		graphs.forEach( graph -> merged.merge( (GraphImplementor<T>) graph ) );
@@ -140,6 +147,7 @@ public final class EntityGraphs {
 	 *
 	 * @since 8.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <R> SelectionQuery<R> applyGraph(
 			StatementOrTypedQuery statementOrTypedQuery,
 			EntityGraph<R> graph, GraphSemantic semantic) {
@@ -161,6 +169,7 @@ public final class EntityGraphs {
 	 * @since 7.0
 	 */
 	@Deprecated(since = "8.0", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <R> void setGraph(TypedQuery<R> query, EntityGraph<R> graph, GraphSemantic semantic) {
 		//noinspection removal
 		((SelectionQuery<R>) query).setEntityGraph( graph, semantic );
@@ -180,6 +189,7 @@ public final class EntityGraphs {
 	 * @since 7.0
 	 */
 	@Deprecated(since = "8.0", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <R> void setLoadGraph(TypedQuery<R> query, EntityGraph<R> graph) {
 		setGraph( query, graph, GraphSemantic.LOAD );
 	}
@@ -196,6 +206,7 @@ public final class EntityGraphs {
 	 * @since 7.0
 	 */
 	@Deprecated(since = "8.0", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <R> void setFetchGraph(TypedQuery<R> query, EntityGraph<R> graph) {
 		setGraph( query, graph, GraphSemantic.FETCH );
 	}
@@ -210,6 +221,7 @@ public final class EntityGraphs {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S> Subgraph<S> addTreatedSubgraph(Graph<? super S> graph, Class<S> subtype) {
 		return ((org.hibernate.graph.Graph<? super S>) graph).addTreatedSubgraph( subtype );
 	}
@@ -225,6 +237,7 @@ public final class EntityGraphs {
 	 * @deprecated Since it is not type safe and returns a raw type
 	 */
 	@Deprecated(since = "7.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static @SuppressWarnings("rawtypes") List executeList(Query query, EntityGraph<?> graph, GraphSemantic semantic) {
 		return query.unwrap( MutationOrSelectionQuery.class )
 				.asSelectionQuery( graph, semantic )
@@ -246,6 +259,7 @@ public final class EntityGraphs {
 	 * @deprecated Use {@link #setGraph(TypedQuery, EntityGraph, GraphSemantic)} instead
 	 */
 	@Deprecated(since = "7.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <R> List<R> executeList(TypedQuery<R> query, EntityGraph<R> graph, GraphSemantic semantic) {
 		return query.unwrap( MutationOrSelectionQuery.class )
 				.asSelectionQuery( graph, semantic )
@@ -266,6 +280,7 @@ public final class EntityGraphs {
 	 * @deprecated Since it is not type safe, returns a raw type, and accepts a string
 	 */
 	@Deprecated(since = "7.0")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static @SuppressWarnings("rawtypes") List executeList(Query query, EntityGraph<?> graph, String semanticJpaHintName) {
 		return executeList( query, graph, GraphSemantic.fromHintName( semanticJpaHintName ) );
 	}
@@ -285,6 +300,7 @@ public final class EntityGraphs {
 	 * @deprecated Since it accepts a string instead of {@link GraphSemantic}
 	 */
 	@Deprecated(since = "7.0")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static <R> List<R> executeList(TypedQuery<R> query, EntityGraph<R> graph, String semanticJpaHintName) {
 		return executeList( query, graph, GraphSemantic.fromHintName( semanticJpaHintName ) );
 	}
@@ -304,6 +320,7 @@ public final class EntityGraphs {
 	 * @deprecated Since it is not type safe and returns a raw type
 	 */
 	@Deprecated(since = "7.0")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static @SuppressWarnings("rawtypes") List executeList(Query query, EntityGraph<?> graph) {
 		return executeList( query, graph, GraphSemantic.FETCH );
 	}
@@ -322,6 +339,7 @@ public final class EntityGraphs {
 	 * @deprecated Use {@link #setFetchGraph(TypedQuery, EntityGraph)} instead
 	 */
 	@Deprecated(since = "7.0")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static <R> List<R> executeList(TypedQuery<R> query, EntityGraph<R> graph) {
 		return executeList( query, graph, GraphSemantic.FETCH );
 	}
@@ -335,6 +353,7 @@ public final class EntityGraphs {
 	 * @param b    Graph to compare.
 	 *
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <T> boolean areEqual(EntityGraph<T> a, EntityGraph<T> b) {
 		if ( a == b ) {
 			return true;
@@ -349,6 +368,7 @@ public final class EntityGraphs {
 	 * Compares two entity graph attribute node and returns {@code true} if they are equal,
 	 * ignoring subgraph attribute order.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static boolean areEqual(AttributeNode<?> a, AttributeNode<?> b) {
 		if ( a == b ) {
 			return true;
@@ -370,6 +390,7 @@ public final class EntityGraphs {
 	 * Compares two entity subgraph maps and returns {@code true} if they are equal,
 	 * ignoring order.
 	 */
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public static boolean areEqual(
 			@SuppressWarnings("rawtypes") Map<Class, Subgraph> a,
 			@SuppressWarnings("rawtypes") Map<Class, Subgraph> b) {
@@ -400,6 +421,7 @@ public final class EntityGraphs {
 	 * Compares two entity subgraphs and returns {@code true} if they are equal,
 	 * ignoring attribute order.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean areEqual(Subgraph<?> a, Subgraph<?> b) {
 		if ( a == b ) {
 			return true;
@@ -411,6 +433,7 @@ public final class EntityGraphs {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private static boolean haveSameNodes(Graph<?> a, Graph<?> b) {
 		final var aNodes = a.getAttributeNodes();
 		final var bNodes = b.getAttributeNodes();

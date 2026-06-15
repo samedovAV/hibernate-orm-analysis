@@ -6,6 +6,8 @@ package org.hibernate.action.queue.spi.bind;
 
 import org.hibernate.Incubating;
 import org.hibernate.engine.spi.SessionImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Support for callbacks after the execution of a FlushOperation.
 ///
@@ -16,5 +18,6 @@ import org.hibernate.engine.spi.SessionImplementor;
 @Incubating
 public interface PostExecutionCallback {
 	/// The callback.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void handle(SessionImplementor session);
 }

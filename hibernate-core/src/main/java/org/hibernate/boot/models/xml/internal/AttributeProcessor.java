@@ -41,6 +41,8 @@ import org.hibernate.models.spi.MutableClassDetails;
 import org.hibernate.models.spi.MutableMemberDetails;
 
 import jakarta.persistence.AccessType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Helper for handling persistent attributes defined in mapping XML in metadata-complete mode
@@ -48,6 +50,7 @@ import jakarta.persistence.AccessType;
  * @author Steve Ebersole
  */
 public class AttributeProcessor {
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void processNaturalId(
 			JaxbNaturalId jaxbNaturalId,
 			MutableClassDetails mutableClassDetails,
@@ -56,6 +59,7 @@ public class AttributeProcessor {
 		processNaturalId( jaxbNaturalId, mutableClassDetails, classAccessType, null, xmlDocumentContext );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void processNaturalId(
 			JaxbNaturalId jaxbNaturalId,
 			MutableClassDetails mutableClassDetails,
@@ -74,6 +78,7 @@ public class AttributeProcessor {
 				classAccessType,
 				new MemberAdjuster() {
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public <M extends MutableMemberDetails> void adjust(
 							M member,
 							JaxbPersistentAttribute jaxbPersistentAttribute,
@@ -89,6 +94,7 @@ public class AttributeProcessor {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void processBaseAttributes(
 			JaxbBaseAttributesContainer attributesContainer,
 			MutableClassDetails mutableClassDetails,
@@ -150,9 +156,11 @@ public class AttributeProcessor {
 
 	@FunctionalInterface
 	public interface MemberAdjuster {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		<M extends MutableMemberDetails> void adjust(M member, JaxbPersistentAttribute jaxbPersistentAttribute, XmlDocumentContext xmlDocumentContext);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void processAttributes(
 			JaxbAttributesContainerImpl attributesContainer,
 			MutableClassDetails mutableClassDetails,
@@ -160,6 +168,7 @@ public class AttributeProcessor {
 			XmlDocumentContext xmlDocumentContext) {
 		processAttributes( attributesContainer, mutableClassDetails, classAccessType, null, xmlDocumentContext );
 	}
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void processAttributes(
 			JaxbAttributesContainerImpl attributesContainer,
 			MutableClassDetails mutableClassDetails,
@@ -170,6 +179,7 @@ public class AttributeProcessor {
 		processVersionAttribute( attributesContainer.getVersion(), mutableClassDetails, classAccessType, xmlDocumentContext );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void processAttributes(
 			JaxbAttributesContainer attributesContainer,
 			MutableClassDetails mutableClassDetails,
@@ -255,6 +265,7 @@ public class AttributeProcessor {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void processAttributeOverrides(
 			List<JaxbAttributeOverrideImpl> attributeOverrides,
 			MutableClassDetails mutableClassDetails,
@@ -267,6 +278,7 @@ public class AttributeProcessor {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void processAssociationOverrides(
 			List<JaxbAssociationOverrideImpl> associationOverrides,
 			MutableClassDetails mutableClassDetails,
@@ -278,6 +290,7 @@ public class AttributeProcessor {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void processVersionAttribute(
 			JaxbVersionImpl version,
 			MutableClassDetails mutableClassDetails, AccessType classAccessType,

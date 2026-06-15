@@ -31,6 +31,8 @@ import static java.util.Collections.emptyList;
 import static org.hibernate.resource.transaction.backend.jta.internal.JtaLogging.JTA_LOGGER;
 import static org.hibernate.resource.transaction.spi.TransactionStatus.ACTIVE;
 import static org.hibernate.resource.transaction.spi.TransactionStatus.NOT_ACTIVE;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An implementation of TransactionCoordinator based on managing a transaction through the JTA API (either TM or UT)
@@ -114,10 +116,12 @@ public class JtaTransactionCoordinatorImpl implements TransactionCoordinator, Sy
 	 *
 	 * @return TransactionObserver
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Iterable<TransactionObserver> observers() {
 		return observers == null ? emptyList() : new ArrayList<>( observers );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SynchronizationCallbackCoordinator getSynchronizationCallbackCoordinator() {
 		if ( callbackCoordinator == null ) {
 			callbackCoordinator = performJtaThreadTracking
@@ -128,6 +132,7 @@ public class JtaTransactionCoordinatorImpl implements TransactionCoordinator, Sy
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void pulse() {
 		if ( autoJoinTransactions && !synchronizationRegistered ) {
 			// Can we register a synchronization according to the JtaPlatform?
@@ -144,6 +149,7 @@ public class JtaTransactionCoordinatorImpl implements TransactionCoordinator, Sy
 	 * Join to the JTA transaction.  Note that the underlying meaning of joining in JTA environments is to register the
 	 * RegisteredSynchronization with the JTA system
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void joinJtaTransaction() {
 		if ( !synchronizationRegistered ) {
 			jtaPlatform.registerSynchronization(
@@ -157,6 +163,7 @@ public class JtaTransactionCoordinatorImpl implements TransactionCoordinator, Sy
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void explicitJoin() {
 		if ( synchronizationRegistered ) {
 			JTA_LOGGER.alreadyJoinedJtaTransaction();
@@ -172,6 +179,7 @@ public class JtaTransactionCoordinatorImpl implements TransactionCoordinator, Sy
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isJoined() {
 		return synchronizationRegistered;
 	}
@@ -183,20 +191,24 @@ public class JtaTransactionCoordinatorImpl implements TransactionCoordinator, Sy
 	 * @return {@code true} indicates that a RegisteredSynchronization is currently registered for this coordinator;
 	 * {@code false} indicates it is not (yet) registered.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isSynchronizationRegistered() {
 		return synchronizationRegistered;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TransactionCoordinatorOwner getTransactionCoordinatorOwner(){
 		return transactionCoordinatorOwner;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaCompliance getJpaCompliance() {
 		return transactionCoordinatorOwner.getJdbcSessionOwner().getJdbcSessionContext().getJpaCompliance();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TransactionDriver getTransactionDriverControl() {
 		if ( physicalTransactionDelegate == null ) {
 			physicalTransactionDelegate = makePhysicalTransactionDelegate();
@@ -204,6 +216,7 @@ public class JtaTransactionCoordinatorImpl implements TransactionCoordinator, Sy
 		return physicalTransactionDelegate;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private TransactionDriverControlImpl makePhysicalTransactionDelegate() {
 		final var adapter =
 				preferUserTransactions
@@ -219,6 +232,7 @@ public class JtaTransactionCoordinatorImpl implements TransactionCoordinator, Sy
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private JtaTransactionAdapter getTransactionAdapterPreferringTransactionManager() {
 		final var adapter = makeTransactionManagerAdapter();
 		if ( adapter == null ) {
@@ -228,6 +242,7 @@ public class JtaTransactionCoordinatorImpl implements TransactionCoordinator, Sy
 		return adapter;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private JtaTransactionAdapter getTransactionAdapterPreferringUserTransaction() {
 		final var adapter = makeUserTransactionAdapter();
 		if ( adapter == null ) {
@@ -237,6 +252,7 @@ public class JtaTransactionCoordinatorImpl implements TransactionCoordinator, Sy
 		return adapter;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private JtaTransactionAdapter makeUserTransactionAdapter() {
 		try {
 			final var userTransaction = jtaPlatform.retrieveUserTransaction();
@@ -254,6 +270,7 @@ public class JtaTransactionCoordinatorImpl implements TransactionCoordinator, Sy
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private JtaTransactionAdapter makeTransactionManagerAdapter() {
 		try {
 			final var transactionManager = jtaPlatform.retrieveTransactionManager();
@@ -272,41 +289,49 @@ public class JtaTransactionCoordinatorImpl implements TransactionCoordinator, Sy
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SynchronizationRegistry getLocalSynchronizations() {
 		return synchronizationRegistry;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isActive() {
 		return transactionCoordinatorOwner.isActive();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isJtaTransactionCurrentlyActive() {
 		return getTransactionDriverControl().getStatus() == ACTIVE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public IsolationDelegate createIsolationDelegate() {
 		return new JtaIsolationDelegate( transactionCoordinatorOwner, jtaPlatform.retrieveTransactionManager() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TransactionCoordinatorBuilder getTransactionCoordinatorBuilder() {
 		return transactionCoordinatorBuilder;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void setTimeOut(int seconds) {
 		this.timeOut = seconds;
 		physicalTransactionDelegate.jtaTransactionAdapter.setTimeOut( seconds );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getTimeOut() {
 		return timeOut;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void invalidate() {
 		if ( physicalTransactionDelegate != null ) {
 			physicalTransactionDelegate.invalidate();
@@ -317,6 +342,7 @@ public class JtaTransactionCoordinatorImpl implements TransactionCoordinator, Sy
 	// SynchronizationCallbackTarget ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void beforeCompletion() {
 		JTA_LOGGER.notifyingJtaObserversBeforeCompletion();
 		try {
@@ -335,6 +361,7 @@ public class JtaTransactionCoordinatorImpl implements TransactionCoordinator, Sy
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void afterCompletion(boolean successful, boolean delayed) {
 		if ( transactionCoordinatorOwner.isActive() ) {
 			JTA_LOGGER.notifyingJtaObserversAfterCompletion();
@@ -354,6 +381,7 @@ public class JtaTransactionCoordinatorImpl implements TransactionCoordinator, Sy
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addObserver(TransactionObserver observer) {
 		if ( observers == null ) {
 			observers = new ArrayList<>( 3 ); //These lists are typically very small.
@@ -362,6 +390,7 @@ public class JtaTransactionCoordinatorImpl implements TransactionCoordinator, Sy
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void removeObserver(TransactionObserver observer) {
 		if ( observers != null ) {
 			observers.remove( observer );
@@ -381,17 +410,20 @@ public class JtaTransactionCoordinatorImpl implements TransactionCoordinator, Sy
 			this.jtaTransactionAdapter = jtaTransactionAdapter;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		protected void invalidate() {
 			invalid = true;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public void begin() {
 			errorIfInvalid();
 			jtaTransactionAdapter.begin();
 			joinJtaTransaction();
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		protected void errorIfInvalid() {
 			if ( invalid ) {
 				throw new IllegalStateException( "Physical-transaction delegate is no longer valid" );
@@ -399,6 +431,7 @@ public class JtaTransactionCoordinatorImpl implements TransactionCoordinator, Sy
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public void commit() {
 			errorIfInvalid();
 			getTransactionCoordinatorOwner().flushBeforeTransactionCompletion();
@@ -408,6 +441,7 @@ public class JtaTransactionCoordinatorImpl implements TransactionCoordinator, Sy
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public void rollback() {
 			errorIfInvalid();
 			// we don't have to perform any after completion processing here.  We leave that for
@@ -416,11 +450,13 @@ public class JtaTransactionCoordinatorImpl implements TransactionCoordinator, Sy
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public TransactionStatus getStatus() {
 			return jtaTransactionAdapter.getStatus();
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public void markRollbackOnly() {
 			if ( jtaTransactionAdapter.getStatus() != NOT_ACTIVE  ) {
 				jtaTransactionAdapter.markRollbackOnly();

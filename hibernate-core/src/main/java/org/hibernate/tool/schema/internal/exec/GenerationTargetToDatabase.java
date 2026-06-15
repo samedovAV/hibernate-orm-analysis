@@ -17,6 +17,8 @@ import org.hibernate.tool.schema.spi.GenerationTarget;
 import org.hibernate.tool.schema.spi.ScriptSourceInput;
 
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link GenerationTarget} which exports DDL directly to the database.
@@ -45,23 +47,28 @@ public class GenerationTargetToDatabase implements GenerationTarget {
 		this.autocommit = autocommit;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private SqlStatementLogger getSqlStatementLogger() {
 		return ddlTransactionIsolator.getJdbcContext().getSqlStatementLogger();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private SqlExceptionHelper getSqlExceptionHelper() {
 		return ddlTransactionIsolator.getJdbcContext().getSqlExceptionHelper();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private Connection getIsolatedConnection() {
 		return ddlTransactionIsolator.getIsolatedConnection( autocommit );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void prepare() {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void beforeScript(ScriptSourceInput scriptSource) {
 		if ( scriptSource.exists() ) {
 			CORE_LOGGER.executingScript( scriptSource.getScriptDescription() );
@@ -69,6 +76,7 @@ public class GenerationTargetToDatabase implements GenerationTarget {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(String command) {
 		//TODO: temporary workaround DELETE ME
 		if ( ddlTransactionIsolator.getJdbcContext().getDialect().throttleDdl() ) {
@@ -94,6 +102,7 @@ public class GenerationTargetToDatabase implements GenerationTarget {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void logWarnings(Statement statement) {
 		try {
 			final var warnings = statement.getWarnings();
@@ -109,12 +118,14 @@ public class GenerationTargetToDatabase implements GenerationTarget {
 	/**
 	 * Strip repetition of the SQL statement from h2 messages.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static String stripSql(SQLException e) {
 		final String message = e.getMessage();
 		final int index = message.indexOf( " SQL statement:" );
 		return index > 0 ? message.substring( 0, index ) : message;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Statement jdbcStatement() {
 		if ( jdbcStatement == null ) {
 			try {
@@ -130,6 +141,7 @@ public class GenerationTargetToDatabase implements GenerationTarget {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void release() {
 		if ( jdbcStatement != null ) {
 			try {

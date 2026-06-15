@@ -14,6 +14,8 @@ import org.hibernate.sql.ast.tree.expression.JsonObjectAggUniqueKeysBehavior;
 import org.hibernate.sql.ast.tree.predicate.Predicate;
 import org.hibernate.type.SqlTypes;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * PostgreSQL json_objectagg function.
@@ -28,6 +30,7 @@ public class PostgreSQLJsonObjectAggFunction extends JsonObjectAggFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void render(
 			SqlAppender sqlAppender,
 			JsonObjectAggArguments arguments,
@@ -72,6 +75,7 @@ public class PostgreSQLJsonObjectAggFunction extends JsonObjectAggFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderUniqueAndReturningClause(SqlAppender sqlAppender, JsonObjectAggArguments arguments, SqlAstTranslator<?> translator) {
 		renderUniqueClause( sqlAppender, arguments, translator );
 		renderReturningClause( sqlAppender, arguments, translator );

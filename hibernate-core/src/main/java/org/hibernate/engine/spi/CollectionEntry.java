@@ -21,6 +21,8 @@ import static java.util.Collections.emptyList;
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
 import static org.hibernate.internal.util.NullnessUtil.castNonNull;
 import static org.hibernate.pretty.MessageHelper.collectionInfoString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * We need an entry to tell us all about the current state
@@ -138,12 +140,14 @@ public final class CollectionEntry implements Serializable {
 	 * Determine if the collection is "really" dirty, by checking dirtiness
 	 * of the collection elements, if necessary
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void dirty(PersistentCollection<?> collection) {
 		if ( forceDirty( collection ) ) {
 			collection.dirty();
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean forceDirty(PersistentCollection<?> collection) {
 		final var loadedPersister = this.loadedPersister;
 		return loadedPersister != null
@@ -154,6 +158,7 @@ public final class CollectionEntry implements Serializable {
 			&& !collection.equalsSnapshot( loadedPersister );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isElementMutable(
 			PersistentCollection<?> collection,
 			CollectionPersister loadedPersister) {
@@ -161,12 +166,14 @@ public final class CollectionEntry implements Serializable {
 			|| loadedPersister.getElementType().isMutable();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean isModifiable() {
 		return !readOnly
 			&& loadedPersister != null
 			&& loadedPersister.isMutable();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void preFlush(PersistentCollection<?> collection) {
 		if ( loadedKey == null ) {
 			loadedKey = collection.getKey();
@@ -190,6 +197,7 @@ public final class CollectionEntry implements Serializable {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void postInitialize(PersistentCollection<?> collection, SharedSessionContractImplementor session) {
 		final var loadedPersister = this.loadedPersister;
 		snapshot = loadedPersister != null && isModifiable() ? collection.getSnapshot( loadedPersister ) : null;
@@ -204,6 +212,7 @@ public final class CollectionEntry implements Serializable {
 	/**
 	 * Called after a successful flush
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void postFlush(PersistentCollection<?> collection, CollectionFlushActionTracker collectionFlushActionTracker) {
 		if ( !ignore && !collectionFlushActionTracker.wasCollectionProcessed( collection ) ) {
 			throw new HibernateException( "Collection '" + collection.getRole() + "' was not processed by flush"
@@ -216,6 +225,7 @@ public final class CollectionEntry implements Serializable {
 	/**
 	 * Called after execution of an action
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void afterAction(PersistentCollection<?> collection) {
 		loadedKey = currentKey;
 		loadedPersister = currentPersister;
@@ -230,18 +240,22 @@ public final class CollectionEntry implements Serializable {
 		collection.postAction();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable Object getKey() {
 		return getLoadedKey();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable String getRole() {
 		return role;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable Serializable getSnapshot() {
 		return snapshot;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isReadOnly() {
 		return readOnly;
 	}
@@ -255,6 +269,7 @@ public final class CollectionEntry implements Serializable {
 	 * @param collection the persistent collection to be updated
 	 * @param storedSnapshot the new stored snapshot
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void resetStoredSnapshot(PersistentCollection<?> collection, Serializable storedSnapshot) {
 		CORE_LOGGER.resetStoredSnapshot( storedSnapshot, this );
 		if ( !fromMerge ) {
@@ -264,6 +279,7 @@ public final class CollectionEntry implements Serializable {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setReadOnly(boolean readOnly, PersistentCollection<?> collection) {
 		if ( this.readOnly != readOnly ) {
 			this.readOnly = readOnly;
@@ -283,16 +299,19 @@ public final class CollectionEntry implements Serializable {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void afterDeserialize(@Nullable SessionFactoryImplementor factory) {
 		loadedPersister = factory == null ? null
 				: factory.getMappingMetamodel()
 						.getCollectionDescriptor( castNonNull( role ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean wasDereferenced() {
 		return loadedKey == null;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private boolean hasQueuedCollectionAction(PersistentCollection<?> collection) {
 		final var session = collection.getSession();
 		if ( session == null ) {
@@ -302,14 +321,17 @@ public final class CollectionEntry implements Serializable {
 		return collectionFlushActionTracker != null && collectionFlushActionTracker.hasQueuedCollectionAction( collection );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isIgnore() {
 		return ignore;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable CollectionPersister getCurrentPersister() {
 		return currentPersister;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setCurrentPersister(@Nullable CollectionPersister currentPersister) {
 		this.currentPersister = currentPersister;
 	}
@@ -318,10 +340,12 @@ public final class CollectionEntry implements Serializable {
 	 * This is only available late during the flush
 	 * cycle
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable Object getCurrentKey() {
 		return currentKey;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setCurrentKey(@Nullable Object currentKey) {
 		this.currentKey = currentKey;
 	}
@@ -329,19 +353,23 @@ public final class CollectionEntry implements Serializable {
 	/**
 	 * This is only available late during the flush cycle
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable CollectionPersister getLoadedPersister() {
 		return loadedPersister;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable Object getLoadedKey() {
 		return loadedKey;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setRole(@Nullable String role) {
 		this.role = role;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String toString() {
 		final var result =
 				new StringBuilder( "CollectionEntry" )
@@ -357,6 +385,7 @@ public final class CollectionEntry implements Serializable {
 	/**
 	 * Get the collection orphans (entities which were removed from the collection)
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Collection<?> getOrphans(String entityName, PersistentCollection<?> collection) {
 		if ( readOnly ) {
 			return emptyList();
@@ -369,6 +398,7 @@ public final class CollectionEntry implements Serializable {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isSnapshotEmpty(PersistentCollection<?> collection) {
 		//TODO: does this really need to be here?
 		//      does the collection already have
@@ -386,6 +416,7 @@ public final class CollectionEntry implements Serializable {
 	 *
 	 * @param oos The stream to which we should write the serial data.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void serialize(ObjectOutputStream oos) throws IOException {
 		oos.writeObject( role );
 		oos.writeObject( snapshot );
@@ -402,6 +433,7 @@ public final class CollectionEntry implements Serializable {
 	 *
 	 * @return The deserialized CollectionEntry
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static CollectionEntry deserialize(ObjectInputStream ois, SessionImplementor session)
 			throws IOException, ClassNotFoundException {
 		return new CollectionEntry(

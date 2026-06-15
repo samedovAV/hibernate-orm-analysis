@@ -25,6 +25,8 @@ import java.util.List;
 import java.util.Map;
 
 import static org.hibernate.sql.exec.SqlExecLogger.SQL_EXEC_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * PostAction intended to perform collection locking with
@@ -47,6 +49,7 @@ public class CollectionLockingAction implements PostAction {
 		this.lockTimeout = lockTimeout;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void apply(
 			LockOptions lockOptions,
 			QuerySpec lockingTarget,
@@ -69,6 +72,7 @@ public class CollectionLockingAction implements PostAction {
 
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void performPostAction(
 			StatementAccess jdbcStatementAccess,
 			Connection jdbcConnection,
@@ -78,6 +82,7 @@ public class CollectionLockingAction implements PostAction {
 	}
 
 	// Used by Hibernate Reactive
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void performPostAction(ExecutionContext executionContext, LoadedValuesCollector loadedValuesCollector) {
 		LockingHelper.logLoadedValues( loadedValuesCollector );
 
@@ -132,11 +137,13 @@ public class CollectionLockingAction implements PostAction {
 	}
 
 	// Used by Hibernate Reactive
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected static LoadedValuesCollectorFactory resolveLoadedValuesCollectorFactory(QuerySpec lockingTarget) {
 		return new LoadedValuesCollectorFactory( lockingTarget.getRootPathsForLocking() );
 	}
 
 	// Used by Hibernate Reactive
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected static Map<EntityMappingType, List<EntityKey>> segmentLoadedValues(LoadedValuesCollector loadedValuesCollector) {
 		final Map<EntityMappingType, List<EntityKey>> map = new IdentityHashMap<>();
 		LockingHelper.segmentLoadedValues( loadedValuesCollector.getCollectedEntities(), map );

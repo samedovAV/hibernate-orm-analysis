@@ -22,6 +22,8 @@ import static org.hibernate.context.internal.CurrentSessionLogging.CURRENT_SESSI
 import org.hibernate.resource.jdbc.spi.PhysicalConnectionHandlingMode;
 
 import static org.hibernate.engine.transaction.internal.jta.JtaStatusHelper.isActive;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An implementation of {@link org.hibernate.context.spi.CurrentSessionContext} which scopes the notion
@@ -57,6 +59,7 @@ public class JTASessionContext extends AbstractCurrentSessionContext {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Session currentSession() throws HibernateException {
 		final var jtaPlatform = factory().getServiceRegistry().requireService( JtaPlatform.class );
 		final var transactionManager = jtaPlatform.retrieveTransactionManager();
@@ -80,6 +83,7 @@ public class JTASessionContext extends AbstractCurrentSessionContext {
 		return currentSession;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void registerSynchronization(Transaction txn, Object txnIdentifier, Session currentSession) {
 		try {
 			txn.registerSynchronization( buildCleanupSynch( txnIdentifier ) );
@@ -95,6 +99,7 @@ public class JTASessionContext extends AbstractCurrentSessionContext {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static @Nonnull Transaction getTransaction(TransactionManager transactionManager) {
 		try {
 			final var transaction = transactionManager.getTransaction();
@@ -124,6 +129,7 @@ public class JTASessionContext extends AbstractCurrentSessionContext {
 	 * @param transactionIdentifier The transaction identifier under which the current session is registered.
 	 * @return The cleanup synch.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private CleanupSync buildCleanupSynch(Object transactionIdentifier) {
 		return new CleanupSync( transactionIdentifier, this );
 	}
@@ -135,6 +141,7 @@ public class JTASessionContext extends AbstractCurrentSessionContext {
 	 * @return the built or (re)obtained session.
 	 */
 	@SuppressWarnings("deprecation")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Session buildOrObtainSession() {
 		return baseSessionBuilder()
 				.autoClose( isAutoCloseEnabled() )
@@ -148,6 +155,7 @@ public class JTASessionContext extends AbstractCurrentSessionContext {
 	 *
 	 * @return Whether the session should be closed by transaction completion.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean isAutoCloseEnabled() {
 		return true;
 	}
@@ -157,6 +165,7 @@ public class JTASessionContext extends AbstractCurrentSessionContext {
 	 *
 	 * @return Whether the session should be flushed prior transaction completion.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean isAutoFlushEnabled() {
 		return true;
 	}
@@ -166,6 +175,7 @@ public class JTASessionContext extends AbstractCurrentSessionContext {
 	 *
 	 * @return The connection release mode for any built sessions.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected PhysicalConnectionHandlingMode getConnectionHandlingMode() {
 		return PhysicalConnectionHandlingMode.DELAYED_ACQUISITION_AND_RELEASE_AFTER_STATEMENT;
 	}
@@ -183,10 +193,12 @@ public class JTASessionContext extends AbstractCurrentSessionContext {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void beforeCompletion() {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void afterCompletion(int i) {
 			context.currentSessionMap.remove( transactionIdentifier );
 		}

@@ -8,6 +8,8 @@ import jakarta.persistence.EnumType;
 import org.hibernate.dialect.PostgreSQLDialect;
 
 import static org.hibernate.type.SqlTypes.NAMED_ORDINAL_ENUM;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents a named {@code enum} type on PostgreSQL.
@@ -28,6 +30,7 @@ public class PostgreSQLOrdinalEnumJdbcType extends PostgreSQLEnumJdbcType {
 	public static final PostgreSQLOrdinalEnumJdbcType INSTANCE = new PostgreSQLOrdinalEnumJdbcType();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getDefaultSqlTypeCode() {
 		return NAMED_ORDINAL_ENUM;
 	}

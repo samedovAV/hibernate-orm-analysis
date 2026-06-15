@@ -12,6 +12,8 @@ import org.hibernate.sql.model.ast.ColumnValueParameter;
 import org.hibernate.sql.model.ast.MutatingTableReference;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class OptionalTableInsert extends TableInsertStandard {
 
@@ -31,10 +33,12 @@ public class OptionalTableInsert extends TableInsertStandard {
 		this.constraintColumnNames = constraintColumnNames;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable String getConstraintName() {
 		return constraintName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<String> getConstraintColumnNames() {
 		return constraintColumnNames;
 	}

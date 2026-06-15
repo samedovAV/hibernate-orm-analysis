@@ -9,6 +9,8 @@ import jakarta.transaction.UserTransaction;
 
 import org.hibernate.boot.registry.classloading.spi.ClassLoaderService;
 import org.hibernate.engine.transaction.jta.platform.spi.JtaPlatformException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Return a standalone JTA transaction manager for JBoss (Arjuna) Transactions or WildFly transaction client
@@ -27,6 +29,7 @@ public class JBossStandAloneJtaPlatform extends AbstractJtaPlatform {
 	private static final WildFlyStandAloneJtaPlatform wildflyBasedAlternative = new WildFlyStandAloneJtaPlatform();
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected TransactionManager locateTransactionManager() {
 		//Try WildFly first as it's the "new generation":
 		try {
@@ -48,6 +51,7 @@ public class JBossStandAloneJtaPlatform extends AbstractJtaPlatform {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected UserTransaction locateUserTransaction() {
 		//Try WildFly first as it's the "new generation":
 		try {

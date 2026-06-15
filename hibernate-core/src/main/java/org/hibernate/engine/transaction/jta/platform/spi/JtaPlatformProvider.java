@@ -5,6 +5,8 @@
 package org.hibernate.engine.transaction.jta.platform.spi;
 
 import org.hibernate.service.JavaServiceLoadable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link java.util.ServiceLoader}-style provider of {@link JtaPlatform}
@@ -22,5 +24,6 @@ public interface JtaPlatformProvider {
 	 *
 	 * @return The provided JtaPlatform
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JtaPlatform getProvidedJtaPlatform();
 }

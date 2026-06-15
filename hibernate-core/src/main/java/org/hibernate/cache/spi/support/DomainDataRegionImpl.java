@@ -13,6 +13,8 @@ import org.hibernate.cache.spi.CacheKeysFactory;
 import org.hibernate.cache.spi.access.CollectionDataAccess;
 import org.hibernate.cache.spi.access.EntityDataAccess;
 import org.hibernate.cache.spi.access.NaturalIdDataAccess;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -35,6 +37,7 @@ public class DomainDataRegionImpl extends DomainDataRegionTemplate {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected EntityDataAccess generateTransactionalEntityDataAccess(EntityDataCachingConfig entityAccessConfig) {
 		return new EntityTransactionalAccess(
 				this,
@@ -45,6 +48,7 @@ public class DomainDataRegionImpl extends DomainDataRegionTemplate {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected NaturalIdDataAccess generateTransactionalNaturalIdDataAccess(NaturalIdDataCachingConfig accessConfig) {
 		return new NaturalIdTransactionalAccess(
 				this,
@@ -55,6 +59,7 @@ public class DomainDataRegionImpl extends DomainDataRegionTemplate {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected CollectionDataAccess generateTransactionalCollectionDataAccess(CollectionDataCachingConfig accessConfig) {
 		return new CollectionTransactionAccess(
 				this,

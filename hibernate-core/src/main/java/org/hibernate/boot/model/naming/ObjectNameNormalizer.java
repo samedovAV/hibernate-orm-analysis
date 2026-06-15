@@ -7,6 +7,8 @@ package org.hibernate.boot.model.naming;
 import org.hibernate.boot.model.relational.Database;
 import org.hibernate.boot.spi.MetadataBuildingContext;
 import org.hibernate.internal.util.StringHelper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Provides centralized normalization of how database object names are handled.
@@ -32,14 +34,17 @@ public class ObjectNameNormalizer {
 	 * @param identifierText The identifier to be quoting-normalized.
 	 * @return The identifier accounting for any quoting that need be applied.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Identifier normalizeIdentifierQuoting(String identifierText) {
 		return database().toIdentifier( identifierText );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Database database() {
 		return getBuildingContext().getMetadataCollector().getDatabase();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Identifier normalizeIdentifierQuoting(Identifier identifier) {
 		return database().getJdbcEnvironment().getIdentifierHelper()
 				.normalizeQuoting( identifier );
@@ -52,11 +57,13 @@ public class ObjectNameNormalizer {
 	 * @param identifierText The identifier to be quoting-normalized.
 	 * @return The identifier accounting for any quoting that need be applied.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String normalizeIdentifierQuotingAsString(String identifierText) {
 		final Identifier identifier = normalizeIdentifierQuoting( identifierText );
 		return identifier == null ? null : identifier.render( database().getDialect() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toDatabaseIdentifierText(String identifierText) {
 		return database().getDialect().quote( normalizeIdentifierQuotingAsString( identifierText ) );
 	}
@@ -69,6 +76,7 @@ public class ObjectNameNormalizer {
 	 *
 	 * @return The logical name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Identifier determineLogicalName(String explicitName, NamingStrategyHelper namingStrategyHelper) {
 		final Identifier logicalName = StringHelper.isEmpty( explicitName )
 				? namingStrategyHelper.determineImplicitName( getBuildingContext() )
@@ -86,6 +94,7 @@ public class ObjectNameNormalizer {
 	 *
 	 * @return The name with global quoting applied
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String applyGlobalQuoting(String text) {
 		return database().getJdbcEnvironment().getIdentifierHelper().applyGlobalQuoting( text )
 				.render( database().getDialect() );
@@ -102,6 +111,7 @@ public class ObjectNameNormalizer {
 	 *
 	 * @return The current building context
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected MetadataBuildingContext getBuildingContext() {
 		return context;
 	}

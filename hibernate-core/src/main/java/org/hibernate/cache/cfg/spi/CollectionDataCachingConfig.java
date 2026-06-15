@@ -5,6 +5,8 @@
 package org.hibernate.cache.cfg.spi;
 
 import java.util.Comparator;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specialized DomainDataCachingConfig describing the requested
@@ -16,5 +18,6 @@ public interface CollectionDataCachingConfig extends DomainDataCachingConfig {
 	/**
 	 * The comparator to be used with the owning entity's version (if it has one).
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Comparator<Object> getOwnerVersionComparator();
 }

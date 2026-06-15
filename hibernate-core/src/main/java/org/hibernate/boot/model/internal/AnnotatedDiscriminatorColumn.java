@@ -11,6 +11,8 @@ import org.hibernate.boot.spi.MetadataBuildingContext;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.DiscriminatorType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link jakarta.persistence.DiscriminatorColumn} annotation
@@ -33,14 +35,17 @@ public class AnnotatedDiscriminatorColumn extends AnnotatedColumn {
 		setLength( DEFAULT_DISCRIMINATOR_LENGTH );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getDiscriminatorTypeName() {
 		return discriminatorTypeName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setDiscriminatorTypeName(String discriminatorTypeName) {
 		this.discriminatorTypeName = discriminatorTypeName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static AnnotatedDiscriminatorColumn buildDiscriminatorColumn(
 			DiscriminatorColumn discriminatorColumn,
 			DiscriminatorFormula discriminatorFormula,
@@ -92,6 +97,7 @@ public class AnnotatedDiscriminatorColumn extends AnnotatedColumn {
 		return column;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void setDiscriminatorType(
 			DiscriminatorType type,
 			DiscriminatorColumn discriminatorColumn,

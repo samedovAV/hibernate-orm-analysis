@@ -44,6 +44,8 @@ import static org.hibernate.metamodel.mapping.internal.MappingModelCreationHelpe
 import static org.hibernate.persister.state.internal.AbstractStateManagement.isInsertAllowed;
 import static org.hibernate.persister.state.internal.AbstractStateManagement.isUpdatePossible;
 import static org.hibernate.persister.state.internal.AbstractStateManagement.resolveMutationTarget;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * State management for temporal entities and collections with
@@ -62,11 +64,13 @@ public final class HistoryStateManagement implements StateManagement, StateManag
 
 	private final StateManagementGraphIntegration graphIntegration = new StateManagementGraphIntegration() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public EntityMutationPlanContributor createEntityMutationPlanContributor(EntityPersister persister) {
 			return new HistoryEntityMutationPlanContributor( persister, persister.getFactory() );
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public CollectionMutationPlanContributor createCollectionMutationPlanContributor(CollectionPersister persister) {
 			return new HistoryCollectionMutationPlanContributor();
 		}
@@ -76,6 +80,7 @@ public final class HistoryStateManagement implements StateManagement, StateManag
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public StateManagementLegacyIntegration getLegacyIntegration() {
 		return this;
 	}
@@ -85,6 +90,7 @@ public final class HistoryStateManagement implements StateManagement, StateManag
 	// Graph ActionQueue integration
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public StateManagementGraphIntegration getGraphIntegration() {
 		return graphIntegration;
 	}
@@ -94,30 +100,35 @@ public final class HistoryStateManagement implements StateManagement, StateManag
 	// Legacy ActionQueue integration
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public UpdateCoordinator createMergeCoordinator(EntityPersister persister) {
 		return new MergeCoordinatorHistory( persister, persister.getFactory(),
 				standardLegacyIntegration.createMergeCoordinator( persister ) );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public InsertCoordinator createInsertCoordinator(EntityPersister persister) {
 		return new InsertCoordinatorHistory( persister, persister.getFactory(),
 				standardLegacyIntegration.createInsertCoordinator( persister ) );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public UpdateCoordinator createUpdateCoordinator(EntityPersister persister) {
 		return new UpdateCoordinatorHistory( persister, persister.getFactory(),
 				standardLegacyIntegration.createUpdateCoordinator( persister ) );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public DeleteCoordinator createDeleteCoordinator(EntityPersister persister) {
 		return new DeleteCoordinatorHistory( persister, persister.getFactory(),
 				standardLegacyIntegration.createDeleteCoordinator( persister ) );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public InsertRowsCoordinator createInsertRowsCoordinator(CollectionPersister persister) {
 		final var mutationTarget = resolveMutationTarget( persister );
 		if ( !isInsertAllowed( persister ) ) {
@@ -140,6 +151,7 @@ public final class HistoryStateManagement implements StateManagement, StateManag
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public UpdateRowsCoordinator createUpdateRowsCoordinator(CollectionPersister persister) {
 		final var mutationTarget = resolveMutationTarget( persister );
 		if ( !isUpdatePossible( persister ) ) {
@@ -161,6 +173,7 @@ public final class HistoryStateManagement implements StateManagement, StateManag
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DeleteRowsCoordinator createDeleteRowsCoordinator(CollectionPersister persister) {
 		final var mutationTarget = resolveMutationTarget( persister );
 		if ( !persister.needsRemove() ) {
@@ -183,6 +196,7 @@ public final class HistoryStateManagement implements StateManagement, StateManag
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public RemoveCoordinator createRemoveCoordinator(CollectionPersister persister) {
 		final var mutationTarget = resolveMutationTarget( persister );
 		if ( !persister.needsRemove() ) {
@@ -204,6 +218,7 @@ public final class HistoryStateManagement implements StateManagement, StateManag
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AuxiliaryMapping createAuxiliaryMapping(
 			EntityPersister persister,
 			RootClass rootClass,
@@ -217,6 +232,7 @@ public final class HistoryStateManagement implements StateManagement, StateManag
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AuxiliaryMapping createAuxiliaryMapping(
 			PluralAttributeMapping pluralAttributeMapping,
 			Collection bootDescriptor,

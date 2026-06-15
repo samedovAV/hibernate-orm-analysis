@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.hibernate.annotations.ConverterRegistration;
 import org.hibernate.models.spi.ModelsContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -46,35 +48,42 @@ public class ConverterRegistrationAnnotation implements ConverterRegistration {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return ConverterRegistration.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public java.lang.Class<? extends jakarta.persistence.AttributeConverter<?, ?>> converter() {
 		return converter;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void converter(java.lang.Class<? extends jakarta.persistence.AttributeConverter<?, ?>> value) {
 		this.converter = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public java.lang.Class<?> domainType() {
 		return domainType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void domainType(java.lang.Class<?> value) {
 		this.domainType = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean autoApply() {
 		return autoApply;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void autoApply(boolean value) {
 		this.autoApply = value;
 	}

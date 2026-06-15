@@ -12,6 +12,8 @@ import org.hibernate.internal.util.StringHelper;
 import org.hibernate.metamodel.CollectionClassification;
 
 import jakarta.persistence.CascadeType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents a "nested level" in the mapping defaults stack.
@@ -69,76 +71,91 @@ public class OverriddenMappingDefaults implements EffectiveMappingDefaults {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getDefaultSchemaName() {
 		return implicitSchemaName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getDefaultCatalogName() {
 		return implicitCatalogName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isDefaultQuoteIdentifiers() {
 		return implicitlyQuoteIdentifiers;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getDefaultIdColumnName() {
 		return implicitIdColumnName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getDefaultDiscriminatorColumnName() {
 		return implicitDiscriminatorColumnName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getDefaultTenantIdColumnName() {
 		return implicitTenantIdColumnName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getDefaultPackageName() {
 		return implicitPackageName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isDefaultAutoImport() {
 		return autoImportEnabled;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EnumSet<CascadeType> getDefaultCascadeTypes() {
 		return cascadeTypes;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.AccessType getDefaultPropertyAccessType() {
 		return implicitPropertyAccessType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getDefaultAccessStrategyName() {
 		return implicitPropertyAccessorName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isDefaultEntityLaziness() {
 		return entitiesImplicitlyLazy;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isDefaultCollectionLaziness() {
 		return pluralAttributesImplicitlyLazy;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AccessType getDefaultCacheAccessType() {
 		return implicitCacheAccessType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionClassification getDefaultListClassification() {
 		return implicitListClassification;
 	}
@@ -178,6 +195,7 @@ public class OverriddenMappingDefaults implements EffectiveMappingDefaults {
 			this.implicitCacheAccessType = parentDefaults.getDefaultCacheAccessType();
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder setImplicitSchemaName(String implicitSchemaName) {
 			if ( StringHelper.isNotEmpty( implicitSchemaName ) ) {
 				this.implicitSchemaName = implicitSchemaName;
@@ -185,6 +203,7 @@ public class OverriddenMappingDefaults implements EffectiveMappingDefaults {
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder setImplicitCatalogName(String implicitCatalogName) {
 			if ( StringHelper.isNotEmpty( implicitCatalogName ) ) {
 				this.implicitCatalogName = implicitCatalogName;
@@ -192,11 +211,13 @@ public class OverriddenMappingDefaults implements EffectiveMappingDefaults {
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder setImplicitlyQuoteIdentifiers(boolean implicitlyQuoteIdentifiers) {
 			this.implicitlyQuoteIdentifiers = implicitlyQuoteIdentifiers;
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder setImplicitIdColumnName(String implicitIdColumnName) {
 			if ( StringHelper.isNotEmpty( implicitIdColumnName ) ) {
 				this.implicitIdColumnName = implicitIdColumnName;
@@ -204,6 +225,7 @@ public class OverriddenMappingDefaults implements EffectiveMappingDefaults {
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder setImplicitTenantIdColumnName(String implicitTenantIdColumnName) {
 			if ( StringHelper.isNotEmpty( implicitTenantIdColumnName ) ) {
 				this.implicitTenantIdColumnName = implicitTenantIdColumnName;
@@ -211,6 +233,7 @@ public class OverriddenMappingDefaults implements EffectiveMappingDefaults {
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder setImplicitDiscriminatorColumnName(String implicitDiscriminatorColumnName) {
 			if ( StringHelper.isNotEmpty( implicitDiscriminatorColumnName ) ) {
 				this.implicitDiscriminatorColumnName = implicitDiscriminatorColumnName;
@@ -218,6 +241,7 @@ public class OverriddenMappingDefaults implements EffectiveMappingDefaults {
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder setImplicitPackageName(String implicitPackageName) {
 			if ( StringHelper.isNotEmpty( implicitPackageName ) ) {
 				this.implicitPackageName = implicitPackageName;
@@ -225,6 +249,7 @@ public class OverriddenMappingDefaults implements EffectiveMappingDefaults {
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder setAutoImportEnabled(boolean autoImportEnabled) {
 			this.autoImportEnabled = autoImportEnabled;
 			return this;
@@ -237,6 +262,7 @@ public class OverriddenMappingDefaults implements EffectiveMappingDefaults {
 //			return this;
 //		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder setImplicitPropertyAccessType(jakarta.persistence.AccessType accessType) {
 			if ( accessType != null ) {
 				this.implicitPropertyAccessType = accessType;
@@ -244,6 +270,7 @@ public class OverriddenMappingDefaults implements EffectiveMappingDefaults {
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder setImplicitPropertyAccessorName(String implicitPropertyAccessorName) {
 			if ( StringHelper.isNotEmpty( implicitPropertyAccessorName ) ) {
 				this.implicitPropertyAccessorName = implicitPropertyAccessorName;
@@ -251,16 +278,19 @@ public class OverriddenMappingDefaults implements EffectiveMappingDefaults {
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder setEntitiesImplicitlyLazy(boolean entitiesImplicitlyLazy) {
 			this.entitiesImplicitlyLazy = entitiesImplicitlyLazy;
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder setPluralAttributesImplicitlyLazy(boolean pluralAttributesImplicitlyLazy) {
 			this.pluralAttributesImplicitlyLazy = pluralAttributesImplicitlyLazy;
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder setImplicitCacheAccessType(AccessType implicitCacheAccessType) {
 			if ( implicitCacheAccessType != null ) {
 				this.implicitCacheAccessType = implicitCacheAccessType;
@@ -268,10 +298,12 @@ public class OverriddenMappingDefaults implements EffectiveMappingDefaults {
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public CollectionClassification getImplicitListClassification() {
 			return implicitListClassification;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder setImplicitListClassification(CollectionClassification implicitListClassification) {
 			if ( implicitListClassification != null ) {
 				this.implicitListClassification = implicitListClassification;
@@ -279,6 +311,7 @@ public class OverriddenMappingDefaults implements EffectiveMappingDefaults {
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public OverriddenMappingDefaults build() {
 			return new OverriddenMappingDefaults(
 					implicitSchemaName,

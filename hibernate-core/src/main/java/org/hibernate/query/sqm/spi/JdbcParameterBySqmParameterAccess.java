@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.hibernate.query.sqm.tree.expression.SqmParameter;
 import org.hibernate.sql.ast.tree.expression.JdbcParameter;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Access to the mapping between an SqmParameter and all of its JDBC parameters
@@ -20,5 +22,6 @@ public interface JdbcParameterBySqmParameterAccess {
 	/**
 	 * The mapping between an SqmParameter and all of its JDBC parameters
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Map<SqmParameter<?>, List<List<JdbcParameter>>> getJdbcParamsBySqmParam();
 }

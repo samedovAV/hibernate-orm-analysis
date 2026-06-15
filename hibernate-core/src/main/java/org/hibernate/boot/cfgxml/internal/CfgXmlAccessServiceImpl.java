@@ -8,6 +8,8 @@ import java.util.Map;
 
 import org.hibernate.boot.cfgxml.spi.CfgXmlAccessService;
 import org.hibernate.boot.cfgxml.spi.LoadedConfig;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -20,6 +22,7 @@ public class CfgXmlAccessServiceImpl implements CfgXmlAccessService {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LoadedConfig getAggregatedConfig() {
 		return aggregatedCfgXml;
 	}

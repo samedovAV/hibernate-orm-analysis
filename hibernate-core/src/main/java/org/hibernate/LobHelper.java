@@ -9,6 +9,8 @@ import java.io.Reader;
 import java.sql.Blob;
 import java.sql.Clob;
 import java.sql.NClob;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A factory for instances of {@link Blob} and {@link Clob} used for writing LOB data.
@@ -26,6 +28,7 @@ public interface LobHelper {
 	 *
 	 * @return the created Blob
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Blob createBlob(byte[] bytes);
 
 	/**
@@ -36,6 +39,7 @@ public interface LobHelper {
 
 	 * @return the create Blob
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Blob createBlob(InputStream stream, long length);
 
 	/**
@@ -45,6 +49,7 @@ public interface LobHelper {
 	 *
 	 * @return The created {@link Clob}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Clob createClob(String string);
 
 	/**
@@ -55,6 +60,7 @@ public interface LobHelper {
 	 *
 	 * @return The created {@link Clob}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Clob createClob(Reader reader, long length);
 
 	/**
@@ -64,6 +70,7 @@ public interface LobHelper {
 	 *
 	 * @return The created {@link NClob}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NClob createNClob(String string);
 
 	/**
@@ -74,5 +81,6 @@ public interface LobHelper {
 	 *
 	 * @return The created {@link NClob}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NClob createNClob(Reader reader, long length);
 }

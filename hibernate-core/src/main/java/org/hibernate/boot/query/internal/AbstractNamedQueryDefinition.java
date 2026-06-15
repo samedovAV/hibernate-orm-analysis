@@ -11,6 +11,8 @@ import org.hibernate.FlushMode;
 import org.hibernate.boot.query.NamedQueryDefinition;
 
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Base support for all NamedQueryDefinition implementation.
 ///
@@ -36,32 +38,38 @@ public abstract class AbstractNamedQueryDefinition<T> implements NamedQueryDefin
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getRegistrationName() {
 		return name;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FlushMode getQueryFlushMode() {
 		return flushMode;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Timeout getTimeout() {
 		return timeout;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getComment() {
 		return comment;
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, Object> getHints() {
 		return hints;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable String getLocation() {
 		return location;
 	}

@@ -10,6 +10,8 @@ import org.hibernate.dialect.Dialect;
 import org.hibernate.mapping.Column;
 import org.hibernate.mapping.Table;
 import org.hibernate.mapping.UniqueKey;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link UniqueDelegate} which includes the unique constraint in the {@code create table}
@@ -38,6 +40,7 @@ public class CreateTableUniqueDelegate extends AlterTableUniqueDelegate {
 	// legacy model ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getColumnDefinitionUniquenessFragment(Column column, SqlStringGenerationContext context) {
 		// It would be nice to detect that the column belongs to a named unique
 		// constraint so that we could skip it here, but we don't have the Table.
@@ -47,6 +50,7 @@ public class CreateTableUniqueDelegate extends AlterTableUniqueDelegate {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public String getTableCreationUniqueConstraintsFragment(Table table, SqlStringGenerationContext context) {
 		if ( context.isMigration() ) {
 			return super.getTableCreationUniqueConstraintsFragment( table, context );
@@ -69,6 +73,7 @@ public class CreateTableUniqueDelegate extends AlterTableUniqueDelegate {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void appendUniqueConstraint(StringBuilder fragment, UniqueKey uniqueKey) {
 		fragment.append( ", " );
 		if ( uniqueKey.isNameExplicit() ) {
@@ -77,6 +82,7 @@ public class CreateTableUniqueDelegate extends AlterTableUniqueDelegate {
 		fragment.append( uniqueConstraintSql( uniqueKey ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isSingleColumnUnique(Table table, UniqueKey uniqueKey) {
 		if ( uniqueKey.getColumns().size() == 1)  {
 			// Since columns are created on demand in IndexBinder.createColumn,
@@ -96,11 +102,13 @@ public class CreateTableUniqueDelegate extends AlterTableUniqueDelegate {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getAlterTableToAddUniqueKeyCommand(UniqueKey uniqueKey, Metadata metadata, SqlStringGenerationContext context) {
 		return context.isMigration() ? super.getAlterTableToAddUniqueKeyCommand( uniqueKey, metadata, context ) : "";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getAlterTableToDropUniqueKeyCommand(UniqueKey uniqueKey, Metadata metadata, SqlStringGenerationContext context) {
 		return context.isMigration() ? super.getAlterTableToDropUniqueKeyCommand(uniqueKey, metadata, context) : "";
 	}

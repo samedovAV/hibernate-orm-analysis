@@ -16,6 +16,8 @@ import org.hibernate.sql.ast.SqlAstTranslator;
 import org.hibernate.sql.ast.spi.SqlAppender;
 import org.hibernate.sql.ast.tree.SqlAstNode;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Custom {@link TruncFunction} for SQL Server versions before 16,
@@ -38,6 +40,7 @@ public class SqlServerConvertTruncFunction extends TruncFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected <T> SelfRenderingSqmFunction<T> generateSqmFunctionExpression(
 			List<? extends SqmTypedNode<?>> arguments,
 			ReturnableType<T> impliedResultType,
@@ -75,6 +78,7 @@ public class SqlServerConvertTruncFunction extends TruncFunction {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void render(
 				SqlAppender sqlAppender,
 				List<? extends SqlAstNode> sqlAstArguments,

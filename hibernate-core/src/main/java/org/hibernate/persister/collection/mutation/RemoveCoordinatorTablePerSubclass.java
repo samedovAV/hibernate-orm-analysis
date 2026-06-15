@@ -17,6 +17,8 @@ import org.hibernate.sql.model.ast.MutatingTableReference;
 
 import static org.hibernate.sql.model.ModelMutationLogging.MODEL_MUTATION_LOGGER;
 import static org.hibernate.sql.model.internal.MutationOperationGroupFactory.singleOperation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * OneToMany remove coordinator if the element is a {@link org.hibernate.persister.entity.UnionSubclassEntityPersister}.
@@ -44,21 +46,25 @@ public class RemoveCoordinatorTablePerSubclass implements RemoveCoordinator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "RemoveCoordinator(" + mutationTarget.getRolePath() + ")";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionMutationTarget getMutationTarget() {
 		return mutationTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSqlString() {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void deleteAllRows(Object key, SharedSessionContractImplementor session) {
 		if ( MODEL_MUTATION_LOGGER.isTraceEnabled() ) {
 			MODEL_MUTATION_LOGGER.removingCollection( mutationTarget.getRolePath(), key );
@@ -103,6 +109,7 @@ public class RemoveCoordinatorTablePerSubclass implements RemoveCoordinator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private MutationOperationGroup[] buildOperationGroups() {
 		final var subMappingTypes =
 				mutationTarget.getElementPersister()
@@ -116,6 +123,7 @@ public class RemoveCoordinatorTablePerSubclass implements RemoveCoordinator {
 		return operationGroups;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private MutationOperationGroup buildOperationGroup(EntityPersister elementPersister) {
 		assert mutationTarget.getTargetPart() != null
 			&& mutationTarget.getTargetPart().getKeyDescriptor() != null;

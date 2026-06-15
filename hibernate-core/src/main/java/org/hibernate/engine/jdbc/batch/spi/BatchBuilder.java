@@ -12,6 +12,8 @@ import org.hibernate.engine.jdbc.spi.JdbcCoordinator;
 import org.hibernate.service.JavaServiceLoadable;
 import org.hibernate.service.Service;
 import org.hibernate.sql.model.PreparableMutationOperation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A builder for {@link Batch} instances.
@@ -46,6 +48,7 @@ public interface BatchBuilder extends Service {
 	 *
 	 * @return a grouped batch instance
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	GroupedBatch buildGroupedBatch(
 			BatchKey key,
 			Integer batchSize,
@@ -69,6 +72,7 @@ public interface BatchBuilder extends Service {
 	 *
 	 * @return a single-statement batch instance
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SingleStatementBatch buildSingleStatementBatch(
 			BatchKey key,
 			Integer batchSize,

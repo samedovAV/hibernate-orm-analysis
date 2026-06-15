@@ -9,6 +9,8 @@ import java.io.Serializable;
 import org.hibernate.SharedSessionContract;
 import org.hibernate.type.descriptor.java.MutabilityPlan;
 import org.hibernate.usertype.UserType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -21,21 +23,25 @@ public class UserTypeMutabilityPlanAdapter<T> implements MutabilityPlan<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isMutable() {
 		return userType.isMutable();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public T deepCopy(T value) {
 		return userType.deepCopy( value );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Serializable disassemble(T value, SharedSessionContract session) {
 		return userType.disassemble( value );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public T assemble(Serializable cached, SharedSessionContract session) {
 		return userType.assemble( cached, null );
 	}

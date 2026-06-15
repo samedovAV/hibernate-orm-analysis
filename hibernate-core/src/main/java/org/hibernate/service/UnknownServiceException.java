@@ -4,6 +4,8 @@
  */
 package org.hibernate.service;
 import org.hibernate.service.spi.ServiceException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Indicates that an unknown service was requested from the registry.
@@ -18,6 +20,7 @@ public class UnknownServiceException extends ServiceException {
 		this.serviceRole = serviceRole;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getServiceRole() {
 		return serviceRole;
 	}

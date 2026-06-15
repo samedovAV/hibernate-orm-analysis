@@ -18,6 +18,8 @@ import org.hibernate.query.sqm.tree.expression.SqmExpression;
 import java.util.List;
 
 import static java.util.Arrays.asList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Oracle 8i had no {@code coalesce()} function,
@@ -39,6 +41,7 @@ public class NvlCoalesceEmulation
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected <T> SelfRenderingSqmFunction<T> generateSqmFunctionExpression(
 			List<? extends SqmTypedNode<?>> arguments,
 			ReturnableType<T> impliedResultType,

@@ -5,6 +5,8 @@
 package org.hibernate;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A problem occurred translating a Hibernate query to SQL due to illegal query
@@ -95,11 +97,13 @@ public class QueryException extends HibernateException {
 	 *
 	 * @return The query string
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable String getQueryString() {
 		return queryString;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getMessage() {
 		String msg = getOriginalMessage();
 		if ( queryString != null ) {
@@ -108,6 +112,7 @@ public class QueryException extends HibernateException {
 		return msg;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected final String getOriginalMessage() {
 		return super.getMessage();
 	}

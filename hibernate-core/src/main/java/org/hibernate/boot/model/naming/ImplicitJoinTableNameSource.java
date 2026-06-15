@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.naming;
 
 import org.hibernate.boot.model.source.spi.AttributePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Context for determining the implicit name for a join table.
@@ -19,6 +21,7 @@ public interface ImplicitJoinTableNameSource extends ImplicitNameSource {
 	 *
 	 * @return Owning entity's primary table  name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getOwningPhysicalTableName();
 
 	/**
@@ -26,6 +29,7 @@ public interface ImplicitJoinTableNameSource extends ImplicitNameSource {
 	 *
 	 * @return Owning entity naming information
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityNaming getOwningEntityNaming();
 
 	/**
@@ -33,6 +37,7 @@ public interface ImplicitJoinTableNameSource extends ImplicitNameSource {
 	 *
 	 * @return Owning entity's primary table  name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getNonOwningPhysicalTableName();
 
 	/**
@@ -40,6 +45,7 @@ public interface ImplicitJoinTableNameSource extends ImplicitNameSource {
 	 *
 	 * @return Owning entity naming information
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityNaming getNonOwningEntityNaming();
 
 	/**
@@ -47,5 +53,6 @@ public interface ImplicitJoinTableNameSource extends ImplicitNameSource {
 	 *
 	 * @return The owning side's attribute name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	AttributePath getAssociationOwningAttributePath();
 }

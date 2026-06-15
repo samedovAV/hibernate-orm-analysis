@@ -26,57 +26,85 @@ import org.hibernate.boot.jaxb.mapping.spi.JaxbUserTypeRegistrationImpl;
 
 import java.util.List;
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
  */
 public interface XmlDocument {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Origin getOrigin();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JaxbEntityMappingsImpl getRoot();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<JaxbEntityImpl> getEntityMappings();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<JaxbMappedSuperclassImpl> getMappedSuperclassMappings();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<JaxbEmbeddableImpl> getEmbeddableMappings();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<JaxbConverterImpl> getConverters();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<JaxbConverterRegistrationImpl> getConverterRegistrations();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<JaxbJavaTypeRegistrationImpl> getJavaTypeRegistrations();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<JaxbJdbcTypeRegistrationImpl> getJdbcTypeRegistrations();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<JaxbUserTypeRegistrationImpl> getUserTypeRegistrations();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<JaxbCompositeUserTypeRegistrationImpl> getCompositeUserTypeRegistrations();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<JaxbCollectionUserTypeRegistrationImpl> getCollectionUserTypeRegistrations();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<JaxbEmbeddableInstantiatorRegistrationImpl> getEmbeddableInstantiatorRegistrations();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Map<String, JaxbNamedHqlQueryImpl> getJpaNamedQueries();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Map<String, JaxbNamedNativeQueryImpl> getJpaNamedNativeQueries();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Map<String, JaxbHbmNamedQueryType> getHibernateNamedQueries();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Map<String, JaxbHbmNamedNativeQueryType> getHibernateNamedNativeQueries();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Map<String, JaxbNamedStoredProcedureQueryImpl> getNamedStoredProcedureQueries();
 
 	interface Defaults {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		String getPackage();
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		AccessType getAccessType();
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		String getAccessorStrategy();
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		String getCatalog();
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		String getSchema();
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		boolean isAutoImport();
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		boolean isLazinessImplied();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Defaults getDefaults();
 
 

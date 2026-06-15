@@ -9,6 +9,8 @@ import org.hibernate.Incubating;
 import jakarta.annotation.Nullable;
 
 import static org.hibernate.internal.util.NullnessUtil.castNonNull;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An implementation of {@link NavigablePath} with special handling for treated paths.
@@ -34,11 +36,13 @@ public class TreatedNavigablePath extends NavigablePath {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigablePath treatAs(String entityName) {
 		return new TreatedNavigablePath( castNonNull( getRealParent() ), entityName );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigablePath treatAs(String entityName, @Nullable String alias) {
 		return new TreatedNavigablePath( castNonNull( getRealParent() ), entityName, alias );
 	}

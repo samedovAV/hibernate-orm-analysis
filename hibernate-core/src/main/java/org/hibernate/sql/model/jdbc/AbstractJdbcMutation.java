@@ -15,6 +15,8 @@ import org.hibernate.sql.model.MutationTarget;
 import org.hibernate.sql.model.TableMapping;
 
 import static org.hibernate.internal.util.collections.CollectionHelper.arrayList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -53,31 +55,37 @@ public abstract class AbstractJdbcMutation implements JdbcMutationOperation {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableMapping getTableDetails() {
 		return tableDetails;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Set<String> getAffectedTableNames() {
 		return Set.of( getTableDetails().getTableName() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutationTarget<?,?> getMutationTarget() {
 		return mutationTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSqlString() {
 		return sql;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<? extends JdbcParameterBinder> getParameterBinders() {
 		return parameterBinders;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcValueDescriptor findValueDescriptor(String columnName, ParameterUsage usage) {
 		for ( int i = 0; i < jdbcValueDescriptors.size(); i++ ) {
 			final var descriptor = jdbcValueDescriptors.get( i );
@@ -92,11 +100,13 @@ public abstract class AbstractJdbcMutation implements JdbcMutationOperation {
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCallable() {
 		return callable;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expectation getExpectation() {
 		return expectation;
 	}

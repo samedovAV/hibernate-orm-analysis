@@ -9,6 +9,8 @@ import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.metamodel.mapping.JdbcMappingContainer;
 import org.hibernate.sql.ast.SqlAstTranslator;
 import org.hibernate.sql.ast.spi.SqlAppender;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents a self rendering expression that renders a SQL fragment.
@@ -28,16 +30,19 @@ public class SelfRenderingSqlFragmentExpression implements SelfRenderingExpressi
 		this.expressionType = expressionType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getExpression() {
 		return expression;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcMappingContainer getExpressionType() {
 		return expressionType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void renderToSql(
 			SqlAppender sqlAppender,
 			SqlAstTranslator<?> walker,

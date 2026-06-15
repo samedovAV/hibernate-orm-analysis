@@ -23,6 +23,8 @@ import static org.hibernate.event.internal.EventListenerLogging.EVENT_LISTENER_L
 import static org.hibernate.event.internal.EventUtil.getLoggableName;
 import static org.hibernate.pretty.MessageHelper.infoString;
 import static org.hibernate.proxy.HibernateProxy.extractLazyInitializer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Defines the default event listener used by Hibernate for persisting
@@ -35,6 +37,7 @@ public class DefaultPersistEventListener
 		implements PersistEventListener {
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected CascadingAction<PersistContext> getCascadeAction() {
 		return CascadingActions.PERSIST;
 	}
@@ -46,6 +49,7 @@ public class DefaultPersistEventListener
 	 *
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void onPersist(PersistEvent event) throws HibernateException {
 		onPersist( event, PersistContext.create() );
 	}
@@ -57,6 +61,7 @@ public class DefaultPersistEventListener
 	 *
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void onPersist(PersistEvent event, PersistContext createCache) throws HibernateException {
 		final Object object = event.getObject();
 		final var lazyInitializer = extractLazyInitializer( object );
@@ -75,6 +80,7 @@ public class DefaultPersistEventListener
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void persist(PersistEvent event, PersistContext createCache, Object entity) {
 		final var source = event.getSession();
 		final var entityEntry = source.getPersistenceContextInternal().getEntry( entity );
@@ -101,6 +107,7 @@ public class DefaultPersistEventListener
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static String entityName(PersistEvent event, Object entity, EntityEntry entityEntry) {
 		final String explicitEntityName = event.getEntityName();
 		if ( explicitEntityName != null ) {
@@ -114,6 +121,7 @@ public class DefaultPersistEventListener
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void entityIsPersistent(PersistEvent event, PersistContext createCache) {
 		final var source = event.getSession();
 		final String entityName = event.getEntityName();
@@ -129,12 +137,14 @@ public class DefaultPersistEventListener
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void justCascade(PersistContext createCache, EventSource source, Object entity, EntityPersister persister) {
 		//TODO: merge into one method!
 		cascadeBeforeSave( source, persister, entity, createCache );
 		cascadeAfterSave( source, persister, entity, createCache );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void entityIsTransient(PersistEvent event, PersistContext createCache) {
 		EVENT_LISTENER_LOGGER.persistingTransientInstance();
 		final Object entity = assertInitialized( event.getObject() );
@@ -144,6 +154,7 @@ public class DefaultPersistEventListener
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void entityIsDeleted(PersistEvent event, PersistContext createCache) {
 		final var source = event.getSession();
 		final Object entity = assertInitialized( event.getObject() );

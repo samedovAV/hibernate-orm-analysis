@@ -5,6 +5,8 @@
 package org.hibernate.metamodel.mapping.ordering.ast;
 
 import org.hibernate.metamodel.mapping.ordering.TranslationContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents an individual identifier in a dot-identifier sequence
@@ -12,6 +14,7 @@ import org.hibernate.metamodel.mapping.ordering.TranslationContext;
  * @author Steve Ebersole
  */
 public interface SequencePart {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SequencePart resolvePathPart(
 			String name,
 			String identifier,

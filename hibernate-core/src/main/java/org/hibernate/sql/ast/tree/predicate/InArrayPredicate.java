@@ -8,6 +8,8 @@ import org.hibernate.metamodel.mapping.JdbcMappingContainer;
 import org.hibernate.sql.ast.SqlAstWalker;
 import org.hibernate.sql.ast.tree.expression.Expression;
 import org.hibernate.sql.ast.tree.expression.JdbcParameter;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -26,15 +28,18 @@ public class InArrayPredicate extends AbstractPredicate {
 		this( testExpression, arrayParameter, null );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression getTestExpression() {
 		return testExpression;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcParameter getArrayParameter() {
 		return arrayParameter;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker sqlTreeWalker) {
 		sqlTreeWalker.visitInArrayPredicate( this );
 	}

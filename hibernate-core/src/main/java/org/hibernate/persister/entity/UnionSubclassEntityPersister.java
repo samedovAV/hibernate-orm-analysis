@@ -62,6 +62,8 @@ import static java.util.Collections.unmodifiableList;
 import static java.util.function.Function.identity;
 import static org.hibernate.internal.util.collections.ArrayHelper.to2DStringArray;
 import static org.hibernate.internal.util.collections.ArrayHelper.toStringArray;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An {@link EntityPersister} implementing the
@@ -193,6 +195,7 @@ public class UnionSubclassEntityPersister extends AbstractEntityPersister {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected EntityTableDescriptor[] buildTableDescriptors() {
 		var builder = createTableDescriptorBuilder(
 				tableName,
@@ -214,6 +217,7 @@ public class UnionSubclassEntityPersister extends AbstractEntityPersister {
 		return new EntityTableDescriptor[] { builder.build( builder.isSelfReferential ) };
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void validateGenerator() {
 		if ( getGenerator() instanceof IdentityGenerator ) {
 			throw new MappingException( "Cannot use identity column key generation with <union-subclass> mapping for: " + getEntityName() );
@@ -221,6 +225,7 @@ public class UnionSubclassEntityPersister extends AbstractEntityPersister {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean containsTableReference(String tableExpression) {
 		for ( String subclassTableExpression : subclassTableExpressions ) {
 			if ( subclassTableExpression.equals( tableExpression ) ) {
@@ -232,6 +237,7 @@ public class UnionSubclassEntityPersister extends AbstractEntityPersister {
 
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public UnionTableReference createPrimaryTableReference(
 			SqlAliasBase sqlAliasBase,
 			SqlAstCreationState creationState) {
@@ -271,6 +277,7 @@ public class UnionSubclassEntityPersister extends AbstractEntityPersister {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableGroup createRootTableGroup(
 			boolean canUseInnerJoins,
 			NavigablePath navigablePath,
@@ -301,91 +308,109 @@ public class UnionSubclassEntityPersister extends AbstractEntityPersister {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean needsDiscriminator() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Serializable[] getQuerySpaces() {
 		return subclassSpaces;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getRootTableName() {
 		return tableName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getTableName() {
 		return hasSubclasses() ? subquery : tableName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BasicType<?> getDiscriminatorType() {
 		return discriminatorType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<DiscriminatorValue, String> getSubclassByDiscriminatorValue() {
 		return subclassByDiscriminatorValue;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableDetails getMappedTableDetails() {
 		return getTableMapping( 0 );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableDetails getIdentifierTableDetails() {
 		return getTableMapping( 0 );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DiscriminatorValue getDiscriminatorValue() {
 		return discriminatorValue;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getDiscriminatorSQLValue() {
 		return discriminatorSQLValue;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getPropertySpaces() {
 		return spaces;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean shouldProcessSuperMapping() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasDuplicateTables() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getTableName(int j) {
 		return tableName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getKeyColumns(int j) {
 		return getIdentifierColumnNames();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isTableCascadeDeleteEnabled(int j) {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected TableMutationDetails createTableMutationDetails(PersistentClass bootEntityDescriptor, int relativePosition) {
 		return createTableMutationDetails( bootEntityDescriptor );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isPropertyOfTable(int property, int j) {
 		return true;
 	}
@@ -393,28 +418,33 @@ public class UnionSubclassEntityPersister extends AbstractEntityPersister {
 	// Execute the SQL:
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getAttributeMutationTableName(int i) {
 		return getTableName();//ie. the subquery! yuck!
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String physicalTableNameForMutation(SelectableMapping selectableMapping) {
 		assert !selectableMapping.isFormula();
 		return tableName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean isIdentifierTable(String tableExpression) {
 		return tableExpression.equals( getRootTableName() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasMultipleTables() {
 		// This could also just be true all the time...
 		return isAbstract() || hasSubclasses();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void pruneForSubclasses(TableGroup tableGroup, Map<String, EntityNameUse> entityNameUses) {
 		final var tableReference = (NamedTableReference) tableGroup.getTableReference( getRootTableName() );
 		if ( tableReference == null ) {
@@ -427,6 +457,7 @@ public class UnionSubclassEntityPersister extends AbstractEntityPersister {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void visitConstraintOrderedTables(ConstraintOrderedTableConsumer consumer) {
 		for ( int i = 0; i < constraintOrderedTableNames.length; i++ ) {
 			final String tableName = constraintOrderedTableNames[i];
@@ -443,6 +474,7 @@ public class UnionSubclassEntityPersister extends AbstractEntityPersister {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void visitMutabilityOrderedTables(MutabilityOrderedTableConsumer consumer) {
 		consumer.consume(
 				tableName,
@@ -456,26 +488,31 @@ public class UnionSubclassEntityPersister extends AbstractEntityPersister {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean isPhysicalDiscriminator() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected EntityDiscriminatorMapping generateDiscriminatorMapping(PersistentClass bootEntityDescriptor) {
 		return hasSubclasses() ? super.generateDiscriminatorMapping( bootEntityDescriptor ) : null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getTableSpan() {
 		return 1;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected int[] getPropertyTableNumbers() {
 		return new int[getPropertySpan()];
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected String generateSubquery(PersistentClass model) {
 		return generateSubquery( model, null, null );
 	}
@@ -488,6 +525,7 @@ public class UnionSubclassEntityPersister extends AbstractEntityPersister {
 	 * @param extraSelectExpressions additional column expressions to include in
 	 *                               each SELECT of the union (e.g. REV, REVTYPE)
 	 */
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public String generateSubquery(
 			PersistentClass model,
 			Function<String, String> tableNameResolver,
@@ -547,6 +585,7 @@ public class UnionSubclassEntityPersister extends AbstractEntityPersister {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private String getSelectClauseNullString(Column column, Dialect dialect) {
 		return dialect.getSelectClauseNullString(
 				new SqlTypedMappingImpl(
@@ -561,6 +600,7 @@ public class UnionSubclassEntityPersister extends AbstractEntityPersister {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	protected String generateSubquery(Map<String, EntityNameUse> entityNameUses, String currentTableExpression) {
 		final var auxMapping = currentTableExpression.equals( getTableName() ) ? null : getAuxiliaryMapping();
 		if ( !hasSubclasses() ) {
@@ -652,6 +692,7 @@ public class UnionSubclassEntityPersister extends AbstractEntityPersister {
 		return unionSubquery.append( ")" ).toString();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void collectSelectableOwners(LinkedHashMap<String, Map<String, SelectableMapping>> selectables) {
 		if ( !isAbstract() ) {
 			final SelectableConsumer selectableConsumer = (i, selectable) -> {
@@ -675,6 +716,7 @@ public class UnionSubclassEntityPersister extends AbstractEntityPersister {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String[] getSubclassTableKeyColumns(int j) {
 		if ( j != 0 ) {
 			throw new AssertionFailure( "only one table" );
@@ -683,6 +725,7 @@ public class UnionSubclassEntityPersister extends AbstractEntityPersister {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSubclassTableName(int j) {
 		if ( j != 0 ) {
 			throw new AssertionFailure( "only one table" );
@@ -691,16 +734,19 @@ public class UnionSubclassEntityPersister extends AbstractEntityPersister {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String[] getSubclassTableNames(){
 		return subclassTableNames;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getSubclassTableSpan() {
 		return 1;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean isClassOrSuperclassTable(int j) {
 		if ( j != 0 ) {
 			throw new AssertionFailure( "only one table" );
@@ -709,16 +755,19 @@ public class UnionSubclassEntityPersister extends AbstractEntityPersister {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getConstraintOrderedTableNameClosure() {
 		return constraintOrderedTableNames;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[][] getConstraintOrderedTableKeyColumnClosure() {
 		return constraintOrderedKeyColumnNames;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FilterAliasGenerator getFilterAliasGenerator(String rootAlias) {
 		return new StaticFilterAliasGenerator( rootAlias );
 	}

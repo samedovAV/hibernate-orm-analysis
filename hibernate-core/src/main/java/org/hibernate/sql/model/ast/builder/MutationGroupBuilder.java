@@ -20,6 +20,8 @@ import org.hibernate.sql.model.ast.TableMutation;
 import org.hibernate.sql.model.internal.MutationGroupNone;
 import org.hibernate.sql.model.internal.MutationGroupSingle;
 import org.hibernate.sql.model.internal.MutationGroupStandard;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Builder (pattern) for {@link TableMutation} references
@@ -38,19 +40,23 @@ public class MutationGroupBuilder implements SelectableConsumer {
 		this.tableMutationBuilderMap = new LinkedHashMap<>();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutationType getMutationType() {
 		return mutationType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityMutationTarget getMutationTarget() {
 		return mutationTarget;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <B extends TableMutationBuilder<?>> B findTableDetailsBuilder(String name) {
 		//noinspection unchecked
 		return (B) tableMutationBuilderMap.get( name );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <B extends TableMutationBuilder<?>> B getTableDetailsBuilder(String name) {
 		final B builder = findTableDetailsBuilder( name );
 		if ( builder == null ) {
@@ -61,15 +67,18 @@ public class MutationGroupBuilder implements SelectableConsumer {
 		return builder;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addTableDetailsBuilder(TableMutationBuilder<?> builder) {
 		tableMutationBuilderMap.put( builder.getMutatingTable().getTableName(), builder );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void forEachTableMutationBuilder(Consumer<TableMutationBuilder<?>> consumer) {
 		tableMutationBuilderMap.forEach( (name, mutationBuilder) -> consumer.accept( mutationBuilder ) );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(int selectionIndex, SelectableMapping selectableMapping) {
 		final EntityPersister entityPersister = mutationTarget.getTargetPart().getEntityPersister();
 		final String tableNameForMutation = entityPersister.physicalTableNameForMutation( selectableMapping );
@@ -77,6 +86,7 @@ public class MutationGroupBuilder implements SelectableConsumer {
 		mutationBuilder.addColumnAssignment( selectableMapping );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutationGroup buildMutationGroup() {
 		if ( tableMutationBuilderMap.isEmpty() ) {
 			throw new IllegalStateException(
@@ -118,6 +128,7 @@ public class MutationGroupBuilder implements SelectableConsumer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return String.format(
 				Locale.ROOT,

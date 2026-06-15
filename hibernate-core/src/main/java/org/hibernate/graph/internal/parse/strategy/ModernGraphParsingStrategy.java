@@ -17,10 +17,13 @@ import org.hibernate.metamodel.model.domain.EntityDomainType;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class ModernGraphParsingStrategy implements GraphParsingStrategy {
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> RootGraphImplementor<T> parse(
 			EntityDomainType<T> entityDomainType,
 			String graphText,
@@ -36,12 +39,14 @@ public class ModernGraphParsingStrategy implements GraphParsingStrategy {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> RootGraphImplementor<T> parse(String graphText, SessionFactoryImplementor sessionFactory) {
 		throw new UnsupportedOperationException(
 				"Parsing of graph text is not supported with 'modern' graph parser mode" );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void parseInto(GraphImplementor<?> graph, String graphText, SessionFactoryImplementor sessionFactory) {
 		final var parser = new GraphLanguageParser( new CommonTokenStream( new GraphLanguageLexer(
 				CharStreams.fromString( graphText ) ) ) );
@@ -57,6 +62,7 @@ public class ModernGraphParsingStrategy implements GraphParsingStrategy {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static <T> RootGraphImplementor<T> parse(
 			EntityDomainType<T> rootType,
 			GraphLanguageParser.GraphElementListContext graphElementListContext,
@@ -65,6 +71,7 @@ public class ModernGraphParsingStrategy implements GraphParsingStrategy {
 	}
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <T> RootGraphImplementor<T> parse(
 			@Nullable String name,
 			EntityDomainType<T> rootType,

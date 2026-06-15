@@ -21,6 +21,8 @@ import java.util.List;
 
 import static org.hibernate.query.common.TemporalUnit.EPOCH;
 import static org.hibernate.type.spi.TypeConfiguration.getSqlTemporalType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class OracleExtractFunction extends ExtractFunction {
 	public OracleExtractFunction(Dialect dialect, TypeConfiguration typeConfiguration) {
@@ -28,6 +30,7 @@ public class OracleExtractFunction extends ExtractFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,
@@ -37,6 +40,7 @@ public class OracleExtractFunction extends ExtractFunction {
 	}
 
 	@SuppressWarnings("deprecation")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private String extractPattern(List<? extends SqlAstNode> sqlAstArguments) {
 		final ExtractUnit field = (ExtractUnit) sqlAstArguments.get( 0 );
 		final TemporalUnit unit = field.getUnit();

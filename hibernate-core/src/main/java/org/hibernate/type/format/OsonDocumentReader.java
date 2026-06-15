@@ -18,6 +18,8 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.NoSuchElementException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * OSON-based implementation of <code>JsonDocumentReader</code>
@@ -38,11 +40,13 @@ public class OsonDocumentReader implements JsonDocumentReader {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean hasNext() {
 		return this.parser.hasNext();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JsonDocumentItemType next() {
 		if (!this.parser.hasNext())
 			throw new NoSuchElementException("No more item in JSON document");
@@ -104,6 +108,7 @@ public class OsonDocumentReader implements JsonDocumentReader {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getObjectKeyName() {
 		if (currentKeyName == null)
 			throw new IllegalStateException("no object key available");
@@ -111,21 +116,25 @@ public class OsonDocumentReader implements JsonDocumentReader {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getStringValue() {
 		return (String)currentValue;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BigDecimal getBigDecimalValue() {
 		return (BigDecimal)currentValue;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BigInteger getBigIntegerValue() {
 		return ((BigDecimal)currentValue).toBigInteger();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public double getDoubleValue() {
 		if (currentValue instanceof String)
 			return Double.parseDouble( (String)currentValue );
@@ -133,36 +142,42 @@ public class OsonDocumentReader implements JsonDocumentReader {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public float getFloatValue() {
 		if (currentValue instanceof String) return Float.parseFloat( (String)currentValue );
 		return ((Float)currentValue).floatValue();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getLongValue() {
 		if (currentValue instanceof String) return Long.parseLong( (String)currentValue );
 		return ((BigDecimal)currentValue).longValue();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getIntegerValue() {
 		if (currentValue instanceof String) return Integer.parseInt( (String)currentValue );
 		return ((BigDecimal)currentValue).intValue();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public short getShortValue() {
 		if (currentValue instanceof String) return Short.parseShort( (String)currentValue );
 		return  ((BigDecimal)currentValue).shortValue();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public byte getByteValue() {
 		if (currentValue instanceof String) return Byte.parseByte( (String)currentValue );
 		return ((Byte)currentValue).byteValue();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean getBooleanValue() {
 		if (currentValue instanceof String) return BooleanJavaType.INSTANCE.fromEncodedString((String)currentValue);
 		return ((Boolean)currentValue).booleanValue();
@@ -171,6 +186,7 @@ public class OsonDocumentReader implements JsonDocumentReader {
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> T getValue(JavaType<T> javaType, WrapperOptions options) {
 		if ( currentValue instanceof String ) {
 			if (((String)currentValue).length() == 36 && javaType == PrimitiveByteArrayJavaType.INSTANCE) {

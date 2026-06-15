@@ -11,6 +11,8 @@ import org.hibernate.resource.beans.container.spi.ContainedBeanImplementor;
 import org.hibernate.resource.beans.spi.BeanInstanceProducer;
 
 import static org.hibernate.resource.beans.internal.BeansMessageLogger.BEANS_MSG_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -25,11 +27,13 @@ public class CdiBeanContainerImmediateAccessImpl extends AbstractCdiBeanContaine
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BeanManager getUsableBeanManager() {
 		return beanManager;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected <B> ContainedBeanImplementor<B> createBean(
 			Class<B> beanType,
 			BeanLifecycleStrategy lifecycleStrategy,
@@ -41,6 +45,7 @@ public class CdiBeanContainerImmediateAccessImpl extends AbstractCdiBeanContaine
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected <B> ContainedBeanImplementor<B> createBean(
 			String name,
 			Class<B> beanType,

@@ -9,6 +9,8 @@ import org.hibernate.Incubating;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 
 import java.sql.Connection;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for reading and setting lock timeouts using the
@@ -27,6 +29,7 @@ public interface ConnectionLockTimeoutStrategy {
 	 * @see #getLockTimeout
 	 * @see #setLockTimeout
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Level getSupportedLevel();
 
 	/**
@@ -36,6 +39,7 @@ public interface ConnectionLockTimeoutStrategy {
 	 *
 	 * @throws UnsupportedOperationException when {@linkplain #getSupportedLevel} is {@linkplain Level#NONE}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Timeout getLockTimeout(Connection connection, SessionFactoryImplementor factory) {
 		throw new UnsupportedOperationException( "Lock timeout on the JDBC connection is not supported" );
 	}
@@ -47,6 +51,7 @@ public interface ConnectionLockTimeoutStrategy {
 	 *
 	 * @throws UnsupportedOperationException when {@linkplain #getSupportedLevel} is {@linkplain Level#NONE}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void setLockTimeout(Timeout timeout, Connection connection, SessionFactoryImplementor factory) {
 		throw new UnsupportedOperationException( "Lock timeout on the JDBC connection is not supported" );
 	}

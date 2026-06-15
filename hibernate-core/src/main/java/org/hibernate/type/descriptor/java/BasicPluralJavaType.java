@@ -12,6 +12,8 @@ import org.hibernate.tool.schema.extract.spi.ColumnTypeInformation;
 import org.hibernate.type.BasicType;
 import org.hibernate.type.descriptor.jdbc.JdbcTypeIndicators;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Descriptor for a basic plural Java type.
@@ -29,10 +31,12 @@ public interface BasicPluralJavaType<T> extends Serializable {
 	/**
 	 * Get the Java type descriptor for the element type
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JavaType<T> getElementJavaType();
 	/**
 	 * Creates a container type for the given element type
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	BasicType<?> resolveType(
 			TypeConfiguration typeConfiguration,
 			Dialect dialect,

@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.relational;
 
 import org.hibernate.boot.model.naming.Identifier;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Models the qualified name of a database object.  Some things to keep in
@@ -21,8 +23,11 @@ import org.hibernate.boot.model.naming.Identifier;
  * @author Steve Ebersole
  */
 public interface QualifiedName {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier getCatalogName();
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier getSchemaName();
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier getObjectName();
 
 	/**
@@ -34,5 +39,6 @@ public interface QualifiedName {
 	 *
 	 * @return The string form
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String render();
 }

@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.dialect.identity;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * @author Andrea Boriero
@@ -17,6 +20,7 @@ public class SQLServerIdentityColumnSupport extends AbstractTransactSQLIdentityC
 	 * {@inheritDoc}
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String appendIdentitySelectToInsert(String identityColumnName, String insertString) {
 		return insertString + " select scope_identity()";
 	}

@@ -15,6 +15,8 @@ import jakarta.annotation.Nullable;
 
 import static org.hibernate.internal.util.ReflectHelper.setterMethodOrNull;
 import static org.hibernate.proxy.HibernateProxy.extractLazyInitializer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Field-based implementation of Setter
@@ -35,19 +37,23 @@ public class SetterFieldImpl implements Setter {
 		this.setterMethod = setterMethodOrNull( containerClass, propertyName, field.getType() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getContainerClass() {
 		return containerClass;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getPropertyName() {
 		return propertyName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Field getField() {
 		return field;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void set(Object target, @Nullable Object value) {
 		try {
 			field.set( target, value );
@@ -83,6 +89,7 @@ public class SetterFieldImpl implements Setter {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static String typeName(@Nullable Object value) {
 		final var lazyInitializer = extractLazyInitializer( value );
 		if ( lazyInitializer != null ) {
@@ -97,11 +104,13 @@ public class SetterFieldImpl implements Setter {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable String getMethodName() {
 		return setterMethod != null ? setterMethod.getName() : null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable Method getMethod() {
 		return setterMethod;
 	}

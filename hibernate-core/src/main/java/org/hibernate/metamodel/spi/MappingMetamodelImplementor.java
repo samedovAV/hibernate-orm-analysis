@@ -11,6 +11,8 @@ import java.util.Set;
 import org.hibernate.EntityNameResolver;
 import org.hibernate.metamodel.MappingMetamodel;
 import org.hibernate.query.spi.QueryParameterBindingTypeResolver;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -25,12 +27,14 @@ public interface MappingMetamodelImplementor extends MappingMetamodel, QueryPara
 	 *
 	 * @return set of all the collection roles in which the given entityName participates.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Set<String> getCollectionRolesByEntityParticipant(String entityName);
 
 	/**
 	 * Access to the EntityNameResolver instance that Hibernate is configured to
 	 * use for determining the entity descriptor from an instance of an entity
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Collection<EntityNameResolver> getEntityNameResolvers();
 
 	/**
@@ -38,6 +42,7 @@ public interface MappingMetamodelImplementor extends MappingMetamodel, QueryPara
 	 *
 	 * @return All the entity names
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String[] getAllEntityNames() {
 		final var entityNames = new ArrayList<String>();
 		forEachEntityDescriptor( entityPersister -> entityNames.add( entityPersister.getEntityName() ) );
@@ -49,6 +54,7 @@ public interface MappingMetamodelImplementor extends MappingMetamodel, QueryPara
 	 *
 	 * @return All the entity names
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String[] getAllCollectionRoles() {
 		final var collectionRoles = new ArrayList<String>();
 		forEachCollectionDescriptor( collectionPersister -> collectionRoles.add( collectionPersister.getRole() ) );

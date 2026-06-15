@@ -16,6 +16,8 @@ import org.hibernate.service.spi.ServiceRegistryImplementor;
 import org.hibernate.tool.schema.spi.SchemaManagementTool;
 
 import static org.hibernate.cfg.SchemaToolingSettings.SCHEMA_MANAGEMENT_TOOL;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -23,6 +25,7 @@ import static org.hibernate.cfg.SchemaToolingSettings.SCHEMA_MANAGEMENT_TOOL;
 public class SchemaManagementToolInitiator implements StandardServiceInitiator<SchemaManagementTool> {
 	public static final SchemaManagementToolInitiator INSTANCE = new SchemaManagementToolInitiator();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SchemaManagementTool initiateService(
 			@Nonnull Map<String, Object> configurationValues, @Nonnull ServiceRegistryImplementor registry) {
 		return registry.requireService( StrategySelector.class )
@@ -38,6 +41,7 @@ public class SchemaManagementToolInitiator implements StandardServiceInitiator<S
 						} );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static SchemaManagementTool discover(ClassLoaderService classLoaderService) {
 		final var discovered = classLoaderService.loadJavaServices( SchemaManagementTool.class );
 		final var iterator = discovered.iterator();
@@ -57,6 +61,7 @@ public class SchemaManagementToolInitiator implements StandardServiceInitiator<S
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<SchemaManagementTool> getServiceInitiated() {
 		return SchemaManagementTool.class;
 	}

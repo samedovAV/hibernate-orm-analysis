@@ -20,6 +20,8 @@ import org.hibernate.metamodel.model.domain.EntityDomainType;
 
 import static org.hibernate.graph.internal.GraphParserLogging.PARSING_LOGGER;
 import static org.hibernate.internal.util.StringHelper.repeat;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Unified access to the Antlr parser for Hibernate's "graph language"
@@ -46,11 +48,13 @@ public class GraphParser extends GraphLanguageParserBaseVisitor<GraphNode<?>> {
 		this( sessionFactory.getJpaMetamodel()::findEntityType );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Stack<GraphImplementor<?>> getGraphStack() {
 		return graphStack;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AttributeNodeImplementor<?, ?, ?> visitAttributeNode(GraphLanguageParser.AttributeNodeContext attributeNodeContext) {
 		final var attributePathContext = attributeNodeContext.attributePath();
 		final var attributeQualifierContext = attributePathContext.attributeQualifier();
@@ -86,6 +90,7 @@ public class GraphParser extends GraphLanguageParserBaseVisitor<GraphNode<?>> {
 		return attributeNode;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private SubGraphGenerator subGraphCreator(GraphLanguageParser.AttributeQualifierContext attributeQualifierContext, String attributeName) {
 		if ( attributeQualifierContext == null ) {
 			if ( PARSING_LOGGER.isTraceEnabled() ) {
@@ -111,6 +116,7 @@ public class GraphParser extends GraphLanguageParserBaseVisitor<GraphNode<?>> {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private SubGraphImplementor<?> createSubGraph(AttributeNodeImplementor<?, ?, ?> attributeNode, String subTypeName) {
 
 		final var shouldCreateTreatedSubgraph = attributeNode == null && subTypeName != null;
@@ -141,6 +147,7 @@ public class GraphParser extends GraphLanguageParserBaseVisitor<GraphNode<?>> {
 
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private AttributeNodeImplementor<?, ?, ?> resolveAttributeNode(String attributeName) {
 		final var currentGraph = graphStack.getCurrent();
 		assert currentGraph != null;
@@ -151,6 +158,7 @@ public class GraphParser extends GraphLanguageParserBaseVisitor<GraphNode<?>> {
 		return attributeNode;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private PathQualifierType resolvePathQualifier(String qualifier) {
 		if ( "key".equalsIgnoreCase( qualifier ) ) {
 			return PathQualifierType.KEY;
@@ -164,6 +172,7 @@ public class GraphParser extends GraphLanguageParserBaseVisitor<GraphNode<?>> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SubGraphImplementor<?> visitSubGraph(GraphLanguageParser.SubGraphContext subGraphContext) {
 		final String subTypeName =
 				subGraphContext.subTypeIndicator() == null ? null

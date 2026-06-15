@@ -31,6 +31,8 @@ import org.hibernate.event.spi.EventSource;
 import static org.hibernate.context.internal.CurrentSessionLogging.CURRENT_SESSION_LOGGER;
 import org.hibernate.resource.jdbc.spi.PhysicalConnectionHandlingMode;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link org.hibernate.context.spi.CurrentSessionContext} impl which scopes the notion of current
@@ -82,6 +84,7 @@ public class ThreadLocalSessionContext extends AbstractCurrentSessionContext {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final Session currentSession() throws HibernateException {
 		Session current = existingSession( factory() );
 		if ( current == null ) {
@@ -101,6 +104,7 @@ public class ThreadLocalSessionContext extends AbstractCurrentSessionContext {
 		return current;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean needsWrapping(Session session) {
 		// try to make sure we don't wrap an already wrapped session
 		return !Proxy.isProxyClass( session.getClass() )
@@ -112,6 +116,7 @@ public class ThreadLocalSessionContext extends AbstractCurrentSessionContext {
 	 *
 	 * @return Value for property 'factory'.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected SessionFactoryImplementor getFactory() {
 		return factory();
 	}
@@ -124,6 +129,7 @@ public class ThreadLocalSessionContext extends AbstractCurrentSessionContext {
 	 *
 	 * @return the built or (re)obtained session.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Session buildOrObtainSession() {
 		return baseSessionBuilder()
 				.autoClose( isAutoCloseEnabled() )
@@ -132,6 +138,7 @@ public class ThreadLocalSessionContext extends AbstractCurrentSessionContext {
 				.openSession();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected CleanupSync buildCleanupSynch() {
 		return new CleanupSync( factory() );
 	}
@@ -141,6 +148,7 @@ public class ThreadLocalSessionContext extends AbstractCurrentSessionContext {
 	 *
 	 * @return Whether the session should be closed by transaction completion.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean isAutoCloseEnabled() {
 		return true;
 	}
@@ -150,6 +158,7 @@ public class ThreadLocalSessionContext extends AbstractCurrentSessionContext {
 	 *
 	 * @return Whether the session should be flushed prior to transaction completion.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean isAutoFlushEnabled() {
 		return true;
 	}
@@ -159,10 +168,12 @@ public class ThreadLocalSessionContext extends AbstractCurrentSessionContext {
 	 *
 	 * @return The connection release mode for any built sessions.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected PhysicalConnectionHandlingMode getConnectionHandlingMode() {
 		return factory().getSessionFactoryOptions().getPhysicalConnectionHandlingMode();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Session wrap(Session session) {
 		final var wrapper = new TransactionProtectionWrapper( session );
 		final var wrapped = (Session) Proxy.newProxyInstance(
@@ -180,10 +191,12 @@ public class ThreadLocalSessionContext extends AbstractCurrentSessionContext {
 	 *
 	 * @param session The session to bind.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void bind(Session session) {
 		doBind( session, session.getSessionFactory() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void terminateOrphanedSession(Session orphan) {
 		if ( orphan != null ) {
 			CURRENT_SESSION_LOGGER.alreadySessionBound();
@@ -211,23 +224,28 @@ public class ThreadLocalSessionContext extends AbstractCurrentSessionContext {
 	 * @param factory The factory for which the session should be unbound.
 	 * @return The session which was unbound.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Session unbind(SessionFactory factory) {
 		return doUnbind( factory);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Session existingSession(SessionFactory factory) {
 		return sessionMap().get( factory );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected static Map<SessionFactory,Session> sessionMap() {
 		return CONTEXT_TL.get();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void doBind(Session session, SessionFactory factory) {
 		final var orphanedPreviousSession = sessionMap().put( factory, session );
 		terminateOrphanedSession( orphanedPreviousSession );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Session doUnbind(SessionFactory factory) {
 		final var sessionMap = sessionMap();
 		final var session = sessionMap.remove( factory );
@@ -249,10 +267,12 @@ public class ThreadLocalSessionContext extends AbstractCurrentSessionContext {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void beforeCompletion() {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void afterCompletion(int i) {
 			unbind( factory );
 		}
@@ -268,6 +288,7 @@ public class ThreadLocalSessionContext extends AbstractCurrentSessionContext {
 
 		@Override
 		@SuppressWarnings("SimplifiableIfStatement")
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 			final String methodName = method.getName();
 
@@ -344,6 +365,7 @@ public class ThreadLocalSessionContext extends AbstractCurrentSessionContext {
 		 *
 		 * @param wrapped Value to set for property 'wrapped'.
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void setWrapped(Session wrapped) {
 			this.wrappedSession = wrapped;
 		}
@@ -352,6 +374,7 @@ public class ThreadLocalSessionContext extends AbstractCurrentSessionContext {
 		// serialization ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 		@Serial
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void writeObject(ObjectOutputStream oos) throws IOException {
 			// if a ThreadLocalSessionContext-bound session happens to get
 			// serialized, to be completely correct, we need to make sure
@@ -363,6 +386,7 @@ public class ThreadLocalSessionContext extends AbstractCurrentSessionContext {
 		}
 
 		@Serial
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
 			// on the inverse, it makes sense that if a ThreadLocalSessionContext-
 			// bound session then gets deserialized to go ahead and rebind it to

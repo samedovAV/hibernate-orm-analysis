@@ -38,6 +38,8 @@ import static org.hibernate.query.common.TemporalUnit.*;
 import static org.hibernate.query.sqm.produce.function.FunctionParameterType.TEMPORAL;
 import static org.hibernate.query.sqm.produce.function.FunctionParameterType.TEMPORAL_UNIT;
 import static org.hibernate.usertype.internal.AbstractTimeZoneStorageCompositeUserType.ZONE_OFFSET_NAME;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * ANSI SQL-inspired {@code extract()} function, where the date/time fields
@@ -64,6 +66,7 @@ public class ExtractFunction extends AbstractSqmFunctionDescriptor implements Fu
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,
@@ -76,6 +79,7 @@ public class ExtractFunction extends AbstractSqmFunctionDescriptor implements Fu
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected <T> SelfRenderingSqmFunction generateSqmFunctionExpression(
 			List<? extends SqmTypedNode<?>> arguments,
 			ReturnableType<T> impliedResultType,
@@ -140,6 +144,7 @@ public class ExtractFunction extends AbstractSqmFunctionDescriptor implements Fu
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private SelfRenderingSqmFunction<Integer> extractWeek(
 			SqmExpression<?> expressionToExtract,
 			SqmExtractUnit<?> field,
@@ -214,6 +219,7 @@ public class ExtractFunction extends AbstractSqmFunctionDescriptor implements Fu
 				);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private SelfRenderingSqmFunction<Long> toLong(
 			SqmExpression<?> arg,
 			QueryEngine queryEngine) {
@@ -235,6 +241,7 @@ public class ExtractFunction extends AbstractSqmFunctionDescriptor implements Fu
 				);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private SelfRenderingSqmFunction<Long> extractNanoseconds(
 			SqmExpression<?> expressionToExtract,
 			QueryEngine queryEngine) {
@@ -261,6 +268,7 @@ public class ExtractFunction extends AbstractSqmFunctionDescriptor implements Fu
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private SelfRenderingSqmFunction<ZoneOffset> extractOffsetUsingFormat(
 			SqmExpression<?> expressionToExtract,
 			QueryEngine queryEngine) {
@@ -284,6 +292,7 @@ public class ExtractFunction extends AbstractSqmFunctionDescriptor implements Fu
 				);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private SelfRenderingSqmFunction<?> extractDateOrTimeUsingCast(
 			SqmExpression<?> expressionToExtract,
 			ReturnableType<?> type,
@@ -302,6 +311,7 @@ public class ExtractFunction extends AbstractSqmFunctionDescriptor implements Fu
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getArgumentListSignature() {
 		return "(TEMPORAL_UNIT field from TEMPORAL arg)";
 	}

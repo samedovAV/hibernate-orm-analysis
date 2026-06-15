@@ -41,6 +41,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Within the context of an active {@linkplain org.hibernate.Session session},
@@ -147,6 +149,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	/**
 	 * The type of things returned from the query.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Class<R> getResultType();
 
 
@@ -166,6 +169,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	@Override
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default List<R> getResultList() {
 		return list();
 	}
@@ -181,6 +185,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	@Override
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<R> list();
 
 	/**
@@ -199,6 +204,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	@Override
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Stream<R> getResultStream() {
 		return stream();
 	}
@@ -223,6 +229,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	@Override
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default Stream<R> stream() {
 		return list().stream();
 	}
@@ -238,6 +245,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	 */
 	@Override
 	@SuppressWarnings("removal")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	R getSingleResult();
 
 	/**
@@ -251,6 +259,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	@Override
 	@SuppressWarnings("removal")
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	R uniqueResult();
 
 	/**
@@ -266,6 +275,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	@Override
 	@SuppressWarnings("removal")
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	R getSingleResultOrNull();
 
 	/**
@@ -279,6 +289,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	@Override
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Optional<R> uniqueResultOptional();
 
 	/**
@@ -292,6 +303,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	 * @since 6.5
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	long getResultCount();
 
 	/**
@@ -310,6 +322,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	@Override
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ScrollableResults<R> scroll();
 
 	/**
@@ -323,6 +336,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	@Override
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ScrollableResults<R> scroll(@Nonnull ScrollMode scrollMode);
 
 	/**
@@ -341,6 +355,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	 * @see KeyedResultList
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	KeyedResultList<R> getKeyedResultList(KeyedPage<R> page);
 
 
@@ -352,6 +367,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setHint(@Nonnull String hintName, @Nullable Object value);
 
 	/**
@@ -359,6 +375,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> addOption(@Nonnull Option option);
 
 	/**
@@ -379,6 +396,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	@Override
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> enableFetchProfile(@Nonnull String profileName);
 
 	/**
@@ -396,6 +414,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	@Override
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> disableFetchProfile(@Nonnull String profileName);
 
 	/**
@@ -404,6 +423,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	@Override
 	@SuppressWarnings("deprecation")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setFlushMode(@Nonnull FlushModeType flushMode);
 
 	/**
@@ -413,6 +433,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setQueryFlushMode(@Nonnull QueryFlushMode queryFlushMode);
 
 	/**
@@ -421,6 +442,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setTimeout(int timeout);
 
 	/**
@@ -431,6 +453,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setTimeout(@Nullable Integer timeout);
 
 	/**
@@ -441,6 +464,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setTimeout(@Nullable Timeout timeout);
 
 	/**
@@ -448,6 +472,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setComment(@Nullable String comment);
 
 	/**
@@ -467,6 +492,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	@Override
 	@SuppressWarnings("removal")
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Integer getFetchSize();
 
 	/**
@@ -482,6 +508,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	@Override
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setFetchSize(int fetchSize);
 
 	/**
@@ -503,6 +530,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	 */
 	@Override
 	@SuppressWarnings("removal")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isReadOnly();
 
 	/**
@@ -537,12 +565,14 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	@Override
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setReadOnly(boolean readOnly);
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getMaxResults();
 
 	/**
@@ -550,12 +580,14 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setMaxResults(int maxResults);
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getFirstResult();
 
 	/**
@@ -563,6 +595,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setFirstResult(int startPosition);
 
 	/**
@@ -573,6 +606,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	 * @since 6.3
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setPage(Page page);
 
 	/**
@@ -593,6 +627,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	@Override
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CacheMode getCacheMode();
 
 	/**
@@ -604,6 +639,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CacheStoreMode getCacheStoreMode();
 
 	/**
@@ -615,6 +651,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CacheRetrieveMode getCacheRetrieveMode();
 
 	/**
@@ -629,6 +666,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	@Override
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setCacheMode(@Nonnull CacheMode cacheMode);
 
 	/**
@@ -638,6 +676,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setCacheStoreMode(@Nonnull CacheStoreMode cacheStoreMode);
 
 	/**
@@ -647,6 +686,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setCacheRetrieveMode(@Nonnull CacheRetrieveMode cacheRetrieveMode);
 
 	/**
@@ -662,6 +702,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	 */
 	@Override
 	@SuppressWarnings("removal")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isCacheable();
 
 	/**
@@ -672,6 +713,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	@Override
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setCacheable(boolean cacheable);
 
 	/**
@@ -681,6 +723,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setQueryPlanCacheable(boolean queryPlanCacheable);
 
 	/**
@@ -692,6 +735,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	@Override
 	@SuppressWarnings("removal")
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getCacheRegion();
 
 	/**
@@ -703,6 +747,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	 */
 	@Override
 	@SuppressWarnings("removal")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setCacheRegion(@Nullable String cacheRegion);
 
 	/**
@@ -712,6 +757,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	 */
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	LockModeType getLockMode();
 
 	/**
@@ -721,6 +767,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setLockMode(@Nonnull LockModeType lockMode);
 
 	/**
@@ -730,6 +777,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	LockMode getHibernateLockMode();
 
 	/**
@@ -739,6 +787,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setHibernateLockMode(@Nonnull LockMode lockMode);
 
 	/**
@@ -748,6 +797,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	 */
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PessimisticLockScope getLockScope();
 
 	/**
@@ -757,6 +807,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setLockScope(@Nonnull PessimisticLockScope lockScope);
 
 	/**
@@ -765,6 +816,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	 * @since 8.0
 	 */
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Timeout getLockTimeout();
 
 	/**
@@ -773,6 +825,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	 * @since 8.0
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setLockTimeout(@Nullable Timeout lockTimeout);
 
 	/**
@@ -780,6 +833,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setFollowOnStrategy(@Nonnull Locking.FollowOn followOnStrategy);
 
 	/**
@@ -787,6 +841,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> addQueryHint(@Nonnull String hint);
 
 
@@ -799,6 +854,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	@Override
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> SelectionQuery<X> setTupleTransformer(@Nonnull TupleTransformer<X> transformer);
 
 	/**
@@ -807,6 +863,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	@Override
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setResultListTransformer(@Nonnull ResultListTransformer<R> transformer);
 
 
@@ -829,6 +886,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	 */
 	@Deprecated(since = "8.0", forRemoval = true)
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default SelectionQuery<R> setEntityGraph(@Nonnull EntityGraph<? super R> entityGraph) {
 		return setEntityGraph( entityGraph, GraphSemantic.LOAD );
 	}
@@ -853,6 +911,7 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 	@Deprecated(since = "8.0", forRemoval = true)
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setEntityGraph(@Nonnull EntityGraph<? super R> graph, @Nonnull GraphSemantic semantic);
 
 
@@ -861,165 +920,206 @@ public interface SelectionQuery<R> extends TypedQuery<R>, Query<R> {
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setParameter(@Nonnull String name, @Nullable Object value);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> SelectionQuery<R> setParameter(@Nonnull String name, @Nullable P value, @Nonnull Class<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> SelectionQuery<R> setParameter(@Nonnull String name, @Nullable P value, @Nonnull Type<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setParameter(int position, @Nullable Object value);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setParameters(@Nonnull Object... arguments);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> SelectionQuery<R> setParameter(int position, @Nullable P value, @Nonnull Class<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> SelectionQuery<R> setParameter(int position, @Nullable P value, @Nonnull Type<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> SelectionQuery<R> setParameter(@Nonnull QueryParameter<T> parameter, @Nullable T value);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> SelectionQuery<R> setParameter(@Nonnull QueryParameter<P> parameter, @Nullable P value, @Nonnull Class<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> SelectionQuery<R> setParameter(@Nonnull QueryParameter<P> parameter, @Nullable P val, @Nonnull Type<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> SelectionQuery<R> setParameter(@Nonnull Parameter<T> param, @Nullable T value);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setProperties(@Nonnull Object bean);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setProperties(@SuppressWarnings("rawtypes") @Nonnull Map bean);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> SelectionQuery<R> setConvertedParameter(@Nonnull String name, @Nullable P value, @Nonnull Class<? extends AttributeConverter<P, ?>> converter);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> SelectionQuery<R> setConvertedParameter(int position, @Nullable P value, @Nonnull Class<? extends AttributeConverter<P, ?>> converter);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setParameterList(@Nonnull String name, @SuppressWarnings("rawtypes") @Nonnull Collection values);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> SelectionQuery<R> setParameterList(@Nonnull String name, @Nonnull Collection<? extends P> values, @Nonnull Class<P> javaType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> SelectionQuery<R> setParameterList(@Nonnull String name, @Nonnull Collection<? extends P> values, @Nonnull Type<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setParameterList(@Nonnull String name, @Nonnull Object[] values);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> SelectionQuery<R> setParameterList(@Nonnull String name, @Nonnull P[] values, @Nonnull Class<P> javaType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> SelectionQuery<R> setParameterList(@Nonnull String name, @Nonnull P[] values, @Nonnull Type<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setParameterList(int position, @SuppressWarnings("rawtypes") @Nonnull Collection values);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> SelectionQuery<R> setParameterList(int position, @Nonnull Collection<? extends P> values, @Nonnull Class<P> javaType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> SelectionQuery<R> setParameterList(int position, @Nonnull Collection<? extends P> values, @Nonnull Type<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setParameterList(int position, @Nonnull Object[] values);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> SelectionQuery<R> setParameterList(int position, @Nonnull P[] values, @Nonnull Class<P> javaType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> SelectionQuery<R> setParameterList(int position, @Nonnull P[] values, @Nonnull Type<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> SelectionQuery<R> setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull Collection<? extends P> values);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> SelectionQuery<R> setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull Collection<? extends P> values, @Nonnull Class<P> javaType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> SelectionQuery<R> setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull Collection<? extends P> values, @Nonnull Type<P> type);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> SelectionQuery<R> setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull P[] values);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> SelectionQuery<R> setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull P[] values, @Nonnull Class<P> javaType);
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> SelectionQuery<R> setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull P[] values, @Nonnull Type<P> type);
 
 	@Override @Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setParameter(@Nonnull String name, @Nullable Instant value, @Nonnull TemporalType temporalType);
 
 	@Override @Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setParameter(@Nonnull String name, @Nullable Calendar value, @Nonnull TemporalType temporalType);
 
 	@Override @Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setParameter(@Nonnull String name, @Nullable Date value, @Nonnull TemporalType temporalType);
 
 	@Override @Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setParameter(int position, @Nullable Instant value, @Nonnull TemporalType temporalType);
 
 	@Override @Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setParameter(int position, @Nullable Date value, @Nonnull TemporalType temporalType);
 
 	@Override @Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setParameter(int position, @Nullable Calendar value, @Nonnull TemporalType temporalType);
 
 	@Override @Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setParameter(@Nonnull Parameter<Calendar> param, @Nullable Calendar value, @Nonnull TemporalType temporalType);
 
 	@Override @Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<R> setParameter(@Nonnull Parameter<Date> param, @Nullable Date value, @Nonnull TemporalType temporalType);
 }

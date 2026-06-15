@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.boot.model.source.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Describes the source for the elements of persistent collections (plural
@@ -11,9 +14,12 @@ package org.hibernate.boot.model.source.spi;
  * @author Steve Ebersole
  */
 public interface PluralAttributeElementSourceOneToMany extends PluralAttributeElementSourceAssociation {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getReferencedEntityName();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isIgnoreNotFound();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getXmlNodeName();
 }

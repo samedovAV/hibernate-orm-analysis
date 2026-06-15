@@ -5,6 +5,8 @@
 package org.hibernate.cache.spi.entry;
 
 import org.hibernate.engine.spi.SessionFactoryImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Unstructured CacheEntry format (used to store entities and collections).
@@ -19,11 +21,13 @@ public class UnstructuredCacheEntry implements CacheEntryStructure {
 	public static final UnstructuredCacheEntry INSTANCE = new UnstructuredCacheEntry();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object structure(Object item) {
 		return item;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object destructure(Object structured, SessionFactoryImplementor factory) {
 		return structured;
 	}

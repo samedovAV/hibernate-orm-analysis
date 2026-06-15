@@ -25,6 +25,8 @@ import org.hibernate.internal.find.StatefulLoadAccessContext;
 import org.hibernate.persister.entity.EntityPersister;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Implementation of NaturalIdMultiLoadAccess.
 ///
@@ -52,6 +54,7 @@ public class NaturalIdMultiLoadAccessStandard<T> implements NaturalIdMultiLoadAc
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NaturalIdMultiLoadAccess<T> with(LockMode lockMode, PessimisticLockScope lockScope) {
 		if ( lockOptions == null ) {
 			lockOptions = new LockOptions();
@@ -61,6 +64,7 @@ public class NaturalIdMultiLoadAccessStandard<T> implements NaturalIdMultiLoadAc
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void with(PessimisticLockScope scope) {
 		if ( lockOptions == null ) {
 			lockOptions = new LockOptions();
@@ -69,6 +73,7 @@ public class NaturalIdMultiLoadAccessStandard<T> implements NaturalIdMultiLoadAc
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NaturalIdMultiLoadAccess<T> with(Timeout timeout) {
 		if ( lockOptions == null ) {
 			lockOptions = new LockOptions();
@@ -78,18 +83,21 @@ public class NaturalIdMultiLoadAccessStandard<T> implements NaturalIdMultiLoadAc
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NaturalIdMultiLoadAccess<T> with(LockOptions lockOptions) {
 		this.lockOptions = lockOptions;
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NaturalIdMultiLoadAccess<T> with(CacheMode cacheMode) {
 		this.cacheMode = cacheMode;
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NaturalIdMultiLoadAccess<T> with(EntityGraph<T> graph, GraphSemantic semantic) {
 		this.rootGraph = (RootGraphImplementor<T>) graph;
 		this.graphSemantic = semantic;
@@ -97,43 +105,51 @@ public class NaturalIdMultiLoadAccessStandard<T> implements NaturalIdMultiLoadAc
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NaturalIdMultiLoadAccess<T> withBatchSize(int batchSize) {
 		this.batchSize = batchSize;
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NaturalIdMultiLoadAccess<T> enableReturnOfDeletedEntities(boolean enabled) {
 		this.removalsMode = enabled ? FindMultipleOption.RemovalsMode.INCLUDE : FindMultipleOption.RemovalsMode.REPLACE;
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void with(FindMultipleOption.RemovalsMode removalsMode) {
 		this.removalsMode = removalsMode;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NaturalIdMultiLoadAccess<T> enableOrderedReturn(boolean enabled) {
 		this.orderingMode = enabled ? FindMultipleOption.OrderingMode.ORDERED : FindMultipleOption.OrderingMode.UNORDERED;
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void with(FindMultipleOption.OrderingMode orderingMode) {
 		this.orderingMode = orderingMode;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<T> multiLoad(Object... ids) {
 		return buildOperation()
 				.performFind( List.of( ids ), graphSemantic, rootGraph );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<T> multiLoad(List<?> ids) {
 		return buildOperation()
 				.performFind( ids, graphSemantic, rootGraph );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private StatefulFindMultipleByKeyOperation<T> buildOperation() {
 		return new StatefulFindMultipleByKeyOperation<T>(
 				entityDescriptor,
@@ -153,21 +169,25 @@ public class NaturalIdMultiLoadAccessStandard<T> implements NaturalIdMultiLoadAc
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FindMultipleOption.RemovalsMode getRemovalsMode() {
 		return removalsMode;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FindMultipleOption.OrderingMode getOrderingMode() {
 		return orderingMode;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LockOptions getLockOptions() {
 		return lockOptions;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Integer getBatchSize() {
 		return batchSize;
 	}

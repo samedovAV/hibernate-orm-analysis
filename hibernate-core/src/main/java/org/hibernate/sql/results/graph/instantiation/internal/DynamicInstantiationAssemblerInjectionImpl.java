@@ -19,6 +19,8 @@ import org.hibernate.type.descriptor.java.JavaType;
 
 import static org.hibernate.sql.results.graph.instantiation.internal.InstantiationHelper.findField;
 import static org.hibernate.sql.results.graph.instantiation.internal.InstantiationHelper.propertyMatches;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -53,6 +55,7 @@ public class DynamicInstantiationAssemblerInjectionImpl<T> implements DomainResu
 		this.beanInjections = beanInjections;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static BeanInjection injection(BeanInfo beanInfo, ArgumentReader<?> argument, Class<?> targetJavaType) {
 		final var argType = argument.getAssembledJavaType().getJavaTypeClass();
 		final String alias = argument.getAlias();
@@ -79,12 +82,14 @@ public class DynamicInstantiationAssemblerInjectionImpl<T> implements DomainResu
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<T> getAssembledJavaType() {
 		return target;
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public T assemble(RowProcessingState rowProcessingState) {
 		final T result;
 		try {
@@ -105,6 +110,7 @@ public class DynamicInstantiationAssemblerInjectionImpl<T> implements DomainResu
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void resolveState(RowProcessingState rowProcessingState) {
 		for ( var beanInjection : beanInjections ) {
 			beanInjection.getValueAssembler().resolveState( rowProcessingState );
@@ -112,6 +118,7 @@ public class DynamicInstantiationAssemblerInjectionImpl<T> implements DomainResu
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public <X> void forEachResultAssembler(BiConsumer<Initializer<?>, X> consumer, X arg) {
 		for ( var beanInjection : beanInjections ) {
 			beanInjection.getValueAssembler().forEachResultAssembler( consumer, arg );

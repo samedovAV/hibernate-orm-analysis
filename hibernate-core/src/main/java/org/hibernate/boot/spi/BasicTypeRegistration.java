@@ -8,6 +8,8 @@ import org.hibernate.type.BasicType;
 import org.hibernate.type.CustomType;
 import org.hibernate.type.spi.TypeConfiguration;
 import org.hibernate.usertype.UserType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -29,10 +31,12 @@ public class BasicTypeRegistration {
 		this( new CustomType<>( type, keys, typeConfiguration ), keys );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BasicType<?> getBasicType() {
 		return basicType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getRegistrationKeys() {
 		return registrationKeys;
 	}

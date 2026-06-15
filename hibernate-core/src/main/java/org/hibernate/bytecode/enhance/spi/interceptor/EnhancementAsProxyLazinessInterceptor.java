@@ -23,6 +23,8 @@ import static org.hibernate.engine.internal.ManagedTypeHelper.asPersistentAttrib
 import static org.hibernate.engine.internal.ManagedTypeHelper.asSelfDirtinessTracker;
 import static org.hibernate.engine.internal.ManagedTypeHelper.isSelfDirtinessTrackerType;
 import static org.hibernate.internal.util.collections.CollectionHelper.toSmallSet;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -47,15 +49,18 @@ public class EnhancementAsProxyLazinessInterceptor
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getEntityName() {
 		return meta.entityName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityKey getEntityKey() {
 		return entityKey;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Object handleRead(Object target, String attributeName, Object value) {
 		// it's illegal for this interceptor to still be attached to the entity after initialization
 		if ( isInitialized() ) {
@@ -77,6 +82,7 @@ public class EnhancementAsProxyLazinessInterceptor
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private Object read(
 			Object target, String attributeName, SharedSessionContractImplementor session, Boolean isTempSession) {
 		final Object[] writtenAttributeValues;
@@ -130,6 +136,7 @@ public class EnhancementAsProxyLazinessInterceptor
 		return initializedValue;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Object extractIdValue(Object target, String attributeName) {
 		// access to the id or part of it for non-aggregated cid
 		final var nonAggregatedCidMapper = meta.nonAggregatedCidMapper;
@@ -145,6 +152,7 @@ public class EnhancementAsProxyLazinessInterceptor
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object forceInitialize(Object target, String attributeName) {
 		if ( BYTECODE_INTERCEPTOR_LOGGER.isTraceEnabled() ) {
 			BYTECODE_INTERCEPTOR_LOGGER.enhancementAsProxyLazinessForceInitialize(
@@ -162,6 +170,7 @@ public class EnhancementAsProxyLazinessInterceptor
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object forceInitialize(
 			Object target,
 			String attributeName,
@@ -185,6 +194,7 @@ public class EnhancementAsProxyLazinessInterceptor
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Object handleWrite(Object target, String attributeName, Object oldValue, Object newValue) {
 		if ( isInitialized() ) {
 			throw new IllegalStateException( "EnhancementAsProxyLazinessInterceptor interception on an initialized instance" );
@@ -246,11 +256,13 @@ public class EnhancementAsProxyLazinessInterceptor
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Set<String> getInitializedLazyAttributeNames() {
 		return emptySet();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void attributeInitialized(String name) {
 		if ( status == Status.INITIALIZED ) {
 			throw new UnsupportedOperationException( "Expected call to EnhancementAsProxyLazinessInterceptor#attributeInitialized" );
@@ -258,6 +270,7 @@ public class EnhancementAsProxyLazinessInterceptor
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isAttributeLoaded(String fieldName) {
 		if ( isInitialized() ) {
 			throw new UnsupportedOperationException( "Call to EnhancementAsProxyLazinessInterceptor#isAttributeLoaded on an interceptor which is marked as initialized" );
@@ -267,6 +280,7 @@ public class EnhancementAsProxyLazinessInterceptor
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasAnyUninitializedAttributes() {
 		if ( isInitialized() ) {
 			throw new UnsupportedOperationException( "Call to EnhancementAsProxyLazinessInterceptor#hasAnyUninitializedAttributes on an interceptor which is marked as initialized" );
@@ -275,27 +289,33 @@ public class EnhancementAsProxyLazinessInterceptor
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object getIdentifier() {
 		return entityKey.getIdentifier();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isInitializing() {
 		return status == Status.INITIALIZING;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setInitializing() {
 		status = Status.INITIALIZING;
 	}
 
 	//Mostly useful for testing
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isInitialized() {
 		return status == Status.INITIALIZED;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void setInitialized() {
 		status = Status.INITIALIZED;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasWrittenFieldNames() {
 		return writtenFieldNames != null && !writtenFieldNames.isEmpty();
 	}
@@ -303,6 +323,7 @@ public class EnhancementAsProxyLazinessInterceptor
 	/*
 	 * Used by Hibernate Reactive
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean isIdentifier(String attributeName) {
 		return meta.identifierAttributeNames.contains( attributeName );
 	}

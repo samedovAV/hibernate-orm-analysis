@@ -18,6 +18,8 @@ import org.hibernate.sql.results.graph.InitializerParent;
 import org.hibernate.sql.results.jdbc.spi.RowProcessingState;
 
 import static org.hibernate.internal.log.LoggingHelper.toLoggableString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Loads entities from the persistence context or creates proxies if not found there,
@@ -49,16 +51,19 @@ public class BatchInitializeEntitySelectFetchInitializer extends AbstractBatchEn
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected InitializerData createInitializerData(RowProcessingState rowProcessingState) {
 		return new BatchInitializeEntitySelectFetchInitializerData( this, rowProcessingState );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void registerResolutionListener(BatchInitializeEntitySelectFetchInitializerData data) {
 		// No-op, because we resolve a proxy
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void registerToBatchFetchQueue(BatchInitializeEntitySelectFetchInitializerData data) {
 		super.registerToBatchFetchQueue( data );
 		// Force creating a proxy
@@ -83,6 +88,7 @@ public class BatchInitializeEntitySelectFetchInitializer extends AbstractBatchEn
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void endLoading(BatchInitializeEntitySelectFetchInitializerData data) {
 		super.endLoading( data );
 		final var keysToBatchLoad = data.toBatchLoad;
@@ -96,6 +102,7 @@ public class BatchInitializeEntitySelectFetchInitializer extends AbstractBatchEn
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "BatchInitializeEntitySelectFetchInitializer("
 				+ toLoggableString( getNavigablePath() ) + ")";

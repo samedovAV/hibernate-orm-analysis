@@ -10,6 +10,8 @@ import java.util.function.BiConsumer;
 import org.hibernate.internal.util.collections.CollectionHelper;
 import org.hibernate.sql.ast.tree.expression.ColumnReference;
 import org.hibernate.sql.model.MutationOperation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Models an update to a model (entity or collection) table,
@@ -23,6 +25,7 @@ public interface TableUpdate<O extends MutationOperation> extends LogicalTableUp
 	/**
 	 * The columns to return from the insert.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<ColumnReference> getReturningColumns();
 
 	/**
@@ -30,6 +33,7 @@ public interface TableUpdate<O extends MutationOperation> extends LogicalTableUp
 	 *
 	 * @see #getReturningColumns
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int getNumberOfReturningColumns() {
 		return CollectionHelper.size( getReturningColumns() );
 	}
@@ -39,5 +43,6 @@ public interface TableUpdate<O extends MutationOperation> extends LogicalTableUp
 	 *
 	 * @see #getReturningColumns
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void forEachReturningColumn(BiConsumer<Integer,ColumnReference> consumer);
 }

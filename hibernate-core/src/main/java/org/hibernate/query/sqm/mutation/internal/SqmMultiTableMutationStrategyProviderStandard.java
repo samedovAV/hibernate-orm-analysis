@@ -11,6 +11,8 @@ import org.hibernate.metamodel.spi.RuntimeModelCreationContext;
 import org.hibernate.query.sqm.mutation.spi.SqmMultiTableInsertStrategy;
 import org.hibernate.query.sqm.mutation.spi.SqmMultiTableMutationStrategy;
 import org.hibernate.query.sqm.mutation.spi.SqmMultiTableMutationStrategyProvider;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard SqmMultiTableMutationStrategyProvider implementation
@@ -22,6 +24,7 @@ import org.hibernate.query.sqm.mutation.spi.SqmMultiTableMutationStrategyProvide
  */
 public class SqmMultiTableMutationStrategyProviderStandard implements SqmMultiTableMutationStrategyProvider {
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmMultiTableMutationStrategy createMutationStrategy(
 			EntityMappingType rootEntityDescriptor,
 			MappingModelCreationProcess creationProcess) {
@@ -41,6 +44,7 @@ public class SqmMultiTableMutationStrategyProviderStandard implements SqmMultiTa
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmMultiTableInsertStrategy createInsertStrategy(
 			EntityMappingType rootEntityDescriptor,
 			MappingModelCreationProcess creationProcess) {

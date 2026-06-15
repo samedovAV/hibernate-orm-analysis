@@ -6,6 +6,8 @@ package org.hibernate.service.spi;
 
 import jakarta.annotation.Nonnull;
 import org.hibernate.service.Service;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for an initiator of services that target the specialized service registry
@@ -24,5 +26,6 @@ public interface SessionFactoryServiceInitiator<R extends Service> extends Servi
 	 * @return The initiated service.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	R initiateService(@Nonnull SessionFactoryServiceInitiatorContext context);
 }

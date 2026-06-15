@@ -12,6 +12,8 @@ import java.util.Properties;
 import org.hibernate.jpa.boot.spi.PersistenceUnitDescriptor;
 
 import static org.hibernate.jpa.internal.JpaLogger.JPA_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -23,6 +25,7 @@ public final class LogHelper {
 	private LogHelper() {
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void logPersistenceUnitInformation(PersistenceUnitDescriptor descriptor) {
 		if ( JPA_LOGGER.isDebugEnabled() ) {
 			final var builder = new StringBuilder();

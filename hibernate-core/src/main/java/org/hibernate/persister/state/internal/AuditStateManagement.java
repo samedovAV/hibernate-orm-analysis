@@ -59,6 +59,8 @@ import static org.hibernate.boot.model.internal.AuditHelper.INVALIDATING_CHANGES
 import static org.hibernate.boot.model.internal.AuditHelper.CHANGESET_ID;
 import static org.hibernate.metamodel.mapping.internal.MappingModelCreationHelper.getTableIdentifierExpression;
 import static org.hibernate.persister.state.internal.AbstractStateManagement.resolveMutationTarget;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * State management for {@linkplain org.hibernate.annotations.Audited audited}
@@ -75,11 +77,13 @@ public class AuditStateManagement implements StateManagement, StateManagementLeg
 
 	private final StateManagementGraphIntegration graphIntegration = new StateManagementGraphIntegration() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public EntityMutationPlanContributor createEntityMutationPlanContributor(EntityPersister persister) {
 			return new AuditEntityMutationPlanContributor( persister, persister.getFactory() );
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public CollectionMutationPlanContributor createCollectionMutationPlanContributor(CollectionPersister persister) {
 			return new AuditCollectionMutationPlanContributor( persister, persister.getFactory() );
 		}
@@ -89,40 +93,47 @@ public class AuditStateManagement implements StateManagement, StateManagementLeg
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public StateManagementLegacyIntegration getLegacyIntegration() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public InsertCoordinator createInsertCoordinator(EntityPersister persister) {
 		return new InsertCoordinatorAudit( persister, persister.getFactory(),
 				standardLegacyIntegration.createInsertCoordinator( persister ) );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public UpdateCoordinator createUpdateCoordinator(EntityPersister persister) {
 		return new UpdateCoordinatorAudit( persister, persister.getFactory(),
 				standardLegacyIntegration.createUpdateCoordinator( persister ) );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public UpdateCoordinator createMergeCoordinator(EntityPersister persister) {
 		return new MergeCoordinatorAudit( persister, persister.getFactory(),
 				standardLegacyIntegration.createMergeCoordinator( persister ) );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public DeleteCoordinator createDeleteCoordinator(EntityPersister persister) {
 		return new DeleteCoordinatorAudit( persister, persister.getFactory(),
 				standardLegacyIntegration.createDeleteCoordinator( persister ) );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public StateManagementGraphIntegration getGraphIntegration() {
 		return graphIntegration;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public InsertRowsCoordinator createInsertRowsCoordinator(CollectionPersister persister) {
 		final var mutationTarget = resolveMutationTarget( persister );
 		if ( !AbstractStateManagement.isInsertAllowed( persister ) ) {
@@ -141,6 +152,7 @@ public class AuditStateManagement implements StateManagement, StateManagementLeg
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public UpdateRowsCoordinator createUpdateRowsCoordinator(CollectionPersister persister) {
 		// Collection audit rows are always ADD/DEL (never MOD).
 		// The semantic diff in InsertRowsCoordinatorAudit handles all audit writes.
@@ -148,6 +160,7 @@ public class AuditStateManagement implements StateManagement, StateManagementLeg
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public DeleteRowsCoordinator createDeleteRowsCoordinator(CollectionPersister persister) {
 		// Collection audit rows are always ADD/DEL (never MOD).
 		// The semantic diff in InsertRowsCoordinatorAudit handles all audit writes.
@@ -155,6 +168,7 @@ public class AuditStateManagement implements StateManagement, StateManagementLeg
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public RemoveCoordinator createRemoveCoordinator(CollectionPersister persister) {
 		if ( !persister.needsRemove() ) {
 			return new RemoveCoordinatorNoOp( resolveMutationTarget( persister ) );
@@ -170,6 +184,7 @@ public class AuditStateManagement implements StateManagement, StateManagementLeg
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AuditMapping createAuxiliaryMapping(
 			EntityPersister persister,
 			RootClass rootClass,
@@ -179,6 +194,7 @@ public class AuditStateManagement implements StateManagement, StateManagementLeg
 		return new AuditMappingImpl( tableAuditInfoMap, persister, creationProcess );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static Map<String, AuditMappingImpl.TableAuditInfo> buildTableAuditInfoMap(
 			RootClass rootClass,
 			AbstractEntityPersister persister,
@@ -273,6 +289,7 @@ public class AuditStateManagement implements StateManagement, StateManagementLeg
 		return map;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void addAuditSubquery(
 			Map<String, AuditMappingImpl.TableAuditInfo> map,
 			PersistentClass bootClass,
@@ -300,6 +317,7 @@ public class AuditStateManagement implements StateManagement, StateManagementLeg
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void addTableAuditInfo(
 			Map<String, AuditMappingImpl.TableAuditInfo> map,
 			Table originalTable,
@@ -317,6 +335,7 @@ public class AuditStateManagement implements StateManagement, StateManagementLeg
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static AuditMappingImpl.TableAuditInfo createTableAuditInfo(
 			String auditTableName,
 			AuxiliaryTableHolder holder,
@@ -346,6 +365,7 @@ public class AuditStateManagement implements StateManagement, StateManagementLeg
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static @Nullable SelectableMapping toSelectableMapping(
 			String tableName,
 			@Nullable Column column,
@@ -370,12 +390,14 @@ public class AuditStateManagement implements StateManagement, StateManagementLeg
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static JdbcMapping resolveJdbcMapping(TypeConfiguration typeConfiguration, Class<?> javaType) {
 		final var basicType = typeConfiguration.getBasicTypeForJavaType( javaType );
 		return basicType != null ? basicType : typeConfiguration.standardBasicTypeForJavaType( javaType );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AuditMapping createAuxiliaryMapping(
 			PluralAttributeMapping pluralAttributeMapping,
 			Collection bootDescriptor,

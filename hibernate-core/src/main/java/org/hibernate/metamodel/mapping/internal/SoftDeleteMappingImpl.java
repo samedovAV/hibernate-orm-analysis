@@ -57,6 +57,8 @@ import java.util.function.Supplier;
 
 import static java.util.Collections.emptyList;
 import static org.hibernate.query.sqm.ComparisonOperator.EQUAL;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * SoftDeleteMapping implementation
@@ -160,30 +162,36 @@ public class SoftDeleteMappingImpl implements SoftDeleteMapping, LegacyAuxiliary
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SoftDeleteType getSoftDeleteStrategy() {
 		return strategy;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getColumnName() {
 		return columnName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getTableName() {
 		return tableName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getWriteExpression() {
 		return strategy == SoftDeleteType.TIMESTAMP ? null : nonDeletedLiteralText;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getDeletionIndicator() {
 		return deletionIndicator;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Assignment createSoftDeleteAssignment(TableReference tableReference) {
 		final var columnReference = new ColumnReference( tableReference, this );
 		final var valueExpression =
@@ -194,6 +202,7 @@ public class SoftDeleteMappingImpl implements SoftDeleteMapping, LegacyAuxiliary
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Predicate createNonDeletedRestriction(TableReference tableReference) {
 		final var softDeleteColumn = new ColumnReference( tableReference, this );
 		if ( strategy == SoftDeleteType.TIMESTAMP ) {
@@ -206,6 +215,7 @@ public class SoftDeleteMappingImpl implements SoftDeleteMapping, LegacyAuxiliary
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Predicate createNonDeletedRestriction(TableReference tableReference, SqlExpressionResolver expressionResolver) {
 		final var softDeleteColumn = expressionResolver.resolveSqlExpression( tableReference, this );
 		if ( strategy == SoftDeleteType.TIMESTAMP ) {
@@ -221,6 +231,7 @@ public class SoftDeleteMappingImpl implements SoftDeleteMapping, LegacyAuxiliary
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ColumnValueBinding createNonDeletedValueBinding(ColumnReference softDeleteColumnReference) {
 		final var nonDeletedFragment =
 				strategy == SoftDeleteType.TIMESTAMP
@@ -230,6 +241,7 @@ public class SoftDeleteMappingImpl implements SoftDeleteMapping, LegacyAuxiliary
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ColumnValueBinding createDeletedValueBinding(ColumnReference softDeleteColumnReference) {
 		final ColumnWriteFragment deletedFragment =
 				strategy == SoftDeleteType.TIMESTAMP
@@ -239,36 +251,43 @@ public class SoftDeleteMappingImpl implements SoftDeleteMapping, LegacyAuxiliary
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcMapping getJdbcMapping() {
 		return jdbcMapping;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getPartName() {
 		return ROLE_NAME;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigableRole getNavigableRole() {
 		return navigableRole;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int forEachJdbcType(int offset, IndexedConsumer<JdbcMapping> action) {
 		action.accept( offset, jdbcMapping );
 		return 1;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object disassemble(Object value, SharedSessionContractImplementor session) {
 		return value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addToCacheKey(MutableCacheKeyBuilder cacheKey, Object value, SharedSessionContractImplementor session) {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X, Y> int forEachDisassembledJdbcValue(
 			Object value,
 			int offset,
@@ -281,21 +300,25 @@ public class SoftDeleteMappingImpl implements SoftDeleteMapping, LegacyAuxiliary
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MappingType getPartMappingType() {
 		return jdbcMapping;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<?> getJavaType() {
 		return jdbcMapping.getMappedJavaType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasPartitionedSelectionMapping() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> DomainResult<T> createDomainResult(
 			NavigablePath navigablePath,
 			TableGroup tableGroup,
@@ -312,6 +335,7 @@ public class SoftDeleteMappingImpl implements SoftDeleteMapping, LegacyAuxiliary
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private SqlSelection resolveSqlSelection(
 			NavigablePath navigablePath,
 			TableGroup tableGroup,
@@ -331,6 +355,7 @@ public class SoftDeleteMappingImpl implements SoftDeleteMapping, LegacyAuxiliary
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applySqlSelections(
 			NavigablePath navigablePath,
 			TableGroup tableGroup,
@@ -339,6 +364,7 @@ public class SoftDeleteMappingImpl implements SoftDeleteMapping, LegacyAuxiliary
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applySqlSelections(
 			NavigablePath navigablePath,
 			TableGroup tableGroup,
@@ -349,6 +375,7 @@ public class SoftDeleteMappingImpl implements SoftDeleteMapping, LegacyAuxiliary
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X, Y> int breakDownJdbcValues(
 			Object domainValue,
 			int offset,
@@ -361,11 +388,13 @@ public class SoftDeleteMappingImpl implements SoftDeleteMapping, LegacyAuxiliary
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public EntityMappingType findContainingEntityMapping() {
 		return softDeletable.findContainingEntityMapping();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addToInsertGroup(MutationGroupBuilder insertGroupBuilder, EntityPersister persister) {
 		final TableInsertBuilder insertBuilder =
 				insertGroupBuilder.getTableDetailsBuilder( persister.getIdentifierTableName() );
@@ -374,6 +403,7 @@ public class SoftDeleteMappingImpl implements SoftDeleteMapping, LegacyAuxiliary
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applyPredicate(
 			EntityMappingType associatedEntityMappingType,
 			Consumer<Predicate> predicateConsumer,
@@ -389,6 +419,7 @@ public class SoftDeleteMappingImpl implements SoftDeleteMapping, LegacyAuxiliary
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applyPredicate(
 			EntityMappingType associatedEntityDescriptor,
 			Consumer<Predicate> predicateConsumer,
@@ -402,6 +433,7 @@ public class SoftDeleteMappingImpl implements SoftDeleteMapping, LegacyAuxiliary
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applyPredicate(
 			PluralAttributeMapping associatedEntityDescriptor,
 			Consumer<Predicate> predicateConsumer,
@@ -413,6 +445,7 @@ public class SoftDeleteMappingImpl implements SoftDeleteMapping, LegacyAuxiliary
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void applyPredicate(TableGroupJoin tableGroupJoin, LoadQueryInfluencers loadQueryInfluencers) {
 		tableGroupJoin.applyPredicate( createNonDeletedRestriction(
 				tableGroupJoin.getJoinedGroup().resolveTableReference( getTableName() )
@@ -420,6 +453,7 @@ public class SoftDeleteMappingImpl implements SoftDeleteMapping, LegacyAuxiliary
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applyPredicate(
 			Supplier<Consumer<Predicate>> predicateCollector,
 			SqlAstCreationState creationState,
@@ -440,16 +474,19 @@ public class SoftDeleteMappingImpl implements SoftDeleteMapping, LegacyAuxiliary
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean useAuxiliaryTable(LoadQueryInfluencers influencers) {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isAffectedByInfluencers(LoadQueryInfluencers influencers) {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "SoftDeleteMapping(" + tableName + "." + columnName + ")";
 	}

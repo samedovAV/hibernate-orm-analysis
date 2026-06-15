@@ -5,6 +5,8 @@
 package org.hibernate.type.descriptor.java;
 
 import java.util.Comparator;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Comparator for component arrays.
@@ -20,6 +22,7 @@ public class ComponentArrayComparator<E> implements Comparator<E[]> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public int compare(E[] o1, E[] o2) {
 		for ( int i = 0; i < components.length; i++ ) {
 			final int cmp = components[i].getComparator().compare( o1[i], o2[i] );

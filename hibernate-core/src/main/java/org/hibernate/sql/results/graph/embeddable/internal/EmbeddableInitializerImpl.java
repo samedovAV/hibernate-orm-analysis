@@ -36,6 +36,8 @@ import jakarta.annotation.Nullable;
 import static org.hibernate.engine.internal.ManagedTypeHelper.isPersistentAttributeInterceptableType;
 import static org.hibernate.proxy.HibernateProxy.extractLazyInitializer;
 import static org.hibernate.sql.results.graph.entity.internal.BatchEntityInsideEmbeddableSelectFetchInitializer.BATCH_PROPERTY;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -72,20 +74,24 @@ public class EmbeddableInitializerImpl
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Object[] getValues() {
 			return getState() == State.MISSING ? null : rowState;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public <T> T getValue(int i, Class<T> clazz) {
 			return getState() == State.MISSING ? null : clazz.cast( rowState[i] );
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Object getOwner() {
 			return parentData == null ? null : parentData.getInstance();
 		}
 
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public int getSubclassId() {
 			return concreteEmbeddableType == null ? 0 : concreteEmbeddableType.getSubclassId();
 		}
@@ -193,10 +199,12 @@ public class EmbeddableInitializerImpl
 		this.hasLazySubInitializer = hasLazySubInitializers;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static void fill(@Nullable Initializer<InitializerData>[][] initializers) {
 		Arrays.fill( initializers, Initializer.EMPTY_ARRAY );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isEnhancedForLazyLoading(EmbeddableMappingType embeddableMappingType) {
 		return isPersistentAttributeInterceptableType(
 				embeddableMappingType.getRepresentationStrategy().getMappedJavaType().getJavaTypeClass()
@@ -204,52 +212,62 @@ public class EmbeddableInitializerImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableValuedModelPart getInitializedPart() {
 		return embedded;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable InitializerParent<?> getParent() {
 		return parent;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigablePath getNavigablePath() {
 		return navigablePath;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isResultInitializer() {
 		return isResultInitializer;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isPartOfKey() {
 		return isPartOfKey;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isEager() {
 		// Embeddables are never lazy
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isLazyCapable() {
 		return lazyCapable;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasLazySubInitializers() {
 		return hasLazySubInitializer;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected InitializerData createInitializerData(RowProcessingState rowProcessingState) {
 		return new EmbeddableInitializerData( this, rowProcessingState );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void resolveKey(EmbeddableInitializerData data) {
 		if ( data.getState() == State.UNINITIALIZED ) {
 			data.setInstance( null );
@@ -280,6 +298,7 @@ public class EmbeddableInitializerImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void resetResolvedEntityRegistrations(RowProcessingState rowProcessingState) {
 		final var data = getData( rowProcessingState );
 		for ( var initializer : subInitializers[data.getSubclassId()] ) {
@@ -298,6 +317,7 @@ public class EmbeddableInitializerImpl
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void resolveKeySubInitializers(EmbeddableInitializerData data) {
 		final var rowProcessingState = data.getRowProcessingState();
 		for ( var initializer : subInitializers[data.getSubclassId()] ) {
@@ -313,6 +333,7 @@ public class EmbeddableInitializerImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void resolveFromPreviousRow(EmbeddableInitializerData data) {
 		if ( data.getState() == State.UNINITIALIZED ) {
 			if ( data.getInstance() == null ) {
@@ -332,6 +353,7 @@ public class EmbeddableInitializerImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void resolveInstance(EmbeddableInitializerData data) {
 		if ( data.getState() == State.KEY_RESOLVED ) {
 			data.setState( State.RESOLVED );
@@ -341,6 +363,7 @@ public class EmbeddableInitializerImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void resolveInstance(@Nullable Object instance, EmbeddableInitializerData data) {
 		if ( instance == null ) {
 			data.setState( State.MISSING );
@@ -360,6 +383,7 @@ public class EmbeddableInitializerImpl
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void resolveInstanceSubInitializers(int subclassId, Object instance, RowProcessingState rowProcessingState) {
 		final var initializers = subInitializersForResolveFromInitialized[subclassId];
 		for ( int i = 0; i < initializers.length; i++ ) {
@@ -378,6 +402,7 @@ public class EmbeddableInitializerImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void initializeInstance(EmbeddableInitializerData data) {
 		if ( data.getState() == State.RESOLVED ) {
 			data.setState( State.INITIALIZED );
@@ -414,6 +439,7 @@ public class EmbeddableInitializerImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	protected void forEachSubInitializer(BiConsumer<Initializer<?>, RowProcessingState> consumer, InitializerData data) {
 		final var embeddableInitializerData = (EmbeddableInitializerData) data;
 		final var rowProcessingState = embeddableInitializerData.getRowProcessingState();
@@ -436,6 +462,7 @@ public class EmbeddableInitializerImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void initializeInstanceFromParent(Object parentInstance, EmbeddableInitializerData data) {
 		final AttributeMapping attributeMapping = getInitializedPart().asAttributeMapping();
 		final Object instance = attributeMapping != null
@@ -456,6 +483,7 @@ public class EmbeddableInitializerImpl
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void prepareCompositeInstance(EmbeddableInitializerData data) {
 		// Virtual model parts use the owning entity as container which the fetch parent access provides.
 		// For an identifier or foreign key this is called during the resolveKey phase of the fetch parent,
@@ -482,6 +510,7 @@ public class EmbeddableInitializerImpl
 //		EMBEDDED_LOAD_LOGGER.tracef( "Created composite instance [%s]", navigablePath );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void extractRowState(EmbeddableInitializerData data) {
 		boolean stateAllNull = true;
 		final var subAssemblers = assemblers[data.getSubclassId()];
@@ -505,12 +534,14 @@ public class EmbeddableInitializerImpl
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean isNull(EmbeddableInitializerData data) {
 		return nullIndicatorAssembler == null
 			|| Boolean.TRUE == nullIndicatorAssembler.assemble( data.getRowProcessingState() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void resolveState(EmbeddableInitializerData data) {
 		final var rowProcessingState = data.getRowProcessingState();
 		for ( var assembler : assemblers[data.getSubclassId()] ) {
@@ -518,6 +549,7 @@ public class EmbeddableInitializerImpl
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Object createCompositeInstance(EmbeddableInitializerData data) {
 		if ( data.getState() == State.MISSING ) {
 			return null;
@@ -534,6 +566,7 @@ public class EmbeddableInitializerImpl
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void handleParentInjection(EmbeddableInitializerData data) {
 		final PropertyAccess parentInjectionAccess = embedded.getParentInjectionAttributePropertyAccess();
 		if ( parentInjectionAccess != null ) {
@@ -548,6 +581,7 @@ public class EmbeddableInitializerImpl
 		// else embeddable defined no parent injection
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private Initializer<?> determineOwningInitializer() {
 		// Try to find the first non-embeddable fetch parent access
 		// todo (6.x) - allow injection of containing composite as parent if
@@ -562,6 +596,7 @@ public class EmbeddableInitializerImpl
 		throw new UnsupportedOperationException( "Injection of parent instance into embeddable result is not possible" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Object determineParentInstance(Initializer<?> parentInitializer, RowProcessingState rowProcessingState) {
 		if ( parentInitializer == null ) {
 			throw new UnsupportedOperationException( "Cannot determine Embeddable: " + navigablePath + " parent instance, parent initializer is null" );
@@ -581,6 +616,7 @@ public class EmbeddableInitializerImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return getClass().getSimpleName() + "(" + navigablePath + ") : "
 			+ getInitializedPart().getJavaType().getJavaTypeClass().getSimpleName();

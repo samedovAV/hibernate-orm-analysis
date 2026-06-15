@@ -5,6 +5,8 @@
 package org.hibernate.resource.beans.container.spi;
 
 import jakarta.enterprise.inject.spi.BeanManager;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * This contract and the nested LifecycleListener contract represent the changes
@@ -19,6 +21,7 @@ public interface ExtendedBeanManager {
 	 *
 	 * @param lifecycleListener The listener to register
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void registerLifecycleListener(LifecycleListener lifecycleListener);
 
 	/**
@@ -30,7 +33,9 @@ public interface ExtendedBeanManager {
 	 * tell us that reliably.
 	 */
 	interface LifecycleListener {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void beanManagerInitialized(BeanManager beanManager);
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void beforeBeanManagerDestroyed(BeanManager beanManager);
 	}
 }

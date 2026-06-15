@@ -11,6 +11,8 @@ import org.hibernate.boot.jaxb.spi.Binding;
 import org.hibernate.boot.jaxb.spi.JaxbBindableMappingDescriptor;
 
 import static org.hibernate.boot.jaxb.JaxbLogger.JAXB_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Support for processing mapping XML from a {@linkplain InputStreamAccess} reference.
@@ -25,6 +27,7 @@ public class InputStreamAccessXmlSource {
 	 *
 	 * @apiNote This method does not close the given {@code inputStream}.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static Binding<? extends JaxbBindableMappingDescriptor> fromStreamAccess(
 			InputStreamAccess inputStreamAccess,
 			MappingBinder mappingBinder) {
@@ -40,6 +43,7 @@ public class InputStreamAccessXmlSource {
 	 *
 	 * @apiNote This method does not close the given {@code inputStream}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Binding<? extends JaxbBindableMappingDescriptor> fromStreamAccess(
 			InputStreamAccess inputStreamAccess,
 			Origin origin,

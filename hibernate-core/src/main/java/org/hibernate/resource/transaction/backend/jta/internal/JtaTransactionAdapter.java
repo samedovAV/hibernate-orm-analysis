@@ -5,6 +5,8 @@
 package org.hibernate.resource.transaction.backend.jta.internal;
 
 import org.hibernate.resource.transaction.spi.TransactionStatus;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Adapter for abstracting the physical means of interacting with JTA transactions.
@@ -19,21 +21,27 @@ public interface JtaTransactionAdapter {
 	/**
 	 * Call begin on the underlying transaction object
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void begin();
 
 	/**
 	 * Call commit on the underlying transaction object
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void commit();
 
 	/**
 	 * Call rollback on the underlying transaction object
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void rollback();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TransactionStatus getStatus();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void markRollbackOnly();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setTimeOut(int seconds);
 }

@@ -6,6 +6,8 @@ package org.hibernate.generator;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Member;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -61,6 +63,7 @@ public interface AnnotationBasedGenerator<A extends Annotation> extends Generato
 	 * @deprecated Use {@link #initialize(Annotation, GeneratorCreationContext)} instead
 	 */
 	@Deprecated(since = "7.3", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void initialize(A annotation, Member member, GeneratorCreationContext context) {
 	}
 
@@ -76,6 +79,7 @@ public interface AnnotationBasedGenerator<A extends Annotation> extends Generato
 	 *
 	 * @since 7.3
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void initialize(A annotation, GeneratorCreationContext context) {
 		initialize( annotation, context.getMemberDetails().toJavaMember(), context );
 	}

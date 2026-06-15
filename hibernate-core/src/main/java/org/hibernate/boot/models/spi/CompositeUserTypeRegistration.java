@@ -5,6 +5,8 @@
 package org.hibernate.boot.models.spi;
 
 import org.hibernate.models.spi.ClassDetails;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Registration for a {@linkplain org.hibernate.usertype.CompositeUserType}
@@ -23,10 +25,12 @@ public class CompositeUserTypeRegistration {
 		this.userTypeClass = userTypeClass;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ClassDetails getEmbeddableClass() {
 		return embeddableClass;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ClassDetails getUserTypeClass() {
 		return userTypeClass;
 	}

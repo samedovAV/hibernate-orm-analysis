@@ -12,6 +12,8 @@ import org.hibernate.sql.model.ast.MutatingTableReference;
 import org.hibernate.sql.model.ast.TableDelete;
 import org.hibernate.sql.model.internal.TableDeleteCustomSql;
 import org.hibernate.sql.model.internal.TableDeleteStandard;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Custom table delete builder for many-to-many collection join tables that handles row deletes
@@ -29,6 +31,7 @@ public class CollectionRowDeleteBuilder extends TableDeleteBuilderStandard {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableDelete buildMutation() {
 		final CollectionTableMapping tableMapping = (CollectionTableMapping) getMutatingTable().getTableMapping();
 		if ( tableMapping.getDeleteRowDetails().getCustomSql() != null ) {
@@ -41,16 +44,19 @@ public class CollectionRowDeleteBuilder extends TableDeleteBuilderStandard {
 					getParameters()
 			) {
 				@Override
+				@Prove(complexity = Complexity.O_N, n = "", count = {})
 				public String getCustomSql() {
 					return tableMapping.getDeleteRowDetails().getCustomSql();
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_N, n = "", count = {})
 				public boolean isCallable() {
 					return tableMapping.getDeleteRowDetails().isCallable();
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_N, n = "", count = {})
 				public Expectation getExpectation() {
 					return tableMapping.getDeleteRowDetails().getExpectation();
 				}
@@ -66,6 +72,7 @@ public class CollectionRowDeleteBuilder extends TableDeleteBuilderStandard {
 				getWhereFragment()
 		) {
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public Expectation getExpectation() {
 				return tableMapping.getDeleteRowDetails().getExpectation();
 			}

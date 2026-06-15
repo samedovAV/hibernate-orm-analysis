@@ -20,6 +20,8 @@ import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.descriptor.jdbc.spi.JsonGeneratingVisitor;
 import org.hibernate.type.format.StringJsonDocumentReader;
 import org.hibernate.type.format.StringJsonDocumentWriter;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specialized type mapping for {@code JSON} and the JSON SQL data type.
@@ -40,27 +42,32 @@ public class JsonJdbcType implements AggregateJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getJdbcTypeCode() {
 		return SqlTypes.VARCHAR;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getDefaultSqlTypeCode() {
 		return SqlTypes.JSON;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "JsonJdbcType";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> JdbcLiteralFormatter<T> getJdbcLiteralFormatter(JavaType<T> javaType) {
 		// No literal support for now
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AggregateJdbcType resolveAggregateJdbcType(
 			EmbeddableMappingType mappingType,
 			String sqlType,
@@ -69,10 +76,12 @@ public class JsonJdbcType implements AggregateJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableMappingType getEmbeddableMappingType() {
 		return embeddableMappingType;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected <X> X fromString(String string, JavaType<X> javaType, WrapperOptions options)
 			throws SQLException {
 		if ( string == null ) {
@@ -90,6 +99,7 @@ public class JsonJdbcType implements AggregateJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object createJdbcValue(Object domainValue, WrapperOptions options)
 			throws SQLException {
 		assert embeddableMappingType != null;
@@ -104,6 +114,7 @@ public class JsonJdbcType implements AggregateJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object[] extractJdbcValues(Object rawJdbcValue, WrapperOptions options)
 			throws SQLException {
 		assert embeddableMappingType != null;
@@ -111,6 +122,7 @@ public class JsonJdbcType implements AggregateJdbcType {
 				new StringJsonDocumentReader( (String) rawJdbcValue ), false, options );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected <X> String toString(X value, JavaType<X> javaType, WrapperOptions options) {
 		if ( embeddableMappingType != null ) {
 			try {
@@ -126,15 +138,18 @@ public class JsonJdbcType implements AggregateJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> ValueBinder<X> getBinder(JavaType<X> javaType) {
 		return new BasicBinder<>( javaType, this ) {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBind(PreparedStatement st, X value, int index, WrapperOptions options)
 					throws SQLException {
 				st.setString( index, JsonJdbcType.this.toString( value, getJavaType(), options ) );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBind(CallableStatement st, X value, String name, WrapperOptions options)
 					throws SQLException {
 				st.setString( name, JsonJdbcType.this.toString( value, getJavaType(), options ) );
@@ -143,21 +158,25 @@ public class JsonJdbcType implements AggregateJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> ValueExtractor<X> getExtractor(JavaType<X> javaType) {
 		return new BasicExtractor<>( javaType, this ) {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(ResultSet rs, int paramIndex, WrapperOptions options)
 					throws SQLException {
 				return fromString( rs.getString( paramIndex ), getJavaType(), options );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(CallableStatement statement, int index, WrapperOptions options)
 					throws SQLException {
 				return fromString( statement.getString( index ), getJavaType(), options );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(CallableStatement statement, String name, WrapperOptions options)
 					throws SQLException {
 				return fromString( statement.getString( name ), getJavaType(), options );

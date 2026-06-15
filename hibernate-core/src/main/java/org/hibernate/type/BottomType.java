@@ -8,6 +8,8 @@ import org.hibernate.Internal;
 import org.hibernate.type.descriptor.WrapperOptions;
 import org.hibernate.type.descriptor.java.AbstractClassJavaType;
 import org.hibernate.type.descriptor.jdbc.NullJdbcType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A type that is assignable to every non-primitive type,
@@ -29,10 +31,12 @@ public class BottomType extends AbstractSingleColumnStandardBasicType<Void> {
 	private BottomType() {
 		super( NullJdbcType.INSTANCE, new AbstractClassJavaType<>(Void.class) {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public <X> X unwrap(Void value, Class<X> type, WrapperOptions options) {
 				return null;
 			}
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public <X> Void wrap(X value, WrapperOptions options) {
 				return null;
 			}
@@ -40,6 +44,7 @@ public class BottomType extends AbstractSingleColumnStandardBasicType<Void> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return "NULL";
 	}

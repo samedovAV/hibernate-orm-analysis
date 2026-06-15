@@ -7,6 +7,8 @@ package org.hibernate.query.sqm.tree;
 import java.io.Serializable;
 
 import org.hibernate.query.sqm.NodeBuilder;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base implementation of a criteria node.
@@ -21,6 +23,7 @@ public abstract class AbstractSqmNode implements SqmNode, Serializable {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NodeBuilder nodeBuilder() {
 		return builder;
 	}

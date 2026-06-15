@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hibernate.internal.util.collections.CollectionHelper.arrayList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Batch support for natural-id multi loading
@@ -40,6 +42,7 @@ public class MultiNaturalIdLoadingBatcher {
 		 *
 		 * Generally delegates to {@link org.hibernate.metamodel.mapping.NaturalIdMapping#normalizeInput}
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		Object resolveKeyToLoad(Object incoming, SharedSessionContractImplementor session);
 	}
 
@@ -88,6 +91,7 @@ public class MultiNaturalIdLoadingBatcher {
 						.buildSelectTranslator( sessionFactory, sqlSelect )
 						.translate( null, new QueryOptionsAdapter() {
 							@Override
+							@Prove(complexity = Complexity.O_1, n = "", count = {})
 							public LockOptions getLockOptions() {
 								return lockOptions;
 							}
@@ -95,6 +99,7 @@ public class MultiNaturalIdLoadingBatcher {
 		this.lockOptions = lockOptions;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E> List<E> multiLoad(Object[] naturalIdValues, SharedSessionContractImplementor session) {
 		final ArrayList<E> multiLoadResults = arrayList( naturalIdValues.length );
 		final var jdbcParamBindings = new JdbcParameterBindingsImpl( jdbcParameters.size() );
@@ -142,6 +147,7 @@ public class MultiNaturalIdLoadingBatcher {
 		return multiLoadResults;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private <E> List<E> performLoad(
 			JdbcParameterBindings jdbcParamBindings,
 			SharedSessionContractImplementor session,

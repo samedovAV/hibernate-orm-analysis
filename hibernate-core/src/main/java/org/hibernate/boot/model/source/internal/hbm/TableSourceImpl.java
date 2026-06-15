@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.source.internal.hbm;
 
 import org.hibernate.boot.model.source.spi.TableSource;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Models a table mapping source.
@@ -37,39 +39,47 @@ public class TableSourceImpl extends AbstractHbmSourceNode implements TableSourc
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getExplicitCatalogName() {
 		return explicitCatalog;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getExplicitSchemaName() {
 		return explicitSchema;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getExplicitTableName() {
 		return explicitTableName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getRowId() {
 		return rowId;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getComment() {
 		return comment;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getCheckConstraint() {
 		return checkConstraint;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String determineCatalogName(MappingDocument mappingDocument, String catalogName) {
 		return catalogName != null ? catalogName : mappingDocument.getDocumentRoot().getCatalog();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String determineSchemaName(MappingDocument mappingDocument, String schemaName) {
 		return schemaName != null ? schemaName : mappingDocument.getDocumentRoot().getSchema();
 	}

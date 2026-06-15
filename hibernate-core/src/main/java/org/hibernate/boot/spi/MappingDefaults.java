@@ -6,6 +6,8 @@ package org.hibernate.boot.spi;
 
 import org.hibernate.cache.spi.access.AccessType;
 import org.hibernate.metamodel.CollectionClassification;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Values to use as defaults in the absence of certain mapping information.
@@ -32,6 +34,7 @@ public interface MappingDefaults {
 	 *
 	 * @see org.hibernate.cfg.MappingSettings#DEFAULT_SCHEMA
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getImplicitSchemaName();
 
 	/**
@@ -41,6 +44,7 @@ public interface MappingDefaults {
 	 *
 	 * @see org.hibernate.cfg.MappingSettings#DEFAULT_CATALOG
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getImplicitCatalogName();
 
 	/**
@@ -52,6 +56,7 @@ public interface MappingDefaults {
 	 *
 	 * @return {@code true}/{@code false}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean shouldImplicitlyQuoteIdentifiers();
 
 	/**
@@ -60,6 +65,7 @@ public interface MappingDefaults {
 	 *
 	 * @return The implicit identifier column name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getImplicitIdColumnName();
 
 	/**
@@ -68,6 +74,7 @@ public interface MappingDefaults {
 	 *
 	 * @return The implicit tenant identifier column name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getImplicitTenantIdColumnName();
 
 	/**
@@ -76,6 +83,7 @@ public interface MappingDefaults {
 	 *
 	 * @return The implicit discriminator column name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getImplicitDiscriminatorColumnName();
 
 	/**
@@ -84,6 +92,7 @@ public interface MappingDefaults {
 	 *
 	 * @return The implicit package name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getImplicitPackageName();
 
 	/**
@@ -91,6 +100,7 @@ public interface MappingDefaults {
 	 *
 	 * @return {@code true} if auto-importing is enabled; {@code false} otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isAutoImportEnabled();
 
 	/**
@@ -98,6 +108,7 @@ public interface MappingDefaults {
 	 *
 	 * @return The implicit cascade style
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getImplicitCascadeStyleName();
 
 	/**
@@ -105,6 +116,7 @@ public interface MappingDefaults {
 	 *
 	 * @see org.hibernate.property.access.spi.PropertyAccessStrategy
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getImplicitPropertyAccessorName();
 
 	/**
@@ -113,6 +125,7 @@ public interface MappingDefaults {
 	 *
 	 * @return The implicit association laziness
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean areEntitiesImplicitlyLazy();
 
 	/**
@@ -120,6 +133,7 @@ public interface MappingDefaults {
 	 *
 	 * @return The implicit association laziness
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean areCollectionsImplicitlyLazy();
 
 	/**
@@ -127,6 +141,7 @@ public interface MappingDefaults {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#DEFAULT_CACHE_CONCURRENCY_STRATEGY
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	AccessType getImplicitCacheAccessType();
 
 	/**
@@ -135,5 +150,6 @@ public interface MappingDefaults {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#DEFAULT_LIST_SEMANTICS
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CollectionClassification getImplicitListClassification();
 }

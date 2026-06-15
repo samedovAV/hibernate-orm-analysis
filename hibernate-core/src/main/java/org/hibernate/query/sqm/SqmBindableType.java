@@ -6,6 +6,8 @@ package org.hibernate.query.sqm;
 
 import org.hibernate.type.BindableType;
 import org.hibernate.type.BindingContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An SQM node which may be used to disambiguate the type of an argument to a query parameter.
@@ -16,6 +18,7 @@ import org.hibernate.type.BindingContext;
  */
 public interface SqmBindableType<J> extends SqmExpressible<J>, BindableType<J> {
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SqmBindableType<J> resolveExpressible(BindingContext bindingContext) {
 		return this;
 	}

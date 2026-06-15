@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.dialect;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Details about the underlying database, as understood by a Dialect.
@@ -18,6 +21,7 @@ public interface DatabaseVersion {
 	/**
 	 * Factory for DatabaseVersion based on major version (minor and micro set to zero)
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static DatabaseVersion make(Integer major) {
 		return make( major, 0 );
 	}
@@ -25,6 +29,7 @@ public interface DatabaseVersion {
 	/**
 	 * Factory for DatabaseVersion based on major and minor version (micro set to zero)
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static DatabaseVersion make(Integer major, Integer minor) {
 		return make( major, minor, 0 );
 	}
@@ -32,6 +37,7 @@ public interface DatabaseVersion {
 	/**
 	 * Factory for DatabaseVersion based on major, minor and micro
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static DatabaseVersion make(Integer major, Integer minor, Integer micro) {
 		return new SimpleDatabaseVersion( major, minor, micro );
 	}
@@ -44,6 +50,7 @@ public interface DatabaseVersion {
 	 *
 	 * @see java.sql.DatabaseMetaData#getDatabaseMajorVersion()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getDatabaseMajorVersion();
 
 	/**
@@ -54,6 +61,7 @@ public interface DatabaseVersion {
 	 *
 	 * @see java.sql.DatabaseMetaData#getDatabaseMinorVersion()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getDatabaseMinorVersion();
 
 	/**
@@ -63,6 +71,7 @@ public interface DatabaseVersion {
 	 * @return The database minor version, or {@value #NO_VERSION} to indicate "no version information"
 	 * @see java.sql.DatabaseMetaData#getDatabaseMinorVersion()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int getDatabaseMicroVersion() {
 		return 0;
 	}
@@ -72,6 +81,7 @@ public interface DatabaseVersion {
 	 *
 	 * @see #getDatabaseMajorVersion()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int getMajor() {
 		return getDatabaseMajorVersion();
 	}
@@ -81,6 +91,7 @@ public interface DatabaseVersion {
 	 *
 	 * @see #getDatabaseMinorVersion()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int getMinor() {
 		return getDatabaseMinorVersion();
 	}
@@ -90,6 +101,7 @@ public interface DatabaseVersion {
 	 *
 	 * @see #getDatabaseMicroVersion()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int getMicro() {
 		return getDatabaseMicroVersion();
 	}
@@ -102,6 +114,7 @@ public interface DatabaseVersion {
 	 * this version object has {@link #NO_VERSION no version information}.
 	 * @return The copy, or {@code defaultVersion}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default DatabaseVersion makeCopyOrDefault(DatabaseVersion defaultVersion) {
 		if ( getMajor() == NO_VERSION && getMinor() == NO_VERSION && getMicro() == NO_VERSION ) {
 			return defaultVersion;
@@ -115,6 +128,7 @@ public interface DatabaseVersion {
 	 * to the minimum supported version.
 	 */
 	@Deprecated
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default DatabaseVersion makeCopy() {
 		return new SimpleDatabaseVersion( this );
 	}
@@ -126,6 +140,7 @@ public interface DatabaseVersion {
 	 * to the minimum supported version.
 	 */
 	@Deprecated
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default DatabaseVersion makeCopy(boolean noVersionAsZero) {
 		return new SimpleDatabaseVersion( this, noVersionAsZero );
 	}
@@ -133,6 +148,7 @@ public interface DatabaseVersion {
 	/**
 	 * Determine if the versions are the same/equal.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default boolean isSame(DatabaseVersion other) {
 		return isSame( other.getDatabaseMajorVersion(), other.getDatabaseMinorVersion(), other.getDatabaseMicroVersion() );
 	}
@@ -140,6 +156,7 @@ public interface DatabaseVersion {
 	/**
 	 * Determine if this version matches the passed one.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isSame(int otherMajor) {
 		return getDatabaseMajorVersion() == otherMajor;
 	}
@@ -147,6 +164,7 @@ public interface DatabaseVersion {
 	/**
 	 * Determine if this version matches the passed one.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default boolean isSame(int otherMajor, int otherMinor) {
 		return isSame( otherMajor ) && getDatabaseMinorVersion() == otherMinor;
 	}
@@ -154,6 +172,7 @@ public interface DatabaseVersion {
 	/**
 	 * Determine if this version matches the passed one.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default boolean isSame(int otherMajor, int otherMinor, int otherMicro) {
 		return isSame( otherMajor, otherMinor ) && getDatabaseMicroVersion() == otherMicro;
 	}
@@ -161,6 +180,7 @@ public interface DatabaseVersion {
 	/**
 	 * {@link #isSame} or {@link #isAfter}
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default boolean isSameOrAfter(DatabaseVersion other) {
 		return isSameOrAfter( other.getDatabaseMajorVersion(), other.getDatabaseMinorVersion() );
 	}
@@ -168,6 +188,7 @@ public interface DatabaseVersion {
 	/**
 	 * {@link #isSame} or {@link #isAfter}
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default boolean isSameOrAfter(Integer otherMajor, Integer otherMinor) {
 		return isSameOrAfter(
 				(int) otherMajor,
@@ -178,6 +199,7 @@ public interface DatabaseVersion {
 	/**
 	 * {@link #isSame} or {@link #isAfter}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isSameOrAfter(int otherMajor) {
 		final int major = getDatabaseMajorVersion();
 
@@ -187,6 +209,7 @@ public interface DatabaseVersion {
 	/**
 	 * {@link #isSame} or {@link #isAfter}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isSameOrAfter(int otherMajor, int otherMinor) {
 		final int major = getDatabaseMajorVersion();
 		final int minor = getDatabaseMinorVersion();
@@ -198,6 +221,7 @@ public interface DatabaseVersion {
 	/**
 	 * {@link #isSame} or {@link #isAfter}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isSameOrAfter(int otherMajor, int otherMinor, int otherMicro) {
 		final int major = getDatabaseMajorVersion();
 		final int minor = getDatabaseMinorVersion();
@@ -211,6 +235,7 @@ public interface DatabaseVersion {
 	/**
 	 * {@link #isSame} or {@link #isBefore}
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default boolean isSameOrBefore(DatabaseVersion other) {
 		return isSameOrBefore( other.getDatabaseMajorVersion(), other.getDatabaseMinorVersion() );
 	}
@@ -218,6 +243,7 @@ public interface DatabaseVersion {
 	/**
 	 * {@link #isSame} or {@link #isBefore}
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default boolean isSameOrBefore(Integer otherMajor, Integer otherMinor) {
 		return isSameOrBefore(
 				(int) otherMajor,
@@ -228,6 +254,7 @@ public interface DatabaseVersion {
 	/**
 	 * {@link #isSame} or {@link #isBefore}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isSameOrBefore(int otherMajor) {
 		final int major = getDatabaseMajorVersion();
 
@@ -237,6 +264,7 @@ public interface DatabaseVersion {
 	/**
 	 * {@link #isSame} or {@link #isBefore}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isSameOrBefore(int otherMajor, int otherMinor) {
 		final int major = getDatabaseMajorVersion();
 		final int minor = getDatabaseMinorVersion();
@@ -248,6 +276,7 @@ public interface DatabaseVersion {
 	/**
 	 * {@link #isSame} or {@link #isBefore}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isSameOrBefore(int otherMajor, int otherMinor, int otherMicro) {
 		final int major = getDatabaseMajorVersion();
 		final int minor = getDatabaseMinorVersion();
@@ -261,6 +290,7 @@ public interface DatabaseVersion {
 	/**
 	 * Determine whether this version comes after the passed one
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default boolean isAfter(DatabaseVersion other) {
 		return isAfter( other.getDatabaseMajorVersion(), other.getDatabaseMinorVersion() );
 	}
@@ -268,6 +298,7 @@ public interface DatabaseVersion {
 	/**
 	 * Determine whether this version after the passed one
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default boolean isAfter(Integer major, Integer minor) {
 		return isAfter( (int) major, minor == null ? NO_VERSION : minor );
 	}
@@ -275,6 +306,7 @@ public interface DatabaseVersion {
 	/**
 	 * Determine whether this version after the passed one
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isAfter(int major) {
 		return getDatabaseMajorVersion() > major;
 	}
@@ -282,6 +314,7 @@ public interface DatabaseVersion {
 	/**
 	 * Determine whether this version after the passed one
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isAfter(int major, int minor) {
 		return getDatabaseMajorVersion() > major
 				|| ( getDatabaseMajorVersion() == major && getDatabaseMinorVersion() > minor );
@@ -290,6 +323,7 @@ public interface DatabaseVersion {
 	/**
 	 * Determine whether this version after the passed one
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isAfter(int otherMajor, int otherMinor, int otherMicro) {
 		final int major = getDatabaseMajorVersion();
 		final int minor = getDatabaseMinorVersion();
@@ -303,6 +337,7 @@ public interface DatabaseVersion {
 	/**
 	 * Determine whether this version comes before the passed one
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default boolean isBefore(DatabaseVersion other) {
 		return isBefore( other.getDatabaseMajorVersion(), other.getDatabaseMinorVersion() );
 	}
@@ -310,6 +345,7 @@ public interface DatabaseVersion {
 	/**
 	 * Determine whether this version before the passed one
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isBefore(int major, int minor) {
 		return ! isSameOrAfter( major, minor );
 	}
@@ -317,6 +353,7 @@ public interface DatabaseVersion {
 	/**
 	 * Determine whether this version before the passed one
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isBefore(int major) {
 		return ! isSameOrAfter( major );
 	}
@@ -324,6 +361,7 @@ public interface DatabaseVersion {
 	/**
 	 * Determine whether this version before the passed one
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default boolean isBefore(Integer major, Integer minor) {
 		return isBefore( (int) major, minor == null ? NO_VERSION : minor );
 	}
@@ -331,6 +369,7 @@ public interface DatabaseVersion {
 	/**
 	 * Determine whether this version before the passed one
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isBefore(int otherMajor, int otherMinor, int otherMicro) {
 		return ! isSameOrAfter( otherMajor, otherMinor, otherMicro );
 	}

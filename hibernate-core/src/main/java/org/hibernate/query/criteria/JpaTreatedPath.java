@@ -6,11 +6,14 @@ package org.hibernate.query.criteria;
 
 import jakarta.annotation.Nonnull;
 import org.hibernate.metamodel.model.domain.ManagedDomainType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
  */
 public interface JpaTreatedPath<T,S extends T> extends JpaPath<S> {
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ManagedDomainType<S> getTreatTarget();
 }

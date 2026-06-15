@@ -8,6 +8,8 @@ import org.hibernate.query.hql.spi.SemanticPathPart;
 import org.hibernate.query.hql.spi.SqmCreationState;
 import org.hibernate.query.sqm.tree.domain.SqmPath;
 import org.hibernate.query.sqm.tree.expression.SqmExpression;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specialized "intermediate" SemanticPathPart for processing domain model paths/
@@ -22,11 +24,13 @@ public class DomainPathPart implements SemanticPathPart {
 		assert currentPath != null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqmExpression<?> getSqmExpression() {
 		return currentPath;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SemanticPathPart resolvePathPart(
 			String name,
 			boolean isTerminal,
@@ -46,6 +50,7 @@ public class DomainPathPart implements SemanticPathPart {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmPath<?> resolveIndexedAccess(
 			SqmExpression<?> selector,
 			boolean isTerminal,

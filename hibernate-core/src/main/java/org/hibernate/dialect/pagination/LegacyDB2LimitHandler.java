@@ -5,6 +5,8 @@
 package org.hibernate.dialect.pagination;
 
 import org.hibernate.query.spi.Limit;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link LimitHandler} for DB2. Uses {@code FETCH FIRST n ROWS ONLY},
@@ -16,6 +18,7 @@ public class LegacyDB2LimitHandler extends AbstractLimitHandler {
 	public static final LegacyDB2LimitHandler INSTANCE = new LegacyDB2LimitHandler();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String processSql(String sql, Limit limit) {
 		if ( hasFirstRow( limit ) ) {
 			//nest the main query in an outer select
@@ -32,26 +35,31 @@ public class LegacyDB2LimitHandler extends AbstractLimitHandler {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String fetchFirstRows(Limit limit) {
 		return " fetch first " + getMaxOrLimit( limit ) + " rows only";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final boolean supportsLimit() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final boolean useMaxForLimit() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final boolean supportsVariableLimit() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean processSqlMutatesState() {
 		return false;
 	}

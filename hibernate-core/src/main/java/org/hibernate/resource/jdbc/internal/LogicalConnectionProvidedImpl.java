@@ -15,6 +15,8 @@ import org.hibernate.resource.jdbc.ResourceRegistry;
 import org.hibernate.resource.jdbc.spi.PhysicalConnectionHandlingMode;
 
 import static org.hibernate.resource.jdbc.spi.PhysicalConnectionHandlingMode.IMMEDIATE_ACQUISITION_AND_HOLD;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -41,16 +43,19 @@ public class LogicalConnectionProvidedImpl extends AbstractLogicalConnectionImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PhysicalConnectionHandlingMode getConnectionHandlingMode() {
 		return IMMEDIATE_ACQUISITION_AND_HOLD;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isOpen() {
 		return !closed;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Connection close() {
 		CONNECTION_LOGGER.closingLogicalConnection();
 		getResourceRegistry().releaseResources();
@@ -65,22 +70,26 @@ public class LogicalConnectionProvidedImpl extends AbstractLogicalConnectionImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isPhysicallyConnected() {
 		return providedConnection != null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Connection getPhysicalConnection() {
 		errorIfClosed();
 		return providedConnection;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void serialize(ObjectOutputStream oos) throws IOException {
 		oos.writeBoolean( closed );
 		oos.writeBoolean( initiallyAutoCommit );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static LogicalConnectionProvidedImpl deserialize(
 			ObjectInputStream ois) throws IOException, ClassNotFoundException {
 		final boolean isClosed = ois.readBoolean();
@@ -89,6 +98,7 @@ public class LogicalConnectionProvidedImpl extends AbstractLogicalConnectionImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Connection manualDisconnect() {
 		errorIfClosed();
 		try {
@@ -101,6 +111,7 @@ public class LogicalConnectionProvidedImpl extends AbstractLogicalConnectionImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void manualReconnect(Connection connection) {
 		errorIfClosed();
 		if ( connection == null ) {
@@ -120,11 +131,13 @@ public class LogicalConnectionProvidedImpl extends AbstractLogicalConnectionImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Connection getConnectionForTransactionManagement() {
 		return providedConnection;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void afterCompletion() {
 		afterTransaction();
 		resetConnection( initiallyAutoCommit );

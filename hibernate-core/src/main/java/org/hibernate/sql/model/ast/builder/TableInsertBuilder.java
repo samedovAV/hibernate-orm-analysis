@@ -7,6 +7,8 @@ package org.hibernate.sql.model.ast.builder;
 import org.hibernate.metamodel.mapping.SelectableConsumer;
 import org.hibernate.metamodel.mapping.SelectableMapping;
 import org.hibernate.sql.model.ast.TableInsert;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * {@link TableMutationBuilder} implementation for {@code insert} statements.
@@ -18,6 +20,7 @@ public interface TableInsertBuilder
 		AssigningTableMutationBuilder<TableInsert>,
 		SelectableConsumer {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean hasColumnAssignment(SelectableMapping selectableMapping);
 
 	/**
@@ -25,6 +28,7 @@ public interface TableInsertBuilder
 	 * @see org.hibernate.metamodel.mapping.ValuedModelPart#forEachInsertable(SelectableConsumer)
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void accept(int selectionIndex, SelectableMapping selectableMapping) {
 		addValueColumn( selectableMapping );
 	}

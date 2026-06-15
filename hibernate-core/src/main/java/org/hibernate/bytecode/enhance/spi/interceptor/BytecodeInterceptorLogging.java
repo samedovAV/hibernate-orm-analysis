@@ -20,6 +20,8 @@ import java.util.Locale;
 import static org.jboss.logging.Logger.Level.TRACE;
 import static org.jboss.logging.Logger.Level.DEBUG;
 import static org.jboss.logging.Logger.Level.WARN;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Logging related to bytecode enhancement interceptors
@@ -43,10 +45,12 @@ public interface BytecodeInterceptorLogging extends BasicLogger {
 			value = "Ignoring explicit lazy group '%s' specified for association '%s.%s'"
 					+ " (a lazy group for a to-one association would lead to two separate SELECTs to initialize the association)"
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void lazyGroupIgnoredForToOne(String requestedLazyGroup, String ownerName, String attributeName);
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90005902, value = "Forcing initialization: %s.%s -> %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void enhancementAsProxyLazinessForceInitialize(String entityName, Object identifier, String attributeName);
 
 	@LogMessage(level = WARN)
@@ -54,6 +58,7 @@ public interface BytecodeInterceptorLogging extends BasicLogger {
 			id = 90005903,
 			value = "Unable to commit JDBC transaction on temporary session used to load lazy collection associated to no session"
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void unableToCommitTransactionOnTemporarySession();
 
 	@LogMessage(level = WARN)
@@ -61,6 +66,7 @@ public interface BytecodeInterceptorLogging extends BasicLogger {
 			id = 90005904,
 			value = "Unable to close temporary session used to load lazy collection associated to no session"
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void unableToCloseTemporarySession();
 
 	// DEBUG messages (type-safe)
@@ -70,6 +76,7 @@ public interface BytecodeInterceptorLogging extends BasicLogger {
 			id = 90005905,
 			value = "To-one property '%s.%s' was mapped with LAZY + NO_PROXY but the class was not enhanced"
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void toOneLazyNoProxyButNotEnhanced(String ownerName, String attributeName);
 
 	@LogMessage(level = DEBUG)
@@ -77,6 +84,7 @@ public interface BytecodeInterceptorLogging extends BasicLogger {
 			id = 90005906,
 			value = "'%s.%s' was mapped with LAZY and explicit NO_PROXY but the associated entity ('%s') has subclasses"
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void lazyNoProxyButAssociatedHasSubclasses(String ownerName, String attributeName, String associatedEntityName);
 
 	@LogMessage(level = DEBUG)
@@ -85,21 +93,26 @@ public interface BytecodeInterceptorLogging extends BasicLogger {
 			value = "'%s.%s' specified NotFoundAction.IGNORE & LazyToOneOption.NO_PROXY;"
 					+ " skipping foreign key selection to more efficiently handle NotFoundAction.IGNORE"
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void notFoundIgnoreWithNoProxySkippingFkSelection(String ownerName, String attributeName);
 
 	@LogMessage(level = DEBUG)
 	@Message(id = 90005908, value = "Enhancement interception started temporary Session")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void enhancementHelperStartedTemporarySession();
 
 	@LogMessage(level = DEBUG)
 	@Message(id = 90005909, value = "Enhancement interception starting transaction on temporary Session")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void enhancementHelperStartingTransactionOnTemporarySession();
 
 	@LogMessage(level = DEBUG)
 	@Message(id = 90005910, value = "Enhancement interception committing transaction on temporary Session")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void enhancementHelperCommittingTransactionOnTemporarySession();
 
 	@LogMessage(level = DEBUG)
 	@Message(id = 90005911, value = "Enhancement interception closing temporary Session")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void enhancementHelperClosingTemporarySession();
 }

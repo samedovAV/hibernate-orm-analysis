@@ -9,6 +9,8 @@ import java.lang.annotation.Annotation;
 import org.hibernate.bytecode.enhance.spi.UnloadedClass;
 
 import net.bytebuddy.description.type.TypeDescription;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 class UnloadedTypeDescription implements UnloadedClass {
 
@@ -19,11 +21,13 @@ class UnloadedTypeDescription implements UnloadedClass {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasAnnotation(Class<? extends Annotation> annotationType) {
 		return typeDescription.getDeclaredAnnotations().isAnnotationPresent( annotationType );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getName() {
 		return typeDescription.getName();
 	}

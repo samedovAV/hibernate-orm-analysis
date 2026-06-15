@@ -17,6 +17,8 @@ import jakarta.annotation.Nullable;
 import static org.hibernate.internal.util.ReflectHelper.findGetterMethod;
 import static org.hibernate.internal.util.ReflectHelper.findSetterMethod;
 import static org.hibernate.internal.util.ReflectHelper.setterMethodOrNull;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * {@link PropertyAccess} for accessing the wrapped property via get/set pair, which may be nonpublic.
@@ -50,16 +52,19 @@ public class PropertyAccessBasicImpl implements PropertyAccess {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PropertyAccessStrategy getPropertyAccessStrategy() {
 		return strategy;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Getter getGetter() {
 		return getter;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable Setter getSetter() {
 		return setter;
 	}

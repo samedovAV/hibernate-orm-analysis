@@ -8,6 +8,8 @@ package org.hibernate.resource.jdbc.spi;
 import org.hibernate.engine.creation.spi.SessionBuilderImplementor;
 
 import java.io.Serializable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Implementors may inspect and even process each SQL command issued
@@ -46,5 +48,6 @@ public interface StatementInspector extends Serializable {
 	 *
 	 * @return The processed SQL to use; may be {@code null}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String inspect(String sql);
 }

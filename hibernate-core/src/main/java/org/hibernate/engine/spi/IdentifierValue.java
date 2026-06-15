@@ -9,6 +9,8 @@ import java.io.Serializable;
 import jakarta.annotation.Nullable;
 
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A strategy for determining if an identifier value is an identifier of
@@ -27,17 +29,20 @@ public class IdentifierValue implements UnsavedValueStrategy {
 	 */
 	public static final IdentifierValue ANY = new IdentifierValue() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Boolean isUnsaved(@Nullable Object id) {
 			CORE_LOGGER.idUnsavedValueStrategy( "ANY" );
 			return Boolean.TRUE;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public @Nullable Object getDefaultValue(@Nullable Object currentValue) {
 			return currentValue;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String toString() {
 			return "SAVE_ANY";
 		}
@@ -48,17 +53,20 @@ public class IdentifierValue implements UnsavedValueStrategy {
 	 */
 	public static final IdentifierValue NONE = new IdentifierValue() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Boolean isUnsaved(@Nullable Object id) {
 			CORE_LOGGER.idUnsavedValueStrategy( "NONE" );
 			return Boolean.FALSE;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public @Nullable Object getDefaultValue(@Nullable Object currentValue) {
 			return currentValue;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String toString() {
 			return "SAVE_NONE";
 		}
@@ -70,17 +78,20 @@ public class IdentifierValue implements UnsavedValueStrategy {
 	 */
 	public static final IdentifierValue NULL = new IdentifierValue() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Boolean isUnsaved(@Nullable Object id) {
 			CORE_LOGGER.idUnsavedValueStrategy( "NULL" );
 			return id == null;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public @Nullable Serializable getDefaultValue(@Nullable Object currentValue) {
 			return null;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String toString() {
 			return "SAVE_NULL";
 		}
@@ -91,17 +102,20 @@ public class IdentifierValue implements UnsavedValueStrategy {
 	 */
 	public static final IdentifierValue UNDEFINED = new IdentifierValue() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public @Nullable Boolean isUnsaved(@Nullable Object id) {
 			CORE_LOGGER.idUnsavedValueStrategy( "UNDEFINED" );
 			return null;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public @Nullable Serializable getDefaultValue(@Nullable Object currentValue) {
 			return null;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String toString() {
 			return "UNDEFINED";
 		}
@@ -123,17 +137,20 @@ public class IdentifierValue implements UnsavedValueStrategy {
 	 * Does the given identifier belong to a new instance?
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable Boolean isUnsaved(@Nullable Object id) {
 		CORE_LOGGER.idUnsavedValue( value );
 		return id == null || id.equals( value );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable Object getDefaultValue(@Nullable Object currentValue) {
 		return value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "identifier unsaved-value: " + value;
 	}

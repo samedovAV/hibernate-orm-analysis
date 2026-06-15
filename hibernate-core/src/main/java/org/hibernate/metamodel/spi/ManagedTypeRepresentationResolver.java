@@ -11,6 +11,8 @@ import org.hibernate.mapping.Component;
 import org.hibernate.mapping.PersistentClass;
 import org.hibernate.metamodel.mapping.EmbeddableMappingType;
 import org.hibernate.persister.entity.EntityPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Pluggable strategy handling resolution of ManagedTypeRepresentationStrategy to use.
@@ -24,6 +26,7 @@ public interface ManagedTypeRepresentationResolver {
 	/**
 	 * Resolve the strategy to use for the given entity
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityRepresentationStrategy resolveStrategy(
 			PersistentClass bootDescriptor,
 			EntityPersister runtimeDescriptor,
@@ -32,6 +35,7 @@ public interface ManagedTypeRepresentationResolver {
 	/**
 	 * Resolve the strategy to use for the given embeddable
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EmbeddableRepresentationStrategy resolveStrategy(
 			Component bootDescriptor,
 			Supplier<EmbeddableMappingType> runtimeDescriptor,

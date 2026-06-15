@@ -20,6 +20,8 @@ import org.hibernate.sql.model.MutationType;
 
 import static org.hibernate.sql.model.internal.MutationOperationGroupFactory.noOperations;
 import static org.hibernate.sql.model.internal.MutationOperationGroupFactory.singleOperation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * {@link UpdateRowsCoordinator} implementation for temporal collection tables
@@ -61,6 +63,7 @@ public class UpdateRowsCoordinatorHistory extends AbstractUpdateRowsCoordinator 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected int doUpdate(Object key, PersistentCollection<?> collection, SharedSessionContractImplementor session) {
 		if ( rowMutationOperations.getUpdateRowOperation() == null ) {
 			return 0;
@@ -150,6 +153,7 @@ public class UpdateRowsCoordinatorHistory extends AbstractUpdateRowsCoordinator 
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean processRow(
 			Object key,
 			PersistentCollection<?> collection,
@@ -209,6 +213,7 @@ public class UpdateRowsCoordinatorHistory extends AbstractUpdateRowsCoordinator 
 		return true;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private MutationOperationGroup getUpdateOperationGroup() {
 		if ( updateOperationGroup == null ) {
 			final var updateRowOperation = rowMutationOperations.getUpdateRowOperation();
@@ -220,6 +225,7 @@ public class UpdateRowsCoordinatorHistory extends AbstractUpdateRowsCoordinator 
 		return updateOperationGroup;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private MutationOperationGroup getHistoryDeleteOperationGroup() {
 		if ( historyDeleteOperationGroup == null ) {
 			final var operation = rowMutationOperations.getDeleteRowOperation( getHistoryTableMapping() );
@@ -230,6 +236,7 @@ public class UpdateRowsCoordinatorHistory extends AbstractUpdateRowsCoordinator 
 		return historyDeleteOperationGroup;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private MutationOperationGroup getHistoryInsertOperationGroup() {
 		if ( historyInsertOperationGroup == null ) {
 			final var operation = rowMutationOperations.getInsertRowOperation( getHistoryTableMapping() );
@@ -240,6 +247,7 @@ public class UpdateRowsCoordinatorHistory extends AbstractUpdateRowsCoordinator 
 		return historyInsertOperationGroup;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private CollectionTableMapping getHistoryTableMapping() {
 		if ( historyTableMapping == null ) {
 			final var mutationTarget = getMutationTarget();
@@ -250,6 +258,7 @@ public class UpdateRowsCoordinatorHistory extends AbstractUpdateRowsCoordinator 
 		return historyTableMapping;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private HistoryCollectionRowMutationHelper getRowMutationHelper() {
 		if ( rowMutationHelper == null ) {
 			rowMutationHelper = new HistoryCollectionRowMutationHelper(

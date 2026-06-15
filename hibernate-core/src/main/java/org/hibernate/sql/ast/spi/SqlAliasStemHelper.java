@@ -6,6 +6,8 @@ package org.hibernate.sql.ast.spi;
 
 import org.hibernate.AssertionFailure;
 import org.hibernate.internal.util.StringHelper;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -17,10 +19,12 @@ public class SqlAliasStemHelper {
 	 */
 	public static final SqlAliasStemHelper INSTANCE = new SqlAliasStemHelper();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String generateStemFromEntityName(String entityName) {
 		return acronym( toSimpleEntityName( entityName ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String toSimpleEntityName(String entityName) {
 		String simpleName = StringHelper.unqualify( entityName );
 		if ( simpleName.contains( "$" ) ) {
@@ -33,11 +37,13 @@ public class SqlAliasStemHelper {
 		return simpleName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String generateStemFromAttributeName(String attributeName) {
 		return acronym(attributeName);
 	}
 
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private String acronym(String name) {
 		StringBuilder string = new StringBuilder();
 		char last = '\0';

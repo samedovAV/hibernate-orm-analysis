@@ -6,6 +6,8 @@ package org.hibernate.type.descriptor.jdbc.spi;
 
 import org.hibernate.type.descriptor.WrapperOptions;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Support for {@link org.hibernate.type.descriptor.jdbc.JdbcLiteralFormatter}
@@ -18,6 +20,7 @@ public abstract class BasicJdbcLiteralFormatter<T> extends AbstractJdbcLiteralFo
 		super( javaType );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected <X> X unwrap(Object value, Class<X> unwrapType, WrapperOptions options) {
 		assert value != null;
 

@@ -8,6 +8,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionBuilder;
 import org.hibernate.context.TenantIdentifierMismatchException;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base support for {@link CurrentSessionContext} implementors.
@@ -26,10 +28,12 @@ public abstract class AbstractCurrentSessionContext implements CurrentSessionCon
 	 *
 	 * @return The {@code SessionFactory} being serviced by this context
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SessionFactoryImplementor factory() {
 		return factory;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected SessionBuilder baseSessionBuilder() {
 		final var builder = factory.withOptions();
 		final var resolver = factory.getCurrentTenantIdentifierResolver();
@@ -39,6 +43,7 @@ public abstract class AbstractCurrentSessionContext implements CurrentSessionCon
 		return builder;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void validateExistingSession(Session existingSession) {
 		final var resolver = factory.getCurrentTenantIdentifierResolver();
 		if ( resolver != null && resolver.validateExistingCurrentSessions() ) {

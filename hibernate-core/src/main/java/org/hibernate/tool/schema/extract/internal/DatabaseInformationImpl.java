@@ -28,6 +28,8 @@ import org.hibernate.tool.schema.extract.spi.SchemaExtractionException;
 import org.hibernate.tool.schema.extract.spi.SequenceInformation;
 import org.hibernate.tool.schema.extract.spi.TableInformation;
 import org.hibernate.tool.schema.spi.SchemaManagementTool;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -63,10 +65,12 @@ public class DatabaseInformationImpl
 		initializeSequences();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static QualifiedSequenceName unqualifiedSequenceName(QualifiedSequenceName sequenceName) {
 		return new QualifiedSequenceName( null, null, sequenceName.getSequenceName() );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void initializeSequences() throws SQLException {
 		final var sequences =
 				jdbcEnvironment.getDialect().getSequenceInformationExtractor()
@@ -82,17 +86,20 @@ public class DatabaseInformationImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean catalogExists(Identifier catalog) {
 		return extractor.catalogExists( context.catalogWithDefault( catalog ) );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean schemaExists(Namespace.Name namespace) {
 		return extractor.schemaExists( context.catalogWithDefault( namespace.catalog() ),
 				context.schemaWithDefault( namespace.schema() ) );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public TableInformation getTableInformation(
 			Identifier catalogName,
 			Identifier schemaName,
@@ -101,6 +108,7 @@ public class DatabaseInformationImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public TableInformation getTableInformation(
 			Namespace.Name namespace,
 			Identifier tableName) {
@@ -108,6 +116,7 @@ public class DatabaseInformationImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableInformation getTableInformation(QualifiedTableName tableName) {
 		if ( tableName.getObjectName() == null ) {
 			throw new IllegalArgumentException( "Passed table name cannot be null" );
@@ -120,12 +129,14 @@ public class DatabaseInformationImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NameSpaceTablesInformation getTablesInformation(Namespace namespace) {
 		return extractor.getTables( context.catalogWithDefault( namespace.getPhysicalName().catalog() ),
 				context.schemaWithDefault( namespace.getPhysicalName().schema() ) );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SequenceInformation getSequenceInformation(
 			Identifier catalogName,
 			Identifier schemaName,
@@ -134,26 +145,31 @@ public class DatabaseInformationImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SequenceInformation getSequenceInformation(Namespace.Name schemaName, Identifier sequenceName) {
 		return getSequenceInformation( new QualifiedSequenceName( schemaName, sequenceName ) );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SequenceInformation getSequenceInformation(QualifiedSequenceName sequenceName) {
 		return locateSequenceInformation( sequenceName );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void cleanup() {
 		extractionContext.cleanup();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable TableInformation locateTableInformation(QualifiedTableName tableName) {
 		return getTableInformation( tableName );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SequenceInformation locateSequenceInformation(QualifiedSequenceName sequenceName) {
 		// again, follow legacy behavior
 		if ( sequenceName.getCatalogName() != null || sequenceName.getSchemaName() != null ) {
@@ -163,20 +179,24 @@ public class DatabaseInformationImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PrimaryKeyInformation locatePrimaryKeyInformation(QualifiedTableName tableName) {
 		return extractor.getPrimaryKey( locateNonNullTableInformation( tableName ) );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Iterable<ForeignKeyInformation> locateForeignKeyInformation(QualifiedTableName tableName) {
 		return extractor.getForeignKeys( locateNonNullTableInformation( tableName ) );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Iterable<IndexInformation> locateIndexesInformation(QualifiedTableName tableName) {
 		return extractor.getIndexes( locateNonNullTableInformation( tableName ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private TableInformation locateNonNullTableInformation(QualifiedTableName tableName) {
 		final TableInformation tableInformation = locateTableInformation( tableName );
 		if ( tableInformation == null ) {
@@ -186,6 +206,7 @@ public class DatabaseInformationImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCaching() {
 		return false;
 	}

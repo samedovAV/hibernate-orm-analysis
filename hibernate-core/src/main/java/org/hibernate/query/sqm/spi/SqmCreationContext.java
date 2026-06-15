@@ -10,6 +10,8 @@ import org.hibernate.metamodel.model.domain.JpaMetamodel;
 import org.hibernate.type.BindingContext;
 import org.hibernate.query.spi.QueryEngine;
 import org.hibernate.query.sqm.NodeBuilder;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The context in which all SQM creations occur.
@@ -28,11 +30,13 @@ public interface SqmCreationContext extends BindingContext {
 	/**
 	 * The {@link QueryEngine}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	QueryEngine getQueryEngine();
 
 	/**
 	 * The {@link NodeBuilder}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default NodeBuilder getNodeBuilder() {
 		return getQueryEngine().getCriteriaBuilder();
 	}
@@ -51,6 +55,7 @@ public interface SqmCreationContext extends BindingContext {
 	 *          which case this method might return something
 	 *          arbitrary like {@code Object[].class}.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default Class<?> classForName(String className) {
 		return getQueryEngine().getClassLoaderService().classForName( className );
 	}
@@ -59,6 +64,7 @@ public interface SqmCreationContext extends BindingContext {
 	 * The {@link MappingMetamodel}.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default MappingMetamodel getMappingMetamodel() {
 		return getQueryEngine().getMappingMetamodel();
 	}
@@ -67,6 +73,7 @@ public interface SqmCreationContext extends BindingContext {
 	 * The {@link JpaMetamodel}.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default JpaMetamodel getJpaMetamodel() {
 		return getQueryEngine().getJpaMetamodel();
 	}

@@ -9,6 +9,8 @@ import jakarta.persistence.criteria.CriteriaDelete;
 import org.hibernate.Incubating;
 import org.hibernate.query.restriction.Restriction;
 import org.hibernate.query.specification.internal.DeleteSpecificationImpl;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specialization of {@link MutationSpecification} for programmatic customization
@@ -23,12 +25,15 @@ import org.hibernate.query.specification.internal.DeleteSpecificationImpl;
 @Incubating
 public interface DeleteSpecification<T> extends MutationSpecification<T> {
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	DeleteSpecification<T> restrict(Restriction<? super T> restriction);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	DeleteSpecification<T> augment(Augmentation<T> augmentation);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	DeleteSpecification<T> validate(CriteriaBuilder builder);
 
 	/**
@@ -40,6 +45,7 @@ public interface DeleteSpecification<T> extends MutationSpecification<T> {
 	 *
 	 * @param <T> The root entity type for the mutation (the "target").
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <T> DeleteSpecification<T> create(Class<T> targetEntityClass) {
 		return new DeleteSpecificationImpl<>( targetEntityClass );
 	}
@@ -54,6 +60,7 @@ public interface DeleteSpecification<T> extends MutationSpecification<T> {
 	 *
 	 * @param <T> The root entity type for the mutation (the "target").
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <T> DeleteSpecification<T> create(CriteriaDelete<T> criteriaDelete) {
 		return new DeleteSpecificationImpl<>( criteriaDelete );
 	}

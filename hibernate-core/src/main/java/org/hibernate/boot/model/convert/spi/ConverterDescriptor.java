@@ -9,6 +9,8 @@ import org.hibernate.type.descriptor.converter.spi.JpaAttributeConverter;
 import jakarta.persistence.AttributeConverter;
 
 import java.lang.reflect.Type;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Boot-time descriptor of a JPA {@linkplain AttributeConverter converter}.
@@ -27,16 +29,19 @@ public interface ConverterDescriptor<X,Y> {
 	/**
 	 * The class of the JPA {@link AttributeConverter}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Class<? extends AttributeConverter<X,Y>> getAttributeConverterClass();
 
 	/**
 	 * The resolved Classmate type descriptor for the conversion's domain type
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Type getDomainValueResolvedType();
 
 	/**
 	 * The resolved Classmate type descriptor for the conversion's relational type
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Type getRelationalValueResolvedType();
 
 	/**
@@ -46,16 +51,19 @@ public interface ConverterDescriptor<X,Y> {
 	 * {@link org.hibernate.boot.model.convert.internal.AutoApplicableConverterDescriptorBypassedImpl#INSTANCE}
 	 * instead.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	AutoApplicableConverterDescriptor getAutoApplyDescriptor();
 
 	/**
 	 * Factory for the runtime representation of the converter
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaAttributeConverter<X,Y> createJpaAttributeConverter(JpaAttributeConverterCreationContext context);
 
 	/**
 	 * Can this converter be overridden by other competing converters?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean overrideable() {
 		return false;
 	}

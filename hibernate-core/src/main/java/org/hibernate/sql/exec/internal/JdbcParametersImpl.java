@@ -11,6 +11,8 @@ import java.util.Set;
 
 import org.hibernate.sql.ast.tree.expression.JdbcParameter;
 import org.hibernate.sql.exec.spi.JdbcParameters;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard implementation of JdbcParameters
@@ -22,6 +24,7 @@ public class JdbcParametersImpl implements JdbcParameters {
 	private Set<JdbcParameter> jdbcParameters;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addParameter(JdbcParameter parameter) {
 		if ( jdbcParameters == null ) {
 			jdbcParameters = new HashSet<>();
@@ -31,6 +34,7 @@ public class JdbcParametersImpl implements JdbcParameters {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addParameters(Collection<JdbcParameter> parameters) {
 		if ( jdbcParameters == null ) {
 			jdbcParameters = new HashSet<>();
@@ -40,6 +44,7 @@ public class JdbcParametersImpl implements JdbcParameters {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Set<JdbcParameter> getJdbcParameters() {
 		return jdbcParameters == null ? Collections.emptySet() : jdbcParameters;
 	}

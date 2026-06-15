@@ -12,6 +12,8 @@ import org.hibernate.resource.transaction.NullSynchronizationException;
 import org.hibernate.resource.transaction.spi.SynchronizationRegistryImplementor;
 
 import static org.hibernate.resource.transaction.internal.SynchronizationLogging.SYNCHRONIZATION_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The standard implementation of the {@link org.hibernate.resource.transaction.spi.SynchronizationRegistry} contract.
@@ -27,11 +29,13 @@ public class SynchronizationRegistryStandardImpl implements SynchronizationRegis
 	 *
 	 * @return The number of Synchronizations registered
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getNumberOfRegisteredSynchronizations() {
 		return synchronizations == null ? 0 : synchronizations.size();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void registerSynchronization(Synchronization synchronization) {
 		if ( synchronization == null ) {
 			throw new NullSynchronizationException();
@@ -48,6 +52,7 @@ public class SynchronizationRegistryStandardImpl implements SynchronizationRegis
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void notifySynchronizationsBeforeTransactionCompletion() {
 		SYNCHRONIZATION_LOGGER.notifyingSynchronizationsBefore();
 		if ( synchronizations != null ) {
@@ -67,6 +72,7 @@ public class SynchronizationRegistryStandardImpl implements SynchronizationRegis
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void notifySynchronizationsAfterTransactionCompletion(int status) {
 		SYNCHRONIZATION_LOGGER.notifyingSynchronizationsAfter( status );
 		if ( synchronizations != null ) {
@@ -91,6 +97,7 @@ public class SynchronizationRegistryStandardImpl implements SynchronizationRegis
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void clearSynchronizations() {
 		SYNCHRONIZATION_LOGGER.clearingSynchronizations();
 		if ( synchronizations != null ) {

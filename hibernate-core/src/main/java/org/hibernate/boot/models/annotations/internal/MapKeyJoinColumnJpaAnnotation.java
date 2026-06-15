@@ -19,6 +19,8 @@ import jakarta.persistence.MapKeyJoinColumn;
 
 import static org.hibernate.boot.models.internal.OrmAnnotationHelper.extractJdkValue;
 import static org.hibernate.boot.models.xml.internal.XmlAnnotationHelper.collectCheckConstraints;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -85,129 +87,155 @@ public class MapKeyJoinColumnJpaAnnotation implements MapKeyJoinColumn {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return MapKeyJoinColumn.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String name() {
 		return name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void name(String value) {
 		this.name = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String referencedColumnName() {
 		return referencedColumnName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void referencedColumnName(String value) {
 		this.referencedColumnName = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean unique() {
 		return unique;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void unique(boolean value) {
 		this.unique = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean nullable() {
 		return nullable;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void nullable(boolean value) {
 		this.nullable = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean insertable() {
 		return insertable;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void insertable(boolean value) {
 		this.insertable = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean updatable() {
 		return updatable;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void updatable(boolean value) {
 		this.updatable = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String comment() {
 		return comment;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void comment(String comment) {
 		this.comment = comment;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String columnDefinition() {
 		return columnDefinition;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void columnDefinition(String value) {
 		this.columnDefinition = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String options() {
 		return options;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void options(String value) {
 		this.options = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String table() {
 		return table;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void table(String value) {
 		this.table = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.ForeignKey foreignKey() {
 		return foreignKey;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void foreignKey(jakarta.persistence.ForeignKey value) {
 		this.foreignKey = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CheckConstraint[] check() {
 		return check;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void check(CheckConstraint[] check) {
 		this.check = check;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void apply(JaxbMapKeyJoinColumnImpl jaxbColumn, XmlDocumentContext xmlDocumentContext) {
 		if ( StringHelper.isNotEmpty( jaxbColumn.getName() ) ) {
 			name( jaxbColumn.getName() );

@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.hibernate.annotations.TypeRegistration;
 import org.hibernate.models.spi.ModelsContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -39,25 +41,30 @@ public class TypeRegistrationAnnotation implements TypeRegistration {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return TypeRegistration.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public java.lang.Class<?> basicClass() {
 		return basicClass;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void basicClass(java.lang.Class<?> value) {
 		this.basicClass = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public java.lang.Class<? extends org.hibernate.usertype.UserType<?>> userType() {
 		return userType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void userType(java.lang.Class<? extends org.hibernate.usertype.UserType<?>> value) {
 		this.userType = value;
 	}

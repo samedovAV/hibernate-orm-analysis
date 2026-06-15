@@ -17,6 +17,8 @@ import org.hibernate.metamodel.mapping.JdbcMapping;
 import org.hibernate.models.spi.ClassDetails;
 import org.hibernate.resource.beans.spi.ManagedBean;
 import org.hibernate.resource.beans.spi.ManagedBeanRegistry;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Global registration of a filter definition
@@ -49,30 +51,37 @@ public class FilterDefRegistration {
 		this.parameterResolvers = parameterResolvers;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getDefaultCondition() {
 		return defaultCondition;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isAutoEnabled() {
 		return autoEnabled;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isApplyToLoadByKey() {
 		return applyToLoadByKey;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, ClassDetails> getParameterTypes() {
 		return parameterTypes;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, ClassDetails> getParameterResolvers() {
 		return parameterResolvers;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FilterDefinition toFilterDefinition(MetadataBuildingContext buildingContext) {
 		final ManagedBeanRegistry beanRegistry = buildingContext.getBootstrapContext().getManagedBeanRegistry();
 

@@ -10,6 +10,8 @@ import org.hibernate.Incubating;
 import org.hibernate.engine.spi.LoadQueryInfluencers;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.query.results.spi.ResultSetMapping;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Producer for JdbcValuesMapping references.
@@ -29,13 +31,16 @@ public interface JdbcValuesMappingProducer {
 	 * {@link org.hibernate.sql.results.graph.DomainResult} and
 	 * {@link org.hibernate.sql.results.graph.Fetch}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcValuesMapping resolve(
 			JdbcValuesMetadata jdbcResultsMetadata,
 			LoadQueryInfluencers loadQueryInfluencers,
 			SessionFactoryImplementor sessionFactory);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addAffectedTableNames(Set<String> affectedTableNames, SessionFactoryImplementor sessionFactory);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default JdbcValuesMappingProducer cacheKeyInstance() {
 		return this;
 	}

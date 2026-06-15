@@ -14,6 +14,8 @@ import org.jboss.logging.annotations.ValidIdRange;
 
 import java.lang.invoke.MethodHandles;
 import java.util.Locale;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Logger for DomainResult related messages. This includes messages related to:
 /// * creation of the DomainResult / Fetch nodes
@@ -36,10 +38,12 @@ public interface ResultsLogger extends BasicLogger {
 
 	// todo (6.0) : make sure sql result processing classes use this logger
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static String subLoggerName(String subName) {
 		return LOGGER_NAME + "." + subName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static Logger subLogger(String subName) {
 		return Logger.getLogger( subLoggerName( subName ) );
 	}

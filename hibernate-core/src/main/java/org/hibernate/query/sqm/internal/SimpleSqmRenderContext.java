@@ -9,6 +9,8 @@ import org.hibernate.query.sqm.tree.expression.JpaCriteriaParameter;
 import org.hibernate.query.sqm.tree.from.SqmFrom;
 
 import java.util.IdentityHashMap;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class SimpleSqmRenderContext implements SqmRenderContext {
 
@@ -21,6 +23,7 @@ public class SimpleSqmRenderContext implements SqmRenderContext {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String resolveAlias(SqmFrom<?, ?> from) {
 		final String explicitAlias = from.getExplicitAlias();
 		return explicitAlias == null
@@ -29,6 +32,7 @@ public class SimpleSqmRenderContext implements SqmRenderContext {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String resolveParameterName(JpaCriteriaParameter<?> parameter) {
 		return parameterNames.computeIfAbsent( parameter, p -> "__param_" + (parameterId++) );
 	}

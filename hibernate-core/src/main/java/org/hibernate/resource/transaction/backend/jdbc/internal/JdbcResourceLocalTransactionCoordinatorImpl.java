@@ -26,6 +26,8 @@ import org.hibernate.resource.transaction.spi.TransactionStatus;
 
 import static java.util.Collections.emptyList;
 import static org.hibernate.engine.jdbc.JdbcLogging.JDBC_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An implementation of {@link TransactionCoordinator} based on managing a
@@ -72,11 +74,13 @@ public class JdbcResourceLocalTransactionCoordinatorImpl implements TransactionC
 	 *
 	 * @return TransactionObserver
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Iterable<TransactionObserver> observers() {
 		return observers == null || observers.isEmpty() ? emptyList() : new ArrayList<>( observers );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TransactionDriver getTransactionDriverControl() {
 		// Again, this PhysicalTransactionDelegate will act as the bridge from the local transaction back into the
 		// coordinator.  We lazily build it as we invalidate each delegate after each transaction (a delegate is
@@ -89,59 +93,70 @@ public class JdbcResourceLocalTransactionCoordinatorImpl implements TransactionC
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void explicitJoin() {
 		// nothing to do here, but log a warning
 		JDBC_LOGGER.callingJoinTransactionOnNonJtaEntityManager();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isJoined() {
 		return physicalTransactionDelegate != null
 			&& getTransactionDriverControl().isActive();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void pulse() {
 		// nothing to do here
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SynchronizationRegistry getLocalSynchronizations() {
 		return synchronizationRegistry;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JpaCompliance getJpaCompliance() {
 		return jpaCompliance;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isActive() {
 		return transactionCoordinatorOwner.isActive();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public IsolationDelegate createIsolationDelegate() {
 		return new JdbcIsolationDelegate( transactionCoordinatorOwner );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TransactionCoordinatorBuilder getTransactionCoordinatorBuilder() {
 		return transactionCoordinatorBuilder;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setTimeOut(int seconds) {
 		this.timeOut = seconds;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getTimeOut() {
 		return timeOut;
 	}
 
 	// PhysicalTransactionDelegate ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void afterBeginCallback() {
 		if ( timeOut > 0 ) {
 			transactionCoordinatorOwner.setTransactionTimeOut( timeOut );
@@ -161,6 +176,7 @@ public class JdbcResourceLocalTransactionCoordinatorImpl implements TransactionC
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void beforeCompletionCallback() {
 		JDBC_LOGGER.notifyingResourceLocalObserversBeforeCompletion();
 		try {
@@ -179,6 +195,7 @@ public class JdbcResourceLocalTransactionCoordinatorImpl implements TransactionC
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void afterCompletionCallback(int status) {
 		JDBC_LOGGER.notifyingResourceLocalObserversAfterCompletion();
 		synchronizationRegistry.notifySynchronizationsAfterTransactionCompletion( status );
@@ -190,6 +207,7 @@ public class JdbcResourceLocalTransactionCoordinatorImpl implements TransactionC
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addObserver(TransactionObserver observer) {
 		if ( observers == null ) {
 			observers = new ArrayList<>( 6 );
@@ -198,6 +216,7 @@ public class JdbcResourceLocalTransactionCoordinatorImpl implements TransactionC
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void removeObserver(TransactionObserver observer) {
 		if ( observers != null ) {
 			observers.remove( observer );
@@ -221,6 +240,7 @@ public class JdbcResourceLocalTransactionCoordinatorImpl implements TransactionC
 //		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public void begin() {
 //			errorIfInvalid();
 			jdbcResourceTransaction.begin();
@@ -234,6 +254,7 @@ public class JdbcResourceLocalTransactionCoordinatorImpl implements TransactionC
 //		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void commit() {
 			if ( isRollbackOnly() ) {
 				commitRollbackOnly();
@@ -243,10 +264,12 @@ public class JdbcResourceLocalTransactionCoordinatorImpl implements TransactionC
 			}
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private boolean isRollbackOnly() {
 			return jdbcResourceTransaction.getStatus() == TransactionStatus.MARKED_ROLLBACK;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void commitNoRollbackOnly() {
 			try {
 				beforeCompletionCallback();
@@ -286,6 +309,7 @@ public class JdbcResourceLocalTransactionCoordinatorImpl implements TransactionC
 			afterCompletionCallback( Status.STATUS_COMMITTED );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void commitRollbackOnly() {
 			JDBC_LOGGER.onCommitMarkedRollbackOnlyRollingBack();
 			rollback();
@@ -295,6 +319,7 @@ public class JdbcResourceLocalTransactionCoordinatorImpl implements TransactionC
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public void rollback() {
 			if ( isActive() ) {
 				jdbcResourceTransaction.rollback();
@@ -303,11 +328,13 @@ public class JdbcResourceLocalTransactionCoordinatorImpl implements TransactionC
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public TransactionStatus getStatus() {
 			return jdbcResourceTransaction.getStatus();
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public void markRollbackOnly() {
 			if ( getStatus() != TransactionStatus.ROLLED_BACK ) {
 				if ( JDBC_LOGGER.isTraceEnabled() ) {

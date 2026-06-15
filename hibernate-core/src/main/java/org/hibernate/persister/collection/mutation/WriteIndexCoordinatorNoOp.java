@@ -9,6 +9,8 @@ import org.hibernate.collection.spi.PersistentCollection;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 
 import java.util.Iterator;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * WriteIndexCoordinator implementation for collections without {@code @OrderColumn}.
@@ -23,16 +25,19 @@ public class WriteIndexCoordinatorNoOp implements WriteIndexCoordinator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "WriteIndexCoordinator(" + mutationTarget.getRolePath() + " (no-op))";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionMutationTarget getMutationTarget() {
 		return mutationTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void writeIndex(
 			PersistentCollection<?> collection,
 			Iterator<?> entries,

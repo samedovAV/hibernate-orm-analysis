@@ -6,6 +6,8 @@ package org.hibernate.engine.jdbc.env.spi;
 
 import org.hibernate.boot.model.naming.Identifier;
 import org.hibernate.cfg.AvailableSettings;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Helper for handling {@link Identifier} instances.
@@ -21,6 +23,7 @@ public interface IdentifierHelper {
 	 *
 	 * @return The quoting-normalized Identifier.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier normalizeQuoting(Identifier identifier);
 
 	/**
@@ -34,6 +37,7 @@ public interface IdentifierHelper {
 	 *
 	 * @return The identifier form of the name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier toIdentifier(String text);
 
 	/**
@@ -49,6 +53,7 @@ public interface IdentifierHelper {
 	 *
 	 * @return The identifier form of the name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier toIdentifier(String text, boolean quoted);
 
 	/**
@@ -64,6 +69,7 @@ public interface IdentifierHelper {
 	 * @param isExplicit Whether the name is explicitly set
 	 * @return The identifier form of the name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier toIdentifier(String text, boolean quoted, boolean isExplicit);
 
 	/**
@@ -84,6 +90,7 @@ public interface IdentifierHelper {
 	 *
 	 * @see AvailableSettings#GLOBALLY_QUOTED_IDENTIFIERS_SKIP_COLUMN_DEFINITIONS
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier applyGlobalQuoting(String text);
 
 	/**
@@ -93,6 +100,7 @@ public interface IdentifierHelper {
 	 *
 	 * @return {@code true} if the given word represents a reserved word; {@code false} otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isReservedWord(String word);
 
 	/**
@@ -103,6 +111,7 @@ public interface IdentifierHelper {
 	 *
 	 * @return The String representation of the given catalog name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String toMetaDataCatalogName(Identifier catalogIdentifier);
 
 	/**
@@ -113,6 +122,7 @@ public interface IdentifierHelper {
 	 *
 	 * @return The String representation of the given schema name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String toMetaDataSchemaName(Identifier schemaIdentifier);
 
 	/**
@@ -123,5 +133,6 @@ public interface IdentifierHelper {
 	 *
 	 * @return The String representation of the given object name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String toMetaDataObjectName(Identifier identifier);
 }

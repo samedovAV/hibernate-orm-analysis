@@ -12,6 +12,8 @@ import org.hibernate.metamodel.mapping.ManagedMappingType;
 import org.hibernate.metamodel.mapping.SingularAttributeMapping;
 import org.hibernate.property.access.spi.PropertyAccess;
 import org.hibernate.sql.results.graph.FetchOptions;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -51,6 +53,7 @@ public abstract class AbstractSingularAttributeMapping
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Generator getGenerator() {
 		return findContainingEntityMapping().getEntityPersister().getGenerators()[getStateArrayPosition()];
 	}

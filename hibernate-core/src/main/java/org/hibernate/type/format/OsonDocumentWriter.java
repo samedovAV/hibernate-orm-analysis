@@ -20,6 +20,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.time.OffsetDateTime;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Implementation of <code>JsonDocumentWriter</code> for OSON document.
@@ -45,6 +47,7 @@ public class OsonDocumentWriter implements JsonDocumentWriter {
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JsonDocumentWriter startObject() {
 		this.generator.writeStartObject();
 		return this;
@@ -52,6 +55,7 @@ public class OsonDocumentWriter implements JsonDocumentWriter {
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JsonDocumentWriter endObject() {
 		this.generator.writeEnd();
 		return this;
@@ -59,6 +63,7 @@ public class OsonDocumentWriter implements JsonDocumentWriter {
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JsonDocumentWriter startArray() {
 		generator.writeStartArray();
 		return this;
@@ -66,6 +71,7 @@ public class OsonDocumentWriter implements JsonDocumentWriter {
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JsonDocumentWriter endArray() {
 		generator.writeEnd();
 		return this;
@@ -73,6 +79,7 @@ public class OsonDocumentWriter implements JsonDocumentWriter {
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JsonDocumentWriter objectKey(String key) {
 		this.generator.writeKey( key );
 		return this;
@@ -80,6 +87,7 @@ public class OsonDocumentWriter implements JsonDocumentWriter {
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JsonDocumentWriter nullValue() {
 		this.generator.writeNull();
 		return this;
@@ -87,12 +95,14 @@ public class OsonDocumentWriter implements JsonDocumentWriter {
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JsonDocumentWriter booleanValue(boolean value) {
 		this.generator.write(value);
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JsonDocumentWriter numericValue(Number number) {
 		if ( number instanceof Integer || number instanceof Short || number instanceof Byte ) {
 			this.generator.write( number.intValue() );
@@ -119,12 +129,14 @@ public class OsonDocumentWriter implements JsonDocumentWriter {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JsonDocumentWriter stringValue(String value) {
 		this.generator.write(value);
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> JsonDocumentWriter serializeJsonValue(Object value, JavaType<T> javaType, JdbcType jdbcType, WrapperOptions options) {
 		serializeValue(value, javaType, jdbcType, options);
 		return this;
@@ -139,6 +151,7 @@ public class OsonDocumentWriter implements JsonDocumentWriter {
 	 * @param jdbcType the JDBC SQL type of the value
 	 * @param options the wapping options.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private <T> void serializeValue(Object value,
 								JavaType<T> javaType,
 								JdbcType jdbcType,

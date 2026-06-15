@@ -10,6 +10,8 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.persister.collection.AbstractCollectionPersister;
 
 import static org.hibernate.sql.model.ModelMutationLogging.MODEL_MUTATION_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -24,21 +26,25 @@ public abstract class AbstractUpdateRowsCoordinator implements UpdateRowsCoordin
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "UpdateRowsCoordinator(" + getMutationTarget().getRolePath() + ")";
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SessionFactoryImplementor getSessionFactory() {
 		return sessionFactory;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AbstractCollectionPersister getMutationTarget() {
 		// exposes AbstractCollectionPersister until we can drop MutationTarget in favor of GraphMutationTarget
 		return mutationTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void updateRows(Object key, PersistentCollection<?> collection, SharedSessionContractImplementor session) {
 		MODEL_MUTATION_LOGGER.updatingCollectionRows( mutationTarget.getRolePath(), key );
 
@@ -48,8 +54,10 @@ public abstract class AbstractUpdateRowsCoordinator implements UpdateRowsCoordin
 		MODEL_MUTATION_LOGGER.updatedCollectionRows( count, mutationTarget.getRolePath(), key );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract int doUpdate(Object key, PersistentCollection<?> collection, SharedSessionContractImplementor session);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Object resolveDeleteRowValue(PersistentCollection<?> collection, Object entry, int entryPosition) {
 		final var attributeMapping = getMutationTarget().getTargetPart();
 		final var identifierDescriptor = attributeMapping.getIdentifierDescriptor();

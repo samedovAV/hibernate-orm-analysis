@@ -5,6 +5,8 @@
 package org.hibernate.loader.ast.spi;
 
 import org.hibernate.dialect.Dialect;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Strategy for determining an optimal size for loading by multiple keys.  The
@@ -42,5 +44,6 @@ public interface MultiKeyLoadSizingStrategy {
 	 * {@code numberOfKeys} * {@code numberOfKeyColumns} does not exceed any database/driver limits on the number
 	 * of parameters allowed in a {@linkplain java.sql.PreparedStatement}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int determineOptimalBatchLoadSize(int numberOfKeyColumns, int numberOfKeys, boolean inClauseParameterPaddingEnabled);
 }

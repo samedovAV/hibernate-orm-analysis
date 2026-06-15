@@ -11,6 +11,8 @@ import org.hibernate.persister.entity.EntityPersister;
 
 import static org.hibernate.internal.SessionLogging.SESSION_LOGGER;
 import static org.hibernate.proxy.HibernateProxy.extractLazyInitializer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Proxy handling used by {@link StatelessSessionImpl}.
@@ -18,10 +20,12 @@ import static org.hibernate.proxy.HibernateProxy.extractLazyInitializer;
  */
 class Proxies {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static boolean hasProxyFactory(EntityPersister persister) {
 		return persister.getRepresentationStrategy().getProxyFactory() != null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static Object obtainProxyFromFactory(
 			EntityHolder holder,
 			EntityKey entityKey,
@@ -46,6 +50,7 @@ class Proxies {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static Object narrowProxy(
 			Object proxy,
 			PersistenceContext persistenceContext,
@@ -59,6 +64,7 @@ class Proxies {
 		return persistenceContext.narrowProxy( proxy, persister, entityKey, null );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static Object createProxy(EntityKey entityKey, PersistenceContext persistenceContext) {
 		final Object proxy =
 				entityKey.getPersister()
@@ -67,6 +73,7 @@ class Proxies {
 		return proxy;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static Object narrowOrCreateProxy(
 			EntityHolder holder,
 			EntityKey entityKey,

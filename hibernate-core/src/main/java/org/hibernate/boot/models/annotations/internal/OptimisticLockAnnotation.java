@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.hibernate.annotations.OptimisticLock;
 import org.hibernate.models.spi.ModelsContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -36,15 +38,18 @@ public class OptimisticLockAnnotation implements OptimisticLock {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return OptimisticLock.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean excluded() {
 		return excluded;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void excluded(boolean value) {
 		this.excluded = value;
 	}

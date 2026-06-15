@@ -5,6 +5,8 @@
 package org.hibernate.sql.results.graph;
 
 import org.hibernate.Incubating;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents a result value in the domain query results.  Acts as the producer for the
@@ -24,11 +26,13 @@ public interface DomainResult<J> extends DomainResultGraphNode {
 	/**
 	 * The result-variable (alias) associated with this result.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getResultVariable();
 
 	/**
 	 * Create an assembler (and any initializers) for this result.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	DomainResultAssembler<J> createResultAssembler(
 			InitializerParent<?> parent,
 			AssemblerCreationState creationState);

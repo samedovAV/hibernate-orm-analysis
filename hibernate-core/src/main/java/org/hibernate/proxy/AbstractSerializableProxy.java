@@ -5,6 +5,8 @@
 package org.hibernate.proxy;
 
 import java.io.Serializable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Convenience base class for the serialized form of {@link AbstractLazyInitializer}.
@@ -34,10 +36,12 @@ public abstract class AbstractSerializableProxy implements Serializable {
 		this.allowLoadOutsideTransaction = allowLoadOutsideTransaction;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getEntityName() {
 		return entityName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Object getId() {
 		return id;
 	}
@@ -50,6 +54,7 @@ public abstract class AbstractSerializableProxy implements Serializable {
 	 *
 	 * @param li the {@link AbstractLazyInitializer} to initialize.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void afterDeserialization(AbstractLazyInitializer li) {
 		li.afterDeserialization( readOnly, sessionFactoryUuid, sessionFactoryName, allowLoadOutsideTransaction );
 	}

@@ -28,6 +28,8 @@ import static org.hibernate.internal.util.StringHelper.isNotEmpty;
 import static org.hibernate.internal.util.StringHelper.replace;
 import static org.hibernate.internal.util.StringHelper.safeInterning;
 import static org.hibernate.internal.util.collections.CollectionHelper.isNotEmpty;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Utility methods for dealing with {@linkplain FilterConfiguration filters}.
@@ -82,6 +84,7 @@ public class FilterHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void injectAliases(SessionFactoryImplementor factory, FilterConfiguration filter, int filterCount) {
 		if ( ( filterAliasTableMaps[filterCount].isEmpty()
 				|| isTableFromPersistentClass( filterAliasTableMaps[filterCount] ) )
@@ -105,6 +108,7 @@ public class FilterHelper {
 	 *     in the condition</li>
 	 * </ol>
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void qualifyParameterNames(int filterCount, String filterName) {
 		final List<String> parameterNames = new ArrayList<>();
 		boolean foundAny = false;
@@ -120,18 +124,22 @@ public class FilterHelper {
 		this.parameterNames[filterCount] = parameterNames;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isTableFromPersistentClass(Map<String, String> aliasTableMap) {
 		return aliasTableMap.size() == 1 && aliasTableMap.containsKey( null );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getFilterNames() {
 		return filterNames;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isAffectedBy(Map<String, Filter> enabledFilters) {
 		return isAffectedBy( enabledFilters, false );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isAffectedBy(Map<String, Filter> enabledFilters, boolean onlyApplyForLoadByKey) {
 		for ( String filterName : filterNames ) {
 			final var filter = enabledFilters.get( filterName );
@@ -143,6 +151,7 @@ public class FilterHelper {
 		return false;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void applyBaseRestrictions(
 			Consumer<Predicate> predicateConsumer,
 			Restrictable restrictable,
@@ -161,6 +170,7 @@ public class FilterHelper {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applyEnabledFilters(
 			Consumer<Predicate> predicateConsumer,
 			FilterAliasGenerator aliasGenerator,
@@ -180,6 +190,7 @@ public class FilterHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private FilterPredicate generateFilterPredicate(
 			FilterAliasGenerator aliasGenerator,
 			Map<String, Filter> enabledFilters,
@@ -200,12 +211,14 @@ public class FilterHelper {
 
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String render(FilterAliasGenerator aliasGenerator, Map<String, Filter> enabledFilters) {
 		final var buffer = new StringBuilder();
 		render( buffer, aliasGenerator, enabledFilters );
 		return buffer.toString();
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void render(StringBuilder buffer, FilterAliasGenerator aliasGenerator, Map<String, Filter> enabledFilters) {
 		if ( isNotEmpty( filterNames ) ) {
 			for ( int i = 0, max = filterNames.length; i < max; i++ ) {
@@ -220,6 +233,7 @@ public class FilterHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private String render(
 			FilterAliasGenerator aliasGenerator,
 			int filterIndex,
@@ -259,6 +273,7 @@ public class FilterHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String replaceMarker(
 			TableGroup tableGroup, SqlAstCreationState creationState,
 			String condition, String alias, String tableName) {
@@ -271,6 +286,7 @@ public class FilterHelper {
 		return newCondition;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String replaceAlias(
 			TableGroup tableGroup, SqlAstCreationState creationState,
 			String condition, String placeholder, String alias, String tableName) {
@@ -282,11 +298,13 @@ public class FilterHelper {
 		return newCondition;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void registerEntityNameUsage(TableGroup tableGroup, SqlAstCreationState creationState, String tableName) {
 		creationState.registerEntityNameUsage( tableGroup, EntityNameUse.EXPRESSION,
 				tableToEntityName.get( tableName ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static String tableName(TableGroup tableGroup, String tableName) {
 		return tableName == null
 				? tableGroup.getPrimaryTableReference().getTableId()

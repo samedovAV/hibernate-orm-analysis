@@ -28,6 +28,8 @@ import org.hibernate.type.spi.TypeConfiguration;
 
 import static org.hibernate.dialect.function.CastFunction.renderCastArrayToString;
 import static org.hibernate.query.sqm.produce.function.FunctionParameterType.STRING;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class CastingConcatFunction extends AbstractSqmSelfRenderingFunctionDescriptor {
 
@@ -64,6 +66,7 @@ public class CastingConcatFunction extends AbstractSqmSelfRenderingFunctionDescr
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,
@@ -94,6 +97,7 @@ public class CastingConcatFunction extends AbstractSqmSelfRenderingFunctionDescr
 		sqlAppender.appendSql( ')' );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void renderAsString(SqlAppender sqlAppender, SqlAstTranslator<?> translator, Expression expression) {
 		final JdbcMapping sourceMapping = expression.getExpressionType().getSingleJdbcMapping();
 		final CastType sourceType = sourceMapping.getCastType();

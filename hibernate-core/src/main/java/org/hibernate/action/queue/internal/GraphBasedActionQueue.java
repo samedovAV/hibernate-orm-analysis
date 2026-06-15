@@ -46,6 +46,8 @@ import java.util.Set;
 
 import static org.hibernate.action.internal.ActionLogging.ACTION_LOGGER;
 import static org.hibernate.proxy.HibernateProxy.extractLazyInitializer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// ActionQueue implementation using FlushCoordinator for graph-based flush scheduling.
 ///
@@ -147,6 +149,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	}
 
 	/// Clear all pending actions.
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void clear() {
 		orphanCollectionRemovals.clear();
 		orphanRemovals.clear();
@@ -160,14 +163,17 @@ public class GraphBasedActionQueue implements ActionQueue {
 		flushCoordinator.getDecomposer().clear();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public DeferrableConstraintMode getDeferrableConstraintMode() {
 		return flushCoordinator.getDeferrableConstraintMode();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void setDeferrableConstraintMode(DeferrableConstraintMode deferrableConstraintMode) {
 		flushCoordinator.setDeferrableConstraintMode( deferrableConstraintMode );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public GraphAuditMutationCollector getAuditMutationCollector() {
 		return auditMutationCollector;
 	}
@@ -179,6 +185,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	/// Adds an entity insert action.
 	///
 	/// @param action The action representing the entity insertion
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addAction(EntityInsertAction action) {
 		ACTION_LOGGER.addingEntityInsertAction(action.getEntityName());
 		addInsertAction(action);
@@ -187,6 +194,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	/// Adds an entity (IDENTITY) insert action.
 	///
 	/// @param action The action representing the entity insertion
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addAction(EntityIdentityInsertAction action) {
 		ACTION_LOGGER.addingEntityIdentityInsertAction(action.getEntityName());
 		addInsertAction(
@@ -196,6 +204,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void addInsertAction(AbstractEntityInsertAction insert) {
 		if ( insert.isEarlyInsert() && !deferIdentityInserts ) {
 			addImmediateIdentityInsertAction( insert );
@@ -213,6 +222,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void addImmediateIdentityInsertAction(AbstractEntityInsertAction insert) {
 		ACTION_LOGGER.executingInsertsBeforeFindingNonNullableTransientEntitiesForEarlyInsert( insert );
 		executePendingInserts();
@@ -241,6 +251,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 		registerCleanupActions( insert );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void addResolvedNonEarlyInsertAction(AbstractEntityInsertAction insert) {
 		ACTION_LOGGER.addingResolvedNonEarlyInsertAction();
 			if ( !insertions.contains( insert ) ) {
@@ -249,6 +260,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 		makeEntityManagedAndResolveDependentActions(insert);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void makeEntityManagedAndResolveDependentActions(AbstractEntityInsertAction insert) {
 		if ( !insert.isVeto() ) {
 			insert.makeEntityManaged();
@@ -272,6 +284,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	///
 	/// Mirrors the behavior of ActionQueueLegacy.executeInserts() which is called
 	/// before processing early (IDENTITY) inserts.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void executePendingInserts() {
 		if (insertions.isEmpty()) {
 			return;
@@ -288,6 +301,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	/// Adds an entity update action.
 	///
 	/// @param action The action representing the entity update
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addAction(EntityUpdateAction action) {
 		updates.add(action);
 	}
@@ -295,6 +309,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	/// Adds an entity delete action.
 	///
 	/// @param action The action representing the entity deletion
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addAction(EntityDeleteAction action) {
 		deletions.add(action);
 	}
@@ -302,6 +317,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	/// Adds an orphan removal action.
 	///
 	/// @param action The action representing the orphan removal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addAction(OrphanRemovalAction action) {
 		orphanRemovals.add(action);
 	}
@@ -309,6 +325,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	/// Adds a collection (re)create action.
 	///
 	/// @param action The action representing the (re)creation of a collection
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addAction(CollectionRecreateAction action) {
 		ACTION_LOGGER.tracef( "GraphBasedActionQueue.addAction(CollectionRecreateAction) - role=%s, key=%s", action.getPersister().getRole(), action.getKey() );
 		collectionCreations.add(action);
@@ -317,6 +334,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	/// Adds a collection remove action.
 	///
 	/// @param action The action representing the removal of a collection
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void addAction(CollectionRemoveAction action) {
 		// Check if this is an orphan collection removal (owner is being orphan-removed)
 		// If so, add to orphanCollectionRemovals to execute before orphan removals
@@ -340,6 +358,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	/// Adds a collection update action.
 	///
 	/// @param action The action representing the update of a collection
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addAction(CollectionUpdateAction action) {
 		collectionUpdates.add(action);
 	}
@@ -347,6 +366,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	/// Adds an action relating to a collection queued operation (extra lazy).
 	///
 	/// @param action The action representing the queued operation
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addAction(QueuedOperationCollectionAction action) {
 		collectionQueuedOps.add(action);
 	}
@@ -354,18 +374,22 @@ public class GraphBasedActionQueue implements ActionQueue {
 	/// Adds an action defining a cleanup relating to a bulk operation.
 	///
 	/// @param action The action representing the bulk operation cleanup
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addAction(BulkOperationCleanupAction action) {
 		registerCleanupActions(action);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void registerCleanupActions(Executable executable) {
 		registerCleanupActions( executable, false );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void registerGraphExecutedCleanupActions(Executable executable) {
 		registerCleanupActions( executable, true );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void registerCleanupActions(Executable executable, boolean graphExecuted) {
 		final var beforeCompletionCallback = executable.getBeforeTransactionCompletionProcess();
 		if (beforeCompletionCallback != null) {
@@ -389,6 +413,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	/// Perform all currently queued entity-insertion actions.
 	///
 	/// @throws HibernateException error executing queued insertion actions
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void executeInserts() throws HibernateException {
 		if (!insertions.isEmpty()) {
 			final List<AbstractEntityInsertAction> executedInserts = new ArrayList<>(insertions);
@@ -400,6 +425,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void executeInsertFlushAndRegisterCleanup(List<AbstractEntityInsertAction> executedInserts) {
 		RuntimeException runtimeException = null;
 		Error error = null;
@@ -438,6 +464,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	/// Perform all currently queued actions.
 	///
 	/// @throws HibernateException error executing queued actions
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void executeActions() throws HibernateException {
 		if ( ACTION_LOGGER.isTraceEnabled() ) {
 			int totalActions = orphanCollectionRemovals.size() + orphanRemovals.size() + insertions.size()
@@ -461,6 +488,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 		session.getJdbcCoordinator().executeBatch();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void executeFlushAndPrepareForTransactionCompletion() {
 		RuntimeException runtimeException = null;
 		Error error = null;
@@ -505,6 +533,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void prepareForTransactionCompletion() {
 		final List<String> allSpaces = new ArrayList<>();
 		prepareForTransactionCompletion( orphanCollectionRemovals, allSpaces );
@@ -522,6 +551,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private void prepareForTransactionCompletion(
 			List<? extends Executable> actions,
 			List<String> allSpaces) {
@@ -551,6 +581,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean hasGraphOwnedAfterTransactionCompletion(Executable action) {
 		return action instanceof AbstractEntityInsertAction
 			|| action instanceof EntityUpdateAction
@@ -563,6 +594,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	/// but we maintain this method for API compatibility.
 	///
 	/// @throws HibernateException error preparing actions
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void prepareActions() throws HibernateException {
 		prepareCollectionActions(collectionRemovals);
 		prepareCollectionActions(collectionUpdates);
@@ -570,6 +602,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 		prepareCollectionActions(collectionQueuedOps);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void prepareCollectionActions(List<? extends Executable> actions) throws HibernateException {
 		for (Executable action : actions) {
 			action.beforeExecutions();
@@ -583,6 +616,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	/// Are there unresolved entity insert actions?
 	///
 	/// @return true if there are unresolved entity insert actions
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasUnresolvedEntityInsertActions() {
 		return flushCoordinator.getDecomposer().hasUnresolvedInserts();
 	}
@@ -590,6 +624,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	/// Get the number of entity insertions currently queued.
 	///
 	/// @return count of entity insertions
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int numberOfInsertions() {
 		return insertions.size();
 	}
@@ -597,6 +632,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	/// Get the number of entity updates currently queued.
 	///
 	/// @return count of entity updates
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int numberOfUpdates() {
 		return updates.size();
 	}
@@ -604,6 +640,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	/// Get the number of entity deletions currently queued.
 	///
 	/// @return count of entity deletions
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int numberOfDeletions() {
 		return deletions.size() + orphanRemovals.size();
 	}
@@ -611,6 +648,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	/// Get the number of collection creations currently queued.
 	///
 	/// @return count of collection creations
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int numberOfCollectionCreations() {
 		return collectionCreations.size();
 	}
@@ -618,6 +656,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	/// Get the number of collection updates currently queued.
 	///
 	/// @return count of collection updates
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int numberOfCollectionUpdates() {
 		return collectionUpdates.size();
 	}
@@ -625,6 +664,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	/// Get the number of collection removals currently queued.
 	///
 	/// @return count of collection removals
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int numberOfCollectionRemovals() {
 		return collectionRemovals.size() + orphanCollectionRemovals.size();
 	}
@@ -632,6 +672,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	/// Are there before transaction completion actions registered?
 	///
 	/// @return true if there are before transaction actions
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasBeforeTransactionActions() {
 		return !isTransactionCoordinatorShared
 				&& transactionCompletionCallbacks.hasBeforeCompletionCallbacks();
@@ -640,6 +681,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	/// Are there after transaction completion actions registered?
 	///
 	/// @return true if there are after transaction actions
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasAfterTransactionActions() {
 		return !isTransactionCoordinatorShared
 				&& transactionCompletionCallbacks.hasAfterCompletionCallbacks();
@@ -648,6 +690,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	/// Check whether any insertion or deletion actions are currently queued.
 	///
 	/// @return true if insertions or deletions are currently queued
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean areInsertionsOrDeletionsQueued() {
 		return !insertions.isEmpty()
 				|| !deletions.isEmpty()
@@ -659,6 +702,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	///
 	/// @param tables The table/query-spaces to check
 	/// @return true if we contain pending actions against any of the given tables
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean areTablesToBeUpdated(Set<? extends Serializable> tables) {
 		if (tables.isEmpty()) {
 			return false;
@@ -675,6 +719,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 				|| areTablesToBeUpdated(deletions, tables);
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private boolean areTablesToBeUpdated(
 			List<? extends Executable> actions,
 			Set<? extends Serializable> tables) {
@@ -692,6 +737,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	/// Check if there are any queued actions.
 	///
 	/// @return true if there are any queued actions
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasAnyQueuedActions() {
 		return !orphanCollectionRemovals.isEmpty()
 				|| !orphanRemovals.isEmpty()
@@ -708,6 +754,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	/// Validate that there are no unresolved entity insert actions.
 	///
 	/// @throws PropertyValueException if there are unresolved inserts
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void checkNoUnresolvedActionsAfterOperation() throws PropertyValueException {
 		flushCoordinator.getDecomposer().validateNoUnresolvedInserts();
 	}
@@ -716,6 +763,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	/// This is used when auto-flush determines that a flush is not actually needed.
 	///
 	/// @param previousCollectionRemovalSize the size of collection removals before the check
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void clearFromFlushNeededCheck(int previousCollectionRemovalSize) {
 		// Clear all actions except:
 		// - Inserts (keep them)
@@ -745,6 +793,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	///
 	/// @param entry the entity entry
 	/// @param rescuedEntity the entity being rescued
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void unScheduleDeletion(EntityEntry entry, Object rescuedEntity) {
 		final var lazyInitializer = extractLazyInitializer(rescuedEntity);
 		if (lazyInitializer != null && !lazyInitializer.isUninitialized()) {
@@ -770,6 +819,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	/// Used when an entity instance is being merged/saved but was previously scheduled for deletion.
 	///
 	/// @param newEntity the new entity instance
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void unScheduleUnloadedDeletion(Object newEntity) {
 		final var entityPersister = session.getEntityPersister(null, newEntity);
 		final Object identifier = entityPersister.getIdentifier(newEntity, session);
@@ -803,6 +853,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	/// @param isTransactionCoordinatorShared whether the transaction coordinator is shared
 	///
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setTransactionCompletionCallbacks(
 			TransactionCompletionCallbacksImplementor callbacks,
 			boolean isTransactionCoordinatorShared) {
@@ -813,21 +864,25 @@ public class GraphBasedActionQueue implements ActionQueue {
 	/// Get the transaction completion callbacks.
 	///
 	/// @return the transaction completion callbacks
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TransactionCompletionCallbacksImplementor getTransactionCompletionCallbacks() {
 		return transactionCompletionCallbacks.forSharing();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void registerCallback(BeforeCompletionCallback process) {
 		transactionCompletionCallbacks.registerCallback(process);
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void registerCallback(AfterCompletionCallback process) {
 		transactionCompletionCallbacks.registerCallback(process);
 	}
 
 	/// Execute any registered [org.hibernate.action.spi.BeforeTransactionCompletionProcess].
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void beforeTransactionCompletion() {
 		if (!isTransactionCoordinatorShared) {
 			auditMutationCollector.executeAuditMutations( session );
@@ -837,6 +892,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setAuditChangesetContext(Object changelog, org.hibernate.Session changesetSession) {
 		// Graph audit execution resolves changelog context directly from the session.
 	}
@@ -844,6 +900,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	/// Performs cleanup of any held cache soft locks.
 	///
 	/// @param success Was the transaction successful
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void afterTransactionCompletion(boolean success) {
 		if (!isTransactionCoordinatorShared) {
 			auditMutationCollector.clear();
@@ -852,6 +909,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	}
 
 	/// Execute pending bulk operation cleanup actions.
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void executePendingBulkOperationCleanUpActions() {
 		if (!isTransactionCoordinatorShared && transactionCompletionCallbacks != null) {
 			transactionCompletionCallbacks.executePendingBulkOperationCleanUpActions();
@@ -862,6 +920,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	// Internal Helpers
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void invalidateSpaces(String[] spaces) {
 		if (spaces != null && spaces.length > 0) {
 			for (String space : spaces) {
@@ -879,6 +938,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	/// Get all pending actions (for debugging/testing).
 	///
 	/// @return list of pending actions
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<Executable> getPendingActions() {
 		var list = new ArrayList<Executable>();
 		list.addAll(orphanCollectionRemovals);
@@ -896,11 +956,13 @@ public class GraphBasedActionQueue implements ActionQueue {
 	/// Get the FlushCoordinator (for testing/debugging).
 	///
 	/// @return the flush coordinator
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FlushCoordinator getFlushCoordinator() {
 		return flushCoordinator;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		int collectionCount = collectionCreations.size() + collectionUpdates.size()
 				+ collectionRemovals.size() + collectionQueuedOps.size()
@@ -926,6 +988,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	///
 	/// @param oos the output stream
 	/// @throws IOException if serialization fails
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void serialize(ObjectOutputStream oos) throws IOException {
 		ACTION_LOGGER.serializingActionQueue();
 		flushCoordinator.getDecomposer().serialize(oos);
@@ -941,6 +1004,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 		serializeList(oos, deletions);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void serializeList(ObjectOutputStream oos, List<? extends Executable> actions) throws IOException {
 		oos.writeInt(actions.size());
 		for (var action : actions) {
@@ -948,6 +1012,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static GraphBasedActionQueue deserialize(
 			ObjectInputStream ois,
 			GraphBasedActionQueueFactory actionQueueFactory,
@@ -986,6 +1051,7 @@ public class GraphBasedActionQueue implements ActionQueue {
 	}
 
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static <T extends Executable> List<T> deserializeList(
 			ObjectInputStream ois,
 			Class<T> actionClass,

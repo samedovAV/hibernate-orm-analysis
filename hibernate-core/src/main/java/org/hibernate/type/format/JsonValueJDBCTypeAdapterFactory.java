@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.type.format;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Factory class to get proper <code>JsonValueJDBCTypeAdapter</code>.
@@ -16,6 +19,7 @@ public class JsonValueJDBCTypeAdapterFactory {
 	 * @param returnEmbeddable
 	 * @return the adapter
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static JsonValueJDBCTypeAdapter getAdapter(JsonDocumentReader reader , boolean returnEmbeddable) {
 		assert reader != null : "reader is null";
 

@@ -14,6 +14,8 @@ import org.hibernate.sql.model.ast.TableDelete;
 import org.hibernate.sql.model.internal.TableDeleteCustomSql;
 import org.hibernate.sql.model.internal.TableDeleteStandard;
 import org.hibernate.sql.model.jdbc.JdbcDeleteMutation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Standard TableDeleteBuilder implementation used when
 /// Hibernate generates the delete statement.
@@ -72,19 +74,23 @@ public class TableDeleteBuilderStandard
 		this.whereFragment = whereFragment;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSqlComment() {
 		return sqlComment;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setSqlComment(String sqlComment) {
 		this.sqlComment = sqlComment;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getWhereFragment() {
 		return whereFragment;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setWhere(String fragment) {
 		if ( mutationDetails.getCustomSql() != null && fragment != null ) {
 			throw new HibernateException(
@@ -95,6 +101,7 @@ public class TableDeleteBuilderStandard
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addWhereFragment(String fragment) {
 		if ( mutationDetails.getCustomSql() != null && fragment != null ) {
 			throw new HibernateException(
@@ -105,6 +112,7 @@ public class TableDeleteBuilderStandard
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableDelete buildMutation() {
 		if ( mutationDetails.getCustomSql() != null ) {
 			return new TableDeleteCustomSql(
@@ -130,6 +138,7 @@ public class TableDeleteBuilderStandard
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasValueBindings() {
 		return false;
 	}

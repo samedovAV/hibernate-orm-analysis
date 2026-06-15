@@ -12,6 +12,8 @@ import org.hibernate.sql.results.graph.DomainResult;
 import org.hibernate.sql.results.graph.DomainResultCreationState;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Details about a table
@@ -22,11 +24,13 @@ public interface TableDetails {
 	/**
 	 * The name of the table
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getTableName();
 
 	/**
 	 * Details about the primary-key of this table
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	KeyDetails getKeyDetails();
 
 	/**
@@ -35,6 +39,7 @@ public interface TableDetails {
 	 * Only relevant for entity-mappings where this indicates whether this
 	 * table holds the entity's identifier.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isIdentifierTable();
 
 	/**
@@ -44,32 +49,38 @@ public interface TableDetails {
 		/**
 		 * Number of columns
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		int getColumnCount();
 
 		/**
 		 * Group of columns defined on the primary key
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		List<? extends KeyColumn> getKeyColumns();
 
 		/**
 		 * Get a key column by relative position
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		KeyColumn getKeyColumn(int position);
 
 
 		@FunctionalInterface
 		interface KeyValueConsumer {
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			void consume(Object jdbcValue, KeyColumn columnMapping);
 		}
 
 		/**
 		 * Visit each key column
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void forEachKeyColumn(KeyColumnConsumer consumer);
 
 		/**
 		 * Break a key value down into its constituent parts, calling the consumer for each.
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void breakDownKeyJdbcValues(
 				Object domainValue,
 				KeyValueConsumer valueConsumer,
@@ -78,6 +89,7 @@ public interface TableDetails {
 		/**
 		 * Create a DomainResult for selecting and retrieving the key.
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		<K> DomainResult<K> createDomainResult(
 				NavigablePath navigablePath,
 				TableReference tableReference,
@@ -92,11 +104,13 @@ public interface TableDetails {
 		/**
 		 * The name of the column
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		String getColumnName();
 
 		/**
 		 * Describes the mapping between object and relational for this column
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		JdbcMapping getJdbcMapping();
 	}
 
@@ -108,6 +122,7 @@ public interface TableDetails {
 		 * @param position The position of the column within the key group
 		 * @param column The column details
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void consume(int position, KeyColumn column);
 	}
 }

@@ -31,6 +31,8 @@ import static org.hibernate.id.IdentifierGeneratorHelper.extractLong;
 import static org.hibernate.id.enhanced.ResyncHelper.getCurrentTableValue;
 import static org.hibernate.id.enhanced.ResyncHelper.getMaxPrimaryKey;
 import static org.hibernate.id.enhanced.TableGeneratorLogger.TABLE_GENERATOR_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Describes a table used to mimic sequence behavior
@@ -93,6 +95,7 @@ public class TableStructure implements DatabaseStructure {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QualifiedName getPhysicalName() {
 		return physicalTableName;
 	}
@@ -100,36 +103,43 @@ public class TableStructure implements DatabaseStructure {
 	/*
 	 * Used by Hibernate Reactive
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Identifier getLogicalValueColumnNameIdentifier() {
 		return logicalValueColumnNameIdentifier;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getInitialValue() {
 		return initialValue;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getIncrementSize() {
 		return incrementSize;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getTimesAccessed() {
 		return accessCounter;
 	}
 
 	@Override @Deprecated
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getAllSqlForTests() {
 		return new String[] { selectQuery, updateQuery };
 	}
 
 	@Override @Deprecated
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void prepare(Optimizer optimizer) {
 		applyIncrementSizeToSourceValues = optimizer.applyIncrementSizeToSourceValues();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public AccessCallback buildCallback(final SharedSessionContractImplementor session) {
 		if ( selectQuery == null || updateQuery == null ) {
 			throw new AssertionFailure( "SequenceStyleGenerator's TableStructure was not properly initialized" );
@@ -142,10 +152,12 @@ public class TableStructure implements DatabaseStructure {
 
 		return new AccessCallback() {
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public long getNextValue() {
 				return session.getTransactionCoordinator().createIsolationDelegate().delegateWork(
 						new AbstractReturningWork<>() {
 							@Override
+							@Prove(complexity = Complexity.O_N, n = "", count = {})
 							public Long execute(Connection connection) throws SQLException {
 								long value;
 								int rows;
@@ -204,12 +216,14 @@ public class TableStructure implements DatabaseStructure {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public String getTenantIdentifier() {
 				return session.getTenantIdentifier();
 			}
 		};
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private PreparedStatement prepareStatement(
 			Connection connection,
 			String sql,
@@ -236,6 +250,7 @@ public class TableStructure implements DatabaseStructure {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private int executeUpdate(
 			PreparedStatement ps,
 			SessionEventListenerManager statsCollector,
@@ -254,6 +269,7 @@ public class TableStructure implements DatabaseStructure {
 
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private ResultSet executeQuery(
 			PreparedStatement ps,
 			SessionEventListenerManager statsCollector,
@@ -272,11 +288,13 @@ public class TableStructure implements DatabaseStructure {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isPhysicalSequence() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void registerExportables(Database database) {
 		final var namespace = database.locateNamespace(
 				logicalQualifiedTableName.getCatalogName(),
@@ -315,6 +333,7 @@ public class TableStructure implements DatabaseStructure {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void initialize(SqlStringGenerationContext context) {
 		final var dialect = context.getDialect();
 		final String formattedPhysicalTableName = context.format( physicalTableName );
@@ -329,6 +348,7 @@ public class TableStructure implements DatabaseStructure {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void registerExtraExportables(Table table, Optimizer optimizer) {
 		table.addResyncCommand( (sqlContext, isolator) -> {
 			final String sequenceTableName = sqlContext.format( physicalTableName );

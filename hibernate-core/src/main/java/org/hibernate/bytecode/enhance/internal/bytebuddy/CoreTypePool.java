@@ -9,6 +9,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.pool.TypePool;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A TypePool which only loads, and caches, types whose package
@@ -57,6 +59,7 @@ public class CoreTypePool extends TypePool.AbstractBase implements TypePool {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Resolution doDescribe(final String name) {
 		if ( acceptedPrefixes.isCoreClassName( name ) ) {
 			final var resolution = resolutions.get( name );
@@ -81,6 +84,7 @@ public class CoreTypePool extends TypePool.AbstractBase implements TypePool {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Resolution actualResolve(final String name) {
 		try {
 			return new TypePool.Resolution.Simple( TypeDescription.ForLoadedType.of(

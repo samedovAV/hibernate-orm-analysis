@@ -9,6 +9,8 @@ import org.hibernate.sql.results.internal.RowProcessingStateStandardImpl;
 import org.hibernate.sql.results.jdbc.spi.JdbcValues;
 import org.hibernate.sql.results.jdbc.spi.JdbcValuesSourceProcessingOptions;
 import org.hibernate.sql.results.jdbc.spi.JdbcValuesSourceProcessingState;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Consumes {@link JdbcValues} and returns the consumed values in whatever form this
@@ -17,6 +19,7 @@ import org.hibernate.sql.results.jdbc.spi.JdbcValuesSourceProcessingState;
  * @author Steve Ebersole
  */
 public interface ResultsConsumer<T, R> {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	T consume(
 			JdbcValues jdbcValues,
 			SharedSessionContractImplementor session,
@@ -25,5 +28,6 @@ public interface ResultsConsumer<T, R> {
 			RowProcessingStateStandardImpl rowProcessingState,
 			RowReader<R> rowReader);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean canResultsBeCached();
 }

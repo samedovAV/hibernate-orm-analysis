@@ -7,6 +7,8 @@ package org.hibernate.query;
 import jakarta.annotation.Nullable;
 import org.hibernate.Incubating;
 import org.hibernate.type.BindableType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents a parameter defined in the source (HQL/JPQL or criteria) query.
@@ -23,6 +25,7 @@ public interface QueryParameter<T> extends jakarta.persistence.Parameter<T> {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isNamed() {
 		return getName() != null;
 	}
@@ -35,6 +38,7 @@ public interface QueryParameter<T> extends jakarta.persistence.Parameter<T> {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isOrdinal() {
 		return getPosition() != null;
 	}
@@ -48,6 +52,7 @@ public interface QueryParameter<T> extends jakarta.persistence.Parameter<T> {
 	 * @return {@code true} indicates that multi-valued binding is allowed for this
 	 * parameter
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean allowsMultiValuedBinding();
 
 	/**
@@ -56,5 +61,6 @@ public interface QueryParameter<T> extends jakarta.persistence.Parameter<T> {
 	 *
 	 * @return The associated Hibernate Type, may be {@code null}.
 	 */
-	@Nullable BindableType<T> getHibernateType();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	BindableType<T> getHibernateType();
 }

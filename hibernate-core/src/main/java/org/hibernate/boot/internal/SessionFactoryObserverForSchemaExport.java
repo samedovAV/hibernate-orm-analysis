@@ -11,6 +11,8 @@ import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.service.spi.ServiceRegistryImplementor;
 import org.hibernate.tool.schema.spi.DelayedDropAction;
 import org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Responsible for calling the {@link SchemaManagementToolCoordinator}
@@ -31,6 +33,7 @@ class SessionFactoryObserverForSchemaExport implements SessionFactoryObserver {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void sessionFactoryCreated(SessionFactory factory) {
 		SchemaManagementToolCoordinator.process(
 				metadata,
@@ -41,12 +44,14 @@ class SessionFactoryObserverForSchemaExport implements SessionFactoryObserver {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void sessionFactoryClosing(SessionFactory factory) {
 		if ( delayedDropAction != null ) {
 			delayedDropAction.perform( getRegistry( factory ) );
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static ServiceRegistryImplementor getRegistry(SessionFactory factory) {
 		return ( (SessionFactoryImplementor) factory ).getServiceRegistry();
 	}

@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class LoadedValuesCollectorImpl implements LoadedValuesCollector {
 	private final Collection<NavigablePath> pathsToLock;
@@ -26,6 +28,7 @@ public class LoadedValuesCollectorImpl implements LoadedValuesCollector {
 		this.pathsToLock = pathsToLock;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void registerEntity(NavigablePath navigablePath, EntityMappingType entityDescriptor, EntityKey entityKey) {
 		if ( pathsToLock.contains( navigablePath ) ) {
 			if ( entitiesToLock == null ) {
@@ -36,6 +39,7 @@ public class LoadedValuesCollectorImpl implements LoadedValuesCollector {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void registerCollection(NavigablePath navigablePath, PluralAttributeMapping collectionDescriptor, CollectionKey collectionKey) {
 		if ( collectionsToLock == null ) {
 			collectionsToLock = new ArrayList<>();
@@ -47,11 +51,13 @@ public class LoadedValuesCollectorImpl implements LoadedValuesCollector {
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<LoadedEntityRegistration> getCollectedEntities() {
 		return entitiesToLock == null ? Collections.emptyList() : entitiesToLock;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<LoadedCollectionRegistration> getCollectedCollections() {
 		return collectionsToLock == null ? Collections.emptyList() : collectionsToLock;
 	}

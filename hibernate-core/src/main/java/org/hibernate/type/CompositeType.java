@@ -11,6 +11,8 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.engine.FetchStyle;
 import org.hibernate.engine.spi.CascadeStyle;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents a <em>composite</em> type, a type which itself has typed attributes.
@@ -26,6 +28,7 @@ public interface CompositeType extends Type {
 	 *
 	 * @return The component property types.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Type[] getSubtypes();
 
 	/**
@@ -33,6 +36,7 @@ public interface CompositeType extends Type {
 	 *
 	 * @return The component property names
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String[] getPropertyNames();
 
 	/**
@@ -42,6 +46,7 @@ public interface CompositeType extends Type {
 	 *
 	 * @return nullability of component properties
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean[] getPropertyNullability();
 
 	/**
@@ -54,6 +59,7 @@ public interface CompositeType extends Type {
 	 *
 	 * @throws HibernateException Indicates a problem access the property values.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object[] getPropertyValues(Object component, SharedSessionContractImplementor session)
 			throws HibernateException;
 
@@ -68,6 +74,7 @@ public interface CompositeType extends Type {
 	 *
 	 * @throws HibernateException Indicates a problem access the property values.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object[] getPropertyValues(Object component) throws HibernateException;
 
 	/**
@@ -81,6 +88,7 @@ public interface CompositeType extends Type {
 	 *
 	 * @throws HibernateException Indicates a problem access the property value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getPropertyValue(Object component, int index, SharedSessionContractImplementor session)
 			throws HibernateException;
 
@@ -94,6 +102,7 @@ public interface CompositeType extends Type {
 	 *
 	 * @throws HibernateException Indicates an issue performing the injection
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setPropertyValues(Object component, Object[] values) throws HibernateException;
 
 	/**
@@ -108,6 +117,7 @@ public interface CompositeType extends Type {
 	 *
 	 * @since 6.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Object replacePropertyValues(Object component, Object[] values, SharedSessionContractImplementor session)
 			throws HibernateException {
 		setPropertyValues( component, values );
@@ -121,6 +131,7 @@ public interface CompositeType extends Type {
 	 *
 	 * @return The cascade style.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CascadeStyle getCascadeStyle(int index);
 
 	/**
@@ -132,6 +143,7 @@ public interface CompositeType extends Type {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	OnDeleteAction getOnDeleteAction(int index);
 
 	/**
@@ -142,6 +154,7 @@ public interface CompositeType extends Type {
 	 *
 	 * @return The fetch style
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	FetchStyle getFetchStyle(int index);
 
 	/**
@@ -151,6 +164,7 @@ public interface CompositeType extends Type {
 	 *
 	 * @return True if the method is a member; false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isMethodOf(Method method);
 
 	/**
@@ -159,6 +173,7 @@ public interface CompositeType extends Type {
 	 *
 	 * @return True if this component is embedded; false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isEmbedded();
 
 	/**
@@ -167,6 +182,7 @@ public interface CompositeType extends Type {
 	 * @return {@code true} if any of the properties are not-nullable as indicated by {@link #getPropertyNullability},
 	 * {@code false} otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean hasNotNullProperty();
 
 	/**
@@ -175,6 +191,7 @@ public interface CompositeType extends Type {
 	 * @return {@code true} if any of the properties are nullable as indicated by {@link #getPropertyNullability},
 	 * {@code false} otherwise.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default boolean hasNullProperty() {
 		final boolean[] propertyNullability = getPropertyNullability();
 		for ( int i = 0; i < propertyNullability.length; i++ ) {
@@ -192,5 +209,6 @@ public interface CompositeType extends Type {
 	 *
 	 * @return The (sub-)property index, relative to all the array-valued method returns defined on this contract.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getPropertyIndex(String propertyName);
 }

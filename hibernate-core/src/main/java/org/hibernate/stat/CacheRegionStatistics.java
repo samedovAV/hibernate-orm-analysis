@@ -5,6 +5,8 @@
 package org.hibernate.stat;
 
 import java.io.Serializable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Second-level cache statistics of a specific region.
@@ -19,29 +21,34 @@ public interface CacheRegionStatistics extends Serializable {
 	 */
 	long NO_EXTENDED_STAT_SUPPORT_RETURN = Long.MIN_VALUE;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getRegionName();
 
 	/**
 	 * The number of cache puts into the region since the last Statistics
 	 * clearing
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	long getPutCount();
 
 	/**
 	 * The number of successful cache look-ups against the region since the
 	 * last Statistics clearing
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	long getHitCount();
 
 	/**
 	 * The number of unsuccessful cache look-ups against the region since the
 	 * last Statistics clearing
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	long getMissCount();
 
 	/**
 	 * The number of removals since the last Statistics clearing
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	long getRemoveCount();
 
 	/**
@@ -53,6 +60,7 @@ public interface CacheRegionStatistics extends Serializable {
 	 * does not support extended stats, {@link #NO_EXTENDED_STAT_SUPPORT_RETURN}
 	 * is returned instead.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	long getElementCountInMemory();
 
 	/**
@@ -64,6 +72,7 @@ public interface CacheRegionStatistics extends Serializable {
 	 * does not support extended stats, {@link #NO_EXTENDED_STAT_SUPPORT_RETURN}
 	 * is returned instead.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	long getElementCountOnDisk();
 
 	/**
@@ -75,5 +84,6 @@ public interface CacheRegionStatistics extends Serializable {
 	 * does not support extended stats, {@link #NO_EXTENDED_STAT_SUPPORT_RETURN}
 	 * is returned instead.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	long getSizeInMemory();
 }

@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.resource.transaction.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Observer of internal transaction events.
@@ -19,11 +22,13 @@ public interface TransactionObserver {
 	 * Do not rely on this being called as the transaction may be started
 	 * in some way other than via the {@link org.hibernate.Transaction} API.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void afterBegin();
 
 	/**
 	 * Callback for processing the initial phase of transaction completion.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void beforeCompletion();
 
 	/**
@@ -31,5 +36,6 @@ public interface TransactionObserver {
 	 *
 	 * @param successful Was the transaction successful?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void afterCompletion(boolean successful, boolean delayed);
 }

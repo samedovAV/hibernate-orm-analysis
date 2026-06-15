@@ -20,6 +20,8 @@ import org.hibernate.engine.jdbc.env.spi.IdentifierHelper;
 import org.hibernate.engine.jdbc.env.spi.JdbcEnvironment;
 import org.hibernate.engine.jdbc.env.spi.NameQualifierSupport;
 import org.hibernate.engine.jdbc.env.spi.QualifiedObjectNameFormatter;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class SqlStringGenerationContextImpl
 		implements SqlStringGenerationContext {
@@ -30,6 +32,7 @@ public class SqlStringGenerationContextImpl
 	 * @param configurationMap The configuration map, holding settings such as {@value AvailableSettings#DEFAULT_SCHEMA}.
 	 * @return An {@link SqlStringGenerationContext}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static SqlStringGenerationContext fromConfigurationMap(
 			JdbcEnvironment jdbcEnvironment,
 			Database database,
@@ -45,6 +48,7 @@ public class SqlStringGenerationContextImpl
 	 * @param configurationMap The configuration map, holding settings such as {@value AvailableSettings#DEFAULT_SCHEMA}.
 	 * @return An {@link SqlStringGenerationContext}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static SqlStringGenerationContext fromConfigurationMapForMigration(
 			JdbcEnvironment jdbcEnvironment,
 			Database database,
@@ -61,6 +65,7 @@ public class SqlStringGenerationContextImpl
 	 * @param defaultSchema The default schema to use; if {@code null}, will use the implicit schema that was configured through XML mapping.
 	 * @return An {@link SqlStringGenerationContext}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static SqlStringGenerationContext fromExplicit(
 			JdbcEnvironment jdbcEnvironment,
 			Database database,
@@ -69,6 +74,7 @@ public class SqlStringGenerationContextImpl
 		return create( jdbcEnvironment, database, defaultCatalog, defaultSchema, false );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static SqlStringGenerationContext create(
 			JdbcEnvironment jdbcEnvironment,
 			Database database,
@@ -85,6 +91,7 @@ public class SqlStringGenerationContextImpl
 		return new SqlStringGenerationContextImpl( jdbcEnvironment, actualDefaultCatalog, actualDefaultSchema, forMigration );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Identifier actualDefaultSchema(String defaultSchema, NameQualifierSupport nameQualifierSupport, IdentifierHelper identifierHelper, Namespace.Name implicitNamespaceName) {
 		if ( nameQualifierSupport.supportsSchemas() ) {
 			Identifier actualDefaultSchema = identifierHelper.toIdentifier( defaultSchema );
@@ -95,6 +102,7 @@ public class SqlStringGenerationContextImpl
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Identifier actualDefaultCatalog(String defaultCatalog, NameQualifierSupport nameQualifierSupport, IdentifierHelper identifierHelper, Namespace.Name implicitNamespaceName) {
 		if ( nameQualifierSupport.supportsCatalogs() ) {
 			final Identifier actualDefaultCatalog = identifierHelper.toIdentifier( defaultCatalog );
@@ -105,10 +113,12 @@ public class SqlStringGenerationContextImpl
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static SqlStringGenerationContext forTests(JdbcEnvironment jdbcEnvironment) {
 		return forTests( jdbcEnvironment, null, null );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static SqlStringGenerationContext forTests(JdbcEnvironment jdbcEnvironment,
 			String defaultCatalog, String defaultSchema) {
 		IdentifierHelper identifierHelper = jdbcEnvironment.getIdentifierHelper();
@@ -140,11 +150,13 @@ public class SqlStringGenerationContextImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Dialect getDialect() {
 		return dialect;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Identifier toIdentifier(String text) {
 		return identifierHelper != null
 				? identifierHelper.toIdentifier( text )
@@ -152,35 +164,42 @@ public class SqlStringGenerationContextImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Identifier getDefaultCatalog() {
 		return defaultCatalog;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Identifier getDefaultSchema() {
 		return defaultSchema;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String format(QualifiedTableName qualifiedName) {
 		return qualifiedObjectNameFormatter.format( withDefaults( qualifiedName ), dialect );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String format(QualifiedSequenceName qualifiedName) {
 		return qualifiedObjectNameFormatter.format( withDefaults( qualifiedName ), dialect );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String format(QualifiedName qualifiedName) {
 		return qualifiedObjectNameFormatter.format( withDefaults( qualifiedName ), dialect );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String formatWithoutCatalog(QualifiedSequenceName qualifiedName) {
 		return qualifiedObjectNameFormatter.format( nameToFormat( qualifiedName ), dialect );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private QualifiedSequenceName nameToFormat(QualifiedSequenceName qualifiedName) {
 		if ( qualifiedName.getCatalogName() != null
 				|| qualifiedName.getSchemaName() == null && defaultSchema != null ) {
@@ -196,6 +215,7 @@ public class SqlStringGenerationContextImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isMigration() {
 		return migration;
 	}

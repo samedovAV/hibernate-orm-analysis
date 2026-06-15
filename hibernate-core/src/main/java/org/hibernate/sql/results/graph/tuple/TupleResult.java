@@ -14,6 +14,8 @@ import org.hibernate.sql.results.graph.DomainResultAssembler;
 import org.hibernate.sql.results.graph.InitializerParent;
 import org.hibernate.sql.results.graph.basic.BasicResultGraphNode;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -47,16 +49,19 @@ public class TupleResult<T> implements DomainResult<T>, BasicResultGraphNode<T> 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getResultVariable() {
 		return resultVariable;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<T> getResultJavaType() {
 		return javaType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigablePath getNavigablePath() {
 		return navigablePath;
 	}
@@ -65,11 +70,13 @@ public class TupleResult<T> implements DomainResult<T>, BasicResultGraphNode<T> 
 	 * For testing purposes only
 	 */
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResultAssembler<T> getAssembler() {
 		return assembler;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResultAssembler<T> createResultAssembler(
 			InitializerParent<?> parent,
 			AssemblerCreationState creationState) {
@@ -77,6 +84,7 @@ public class TupleResult<T> implements DomainResult<T>, BasicResultGraphNode<T> 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void collectValueIndexesToCache(BitSet valueIndexes) {
 		for ( int valuesArrayPosition : assembler.getValuesArrayPositions() ) {
 			valueIndexes.set( valuesArrayPosition );

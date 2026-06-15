@@ -30,6 +30,8 @@ import java.util.Arrays;
 import static java.util.Collections.emptySet;
 import static org.hibernate.type.SqlTypes.NAMED_ENUM;
 import static org.hibernate.type.descriptor.converter.internal.EnumHelper.getEnumeratedValues;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents a named {@code enum} type on Oracle 23ai+.
@@ -52,16 +54,19 @@ public class OracleEnumJdbcType implements JdbcType {
 	public static final OracleEnumJdbcType INSTANCE = new OracleEnumJdbcType();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getJdbcTypeCode() {
 		return Types.VARCHAR;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getDefaultSqlTypeCode() {
 		return NAMED_ENUM;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> JdbcLiteralFormatter<T> getJdbcLiteralFormatter(JavaType<T> javaType) {
 		@SuppressWarnings("unchecked")
 		final Class<? extends Enum<?>> enumClass = (Class<? extends Enum<?>>) javaType.getJavaType();
@@ -73,35 +78,42 @@ public class OracleEnumJdbcType implements JdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getFriendlyName() {
 		return "ENUM";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "EnumTypeDescriptor";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> ValueBinder<X> getBinder(JavaType<X> javaType) {
 		return new BasicBinder<>( javaType, this ) {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBindNull(PreparedStatement st, int index, WrapperOptions options) throws SQLException {
 				st.setNull( index, getJdbcTypeCode() );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBindNull(CallableStatement st, String name, WrapperOptions options) throws SQLException {
 				st.setNull( name, getJdbcTypeCode() );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBind(PreparedStatement st, X value, int index, WrapperOptions options)
 					throws SQLException {
 				st.setString( index, getJavaType().unwrap( value, String.class, options ) );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBind(CallableStatement st, X value, String name, WrapperOptions options)
 					throws SQLException {
 				st.setString( name, getJavaType().unwrap( value, String.class, options ) );
@@ -110,19 +122,23 @@ public class OracleEnumJdbcType implements JdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> ValueExtractor<X> getExtractor(JavaType<X> javaType) {
 		return new BasicExtractor<>( javaType, this ) {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(ResultSet rs, int paramIndex, WrapperOptions options) throws SQLException {
 				return getJavaType().wrap( rs.getString( paramIndex ), options );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(CallableStatement statement, int index, WrapperOptions options) throws SQLException {
 				return getJavaType().wrap( statement.getString( index ), options );
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(CallableStatement statement, String name, WrapperOptions options) throws SQLException {
 				return getJavaType().wrap( statement.getString( name ), options );
 			}
@@ -130,6 +146,7 @@ public class OracleEnumJdbcType implements JdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addAuxiliaryDatabaseObjects(
 			JavaType<?> javaType,
 			BasicValueConverter<?, ?> valueConverter,
@@ -164,6 +181,7 @@ public class OracleEnumJdbcType implements JdbcType {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String[] getCreateEnumTypeCommand(String name, String[] values, Dialect dialect) {
 		return OracleDialect.getCreateVarcharEnumTypeCommand( name, values );
 	}

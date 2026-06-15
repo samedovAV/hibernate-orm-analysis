@@ -28,6 +28,8 @@ import static org.hibernate.boot.models.xml.internal.attr.CommonAttributeProcess
 import static org.hibernate.boot.models.xml.internal.attr.CommonAttributeProcessing.applyFetching;
 import static org.hibernate.boot.models.xml.internal.attr.CommonAttributeProcessing.applyOptimisticLock;
 import static org.hibernate.internal.util.NullnessHelper.coalesce;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -35,6 +37,7 @@ import static org.hibernate.internal.util.NullnessHelper.coalesce;
 public class ElementCollectionAttributeProcessing {
 
 	@SuppressWarnings("UnusedReturnValue")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static MutableMemberDetails processElementCollectionAttribute(
 			JaxbElementCollectionImpl jaxbElementCollection,
 			MutableClassDetails declarer,
@@ -99,6 +102,7 @@ public class ElementCollectionAttributeProcessing {
 		return memberDetails;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void applyElementCollectionElementType(
 			JaxbElementCollectionImpl jaxbElementCollection,
 			ElementCollectionJpaAnnotation elementCollectionUsage,
@@ -115,6 +119,7 @@ public class ElementCollectionAttributeProcessing {
 		applyTarget( jaxbElementCollection, xmlDocumentContext, memberDetails );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void applyTarget(
 			JaxbElementCollectionImpl jaxbElementCollection,
 			XmlDocumentContext xmlDocumentContext,
@@ -132,6 +137,7 @@ public class ElementCollectionAttributeProcessing {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void applyCollectionTable(
 			JaxbCollectionTableImpl jaxbCollectionTable,
 			MutableMemberDetails memberDetails,

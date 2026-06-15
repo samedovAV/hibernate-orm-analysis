@@ -15,6 +15,8 @@ import org.hibernate.query.sqm.tree.SqmCopyContext;
 import org.hibernate.query.sqm.tree.SqmRenderContext;
 import org.hibernate.spi.NavigablePath;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A plural-valued path selection produced by the plural collection functions
@@ -59,11 +61,13 @@ public class SqmPluralPartSelectionPath<C> extends SqmPluralValuedSimplePath<C> 
 		this.selectionType = new PluralAttributeCollectionType<>( javaType );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @jakarta.annotation.Nullable CollectionPart.Nature getSelectedPartNature() {
 		return selectedPartNature;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmPluralPartSelectionPath<C> copy(SqmCopyContext context) {
 		final var existing = context.getCopy( this );
 		if ( existing != null ) {
@@ -87,26 +91,31 @@ public class SqmPluralPartSelectionPath<C> extends SqmPluralValuedSimplePath<C> 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nonnull JavaType<C> getJavaTypeDescriptor() {
 		return javaType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nonnull JavaType<C> getNodeJavaType() {
 		return javaType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nonnull SqmBindableType<C> getExpressible() {
 		return selectionType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nonnull SqmBindableType<C> getNodeType() {
 		return selectionType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void appendHqlString(StringBuilder hql, SqmRenderContext context) {
 		if ( selectedPartNature == null ) {
 			super.appendHqlString( hql, context );

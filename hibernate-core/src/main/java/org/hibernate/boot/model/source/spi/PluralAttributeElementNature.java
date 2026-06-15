@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.boot.model.source.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Describes the nature of plural attribute elements in terms of relational implications.
@@ -44,10 +47,12 @@ public enum PluralAttributeElementNature {
 		this.isCascadeable = cascadeable;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isAssociation() {
 		return isAssociation;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCascadeable() {
 		return isCascadeable;
 	}

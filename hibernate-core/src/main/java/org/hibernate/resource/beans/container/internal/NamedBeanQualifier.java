@@ -5,6 +5,8 @@
 package org.hibernate.resource.beans.container.internal;
 
 import jakarta.inject.Named;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Used to locate named CDI beans.
@@ -20,6 +22,7 @@ public class NamedBeanQualifier extends jakarta.enterprise.util.AnnotationLitera
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String value() {
 		return name;
 	}

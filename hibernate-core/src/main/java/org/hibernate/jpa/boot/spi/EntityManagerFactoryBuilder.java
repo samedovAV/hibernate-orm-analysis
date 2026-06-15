@@ -9,6 +9,8 @@ import javax.sql.DataSource;
 
 import org.hibernate.boot.model.process.spi.ManagedResources;
 import org.hibernate.boot.spi.MetadataImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents a two-phase JPA bootstrap process for building a Hibernate {@link EntityManagerFactory}.
@@ -25,8 +27,10 @@ import org.hibernate.boot.spi.MetadataImplementor;
  * @author Scott Marlow
  */
 public interface EntityManagerFactoryBuilder {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ManagedResources getManagedResources();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MetadataImplementor metadata();
 
 	/**
@@ -37,6 +41,7 @@ public interface EntityManagerFactoryBuilder {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityManagerFactoryBuilder withValidatorFactory(Object validatorFactory);
 
 	/**
@@ -47,6 +52,7 @@ public interface EntityManagerFactoryBuilder {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityManagerFactoryBuilder withDataSource(DataSource dataSource);
 
 	/**
@@ -54,16 +60,19 @@ public interface EntityManagerFactoryBuilder {
 	 *
 	 * @return The built {@link EntityManagerFactory}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityManagerFactory build();
 
 	/**
 	 * Cancel the building processing.  This is used to signal the builder to release any resources in the case of
 	 * something having gone wrong during the bootstrap process
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void cancel();
 
 	/**
 	 * Perform an explicit schema generation (rather than an "auto" one) based on the
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void generateSchema();
 }

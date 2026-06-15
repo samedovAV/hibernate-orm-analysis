@@ -29,6 +29,8 @@ import org.hibernate.sql.results.jdbc.spi.RowProcessingState;
 import org.hibernate.type.descriptor.java.JavaType;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Andrea Boriero
@@ -80,21 +82,25 @@ public class CircularFetchImpl extends AbstractNonJoinedEntityFetch implements B
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigablePath getReferencedPath() {
 		return referencedNavigablePath;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchTiming getTiming() {
 		return timing;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasTableGroup() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResultAssembler<?> createAssembler(
 			InitializerParent<?> parent,
 			AssemblerCreationState creationState) {
@@ -105,6 +111,7 @@ public class CircularFetchImpl extends AbstractNonJoinedEntityFetch implements B
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityInitializer<?> createInitializer(InitializerParent<?> parent, AssemblerCreationState creationState) {
 		if ( timing == FetchTiming.IMMEDIATE ) {
 			return buildEntitySelectFetchInitializer(
@@ -131,6 +138,7 @@ public class CircularFetchImpl extends AbstractNonJoinedEntityFetch implements B
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected EntityInitializer<?> buildEntitySelectFetchInitializer(
 			InitializerParent<?> parent,
 			ToOneAttributeMapping fetchable,
@@ -153,6 +161,7 @@ public class CircularFetchImpl extends AbstractNonJoinedEntityFetch implements B
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected EntityInitializer<?> buildEntityDelayedFetchInitializer(
 			InitializerParent<?> parent,
 			NavigablePath referencedPath,
@@ -183,6 +192,7 @@ public class CircularFetchImpl extends AbstractNonJoinedEntityFetch implements B
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Object assemble(RowProcessingState rowProcessingState) {
 			final InitializerData data = initializer.getData( rowProcessingState );
 			final Initializer.State state = data.getState();
@@ -193,16 +203,19 @@ public class CircularFetchImpl extends AbstractNonJoinedEntityFetch implements B
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public void resolveState(RowProcessingState rowProcessingState) {
 			initializer.resolveState( rowProcessingState );
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public @Nullable Initializer<?> getInitializer() {
 			return initializer;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public <X> void forEachResultAssembler(BiConsumer<Initializer<?>, X> consumer, X arg) {
 			if ( initializer.isResultInitializer() ) {
 				consumer.accept( initializer, arg );
@@ -210,6 +223,7 @@ public class CircularFetchImpl extends AbstractNonJoinedEntityFetch implements B
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public JavaType<Object> getAssembledJavaType() {
 			return assembledJavaType;
 		}

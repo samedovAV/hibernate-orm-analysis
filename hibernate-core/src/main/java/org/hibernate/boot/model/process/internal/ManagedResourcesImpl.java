@@ -27,6 +27,8 @@ import static java.util.Collections.unmodifiableCollection;
 import static java.util.Collections.unmodifiableList;
 import static java.util.Collections.unmodifiableSet;
 import static org.hibernate.boot.BootLogging.BOOT_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -40,6 +42,7 @@ public class ManagedResourcesImpl implements ManagedResources {
 	private final List<Binding<? extends JaxbBindableMappingDescriptor>> mappingFileBindings = new ArrayList<>();
 	private Map<String, Class<?>> extraQueryImports;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static ManagedResourcesImpl baseline(MetadataSources sources, BootstrapContext bootstrapContext) {
 		final var managedResources = new ManagedResourcesImpl();
 		bootstrapContext.getAttributeConverters().forEach( managedResources::addAttributeConverterDefinition );
@@ -51,6 +54,7 @@ public class ManagedResourcesImpl implements ManagedResources {
 		return managedResources;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void handleXmlMappings(
 			MetadataSources sources,
 			ManagedResourcesImpl impl,
@@ -71,31 +75,37 @@ public class ManagedResourcesImpl implements ManagedResources {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Collection<ConverterDescriptor<?,?>> getAttributeConverterDescriptors() {
 		return unmodifiableCollection( attributeConverterDescriptorMap.values() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Collection<Class<?>> getAnnotatedClassReferences() {
 		return unmodifiableSet( annotatedClassReferences );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Collection<String> getAnnotatedClassNames() {
 		return unmodifiableSet( annotatedClassNames );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Collection<String> getAnnotatedPackageNames() {
 		return unmodifiableSet( annotatedPackageNames );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Collection<Binding<? extends JaxbBindableMappingDescriptor>> getXmlMappingBindings() {
 		return unmodifiableList( mappingFileBindings );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, Class<?>> getExtraQueryImports() {
 		return extraQueryImports;
 	}
@@ -105,26 +115,31 @@ public class ManagedResourcesImpl implements ManagedResources {
 	// @Internal
 
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addAttributeConverterDefinition(ConverterDescriptor<?,?> descriptor) {
 		attributeConverterDescriptorMap.put( descriptor.getAttributeConverterClass(), descriptor );
 	}
 
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addAnnotatedClassReference(Class<?> annotatedClassReference) {
 		annotatedClassReferences.add( annotatedClassReference );
 	}
 
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addAnnotatedClassName(String annotatedClassName) {
 		annotatedClassNames.add( annotatedClassName );
 	}
 
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addAnnotatedPackageName(String annotatedPackageName) {
 		annotatedPackageNames.add( annotatedPackageName );
 	}
 
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addXmlBinding(Binding<? extends JaxbBindableMappingDescriptor> binding) {
 		mappingFileBindings.add( binding );
 	}

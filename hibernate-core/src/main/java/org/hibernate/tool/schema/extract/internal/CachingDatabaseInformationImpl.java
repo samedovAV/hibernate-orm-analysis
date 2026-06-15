@@ -26,6 +26,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @since 7.2
@@ -44,6 +46,7 @@ public class CachingDatabaseInformationImpl extends DatabaseInformationImpl {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable TableInformation locateTableInformation(QualifiedTableName tableName) {
 		final var namespace = new Namespace.Name( tableName.getCatalogName(), tableName.getSchemaName() );
 		final var entry = namespaceCacheEntries.computeIfAbsent( namespace, k -> new NamespaceCacheEntry() );
@@ -56,6 +59,7 @@ public class CachingDatabaseInformationImpl extends DatabaseInformationImpl {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable PrimaryKeyInformation locatePrimaryKeyInformation(QualifiedTableName tableName) {
 		final var namespace = new Namespace.Name( tableName.getCatalogName(), tableName.getSchemaName() );
 		final var entry = namespaceCacheEntries.computeIfAbsent( namespace, k -> new NamespaceCacheEntry() );
@@ -68,6 +72,7 @@ public class CachingDatabaseInformationImpl extends DatabaseInformationImpl {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Iterable<ForeignKeyInformation> locateForeignKeyInformation(QualifiedTableName tableName) {
 		final var namespace = new Namespace.Name( tableName.getCatalogName(), tableName.getSchemaName() );
 		final var entry = namespaceCacheEntries.computeIfAbsent( namespace, k -> new NamespaceCacheEntry() );
@@ -82,6 +87,7 @@ public class CachingDatabaseInformationImpl extends DatabaseInformationImpl {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Iterable<IndexInformation> locateIndexesInformation(QualifiedTableName tableName) {
 		final var namespace = new Namespace.Name( tableName.getCatalogName(), tableName.getSchemaName() );
 		final var entry = namespaceCacheEntries.computeIfAbsent( namespace, k -> new NamespaceCacheEntry() );
@@ -96,6 +102,7 @@ public class CachingDatabaseInformationImpl extends DatabaseInformationImpl {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCaching() {
 		return true;
 	}

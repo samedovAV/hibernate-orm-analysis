@@ -5,6 +5,8 @@
 package org.hibernate.boot.registry.selector;
 
 import org.hibernate.service.JavaServiceLoadable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Responsible for providing the registrations of one or more strategy selectors.
@@ -27,5 +29,6 @@ public interface StrategyRegistrationProvider {
 	 *
 	 * @return All {@link StrategyRegistration}s
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Iterable<StrategyRegistration<?>> getStrategyRegistrations();
 }

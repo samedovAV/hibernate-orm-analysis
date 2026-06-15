@@ -8,6 +8,8 @@ import org.hibernate.Incubating;
 import org.hibernate.engine.jdbc.mutation.ParameterUsage;
 import org.hibernate.metamodel.mapping.JdbcMapping;
 import org.hibernate.sql.model.jdbc.JdbcValueDescriptor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Implementation of [JdbcValueDescriptor].
 ///
@@ -32,21 +34,25 @@ public class JdbcValueDescriptorImpl implements JdbcValueDescriptor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getColumnName() {
 		return normalizedColumnName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcMapping getJdbcMapping() {
 		return jdbcMapping;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ParameterUsage getUsage() {
 		return parameterUsage;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getJdbcPosition() {
 		return parameterIndex;
 	}

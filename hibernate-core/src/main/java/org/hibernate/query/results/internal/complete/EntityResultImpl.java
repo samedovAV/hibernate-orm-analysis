@@ -24,6 +24,8 @@ import org.hibernate.sql.results.graph.entity.internal.EntityAssembler;
 import org.hibernate.sql.results.graph.entity.internal.EntityInitializerImpl;
 import org.hibernate.sql.results.graph.internal.ImmutableFetchList;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -78,46 +80,55 @@ public class EntityResultImpl<E> implements EntityResult<E>, InitializerProducer
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigablePath getNavigablePath() {
 		return navigablePath;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityValuedModelPart getReferencedMappingType() {
 		return entityValuedModelPart;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityValuedModelPart getEntityValuedModelPart() {
 		return entityValuedModelPart;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getResultVariable() {
 		return resultAlias;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ImmutableFetchList getFetches() {
 		return fetches;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Fetch findFetch(Fetchable fetchable) {
 		return fetches.get( fetchable );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasJoinFetches() {
 		return hasJoinFetches;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean containsCollectionFetches() {
 		return containsCollectionFetches;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void collectValueIndexesToCache(BitSet valueIndexes) {
 		final var entityPersister = entityValuedModelPart.getEntityMappingType().getEntityPersister();
 		identifierFetch.collectValueIndexesToCache( valueIndexes );
@@ -133,11 +144,13 @@ public class EntityResultImpl<E> implements EntityResult<E>, InitializerProducer
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JavaType<E> getResultJavaType() {
 		return (JavaType<E>) EntityResult.super.getResultJavaType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityAssembler<E> createResultAssembler(InitializerParent<?> parent, AssemblerCreationState creationState) {
 		return new EntityAssembler<>( getResultJavaType(),
 				creationState.resolveInitializer( this, parent, this )
@@ -145,6 +158,7 @@ public class EntityResultImpl<E> implements EntityResult<E>, InitializerProducer
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Initializer<?> createInitializer(
 			EntityResultImpl<E> resultGraphNode,
 			InitializerParent<?> parent,
@@ -153,6 +167,7 @@ public class EntityResultImpl<E> implements EntityResult<E>, InitializerProducer
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Initializer<?> createInitializer(
 			InitializerParent<?> parent,
 			AssemblerCreationState creationState) {

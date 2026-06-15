@@ -13,6 +13,8 @@ import org.hibernate.query.sqm.tree.SqmTypedNode;
 import org.hibernate.sql.ast.tree.expression.JsonObjectAggUniqueKeysBehavior;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specifies if a {@code json_objectagg} may aggregate duplicate keys.
@@ -30,27 +32,32 @@ public enum SqmJsonObjectAggUniqueKeysBehavior implements SqmTypedNode<Object> {
 	WITHOUT;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable SqmBindableType<Object> getNodeType() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NodeBuilder nodeBuilder() {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmJsonObjectAggUniqueKeysBehavior copy(SqmCopyContext context) {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> X accept(SemanticQueryWalker<X> walker) {
 		//noinspection unchecked
 		return (X) (this == WITH ? JsonObjectAggUniqueKeysBehavior.WITH : JsonObjectAggUniqueKeysBehavior.WITHOUT);
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void appendHqlString(StringBuilder hql, SqmRenderContext context) {
 		if ( this == WITH ) {
 			hql.append( " with unique keys" );
@@ -61,11 +68,13 @@ public enum SqmJsonObjectAggUniqueKeysBehavior implements SqmTypedNode<Object> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCompatible(Object object) {
 		return this == object;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int cacheHashCode() {
 		return hashCode();
 	}

@@ -10,6 +10,8 @@ import jakarta.annotation.Nonnull;
 import org.hibernate.boot.registry.StandardServiceInitiator;
 import org.hibernate.service.spi.ServiceRegistryImplementor;
 import org.hibernate.sql.results.jdbc.spi.JdbcValuesMappingProducerProvider;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Initiator for {@link JdbcValuesMappingProducerProviderStandard}
@@ -24,6 +26,7 @@ public class JdbcValuesMappingProducerProviderInitiator
 	public static final JdbcValuesMappingProducerProviderInitiator INSTANCE = new JdbcValuesMappingProducerProviderInitiator();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcValuesMappingProducerProvider initiateService(
 			@Nonnull Map<String, Object> configurationValues,
 			@Nonnull ServiceRegistryImplementor registry) {
@@ -32,6 +35,7 @@ public class JdbcValuesMappingProducerProviderInitiator
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<JdbcValuesMappingProducerProvider> getServiceInitiated() {
 		return JdbcValuesMappingProducerProvider.class;
 	}

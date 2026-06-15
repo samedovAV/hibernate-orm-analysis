@@ -8,6 +8,8 @@ import org.hibernate.Incubating;
 import org.hibernate.query.QueryParameter;
 
 import jakarta.persistence.ParameterMode;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @apiNote Consider this contract (and its subcontracts) as incubating as we transition to 6.0 and SQM.
@@ -22,5 +24,6 @@ public interface ProcedureParameter<T> extends QueryParameter<T> {
 	 *
 	 * @return The parameter mode.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ParameterMode getMode();
 }

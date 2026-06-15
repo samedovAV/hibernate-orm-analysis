@@ -28,6 +28,8 @@ import org.hibernate.sql.results.graph.embeddable.EmbeddableValuedFetchable;
 
 import static org.hibernate.internal.util.NullnessUtil.castNonNull;
 import static org.hibernate.sql.results.graph.embeddable.AggregateEmbeddableResultGraphNode.determineAggregateValuesArrayPositions;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A Fetch for an embeddable that is mapped as aggregate e.g. STRUCT, JSON or XML.
@@ -99,42 +101,50 @@ public class AggregateEmbeddableFetchImpl extends AbstractFetchParent
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int[] getAggregateValuesArrayPositions() {
 		return aggregateValuesArrayPositions;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchTiming getTiming() {
 		return fetchTiming;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasTableGroup() {
 		return hasTableGroup;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchParent getFetchParent() {
 		return fetchParent;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableMappingType getFetchContainer() {
 		return fetchContainer;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableValuedModelPart getReferencedMappingContainer() {
 		return getFetchContainer().getEmbeddedValueMapping();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Fetchable getFetchedMapping() {
 		return getReferencedMappingContainer();
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public NavigablePath resolveNavigablePath(Fetchable fetchable) {
 		if ( fetchable instanceof TableGroupProducer ) {
 			for ( var tableGroupJoin : tableGroup.getTableGroupJoins() ) {
@@ -151,11 +161,13 @@ public class AggregateEmbeddableFetchImpl extends AbstractFetchParent
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableMappingType getReferencedMappingType() {
 		return getFetchContainer();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResultAssembler<?> createAssembler(
 			InitializerParent<?> parent,
 			AssemblerCreationState creationState) {
@@ -163,6 +175,7 @@ public class AggregateEmbeddableFetchImpl extends AbstractFetchParent
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public EmbeddableInitializer<?> createInitializer(
 			AggregateEmbeddableFetchImpl resultGraphNode,
 			InitializerParent<?> parent,
@@ -171,6 +184,7 @@ public class AggregateEmbeddableFetchImpl extends AbstractFetchParent
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableInitializer<?> createInitializer(
 			InitializerParent<?> parent,
 			AssemblerCreationState creationState) {
@@ -184,6 +198,7 @@ public class AggregateEmbeddableFetchImpl extends AbstractFetchParent
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchParent asFetchParent() {
 		return this;
 	}

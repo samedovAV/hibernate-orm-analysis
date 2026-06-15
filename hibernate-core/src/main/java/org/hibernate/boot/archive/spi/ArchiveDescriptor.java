@@ -9,6 +9,8 @@ import jakarta.annotation.Nullable;
 
 import java.net.URL;
 import java.util.function.Consumer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Models a logical archive, which might be
 ///   - a jar file
@@ -23,15 +25,18 @@ import java.util.function.Consumer;
 /// @author Emmanuel Bernard
 public interface ArchiveDescriptor {
 	/// The URL which is the base of this archive.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	URL getUrl();
 
 	/// Visit each entry in the archive which represents a class.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitClassEntries(Consumer<ArchiveEntry> entryConsumer);
 
 	/// Resolve the given path relative to this archive.
 	///
 	/// @implNote Typically used to find `META-INF/persistence.xml` and `META-INF/orm.xml` files.
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ArchiveEntry findEntry(String relativePath);
 
 	/// Resolve a named archive relative to `this` archive.
@@ -39,5 +44,6 @@ public interface ArchiveDescriptor {
 	/// using `<jar-file/>`.
 	///
 	/// @param jarFileReference The name given in `persistence.xml` via `<jar-file/>`
-	@Nonnull ArchiveDescriptor resolveJarFileReference(@Nonnull String jarFileReference);
+	@Nonnull @Prove(complexity = Complexity.O_1, n = "", count = {})
+	ArchiveDescriptor resolveJarFileReference(@Nonnull String jarFileReference);
 }

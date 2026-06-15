@@ -16,6 +16,8 @@ import org.hibernate.internal.util.collections.IdentitySet;
 
 import static org.hibernate.event.internal.EntityCopyLogging.EVENT_COPY_LOGGER;
 import static org.hibernate.pretty.MessageHelper.infoString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An {@link EntityCopyObserver} implementation that allows multiple representations of
@@ -45,6 +47,7 @@ public final class EntityCopyAllowedLoggedObserver implements EntityCopyObserver
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void entityCopyDetected(
 			Object managedEntity,
 			Object mergeEntity1,
@@ -77,6 +80,7 @@ public final class EntityCopyAllowedLoggedObserver implements EntityCopyObserver
 		detachedEntitiesForManaged.add( mergeEntity2 );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void incrementEntityNameCount(String entityName) {
 		Integer countBeforeIncrement = 0;
 		if ( countsByEntityName == null ) {
@@ -93,6 +97,7 @@ public final class EntityCopyAllowedLoggedObserver implements EntityCopyObserver
 		countsByEntityName.put( entityName, countBeforeIncrement + 1 );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void clear() {
 		if ( managedToMergeEntitiesXref != null ) {
 			managedToMergeEntitiesXref.clear();
@@ -105,6 +110,7 @@ public final class EntityCopyAllowedLoggedObserver implements EntityCopyObserver
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void topLevelMergeComplete(EventSource session) {
 		// Log the summary.
 		if ( countsByEntityName != null ) {
@@ -131,6 +137,7 @@ public final class EntityCopyAllowedLoggedObserver implements EntityCopyObserver
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private String renderList(Set<Object> mergeEntities, Object managedEntity) {
 		final var list = new StringBuilder();
 		boolean first = true;

@@ -14,6 +14,8 @@ import org.hibernate.type.Type;
 
 import static org.hibernate.event.internal.EventListenerLogging.EVENT_LISTENER_LOGGER;
 import static org.hibernate.pretty.MessageHelper.collectionInfoString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Abstract superclass of visitors that reattach collections
@@ -33,6 +35,7 @@ public abstract class ReattachVisitor extends ProxyVisitor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object processEntity(Object value, EntityType entityType) {
 		if ( value != null ) {
 			getSession().getPersistenceContext()
@@ -48,6 +51,7 @@ public abstract class ReattachVisitor extends ProxyVisitor {
 	 *
 	 * @return The entity's identifier.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	final Object getOwnerIdentifier() {
 		return ownerIdentifier;
 	}
@@ -57,6 +61,7 @@ public abstract class ReattachVisitor extends ProxyVisitor {
 	 *
 	 * @return The entity.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	final Object getOwner() {
 		return owner;
 	}
@@ -65,6 +70,7 @@ public abstract class ReattachVisitor extends ProxyVisitor {
 	 * {@inheritDoc}
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	Object processComponent(Object component, CompositeType componentType) throws HibernateException {
 		final Type[] types = componentType.getSubtypes();
 		if ( component == null ) {
@@ -84,6 +90,7 @@ public abstract class ReattachVisitor extends ProxyVisitor {
 	 * @param source The session from which the request originated.
 	 *
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void removeCollection(CollectionPersister role, Object collectionKey, EventSource source)
 			throws HibernateException {
 		if ( EVENT_LISTENER_LOGGER.isTraceEnabled() ) {
@@ -105,6 +112,7 @@ public abstract class ReattachVisitor extends ProxyVisitor {
 	 *
 	 * @return The value from the owner that identifies the grouping into the collection
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	final Object extractCollectionKeyFromOwner(CollectionPersister role) {
 		final var collectionType = role.getCollectionType();
 		return collectionType.useLHSPrimaryKey()

@@ -10,6 +10,8 @@ import java.util.List;
 import org.hibernate.property.access.spi.PropertyAccess;
 import org.hibernate.property.access.spi.PropertyAccessStrategy;
 import org.hibernate.usertype.CompositeUserType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Defines a strategy for accessing property values via a CompositeUserType.
@@ -33,6 +35,7 @@ public class PropertyAccessStrategyCompositeUserTypeImpl implements PropertyAcce
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PropertyAccess buildPropertyAccess(Class<?> containerJavaType, final String propertyName, boolean setterRequired) {
 		return new PropertyAccessCompositeUserTypeImpl( this, propertyName );
 	}

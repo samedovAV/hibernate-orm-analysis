@@ -11,6 +11,8 @@ import org.hibernate.metamodel.spi.MappingMetamodelImplementor;
 import org.hibernate.query.sqm.function.SqmFunctionRegistry;
 import org.hibernate.type.BindingContext;
 import org.hibernate.type.descriptor.WrapperOptions;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The "context" in which creation of SQL AST occurs. Provides
@@ -37,22 +39,26 @@ public interface SqlAstCreationContext extends BindingContext {
 	 * for that, probably.
 	 */
 	@Deprecated
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryImplementor getSessionFactory();
 
 	/**
 	 * The runtime {@link MappingMetamodelImplementor}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MappingMetamodelImplementor getMappingMetamodel();
 
 	/**
 	 * When creating {@link org.hibernate.sql.results.graph.Fetch} references,
 	 * defines a limit to how deep we should join for fetches.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Integer getMaximumFetchDepth();
 
 	/**
 	 * @see org.hibernate.jpa.spi.JpaCompliance#isJpaQueryComplianceEnabled
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isJpaQueryComplianceEnabled();
 
 	/**
@@ -60,11 +66,13 @@ public interface SqlAstCreationContext extends BindingContext {
 	 *
 	 * @param name The name of the fetch profile
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	FetchProfile getFetchProfile(String name);
 
 	/**
 	 * Obtain the {@link SqmFunctionRegistry}.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default SqmFunctionRegistry getSqmFunctionRegistry() {
 		return getSessionFactory().getQueryEngine().getSqmFunctionRegistry();
 	}
@@ -72,6 +80,7 @@ public interface SqlAstCreationContext extends BindingContext {
 	/**
 	 * Obtain the {@link Dialect}.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default Dialect getDialect() {
 		return getSessionFactory().getQueryEngine().getDialect();
 	}
@@ -80,6 +89,7 @@ public interface SqlAstCreationContext extends BindingContext {
 	 * Obtain the "incomplete" {@link WrapperOptions} that would be
 	 * returned by {@link SessionFactoryImplementor#getWrapperOptions()}.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default WrapperOptions getWrapperOptions() {
 		return getSessionFactory().getWrapperOptions();
 	}

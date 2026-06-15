@@ -8,6 +8,8 @@ import org.hibernate.internal.util.collections.BoundedConcurrentHashMap;
 
 import java.io.Serializable;
 import java.util.function.Function;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An implementation of {@link InternalCache} based on the deprecated {@link BoundedConcurrentHashMap}.
@@ -24,26 +26,31 @@ final class LegacyInternalCacheImplementation<K,V> implements InternalCache<K,V>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int heldElementsEstimate() {
 		return map.size();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public V get(K key) {
 		return map.get( key );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void put(K key, V value) {
 		map.put( key, value );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void clear() {
 		map.clear();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public V computeIfAbsent(K key, Function<? super K, ? extends V> mappingFunction) {
 		return map.computeIfAbsent( key, mappingFunction );
 	}

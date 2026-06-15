@@ -34,6 +34,8 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.UUID;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -101,14 +103,17 @@ public enum SimpleTypeInterpretation {
 		this.objectForm = objectForm;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getJavaType() {
 		return javaType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SimpleTypeInterpretation getObjectForm() {
 		return objectForm;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static SimpleTypeInterpretation interpret(String name) {
 		assert StringHelper.isNotEmpty( name );
 

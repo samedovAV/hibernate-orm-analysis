@@ -16,6 +16,8 @@ import org.hibernate.property.access.spi.PropertyAccessStrategy;
 import org.hibernate.property.access.spi.Setter;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * {@link PropertyAccess} implementation that deals with an underlying {@code Map}
@@ -36,16 +38,19 @@ public class PropertyAccessMapImpl implements PropertyAccess {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PropertyAccessStrategy getPropertyAccessStrategy() {
 		return strategy;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Getter getGetter() {
 		return getter;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Setter getSetter() {
 		return setter;
 	}
@@ -59,37 +64,44 @@ public class PropertyAccessMapImpl implements PropertyAccess {
 
 		@Override
 		@SuppressWarnings("rawtypes")
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public @Nullable Object get(Object owner) {
 			return ( (Map) owner ).get( propertyName );
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public @Nullable Object getForInsert(Object owner, Map<Object, Object> mergeMap, SharedSessionContractImplementor session) {
 			return get( owner );
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Class<?> getReturnTypeClass() {
 			// we just don't know...
 			return Object.class;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Type getReturnType() {
 			return Object.class;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public @Nullable Member getMember() {
 			return null;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public @Nullable String getMethodName() {
 			return null;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public @Nullable Method getMethod() {
 			return null;
 		}
@@ -104,16 +116,19 @@ public class PropertyAccessMapImpl implements PropertyAccess {
 
 		@Override
 		@SuppressWarnings({"unchecked", "rawtypes"})
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void set(Object target, @Nullable Object value) {
 			( (Map) target ).put( propertyName, value );
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public @Nullable String getMethodName() {
 			return null;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public @Nullable Method getMethod() {
 			return null;
 		}

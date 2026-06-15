@@ -12,9 +12,12 @@ import org.hibernate.generator.Generator;
 import org.hibernate.generator.GeneratorCreationContext;
 
 import static org.hibernate.internal.util.PrimitiveHelper.boxedType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @Internal
 public final class GeneratorTypeHelper {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void checkGeneratorGeneratedType(Generator generator, GeneratorCreationContext context) {
 		final var generatedType = generator.getGeneratedType();
 		if ( generatedType != null ) {
@@ -25,6 +28,7 @@ public final class GeneratorTypeHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void checkAssignable(Generator generator, Class<?> generatedType, GeneratorCreationContext context) {
 		final var attributeType = context.getType().getReturnedClass();
 		if ( attributeType != null
@@ -40,6 +44,7 @@ public final class GeneratorTypeHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static String attributePath(GeneratorCreationContext context) {
 		final var property = context.getProperty();
 		final var persistentClass = context.getPersistentClass();

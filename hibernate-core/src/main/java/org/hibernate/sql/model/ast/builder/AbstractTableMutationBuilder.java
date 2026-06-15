@@ -18,6 +18,8 @@ import org.hibernate.sql.model.ast.ColumnValueBinding;
 import org.hibernate.sql.model.ast.ColumnValueParameterList;
 import org.hibernate.sql.model.ast.MutatingTableReference;
 import org.hibernate.sql.model.ast.TableMutation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base support for TableMutationBuilder implementations
@@ -54,27 +56,33 @@ public abstract class AbstractTableMutationBuilder<M extends TableMutation<?>> i
 		this.parameters = new ColumnValueParameterList( mutatingTable, null, 0 );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected MutationTarget<?,?> getMutationTarget() {
 		return mutationTarget;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutatingTableReference getMutatingTable() {
 		return mutatingTable;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected ColumnValueParameterList getParameters() {
 		return parameters;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected SessionFactoryImplementor getSessionFactory() {
 		return sessionFactory;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected JdbcServices getJdbcServices() {
 		return sessionFactory.getJdbcServices();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void addColumn(
 			String columnWriteFragment,
 			SelectableMapping selectableMapping,
@@ -83,11 +91,13 @@ public abstract class AbstractTableMutationBuilder<M extends TableMutation<?>> i
 		list.add( valueBinding );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected ColumnValueBinding createValueBinding(
 			String columnWriteFragment,
 			SelectableMapping selectableMapping) {
 		return createValueBinding( columnWriteFragment, selectableMapping, ParameterUsage.SET );
 	}
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected ColumnValueBinding createValueBinding(
 			String customWriteExpression,
 			SelectableMapping selectableMapping,
@@ -102,6 +112,7 @@ public abstract class AbstractTableMutationBuilder<M extends TableMutation<?>> i
 	}
 
 	@SafeVarargs
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected final <T> List<T> combine(List<T> list1, List<T>... additionalLists) {
 		final ArrayList<T> combined = list1 == null
 				? new ArrayList<>()
@@ -120,6 +131,7 @@ public abstract class AbstractTableMutationBuilder<M extends TableMutation<?>> i
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "TableMutationBuilder( " + mutationType + " - '" + mutatingTable.getTableName() + "')";
 	}

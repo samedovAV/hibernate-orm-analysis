@@ -16,6 +16,8 @@ import org.hibernate.generator.values.GeneratedValues;
 import org.hibernate.metamodel.mapping.TemporalMapping;
 import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.sql.model.MutationOperationGroup;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Merge coordinator for
@@ -39,16 +41,19 @@ public class MergeCoordinatorTemporal extends AbstractTemporalUpdateCoordinator 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutationOperationGroup getStaticMutationOperationGroup() {
 		return endingUpdateGroup;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected BasicBatchKey getBatchKey() {
 		return batchKey;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public GeneratedValues update(
 			Object entity,
 			Object id,
@@ -82,6 +87,7 @@ public class MergeCoordinatorTemporal extends AbstractTemporalUpdateCoordinator 
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	boolean performRowEndUpdate(
 			Object entity,
 			Object id,
@@ -91,6 +97,7 @@ public class MergeCoordinatorTemporal extends AbstractTemporalUpdateCoordinator 
 		class Result implements OperationResultChecker {
 			private boolean updated;
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public boolean checkResult(PreparedStatementDetails statementDetails, int affectedRowCount, int batchPosition) {
 				updated = affectedRowCount > 0;
 				return !updated
@@ -112,11 +119,13 @@ public class MergeCoordinatorTemporal extends AbstractTemporalUpdateCoordinator 
 		return resultChecker.updated;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean currentRowExists(Object id, SharedSessionContractImplementor session) {
 		return entityPersister().getDatabaseSnapshot( id, session ) != null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void bindVersionRestriction(Object oldVersion, JdbcValueBindings jdbcValueBindings, String temporalTableName) {
 		final var versionMapping = entityPersister().getVersionMapping();
 		if ( versionMapping != null && entityPersister().optimisticLockStyle().isVersion() ) {
@@ -125,6 +134,7 @@ public class MergeCoordinatorTemporal extends AbstractTemporalUpdateCoordinator 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void forceVersionIncrement(
 			Object id,
 			Object currentVersion,

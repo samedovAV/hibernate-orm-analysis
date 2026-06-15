@@ -45,6 +45,8 @@ import static java.util.Collections.emptyMap;
 import static org.hibernate.boot.BootLogging.BOOT_LOGGER;
 import static org.hibernate.cfg.PersistenceSettings.SCANNER;
 import static org.hibernate.cfg.PersistenceSettings.SCANNER_ARCHIVE_INTERPRETER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Andrea Boriero
@@ -111,101 +113,121 @@ public class BootstrapContextImpl implements BootstrapContext {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public StandardServiceRegistry getServiceRegistry() {
 		return serviceRegistry;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutableJpaCompliance getJpaCompliance() {
 		return jpaCompliance;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TypeConfiguration getTypeConfiguration() {
 		return typeConfiguration;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ModelsContext getModelsContext() {
 		return modelsContext;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmFunctionRegistry getFunctionRegistry() {
 		return sqmFunctionRegistry;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BeanInstanceProducer getCustomTypeProducer() {
 		return beanInstanceProducer;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MetadataBuildingOptions getMetadataBuildingOptions() {
 		return metadataBuildingOptions;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ClassLoaderService getClassLoaderService() {
 		return classLoaderService;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ManagedBeanRegistry getManagedBeanRegistry() {
 		return managedBeanRegistry;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ConfigurationService getConfigurationService() {
 		return configurationService;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isJpaBootstrap() {
 		return isJpaBootstrap;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void markAsJpaBootstrap() {
 		isJpaBootstrap = true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public ClassLoader getJpaTempClassLoader() {
 		return classLoaderAccess.getJpaTempClassLoader();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ClassLoaderAccess getClassLoaderAccess() {
 		return classLoaderAccess;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ArchiveDescriptorFactory getArchiveDescriptorFactory() {
 		return archiveDescriptorFactory;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getScanning() {
 		return scanningSetting;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getJandexView() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, SqmFunctionDescriptor> getSqlFunctions() {
 		return sqlFunctionMap == null ? emptyMap() : sqlFunctionMap;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Collection<AuxiliaryDatabaseObject> getAuxiliaryDatabaseObjectList() {
 		return auxiliaryDatabaseObjectList == null ? emptyList() : auxiliaryDatabaseObjectList;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Collection<ConverterDescriptor<?, ?>> getAttributeConverters() {
 		return attributeConverterDescriptorMap != null
 				? attributeConverterDescriptorMap.values()
@@ -213,6 +235,7 @@ public class BootstrapContextImpl implements BootstrapContext {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Collection<CacheRegionDefinition> getCacheRegionDefinitions() {
 		return cacheRegionDefinitions == null ? emptyList() : cacheRegionDefinitions;
 	}
@@ -220,17 +243,20 @@ public class BootstrapContextImpl implements BootstrapContext {
 	private final Map<String,BasicType<?>> adHocBasicTypeRegistrations = new HashMap<>();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void registerAdHocBasicType(BasicType<?> basicType) {
 		adHocBasicTypeRegistrations.put( basicType.getName(), basicType );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> BasicType<T> resolveAdHocBasicType(String key) {
 		//noinspection unchecked
 		return (BasicType<T>) adHocBasicTypeRegistrations.get( key );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> BasicType<T> findAdHocBasicType(JavaType<T> javaType, JdbcType jdbcType) {
 		for ( BasicType<?> basicType : adHocBasicTypeRegistrations.values() ) {
 			if ( basicType.getClass() == BasicTypeImpl.class
@@ -245,6 +271,7 @@ public class BootstrapContextImpl implements BootstrapContext {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void release() {
 		classLoaderAccess.release();
 
@@ -269,6 +296,7 @@ public class BootstrapContextImpl implements BootstrapContext {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ManagedTypeRepresentationResolver getRepresentationStrategySelector() {
 		return representationStrategySelector;
 	}
@@ -277,6 +305,7 @@ public class BootstrapContextImpl implements BootstrapContext {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Mutations
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addAttributeConverterDescriptor(ConverterDescriptor<?,?> descriptor) {
 		if ( attributeConverterDescriptorMap == null ) {
 			attributeConverterDescriptorMap = new HashMap<>();
@@ -294,6 +323,7 @@ public class BootstrapContextImpl implements BootstrapContext {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void injectJpaTempClassLoader(ClassLoader classLoader) {
 		if ( BOOT_LOGGER.isTraceEnabled() && classLoader != getJpaTempClassLoader() ) {
 			BOOT_LOGGER.injectingJpaTempClassLoader( classLoader, getJpaTempClassLoader() );
@@ -301,6 +331,7 @@ public class BootstrapContextImpl implements BootstrapContext {
 		this.classLoaderAccess.injectTempClassLoader( classLoader );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void injectScanning(ScanningProvider scanningProvider) {
 		if ( scanningProvider != this.scanningSetting ) {
 			BOOT_LOGGER.injectingScanner( scanningProvider, this.scanningSetting );
@@ -309,6 +340,7 @@ public class BootstrapContextImpl implements BootstrapContext {
 
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void injectArchiveDescriptorFactory(ArchiveDescriptorFactory factory) {
 		if ( factory != archiveDescriptorFactory ) {
 			BOOT_LOGGER.injectingArchiveDescriptorFactory( factory, archiveDescriptorFactory );
@@ -316,6 +348,7 @@ public class BootstrapContextImpl implements BootstrapContext {
 		this.archiveDescriptorFactory = factory;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addSqlFunction(String functionName, SqmFunctionDescriptor function) {
 		if ( sqlFunctionMap == null ) {
 			sqlFunctionMap = new HashMap<>();
@@ -323,6 +356,7 @@ public class BootstrapContextImpl implements BootstrapContext {
 		sqlFunctionMap.put( functionName, function );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addAuxiliaryDatabaseObject(AuxiliaryDatabaseObject auxiliaryDatabaseObject) {
 		if ( auxiliaryDatabaseObjectList == null ) {
 			auxiliaryDatabaseObjectList = new ArrayList<>();
@@ -331,6 +365,7 @@ public class BootstrapContextImpl implements BootstrapContext {
 	}
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addCacheRegionDefinition(CacheRegionDefinition cacheRegionDefinition) {
 		if ( cacheRegionDefinitions == null ) {
 			cacheRegionDefinitions = new ArrayList<>();
@@ -338,6 +373,7 @@ public class BootstrapContextImpl implements BootstrapContext {
 		cacheRegionDefinitions.add( cacheRegionDefinition );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static ModelsContext createModelBuildingContext(
 			ClassLoaderService classLoaderService,
 			ConfigurationService configService) {

@@ -10,6 +10,8 @@ import org.hibernate.type.descriptor.WrapperOptions;
 import org.hibernate.type.descriptor.java.AbstractClassJavaType;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
 import org.hibernate.type.descriptor.jdbc.JdbcTypeIndicators;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Descriptor for {@link Map.Entry}.
@@ -27,16 +29,19 @@ public class MapEntryJavaType extends AbstractClassJavaType<Map.Entry> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcType getRecommendedJdbcType(JdbcTypeIndicators context) {
 		throw new UnsupportedOperationException( "Unsupported attempt to resolve JDBC type for Map.Entry" );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> X unwrap(Map.Entry value, Class<X> type, WrapperOptions options) {
 		throw new UnsupportedOperationException( "Unsupported attempt to unwrap Map.Entry value" );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> Map.Entry wrap(X value, WrapperOptions options) {
 		throw new UnsupportedOperationException( "Unsupported attempt to wrap Map.Entry value" );
 	}

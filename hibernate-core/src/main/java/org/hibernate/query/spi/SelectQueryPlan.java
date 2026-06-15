@@ -11,6 +11,8 @@ import org.hibernate.ScrollMode;
 import org.hibernate.ScrollableResults;
 import org.hibernate.query.Query;
 import org.hibernate.sql.results.spi.ResultsConsumer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * General contract for performing execution of a query returning results.  These
@@ -37,15 +39,18 @@ public interface SelectQueryPlan<R> extends QueryPlan {
 	 *
 	 * @since 6.4
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T executeQuery(DomainQueryExecutionContext executionContext, ResultsConsumer<T, R> resultsConsumer);
 	/**
 	 * Perform (execute) the query returning a List
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<R> performList(DomainQueryExecutionContext executionContext);
 
 	/**
 	 * Perform (execute) the query returning a ScrollableResults
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ScrollableResults<R> performScroll(ScrollMode scrollMode, DomainQueryExecutionContext executionContext);
 
 }

@@ -25,6 +25,8 @@ import org.hibernate.internal.util.collections.IdentitySet;
 import static java.util.Collections.emptySet;
 import static org.hibernate.action.internal.ActionLogging.ACTION_LOGGER;
 import static org.hibernate.pretty.MessageHelper.infoString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Tracks unresolved entity insert actions.
@@ -55,6 +57,7 @@ public class UnresolvedEntityInsertActions {
 	 *
 	 * @throws IllegalArgumentException if {@code dependencies is null or empty}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addUnresolvedEntityInsertAction(AbstractEntityInsertAction insert, NonNullableTransientDependencies dependencies) {
 		if ( dependencies == null || dependencies.isEmpty() ) {
 			throw new IllegalArgumentException(
@@ -75,6 +78,7 @@ public class UnresolvedEntityInsertActions {
 	 * Returns the unresolved insert actions.
 	 * @return the unresolved insert actions.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Iterable<AbstractEntityInsertAction> getDependentEntityInsertActions() {
 		return dependenciesByAction.keySet();
 	}
@@ -91,6 +95,7 @@ public class UnresolvedEntityInsertActions {
 	 * return the entity name and property value for the first unresolved
 	 * entity insert action.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void checkNoUnresolvedActionsAfterOperation() throws PropertyValueException {
 		if ( isEmpty() ) {
 			ACTION_LOGGER.noEntityInsertActionsHaveNonNullableTransientDependencies();
@@ -120,6 +125,7 @@ public class UnresolvedEntityInsertActions {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N3, n = "", count = {})
 	private void logCannotResolveNonNullableTransientDependencies(SharedSessionContractImplementor session) {
 		for ( var entry : dependentActionsByTransientEntity.entrySet() ) {
 			final Object transientEntity = entry.getKey();
@@ -153,10 +159,12 @@ public class UnresolvedEntityInsertActions {
 	 * Returns true if there are no unresolved entity insert actions.
 	 * @return true, if there are no unresolved entity insert actions; false, otherwise.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isEmpty() {
 		return dependenciesByAction.isEmpty();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void addDependenciesByTransientEntity(AbstractEntityInsertAction insert, NonNullableTransientDependencies dependencies) {
 		for ( Object transientEntity : dependencies.getNonNullableTransientEntities() ) {
 			var dependentActions = dependentActionsByTransientEntity.get( transientEntity );
@@ -178,6 +186,7 @@ public class UnresolvedEntityInsertActions {
 	 *
 	 * @throws IllegalArgumentException if {@code managedEntity} did not have managed or read-only status.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Set<AbstractEntityInsertAction> resolveDependentActions(Object managedEntity, SessionImplementor session) {
 		final var entityEntry = session.getPersistenceContextInternal().getEntry( managedEntity );
 		final Status status = entityEntry.getStatus();
@@ -239,12 +248,14 @@ public class UnresolvedEntityInsertActions {
 	/**
 	 * Clear this {@link UnresolvedEntityInsertActions}.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void clear() {
 		dependenciesByAction.clear();
 		dependentActionsByTransientEntity.clear();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public String toString() {
 		final var representation = new StringBuilder( getClass().getSimpleName() ).append( '[' );
 		for ( var entry : dependenciesByAction.entrySet() ) {
@@ -265,6 +276,7 @@ public class UnresolvedEntityInsertActions {
 	 * @param oos - the output stream
 	 * @throws IOException if there is an error writing this object to the output stream.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void serialize(ObjectOutputStream oos) throws IOException {
 		final int queueSize = dependenciesByAction.size();
 		ACTION_LOGGER.serializingUnresolvedInsertEntries(queueSize);
@@ -284,6 +296,7 @@ public class UnresolvedEntityInsertActions {
 	 * @throws IOException if there is an error writing this object to the output stream.
 	 * @throws ClassNotFoundException if there is a class that cannot be loaded.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static UnresolvedEntityInsertActions deserialize(
 			ObjectInputStream ois,
 			EventSource session) throws IOException, ClassNotFoundException {

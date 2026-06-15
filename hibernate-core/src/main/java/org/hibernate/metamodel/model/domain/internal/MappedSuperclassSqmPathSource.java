@@ -14,6 +14,8 @@ import org.hibernate.query.sqm.tree.domain.SqmPath;
 import org.hibernate.query.sqm.tree.domain.SqmPluralPartJoin;
 import org.hibernate.query.sqm.tree.from.SqmFrom;
 import org.hibernate.query.sqm.tree.domain.SqmMappedSuperclassDomainType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -34,21 +36,25 @@ public class MappedSuperclassSqmPathSource<J> extends AbstractSqmPathSource<J> i
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmMappedSuperclassDomainType<J> getPathType() {
 		return domainType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nullable SqmPathSource<?> findSubPathSource(String name) {
 		return getPathType().findSubPathSource( name );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isGeneric() {
 		return isGeneric;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPath<J> createSqmPath(SqmPath<?> lhs, @Nullable SqmPathSource<?> intermediatePathSource) {
 		return new SqmEntityValuedSimplePath<>(
 				PathHelper.append( lhs, this, intermediatePathSource ),
@@ -59,6 +65,7 @@ public class MappedSuperclassSqmPathSource<J> extends AbstractSqmPathSource<J> i
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPluralPartJoin<Object, J> createSqmJoin(
 			SqmFrom<?, Object> lhs,
 			SqmJoinType joinType,
@@ -75,6 +82,7 @@ public class MappedSuperclassSqmPathSource<J> extends AbstractSqmPathSource<J> i
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return getPathName();
 	}

@@ -16,6 +16,8 @@ import jakarta.annotation.Nullable;
 
 import static org.hibernate.internal.util.ReflectHelper.ensureAccessibility;
 import static org.hibernate.internal.util.collections.CollectionHelper.mapOfSize;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -54,26 +56,31 @@ public class EnumeratedValueConverter<E extends Enum<E>,R> implements BasicValue
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Set<R> getRelationalValueSet() {
 		return relationalToEnumMap.keySet();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable E toDomainValue(@Nullable R relationalForm) {
 		return relationalForm == null ? null : relationalToEnumMap.get( relationalForm );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable R toRelationalValue(@Nullable E domainForm) {
 		return domainForm == null ? null : enumToRelationalMap.get( domainForm );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<E> getDomainJavaType() {
 		return enumJavaType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<R> getRelationalJavaType() {
 		return relationalJavaType;
 	}

@@ -5,8 +5,11 @@
 package org.hibernate.bytecode.enhance.spi;
 
 import java.lang.annotation.Annotation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public interface UnloadedField {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean hasAnnotation(Class<? extends Annotation> annotationType);
 }

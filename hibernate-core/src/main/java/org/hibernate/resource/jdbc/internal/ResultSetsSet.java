@@ -7,6 +7,8 @@ package org.hibernate.resource.jdbc.internal;
 import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.function.Consumer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Similar goal as in {@link ResultsetsTrackingContainer}: make sure to
@@ -25,6 +27,7 @@ final class ResultSetsSet {
 	//HashSet.
 	private HashMap<ResultSet,ResultSet> more;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void forEachResultSet(final Consumer<ResultSet> action) {
 		if ( first != null ) {
 			action.accept( first );
@@ -34,6 +37,7 @@ final class ResultSetsSet {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void storeResultSet(final ResultSet resultSet) {
 		if ( first == null ) {
 			//no need for further checks as we guarantee "more" to be empty in this case
@@ -50,10 +54,12 @@ final class ResultSetsSet {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isEmpty() {
 		return first == null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ResultSet removeResultSet(final ResultSet resultSet) {
 		if ( first == resultSet ) {
 			ResultSet v = first;
@@ -71,6 +77,7 @@ final class ResultSetsSet {
 
 	//When slot "first" is made available, make sure to move an entry from "more" into that field.
 	//Any entry will do, so we take the first one if there's any.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void scaleDown() {
 		if ( more != null && !more.isEmpty() ) {
 			var iterator = more.entrySet().iterator();
@@ -81,6 +88,7 @@ final class ResultSetsSet {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	void clear() {
 		first = null;
 		if ( more != null ) {

@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.boot.model.source.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Describes source information about the key of a persistent map.
@@ -20,5 +23,6 @@ public interface PluralAttributeMapKeySource extends PluralAttributeIndexSource 
 		ANY
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Nature getMapKeyNature();
 }

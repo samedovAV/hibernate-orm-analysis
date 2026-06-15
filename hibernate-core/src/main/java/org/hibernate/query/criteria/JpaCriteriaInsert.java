@@ -11,6 +11,8 @@ import org.hibernate.Incubating;
 
 import jakarta.persistence.criteria.Path;
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The commonalities between insert-select and insert-values.
@@ -24,30 +26,35 @@ public interface JpaCriteriaInsert<T> extends JpaManipulationCriteria<T> {
 	 * Returns the insertion target paths.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<? extends JpaPath<?>> getInsertionTargetPaths();
 
 	/**
 	 * Sets the insertion target paths.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaCriteriaInsert<T> setInsertionTargetPaths(@Nonnull Path<?>... insertionTargetPaths);
 
 	/**
 	 * Sets the insertion target paths.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaCriteriaInsert<T> setInsertionTargetPaths(@Nonnull List<? extends Path<?>> insertionTargetPaths);
 
 	/**
 	 * Sets the conflict clause that defines what happens when an insert violates a unique constraint.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaConflictClause<T> onConflict();
 
 	/**
 	 * Sets the conflict clause that defines what happens when an insert violates a unique constraint.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaCriteriaInsert<T> onConflict(@Nullable JpaConflictClause<T> conflictClause);
 
 	/**
@@ -55,6 +62,7 @@ public interface JpaCriteriaInsert<T> extends JpaManipulationCriteria<T> {
 	 * or {@code null} if there is none.
 	 */
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaConflictClause<T> getConflictClause();
 
 	/**
@@ -64,5 +72,6 @@ public interface JpaCriteriaInsert<T> extends JpaManipulationCriteria<T> {
 	 * @see JpaCriteriaInsert#onConflict(JpaConflictClause)
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaConflictClause<T> createConflictClause();
 }

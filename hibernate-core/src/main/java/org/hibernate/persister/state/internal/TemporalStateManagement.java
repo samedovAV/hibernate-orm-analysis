@@ -31,6 +31,8 @@ import org.hibernate.persister.state.spi.StateManagementGraphIntegration;
 import org.hibernate.temporal.TemporalTableStrategy;
 
 import static org.hibernate.metamodel.mapping.internal.MappingModelCreationHelper.getTableIdentifierExpression;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * State management for temporal entities and collections in the
@@ -46,11 +48,13 @@ public final class TemporalStateManagement extends AbstractStateManagement {
 
 	private final StateManagementGraphIntegration graphIntegration = new StateManagementGraphIntegration() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public EntityMutationPlanContributor createEntityMutationPlanContributor(EntityPersister persister) {
 			return new TemporalEntityMutationPlanContributor( persister, persister.getFactory() );
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public CollectionMutationPlanContributor createCollectionMutationPlanContributor(CollectionPersister persister) {
 			return new TemporalCollectionMutationPlanContributor();
 		}
@@ -64,6 +68,7 @@ public final class TemporalStateManagement extends AbstractStateManagement {
 	// Graph ActionQueue integration
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public StateManagementGraphIntegration getGraphIntegration() {
 		return graphIntegration;
 	}
@@ -73,26 +78,31 @@ public final class TemporalStateManagement extends AbstractStateManagement {
 	// Legacy ActionQueue integration
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public InsertCoordinator createInsertCoordinator(EntityPersister persister) {
 		return new InsertCoordinatorTemporal( persister, persister.getFactory() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public UpdateCoordinator createUpdateCoordinator(EntityPersister persister) {
 		return new UpdateCoordinatorTemporal( persister, persister.getFactory() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public UpdateCoordinator createMergeCoordinator(EntityPersister persister) {
 		return new MergeCoordinatorTemporal( persister, persister.getFactory() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DeleteCoordinator createDeleteCoordinator(EntityPersister persister) {
 		return new DeleteCoordinatorTemporal( persister, persister.getFactory() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public UpdateRowsCoordinator createUpdateRowsCoordinator(CollectionPersister persister) {
 		if ( !isUpdatePossible( persister ) ) {
 			return new UpdateRowsCoordinatorNoOp( resolveMutationTarget( persister ) );
@@ -110,6 +120,7 @@ public final class TemporalStateManagement extends AbstractStateManagement {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TemporalMapping createAuxiliaryMapping(
 			EntityPersister persister,
 			RootClass rootClass,
@@ -123,6 +134,7 @@ public final class TemporalStateManagement extends AbstractStateManagement {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TemporalMapping createAuxiliaryMapping(
 			PluralAttributeMapping pluralAttributeMapping,
 			Collection bootDescriptor,

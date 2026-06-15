@@ -13,6 +13,8 @@ import org.hibernate.generator.values.GeneratedValues;
 import org.hibernate.metamodel.mapping.TemporalMapping;
 import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.sql.model.MutationOperationGroup;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -39,16 +41,19 @@ public class UpdateCoordinatorTemporal extends AbstractTemporalUpdateCoordinator
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutationOperationGroup getStaticMutationOperationGroup() {
 		return endingUpdateGroup;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected BasicBatchKey getBatchKey() {
 		return batchKey;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public GeneratedValues update(
 			Object entity,
 			Object id,
@@ -93,6 +98,7 @@ public class UpdateCoordinatorTemporal extends AbstractTemporalUpdateCoordinator
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void bindVersionRestriction(Object oldVersion, JdbcValueBindings jdbcValueBindings, String temporalTableName) {
 		final var versionMapping = entityPersister().getVersionMapping();
 		if ( versionMapping != null && entityPersister().optimisticLockStyle().isVersion() ) {
@@ -101,6 +107,7 @@ public class UpdateCoordinatorTemporal extends AbstractTemporalUpdateCoordinator
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void forceVersionIncrement(
 			Object id,
 			Object currentVersion,

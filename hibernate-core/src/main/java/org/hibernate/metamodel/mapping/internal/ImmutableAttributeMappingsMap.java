@@ -11,6 +11,8 @@ import java.util.function.Consumer;
 
 import org.hibernate.metamodel.mapping.AttributeMapping;
 import org.hibernate.metamodel.mapping.AttributeMappingsMap;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public final class ImmutableAttributeMappingsMap implements AttributeMappingsMap {
 
@@ -38,23 +40,27 @@ public final class ImmutableAttributeMappingsMap implements AttributeMappingsMap
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void forEachValue(final Consumer<? super AttributeMapping> action) {
 		for ( var attributeMapping : orderedValues ) {
 			action.accept( attributeMapping );
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int size() {
 		return orderedValues.length;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public AttributeMapping get(final String name) {
 		final Integer integer = mapStore.get( name );
 		return integer == null ? null : orderedValues[integer];
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Iterable<AttributeMapping> valueIterator() {
 		return new AttributeMappingIterable();
 	}
@@ -62,6 +68,7 @@ public final class ImmutableAttributeMappingsMap implements AttributeMappingsMap
 	private final class AttributeMappingIterable implements Iterable<AttributeMapping> {
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Iterator<AttributeMapping> iterator() {
 			return new AttributeMappingIterator();
 		}
@@ -73,11 +80,13 @@ public final class ImmutableAttributeMappingsMap implements AttributeMappingsMap
 		private int idx = 0;
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean hasNext() {
 			return idx < ImmutableAttributeMappingsMap.this.orderedValues.length;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public AttributeMapping next() {
 			return ImmutableAttributeMappingsMap.this.orderedValues[ idx++ ];
 		}

@@ -8,6 +8,8 @@ import org.hibernate.tool.schema.spi.CommandAcceptanceException;
 import org.hibernate.tool.schema.spi.ExceptionHandler;
 
 import org.jboss.logging.Logger;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -21,6 +23,7 @@ public class ExceptionHandlerLoggedImpl implements ExceptionHandler {
 	public static final ExceptionHandlerLoggedImpl INSTANCE = new ExceptionHandlerLoggedImpl();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handleException(CommandAcceptanceException exception) {
 		LOG.warnf(
 				exception,

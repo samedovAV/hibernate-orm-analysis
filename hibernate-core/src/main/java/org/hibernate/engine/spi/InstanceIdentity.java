@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.engine.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Contract for classes whose instances are uniquely identifiable through a simple {@code int} value,
@@ -14,6 +17,7 @@ public interface InstanceIdentity {
 	 *
 	 * @return the unique instance identifier
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int $$_hibernate_getInstanceId();
 
 	/**
@@ -21,5 +25,6 @@ public interface InstanceIdentity {
 	 *
 	 * @param instanceId the unique identifier value to set
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void $$_hibernate_setInstanceId(int instanceId);
 }

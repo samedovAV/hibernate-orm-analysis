@@ -11,6 +11,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static org.hibernate.internal.util.StringHelper.decapitalize;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Utility for helping deal with {@link BeanInfo}.
@@ -41,16 +43,19 @@ public class BeanInfoHelper {
 	 */
 	private static final ClassValue<BeanInfo> BEAN_INFO_CACHE = new ClassValue<>() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		protected BeanInfo computeValue(final Class<?> type) {
 			return computeBeanInfo( type, null );
 		}
 	};
 
 	public interface BeanInfoDelegate {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void processBeanInfo(BeanInfo beanInfo) throws Exception;
 	}
 
 	public interface ReturningBeanInfoDelegate<T> {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		T processBeanInfo(BeanInfo beanInfo) throws Exception;
 	}
 
@@ -66,6 +71,7 @@ public class BeanInfoHelper {
 		this.stopClass = stopClass;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applyToBeanInfo(Object bean, BeanInfoDelegate delegate) {
 		if ( ! beanClass.isInstance( bean ) ) {
 			throw new BeanIntrospectionException( "Bean [" + bean + "] was not of declared bean type [" + beanClass.getName() + "]" );
@@ -74,10 +80,12 @@ public class BeanInfoHelper {
 		visitBeanInfo( beanClass, stopClass, delegate );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void visitBeanInfo(Class<?> beanClass, BeanInfoDelegate delegate) {
 		visitBeanInfo( beanClass, Object.class, delegate );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void visitBeanInfo(Class<?> beanClass, Class<?> stopClass, BeanInfoDelegate delegate) {
 		try {
 			final BeanInfo info = getBeanInfo( beanClass, stopClass );
@@ -102,10 +110,12 @@ public class BeanInfoHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static <T> T visitBeanInfo(Class<?> beanClass, ReturningBeanInfoDelegate<T> delegate) {
 		return visitBeanInfo( beanClass, null, delegate );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <T> T visitBeanInfo(Class<?> beanClass, Class<?> stopClass, ReturningBeanInfoDelegate<T> delegate) {
 		try {
 			final BeanInfo info = getBeanInfo( beanClass, stopClass );
@@ -143,6 +153,7 @@ public class BeanInfoHelper {
 	 *                  May be null.
 	 * @return A BeanInfo object describing the target bean
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static BeanInfo getBeanInfo(final Class<?> beanClass, final Class<?> stopClass) {
 		// Use cache for the common case (stopClass == null means introspect up to Object)
 		if ( stopClass == null ) {
@@ -152,6 +163,7 @@ public class BeanInfoHelper {
 		return computeBeanInfo( beanClass, stopClass );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static BeanInfo computeBeanInfo(final Class<?> beanClass, final Class<?> stopClass) {
 		// LinkedHashMap for reproducible ordering (important for build-time code)
 		final Map<String, PropertyDescriptor> properties = new LinkedHashMap<>();
@@ -178,11 +190,13 @@ public class BeanInfoHelper {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public PropertyDescriptor[] getPropertyDescriptors() {
 			return propertyDescriptors;
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static void introspectClass(final Class<?> clazz, final Map<String, PropertyDescriptor> properties) {
 		for ( final Method method : clazz.getDeclaredMethods() ) {
 			final int modifiers = method.getModifiers();

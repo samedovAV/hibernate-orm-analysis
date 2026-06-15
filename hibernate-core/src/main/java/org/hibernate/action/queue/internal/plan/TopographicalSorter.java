@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Performs topological sorting on a dependency graph to determine the
 /// correct execution order for mutation operations using Kahn's Algorithm
@@ -19,6 +21,7 @@ import java.util.PriorityQueue;
 ///
 /// @author Steve Ebersole
 public class TopographicalSorter {
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public List<GroupNode> sort(Graph graph) {
 		// Initialize all nodes with in-degree 0
 		final int[] indegree = new int[graph.nodes().size()];
@@ -66,6 +69,7 @@ public class TopographicalSorter {
 		return order;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static int nodeIndex(GroupNode node) {
 		return Math.toIntExact( node.stableId() - 1 );
 	}

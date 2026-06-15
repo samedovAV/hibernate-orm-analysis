@@ -18,6 +18,8 @@ import org.hibernate.type.BasicType;
 import org.hibernate.type.spi.TypeConfiguration;
 
 import static org.hibernate.sql.ast.spi.SqlExpressionResolver.createColumnReferenceKey;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * ResultBuilder for handling {@link NamedNativeQuery#resultClass()} when the
@@ -33,6 +35,7 @@ public class ImplicitResultClassBuilder implements ResultBuilder {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResult<?> buildResult(
 			JdbcValuesMetadata jdbcResultsMetadata,
 			int resultPosition,
@@ -57,6 +60,7 @@ public class ImplicitResultClassBuilder implements ResultBuilder {
 		return new BasicResult<>( selection.getValuesArrayPosition(), columnName, basicType );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static SqlSelection sqlSelection(
 			int resultPosition,
 			SqlExpressionResolver sqlExpressionResolver,
@@ -75,11 +79,13 @@ public class ImplicitResultClassBuilder implements ResultBuilder {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getJavaType() {
 		return suppliedResultClass;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ResultBuilder cacheKeyInstance() {
 		return this;
 	}

@@ -6,6 +6,8 @@ package org.hibernate.query.common;
 
 import org.hibernate.dialect.Dialect;
 import org.hibernate.query.SemanticException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A temporal field type which can occur as an argument
@@ -170,6 +172,7 @@ public enum TemporalUnit {
 	 */
 	NATIVE;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String conversionFactor(TemporalUnit unit, Dialect dialect) {
 
 		if ( unit == this ) {
@@ -197,6 +200,7 @@ public enum TemporalUnit {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String conversionFactorFull(TemporalUnit unit, Dialect dialect) {
 
 		if ( unit == this ) {
@@ -228,6 +232,7 @@ public enum TemporalUnit {
 	 * The conversion factor required to convert this
 	 * unit to its {@link #normalized()} unit.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private long normalizationFactor(Dialect dialect) {
 		long factor = 1;
 		switch (this) {
@@ -270,6 +275,7 @@ public enum TemporalUnit {
 	 * @param factor the conversion factor
 	 * @return a string to inject into the SQL expression
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static String factorAsString(long factor) {
 		String string = String.valueOf(factor);
 		int len = string.length();
@@ -285,6 +291,7 @@ public enum TemporalUnit {
 	/**
 	 * Is this unit extractable from a date?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isDateUnit() {
 		switch (this) {
 			case DAY:
@@ -306,6 +313,7 @@ public enum TemporalUnit {
 	/**
 	 * Is this unit extractable from a time?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isTimeUnit() {
 		switch (this) {
 			case HOUR:
@@ -330,6 +338,7 @@ public enum TemporalUnit {
 	 * duration: "physical" durations, and "calendar"
 	 * durations.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TemporalUnit normalized() {
 		switch (this) {
 			case NANOSECOND:
@@ -351,6 +360,7 @@ public enum TemporalUnit {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String toString() {
 		return super.toString().toLowerCase();
 	}

@@ -41,6 +41,8 @@ import static java.util.Collections.addAll;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.emptySet;
 import static org.hibernate.boot.BootLogging.BOOT_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Entry point for working with sources of O/R mapping metadata, either
@@ -111,11 +113,13 @@ public class MetadataSources implements Serializable {
 		this.xmlMappingBinderAccess = xmlMappingBinderAccess;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected static boolean isExpectedServiceRegistryType(ServiceRegistry serviceRegistry) {
 		return serviceRegistry instanceof BootstrapServiceRegistry
 			|| serviceRegistry instanceof StandardServiceRegistry;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public XmlMappingBinderAccess getXmlMappingBinderAccess() {
 		if ( xmlMappingBinderAccess == null ) {
 			xmlMappingBinderAccess = new XmlMappingBinderAccess( serviceRegistry );
@@ -123,30 +127,37 @@ public class MetadataSources implements Serializable {
 		return xmlMappingBinderAccess;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<Binding<JaxbEntityMappingsImpl>> getMappingXmlBindings() {
 		return mappingXmlBindings == null ? emptyList() : mappingXmlBindings;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<Binding<JaxbHbmHibernateMapping>> getHbmXmlBindings() {
 		return hbmXmlBindings == null ? emptyList() : hbmXmlBindings;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Collection<String> getAnnotatedPackages() {
 		return annotatedPackages == null ? emptySet() : annotatedPackages;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Collection<Class<?>> getAnnotatedClasses() {
 		return annotatedClasses == null ? emptySet() : annotatedClasses;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Collection<String> getAnnotatedClassNames() {
 		return annotatedClassNames == null ? emptySet() : annotatedClassNames;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String,Class<?>> getExtraQueryImports() {
 		return extraQueryImports;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ServiceRegistry getServiceRegistry() {
 		return serviceRegistry;
 	}
@@ -156,6 +167,7 @@ public class MetadataSources implements Serializable {
 	 *
 	 * @return The built metadata.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MetadataBuilder getMetadataBuilder() {
 		return getCustomBuilderOrDefault( new MetadataBuilderImpl(this) );
 	}
@@ -166,6 +178,7 @@ public class MetadataSources implements Serializable {
 	 * @return The built metadata.
 	 */
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MetadataBuilder getMetadataBuilder(StandardServiceRegistry serviceRegistry) {
 		return getCustomBuilderOrDefault( new MetadataBuilderImpl(this, serviceRegistry ) );
 	}
@@ -174,6 +187,7 @@ public class MetadataSources implements Serializable {
 	 * In case a custom {@link MetadataBuilderFactory} creates a custom builder,
 	 * return that one, otherwise return the default builder.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private MetadataBuilder getCustomBuilderOrDefault(MetadataBuilderImpl defaultBuilder) {
 
 		final Collection<MetadataBuilderFactory> discoveredBuilderFactories =
@@ -212,10 +226,12 @@ public class MetadataSources implements Serializable {
 	 *
 	 * @return The built metadata.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Metadata buildMetadata() {
 		return getMetadataBuilder().build();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Metadata buildMetadata(StandardServiceRegistry serviceRegistry) {
 		return getMetadataBuilder( serviceRegistry ).build();
 	}
@@ -227,6 +243,7 @@ public class MetadataSources implements Serializable {
 	 *
 	 * @return this (for method chaining)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MetadataSources addAnnotatedClass(Class<?> annotatedClass) {
 		if ( annotatedClasses == null ) {
 			annotatedClasses = new LinkedHashSet<>();
@@ -238,6 +255,7 @@ public class MetadataSources implements Serializable {
 	/**
 	 * Vararg form of {@link #addAnnotatedClass(Class)}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MetadataSources addAnnotatedClasses(Class<?>... annotatedClasses) {
 		if ( annotatedClasses != null && annotatedClasses.length > 0 ) {
 			if ( this.annotatedClasses == null ) {
@@ -258,6 +276,7 @@ public class MetadataSources implements Serializable {
 	 *
 	 * @return this (for method chaining)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MetadataSources addAnnotatedClassName(String annotatedClassName) {
 		if ( annotatedClassNames == null ) {
 			annotatedClassNames = new LinkedHashSet<>();
@@ -269,6 +288,7 @@ public class MetadataSources implements Serializable {
 	/**
 	 * Vararg form of {@link #addAnnotatedClassName(String)}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MetadataSources addAnnotatedClassNames(String... annotatedClassNames) {
 		if ( annotatedClassNames != null && annotatedClassNames.length > 0 ) {
 			addAll( this.annotatedClassNames, annotatedClassNames );
@@ -276,6 +296,7 @@ public class MetadataSources implements Serializable {
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MetadataSources addQueryImport(String importedName, Class<?> target) {
 		if ( extraQueryImports == null ) {
 			extraQueryImports = new HashMap<>();
@@ -291,6 +312,7 @@ public class MetadataSources implements Serializable {
 	 *
 	 * @return this (for method chaining)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MetadataSources addPackage(String packageName) {
 		if ( packageName == null ) {
 			throw new IllegalArgumentException( "The specified package name cannot be null" );
@@ -304,6 +326,7 @@ public class MetadataSources implements Serializable {
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void addPackageInternal(String packageName) {
 		if ( annotatedPackages == null ) {
 			annotatedPackages = new LinkedHashSet<>();
@@ -318,6 +341,7 @@ public class MetadataSources implements Serializable {
 	 *
 	 * @return this (for method chaining)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MetadataSources addPackage(Package packageRef) {
 		addPackageInternal( packageRef.getName() );
 		return this;
@@ -330,6 +354,7 @@ public class MetadataSources implements Serializable {
 	 *
 	 * @return this (for method chaining purposes)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MetadataSources addResource(String name) {
 		final XmlMappingBinderAccess binderAccess = getXmlMappingBinderAccess();
 		addXmlBinding( UrlXmlSource.fromResource( name, classLoaderService, binderAccess.getMappingBinder() ) );
@@ -347,6 +372,7 @@ public class MetadataSources implements Serializable {
 	 *
 	 * @see #addFile(File)
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MetadataSources addFile(String path) {
 		addFile( new File( path ) );
 		return this;
@@ -359,6 +385,7 @@ public class MetadataSources implements Serializable {
 	 *
 	 * @return this (for method chaining purposes)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MetadataSources addFile(File file) {
 		final XmlMappingBinderAccess binderAccess = getXmlMappingBinderAccess();
 		addXmlBinding( FileXmlSource.fromFile( file, binderAccess.getMappingBinder() ) );
@@ -373,6 +400,7 @@ public class MetadataSources implements Serializable {
 	 *
 	 * @return this (for method chaining purposes)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MetadataSources addXmlBinding(Binding<?> binding) {
 		if ( binding.getRoot() instanceof JaxbEntityMappingsImpl ) {
 			//noinspection unchecked
@@ -393,6 +421,7 @@ public class MetadataSources implements Serializable {
 	 *
 	 * @return this (for method chaining purposes)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MetadataSources addMappingXmlBinding(Binding<JaxbEntityMappingsImpl> binding) {
 		if ( mappingXmlBindings == null ) {
 			mappingXmlBindings = new ArrayList<>();
@@ -408,6 +437,7 @@ public class MetadataSources implements Serializable {
 	 *
 	 * @return this (for method chaining purposes)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MetadataSources addHbmXmlBinding(Binding<JaxbHbmHibernateMapping> binding) {
 		if ( hbmXmlBindings == null ) {
 			hbmXmlBindings = new ArrayList<>();
@@ -427,6 +457,7 @@ public class MetadataSources implements Serializable {
 	 *
 	 * @see #addCacheableFile(File)
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MetadataSources addCacheableFile(String path) {
 		addCacheableFile( new File( path ) );
 		return this;
@@ -443,6 +474,7 @@ public class MetadataSources implements Serializable {
 	 *
 	 * @see #addCacheableFile(File)
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MetadataSources addCacheableFile(String path, File cacheDirectory) {
 		addCacheableFile( new File( path ), cacheDirectory );
 		return this;
@@ -462,6 +494,7 @@ public class MetadataSources implements Serializable {
 	 *
 	 * @return this (for method chaining purposes)
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MetadataSources addCacheableFile(File file) {
 		return addCacheableFile( file, file.getParentFile() );
 	}
@@ -480,6 +513,7 @@ public class MetadataSources implements Serializable {
 	 *
 	 * @return this (for method chaining purposes)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MetadataSources addCacheableFile(File file, File cacheDirectory) {
 		final XmlMappingBinderAccess binderAccess = getXmlMappingBinderAccess();
 		addXmlBinding( CacheableFileXmlSource.fromCacheableFile(
@@ -504,6 +538,7 @@ public class MetadataSources implements Serializable {
 	 * @throws SerializationException Indicates a problem deserializing the cached dom tree
 	 * @throws MappingNotFoundException Indicates that the cached file was not found or was not usable.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MetadataSources addCacheableFileStrictly(File file) throws SerializationException {
 		final XmlMappingBinderAccess binderAccess = getXmlMappingBinderAccess();
 		addXmlBinding( CacheableFileXmlSource.fromCacheableFile(
@@ -528,6 +563,7 @@ public class MetadataSources implements Serializable {
 	 * @throws SerializationException Indicates a problem deserializing the cached dom tree
 	 * @throws MappingNotFoundException Indicates that the cached file was not found or was not usable.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MetadataSources addCacheableFileStrictly(File file, File cacheDir) throws SerializationException {
 		final XmlMappingBinderAccess binderAccess = getXmlMappingBinderAccess();
 		addXmlBinding( CacheableFileXmlSource.fromCacheableFile(
@@ -546,6 +582,7 @@ public class MetadataSources implements Serializable {
 	 *
 	 * @return this (for method chaining purposes)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MetadataSources addInputStream(InputStreamAccess xmlInputStreamAccess) {
 		final XmlMappingBinderAccess binderAccess = getXmlMappingBinderAccess();
 		addXmlBinding( InputStreamAccessXmlSource.fromStreamAccess( xmlInputStreamAccess, binderAccess.getMappingBinder() ) );
@@ -559,6 +596,7 @@ public class MetadataSources implements Serializable {
 	 *
 	 * @return this (for method chaining purposes)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MetadataSources addInputStream(InputStream xmlInputStream) {
 		final XmlMappingBinderAccess binderAccess = getXmlMappingBinderAccess();
 		addXmlBinding( InputStreamXmlSource.fromStream( xmlInputStream, binderAccess.getMappingBinder() ) );
@@ -572,6 +610,7 @@ public class MetadataSources implements Serializable {
 	 *
 	 * @return this (for method chaining purposes)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MetadataSources addURL(URL url) {
 		final XmlMappingBinderAccess binderAccess = getXmlMappingBinderAccess();
 		addXmlBinding( UrlXmlSource.fromUrl( url, binderAccess.getMappingBinder() ) );
@@ -588,6 +627,7 @@ public class MetadataSources implements Serializable {
 	 *
 	 * @return this (for method chaining purposes)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MetadataSources addJar(File jar) {
 		final XmlMappingBinderAccess binderAccess = getXmlMappingBinderAccess();
 		JarFileEntryXmlSource.fromJar( jar, binderAccess.getMappingBinder(), this::addXmlBinding );
@@ -607,6 +647,7 @@ public class MetadataSources implements Serializable {
 	 * @throws org.hibernate.MappingException Indicates problems reading the jar file or
 	 * processing the contained mapping documents.
 	 */
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public MetadataSources addDirectory(File dir) {
 		final File[] files = dir.listFiles();
 		if ( files != null ) {

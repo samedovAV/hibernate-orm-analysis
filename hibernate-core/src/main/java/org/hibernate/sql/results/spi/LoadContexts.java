@@ -11,6 +11,8 @@ import org.hibernate.sql.results.graph.collection.LoadingCollectionEntry;
 import org.hibernate.sql.results.jdbc.spi.JdbcValuesSourceProcessingState;
 
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Maintains a Stack of processing state related to performing load operations.
@@ -29,10 +31,12 @@ public class LoadContexts {
 		this.persistenceContext = persistenceContext;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void register(JdbcValuesSourceProcessingState state) {
 		jdbcValuesSourceProcessingStateStack.push( state );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void deregister(JdbcValuesSourceProcessingState state) {
 		final var previous = jdbcValuesSourceProcessingStateStack.pop();
 		if ( previous != state ) {
@@ -40,10 +44,12 @@ public class LoadContexts {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isLoadingFinished() {
 		return jdbcValuesSourceProcessingStateStack.getRoot() == null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LoadingCollectionEntry findLoadingCollectionEntry(final CollectionKey collectionKey) {
 		return jdbcValuesSourceProcessingStateStack.findCurrentFirstWithParameter( collectionKey, JdbcValuesSourceProcessingState::findLoadingCollectionLocally );
 	}
@@ -53,6 +59,7 @@ public class LoadContexts {
 	 *
 	 * @return The persistence context to which this is bound.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistenceContext getPersistenceContext() {
 		return persistenceContext;
 	}
@@ -63,6 +70,7 @@ public class LoadContexts {
 	 * This is intended as a "failsafe" process to make sure we get everything
 	 * cleaned up and released.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void cleanup() {
 		if ( ! jdbcValuesSourceProcessingStateStack.isEmpty() ) {
 			CORE_LOGGER.debug( "LoadContexts still contained JdbcValuesSourceProcessingState registrations on cleanup" );

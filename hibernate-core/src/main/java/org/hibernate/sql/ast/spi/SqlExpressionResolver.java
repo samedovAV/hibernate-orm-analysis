@@ -21,6 +21,8 @@ import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.spi.TypeConfiguration;
 
 import static java.util.Locale.ROOT;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Resolution of a SqlSelection reference for a given SqlSelectable.  Some
@@ -45,6 +47,7 @@ public interface SqlExpressionResolver {
 	 *
 	 * @see #resolveSqlExpression
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static ColumnReferenceKey createColumnReferenceKey(String tableExpression, String columnExpression, JdbcMapping jdbcMapping) {
 		return createColumnReferenceKey( tableExpression, new SelectablePath( columnExpression ), jdbcMapping );
 	}
@@ -53,9 +56,11 @@ public interface SqlExpressionResolver {
 	 *
 	 * @see #resolveSqlExpression
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static ColumnReferenceKey createColumnReferenceKey(TableReference tableReference, String columnExpression, JdbcMapping jdbcMapping) {
 		return createColumnReferenceKey( tableReference, new SelectablePath( columnExpression ), jdbcMapping );
 	}
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static ColumnReferenceKey createColumnReferenceKey(TableReference tableReference, SelectablePath selectablePath, JdbcMapping jdbcMapping) {
 		assert tableReference != null : "tableReference expected to be non-null";
 		assert selectablePath != null : "selectablePath expected to be non-null";
@@ -64,6 +69,7 @@ public interface SqlExpressionResolver {
 		return createColumnReferenceKey( qualifier, selectablePath, jdbcMapping );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static ColumnReferenceKey createColumnReferenceKey(String qualifier, SelectablePath selectablePath, JdbcMapping jdbcMapping) {
 		assert qualifier != null : "qualifier expected to be non-null";
 		assert selectablePath != null : "selectablePath expected to be non-null";
@@ -71,6 +77,7 @@ public interface SqlExpressionResolver {
 		return new ColumnReferenceKey( qualifier, selectablePath, jdbcMapping );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static ColumnReferenceKey createColumnReferenceKey(String columnExpression) {
 		assert columnExpression != null : "columnExpression expected to be non-null";
 		return createColumnReferenceKey( "", new SelectablePath( columnExpression ), NullType.INSTANCE );
@@ -79,6 +86,7 @@ public interface SqlExpressionResolver {
 	/**
 	 * Convenience form for creating a key from table expression and SelectableMapping
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static ColumnReferenceKey createColumnReferenceKey(String tableExpression, SelectableMapping selectable) {
 		return createColumnReferenceKey( tableExpression, selectable.getSelectablePath(), selectable.getJdbcMapping() );
 	}
@@ -86,6 +94,7 @@ public interface SqlExpressionResolver {
 	/**
 	 * Convenience form for creating a key from TableReference and SelectableMapping
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static ColumnReferenceKey createColumnReferenceKey(TableReference tableReference, SelectableMapping selectable) {
 		assert tableReference.containsAffectedTableName( selectable.getContainingTableExpression() )
 				: String.format( ROOT, "Expecting tables to match between TableReference (%s) and SelectableMapping (%s)", tableReference.getTableId(), selectable.getContainingTableExpression() );
@@ -95,12 +104,14 @@ public interface SqlExpressionResolver {
 	/**
 	 * Convenience form for creating a key from TableReference and EntityDiscriminatorMapping
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static ColumnReferenceKey createDiscriminatorColumnReferenceKey(TableReference tableReference, EntityDiscriminatorMapping discriminatorMapping) {
 		assert tableReference.containsAffectedTableName( discriminatorMapping.getContainingTableExpression() )
 				: String.format( ROOT, "Expecting tables to match between TableReference (%s) and SelectableMapping (%s)", tableReference.getTableId(), discriminatorMapping.getContainingTableExpression() );
 		return createColumnReferenceKey( tableReference, discriminatorMapping.getSelectablePath(), discriminatorMapping.getUnderlyingJdbcMapping() );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default Expression resolveSqlExpression(TableReference tableReference, SelectableMapping selectableMapping) {
 		return resolveSqlExpression(
 				createColumnReferenceKey( tableReference, selectableMapping ),
@@ -118,11 +129,13 @@ public interface SqlExpressionResolver {
 	 * Given a qualifier + a qualifiable {@link org.hibernate.metamodel.mapping.SqlExpressible},
 	 * resolve the (Sql)Expression reference.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Expression resolveSqlExpression(ColumnReferenceKey key, Function<SqlAstProcessingState,Expression> creator);
 
 	/**
 	 * Resolve the SqlSelection for the given expression
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqlSelection resolveSqlSelection(
 			Expression expression,
 			JavaType<?> javaType,
@@ -141,6 +154,7 @@ public interface SqlExpressionResolver {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public boolean equals(Object o) {
 			if ( this == o ) {
 				return true;
@@ -156,6 +170,7 @@ public interface SqlExpressionResolver {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public int hashCode() {
 			int result = tableQualifier.hashCode();
 			result = 31 * result + selectablePath.hashCode();

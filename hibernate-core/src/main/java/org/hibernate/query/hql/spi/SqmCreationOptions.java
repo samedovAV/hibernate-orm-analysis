@@ -6,6 +6,8 @@ package org.hibernate.query.hql.spi;
 
 import org.hibernate.Incubating;
 import org.hibernate.query.sqm.StrictJpaComplianceViolation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Options for semantic analysis
@@ -20,6 +22,7 @@ public interface SqmCreationOptions {
 	 *
 	 * @see StrictJpaComplianceViolation
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean useStrictJpaCompliance() {
 		return false;
 	}
@@ -27,6 +30,7 @@ public interface SqmCreationOptions {
 	/**
 	 * @see org.hibernate.cfg.AvailableSettings#JSON_FUNCTIONS_ENABLED
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isJsonFunctionsEnabled() {
 		return false;
 	}
@@ -34,6 +38,7 @@ public interface SqmCreationOptions {
 	/**
 	 * @see org.hibernate.cfg.AvailableSettings#XML_FUNCTIONS_ENABLED
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isXmlFunctionsEnabled() {
 		return false;
 	}
@@ -41,6 +46,7 @@ public interface SqmCreationOptions {
 	/**
 	 * @see org.hibernate.cfg.AvailableSettings#PORTABLE_INTEGER_DIVISION
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isPortableIntegerDivisionEnabled() {
 		return false;
 	}
@@ -48,5 +54,6 @@ public interface SqmCreationOptions {
 	/**
 	 * @see org.hibernate.cfg.QuerySettings#SAFE_MODE_ENABLED
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isSafeModeEnabled() { return false; }
 }

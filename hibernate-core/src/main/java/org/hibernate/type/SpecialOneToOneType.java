@@ -14,6 +14,8 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.type.spi.TypeConfiguration;
 
 import static org.hibernate.engine.internal.ForeignKeys.getEntityIdentifierIfNotUnsaved;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A one-to-one association that maps to specific formula(s)
@@ -52,20 +54,24 @@ public class SpecialOneToOneType extends OneToOneType {
 		super( original, superTypeEntityName );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int getColumnSpan(MappingContext mapping) throws MappingException {
 		return super.getIdentifierOrUniqueKeyType( mapping ).getColumnSpan( mapping );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int[] getSqlTypeCodes(MappingContext mappingContext) throws MappingException {
 		return super.getIdentifierOrUniqueKeyType( mappingContext ).getSqlTypeCodes( mappingContext );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean useLHSPrimaryKey() {
 		return false;
 	}
 
 	// TODO: copy/paste from ManyToOneType
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Serializable disassemble(Object value, SharedSessionContractImplementor session, Object owner)
 	throws HibernateException {
 
@@ -87,6 +93,7 @@ public class SpecialOneToOneType extends OneToOneType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Serializable disassemble(Object value, SessionFactoryImplementor sessionFactory) throws HibernateException {
 		if ( value == null ) {
 			return null;
@@ -106,6 +113,7 @@ public class SpecialOneToOneType extends OneToOneType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object assemble(Serializable oid, SharedSessionContractImplementor session, Object owner)
 	throws HibernateException {
 		//TODO: currently broken for unique-key references (does not detect

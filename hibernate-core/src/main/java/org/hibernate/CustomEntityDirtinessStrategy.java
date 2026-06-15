@@ -6,6 +6,8 @@ package org.hibernate;
 
 import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.type.Type;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * During a flush cycle, Hibernate needs to determine which of the entities associated with a {@link Session}
@@ -67,6 +69,7 @@ public interface CustomEntityDirtinessStrategy {
 	 *
 	 * @return {@code true} indicates the dirty check can be done; {@code false} indicates it cannot.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean canDirtyCheck(Object entity, EntityPersister persister, Session session);
 
 	/**
@@ -79,6 +82,7 @@ public interface CustomEntityDirtinessStrategy {
 	 *
 	 * @return {@code true} indicates the entity is dirty; {@code false} indicates the entity is not dirty.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isDirty(Object entity, EntityPersister persister, Session session);
 
 	/**
@@ -89,6 +93,7 @@ public interface CustomEntityDirtinessStrategy {
 	 * @param persister The persister corresponding to the given entity
 	 * @param session The session from which this call originates.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void resetDirty(Object entity, EntityPersister persister, Session session);
 
 	/**
@@ -101,6 +106,7 @@ public interface CustomEntityDirtinessStrategy {
 	 * @param session The session from which this call originates.
 	 * @param dirtyCheckContext The callback context
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void findDirty(Object entity, EntityPersister persister, Session session, DirtyCheckContext dirtyCheckContext);
 
 	/**
@@ -118,6 +124,7 @@ public interface CustomEntityDirtinessStrategy {
 		 *
 		 * @param attributeChecker The delegate usable by the context for determining which attributes are dirty.
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void doDirtyChecking(AttributeChecker attributeChecker);
 	}
 
@@ -134,6 +141,7 @@ public interface CustomEntityDirtinessStrategy {
 		 *
 		 * @return {@code true} indicates the attribute value has changed; {@code false} indicates it has not.
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		boolean isDirty(AttributeInformation attributeInformation);
 	}
 
@@ -146,6 +154,7 @@ public interface CustomEntityDirtinessStrategy {
 		 *
 		 * @return The entity persister.
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		EntityPersister getContainingPersister();
 
 		/**
@@ -156,6 +165,7 @@ public interface CustomEntityDirtinessStrategy {
 		 *
 		 * @return The attribute index.
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		int getAttributeIndex();
 
 		/**
@@ -163,6 +173,7 @@ public interface CustomEntityDirtinessStrategy {
 		 *
 		 * @return The attribute name
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		String getName();
 
 		/**
@@ -170,6 +181,7 @@ public interface CustomEntityDirtinessStrategy {
 		 *
 		 * @return The mapping type.
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		Type getType();
 
 		/**
@@ -177,6 +189,7 @@ public interface CustomEntityDirtinessStrategy {
 		 *
 		 * @return The attributes current value
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		Object getCurrentValue();
 
 		/**
@@ -187,6 +200,7 @@ public interface CustomEntityDirtinessStrategy {
 		 *
 		 * @return The attributes loaded value
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		Object getLoadedValue();
 	}
 

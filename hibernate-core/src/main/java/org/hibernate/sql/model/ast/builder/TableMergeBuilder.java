@@ -13,6 +13,8 @@ import org.hibernate.sql.model.ast.LogicalTableUpdate;
 import org.hibernate.sql.model.internal.OptionalTableUpdate;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gavin King
@@ -27,12 +29,14 @@ public class TableMergeBuilder<O extends MutationOperation> extends AbstractTabl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected EntityMutationTarget getMutationTarget() {
 		return (EntityMutationTarget) super.getMutationTarget();
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LogicalTableUpdate<O> buildMutation() {
 		final List<ColumnValueBinding> valueBindings = combine( getValueBindings(), getKeyBindings(), getLobValueBindings() );
 

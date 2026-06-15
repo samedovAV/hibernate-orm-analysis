@@ -12,6 +12,8 @@ import org.hibernate.sql.ast.tree.select.SelectStatement;
 import org.hibernate.sql.exec.spi.JdbcParametersList;
 import org.hibernate.sql.results.internal.RowTransformerArrayImpl;
 import org.hibernate.sql.results.spi.RowTransformer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A load plan for loading an array of state by a single restrictive part.
@@ -31,6 +33,7 @@ public class SingleIdArrayLoadPlan extends SingleIdLoadPlan<Object[]> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected RowTransformer<Object[]> getRowTransformer() {
 		return RowTransformerArrayImpl.instance();
 	}

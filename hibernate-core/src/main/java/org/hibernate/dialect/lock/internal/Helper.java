@@ -12,6 +12,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.function.Function;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Helper for dealing with {@linkplain Connection}-level lock timeouts.
@@ -23,6 +25,7 @@ public class Helper {
 	 * Use the given {@code sql} statement to query the current lock-timeout for the
 	 * {@linkplain Connection} and use the {@code extractor} to process the value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Timeout getLockTimeout(
 			String sql,
 			TimeoutExtractor extractor,
@@ -46,6 +49,7 @@ public class Helper {
 	/**
 	 * Set the {@linkplain Connection}-level lock-timeout using the given {@code sql} command.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void setLockTimeout(
 			String sql,
 			Connection connection,
@@ -68,6 +72,7 @@ public class Helper {
 	 *
 	 * @see #setLockTimeout(String, Connection, SessionFactoryImplementor)
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void setLockTimeout(
 			Integer milliseconds,
 			String sqlFormat,
@@ -84,6 +89,7 @@ public class Helper {
 	 *
 	 * @see #setLockTimeout(Integer, String, Connection, SessionFactoryImplementor)
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void setLockTimeout(
 			Timeout timeout,
 			Function<Timeout,Integer> valueStrategy,
@@ -96,6 +102,7 @@ public class Helper {
 
 	@FunctionalInterface
 	public interface TimeoutExtractor {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		Timeout extractFrom(ResultSet resultSet) throws SQLException;
 	}
 }

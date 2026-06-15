@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.hibernate.service.ServiceRegistry;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The default factory for {@link ConnectionCreator} instances.
@@ -23,6 +25,7 @@ public class ConnectionCreatorFactoryImpl implements ConnectionCreatorFactory {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ConnectionCreator create(
 			Driver driver,
 			ServiceRegistry serviceRegistry,

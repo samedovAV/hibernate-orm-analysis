@@ -18,6 +18,8 @@ import org.hibernate.resource.jdbc.spi.JdbcSessionOwner;
 import org.hibernate.resource.transaction.spi.TransactionCoordinator;
 import org.hibernate.resource.transaction.spi.TransactionCoordinatorBuilder;
 import org.hibernate.type.descriptor.WrapperOptions;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -60,21 +62,25 @@ public interface SessionImplementor extends Session, SharedSessionContractImplem
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SessionImplementor getSession() {
 		return this;
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryImplementor getSessionFactory();
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> SelectionQueryImplementor<T> createQuery(@Nonnull CriteriaSelect<T> selectQuery);
 
 	@SuppressWarnings("removal")
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default MutationQueryImplementor<?> createQuery(@Nonnull CriteriaStatement<?> criteriaStatement) {
 		return createMutationQuery( criteriaStatement );
 	}
@@ -85,23 +91,28 @@ public interface SessionImplementor extends Session, SharedSessionContractImplem
 	 *             Use {@link org.hibernate.event.spi.EventSource#getActionQueue()}.
 	 */
 	@Deprecated(since = "7.3", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	org.hibernate.action.queue.spi.ActionQueue getActionQueue();
 
 	/**
 	 * Should this session be automatically closed after the current
 	 * transaction completes?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isAutoCloseSessionEnabled();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object instantiate(@Nonnull EntityPersister persister, @Nonnull Object id) throws HibernateException;
 
 	/**
 	 * Initiate a flush to force deletion of a re-persisted entity.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void forceFlush(EntityEntry e) throws HibernateException;
 	/**
 	 * Initiate a flush to force deletion of a re-persisted entity.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void forceFlush(EntityKey e) throws HibernateException;
 }

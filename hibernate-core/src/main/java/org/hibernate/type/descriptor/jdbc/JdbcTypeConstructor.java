@@ -8,6 +8,8 @@ import org.hibernate.dialect.Dialect;
 import org.hibernate.tool.schema.extract.spi.ColumnTypeInformation;
 import org.hibernate.type.BasicType;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Factory for any {@link JdbcType} which is parameterized by
@@ -24,6 +26,7 @@ public interface JdbcTypeConstructor {
 	 * and friends. Here we already know the type argument, which
 	 * we're given as a {@link BasicType}.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default JdbcType resolveType(
 			TypeConfiguration typeConfiguration,
 			Dialect dialect,
@@ -38,11 +41,13 @@ public interface JdbcTypeConstructor {
 	 * or when reverse-engineering a schema. Here we do not have
 	 * a known {@link BasicType}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcType resolveType(
 			TypeConfiguration typeConfiguration,
 			Dialect dialect,
 			JdbcType elementType,
 			ColumnTypeInformation columnTypeInformation);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getDefaultSqlTypeCode();
 }

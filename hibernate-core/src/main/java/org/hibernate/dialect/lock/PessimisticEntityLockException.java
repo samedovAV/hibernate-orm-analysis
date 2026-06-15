@@ -5,6 +5,8 @@
 package org.hibernate.dialect.lock;
 
 import org.hibernate.JDBCException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents an error trying to apply a pessimistic {@link LockingStrategy} to an entity
@@ -26,6 +28,7 @@ public class PessimisticEntityLockException extends LockingStrategyException {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JDBCException getCause() {
 		return (JDBCException) super.getCause();
 	}

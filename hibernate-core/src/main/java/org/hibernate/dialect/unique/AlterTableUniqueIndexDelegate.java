@@ -10,6 +10,8 @@ import org.hibernate.dialect.Dialect;
 import org.hibernate.mapping.UniqueKey;
 
 import static org.hibernate.internal.util.StringHelper.unqualify;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link UniqueDelegate} which uses {@code create unique index} commands when necessary.
@@ -32,6 +34,7 @@ public class AlterTableUniqueIndexDelegate extends AlterTableUniqueDelegate {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public String getAlterTableToAddUniqueKeyCommand(UniqueKey uniqueKey, Metadata metadata,
 			SqlStringGenerationContext context) {
 		final var dialect = context.getDialect();
@@ -71,6 +74,7 @@ public class AlterTableUniqueIndexDelegate extends AlterTableUniqueDelegate {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getAlterTableToDropUniqueKeyCommand(UniqueKey uniqueKey, Metadata metadata,
 			SqlStringGenerationContext context) {
 		if ( needsUniqueIndex( uniqueKey, context.getDialect() ) ) {
@@ -87,6 +91,7 @@ public class AlterTableUniqueIndexDelegate extends AlterTableUniqueDelegate {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean needsUniqueIndex(UniqueKey uniqueKey, Dialect dialect) {
 		return uniqueKey.hasNullableColumn() || !dialect.supportsUniqueConstraints();
 	}

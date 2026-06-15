@@ -22,6 +22,8 @@ import static org.hibernate.boot.BootLogging.BOOT_LOGGER;
 import static org.hibernate.boot.jaxb.SourceType.FILE;
 import static org.hibernate.boot.jaxb.SourceType.RESOURCE;
 import static org.hibernate.boot.jaxb.SourceType.URL;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Loads {@code cfg.xml} files.
@@ -35,6 +37,7 @@ public class ConfigLoader {
 	private final ValueHolder<JaxbCfgProcessor> jaxbProcessorHolder = new ValueHolder<>(
 			new ValueHolder.DeferredInitializer<>() {
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				public JaxbCfgProcessor initialize() {
 					return new JaxbCfgProcessor( bootstrapServiceRegistry.getService( ClassLoaderService.class ) );
 				}
@@ -45,11 +48,13 @@ public class ConfigLoader {
 		this.bootstrapServiceRegistry = bootstrapServiceRegistry;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private InputStream locateStream(String cfgXmlResourceName) {
 		return bootstrapServiceRegistry.requireService( ClassLoaderService.class )
 				.locateResourceStream( cfgXmlResourceName );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LoadedConfig loadConfigXmlResource(String cfgXmlResourceName) {
 		final var stream = locateStream( cfgXmlResourceName );
 		if ( stream == null ) {
@@ -70,6 +75,7 @@ public class ConfigLoader {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LoadedConfig loadConfigXmlFile(File cfgXmlFile) {
 		try ( FileInputStream cfgFileStream = new FileInputStream( cfgXmlFile ) ) {
 			return LoadedConfig.consume( jaxbProcessorHolder.getValue()
@@ -88,6 +94,7 @@ public class ConfigLoader {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LoadedConfig loadConfigXmlUrl(URL url) {
 		try {
 			final var stream = url.openStream();
@@ -109,6 +116,7 @@ public class ConfigLoader {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Properties loadProperties(String resourceName) {
 		final var stream = locateStream( resourceName );
 		if ( stream == null ) {
@@ -131,6 +139,7 @@ public class ConfigLoader {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Properties loadProperties(File file) {
 		try {
 			final var stream = new FileInputStream( file );
@@ -160,6 +169,7 @@ public class ConfigLoader {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Properties loadProperties(InputStream stream) throws IOException {
 		final var properties = new Properties();
 		properties.load( stream );

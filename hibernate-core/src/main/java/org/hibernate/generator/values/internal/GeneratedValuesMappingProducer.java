@@ -19,6 +19,8 @@ import org.hibernate.sql.results.graph.DomainResult;
 import org.hibernate.sql.results.jdbc.spi.JdbcValuesMapping;
 import org.hibernate.sql.results.jdbc.spi.JdbcValuesMappingProducer;
 import org.hibernate.sql.results.jdbc.spi.JdbcValuesMetadata;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Simple implementation of {@link JdbcValuesMappingProducer} used when reading
@@ -32,6 +34,7 @@ public class GeneratedValuesMappingProducer implements JdbcValuesMappingProducer
 	private final List<GeneratedValueBasicResultBuilder> resultBuilders = new ArrayList<>();
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcValuesMapping resolve(
 			JdbcValuesMetadata jdbcResultsMetadata,
 			LoadQueryInfluencers loadQueryInfluencers,
@@ -70,15 +73,18 @@ public class GeneratedValuesMappingProducer implements JdbcValuesMappingProducer
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addResultBuilder(GeneratedValueBasicResultBuilder resultBuilder) {
 		resultBuilders.add( resultBuilder );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<GeneratedValueBasicResultBuilder> getResultBuilders() {
 		return resultBuilders;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addAffectedTableNames(Set<String> affectedTableNames, SessionFactoryImplementor sessionFactory) {
 		// nothing to do
 	}

@@ -17,6 +17,8 @@ import org.hibernate.resource.jdbc.ResourceRegistry;
 import org.hibernate.resource.jdbc.spi.JdbcEventHandler;
 
 import static org.hibernate.resource.jdbc.internal.ResourceRegistryLogger.RESOURCE_REGISTRY_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Helps to track {@link Statement}s and {@link ResultSet}s which need to be closed.
@@ -53,12 +55,14 @@ public final class ResourceRegistryStandardImpl implements ResourceRegistry {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean hasRegisteredResources() {
 		return xref.hasRegisteredResources()
 			|| ext != null && ext.hasRegisteredResources();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void register(Statement statement, boolean cancelable) {
 		if ( IS_TRACE_ENABLED ) {
 			RESOURCE_REGISTRY_LOGGER.registeringStatement(statement);
@@ -72,6 +76,7 @@ public final class ResourceRegistryStandardImpl implements ResourceRegistry {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void release(Statement statement) {
 		if ( IS_TRACE_ENABLED ) {
 			RESOURCE_REGISTRY_LOGGER.releasingStatement( statement );
@@ -93,6 +98,7 @@ public final class ResourceRegistryStandardImpl implements ResourceRegistry {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void release(ResultSet resultSet, Statement statement) {
 		if ( IS_TRACE_ENABLED ) {
 			RESOURCE_REGISTRY_LOGGER.releasingResultSet(resultSet);
@@ -133,17 +139,20 @@ public final class ResourceRegistryStandardImpl implements ResourceRegistry {
 		close( resultSet );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void closeAll(ResultSetsSet resultSets) {
 		if ( resultSets != null ) {
 			resultSets.forEachResultSet( ResourceRegistryStandardImpl::close );
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void releaseXref(Statement statement, ResultSetsSet resultSetsSet) {
 		closeAll( resultSetsSet );
 		close( statement );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static void close(ResultSet resultSet) {
 		if ( IS_TRACE_ENABLED ) {
 			RESOURCE_REGISTRY_LOGGER.closingResultSet(resultSet);
@@ -163,6 +172,7 @@ public final class ResourceRegistryStandardImpl implements ResourceRegistry {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static void close(Statement statement) {
 		if ( IS_TRACE_ENABLED ) {
 			RESOURCE_REGISTRY_LOGGER.closingPreparedStatement(statement);
@@ -199,6 +209,7 @@ public final class ResourceRegistryStandardImpl implements ResourceRegistry {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void register(ResultSet resultSet, Statement statement) {
 		if ( IS_TRACE_ENABLED ) {
 			RESOURCE_REGISTRY_LOGGER.registeringResultSet(resultSet);
@@ -220,6 +231,7 @@ public final class ResourceRegistryStandardImpl implements ResourceRegistry {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private ExtendedState getExtendedStateForWrite() {
 		if ( ext == null ) {
 			ext = new ExtendedState();
@@ -227,16 +239,19 @@ public final class ResourceRegistryStandardImpl implements ResourceRegistry {
 		return ext;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private JDBCException convert(SQLException e, String s) {
 		return new JDBCException( s, e );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void register(Blob blob) {
 		getExtendedStateForWrite().registerBlob( blob );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void release(final Blob blob) {
 		if ( ext != null && ext.blobs != null ) {
 			ext.blobs.remove( blob );
@@ -247,11 +262,13 @@ public final class ResourceRegistryStandardImpl implements ResourceRegistry {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void register(final Clob clob) {
 		getExtendedStateForWrite().registerClob( clob );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void release(final Clob clob) {
 		if ( ext != null && ext.clobs != null ) {
 			ext.clobs.remove( clob );
@@ -262,12 +279,14 @@ public final class ResourceRegistryStandardImpl implements ResourceRegistry {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void register(final NClob nclob) {
 		// todo : just store them in clobs?
 		getExtendedStateForWrite().registerNClob( nclob );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void release(NClob nclob) {
 		// todo : just store them in clobs?
 		if ( ext != null && ext.nclobs != null ) {
@@ -279,6 +298,7 @@ public final class ResourceRegistryStandardImpl implements ResourceRegistry {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void cancelLastQuery() {
 		try {
 			if ( lastQuery != null ) {
@@ -294,6 +314,7 @@ public final class ResourceRegistryStandardImpl implements ResourceRegistry {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void releaseResources() {
 		RESOURCE_REGISTRY_LOGGER.releasingResources();
 
@@ -313,10 +334,12 @@ public final class ResourceRegistryStandardImpl implements ResourceRegistry {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean hasRegistered(final ResultSetsSet resource) {
 		return resource != null && !resource.isEmpty();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean hasRegistered(final ArrayList<?> resource) {
 		return resource != null && !resource.isEmpty();
 	}
@@ -334,6 +357,7 @@ public final class ResourceRegistryStandardImpl implements ResourceRegistry {
 		private ArrayList<Clob> clobs;
 		private ArrayList<NClob> nclobs;
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean hasRegisteredResources() {
 			return hasRegistered( unassociatedResultSets )
 				|| hasRegistered( blobs )
@@ -341,6 +365,7 @@ public final class ResourceRegistryStandardImpl implements ResourceRegistry {
 				|| hasRegistered( nclobs );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void releaseUnassociatedResult(final ResultSet resultSet) {
 			final Object removed =
 					unassociatedResultSets == null
@@ -351,6 +376,7 @@ public final class ResourceRegistryStandardImpl implements ResourceRegistry {
 			}
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void storeUnassociatedResultset(ResultSet resultSet) {
 			if ( unassociatedResultSets == null ) {
 				this.unassociatedResultSets = new ResultSetsSet();
@@ -358,6 +384,7 @@ public final class ResourceRegistryStandardImpl implements ResourceRegistry {
 			unassociatedResultSets.storeResultSet( resultSet );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void registerBlob(final Blob blob) {
 			if ( blobs == null ) {
 				blobs = new ArrayList<>();
@@ -366,6 +393,7 @@ public final class ResourceRegistryStandardImpl implements ResourceRegistry {
 			blobs.add( blob );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void registerClob(final Clob clob) {
 			if ( clobs == null ) {
 				clobs = new ArrayList<>();
@@ -373,6 +401,7 @@ public final class ResourceRegistryStandardImpl implements ResourceRegistry {
 			clobs.add( clob );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void registerNClob(final NClob nclob) {
 			if ( nclobs == null ) {
 				nclobs = new ArrayList<>();
@@ -380,6 +409,7 @@ public final class ResourceRegistryStandardImpl implements ResourceRegistry {
 			nclobs.add( nclob );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void releaseResources() {
 			closeAll( unassociatedResultSets );
 			unassociatedResultSets.clear();

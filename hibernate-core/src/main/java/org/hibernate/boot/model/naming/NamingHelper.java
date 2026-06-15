@@ -10,6 +10,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static java.util.Comparator.comparing;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -20,6 +22,7 @@ public class NamingHelper {
 	 */
 	public static final NamingHelper INSTANCE = new NamingHelper();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static NamingHelper withCharset(String charset) {
 		return new NamingHelper( charset );
 	}
@@ -38,6 +41,7 @@ public class NamingHelper {
 	 * If a foreign-key is not explicitly named, this is called to generate
 	 * a unique hash using the table and column names.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String generateHashedFkName(
 			String prefix,
 			Identifier tableName,
@@ -57,6 +61,7 @@ public class NamingHelper {
 	 * If a foreign-key is not explicitly named, this is called to generate
 	 * a unique hash using the table and column names.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String generateHashedFkName(
 			String prefix,
 			Identifier tableName,
@@ -86,6 +91,7 @@ public class NamingHelper {
 	 *
 	 * @return String The generated name
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String generateHashedConstraintName(
 			String prefix, Identifier tableName, Identifier... columnNames ) {
 		// Use a concatenation that guarantees uniqueness, even if identical
@@ -110,6 +116,7 @@ public class NamingHelper {
 	 *
 	 * @return String The generated name
 	 */
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public String generateHashedConstraintName(
 			String prefix, Identifier tableName, List<Identifier> columnNames) {
 		final Identifier[] columnNamesArray = new Identifier[columnNames.size()];
@@ -129,6 +136,7 @@ public class NamingHelper {
 	 *
 	 * @return String The hashed name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String hashedName(String name) {
 		final byte[] bytes;
 		try {
@@ -158,6 +166,7 @@ public class NamingHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public static byte[] hash(byte[] message) {
 		int a0 = 0x67452301;
 		int b0 = 0xefcdab89;
@@ -216,6 +225,7 @@ public class NamingHelper {
 		return digest;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void encodeInt(byte[] output, int offset, int value) {
 		output[offset]     = (byte) (value & 0xFF);
 		output[offset + 1] = (byte) ((value >>> 8) & 0xFF);
@@ -223,6 +233,7 @@ public class NamingHelper {
 		output[offset + 3] = (byte) ((value >>> 24) & 0xFF);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static byte[] pad(byte[] input) {
 		final int originalLength = input.length;
 		final int numPaddingBytes = ( 56 - (originalLength + 1) % 64 + 64 ) % 64;

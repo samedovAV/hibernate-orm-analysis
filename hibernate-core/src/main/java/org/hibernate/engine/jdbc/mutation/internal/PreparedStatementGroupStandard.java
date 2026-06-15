@@ -23,6 +23,8 @@ import org.hibernate.sql.model.MutationTarget;
 import org.hibernate.sql.model.MutationType;
 import org.hibernate.sql.model.PreparableMutationOperation;
 import org.hibernate.sql.model.TableMapping;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A group of {@link PreparedStatementDetails} references related to multi-table
@@ -54,11 +56,13 @@ public class PreparedStatementGroupStandard extends AbstractPreparedStatementGro
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getNumberOfStatements() {
 		return jdbcMutations.size();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int getNumberOfActiveStatements() {
 		int count = 0;
 		for ( var entry : statementMap.entrySet() ) {
@@ -70,6 +74,7 @@ public class PreparedStatementGroupStandard extends AbstractPreparedStatementGro
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PreparedStatementDetails getSingleStatementDetails() {
 		throw new IllegalStateException(
 				String.format(
@@ -82,21 +87,25 @@ public class PreparedStatementGroupStandard extends AbstractPreparedStatementGro
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void forEachStatement(BiConsumer<String, PreparedStatementDetails> action) {
 		statementMap.forEach( action );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PreparedStatementDetails getPreparedStatementDetails(String tableName) {
 		return statementMap.get( tableName );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PreparedStatementDetails resolvePreparedStatementDetails(String tableName) {
 		return statementMap.get( tableName );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean hasMatching(Predicate<PreparedStatementDetails> filter) {
 		for ( var entry : statementMap.entrySet() ) {
 			if ( filter.test( entry.getValue() ) ) {
@@ -106,6 +115,7 @@ public class PreparedStatementGroupStandard extends AbstractPreparedStatementGro
 		return false;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static PreparedStatementDetails createPreparedStatementDetails(
 			PreparableMutationOperation jdbcMutation,
 			GeneratedValuesMutationDelegate generatedValuesDelegate,
@@ -139,12 +149,14 @@ public class PreparedStatementGroupStandard extends AbstractPreparedStatementGro
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void release() {
 		statementMap.forEach( (tableName, statementDetails) -> {
 			release( statementDetails );
 		} );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static SortedMap<String, PreparedStatementDetails> createStatementDetailsMap(
 			List<PreparableMutationOperation> jdbcMutations,
 			MutationType mutationType,
@@ -184,6 +196,7 @@ public class PreparedStatementGroupStandard extends AbstractPreparedStatementGro
 		return map;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static TableMapping locateTableMapping(List<PreparableMutationOperation> jdbcMutations, String name) {
 		for ( final PreparableMutationOperation jdbcMutation : jdbcMutations ) {
 			final TableMapping tableMapping = jdbcMutation.getTableDetails();

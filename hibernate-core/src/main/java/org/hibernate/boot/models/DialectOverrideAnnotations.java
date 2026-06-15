@@ -48,6 +48,8 @@ import org.hibernate.models.internal.OrmAnnotationDescriptor;
 import org.hibernate.models.spi.AnnotationDescriptor;
 
 import static org.hibernate.models.spi.AnnotationTarget.Kind;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -268,6 +270,7 @@ public interface DialectOverrideAnnotations {
 			false
 	);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static void forEachAnnotation(Consumer<AnnotationDescriptor<?>> consumer) {
 		OrmAnnotationHelper.forEachOrmAnnotation( DialectOverrideAnnotations.class, consumer );
 	}

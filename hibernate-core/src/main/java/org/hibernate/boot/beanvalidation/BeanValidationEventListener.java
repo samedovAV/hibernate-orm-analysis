@@ -36,6 +36,8 @@ import jakarta.validation.ValidatorFactory;
 import static org.hibernate.boot.beanvalidation.BeanValidationLogger.BEAN_VALIDATION_LOGGER;
 import static org.hibernate.internal.util.collections.CollectionHelper.setOfSize;
 import static org.hibernate.metamodel.RepresentationMode.POJO;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Event listener used to enable Bean Validation for insert/update/delete events.
@@ -68,6 +70,7 @@ public class BeanValidationEventListener
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void sessionFactoryCreated(SessionFactory factory) {
 		sessionFactory = factory.unwrap( SessionFactoryImplementor.class );
 		sessionFactory.getMappingMetamodel()
@@ -76,6 +79,7 @@ public class BeanValidationEventListener
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean onPreInsert(PreInsertEvent event) {
 		if ( !event.getSession().isStateless() ) {
 			validate(
@@ -93,6 +97,7 @@ public class BeanValidationEventListener
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean onPreUpdate(PreUpdateEvent event) {
 		validate(
 				event.getEntity(),
@@ -103,6 +108,7 @@ public class BeanValidationEventListener
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean onPreDelete(PreDeleteEvent event) {
 		if ( !event.getSession().isStateless() ) {
 			validate(
@@ -120,6 +126,7 @@ public class BeanValidationEventListener
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean onPreUpsert(PreUpsertEvent event) {
 		validate(
 				event.getEntity(),
@@ -130,15 +137,18 @@ public class BeanValidationEventListener
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void onMerge(MergeEvent event) {
 		validateMerge( event );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void onMerge(MergeEvent event, MergeContext copiedAlready) {
 		validateMerge( event );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void validateMerge(MergeEvent event) {
 		final var entity = event.getOriginal();
 		final var session = event.getSession();
@@ -147,6 +157,7 @@ public class BeanValidationEventListener
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void onPreUpdateCollection(PreCollectionUpdateEvent event) {
 		validate(
 				event.getAffectedOwnerOrNull(),
@@ -155,6 +166,7 @@ public class BeanValidationEventListener
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private <T> void validate(T object, EntityPersister persister, GroupsPerOperation.Operation operation) {
 		if ( object != null && persister.getRepresentationStrategy().getMode() == POJO ) {
 			final var groups = groupsPerOperation.get( operation );
@@ -177,6 +189,7 @@ public class BeanValidationEventListener
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private <T> String message(
 			GroupsPerOperation.Operation operation,
 			Set<String> classNames,

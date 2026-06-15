@@ -18,6 +18,8 @@ import org.hibernate.sql.results.jdbc.spi.JdbcValuesMetadata;
 import java.util.List;
 
 import static org.hibernate.internal.util.collections.CollectionHelper.arrayList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -35,6 +37,7 @@ public class ConstructorBuilder<T> extends AbstractMappingElementBuilder<T> impl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResult<?> buildResult(
 			JdbcValuesMetadata jdbcResultsMetadata,
 			int resultPosition,
@@ -47,6 +50,7 @@ public class ConstructorBuilder<T> extends AbstractMappingElementBuilder<T> impl
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static List<ArgumentDomainResult<?>> argumentDomainResults(
 			MappingElementBuilder<?>[] argumentBuilders,
 			JdbcValuesMetadata jdbcResultsMetadata,
@@ -61,6 +65,7 @@ public class ConstructorBuilder<T> extends AbstractMappingElementBuilder<T> impl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ResultBuilder cacheKeyInstance() {
 		return this;
 	}

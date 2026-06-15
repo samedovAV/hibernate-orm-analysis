@@ -21,6 +21,8 @@ import java.util.Locale;
 import static org.jboss.logging.Logger.Level.DEBUG;
 import static org.jboss.logging.Logger.Level.TRACE;
 import static org.jboss.logging.Logger.Level.WARN;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Sub-system logging related to CurrentSessionContext implementations
@@ -39,29 +41,36 @@ public interface CurrentSessionLogging extends BasicLogger {
 
 	@LogMessage(level = WARN)
 	@Message(id = 90070001, value = "Session already bound on call to bind(); make sure you clean up your sessions")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void alreadySessionBound();
 
 	@LogMessage(level = TRACE)
 	@Message("Allowing invocation [%s] to proceed to real session")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void allowingInvocationToProceed(String methodName);
 
 	@LogMessage(level = TRACE)
 	@Message("Allowing invocation [%s] to proceed to real (closed) session")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void allowingInvocationToProceedToClosedSession(String methodName);
 
 	@LogMessage(level = TRACE)
 	@Message("Allowing invocation [%s] to proceed to real (non-transacted) session")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void allowingInvocationToProceedToNonTransactedSession(String methodName);
 
 	@LogMessage(level = DEBUG)
 	@Message(id = 90070011, value = "Unable to rollback transaction for orphaned session")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void unableToRollbackTransactionForOrphanedSession(@Cause Throwable t);
 
 	@LogMessage(level = DEBUG)
 	@Message(id = 90070012, value = "Unable to close orphaned session")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void unableToCloseOrphanedSession(@Cause Throwable t);
 
 	@LogMessage(level = DEBUG)
 	@Message(id = 90070013, value = "Unable to release generated current session on failed synchronization registration")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void unableToReleaseGeneratedCurrentSessionOnFailedSynchronizationRegistration(@Cause Throwable t);
 }

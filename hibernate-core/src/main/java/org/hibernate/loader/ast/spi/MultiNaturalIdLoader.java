@@ -7,6 +7,8 @@ package org.hibernate.loader.ast.spi;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// EntityMultiLoader implementation based on [identifier][org.hibernate.KeyType#NATURAL].
 ///
@@ -24,5 +26,6 @@ public interface MultiNaturalIdLoader<E> extends EntityMultiLoader<E> {
 	/// @param <K> The basic form for a natural-id is a Map of its attribute values, or an array of the
 	/// values positioned according to "attribute ordering".  Simple natural-ids can also be expressed
 	/// by their simple (basic/embedded) type.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<K> List<E> multiLoad(K[] naturalIds, MultiNaturalIdLoadOptions options, SharedSessionContractImplementor session);
 }

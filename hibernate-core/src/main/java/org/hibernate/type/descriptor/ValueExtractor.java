@@ -7,6 +7,8 @@ package org.hibernate.type.descriptor;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for extracting values from a JDBC {@link ResultSet} or
@@ -25,6 +27,7 @@ public interface ValueExtractor<X> {
 	 *
 	 * @throws SQLException Indicates a JDBC error occurred.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	X extract(ResultSet rs, int paramIndex, WrapperOptions options) throws SQLException;
 
 	/**
@@ -32,6 +35,7 @@ public interface ValueExtractor<X> {
 	 *
 	 * @throws SQLException Indicates a JDBC error occurred.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	X extract(CallableStatement statement, int paramIndex, WrapperOptions options) throws SQLException;
 
 	/**
@@ -39,5 +43,6 @@ public interface ValueExtractor<X> {
 	 *
 	 * @throws SQLException Indicates a JDBC error occurred.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	X extract(CallableStatement statement, String paramName, WrapperOptions options) throws SQLException;
 }

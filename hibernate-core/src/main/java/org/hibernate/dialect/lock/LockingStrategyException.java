@@ -5,6 +5,8 @@
 package org.hibernate.dialect.lock;
 
 import org.hibernate.HibernateException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents an error trying to apply a {@link LockingStrategy} to an entity
@@ -37,6 +39,7 @@ public abstract class LockingStrategyException extends HibernateException {
 		this.entity = entity;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getEntity() {
 		return entity;
 	}

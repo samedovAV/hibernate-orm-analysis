@@ -8,6 +8,8 @@ import java.io.Serializable;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Defines the contract for objects which are able to manage the lifecycle
@@ -57,5 +59,6 @@ public interface CurrentSessionContext extends Serializable {
 	 * @throws HibernateException Typically indicates an issue
 	 * locating or creating the current session.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Session currentSession() throws HibernateException;
 }

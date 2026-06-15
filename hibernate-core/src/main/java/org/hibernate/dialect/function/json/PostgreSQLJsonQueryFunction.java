@@ -20,6 +20,8 @@ import org.hibernate.sql.ast.tree.expression.JsonQueryErrorBehavior;
 import org.hibernate.sql.ast.tree.expression.JsonQueryWrapMode;
 import org.hibernate.sql.ast.tree.expression.Literal;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * PostgreSQL json_query function.
@@ -31,6 +33,7 @@ public class PostgreSQLJsonQueryFunction extends JsonQueryFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void render(
 			SqlAppender sqlAppender,
 			JsonQueryArguments arguments,
@@ -55,6 +58,7 @@ public class PostgreSQLJsonQueryFunction extends JsonQueryFunction {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static void appendJsonQuery(SqlAppender sqlAppender, Expression jsonDocument, SqlAstNode jsonPath, boolean isJsonType, JsonQueryWrapMode wrapMode, @Nullable JsonPathPassingClause passingClause, SqlAstTranslator<?> walker) {
 		if ( wrapMode == JsonQueryWrapMode.WITH_WRAPPER ) {
 			sqlAppender.appendSql( "jsonb_path_query_array(" );

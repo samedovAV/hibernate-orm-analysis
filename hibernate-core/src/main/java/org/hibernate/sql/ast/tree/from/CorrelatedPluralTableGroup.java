@@ -13,6 +13,8 @@ import org.hibernate.spi.NavigablePath;
 import org.hibernate.sql.ast.spi.SqlAliasBase;
 import org.hibernate.sql.ast.tree.predicate.Predicate;
 import org.hibernate.sql.ast.tree.select.QuerySpec;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A table group for correlated plural attributes.
@@ -34,31 +36,37 @@ public class CorrelatedPluralTableGroup extends CorrelatedTableGroup implements 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public PluralAttributeMapping getModelPart() {
 		return (PluralAttributeMapping) super.getModelPart();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableGroup getElementTableGroup() {
 		return elementTableGroup;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableGroup getIndexTableGroup() {
 		return indexTableGroup;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void registerIndexTableGroup(TableGroupJoin indexTableGroupJoin) {
 		assert this.indexTableGroup == null;
 		this.indexTableGroup = indexTableGroupJoin.getJoinedGroup();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void registerElementTableGroup(TableGroupJoin elementTableGroupJoin) {
 		assert this.elementTableGroup == null;
 		this.elementTableGroup = elementTableGroupJoin.getJoinedGroup();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public TableReference getTableReference(
 			NavigablePath navigablePath,
 			ValuedModelPart modelPart,
@@ -97,6 +105,7 @@ public class CorrelatedPluralTableGroup extends CorrelatedTableGroup implements 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public TableReference getTableReference(
 			NavigablePath navigablePath,
 			String tableExpression,

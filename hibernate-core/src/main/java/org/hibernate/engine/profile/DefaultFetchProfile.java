@@ -18,6 +18,8 @@ import jakarta.annotation.Nullable;
 import static org.hibernate.engine.FetchStyle.SUBSELECT;
 import static org.hibernate.engine.FetchTiming.IMMEDIATE;
 import static org.hibernate.engine.FetchStyle.JOIN;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gavin King
@@ -35,6 +37,7 @@ public class DefaultFetchProfile extends FetchProfile {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nullable Fetch getFetchByRole(String role) {
 		final int last = role.lastIndexOf('.');
 		final String entityName = role.substring( 0, last );
@@ -53,6 +56,7 @@ public class DefaultFetchProfile extends FetchProfile {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean hasSubselectLoadableCollectionsEnabled(EntityPersister persister) {
 		final AttributeMappingsList attributeMappings = persister.getAttributeMappings();
 		for ( int i = 0; i < attributeMappings.size(); i++ ) {
@@ -65,6 +69,7 @@ public class DefaultFetchProfile extends FetchProfile {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, Fetch> getFetches() {
 		throw new UnsupportedOperationException( "DefaultFetchProfile has implicit fetches" );
 	}

@@ -12,6 +12,8 @@ import org.hibernate.sql.results.graph.DomainResultCreationState;
 import org.hibernate.sql.results.graph.FetchParent;
 import org.hibernate.sql.results.graph.InitializerParent;
 import org.hibernate.sql.results.graph.embeddable.EmbeddableInitializer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class NonAggregatedIdentifierMappingFetch extends EmbeddableFetchImpl {
 	public NonAggregatedIdentifierMappingFetch(
@@ -29,6 +31,7 @@ public class NonAggregatedIdentifierMappingFetch extends EmbeddableFetchImpl {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableInitializer<?> createInitializer(InitializerParent<?> parent, AssemblerCreationState creationState) {
 		return new NonAggregatedIdentifierMappingInitializer( this, parent, creationState, false );
 	}

@@ -13,6 +13,8 @@ import org.hibernate.metamodel.spi.RuntimeModelCreationContext;
 import org.hibernate.persister.collection.CollectionPersister;
 import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.service.Service;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for creating persister instances (both {@link EntityPersister} and {@link CollectionPersister} varieties).
@@ -28,6 +30,7 @@ public interface PersisterFactory extends Service {
 	 * @param naturalIdCacheAccessStrategy The cache access strategy for the entity's natural-id cross-ref region
 	 * @param creationContext Access to additional information needed to create the EntityPersister
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityPersister createEntityPersister(
 			PersistentClass entityBinding,
 			EntityDataAccess entityCacheAccessStrategy,
@@ -41,6 +44,7 @@ public interface PersisterFactory extends Service {
 	 * @param cacheAccessStrategy The cache access strategy for the collection region
 	 * @param creationContext Access to additional information needed to create an EntityPersister
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CollectionPersister createCollectionPersister(
 			Collection collectionBinding,
 			CollectionDataAccess cacheAccessStrategy,

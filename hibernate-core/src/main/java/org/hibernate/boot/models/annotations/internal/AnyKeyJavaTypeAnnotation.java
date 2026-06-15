@@ -10,6 +10,8 @@ import java.util.Map;
 import org.hibernate.annotations.AnyKeyJavaType;
 import org.hibernate.models.spi.ModelsContext;
 import org.hibernate.type.descriptor.java.BasicJavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -37,15 +39,18 @@ public class AnyKeyJavaTypeAnnotation implements AnyKeyJavaType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return AnyKeyJavaType.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends BasicJavaType<?>> value() {
 		return value;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void value(Class<? extends BasicJavaType<?>> value) {
 		this.value = value;
 	}

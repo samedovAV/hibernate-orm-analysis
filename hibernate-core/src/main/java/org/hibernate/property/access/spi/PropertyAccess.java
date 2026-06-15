@@ -7,6 +7,8 @@ package org.hibernate.property.access.spi;
 import org.hibernate.metamodel.spi.ManagedTypeRepresentationStrategy;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Defines how a given persistent attribute is accessed by exposing
@@ -25,6 +27,7 @@ public interface PropertyAccess {
 	 *
 	 * @return The {@code PropertyAccessStrategy}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PropertyAccessStrategy getPropertyAccessStrategy();
 
 	/**
@@ -32,6 +35,7 @@ public interface PropertyAccess {
 	 *
 	 * @return The property getter
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Getter getGetter();
 
 	/**
@@ -39,5 +43,6 @@ public interface PropertyAccess {
 	 *
 	 * @return The property setter
 	 */
-	@Nullable Setter getSetter();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	Setter getSetter();
 }

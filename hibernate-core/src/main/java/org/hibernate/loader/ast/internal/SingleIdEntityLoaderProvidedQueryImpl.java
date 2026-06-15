@@ -16,6 +16,8 @@ import org.hibernate.type.descriptor.java.JavaType;
 
 import static org.hibernate.internal.util.collections.ArrayHelper.EMPTY_OBJECT_ARRAY;
 import static org.hibernate.query.ResultListTransformer.uniqueResultTransformer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Implementation of SingleIdEntityLoader for cases where the application has
@@ -35,11 +37,13 @@ public class SingleIdEntityLoaderProvidedQueryImpl<T> implements SingleIdEntityL
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityMappingType getLoadable() {
 		return entityDescriptor;
 	}
 
 	@Override @SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public T load(Object pkValue, LockOptions lockOptions, Boolean readOnly, SharedSessionContractImplementor session) {
 		final var mappedJavaType = (JavaType<T>) entityDescriptor.getMappedJavaType();
 		final var query = namedQueryMemento.toSelectionQuery( session, mappedJavaType.getJavaTypeClass() );
@@ -50,6 +54,7 @@ public class SingleIdEntityLoaderProvidedQueryImpl<T> implements SingleIdEntityL
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public T load(
 			Object pkValue,
 			Object entityInstance,
@@ -63,6 +68,7 @@ public class SingleIdEntityLoaderProvidedQueryImpl<T> implements SingleIdEntityL
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object[] loadDatabaseSnapshot(Object id, SharedSessionContractImplementor session) {
 		return EMPTY_OBJECT_ARRAY;
 	}

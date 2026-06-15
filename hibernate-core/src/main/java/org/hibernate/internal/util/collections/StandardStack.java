@@ -9,6 +9,8 @@ import java.util.NoSuchElementException;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A general-purpose stack impl supporting null values.
@@ -32,11 +34,13 @@ public final class StandardStack<T> implements Stack<T> {
 		push( initialValue );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void init() {
 		elements = new Object[8];
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void push(T e) {
 		if ( elements == null ) {
 			init();
@@ -48,6 +52,7 @@ public final class StandardStack<T> implements Stack<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public T pop() {
 		if ( isEmpty() ) {
 			throw new NoSuchElementException();
@@ -58,6 +63,7 @@ public final class StandardStack<T> implements Stack<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public T getCurrent() {
 		if ( isEmpty() ) {
 			return null;
@@ -66,6 +72,7 @@ public final class StandardStack<T> implements Stack<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public T peek(int offsetFromTop) {
 		if ( isEmpty() ) {
 			return null;
@@ -74,6 +81,7 @@ public final class StandardStack<T> implements Stack<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public T getRoot() {
 		if ( isEmpty() ) {
 			return null;
@@ -82,16 +90,19 @@ public final class StandardStack<T> implements Stack<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int depth() {
 		return top;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isEmpty() {
 		return top == 0;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void clear() {
 		if ( elements != null ) {
 			Arrays.fill( elements, 0, top, null );
@@ -100,6 +111,7 @@ public final class StandardStack<T> implements Stack<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void visitRootFirst(Consumer<T> action) {
 		for ( int i = 0; i < top; i++ ) {
 			action.accept( (T) elements[i] );
@@ -107,6 +119,7 @@ public final class StandardStack<T> implements Stack<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <X> X findCurrentFirst(Function<T, X> function) {
 		for ( int i = top - 1; i >= 0; i-- ) {
 			final X result = function.apply( (T) elements[i] );
@@ -118,6 +131,7 @@ public final class StandardStack<T> implements Stack<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <X, Y> X findCurrentFirstWithParameter(Y parameter, BiFunction<T, Y, X> biFunction) {
 		for ( int i = top - 1; i >= 0; i-- ) {
 			final X result = biFunction.apply( (T) elements[i], parameter );
@@ -128,6 +142,7 @@ public final class StandardStack<T> implements Stack<T> {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void grow() {
 		final int oldCapacity = elements.length;
 		final int jump = ( oldCapacity < 64 ) ? ( oldCapacity + 2 ) : ( oldCapacity >> 1 );

@@ -12,6 +12,8 @@ import org.hibernate.cache.spi.access.SoftLock;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 
 import static org.hibernate.cache.spi.SecondLevelCacheLogger.L2CACHE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard support for {@link org.hibernate.cache.spi.access.NaturalIdDataAccess}
@@ -32,11 +34,13 @@ public class NaturalIdReadOnlyAccess extends AbstractNaturalIdDataAccess {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AccessType getAccessType() {
 		return AccessType.READ_ONLY;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void unlockItem(
 			SharedSessionContractImplementor session,
 			Object key,

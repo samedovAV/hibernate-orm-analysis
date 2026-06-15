@@ -24,6 +24,8 @@ import org.hibernate.sql.results.jdbc.spi.RowProcessingState;
 import jakarta.annotation.Nullable;
 
 import static org.hibernate.internal.log.LoggingHelper.toLoggableString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents an immediate initialization of some sort (join, select, batch, sub-select)
@@ -65,6 +67,7 @@ public class MapInitializer extends AbstractImmediateCollectionInitializer<Abstr
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void forEachSubInitializer(BiConsumer<Initializer<?>, RowProcessingState> consumer, InitializerData data) {
 		super.forEachSubInitializer( consumer, data );
 		final var keyInitializer = mapKeyAssembler.getInitializer();
@@ -78,11 +81,13 @@ public class MapInitializer extends AbstractImmediateCollectionInitializer<Abstr
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nullable PersistentMap<?, ?> getCollectionInstance(ImmediateCollectionInitializerData data) {
 		return (PersistentMap<?, ?>) super.getCollectionInstance( data );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void readCollectionRow(ImmediateCollectionInitializerData data, List<Object> loadingState) {
 		final var rowProcessingState = data.getRowProcessingState();
 		final Object key = mapKeyAssembler.assemble( rowProcessingState );
@@ -97,6 +102,7 @@ public class MapInitializer extends AbstractImmediateCollectionInitializer<Abstr
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void initializeSubInstancesFromParent(ImmediateCollectionInitializerData data) {
 		final var keyInitializer = mapKeyAssembler.getInitializer();
 		final var valueInitializer = mapValueAssembler.getInitializer();
@@ -116,6 +122,7 @@ public class MapInitializer extends AbstractImmediateCollectionInitializer<Abstr
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void resolveInstanceSubInitializers(ImmediateCollectionInitializerData data) {
 		final var keyInitializer = mapKeyAssembler.getInitializer();
 		final var valueInitializer = mapValueAssembler.getInitializer();
@@ -145,16 +152,19 @@ public class MapInitializer extends AbstractImmediateCollectionInitializer<Abstr
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResultAssembler<?> getIndexAssembler() {
 		return mapKeyAssembler;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResultAssembler<?> getElementAssembler() {
 		return mapValueAssembler;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "MapInitializer(" + toLoggableString( getNavigablePath() ) + ")";
 	}

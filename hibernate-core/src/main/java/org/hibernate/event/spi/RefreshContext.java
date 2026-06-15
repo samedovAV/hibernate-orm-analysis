@@ -5,6 +5,8 @@
 package org.hibernate.event.spi;
 
 import java.util.IdentityHashMap;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link RefreshEvent} represents a {@linkplain org.hibernate.Session#refresh(Object) refresh operation}
@@ -15,12 +17,15 @@ import java.util.IdentityHashMap;
  */
 public interface RefreshContext {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean add(Object entity);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isEmpty() {
 		return false;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static RefreshContext create() {
 		// use extension to avoid creating
 		// a useless wrapper object
@@ -31,11 +36,13 @@ public interface RefreshContext {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public boolean add(Object entity) {
 				return put(entity,entity)==null;
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public boolean isEmpty() {
 				return size() == 0;
 			}

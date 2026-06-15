@@ -19,6 +19,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Property holder abstract property containers from their direct implementation
@@ -26,60 +28,78 @@ import jakarta.persistence.JoinTable;
  * @author Emmanuel Bernard
  */
 public interface PropertyHolder {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getClassName();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getEntityOwnerClassName();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Table getTable();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addProperty(Property prop, MemberDetails memberDetails, ClassDetails declaringClass);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addProperty(Property prop, MemberDetails memberDetails, @Nullable AnnotatedColumns columns, ClassDetails declaringClass);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void movePropertyToJoin(Property prop, Join join, MemberDetails memberDetails, ClassDetails declaringClass);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	KeyValue getIdentifier();
 
 	/**
 	 * Return true if this component is or is embedded in a @EmbeddedId
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isOrWithinEmbeddedId();
 
 	/**
 	 * Return true if this component is within an @ElementCollection.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isWithinElementCollection();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PersistentClass getPersistentClass();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isComponent();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isEntity();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setParentProperty(String parentProperty);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getPath();
 
 	/**
 	 * return null if the column is not overridden,
 	 * or an array of columns if it is
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Column[] getOverriddenColumn(String propertyName);
 
 	/**
 	 * return null if the column is not overridden,
 	 * or an array of columns if it is
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JoinColumn[] getOverriddenJoinColumn(String propertyName);
 
 	/**
 	 * return null if hte foreign key is not overridden, or the foreign key if true
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default ForeignKey getOverriddenForeignKey(String propertyName) {
 		// todo: does this necessarily need to be a default method?
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ColumnTransformer getOverriddenColumnTransformer(String logicalColumnName);
 
 	/**
@@ -88,16 +108,22 @@ public interface PropertyHolder {
 	 * - the join table if not overridden,
 	 * - the overridden join table otherwise
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JoinTable getJoinTable(MemberDetails attributeMember);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getEntityName();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Join addJoin(JoinTable joinTableAnn, boolean noDelayInPkColumnCreation);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Join addJoin(JoinTable joinTable, Table table, boolean noDelayInPkColumnCreation);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isInIdClass();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setInIdClass(Boolean isInIdClass);
 
 	/**
@@ -106,6 +132,7 @@ public interface PropertyHolder {
 	 *
 	 * @param property The property
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void startingProperty(MemberDetails property);
 
 	/**
@@ -113,6 +140,7 @@ public interface PropertyHolder {
 	 *
 	 * @return The ConverterDescriptor
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ConverterDescriptor<?,?> resolveAttributeConverterDescriptor(MemberDetails property, boolean autoApply);
 
 	/**
@@ -122,5 +150,6 @@ public interface PropertyHolder {
 	 * modifiable if the embedded field referring to the embeddable
 	 * object is non-final.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isModifiable();
 }

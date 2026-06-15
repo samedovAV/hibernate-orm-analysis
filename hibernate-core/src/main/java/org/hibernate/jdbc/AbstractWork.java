@@ -6,6 +6,8 @@ package org.hibernate.jdbc;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An abstract implementation of {@link Work} that accepts a {@link WorkExecutor}
@@ -32,6 +34,7 @@ public abstract class AbstractWork implements Work, WorkExecutorVisitable<Void> 
 	 * @throws SQLException Thrown during execution of the underlying JDBC interaction.
 	 * @throws org.hibernate.HibernateException Generally indicates a wrapped SQLException.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Void accept(WorkExecutor<Void> executor, Connection connection) throws SQLException {
 		return executor.executeWork( this, connection );
 	}

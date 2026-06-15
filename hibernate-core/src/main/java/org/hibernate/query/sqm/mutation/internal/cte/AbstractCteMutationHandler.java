@@ -62,6 +62,8 @@ import java.util.Collections;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Defines how identifier values are selected from the updatable/deletable tables.
@@ -176,6 +178,7 @@ public abstract class AbstractCteMutationHandler extends AbstractMutationHandler
 				jdbcParamsXref,
 				new SqmParameterMappingModelResolutionAccess() {
 					@Override @SuppressWarnings("unchecked")
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public <T> MappingModelExpressible<T> getResolvedMappingModelType(SqmParameter<T> parameter) {
 						return (MappingModelExpressible<T>) resolvedParameterMappingModelTypes.get( parameter );
 					}
@@ -188,6 +191,7 @@ public abstract class AbstractCteMutationHandler extends AbstractMutationHandler
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcParameterBindings createJdbcParameterBindings(DomainQueryExecutionContext context) {
 		return SqmUtil.createJdbcParameterBindings(
 				context.getQueryParameterBindings(),
@@ -195,6 +199,7 @@ public abstract class AbstractCteMutationHandler extends AbstractMutationHandler
 				jdbcParamsXref,
 				new SqmParameterMappingModelResolutionAccess() {
 					@Override @SuppressWarnings("unchecked")
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public <T> MappingModelExpressible<T> getResolvedMappingModelType(SqmParameter<T> parameter) {
 						return (MappingModelExpressible<T>) resolvedParameterMappingModelTypes.get( parameter );
 					}
@@ -204,16 +209,19 @@ public abstract class AbstractCteMutationHandler extends AbstractMutationHandler
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean dependsOnParameterBindings() {
 		return select.dependsOnParameterBindings();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isCompatibleWith(JdbcParameterBindings jdbcParameterBindings, QueryOptions queryOptions) {
 		return select.isCompatibleWith( jdbcParameterBindings, queryOptions );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int execute(JdbcParameterBindings jdbcParameterBindings, DomainQueryExecutionContext executionContext) {
 		final LockOptions lockOptions = executionContext.getQueryOptions().getLockOptions();
 		// Acquire a WRITE lock for the rows that are about to be modified
@@ -232,6 +240,7 @@ public abstract class AbstractCteMutationHandler extends AbstractMutationHandler
 	}
 
 	// For Hibernate Reactive
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected JdbcSelect getSelect() {
 		return select;
 	}
@@ -239,6 +248,7 @@ public abstract class AbstractCteMutationHandler extends AbstractMutationHandler
 	/**
 	 * Used by Hibernate Reactive
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Expression createCountStar(
 			SessionFactoryImplementor factory,
 			MultiTableSqmMutationConverter sqmConverter) {
@@ -250,6 +260,7 @@ public abstract class AbstractCteMutationHandler extends AbstractMutationHandler
 				.convertToSqlAst( sqmConverter );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected Predicate createIdSubQueryPredicate(
 			List<? extends Expression> lhsExpressions,
 			CteStatement idSelectCte,
@@ -257,6 +268,7 @@ public abstract class AbstractCteMutationHandler extends AbstractMutationHandler
 		return createIdSubQueryPredicate( lhsExpressions, idSelectCte, null, factory );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Predicate createIdSubQueryPredicate(
 			List<? extends Expression> lhsExpressions,
 			CteStatement idSelectCte,
@@ -285,6 +297,7 @@ public abstract class AbstractCteMutationHandler extends AbstractMutationHandler
 		return predicate;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected QuerySpec createIdSubQuery(
 			CteStatement idSelectCte,
 			ModelPart fkModelPart,
@@ -331,6 +344,7 @@ public abstract class AbstractCteMutationHandler extends AbstractMutationHandler
 		return subQuery;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract void addDmlCtes(
 			CteContainer statement,
 			CteStatement idSelectCte,
@@ -339,6 +353,7 @@ public abstract class AbstractCteMutationHandler extends AbstractMutationHandler
 			SessionFactoryImplementor factory);
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected NamedTableReference resolveUnionTableReference(
 			TableReference tableReference,
 			String tableExpression) {
@@ -354,5 +369,6 @@ public abstract class AbstractCteMutationHandler extends AbstractMutationHandler
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract String getCteTableName(String tableExpression);
 }

@@ -5,6 +5,8 @@
 package org.hibernate.type;
 
 import org.hibernate.Incubating;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A basic plural type. Represents a type, that is mapped to a single column instead of multiple rows.
@@ -18,6 +20,7 @@ public interface BasicPluralType<C, E> extends BasicType<C> {
 	/**
 	 * Get element type
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	BasicType<E> getElementType();
 
 }

@@ -13,6 +13,8 @@ import jakarta.persistence.NamedEntityGraph;
 
 import static org.hibernate.boot.models.JpaAnnotations.NAMED_ENTITY_GRAPH;
 import static org.hibernate.boot.models.internal.OrmAnnotationHelper.extractJdkValue;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -57,55 +59,66 @@ public class NamedEntityGraphJpaAnnotation implements NamedEntityGraph {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return NamedEntityGraph.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String name() {
 		return name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void name(String value) {
 		this.name = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.NamedAttributeNode[] attributeNodes() {
 		return attributeNodes;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void attributeNodes(jakarta.persistence.NamedAttributeNode[] value) {
 		this.attributeNodes = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean includeAllAttributes() {
 		return includeAllAttributes;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void includeAllAttributes(boolean value) {
 		this.includeAllAttributes = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.NamedSubgraph[] subgraphs() {
 		return subgraphs;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void subgraphs(jakarta.persistence.NamedSubgraph[] value) {
 		this.subgraphs = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.NamedSubgraph[] subclassSubgraphs() {
 		return subclassSubgraphs;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void subclassSubgraphs(jakarta.persistence.NamedSubgraph[] value) {
 		this.subclassSubgraphs = value;
 	}

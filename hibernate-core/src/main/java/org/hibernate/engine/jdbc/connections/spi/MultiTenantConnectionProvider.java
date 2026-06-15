@@ -12,6 +12,8 @@ import org.hibernate.dialect.Dialect;
 import org.hibernate.engine.jdbc.connections.internal.DatabaseConnectionInfoImpl;
 import org.hibernate.service.Service;
 import org.hibernate.service.spi.Wrapped;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A specialized {@link Connection} provider contract used when the application is using
@@ -42,6 +44,7 @@ public interface MultiTenantConnectionProvider<T> extends Service, Wrapped {
 	 *
 	 * @throws SQLException Indicates a problem opening a connection
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Connection getAnyConnection() throws SQLException;
 
 	/**
@@ -51,6 +54,7 @@ public interface MultiTenantConnectionProvider<T> extends Service, Wrapped {
 	 *
 	 * @throws SQLException Indicates a problem closing the connection
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void releaseAnyConnection(Connection connection) throws SQLException;
 
 	/**
@@ -63,6 +67,7 @@ public interface MultiTenantConnectionProvider<T> extends Service, Wrapped {
 	 * @throws SQLException Indicates a problem opening a connection
 	 * @throws org.hibernate.HibernateException Indicates a problem obtaining a connection
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Connection getConnection(T tenantIdentifier) throws SQLException;
 
 	/**
@@ -84,6 +89,7 @@ public interface MultiTenantConnectionProvider<T> extends Service, Wrapped {
 	 * @since 7.2
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Connection getReadOnlyConnection(T tenantIdentifier)
 			throws SQLException {
 		return getConnection( tenantIdentifier );
@@ -98,6 +104,7 @@ public interface MultiTenantConnectionProvider<T> extends Service, Wrapped {
 	 * @throws SQLException Indicates a problem closing the connection
 	 * @throws org.hibernate.HibernateException Indicates a problem releasing a connection
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void releaseConnection(T tenantIdentifier, Connection connection) throws SQLException;
 
 	/**
@@ -118,6 +125,7 @@ public interface MultiTenantConnectionProvider<T> extends Service, Wrapped {
 	 * @since 7.2
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void releaseReadOnlyConnection(T tenantIdentifier, Connection connection)
 			throws SQLException {
 		releaseConnection( tenantIdentifier, connection );
@@ -139,6 +147,7 @@ public interface MultiTenantConnectionProvider<T> extends Service, Wrapped {
 	 *
 	 * @return {@code true} if aggressive releasing is supported; {@code false} otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean supportsAggressiveRelease();
 
 	/**
@@ -153,6 +162,7 @@ public interface MultiTenantConnectionProvider<T> extends Service, Wrapped {
 	 * to obtain the {@link org.hibernate.context.spi.TenantSchemaMapper}.
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean handlesConnectionSchema() {
 		return false;
 	}
@@ -165,10 +175,12 @@ public interface MultiTenantConnectionProvider<T> extends Service, Wrapped {
 	 *         {@code false} if the client should set the read-only mode
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean handlesConnectionReadOnly() {
 		return false;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default DatabaseConnectionInfo getDatabaseConnectionInfo(Dialect dialect) {
 		return new DatabaseConnectionInfoImpl( dialect );
 	}

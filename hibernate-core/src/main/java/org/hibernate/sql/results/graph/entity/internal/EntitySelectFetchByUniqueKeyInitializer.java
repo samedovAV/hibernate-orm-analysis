@@ -14,6 +14,8 @@ import org.hibernate.sql.results.graph.DomainResult;
 import org.hibernate.sql.results.graph.InitializerParent;
 
 import static org.hibernate.internal.log.LoggingHelper.toLoggableString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Andrea Boriero
@@ -37,6 +39,7 @@ public class EntitySelectFetchByUniqueKeyInitializer
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void initialize(EntitySelectFetchInitializerData data) {
 		final String entityName = concreteDescriptor.getEntityName();
 		final String uniqueKeyPropertyName = fetchedAttribute.getReferencedPropertyName();
@@ -76,6 +79,7 @@ public class EntitySelectFetchByUniqueKeyInitializer
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "EntitySelectFetchByUniqueKeyInitializer("
 				+ toLoggableString( getNavigablePath() ) + ")";

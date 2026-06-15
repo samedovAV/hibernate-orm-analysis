@@ -22,6 +22,8 @@ import static org.hibernate.internal.util.collections.CollectionHelper.arrayList
 import static org.hibernate.internal.util.collections.CollectionHelper.isEmpty;
 import static org.hibernate.loader.ast.internal.LoaderHelper.upgradeLock;
 import static org.hibernate.loader.ast.internal.MultiKeyLoadLogging.MULTI_KEY_LOAD_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Jan Schatteman
@@ -34,6 +36,7 @@ public abstract class AbstractMultiNaturalIdLoader<E> implements MultiNaturalIdL
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <K> List<E> multiLoad(K[] naturalIds, MultiNaturalIdLoadOptions options, SharedSessionContractImplementor session) {
 		assert naturalIds != null;
 		if ( naturalIds.length == 0 ) {
@@ -46,6 +49,7 @@ public abstract class AbstractMultiNaturalIdLoader<E> implements MultiNaturalIdL
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private <K> List<E> performUnorderedMultiLoad(
 			K[] naturalIds,
 			MultiNaturalIdLoadOptions loadOptions,
@@ -56,11 +60,13 @@ public abstract class AbstractMultiNaturalIdLoader<E> implements MultiNaturalIdL
 		return unorderedMultiLoad( naturalIds, loadOptions, session );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static LockOptions lockOptions(MultiNaturalIdLoadOptions loadOptions) {
 		final var lockOptions = loadOptions.getLockOptions();
 		return lockOptions == null ? new LockOptions() : lockOptions;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private <K> List<E> unorderedMultiLoad(
 			K[] naturalIds,
 			MultiNaturalIdLoadOptions loadOptions,
@@ -75,12 +81,14 @@ public abstract class AbstractMultiNaturalIdLoader<E> implements MultiNaturalIdL
 		return results;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract List<E> loadEntitiesWithUnresolvedIds(
 			Object[] unresolvedIds,
 			MultiNaturalIdLoadOptions loadOptions,
 			LockOptions lockOptions,
 			SharedSessionContractImplementor session);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private <K> List<E> performOrderedMultiLoad(
 			K[] naturalIds,
 			MultiNaturalIdLoadOptions options,
@@ -91,6 +99,7 @@ public abstract class AbstractMultiNaturalIdLoader<E> implements MultiNaturalIdL
 		return orderedMultiLoad( naturalIds, options, session );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private <K> List<E> orderedMultiLoad(
 			K[] naturalIds,
 			MultiNaturalIdLoadOptions loadOptions,
@@ -104,6 +113,7 @@ public abstract class AbstractMultiNaturalIdLoader<E> implements MultiNaturalIdL
 		return sortResults( naturalIds, loadOptions, session );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private <K> List<E> sortResults(
 			K[] naturalIds,
 			MultiNaturalIdLoadOptions loadOptions,
@@ -128,6 +138,7 @@ public abstract class AbstractMultiNaturalIdLoader<E> implements MultiNaturalIdL
 		return results;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Object entityForNaturalId(PersistenceContext context, Object naturalId) {
 		final var descriptor = getEntityDescriptor();
 		final Object id = context.getNaturalIdResolutions().findCachedIdByNaturalId( naturalId, descriptor );
@@ -135,6 +146,7 @@ public abstract class AbstractMultiNaturalIdLoader<E> implements MultiNaturalIdL
 		return id == null ? null : context.getEntity( new EntityKey( id, descriptor.getEntityPersister() ) );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private <K> Object[] checkPersistenceContextForCachedResults(
 			K[] naturalIds,
 			MultiNaturalIdLoadOptions loadOptions,
@@ -175,10 +187,12 @@ public abstract class AbstractMultiNaturalIdLoader<E> implements MultiNaturalIdL
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityMappingType getLoadable() {
 		return getEntityDescriptor();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected final EntityMappingType getEntityDescriptor() {
 		return entityDescriptor;
 	}

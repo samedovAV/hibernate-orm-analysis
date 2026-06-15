@@ -9,6 +9,8 @@ import org.hibernate.boot.model.relational.SqlStringGenerationContext;
 import org.hibernate.mapping.Column;
 import org.hibernate.mapping.Table;
 import org.hibernate.mapping.UniqueKey;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Dialect-level delegate responsible for applying unique constraints in DDL. Uniqueness can
@@ -57,6 +59,7 @@ public interface UniqueDelegate {
 	 * @return The fragment (usually "unique"), empty string indicates the uniqueness will be
 	 *         indicated using a different approach
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getColumnDefinitionUniquenessFragment(Column column, SqlStringGenerationContext context);
 
 	/**
@@ -76,6 +79,7 @@ public interface UniqueDelegate {
 	 * @return The fragment, typically in the form {@code ", unique(col1, col2), unique(col20)"}.
 	 *         The leading comma is important!
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getTableCreationUniqueConstraintsFragment(Table table, SqlStringGenerationContext context);
 
 	/**
@@ -88,6 +92,7 @@ public interface UniqueDelegate {
 	 * @param context A context for SQL string generation
 	 * @return The {@code alter table} command
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getAlterTableToAddUniqueKeyCommand(UniqueKey uniqueKey, Metadata metadata, SqlStringGenerationContext context);
 
 	/**
@@ -99,6 +104,7 @@ public interface UniqueDelegate {
 	 * @param context A context for SQL string generation
 	 * @return The {@code alter table} command
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getAlterTableToDropUniqueKeyCommand(UniqueKey uniqueKey, Metadata metadata, SqlStringGenerationContext context);
 
 }

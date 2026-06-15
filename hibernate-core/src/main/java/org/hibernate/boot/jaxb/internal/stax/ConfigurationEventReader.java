@@ -8,6 +8,8 @@ import javax.xml.stream.XMLEventFactory;
 import javax.xml.stream.XMLEventReader;
 
 import org.hibernate.boot.xsd.ConfigXsdSupport;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -25,6 +27,7 @@ public class ConfigurationEventReader extends AbstractEventReader {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean shouldBeMappedToLatestJpaDescriptor(String uri) {
 		return !ConfigXsdSupport.configurationXsd().getNamespaceUri().equals( uri );
 	}

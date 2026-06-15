@@ -6,6 +6,8 @@ package org.hibernate.event.internal;
 
 import org.hibernate.event.spi.PreLoadEvent;
 import org.hibernate.event.spi.PreLoadEventListener;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Called before injecting property values into a newly
@@ -16,6 +18,7 @@ import org.hibernate.event.spi.PreLoadEventListener;
 public class DefaultPreLoadEventListener implements PreLoadEventListener {
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void onPreLoad(PreLoadEvent event) {
 		final var persister = event.getPersister();
 		event.getSession().runInterceptorCallback(

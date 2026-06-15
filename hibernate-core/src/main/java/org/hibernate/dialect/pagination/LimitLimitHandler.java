@@ -10,6 +10,8 @@ import java.util.regex.Pattern;
 
 import static java.util.regex.Pattern.CASE_INSENSITIVE;
 import static java.util.regex.Pattern.compile;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Limit handler for MySQL and CUBRID which support the syntax
@@ -24,11 +26,13 @@ public class LimitLimitHandler extends AbstractSimpleLimitHandler {
 	public static final LimitLimitHandler INSTANCE = new LimitLimitHandler();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String limitClause(boolean hasFirstRow) {
 		return hasFirstRow ? " limit ?,?" : " limit ?";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String limitClause(boolean hasFirstRow, int jdbcParameterCount, ParameterMarkerStrategy parameterMarkerStrategy) {
 		final String limit = " limit " + parameterMarkerStrategy.createMarker( jdbcParameterCount + 1, null );
 		return hasFirstRow
@@ -37,11 +41,13 @@ public class LimitLimitHandler extends AbstractSimpleLimitHandler {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String offsetOnlyClause() {
 		return " limit ?," + Integer.MAX_VALUE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String offsetOnlyClause(int jdbcParameterCount, ParameterMarkerStrategy parameterMarkerStrategy) {
 		return " limit "
 				+ parameterMarkerStrategy.createMarker( jdbcParameterCount + 1, null )
@@ -53,16 +59,19 @@ public class LimitLimitHandler extends AbstractSimpleLimitHandler {
 			compile("\\s+for\\s+update\\b|\\s+lock\\s+in\\s+shared\\s+mode\\b|\\s*;?\\s*$", CASE_INSENSITIVE);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Pattern getForUpdatePattern() {
 		return FOR_UPDATE_PATTERN;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsOffset() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean processSqlMutatesState() {
 		return false;
 	}

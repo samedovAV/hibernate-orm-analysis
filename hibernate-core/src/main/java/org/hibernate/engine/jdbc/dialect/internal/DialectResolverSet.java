@@ -15,6 +15,8 @@ import org.hibernate.engine.jdbc.dialect.spi.DialectResolver;
 import org.hibernate.exception.JDBCConnectionException;
 
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link DialectResolver} implementation which coordinates resolution by delegating to sub-resolvers.
@@ -39,6 +41,7 @@ public class DialectResolverSet implements DialectResolver {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public Dialect resolveDialect(DialectResolutionInfo info) {
 		for ( DialectResolver resolver : resolvers ) {
 			try {
@@ -58,14 +61,17 @@ public class DialectResolverSet implements DialectResolver {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addResolver(DialectResolver... resolvers) {
 		this.resolvers.addAll( Arrays.asList( resolvers ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addResolverAtFirst(DialectResolver... resolvers) {
 		this.resolvers.addAll( 0, Arrays.asList( resolvers ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addDiscoveredResolvers(Collection<DialectResolver> resolvers) {
 		this.resolvers.addAll( 0, resolvers );
 	}

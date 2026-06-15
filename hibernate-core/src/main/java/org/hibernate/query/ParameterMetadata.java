@@ -12,6 +12,8 @@ import jakarta.persistence.Parameter;
 
 import org.hibernate.Incubating;
 import org.hibernate.type.BindableType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -33,11 +35,13 @@ public interface ParameterMetadata {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Collection<QueryParameter<?>> getParameters();
 
 	/**
 	 * The total number of registered parameters.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getParameterCount();
 
 	/**
@@ -48,6 +52,7 @@ public interface ParameterMetadata {
 	 *
 	 * @see #getQueryParameter(String)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	QueryParameter<?> findQueryParameter(String name);
 
 	/**
@@ -58,6 +63,7 @@ public interface ParameterMetadata {
 	 *
 	 * @throws IllegalArgumentException if no parameter is registered under that name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	QueryParameter<?> getQueryParameter(String name);
 
 	/**
@@ -68,6 +74,7 @@ public interface ParameterMetadata {
 	 *
 	 * @see #getQueryParameter(int)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	QueryParameter<?> findQueryParameter(int positionLabel);
 
 	/**
@@ -78,6 +85,7 @@ public interface ParameterMetadata {
 	 *
 	 * @throws IllegalArgumentException if no parameter is registered under that position-label
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	QueryParameter<?> getQueryParameter(int positionLabel);
 
 	/**
@@ -87,23 +95,28 @@ public interface ParameterMetadata {
 	 * @apiNote According to the spec, only {@link Parameter} references obtained
 	 *          from the provider are valid.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> QueryParameter<P> resolve(Parameter<P> param);
 
 	/**
 	 * Get the type of the given parameter.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> BindableType<T> getInferredParameterType(QueryParameter<T> parameter);
 
 	/**
 	 * Is this parameter reference registered in this collection?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean containsReference(QueryParameter<?> parameter);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Set<? extends QueryParameter<?>> getRegistrations();
 
 	/**
 	 * General purpose visitation using functional
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitRegistrations(Consumer<QueryParameter<?>> action);
 
 
@@ -115,6 +128,7 @@ public interface ParameterMetadata {
 	 *
 	 * @return {@code true} if there are named parameters; {@code false} otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean hasNamedParameters();
 
 	/**
@@ -122,6 +136,7 @@ public interface ParameterMetadata {
 	 *
 	 * @return the parameter names
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Set<String> getNamedParameterNames();
 
 
@@ -133,6 +148,7 @@ public interface ParameterMetadata {
 	 *
 	 * @return {@code true} if there are positional parameters; {@code false} otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean hasPositionalParameters();
 
 	/**
@@ -140,5 +156,6 @@ public interface ParameterMetadata {
 	 *
 	 * @return the position labels
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Set<Integer> getOrdinalParameterLabels();
 }

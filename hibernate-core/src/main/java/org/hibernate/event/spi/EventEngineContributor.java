@@ -5,6 +5,8 @@
 package org.hibernate.event.spi;
 
 import org.hibernate.service.JavaServiceLoadable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Integration contract for contributing event types and listeners to the Hibernate event system.
@@ -18,5 +20,6 @@ public interface EventEngineContributor {
 	/**
 	 * Apply the contributions
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void contribute(EventEngineContributions target);
 }

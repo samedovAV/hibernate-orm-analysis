@@ -7,6 +7,8 @@ package org.hibernate.sql.exec.internal;
 import jakarta.annotation.Nullable;
 import org.hibernate.metamodel.mapping.SqlTypedMapping;
 import org.hibernate.sql.ast.tree.expression.SqlTypedExpression;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -26,6 +28,7 @@ public class SqlTypedMappingJdbcParameter extends AbstractJdbcParameter implemen
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqlTypedMapping getSqlTypedMapping() {
 		return sqlTypedMapping;
 	}

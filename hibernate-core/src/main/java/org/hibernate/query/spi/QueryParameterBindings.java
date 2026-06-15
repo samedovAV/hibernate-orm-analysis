@@ -11,6 +11,8 @@ import org.hibernate.cache.spi.QueryKey;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.query.QueryParameter;
 import org.hibernate.query.internal.QueryParameterBindingsImpl;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Manages all the parameter bindings for a particular query.
@@ -29,6 +31,7 @@ public interface QueryParameterBindings {
 	 * @return {@code true} if its value has been bound; {@code false}
 	 * otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isBound(QueryParameterImplementor<?> parameter);
 
 	/**
@@ -38,6 +41,7 @@ public interface QueryParameterBindings {
 	 *
 	 * @return The binding, or {@code null} if not yet bound
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default <P> QueryParameterBinding<P> getBinding(QueryParameter<P> parameter) {
 		return getBinding( (QueryParameterImplementor<P>) parameter );
 	}
@@ -49,6 +53,7 @@ public interface QueryParameterBindings {
 	 *
 	 * @return The binding, or {@code null} if not yet bound
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> QueryParameterBinding<P> getBinding(QueryParameterImplementor<P> parameter);
 
 	/**
@@ -58,6 +63,7 @@ public interface QueryParameterBindings {
 	 *
 	 * @return The binding, or {@code null} if not yet bound
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	QueryParameterBinding<?> getBinding(String name);
 
 	/**
@@ -67,28 +73,35 @@ public interface QueryParameterBindings {
 	 *
 	 * @return The binding, or {@code null} if not yet bound
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	QueryParameterBinding<?> getBinding(int position);
 
 	/**
 	 * Validate the bindings.  Called just before execution
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void validate();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean hasAnyMultiValuedBindings();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean hasAnyTransientEntityBindings(SharedSessionContractImplementor session);
 
 	/**
 	 * Generate a "memento" for these parameter bindings that can be used
 	 * in creating a {@link QueryKey}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	QueryKey.ParameterBindingsMemento generateQueryKeyMemento(SharedSessionContractImplementor session);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitBindings(BiConsumer<? super QueryParameter<?>, ? super QueryParameterBinding<?>> action);
 
 	QueryKey.ParameterBindingsMemento NO_PARAMETER_BINDING_MEMENTO = new QueryKey.ParameterBindingsMemento(){
 	};
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static QueryParameterBindings empty() {
 		return QueryParameterBindingsImpl.EMPTY;
 	}

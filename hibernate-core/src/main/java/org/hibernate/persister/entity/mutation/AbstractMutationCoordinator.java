@@ -37,6 +37,8 @@ import static org.hibernate.sql.model.ModelMutationLogging.MODEL_MUTATION_LOGGER
 import static org.hibernate.sql.model.internal.MutationOperationGroupFactory.manyOperations;
 import static org.hibernate.sql.model.internal.MutationOperationGroupFactory.noOperations;
 import static org.hibernate.sql.model.internal.MutationOperationGroupFactory.singleOperation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -61,6 +63,7 @@ public abstract class AbstractMutationCoordinator {
 		mutationExecutorService = factory.getServiceRegistry().getService( MutationExecutorService.class );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static boolean hasValueGenerationOnExecution(
 			OnExecutionGenerator generator,
 			Dialect dialect,
@@ -98,18 +101,22 @@ public abstract class AbstractMutationCoordinator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected EntityPersister entityPersister() {
 		return entityPersister;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected SessionFactoryImplementor factory() {
 		return factory;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Dialect dialect() {
 		return dialect;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected BatchKeyAccess resolveBatchKeyAccess(boolean dynamicUpdate, SharedSessionContractImplementor session) {
 		if ( !dynamicUpdate && !entityPersister().optimisticLockStyle().isAllOrDirty() ) {
 			final var transactionCoordinator = session.getTransactionCoordinator();
@@ -121,8 +128,10 @@ public abstract class AbstractMutationCoordinator {
 		return NoBatchKeyAccess.INSTANCE;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract BatchKey getBatchKey();
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected MutationOperationGroup createOperationGroup(ValuesAnalysis valuesAnalysis, MutationGroup mutationGroup) {
 		final int numberOfTableMutations = mutationGroup.getNumberOfTableMutations();
 		switch ( numberOfTableMutations ) {
@@ -162,11 +171,13 @@ public abstract class AbstractMutationCoordinator {
 	/*
 	 * Used by Hibernate Reactive
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected MutationOperation createOperation(ValuesAnalysis valuesAnalysis, TableMutation<?> singleTableMutation) {
 		return singleTableMutation.createMutationOperation( valuesAnalysis, factory() );
 	}
 
 	// Used by Hibernate Reactive
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected boolean hasValueGenerationOnExecution(
 			Object entity,
 			SharedSessionContractImplementor session,
@@ -180,6 +191,7 @@ public abstract class AbstractMutationCoordinator {
 			&& hasValueGenerationOnExecution( generator, dialect(), eventType );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void handleValueGeneration(
 			AttributeMapping attributeMapping,
 			MutationGroupBuilder mutationGroupBuilder,
@@ -202,6 +214,7 @@ public abstract class AbstractMutationCoordinator {
 		} );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void bindPartitionColumnValueBindings(
 			Object[] loadedState,
 			SharedSessionContractImplementor session,
@@ -234,11 +247,13 @@ public abstract class AbstractMutationCoordinator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected static boolean needsRowId(EntityPersister entityPersister, EntityTableMapping tableMapping) {
 		return entityPersister.getRowIdMapping() != null
 			&& tableMapping.isIdentifierTable();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected static void applyKeyRestriction(
 			Object rowId,
 			EntityPersister entityPersister,
@@ -252,6 +267,7 @@ public abstract class AbstractMutationCoordinator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void breakDownKeyJdbcValues(
 			Object id,
 			Object rowId,
@@ -282,6 +298,7 @@ public abstract class AbstractMutationCoordinator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean resultCheck(
 			Object id,
 			PreparedStatementDetails statementDetails,
@@ -297,12 +314,14 @@ public abstract class AbstractMutationCoordinator {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void applyOptimisticLocking(RestrictedTableMutationBuilder<?, ?> tableMutationBuilder) {
 		if ( entityPersister().optimisticLockStyle() == OptimisticLockStyle.VERSION ) {
 			applyVersionOptimisticLocking( tableMutationBuilder );
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void applyVersionOptimisticLocking(RestrictedTableMutationBuilder<?, ?> tableMutationBuilder) {
 		final var versionMapping = entityPersister().getVersionMapping();
 		if ( versionMapping != null ) {
@@ -310,10 +329,12 @@ public abstract class AbstractMutationCoordinator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StaleObjectStateException staleObjectStateException(Object id, StaleStateException cause) {
 		return new StaleObjectStateException( entityPersister().getEntityName(), id, cause );
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	void applyPartitionKeyRestriction(RestrictedTableMutationBuilder<?, ?> tableMutationBuilder) {
 		final var persister = entityPersister();
 		if ( persister.hasPartitionedSelectionMapping() ) {
@@ -334,6 +355,7 @@ public abstract class AbstractMutationCoordinator {
 	/**
 	 * For temporal history tables and audit log tables.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static EntityTableMapping createAuxiliaryTableMapping(
 			EntityTableMapping identifierTableMapping,
 			EntityPersister persister,

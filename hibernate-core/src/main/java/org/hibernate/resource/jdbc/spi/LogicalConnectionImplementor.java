@@ -9,6 +9,8 @@ import java.io.ObjectOutputStream;
 import java.sql.Connection;
 
 import org.hibernate.resource.jdbc.LogicalConnection;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * SPI contract for {@link LogicalConnection}.
@@ -23,8 +25,10 @@ public interface LogicalConnectionImplementor extends LogicalConnection {
 	 *
 	 * @return The connection
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Connection getPhysicalConnection();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PhysicalConnectionHandlingMode getConnectionHandlingMode();
 
 	/**
@@ -32,6 +36,7 @@ public interface LogicalConnectionImplementor extends LogicalConnection {
 	 * {@link org.hibernate.ConnectionReleaseMode#AFTER_STATEMENT} releasing
 	 * if needed.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void afterStatement();
 
 	/**
@@ -40,6 +45,7 @@ public interface LogicalConnectionImplementor extends LogicalConnection {
 	 * {@link org.hibernate.ConnectionReleaseMode#BEFORE_TRANSACTION_COMPLETION}
 	 * is enabled.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void beforeTransactionCompletion();
 
 	/**
@@ -47,6 +53,7 @@ public interface LogicalConnectionImplementor extends LogicalConnection {
 	 * {@link org.hibernate.ConnectionReleaseMode#AFTER_TRANSACTION} releasing
 	 * if needed.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void afterTransaction();
 
 	/**
@@ -57,6 +64,7 @@ public interface LogicalConnectionImplementor extends LogicalConnection {
 	 * @return The connection maintained here at time of disconnect.
 	 *         {@code null} if there was no connection cached internally.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Connection manualDisconnect();
 
 	/**
@@ -68,11 +76,13 @@ public interface LogicalConnectionImplementor extends LogicalConnection {
 	 *                           which to reconnect. It is an error to pass
 	 *                           a connection in the other strategies.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void manualReconnect(Connection suppliedConnection);
 
 	/**
 	 * Access to the current underlying JDBC transaction.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PhysicalJdbcTransaction getPhysicalJdbcTransaction();
 
 	/**
@@ -82,10 +92,12 @@ public interface LogicalConnectionImplementor extends LogicalConnection {
 	 *
 	 * @throws IOException Problem accessing stream
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void serialize(ObjectOutputStream oos) throws IOException;
 
 	/**
 	 * Mark the associated transaction as rollback-only.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void markRollbackOnly();
 }

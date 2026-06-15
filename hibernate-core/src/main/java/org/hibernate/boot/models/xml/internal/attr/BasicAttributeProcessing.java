@@ -25,12 +25,15 @@ import static org.hibernate.boot.models.xml.internal.attr.CommonAttributeProcess
 import static org.hibernate.boot.models.xml.internal.attr.CommonAttributeProcessing.applyOptimisticLock;
 import static org.hibernate.boot.models.xml.internal.attr.CommonAttributeProcessing.applyOptionality;
 import static org.hibernate.internal.util.NullnessHelper.coalesce;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
  */
 public class BasicAttributeProcessing {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static MutableMemberDetails processBasicAttribute(
 			JaxbBasicImpl jaxbBasic,
 			MutableClassDetails declarer,

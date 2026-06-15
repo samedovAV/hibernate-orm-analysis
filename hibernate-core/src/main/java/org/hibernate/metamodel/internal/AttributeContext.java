@@ -6,6 +6,8 @@ package org.hibernate.metamodel.internal;
 
 import org.hibernate.mapping.Property;
 import org.hibernate.metamodel.model.domain.ManagedDomainType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Bundle's a Hibernate property mapping together with the JPA metamodel information
@@ -19,6 +21,7 @@ public interface AttributeContext<X> {
 	 *
 	 * @return The owner.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ManagedDomainType<X> getOwnerType();
 
 	/**
@@ -26,5 +29,6 @@ public interface AttributeContext<X> {
 	 *
 	 * @return The Hibernate property mapping.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Property getPropertyMapping();
 }

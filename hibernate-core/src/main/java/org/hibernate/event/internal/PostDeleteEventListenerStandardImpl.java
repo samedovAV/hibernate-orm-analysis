@@ -8,6 +8,8 @@ import org.hibernate.event.spi.PostDeleteEvent;
 import org.hibernate.event.spi.PostDeleteEventListener;
 import org.hibernate.jpa.event.spi.CallbackType;
 import org.hibernate.persister.entity.EntityPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The standard PostDeleteEventListener implementation
@@ -17,6 +19,7 @@ import org.hibernate.persister.entity.EntityPersister;
  */
 public class PostDeleteEventListenerStandardImpl implements PostDeleteEventListener {
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void onPostDelete(PostDeleteEvent event) {
 		final Object entity = event.getEntity();
 		final var callbacks = event.getPersister().getEntityCallbacks();
@@ -28,6 +31,7 @@ public class PostDeleteEventListenerStandardImpl implements PostDeleteEventListe
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean requiresPostCommitHandling(EntityPersister persister) {
 		final var callbacks = persister.getEntityCallbacks();
 		return callbacks.hasRegisteredCallbacks( CallbackType.POST_REMOVE )

@@ -16,6 +16,8 @@ import org.hibernate.bytecode.spi.ReflectionOptimizer;
 import org.hibernate.property.access.spi.PropertyAccess;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * This BytecodeProvider represents the "no-op" enhancer; mostly useful
@@ -30,12 +32,14 @@ public final class BytecodeProviderImpl implements BytecodeProvider {
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ProxyFactoryFactory getProxyFactoryFactory() {
 		return new NoProxyFactoryFactory();
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ReflectionOptimizer getReflectionOptimizer(
 			@Nonnull Class<?> clazz,
 			@Nonnull String[] getterNames,
@@ -45,11 +49,13 @@ public final class BytecodeProviderImpl implements BytecodeProvider {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable ReflectionOptimizer getReflectionOptimizer(@Nonnull Class<?> clazz, @Nonnull Map<String, PropertyAccess> propertyAccessMap) {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable Enhancer getEnhancer(@Nonnull EnhancementContext enhancementContext) {
 		return null;
 	}

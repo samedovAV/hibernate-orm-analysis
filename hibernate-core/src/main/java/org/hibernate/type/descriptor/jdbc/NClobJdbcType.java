@@ -18,6 +18,8 @@ import org.hibernate.type.descriptor.ValueBinder;
 import org.hibernate.type.descriptor.ValueExtractor;
 import org.hibernate.type.descriptor.WrapperOptions;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Descriptor for {@link Types#NCLOB NCLOB} handling.
@@ -28,24 +30,29 @@ import org.hibernate.type.descriptor.java.JavaType;
  */
 public abstract class NClobJdbcType implements JdbcType {
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getJdbcTypeCode() {
 		return Types.NCLOB;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getFriendlyName() {
 		return "NCLOB";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "NClobTypeDescriptor";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> ValueExtractor<X> getExtractor(final JavaType<X> javaType) {
 		return new BasicExtractor<>( javaType, this ) {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(ResultSet rs, int paramIndex, WrapperOptions options) throws SQLException {
 				if ( options.getDialect().supportsNationalizedMethods() ) {
 					return javaType.wrap( rs.getNClob( paramIndex ), options );
@@ -56,6 +63,7 @@ public abstract class NClobJdbcType implements JdbcType {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(CallableStatement statement, int index, WrapperOptions options)
 					throws SQLException {
 				if ( options.getDialect().supportsNationalizedMethods() ) {
@@ -67,6 +75,7 @@ public abstract class NClobJdbcType implements JdbcType {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(CallableStatement statement, String name, WrapperOptions options)
 					throws SQLException {
 				if ( options.getDialect().supportsNationalizedMethods() ) {
@@ -79,14 +88,17 @@ public abstract class NClobJdbcType implements JdbcType {
 		};
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract <X> BasicBinder<X> getNClobBinder(JavaType<X> javaType);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> ValueBinder<X> getBinder(JavaType<X> javaType) {
 		return getNClobBinder( javaType );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getExtraCreateTableInfo(JavaType<?> javaType, String columnName, String tableName, Database database) {
 		if( javaType.getJavaTypeClass() != Clob.class && javaType.getJavaTypeClass() != NClob.class && database.getDialect().supportsValueLOBAccess() ) {
 			return database.getDialect().getValueLOBFragmentForExtraCreateTableInfo(columnName);
@@ -98,15 +110,18 @@ public abstract class NClobJdbcType implements JdbcType {
 
 	public static final NClobJdbcType DEFAULT = new NClobJdbcType() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String toString() {
 			return "NClobTypeDescriptor(DEFAULT)";
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Class<?> getPreferredJavaTypeClass(WrapperOptions options) {
 			return String.class;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private NClobJdbcType getDescriptor(Object value, WrapperOptions options) {
 			if ( value instanceof String ) {
 				// performance shortcut for binding CLOB data in String format
@@ -121,15 +136,18 @@ public abstract class NClobJdbcType implements JdbcType {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public <X> BasicBinder<X> getNClobBinder(final JavaType<X> javaType) {
 			return new BasicBinder<>( javaType, this ) {
 				@Override
+				@Prove(complexity = Complexity.O_N, n = "", count = {})
 				protected void doBind(PreparedStatement st, X value, int index, WrapperOptions options)
 						throws SQLException {
 					getDescriptor( value, options ).getNClobBinder( javaType ).doBind( st, value, index, options );
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_N, n = "", count = {})
 				protected void doBind(CallableStatement st, X value, String name, WrapperOptions options)
 						throws SQLException {
 					getDescriptor( value, options ).getNClobBinder( javaType ).doBind( st, value, name, options );
@@ -140,19 +158,23 @@ public abstract class NClobJdbcType implements JdbcType {
 
 	public static final NClobJdbcType STRING_BINDING = new NClobJdbcType() {
 				@Override
-		public String toString() {
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
+				public String toString() {
 			return "NClobTypeDescriptor(STRING_BINDING)";
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Class<?> getPreferredJavaTypeClass(WrapperOptions options) {
 			return String.class;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public <X> BasicBinder<X> getNClobBinder(final JavaType<X> javaType) {
 			return new BasicBinder<>( javaType, this ) {
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected void doBind(PreparedStatement st, X value, int index, WrapperOptions options)
 						throws SQLException {
 					if ( options.getDialect().supportsNationalizedMethods() ) {
@@ -164,6 +186,7 @@ public abstract class NClobJdbcType implements JdbcType {
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected void doBind(CallableStatement st, X value, String name, WrapperOptions options)
 						throws SQLException {
 					if ( options.getDialect().supportsNationalizedMethods() ) {
@@ -175,6 +198,7 @@ public abstract class NClobJdbcType implements JdbcType {
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_N, n = "", count = {})
 				protected void doBindNull(PreparedStatement st, int index, WrapperOptions options) throws SQLException {
 					if ( options.getDialect().supportsNationalizedMethods() ) {
 						super.doBindNull( st, index, options );
@@ -185,6 +209,7 @@ public abstract class NClobJdbcType implements JdbcType {
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_N, n = "", count = {})
 				protected void doBindNull(CallableStatement st, String name, WrapperOptions options)
 						throws SQLException {
 					if ( options.getDialect().supportsNationalizedMethods() ) {
@@ -197,9 +222,11 @@ public abstract class NClobJdbcType implements JdbcType {
 			};
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public <X> ValueExtractor<X> getExtractor(final JavaType<X> javaType) {
 			return new BasicExtractor<>( javaType, this ) {
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected X doExtract(ResultSet rs, int paramIndex, WrapperOptions options) throws SQLException {
 					if ( options.getDialect().supportsNationalizedMethods() ) {
 						return javaType.wrap( rs.getNString( paramIndex ), options );
@@ -210,6 +237,7 @@ public abstract class NClobJdbcType implements JdbcType {
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected X doExtract(CallableStatement statement, int index, WrapperOptions options)
 						throws SQLException {
 					if ( options.getDialect().supportsNationalizedMethods() ) {
@@ -221,6 +249,7 @@ public abstract class NClobJdbcType implements JdbcType {
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected X doExtract(CallableStatement statement, String name, WrapperOptions options)
 						throws SQLException {
 					if ( options.getDialect().supportsNationalizedMethods() ) {
@@ -236,19 +265,23 @@ public abstract class NClobJdbcType implements JdbcType {
 
 	public static final NClobJdbcType NCLOB_BINDING = new NClobJdbcType() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String toString() {
 			return "NClobTypeDescriptor(NCLOB_BINDING)";
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Class<?> getPreferredJavaTypeClass(WrapperOptions options) {
 			return NClob.class;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public <X> BasicBinder<X> getNClobBinder(final JavaType<X> javaType) {
 			return new BasicBinder<>( javaType, this ) {
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected void doBind(PreparedStatement st, X value, int index, WrapperOptions options)
 						throws SQLException {
 					if ( options.getDialect().supportsNationalizedMethods() ) {
@@ -260,6 +293,7 @@ public abstract class NClobJdbcType implements JdbcType {
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected void doBind(CallableStatement st, X value, String name, WrapperOptions options)
 						throws SQLException {
 					if ( options.getDialect().supportsNationalizedMethods() ) {
@@ -271,6 +305,7 @@ public abstract class NClobJdbcType implements JdbcType {
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_N, n = "", count = {})
 				protected void doBindNull(PreparedStatement st, int index, WrapperOptions options) throws SQLException {
 					if ( options.getDialect().supportsNationalizedMethods() ) {
 						super.doBindNull( st, index, options );
@@ -281,6 +316,7 @@ public abstract class NClobJdbcType implements JdbcType {
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_N, n = "", count = {})
 				protected void doBindNull(CallableStatement st, String name, WrapperOptions options)
 						throws SQLException {
 					if ( options.getDialect().supportsNationalizedMethods() ) {
@@ -296,19 +332,23 @@ public abstract class NClobJdbcType implements JdbcType {
 
 	public static final NClobJdbcType STREAM_BINDING = new NClobJdbcType() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String toString() {
 			return "NClobTypeDescriptor(STREAM_BINDING)";
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Class<?> getPreferredJavaTypeClass(WrapperOptions options) {
 			return CharacterStream.class;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public <X> BasicBinder<X> getNClobBinder(final JavaType<X> javaType) {
 			return new BasicBinder<>( javaType, this ) {
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected void doBind(PreparedStatement st, X value, int index, WrapperOptions options)
 						throws SQLException {
 					final var characterStream = javaType.unwrap( value, CharacterStream.class, options );
@@ -321,6 +361,7 @@ public abstract class NClobJdbcType implements JdbcType {
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected void doBind(CallableStatement st, X value, String name, WrapperOptions options)
 						throws SQLException {
 					final var characterStream = javaType.unwrap( value, CharacterStream.class, options );
@@ -333,6 +374,7 @@ public abstract class NClobJdbcType implements JdbcType {
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_N, n = "", count = {})
 				protected void doBindNull(PreparedStatement st, int index, WrapperOptions options) throws SQLException {
 					if ( options.getDialect().supportsNationalizedMethods() ) {
 						super.doBindNull( st, index, options );
@@ -343,6 +385,7 @@ public abstract class NClobJdbcType implements JdbcType {
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_N, n = "", count = {})
 				protected void doBindNull(CallableStatement st, String name, WrapperOptions options)
 						throws SQLException {
 					if ( options.getDialect().supportsNationalizedMethods() ) {
@@ -358,19 +401,23 @@ public abstract class NClobJdbcType implements JdbcType {
 
 	public static final NClobJdbcType STREAM_BINDING_EXTRACTING = new NClobJdbcType() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String toString() {
 			return "NClobTypeDescriptor(STREAM_BINDING_EXTRACTING)";
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Class<?> getPreferredJavaTypeClass(WrapperOptions options) {
 			return CharacterStream.class;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public <X> BasicBinder<X> getNClobBinder(final JavaType<X> javaType) {
 			return new BasicBinder<>( javaType, this ) {
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected void doBind(PreparedStatement st, X value, int index, WrapperOptions options)
 						throws SQLException {
 					final var characterStream = javaType.unwrap( value, CharacterStream.class, options );
@@ -383,6 +430,7 @@ public abstract class NClobJdbcType implements JdbcType {
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected void doBind(CallableStatement st, X value, String name, WrapperOptions options)
 						throws SQLException {
 					final var characterStream = javaType.unwrap( value, CharacterStream.class, options );
@@ -395,6 +443,7 @@ public abstract class NClobJdbcType implements JdbcType {
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_N, n = "", count = {})
 				protected void doBindNull(PreparedStatement st, int index, WrapperOptions options) throws SQLException {
 					if ( options.getDialect().supportsNationalizedMethods() ) {
 						super.doBindNull( st, index, options );
@@ -405,6 +454,7 @@ public abstract class NClobJdbcType implements JdbcType {
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_N, n = "", count = {})
 				protected void doBindNull(CallableStatement st, String name, WrapperOptions options)
 						throws SQLException {
 					if ( options.getDialect().supportsNationalizedMethods() ) {
@@ -418,9 +468,11 @@ public abstract class NClobJdbcType implements JdbcType {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public <X> ValueExtractor<X> getExtractor(final JavaType<X> javaType) {
 			return new BasicExtractor<>( javaType, this ) {
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected X doExtract(ResultSet rs, int paramIndex, WrapperOptions options) throws SQLException {
 					if ( options.getDialect().supportsNationalizedMethods() ) {
 						return javaType.wrap( rs.getNCharacterStream( paramIndex ), options );
@@ -431,6 +483,7 @@ public abstract class NClobJdbcType implements JdbcType {
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected X doExtract(CallableStatement statement, int index, WrapperOptions options)
 						throws SQLException {
 					if ( options.getDialect().supportsNationalizedMethods() ) {
@@ -442,6 +495,7 @@ public abstract class NClobJdbcType implements JdbcType {
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected X doExtract(CallableStatement statement, String name, WrapperOptions options)
 						throws SQLException {
 					if ( options.getDialect().supportsNationalizedMethods() ) {
@@ -457,19 +511,23 @@ public abstract class NClobJdbcType implements JdbcType {
 
 	public static final NClobJdbcType MATERIALIZED = new NClobJdbcType() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String toString() {
 			return "NClobTypeDescriptor(MATERIALIZED)";
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Class<?> getPreferredJavaTypeClass(WrapperOptions options) {
 			return String.class;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public <X> BasicBinder<X> getNClobBinder(final JavaType<X> javaType) {
 			return new BasicBinder<>( javaType, this ) {
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected void doBind(PreparedStatement st, X value, int index, WrapperOptions options)
 						throws SQLException {
 					if ( options.getDialect().supportsNationalizedMethods() ) {
@@ -481,6 +539,7 @@ public abstract class NClobJdbcType implements JdbcType {
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected void doBind(CallableStatement st, X value, String name, WrapperOptions options)
 						throws SQLException {
 					if ( options.getDialect().supportsNationalizedMethods() ) {
@@ -492,6 +551,7 @@ public abstract class NClobJdbcType implements JdbcType {
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_N, n = "", count = {})
 				protected void doBindNull(PreparedStatement st, int index, WrapperOptions options) throws SQLException {
 					if ( options.getDialect().supportsNationalizedMethods() ) {
 						super.doBindNull( st, index, options );
@@ -502,6 +562,7 @@ public abstract class NClobJdbcType implements JdbcType {
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_N, n = "", count = {})
 				protected void doBindNull(CallableStatement st, String name, WrapperOptions options)
 						throws SQLException {
 					if ( options.getDialect().supportsNationalizedMethods() ) {
@@ -515,9 +576,11 @@ public abstract class NClobJdbcType implements JdbcType {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public <X> ValueExtractor<X> getExtractor(final JavaType<X> javaType) {
 			return new BasicExtractor<>( javaType, this ) {
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected X doExtract(ResultSet rs, int paramIndex, WrapperOptions options) throws SQLException {
 					if ( options.getDialect().supportsNationalizedMethods() ) {
 						return javaType.wrap( rs.getNString( paramIndex ), options );
@@ -528,6 +591,7 @@ public abstract class NClobJdbcType implements JdbcType {
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected X doExtract(CallableStatement statement, int index, WrapperOptions options)
 						throws SQLException {
 					if ( options.getDialect().supportsNationalizedMethods() ) {
@@ -539,6 +603,7 @@ public abstract class NClobJdbcType implements JdbcType {
 				}
 
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				protected X doExtract(CallableStatement statement, String name, WrapperOptions options)
 						throws SQLException {
 					if ( options.getDialect().supportsNationalizedMethods() ) {

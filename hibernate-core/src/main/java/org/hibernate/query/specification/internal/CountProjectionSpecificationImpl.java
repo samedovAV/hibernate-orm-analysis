@@ -24,6 +24,8 @@ import java.util.List;
 import java.util.Map;
 
 import static java.util.Collections.emptyMap;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gavin King
@@ -37,17 +39,20 @@ public class CountProjectionSpecificationImpl<T> implements SimpleProjectionSpec
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QuerySpecification<T> restrict(Restriction<? super T> restriction) {
 		throw new UnsupportedOperationException( "This is not supported yet!" );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SelectionQuery<Long> createQuery(EntityHandler entityHandler) {
 		return entityHandler.unwrap( SharedSessionContract.class )
 				.createQuery( buildCriteria( entityHandler.getCriteriaBuilder() ) );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CriteriaQuery<Long> buildCriteria(CriteriaBuilder builder) {
 		var impl = (SelectionSpecificationImpl<T>) selectionSpecification;
 		// TODO: handle HQL, existing criteria
@@ -63,60 +68,70 @@ public class CountProjectionSpecificationImpl<T> implements SimpleProjectionSpec
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SimpleProjectionSpecification<T,Long> validate(CriteriaBuilder builder) {
 		selectionSpecification.validate( builder );
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TypedQueryReference<Long> reference() {
 		return this;
 	}
 
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return null;
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<Long> getResultType() {
 		return Long.class;
 	}
 
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getEntityGraphName() {
 		return null;
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, Object> getHints() {
 		return emptyMap();
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<Class<?>> getParameterTypes() {
 		return List.of();
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<String> getParameterNames() {
 		return List.of();
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<Object> getArguments() {
 		return List.of();
 	}
 
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Timeout getTimeout() {
 		return null;
 	}

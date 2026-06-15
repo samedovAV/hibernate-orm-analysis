@@ -5,6 +5,8 @@
 package org.hibernate.internal.util.cache;
 
 import java.util.function.Function;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for internal caches.
@@ -22,18 +24,21 @@ public interface InternalCache<K, V> {
 	/**
 	 * @return An estimate of the number of values contained in the cache.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int heldElementsEstimate();
 
 	/**
 	 * Attempt to read from the cache. Will return null on cache miss.
 	 * It would typically be better to use {@link #computeIfAbsent(Object, Function)} instead.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	V get(K key);
 
 	/**
 	 * Stores a key/value pair into the cache. Storage is not guaranteed, as the implementation
 	 * has liberty to cap internal storage or use various eviction strategies.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void put(K key, V value);
 
 	/**
@@ -44,6 +49,7 @@ public interface InternalCache<K, V> {
 	 * Essentially it's useful as a hint that the client will no longer likely need to stored entries,
 	 * so to save memory, if possible.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void clear();
 
 	/**
@@ -55,5 +61,6 @@ public interface InternalCache<K, V> {
 	 * if a matching existing value couldn't be loaded from the cache.
 	 * @return Either the existing value, or the return from the provided function.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	V computeIfAbsent(K key, Function<? super K, ? extends V> mappingFunction);
 }

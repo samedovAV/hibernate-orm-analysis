@@ -7,6 +7,8 @@ package org.hibernate.engine.jdbc.dialect.spi;
 import org.hibernate.dialect.Dialect;
 import org.hibernate.service.JavaServiceLoadable;
 import org.hibernate.service.Service;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for determining the {@link Dialect} to use based on information about the database / driver.
@@ -24,5 +26,6 @@ public interface DialectResolver extends Service {
 	 *
 	 * @return The dialect to use, or null.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Dialect resolveDialect(DialectResolutionInfo info);
 }

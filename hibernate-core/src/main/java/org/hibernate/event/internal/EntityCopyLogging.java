@@ -18,6 +18,8 @@ import java.util.Locale;
 
 import static org.jboss.logging.Logger.Level.DEBUG;
 import static org.jboss.logging.Logger.Level.TRACE;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Subsystem logging related to EntityCopyObservers
@@ -39,27 +41,33 @@ public interface EntityCopyLogging extends BasicLogger {
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90080001, value = "More than one representation of the same persistent entity being merged: %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void duplicateRepresentationBeingMerged(String infoString);
 
 	@LogMessage(level = DEBUG)
 	@Message(id = 90080002, value = "Summary: number of %s entities with multiple representations merged: %d")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void mergeSummaryMultipleRepresentations(String entityName, int count);
 
 	@LogMessage(level = DEBUG)
 	@Message(id = 90080003, value = "No entity copies merged")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void noEntityCopiesMerged();
 
 	@LogMessage(level = DEBUG)
 	@Message(id = 90080010, value = "Details: merged %d representations of the same entity %s being merged: %s; resulting managed entity: [%s]")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void mergeDetails(int numberOfRepresentations, String entityInfo, String mergedEntitiesList, String managedEntityString);
 
 	// EntityCopyObserverFactoryInitiator
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90080100, value = "Configured EntityCopyObserver strategy: %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void configuredEntityCopyObserverStrategy(String strategyName);
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90080101, value = "Configured EntityCopyObserver is a custom implementation of type '%s'")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void configuredEntityCopyObserverCustomImplementation(String typeName);
 }

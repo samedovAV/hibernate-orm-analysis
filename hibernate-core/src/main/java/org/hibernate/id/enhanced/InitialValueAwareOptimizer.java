@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.id.enhanced;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Marker interface for optimizer which wishes to know the user-specified initial value.
@@ -22,5 +25,6 @@ public interface InitialValueAwareOptimizer {
 	 *                     or {@code -1} to indicate that the user
 	 *                     did not specify an initial value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void injectInitialValue(long initialValue);
 }

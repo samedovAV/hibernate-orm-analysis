@@ -7,6 +7,8 @@ package org.hibernate.boot.model.relational;
 import java.util.Set;
 
 import org.hibernate.boot.model.naming.Identifier;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Mainly this is used to support legacy sequence exporting.
@@ -59,6 +61,7 @@ public class NamedAuxiliaryDatabaseObject
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getExportIdentifier() {
 		return new QualifiedNameImpl(
 				Identifier.toIdentifier( getCatalogName() ),

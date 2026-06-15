@@ -10,6 +10,8 @@ import java.util.Map;
 
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.persister.entity.EntityPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Structured CacheEntry format for entities.  Used to store the entry into the second-level cache
@@ -34,6 +36,7 @@ public class StructuredCacheEntry implements CacheEntryStructure {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object destructure(Object structured, SessionFactoryImplementor factory) {
 		final var map = (Map<?,?>) structured;
 		final String subclass = (String) map.get( SUBCLASS_KEY );
@@ -50,6 +53,7 @@ public class StructuredCacheEntry implements CacheEntryStructure {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object structure(Object item) {
 		final var entry = (CacheEntry) item;
 		final String[] names = persister.getPropertyNames();

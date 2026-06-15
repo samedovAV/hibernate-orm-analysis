@@ -20,6 +20,8 @@ import java.lang.invoke.MethodHandles;
 import java.util.Locale;
 
 import static org.jboss.logging.Logger.Level.DEBUG;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -39,29 +41,36 @@ public interface LobCreationLogging extends BasicLogger {
 
 	@LogMessage(level = DEBUG)
 	@Message(value = "Disabling contextual LOB creation as %s is true", id = 10010001)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void disablingContextualLOBCreation(String settingName);
 
 	@LogMessage(level = DEBUG)
 	@Message(value = "Disabling contextual LOB creation as connection was null", id = 10010002)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void disablingContextualLOBCreationSinceConnectionNull();
 
 	@LogMessage(level = DEBUG)
 	@Message(value = "Disabling contextual LOB creation as JDBC driver reported JDBC version [%s] less than 4", id = 10010003)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void nonContextualLobCreationJdbcVersion(int jdbcMajorVersion);
 
 	@LogMessage(level = DEBUG)
 	@Message(value = "Disabling contextual LOB creation as Dialect reported it is not supported", id = 10010004)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void nonContextualLobCreationDialect();
 
 	@LogMessage(level = DEBUG)
 	@Message(value = "Disabling contextual LOB creation as createClob() method threw error: %s", id = 10010005)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void contextualClobCreationFailed(Throwable t);
 
 	@LogMessage(level = DEBUG)
 	@Message(value = "Disabling contextual NCLOB creation as createNClob() method threw error: %s", id = 10010006)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void contextualNClobCreationFailed(Throwable t);
 
 	@LogMessage(level = DEBUG)
 	@Message(value = "Falling back to non-contextual LOB creation", id = 10010007)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void fallingBackToNonContextual();
 }

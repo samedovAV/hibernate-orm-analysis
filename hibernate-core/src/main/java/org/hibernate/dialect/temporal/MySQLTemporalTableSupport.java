@@ -7,6 +7,8 @@ package org.hibernate.dialect.temporal;
 import org.hibernate.temporal.TemporalTableStrategy;
 import org.hibernate.dialect.MySQLDialect;
 import org.hibernate.type.SqlTypes;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gavin King
@@ -18,11 +20,13 @@ public class MySQLTemporalTableSupport extends DefaultTemporalTableSupport {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsTemporalTablePartitioning() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getTemporalTableOptions(
 			TemporalTableStrategy strategy,
 			String rowEndColumnName,
@@ -37,6 +41,7 @@ public class MySQLTemporalTableSupport extends DefaultTemporalTableSupport {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getExtraTemporalTableDeclarations(
 			TemporalTableStrategy strategy,
 			String rowStartColumn, String rowEndColumn,
@@ -47,6 +52,7 @@ public class MySQLTemporalTableSupport extends DefaultTemporalTableSupport {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getTemporalColumnType() {
 		return SqlTypes.TIMESTAMP_UTC;
 	}

@@ -7,6 +7,8 @@ package org.hibernate.action.queue.spi.bind;
 import org.hibernate.Incubating;
 
 import java.util.Locale;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Mutable value reference used when a JDBC value is not known at decomposition time.
 ///
@@ -29,6 +31,7 @@ public final class DelayedValueAccess {
 		set( value );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object get() {
 		if ( !resolved ) {
 			throw new IllegalStateException(
@@ -42,16 +45,19 @@ public final class DelayedValueAccess {
 		return value;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void set(Object value) {
 		this.value = value;
 		this.resolved = true;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isResolved() {
 		return resolved;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "DelayedValueAccess(" + description + ")";
 	}

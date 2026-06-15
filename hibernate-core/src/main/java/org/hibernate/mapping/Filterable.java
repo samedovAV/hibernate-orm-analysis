@@ -6,6 +6,8 @@ package org.hibernate.mapping;
 
 import java.util.List;
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -14,9 +16,11 @@ import java.util.Map;
  * @author Steve Ebersole
  */
 public interface Filterable {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addFilter(
 			String name, String condition, boolean autoAliasInjection,
 			Map<String,String> aliasTableMap, Map<String,String> aliasEntityMap);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<FilterConfiguration> getFilters();
 }

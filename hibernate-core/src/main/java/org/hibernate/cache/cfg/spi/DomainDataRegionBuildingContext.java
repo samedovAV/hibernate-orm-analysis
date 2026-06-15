@@ -7,6 +7,8 @@ package org.hibernate.cache.cfg.spi;
 import org.hibernate.cache.spi.CacheKeysFactory;
 import org.hibernate.cache.spi.RegionFactory;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A "parameter object" for {@link RegionFactory#buildDomainDataRegion}
@@ -23,11 +25,13 @@ public interface DomainDataRegionBuildingContext {
 	 * {@link RegionFactory} implementors will use to be its
 	 * {@link CacheKeysFactory} and return it when asked later.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CacheKeysFactory getEnforcedCacheKeysFactory();
 
 	/**
 	 * Access to the SessionFactory for which a Region is
 	 * being built.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryImplementor getSessionFactory();
 }

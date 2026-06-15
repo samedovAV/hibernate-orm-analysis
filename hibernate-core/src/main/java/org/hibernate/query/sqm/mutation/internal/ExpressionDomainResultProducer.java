@@ -13,6 +13,8 @@ import org.hibernate.sql.ast.tree.expression.Expression;
 import org.hibernate.sql.results.graph.DomainResult;
 import org.hibernate.sql.results.graph.DomainResultCreationState;
 import org.hibernate.sql.results.graph.basic.BasicResult;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A wrapper around a basic {@link Expression} that produces a {@link BasicResult} as domain result.
@@ -25,6 +27,7 @@ public class ExpressionDomainResultProducer implements DomainResultProducer<Obje
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResult<Object> createDomainResult(String resultVariable, DomainResultCreationState creationState) {
 		final SqlSelection sqlSelection = resolveSqlSelection( creationState );
 		return new BasicResult<>(
@@ -38,20 +41,24 @@ public class ExpressionDomainResultProducer implements DomainResultProducer<Obje
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applySqlSelections(DomainResultCreationState creationState) {
 		resolveSqlSelection( creationState );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void accept(SqlAstWalker sqlTreeWalker) {
 		expression.accept( sqlTreeWalker );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcMappingContainer getExpressionType() {
 		return expression.getExpressionType();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private SqlSelection resolveSqlSelection(DomainResultCreationState creationState) {
 		final SqlAstCreationState sqlAstCreationState = creationState.getSqlAstCreationState();
 		return sqlAstCreationState.getSqlExpressionResolver().resolveSqlSelection(

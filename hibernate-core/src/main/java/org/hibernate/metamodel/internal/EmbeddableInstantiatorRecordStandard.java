@@ -12,6 +12,8 @@ import org.hibernate.metamodel.spi.ValueAccess;
 
 import static org.hibernate.internal.util.ReflectHelper.getConstructorOrNull;
 import static org.hibernate.internal.util.ReflectHelper.getRecordComponentTypes;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Support for instantiating embeddables as record representation
@@ -26,6 +28,7 @@ public class EmbeddableInstantiatorRecordStandard extends AbstractPojoInstantiat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object instantiate(ValueAccess valuesAccess) {
 		if ( constructor == null ) {
 			throw new InstantiationException( "Unable to locate constructor for embeddable", getMappedPojoClass() );

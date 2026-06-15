@@ -9,6 +9,8 @@ import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
 
 import java.sql.SQLException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Adapter for JSON value on given JDBC types.
@@ -24,6 +26,7 @@ public interface JsonValueJDBCTypeAdapter {
 	 * @return the translated value.
 	 * @throws SQLException if translation failed.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object fromValue(
 			JavaType<?> jdbcJavaType,
 			JdbcType jdbcType,
@@ -40,6 +43,7 @@ public interface JsonValueJDBCTypeAdapter {
 	 * @return the translated value.
 	 * @throws SQLException if translation failed.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object fromNumericValue(JavaType<?> jdbcJavaType,
 							JdbcType jdbcType,
 							JsonDocumentReader source,

@@ -8,6 +8,8 @@ import java.util.List;
 
 import org.hibernate.sql.ast.tree.Statement;
 import org.hibernate.sql.ast.tree.expression.Literal;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A statement using a CTE
@@ -72,54 +74,67 @@ public class CteStatement {
 		this.noCycleValue = noCycleValue;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CteTable getCteTable() {
 		return cteTable;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Statement getCteDefinition() {
 		return cteDefinition;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CteMaterialization getMaterialization() {
 		return materialization;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CteSearchClauseKind getSearchClauseKind() {
 		return searchClauseKind;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<SearchClauseSpecification> getSearchBySpecifications() {
 		return searchBySpecifications;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CteColumn getSearchColumn() {
 		return searchColumn;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<CteColumn> getCycleColumns() {
 		return cycleColumns;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CteColumn getCycleMarkColumn() {
 		return cycleMarkColumn;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CteColumn getCyclePathColumn() {
 		return cyclePathColumn;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Literal getCycleValue() {
 		return cycleValue;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Literal getNoCycleValue() {
 		return noCycleValue;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isRecursive() {
 		return recursive;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setRecursive() {
 		this.recursive = true;
 	}

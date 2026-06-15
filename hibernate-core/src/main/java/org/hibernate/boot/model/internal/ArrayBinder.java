@@ -12,6 +12,8 @@ import org.hibernate.mapping.Collection;
 import org.hibernate.mapping.PersistentClass;
 import org.hibernate.resource.beans.spi.ManagedBean;
 import org.hibernate.usertype.UserCollectionType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link CollectionBinder} for {@link org.hibernate.collection.spi.PersistentArrayHolder primitive arrays},
@@ -28,6 +30,7 @@ public class ArrayBinder extends ListBinder {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Collection createCollection(PersistentClass owner) {
 		return new Array( getCustomTypeBeanResolver(), owner, getBuildingContext() );
 	}

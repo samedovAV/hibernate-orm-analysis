@@ -7,6 +7,8 @@ package org.hibernate.bytecode.enhance.internal.bytebuddy;
 import net.bytebuddy.dynamic.ClassFileLocator;
 
 import java.io.IOException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A delegating ClassFileLocator that allows overriding the resolution for the class that is currently being enhanced.
@@ -22,6 +24,7 @@ final class EnhancerClassFileLocator implements ClassFileLocator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Resolution locate(final String name) throws IOException {
 		final var enhancementState = cacheProvider.getEnhancementState();
 		return enhancementState != null && enhancementState.getClassName().equals( name )
@@ -30,6 +33,7 @@ final class EnhancerClassFileLocator implements ClassFileLocator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void close() throws IOException {
 		delegate.close();
 	}

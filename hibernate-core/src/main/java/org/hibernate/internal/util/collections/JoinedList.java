@@ -8,6 +8,8 @@ import java.util.AbstractList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gavin King
@@ -27,6 +29,7 @@ public class JoinedList<E> extends AbstractList<E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public E get(int index) {
 		for (List<E> list: lists) {
 			if ( list.size() > index ) {
@@ -38,11 +41,13 @@ public class JoinedList<E> extends AbstractList<E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int size() {
 		return size;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Iterator<E> iterator() {
 		return lists.stream().flatMap(List::stream).iterator();
 	}

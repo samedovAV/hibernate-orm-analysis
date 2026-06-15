@@ -17,6 +17,8 @@ import org.hibernate.boot.model.source.spi.EmbeddableSource;
 import org.hibernate.boot.model.source.spi.LocalMetadataBuildingContext;
 import org.hibernate.boot.model.source.spi.NaturalIdMutability;
 import org.hibernate.boot.model.source.spi.ToolingHintContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A virtual embeddable; what Hibernate historically (pre-JPA) called an embedded
@@ -27,6 +29,7 @@ import org.hibernate.boot.model.source.spi.ToolingHintContext;
 public class EmbeddableSourceVirtualImpl extends AbstractHbmSourceNode implements EmbeddableSource {
 	private final JavaTypeDescriptor typeDescriptor = new JavaTypeDescriptor() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getName() {
 			return null;
 		}
@@ -57,11 +60,13 @@ public class EmbeddableSourceVirtualImpl extends AbstractHbmSourceNode implement
 				mappingDocument,
 				new AttributesHelper.Callback() {
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public AttributeSourceContainer getAttributeSourceContainer() {
 						return EmbeddableSourceVirtualImpl.this;
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public void addAttributeSource(AttributeSource attributeSource) {
 						attributeSources.add( attributeSource );
 					}
@@ -77,46 +82,55 @@ public class EmbeddableSourceVirtualImpl extends AbstractHbmSourceNode implement
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaTypeDescriptor getTypeDescriptor() {
 		return typeDescriptor;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getParentReferenceAttributeName() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isDynamic() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isUnique() {
 		return isUnique;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AttributePath getAttributePathBase() {
 		return attributePathBase;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AttributeRole getAttributeRoleBase() {
 		return attributeRoleBase;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<AttributeSource> attributeSources() {
 		return attributeSources;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LocalMetadataBuildingContext getLocalMetadataBuildingContext() {
 		return metadataBuildingContext();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ToolingHintContext getToolingHintContext() {
 		return toolingHintContext;
 	}

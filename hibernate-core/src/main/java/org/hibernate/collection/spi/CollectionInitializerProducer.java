@@ -13,6 +13,8 @@ import org.hibernate.sql.results.graph.AssemblerCreationState;
 import org.hibernate.sql.results.graph.DomainResult;
 import org.hibernate.sql.results.graph.InitializerParent;
 import org.hibernate.sql.results.graph.collection.CollectionInitializer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Functional contract to create a {@link CollectionInitializer}.
@@ -41,6 +43,7 @@ public interface CollectionInitializerProducer {
 	 *        {@link org.hibernate.sql.results.graph.DomainResult} for
 	 *        either side of the collection foreign key
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CollectionInitializer<?> produceInitializer(
 			NavigablePath navigablePath,
 			PluralAttributeMapping attribute,

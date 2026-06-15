@@ -6,6 +6,8 @@ package org.hibernate.loader;
 import java.util.List;
 
 import org.hibernate.HibernateException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Exception used to indicate that a query is attempting to simultaneously fetch multiple
@@ -26,6 +28,7 @@ public class MultipleBagFetchException extends HibernateException {
 	 *
 	 * @return The bag collection roles.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List getBagRoles() {
 		return bagRoles;
 	}

@@ -33,6 +33,8 @@ import static org.hibernate.boot.model.internal.EntityBinder.isEntity;
 import static org.hibernate.boot.model.internal.EntityBinder.isMappedSuperclass;
 import static org.hibernate.boot.model.process.spi.MetadataBuildingProcess.processManagedResources;
 import static org.hibernate.internal.util.ReflectHelper.OBJECT_CLASS_NAME;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -83,6 +85,7 @@ public class AnnotationMetadataSourceProcessorImpl implements MetadataSourceProc
 	 * Used as part of processing
 	 * {@linkplain org.hibernate.boot.spi.AdditionalMappingContributions#contributeEntity(Class) "additional" mappings}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void processAdditionalMappings(
 			List<Class<?>> additionalClasses,
 			List<ClassDetails> additionalClassDetails,
@@ -106,6 +109,7 @@ public class AnnotationMetadataSourceProcessorImpl implements MetadataSourceProc
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void prepare() {
 		// use any persistence-unit-defaults defined in orm.xml
 		( (JpaOrmXmlPersistenceUnitDefaultAware) rootMetadataBuildingContext.getBuildingOptions() )
@@ -122,26 +126,32 @@ public class AnnotationMetadataSourceProcessorImpl implements MetadataSourceProc
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void processTypeDefinitions() {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void processQueryRenames() {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void processNamedQueries() {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void processAuxiliaryDatabaseObjectDefinitions() {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void processIdentifierGenerators() {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void processFilterDefinitions() {
 		final var collector = rootMetadataBuildingContext.getMetadataCollector();
 		for ( var registration : domainModelSource.getGlobalRegistrations().getFilterDefRegistrations().values() ) {
@@ -150,6 +160,7 @@ public class AnnotationMetadataSourceProcessorImpl implements MetadataSourceProc
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void processFetchProfiles() {
 		final var collector = rootMetadataBuildingContext.getMetadataCollector();
 		for ( var registration : domainModelSource.getGlobalRegistrations().getFetchProfileRegistrations() ) {
@@ -169,6 +180,7 @@ public class AnnotationMetadataSourceProcessorImpl implements MetadataSourceProc
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static FetchMode fetchMode(String style) {
 		if ( style == null ) {
 			return FetchMode.JOIN;
@@ -182,10 +194,12 @@ public class AnnotationMetadataSourceProcessorImpl implements MetadataSourceProc
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void prepareForEntityHierarchyProcessing() {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void processEntityHierarchies(Set<String> processedEntityNames) {
 		final var orderedClasses = orderAndFillHierarchy( knownClasses );
 		final var inheritanceStatePerClass =
@@ -201,6 +215,7 @@ public class AnnotationMetadataSourceProcessorImpl implements MetadataSourceProc
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private List<ClassDetails> orderAndFillHierarchy(LinkedHashSet<ClassDetails> original) {
 		final LinkedHashSet<ClassDetails> copy = new LinkedHashSet<>( original.size() );
 		insertMappedSuperclasses( original, copy );
@@ -214,6 +229,7 @@ public class AnnotationMetadataSourceProcessorImpl implements MetadataSourceProc
 		return newList;
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private void insertMappedSuperclasses(LinkedHashSet<ClassDetails> original, LinkedHashSet<ClassDetails> copy) {
 		for ( var clazz : original ) {
 			if ( clazz.isInterface() && isEntity( clazz ) ) {
@@ -238,6 +254,7 @@ public class AnnotationMetadataSourceProcessorImpl implements MetadataSourceProc
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void orderHierarchy(List<ClassDetails> copy, List<ClassDetails> newList, LinkedHashSet<ClassDetails> original, ClassDetails clazz) {
 		if ( clazz != null && !isObjectClass( clazz ) ) {
 			//process superclass first
@@ -251,11 +268,13 @@ public class AnnotationMetadataSourceProcessorImpl implements MetadataSourceProc
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isObjectClass(ClassDetails classDetails) {
 		return OBJECT_CLASS_NAME.equals( classDetails.getName() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void postProcessEntityHierarchies() {
 		for ( String annotatedPackage : annotatedPackages ) {
 			bindFetchProfilesForPackage( annotatedPackage, rootMetadataBuildingContext );
@@ -263,13 +282,16 @@ public class AnnotationMetadataSourceProcessorImpl implements MetadataSourceProc
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void processResultSetMappings() {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void finishUp() {
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void applyManagedClasses(
 			DomainModelSource domainModelSource,
 			LinkedHashSet<ClassDetails> knownClasses) {

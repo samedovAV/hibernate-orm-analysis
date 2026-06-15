@@ -6,6 +6,8 @@ package org.hibernate.type;
 
 import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A BasicType adapter targeting partial portability to 6.0's type
@@ -33,11 +35,13 @@ public class StandardBasicTypeTemplate<J> extends AbstractSingleColumnStandardBa
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return name;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getRegistrationKeys() {
 		return registrationKeys;
 	}

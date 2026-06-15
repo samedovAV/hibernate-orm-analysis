@@ -14,6 +14,8 @@ import org.hibernate.mapping.Table;
 
 import static java.util.Collections.emptySet;
 import static org.hibernate.temporal.TemporalTableStrategy.HISTORY_TABLE;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gavin King
@@ -29,16 +31,19 @@ public class OracleTemporalTableSupport extends DefaultTemporalTableSupport {
 	 * to implement the constraint on Oracle.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean createTemporalTableCheckConstraint(TemporalTableStrategy strategy) {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getExtraTemporalTableDeclarations(TemporalTableStrategy strategy, String rowStartColumn, String rowEndColumn, boolean partitioned) {
 		return "period for system_time (" + rowStartColumn + ", " + rowEndColumn + ")";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getAsOfOperator(TemporalTableStrategy strategy) {
 		return strategy == TemporalTableStrategy.NATIVE
 				? "as of timestamp"
@@ -46,16 +51,19 @@ public class OracleTemporalTableSupport extends DefaultTemporalTableSupport {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean useAsOfOperator(TemporalTableStrategy strategy) {
 		return strategy != HISTORY_TABLE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean useAsOfOperatorForCurrent(TemporalTableStrategy strategy) {
 		return strategy != HISTORY_TABLE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean useTemporalRestriction(LoadQueryInfluencers influencers) {
 		final var sessionFactory = influencers.getSessionFactory();
 		return sessionFactory.getChangesetCoordinator().isIdentifierTypeInstant()
@@ -65,16 +73,19 @@ public class OracleTemporalTableSupport extends DefaultTemporalTableSupport {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsTemporalTablePartitioning() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean suppressesTemporalTablePrimaryKeys(boolean partitioned) {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getTemporalTableOptions(
 			TemporalTableStrategy strategy,
 			String rowEndColumnName,
@@ -96,11 +107,13 @@ public class OracleTemporalTableSupport extends DefaultTemporalTableSupport {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsNativeTemporalTables() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addTemporalTableAuxiliaryObjects(
 			TemporalTableStrategy strategy,
 			Table table,

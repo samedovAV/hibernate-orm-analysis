@@ -22,6 +22,8 @@ import org.hibernate.query.sqm.tree.expression.SqmParameter;
 import org.hibernate.sql.ast.tree.select.SelectStatement;
 import org.hibernate.sql.exec.spi.JdbcParameterBindings;
 import org.hibernate.sql.exec.spi.JdbcSelect;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -58,6 +60,7 @@ public abstract class AbstractInlineHandler implements MultiTableHandler {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcParameterBindings createJdbcParameterBindings(DomainQueryExecutionContext context) {
 		return SqmUtil.createJdbcParameterBindings(
 				context.getQueryParameterBindings(),
@@ -65,6 +68,7 @@ public abstract class AbstractInlineHandler implements MultiTableHandler {
 				matchingIdsInterpretation.jdbcParamsXref(),
 				new SqmParameterMappingModelResolutionAccess() {
 					@Override @SuppressWarnings("unchecked")
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public <T> MappingModelExpressible<T> getResolvedMappingModelType(SqmParameter<T> parameter) {
 						return (MappingModelExpressible<T>) matchingIdsInterpretation.sqmParameterMappingModelTypes().get( parameter );
 					}
@@ -74,27 +78,33 @@ public abstract class AbstractInlineHandler implements MultiTableHandler {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean dependsOnParameterBindings() {
 		return matchingIdsInterpretation.jdbcOperation().dependsOnParameterBindings();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isCompatibleWith(JdbcParameterBindings jdbcParameterBindings, QueryOptions queryOptions) {
 		return matchingIdsInterpretation.jdbcOperation().isCompatibleWith( jdbcParameterBindings, queryOptions );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityPersister getEntityDescriptor() {
 		return entityDescriptor;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected MatchingIdRestrictionProducer getMatchingIdsPredicateProducer() {
 		return matchingIdsPredicateProducer;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected DomainParameterXref getDomainParameterXref() {
 		return domainParameterXref;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected CacheableSqmInterpretation<SelectStatement, JdbcSelect> getMatchingIdsInterpretation() {
 		return matchingIdsInterpretation;
 	}

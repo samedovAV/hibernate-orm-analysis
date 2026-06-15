@@ -15,6 +15,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Optimizer which uses a pool of values, backed by a <em>logical sequence</em>.
@@ -65,6 +67,7 @@ public class PooledLoOptimizer extends AbstractOptimizer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Serializable generate(AccessCallback callback) {
 		lock.lock();
 		try {
@@ -94,11 +97,13 @@ public class PooledLoOptimizer extends AbstractOptimizer {
 	private Map<String,GenerationState> tenantSpecificState;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void reset() {
 		noTenantState = null;
 		tenantSpecificState = null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private GenerationState locateGenerationState(String tenantIdentifier) {
 		if ( tenantIdentifier == null ) {
 			if ( noTenantState == null ) {
@@ -111,6 +116,7 @@ public class PooledLoOptimizer extends AbstractOptimizer {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private GenerationState generationState(String tenantIdentifier) {
 		if ( tenantSpecificState == null ) {
 			tenantSpecificState = new ConcurrentHashMap<>();
@@ -124,12 +130,14 @@ public class PooledLoOptimizer extends AbstractOptimizer {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private GenerationState assignNewStateToTenant(String tenantIdentifier) {
 		final var newState = new GenerationState();
 		tenantSpecificState.put( tenantIdentifier, newState );
 		return newState;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private GenerationState noTenantGenerationState() {
 		if ( noTenantState == null ) {
 			throw new IllegalStateException( "Could not locate previous generation state for no-tenant" );
@@ -138,16 +146,19 @@ public class PooledLoOptimizer extends AbstractOptimizer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Long getLastSourceValue() {
 		return noTenantGenerationState().lastSourceValue;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean applyIncrementSizeToSourceValues() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression createLowValueExpression(Expression databaseValue, SessionFactoryImplementor sessionFactory) {
 		return databaseValue;
 	}

@@ -17,6 +17,8 @@ import org.hibernate.type.BasicTypeReference;
 import org.hibernate.type.spi.TypeConfiguration;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Pluggable strategy for resolving a function return type for a specific call.
@@ -31,6 +33,7 @@ public interface SetReturningFunctionTypeResolver {
 	 *
 	 * @return The resolved type.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	AnonymousTupleType<?> resolveTupleType(List<? extends SqmTypedNode<?>> arguments, TypeConfiguration typeConfiguration);
 
 	/**
@@ -38,6 +41,7 @@ public interface SetReturningFunctionTypeResolver {
 	 *
 	 * @return The resolved JdbcMapping.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectableMapping[] resolveFunctionReturnType(
 			List<? extends SqlAstNode> arguments,
 			String tableIdentifierVariable,
@@ -48,6 +52,7 @@ public interface SetReturningFunctionTypeResolver {
 	/**
 	 * Creates a builder for a type resolver.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static Builder builder() {
 		return new SetReturningFunctionTypeResolverBuilder();
 	}
@@ -65,12 +70,14 @@ public interface SetReturningFunctionTypeResolver {
 		 *
 		 * @see #invariant(String, BasicTypeReference, String)
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		Builder invariant(String component, BasicTypeReference<?> invariantType);
 
 		/**
 		 * Specifies that the return type has a component with the given name being selectable through the given
 		 * selection expression, which has the given invariant type.
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		Builder invariant(String component, BasicTypeReference<?> invariantType, String selectionExpression);
 
 		/**
@@ -78,12 +85,14 @@ public interface SetReturningFunctionTypeResolver {
 		 *
 		 * @see #invariant(String, BasicType, String)
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		Builder invariant(String component, BasicType<?> invariantType);
 
 		/**
 		 * Specifies that the return type has a component with the given name being selectable through the given
 		 * selection expression, which has the given invariant type.
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		Builder invariant(String component, BasicType<?> invariantType, String selectionExpression);
 
 		/**
@@ -91,17 +100,20 @@ public interface SetReturningFunctionTypeResolver {
 		 *
 		 * @see #useArgType(String, int, String)
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		Builder useArgType(String component, int argPosition);
 
 		/**
 		 * Specifies that the return type has a component with the given name being selectable through the given
 		 * selection expression, which has the same type as the argument of the given 0-based position.
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		Builder useArgType(String component, int argPosition, String selectionExpression);
 
 		/**
 		 * Builds a type resolver.
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		SetReturningFunctionTypeResolver build();
 	}
 }

@@ -18,6 +18,8 @@ import org.hibernate.sql.model.MutationOperationGroup;
 import org.hibernate.sql.model.MutationType;
 
 import static org.hibernate.sql.model.internal.MutationOperationGroupFactory.singleOperation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * OneToMany update coordinator if the element is a {@link org.hibernate.persister.entity.UnionSubclassEntityPersister}.
@@ -46,6 +48,7 @@ public class UpdateRowsCoordinatorTablePerSubclass extends AbstractUpdateRowsCoo
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected int doUpdate(Object key, PersistentCollection<?> collection, SharedSessionContractImplementor session) {
 		if ( rowMutationOperations.hasDeleteRow() ) {
 			deleteRows( key, collection, session );
@@ -58,6 +61,7 @@ public class UpdateRowsCoordinatorTablePerSubclass extends AbstractUpdateRowsCoo
 		return 0;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void deleteRows(Object key, PersistentCollection<?> collection, SharedSessionContractImplementor session) {
 		final var attributeMapping = getMutationTarget().getTargetPart();
 		final var collectionDescriptor = attributeMapping.getCollectionDescriptor();
@@ -108,6 +112,7 @@ public class UpdateRowsCoordinatorTablePerSubclass extends AbstractUpdateRowsCoo
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private SubclassEntry getDeleteSubclassEntry( EntityPersister elementPersister) {
 		final int subclassId = elementPersister.getSubclassId();
 		final var subclassEntry = deleteSubclassEntries[subclassId];
@@ -121,6 +126,7 @@ public class UpdateRowsCoordinatorTablePerSubclass extends AbstractUpdateRowsCoo
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private MutationOperationGroup resolveDeleteGroup(EntityPersister elementPersister) {
 		final var collectionTableMapping = getMutationTarget().getCollectionTableMapping();
 		final var operation = rowMutationOperations.getDeleteRowOperation(
@@ -140,6 +146,7 @@ public class UpdateRowsCoordinatorTablePerSubclass extends AbstractUpdateRowsCoo
 		return singleOperation( MutationType.DELETE, getMutationTarget(), operation );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private int insertRows(Object key, PersistentCollection<?> collection, SharedSessionContractImplementor session) {
 		final var attributeMapping = getMutationTarget().getTargetPart();
 		final var collectionDescriptor = attributeMapping.getCollectionDescriptor();
@@ -191,6 +198,7 @@ public class UpdateRowsCoordinatorTablePerSubclass extends AbstractUpdateRowsCoo
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private SubclassEntry getInsertSubclassEntry( EntityPersister elementPersister) {
 		final int subclassId = elementPersister.getSubclassId();
 		final var subclassEntry = insertSubclassEntries[subclassId];
@@ -207,6 +215,7 @@ public class UpdateRowsCoordinatorTablePerSubclass extends AbstractUpdateRowsCoo
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private MutationOperationGroup resolveInsertGroup(EntityPersister elementPersister) {
 		final var collectionTableMapping = getMutationTarget().getCollectionTableMapping();
 		final var operation = rowMutationOperations.getInsertRowOperation(

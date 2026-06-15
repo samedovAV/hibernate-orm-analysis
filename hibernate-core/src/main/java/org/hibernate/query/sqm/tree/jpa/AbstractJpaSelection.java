@@ -12,6 +12,8 @@ import org.hibernate.query.criteria.JpaSelection;
 import org.hibernate.query.sqm.NodeBuilder;
 import org.hibernate.query.sqm.SqmBindableType;
 import org.hibernate.query.sqm.tree.select.SqmSelectableNode;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -28,17 +30,20 @@ public abstract class AbstractJpaSelection<T>
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JpaSelection<T> alias(@Nonnull String alias) {
 		setAlias( alias );
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCompoundSelection() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<? extends JpaSelection<?>> getSelectionItems() {
 		throw new IllegalStateException( "Not a compound selection" );
 	}

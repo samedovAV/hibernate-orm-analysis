@@ -13,6 +13,8 @@ import org.hibernate.sql.model.PreparableMutationOperation;
 import org.hibernate.sql.model.jdbc.JdbcValueDescriptor;
 
 import java.util.Locale;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -33,13 +35,16 @@ public abstract class AbstractSingleMutationExecutor extends AbstractMutationExe
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected PreparableMutationOperation getMutationOperation() {
 		return mutationOperation;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract PreparedStatementGroupSingleTable getStatementGroup();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PreparedStatementDetails getPreparedStatementDetails(String tableName) {
 		final PreparedStatementDetails statementDetails = getStatementGroup().getSingleStatementDetails();
 		assert statementDetails.getMutatingTableDetails().getTableName().equals( tableName );
@@ -47,11 +52,13 @@ public abstract class AbstractSingleMutationExecutor extends AbstractMutationExe
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String resolvePhysicalTableName(String tableName) {
 		return mutationOperation.getTableDetails().getTableName();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcValueDescriptor resolveValueDescriptor(String tableName, String columnName, ParameterUsage usage) {
 		assert mutationOperation.getTableDetails().containsTableName( tableName )
 				: String.format( Locale.ROOT, "table names did not match : `%s` & `%s`", tableName, mutationOperation.getTableDetails().getTableName()  );
@@ -59,6 +66,7 @@ public abstract class AbstractSingleMutationExecutor extends AbstractMutationExe
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcValueBindings getJdbcValueBindings() {
 		return valueBindings;
 	}

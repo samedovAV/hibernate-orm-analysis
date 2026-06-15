@@ -13,6 +13,8 @@ import jakarta.persistence.metamodel.MapAttribute;
 import jakarta.persistence.metamodel.PluralAttribute;
 import org.hibernate.Incubating;
 import org.hibernate.metamodel.model.domain.ManagedDomainType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents a {@linkplain jakarta.persistence.metamodel.ManagedType managed type} in an
@@ -73,6 +75,7 @@ public interface Graph<J> extends GraphNode<J>, jakarta.persistence.Graph<J> {
 	 * @return the {@code ManagedType} being graphed here.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ManagedDomainType<J> getGraphedType();
 
 	/**
@@ -83,6 +86,7 @@ public interface Graph<J> extends GraphNode<J>, jakarta.persistence.Graph<J> {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Graph<J> makeCopy(boolean mutable);
 
 
@@ -95,6 +99,7 @@ public interface Graph<J> extends GraphNode<J>, jakarta.persistence.Graph<J> {
 	 * @see #getAttributeNodes
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<? extends AttributeNode<?>> getAttributeNodeList();
 
 	/**
@@ -104,6 +109,7 @@ public interface Graph<J> extends GraphNode<J>, jakarta.persistence.Graph<J> {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<Y> AttributeNode<Y> getAttributeNode(@Nonnull String attributeName);
 
 	/**
@@ -114,6 +120,7 @@ public interface Graph<J> extends GraphNode<J>, jakarta.persistence.Graph<J> {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<Y> AttributeNode<Y> getAttributeNode(@Nonnull Attribute<? super J, Y> attribute);
 
 	/**
@@ -122,6 +129,7 @@ public interface Graph<J> extends GraphNode<J>, jakarta.persistence.Graph<J> {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<Y> AttributeNode<Y> addAttributeNode(@Nonnull Attribute<? super J, Y> attribute);
 
 
@@ -137,6 +145,7 @@ public interface Graph<J> extends GraphNode<J>, jakarta.persistence.Graph<J> {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<Y extends J> SubGraph<Y> addTreatedSubgraph(Class<Y> type);
 
 	/**
@@ -147,6 +156,7 @@ public interface Graph<J> extends GraphNode<J>, jakarta.persistence.Graph<J> {
 	 * @since 7.0
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<Y extends J> SubGraph<Y> addTreatedSubgraph(ManagedType<Y> type);
 
 
@@ -161,6 +171,7 @@ public interface Graph<J> extends GraphNode<J>, jakarta.persistence.Graph<J> {
 	 * @param attributeName The name of an attribute of the represented type
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> SubGraph<X> addSubgraph(String attributeName);
 
 	/**
@@ -176,6 +187,7 @@ public interface Graph<J> extends GraphNode<J>, jakarta.persistence.Graph<J> {
 	 * @param type A subtype of the attribute type
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> SubGraph<X> addSubgraph(String attributeName, Class<X> type);
 
 	/**
@@ -188,6 +200,7 @@ public interface Graph<J> extends GraphNode<J>, jakarta.persistence.Graph<J> {
 	 * @see #addSubgraph(Attribute)
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> SubGraph<X> addSubgraph(Attribute<? super J, X> attribute)
 			throws CannotContainSubGraphException;
 
@@ -206,6 +219,7 @@ public interface Graph<J> extends GraphNode<J>, jakarta.persistence.Graph<J> {
 	 * @since 7.0
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<Y> SubGraph<Y> addTreatedSubgraph(Attribute<? super J, ? super Y> attribute, Class<Y> type)
 			throws CannotContainSubGraphException;
 
@@ -224,6 +238,7 @@ public interface Graph<J> extends GraphNode<J>, jakarta.persistence.Graph<J> {
 	 * @since 7.0
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<AJ> SubGraph<AJ> addTreatedSubgraph(Attribute<? super J, ? super AJ> attribute, ManagedType<AJ> type)
 			throws CannotContainSubGraphException;
 
@@ -240,6 +255,7 @@ public interface Graph<J> extends GraphNode<J>, jakarta.persistence.Graph<J> {
 	 *                      represented type
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> SubGraph<X> addElementSubgraph(String attributeName);
 
 	/**
@@ -256,6 +272,7 @@ public interface Graph<J> extends GraphNode<J>, jakarta.persistence.Graph<J> {
 	 * @param type A subtype of the element type
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> SubGraph<X> addElementSubgraph(String attributeName, Class<X> type);
 
 	/**
@@ -268,6 +285,7 @@ public interface Graph<J> extends GraphNode<J>, jakarta.persistence.Graph<J> {
 	 * @since 7.0
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<E> SubGraph<E> addElementSubgraph(PluralAttribute<? super J, ?, E> attribute);
 
 	/**
@@ -285,6 +303,7 @@ public interface Graph<J> extends GraphNode<J>, jakarta.persistence.Graph<J> {
 	 * @since 7.0
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<E> SubGraph<E> addTreatedElementSubgraph(PluralAttribute<? super J, ?, ? super E> attribute, Class<E> type)
 			throws CannotContainSubGraphException;
 
@@ -303,6 +322,7 @@ public interface Graph<J> extends GraphNode<J>, jakarta.persistence.Graph<J> {
 	 * @since 7.0
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<AJ> SubGraph<AJ> addTreatedElementSubgraph(PluralAttribute<? super J, ?, ? super AJ> attribute, ManagedType<AJ> type)
 			throws CannotContainSubGraphException;
 
@@ -318,6 +338,7 @@ public interface Graph<J> extends GraphNode<J>, jakarta.persistence.Graph<J> {
 	 * @param attributeName The name of an attribute of the represented type
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> SubGraph<X> addKeySubgraph(String attributeName);
 
 	/**
@@ -331,6 +352,7 @@ public interface Graph<J> extends GraphNode<J>, jakarta.persistence.Graph<J> {
 	 * @param type A subtype of the key type
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> SubGraph<X> addKeySubgraph(String attributeName, Class<X> type);
 
 	/**
@@ -341,6 +363,7 @@ public interface Graph<J> extends GraphNode<J>, jakarta.persistence.Graph<J> {
 	 * @param attribute A map-valued attribute of the represented type
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<K> SubGraph<K> addMapKeySubgraph(MapAttribute<? super J, K, ?> attribute);
 
 	/**
@@ -356,6 +379,7 @@ public interface Graph<J> extends GraphNode<J>, jakarta.persistence.Graph<J> {
 	 * @param type A subtype of the key type
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<K> SubGraph<K> addTreatedMapKeySubgraph(MapAttribute<? super J, ? super K, ?> attribute, Class<K> type);
 
 	/**
@@ -373,6 +397,7 @@ public interface Graph<J> extends GraphNode<J>, jakarta.persistence.Graph<J> {
 	 * @since 7.0
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<AJ> SubGraph<AJ> addTreatedMapKeySubgraph(MapAttribute<? super J, ? super AJ, ?> attribute, ManagedType<AJ> type)
 			throws CannotContainSubGraphException;
 

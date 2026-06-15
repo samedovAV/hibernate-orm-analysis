@@ -11,6 +11,8 @@ import org.hibernate.boot.models.annotations.spi.AttributeMarker;
 import org.hibernate.models.spi.ModelsContext;
 
 import jakarta.persistence.ElementCollection;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -45,25 +47,30 @@ public class ElementCollectionJpaAnnotation implements ElementCollection, Attrib
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return ElementCollection.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public java.lang.Class<?> targetClass() {
 		return targetClass;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void targetClass(java.lang.Class<?> value) {
 		this.targetClass = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.FetchType fetch() {
 		return fetch;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void fetch(jakarta.persistence.FetchType value) {
 		this.fetch = value;
 	}

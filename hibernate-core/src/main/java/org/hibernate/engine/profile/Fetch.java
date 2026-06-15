@@ -6,6 +6,8 @@ package org.hibernate.engine.profile;
 
 import org.hibernate.engine.FetchStyle;
 import org.hibernate.engine.FetchTiming;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Models an individual fetch override within a {@link FetchProfile}.
@@ -32,6 +34,7 @@ public class Fetch {
 	/**
 	 * The association to which the fetch style applies.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Association getAssociation() {
 		return association;
 	}
@@ -39,6 +42,7 @@ public class Fetch {
 	/**
 	 * The fetch method to be applied to the association.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchStyle getMethod() {
 		return method;
 	}
@@ -46,11 +50,13 @@ public class Fetch {
 	/**
 	 * The fetch timing to be applied to the association.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchTiming getTiming() {
 		return timing;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "Fetch[" + method + "{" + association.getRole() + "}]";
 	}

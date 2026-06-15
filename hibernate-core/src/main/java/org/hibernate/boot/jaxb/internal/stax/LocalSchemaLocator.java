@@ -12,6 +12,8 @@ import javax.xml.validation.SchemaFactory;
 
 import static javax.xml.XMLConstants.W3C_XML_SCHEMA_NS_URI;
 import static org.hibernate.boot.jaxb.JaxbLogger.JAXB_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Helper for resolving XML Schema references locally.
@@ -32,6 +34,7 @@ public class LocalSchemaLocator {
 	 * @param schemaResourceName The local resource name to the schema
 	 *
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static URL resolveLocalSchemaUrl(String schemaResourceName) {
 		final URL url = LocalSchemaLocator.class.getClassLoader().getResource( schemaResourceName );
 		if ( url == null ) {
@@ -40,10 +43,12 @@ public class LocalSchemaLocator {
 		return url;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static Schema resolveLocalSchema(String schemaName){
 		return resolveLocalSchema( resolveLocalSchemaUrl( schemaName ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Schema resolveLocalSchema(URL schemaUrl) {
 		try {
 			final var schemaStream = schemaUrl.openStream();

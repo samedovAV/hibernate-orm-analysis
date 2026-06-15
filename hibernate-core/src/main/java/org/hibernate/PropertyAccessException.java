@@ -7,6 +7,8 @@ package org.hibernate;
 import static org.hibernate.internal.util.StringHelper.qualify;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A problem occurred accessing a property of an instance of a
@@ -49,19 +51,23 @@ public class PropertyAccessException extends HibernateException {
 		this.propertyName = propertyName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getPersistentClass() {
 		return persistentClass;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getPropertyName() {
 		return propertyName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String originalMessage() {
 		return super.getMessage();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getMessage() {
 		return originalMessage()
 				+ ": '" + qualify( persistentClass.getName(), propertyName ) + "'"

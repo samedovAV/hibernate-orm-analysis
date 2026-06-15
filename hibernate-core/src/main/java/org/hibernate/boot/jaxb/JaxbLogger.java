@@ -27,6 +27,8 @@ import static org.jboss.logging.Logger.Level.DEBUG;
 import static org.jboss.logging.Logger.Level.INFO;
 import static org.jboss.logging.Logger.Level.TRACE;
 import static org.jboss.logging.Logger.Level.WARN;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -44,86 +46,107 @@ public interface JaxbLogger extends BasicLogger {
 
 	@LogMessage(level = DEBUG)
 	@Message(id = 90005501, value = "Unable to close StAX reader")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void unableToCloseStaxReader(@Cause Throwable e);
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90005502, value = "Performing JAXB binding of hbm.xml document: %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void performingJaxbBindingOfHbmXmlDocument(String origin);
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90005503, value = "Performing JAXB binding of orm.xml document: %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void performingJaxbBindingOfOrmXmlDocument(String origin);
 
 	@LogMessage(level = INFO)
 	@Message(id = 90005504, value = "Reading mappings from file: %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void readingMappingsFromFile(String path);
 
 	@LogMessage(level = INFO)
 	@Message(id = 90005505, value = "Reading mappings from cache file: %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void readingCachedMappings(File cachedFile);
 
 	@LogMessage(level = WARN)
 	@Message(id = 90005506, value = "Could not deserialize cache file [%s]: %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void unableToDeserializeCache(String path, SerializationException error);
 
 	@LogMessage(level = WARN)
 	@Message(id = 90005507, value = "I/O reported error writing cached file: [%s]: %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void unableToWriteCachedFile(String path, String message);
 
 	@LogMessage(level = WARN)
 	@Message(id = 90005508, value = "Could not update cached file timestamp: [%s]")
 	@SuppressWarnings("unused")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void unableToUpdateCachedFileTimestamp(String path);
 
 	@LogMessage(level = WARN)
 	@Message(id = 90005509, value = "I/O reported cached file could not be found: [%s]: %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void cachedFileNotFound(String path, FileNotFoundException error);
 
 	@LogMessage(level = INFO)
 	@Message(id = 90005510, value = "Omitting cached file [%s] as the mapping file is newer")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void cachedFileObsolete(File cachedFile);
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90005511, value = "Writing cache file for: %s to: %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void writingCacheFile(String xmlPath, String serPath);
 
 	@LogMessage(level = DEBUG)
 	@Message(id = 90005512, value = "Problem closing schema stream [%s]")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void problemClosingSchemaStream(String details);
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90005513, value = "In resolveEntity(%s, %s, %s, %s)")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void resolveEntityInvocation(String publicID, String systemID, String baseURI, String namespace);
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90005514, value = "Interpreting namespace: %s")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void interpretingNamespace(String namespace);
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90005515, value = "Checking public/system identifiers `%s`/`%s` as DTD references")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void checkingDtdReferences(String publicID, String systemID);
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90005516, value = "Recognized 'classpath:' identifier; attempting to resolve on classpath [%s]")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void recognizedClasspathIdentifierAttemptingToResolve(String systemID);
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90005517, value = "Unable to resolve [%s] on classpath")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void unableToResolveOnClasspath(String systemID);
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90005518, value = "Resolved [%s] on classpath")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void resolvedOnClasspath(String systemID);
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90005519, value = "Reading mappings from InputStream access")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void readingMappingsFromInputStreamAccess();
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90005520, value = "Reading mappings from InputStream")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void readingMappingsFromInputStream();
 
 	@LogMessage(level = TRACE)
 	@Message(id = 90005521, value = "Unable to close InputStream")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void unableToCloseInputStream(@Cause IOException ioe);
 }

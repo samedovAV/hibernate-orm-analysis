@@ -15,6 +15,8 @@ import org.hibernate.metamodel.mapping.JdbcMapping;
 import org.hibernate.resource.beans.spi.ManagedBean;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents the definition of a {@link org.hibernate.Filter filter}.
@@ -70,6 +72,7 @@ public class FilterDefinition implements Serializable {
 	 *
 	 * @return The filter name for this configuration.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getFilterName() {
 		return filterName;
 	}
@@ -79,6 +82,7 @@ public class FilterDefinition implements Serializable {
 	 *
 	 * @return The parameters named by this configuration.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Set<String> getParameterNames() {
 		// Local variable helps static nullness inference.
 		Set<String> keys = explicitParamJaMappings.keySet();
@@ -92,15 +96,18 @@ public class FilterDefinition implements Serializable {
 	 *
 	 * @return The type of the named parameter.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable JdbcMapping getParameterJdbcMapping(String parameterName) {
 		return explicitParamJaMappings.get( parameterName );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable Supplier<?> getParameterResolver(String parameterName) {
 		final var resolver = parameterResolverMap.get( parameterName );
 		return resolver == null ? null : resolver.getBeanInstance();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getDefaultFilterCondition() {
 		return defaultFilterCondition;
 	}
@@ -111,6 +118,7 @@ public class FilterDefinition implements Serializable {
 	 *
 	 * @return The flag value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isAppliedToLoadByKey() {
 		return applyToLoadByKey;
 	}
@@ -121,6 +129,7 @@ public class FilterDefinition implements Serializable {
 	 * @param value the argument to the parameter, as set via {@link org.hibernate.Filter#setParameter(String, Object)}
 	 * @return the argument that will actually be bound to the parameter
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object processArgument(Object value) {
 		return value;
 	}
@@ -130,6 +139,7 @@ public class FilterDefinition implements Serializable {
 	 *
 	 * @return The flag value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isAutoEnabled() {
 		return autoEnabled;
 	}

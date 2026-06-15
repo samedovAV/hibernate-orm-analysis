@@ -20,6 +20,8 @@ import jakarta.annotation.Nullable;
 
 import static java.util.Collections.emptyMap;
 import static java.util.Collections.unmodifiableMap;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Implementation of FilterImpl.  FilterImpl implements the user's
@@ -39,6 +41,7 @@ public class FilterImpl implements Filter, Serializable {
 	private final boolean applyToLoadByKey;
 	private transient boolean validated;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void afterDeserialize(SessionFactoryImplementor factory) {
 		definition = factory.getFilterDefinition( filterName );
 		validated = false;
@@ -57,6 +60,7 @@ public class FilterImpl implements Filter, Serializable {
 		this.applyToLoadByKey = definition.isAppliedToLoadByKey();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FilterDefinition getFilterDefinition() {
 		return definition;
 	}
@@ -66,6 +70,7 @@ public class FilterImpl implements Filter, Serializable {
 	 *
 	 * @return This filter's name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return definition.getFilterName();
 	}
@@ -75,6 +80,7 @@ public class FilterImpl implements Filter, Serializable {
 	 *
 	 * @return The flag value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isAutoEnabled() {
 		return autoEnabled;
 	}
@@ -86,10 +92,12 @@ public class FilterImpl implements Filter, Serializable {
 	 *
 	 * @return The flag value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isAppliedToLoadByKey() {
 		return applyToLoadByKey;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String,?> getParameters() {
 		return parameters == null ? emptyMap() : unmodifiableMap( parameters );
 	}
@@ -103,6 +111,7 @@ public class FilterImpl implements Filter, Serializable {
 	 * @throws IllegalArgumentException Indicates that either the parameter was undefined or that the type
 	 * of the passed value did not match the configured type.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Filter setParameter(String name, Object value) throws IllegalArgumentException {
 		final Object argument = definition.processArgument( value );
 
@@ -131,6 +140,7 @@ public class FilterImpl implements Filter, Serializable {
 	 * @param values The values to be expanded into an SQL IN list.
 	 * @return This FilterImpl instance (for method chaining).
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Filter setParameterList(String name, Collection<?> values) throws HibernateException  {
 		// Make sure this is a defined parameter and check the incoming value type
 		if ( values == null ) {
@@ -163,6 +173,7 @@ public class FilterImpl implements Filter, Serializable {
 	 * @param values The values to be expanded into an SQL IN list.
 	 * @return This FilterImpl instance (for method chaining).
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Filter setParameterList(String name, Object[] values) throws IllegalArgumentException {
 		return setParameterList( name, Arrays.asList( values ) );
 	}
@@ -173,10 +184,12 @@ public class FilterImpl implements Filter, Serializable {
 	 * @param name The name of the parameter for which to return the value.
 	 * @return The value of the named parameter.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getParameter(String name) {
 		return parameters == null ? null : parameters.get( name );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Supplier<?> getParameterResolver(String name) {
 		return definition.getParameterResolver(name);
 	}
@@ -187,6 +200,7 @@ public class FilterImpl implements Filter, Serializable {
 	 *
 	 * @throws HibernateException If the state is not currently valid.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void validate() throws HibernateException {
 		if ( validated ) {
 			return;
@@ -202,17 +216,20 @@ public class FilterImpl implements Filter, Serializable {
 		validated = true;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean hasResolver(String parameterName) {
 		final Supplier<?> resolver = getParameterResolver(parameterName);
 		return resolver != null
 			&& !resolver.getClass().isInterface();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean hasArgument(String parameterName) {
 		return parameters != null && parameters.containsKey(parameterName);
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getParameterValue(String paramName) {
 		final Object value = getParameter( paramName );
 		if ( value != null ) {

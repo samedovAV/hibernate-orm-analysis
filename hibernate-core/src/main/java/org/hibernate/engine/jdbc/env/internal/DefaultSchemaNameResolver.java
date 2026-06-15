@@ -9,6 +9,8 @@ import org.hibernate.engine.jdbc.env.spi.SchemaNameResolver;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Default implementation of {@link SchemaNameResolver}
@@ -23,6 +25,7 @@ public class DefaultSchemaNameResolver implements SchemaNameResolver {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String resolveSchemaName(Connection connection, Dialect dialect) throws SQLException {
 		try {
 			return connection.getSchema();

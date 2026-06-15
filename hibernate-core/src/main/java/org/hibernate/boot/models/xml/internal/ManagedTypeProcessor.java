@@ -62,6 +62,8 @@ import static org.hibernate.internal.util.NullnessHelper.coalesceSuppliedValues;
 import static org.hibernate.internal.util.StringHelper.isEmpty;
 import static org.hibernate.internal.util.StringHelper.isNotEmpty;
 import static org.hibernate.internal.util.collections.CollectionHelper.isNotEmpty;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Helper for handling managed types defined in mapping XML, in either
@@ -74,6 +76,7 @@ public class ManagedTypeProcessor {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Entity
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void processCompleteEntity(
 			JaxbEntityMappingsImpl jaxbRoot,
 			JaxbEntityImpl jaxbEntity,
@@ -160,6 +163,7 @@ public class ManagedTypeProcessor {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static AccessType defaultAccessTypeFromDefaultAccessor(XmlDocumentContext xmlDocumentContext) {
 		final String defaultAccessStrategyName = xmlDocumentContext.getEffectiveDefaults().getDefaultAccessStrategyName();
 		if ( BuiltInPropertyAccessStrategies.BASIC.getExternalName().equalsIgnoreCase( defaultAccessStrategyName )
@@ -175,6 +179,7 @@ public class ManagedTypeProcessor {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void adjustDynamicTypeMember(
 			MutableMemberDetails memberDetails,
 			JaxbPersistentAttribute jaxbAttribute,
@@ -186,6 +191,7 @@ public class ManagedTypeProcessor {
 		annotationUsage.strategy( PropertyAccessStrategyMapImpl.class );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void processEntityMetadata(
 			MutableClassDetails classDetails,
 			JaxbEntityImpl jaxbEntity,
@@ -316,6 +322,7 @@ public class ManagedTypeProcessor {
 		renderClass( classDetails, xmlDocumentContext );
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private static void applyFetchProfileAnnotation(JaxbEntityImpl jaxbEntity, MutableClassDetails target, XmlDocumentContext xmlDocumentContext) {
 		final List<JaxbFetchProfileImpl> jaxbFetchProfiles = jaxbEntity.getFetchProfiles();
 		if ( jaxbFetchProfiles.isEmpty() ) {
@@ -367,6 +374,7 @@ public class ManagedTypeProcessor {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static void renderClass(MutableClassDetails classDetails, XmlDocumentContext xmlDocumentContext) {
 		if ( XML_PROCESS_LOGGER.isTraceEnabled() ) {
 			final var collectingTarget = new RenderingTargetCollectingImpl();
@@ -378,6 +386,7 @@ public class ManagedTypeProcessor {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void applyAccessAnnotation(
 			AccessType accessType,
 			MutableClassDetails target,
@@ -390,6 +399,7 @@ public class ManagedTypeProcessor {
 		target.addAnnotationUsage( annotationUsage );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void applyCaching(
 			JaxbEntityImpl jaxbEntity,
 			MutableClassDetails classDetails,
@@ -422,10 +432,12 @@ public class ManagedTypeProcessor {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static CacheConcurrencyStrategy convertCacheAccessType(org.hibernate.cache.spi.access.AccessType accessType) {
 		return accessType == null ? null : CacheConcurrencyStrategy.fromAccessType( accessType );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void applyTenantId(
 			MutableClassDetails classDetails,
 			JaxbEntityImpl jaxbEntity,
@@ -451,6 +463,7 @@ public class ManagedTypeProcessor {
 	}
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void adjustNonDynamicTypeMember(
 			MutableMemberDetails memberDetails,
 			JaxbPersistentAttribute jaxbAttribute,
@@ -462,6 +475,7 @@ public class ManagedTypeProcessor {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void adjustCompleteNonDynamicTypeMember(
 			MutableMemberDetails memberDetails,
 			JaxbPersistentAttribute jaxbAttribute,
@@ -473,6 +487,7 @@ public class ManagedTypeProcessor {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void processOverrideEntity(List<XmlProcessingResult.OverrideTuple<JaxbEntityImpl>> entityOverrides) {
 		entityOverrides.forEach( (overrideTuple) -> {
 			final var xmlDocumentContext = overrideTuple.getXmlDocumentContext();
@@ -510,12 +525,14 @@ public class ManagedTypeProcessor {
 
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static AccessType determineAccessTypeFromClassAnnotations(ClassDetails classDetails) {
 		final var accessUsage = classDetails.getDirectAnnotationUsage( Access.class );
 		return accessUsage != null ? accessUsage.value() : null;
 
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static AccessType determineAccessTypeFromClassMembers(ClassDetails classDetails) {
 		for ( var field : classDetails.getFields() ) {
 			if ( isId( field ) ) {
@@ -533,11 +550,13 @@ public class ManagedTypeProcessor {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isId(MemberDetails field) {
 		return field.hasDirectAnnotationUsage( Id.class )
 			|| field.hasDirectAnnotationUsage( EmbeddedId.class );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static void processIdMappings(
 			JaxbAttributesContainerImpl attributes,
 			AccessType classAccessType,
@@ -580,6 +599,7 @@ public class ManagedTypeProcessor {
 
 	// MappedSuperclass
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void processCompleteMappedSuperclass(
 			JaxbEntityMappingsImpl jaxbRoot,
 			JaxbMappedSuperclassImpl jaxbMappedSuperclass,
@@ -596,6 +616,7 @@ public class ManagedTypeProcessor {
 		processMappedSuperclassMetadata( jaxbMappedSuperclass, classDetails, xmlDocumentContext );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void processMappedSuperclassMetadata(
 			JaxbMappedSuperclassImpl jaxbMappedSuperclass,
 			MutableClassDetails classDetails,
@@ -631,6 +652,7 @@ public class ManagedTypeProcessor {
 		renderClass( classDetails, xmlDocumentContext );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void processOverrideMappedSuperclass(List<XmlProcessingResult.OverrideTuple<JaxbMappedSuperclassImpl>> mappedSuperclassesOverrides) {
 		mappedSuperclassesOverrides.forEach( (overrideTuple) -> {
 			final var xmlDocumentContext = overrideTuple.getXmlDocumentContext();
@@ -644,6 +666,7 @@ public class ManagedTypeProcessor {
 		} );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void processEntityOrMappedSuperclass(
 			JaxbEntityOrMappedSuperclass jaxbClass,
 			MutableClassDetails classDetails,
@@ -653,6 +676,7 @@ public class ManagedTypeProcessor {
 		XmlAnnotationHelper.applyLifecycleCallbacks( jaxbClass, classDetails, xmlDocumentContext );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void processCompleteEmbeddable(
 			JaxbEntityMappingsImpl jaxbRoot,
 			JaxbEmbeddableImpl jaxbEmbeddable,
@@ -703,6 +727,7 @@ public class ManagedTypeProcessor {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void processEmbeddableMetadata(
 			JaxbEmbeddableImpl jaxbEmbeddable,
 			MutableClassDetails classDetails,
@@ -730,6 +755,7 @@ public class ManagedTypeProcessor {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void processOverrideEmbeddable(List<XmlProcessingResult.OverrideTuple<JaxbEmbeddableImpl>> embeddableOverrides) {
 		embeddableOverrides.forEach( (overrideTuple) -> {
 			final var xmlDocumentContext = overrideTuple.getXmlDocumentContext();
@@ -760,6 +786,7 @@ public class ManagedTypeProcessor {
 		} );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static MutableClassDetails getMutableClassDetails(XmlDocumentContext xmlDocumentContext, String className) {
 		return (MutableClassDetails)
 				xmlDocumentContext.getModelBuildingContext()

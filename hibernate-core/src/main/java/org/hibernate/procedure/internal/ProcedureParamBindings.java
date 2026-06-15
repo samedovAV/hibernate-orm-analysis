@@ -22,6 +22,8 @@ import org.hibernate.query.spi.QueryParameterImplementor;
 import org.jboss.logging.Logger;
 
 import jakarta.persistence.ParameterMode;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -42,21 +44,25 @@ public class ProcedureParamBindings implements QueryParameterBindings {
 		this.sessionFactory = sessionFactory;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ProcedureParameterMetadataImplementor getParameterMetadata() {
 		return parameterMetadata;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isBound(QueryParameterImplementor<?> parameter) {
 		return parameter instanceof ProcedureParameterImplementor<?>
 			&& bindingMap.containsKey( parameter );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <P> ProcedureParameterBinding<P> getBinding(QueryParameterImplementor<P> parameter) {
 		return getQueryParameterBinding( (ProcedureParameterImplementor<P>) parameter );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <P> ProcedureParameterBinding<P> getQueryParameterBinding(ProcedureParameterImplementor<P> parameter) {
 		final var procParam = parameterMetadata.resolve( parameter );
 		final var binding = bindingMap.get( procParam );
@@ -75,6 +81,7 @@ public class ProcedureParamBindings implements QueryParameterBindings {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ProcedureParameterBinding<?> getBinding(String name) {
 		final var parameter = parameterMetadata.getQueryParameter( name );
 		if ( parameter == null ) {
@@ -84,6 +91,7 @@ public class ProcedureParamBindings implements QueryParameterBindings {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ProcedureParameterBinding<?> getBinding(int position) {
 		final var parameter = parameterMetadata.getQueryParameter( position );
 		if ( parameter == null ) {
@@ -93,6 +101,7 @@ public class ProcedureParamBindings implements QueryParameterBindings {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void validate() {
 		if ( LOG.isDebugEnabled() ) {
 			parameterMetadata.visitRegistrations(
@@ -100,6 +109,7 @@ public class ProcedureParamBindings implements QueryParameterBindings {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private <T> void validate(ProcedureParameterImplementor<T> procParam) {
 		final var mode = procParam.getMode();
 		if ( mode == ParameterMode.IN || mode == ParameterMode.INOUT ) {
@@ -117,21 +127,25 @@ public class ProcedureParamBindings implements QueryParameterBindings {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasAnyMultiValuedBindings() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasAnyTransientEntityBindings(SharedSessionContractImplementor session) {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void visitBindings(BiConsumer<? super QueryParameter<?>, ? super QueryParameterBinding<?>> action) {
 		bindingMap.forEach( action );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QueryKey.ParameterBindingsMemento generateQueryKeyMemento(SharedSessionContractImplementor session) {
 		return NO_PARAMETER_BINDING_MEMENTO;
 	}

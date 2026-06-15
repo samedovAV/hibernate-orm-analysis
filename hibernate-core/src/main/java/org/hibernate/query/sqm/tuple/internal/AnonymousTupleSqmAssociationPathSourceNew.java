@@ -21,6 +21,8 @@ import org.hibernate.query.sqm.tree.domain.SqmDomainType;
 import org.hibernate.query.sqm.tree.from.SqmFrom;
 import org.hibernate.query.sqm.tree.from.SqmJoin;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -42,6 +44,7 @@ public class AnonymousTupleSqmAssociationPathSourceNew<O, J>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmJoin<O, J> createSqmJoin(
 			SqmFrom<?, O> lhs,
 			SqmJoinType joinType,
@@ -60,89 +63,105 @@ public class AnonymousTupleSqmAssociationPathSourceNew<O, J>
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<J> getBindableJavaType() {
 		return domainType.getJavaType();
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Class<J> getJavaType() {
 		return domainType.getJavaType();
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SimpleDomainType<J> getType() {
 		return domainType;
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ManagedDomainType<O> getDeclaringType() {
 		throw new UnsupportedOperationException( "Anonymous tuple path source does not have a declaring type" );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPathSource<J> getSqmPathSource() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isId() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isVersion() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isOptional() {
 		return true;
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<J> getAttributeJavaType() {
 		return domainType.getExpressibleJavaType();
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AttributeClassification getAttributeClassification() {
 		return AttributeClassification.MANY_TO_ONE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SimpleDomainType<?> getKeyGraphType() {
 		return domainType;
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return getPathName();
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistentAttributeType getPersistentAttributeType() {
 		return PersistentAttributeType.MANY_TO_ONE;
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Member getJavaMember() {
 		throw new UnsupportedOperationException( "Anonymous tuple path source does not have a java member" );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isAssociation() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCollection() {
 		return false;
 	}

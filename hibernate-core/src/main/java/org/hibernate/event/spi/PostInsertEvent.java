@@ -6,6 +6,8 @@ package org.hibernate.event.spi;
 
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.persister.entity.EntityPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Occurs after inserting an item in the datastore
@@ -25,6 +27,7 @@ public class PostInsertEvent extends AbstractPostDatabaseOperationEvent {
 		this.state = state;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object[] getState() {
 		return state;
 	}

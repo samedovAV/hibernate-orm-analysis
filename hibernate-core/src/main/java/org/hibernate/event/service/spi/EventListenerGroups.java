@@ -42,6 +42,8 @@ import org.hibernate.service.ServiceRegistry;
 import java.util.Objects;
 
 import static org.hibernate.event.spi.EventType.*;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Holds the {@link org.hibernate.event.spi event} listener groups for the various event types.
@@ -91,6 +93,7 @@ public final class EventListenerGroups {
 	public final EventListenerGroup<PreUpsertEventListener> eventListenerGroup_PRE_UPSERT;
 	public final EventListenerGroup<RefreshEventListener> eventListenerGroup_REFRESH;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static <T> EventListenerGroup<T> listeners(EventListenerRegistry listenerRegistry, EventType<T> type) {
 		return listenerRegistry.getEventListenerGroup( type );
 	}

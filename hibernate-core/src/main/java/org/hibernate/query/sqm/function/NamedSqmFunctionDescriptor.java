@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.Locale;
 
 import static java.util.Collections.emptyList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Provides a standard implementation that supports the majority of the HQL
@@ -100,11 +102,13 @@ public class NamedSqmFunctionDescriptor
 	 *
 	 * @return The function name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return functionName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getArgumentListSignature() {
 		return argumentListSignature == null
 				? super.getArgumentListSignature()
@@ -112,11 +116,13 @@ public class NamedSqmFunctionDescriptor
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean alwaysIncludesParentheses() {
 		return useParenthesesWhenNoArgs;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,
@@ -126,6 +132,7 @@ public class NamedSqmFunctionDescriptor
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,
@@ -136,6 +143,7 @@ public class NamedSqmFunctionDescriptor
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,
@@ -147,6 +155,7 @@ public class NamedSqmFunctionDescriptor
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,
@@ -158,6 +167,7 @@ public class NamedSqmFunctionDescriptor
 		render( sqlAppender, sqlAstArguments, filter, emptyList(), respectNulls, fromFirst, walker );
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,
@@ -245,6 +255,7 @@ public class NamedSqmFunctionDescriptor
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return String.format(
 				Locale.ROOT,

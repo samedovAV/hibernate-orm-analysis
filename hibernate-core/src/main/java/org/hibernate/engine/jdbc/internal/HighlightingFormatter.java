@@ -14,6 +14,8 @@ import java.util.StringTokenizer;
 
 import static org.hibernate.internal.util.StringHelper.WHITESPACE;
 import static org.hibernate.internal.util.StringHelper.isEmpty;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Performs basic syntax highlighting for SQL using ANSI escape codes.
@@ -36,6 +38,7 @@ public final class HighlightingFormatter implements Formatter {
 			);
 	private static final String SYMBOLS_AND_WS = "=><!+-*/()',.|&`\"?" + WHITESPACE;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static String escape(String code) {
 		return "\u001b[" + code + "m";
 	}
@@ -57,6 +60,7 @@ public final class HighlightingFormatter implements Formatter {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String format(String sql) {
 		if ( isEmpty( sql ) ) {
 			return sql;

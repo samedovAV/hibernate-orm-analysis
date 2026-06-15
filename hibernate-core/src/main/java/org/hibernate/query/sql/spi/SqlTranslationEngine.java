@@ -8,6 +8,8 @@ import org.hibernate.Incubating;
 import org.hibernate.sql.ast.spi.SqlAstCreationContext;
 
 import java.util.Set;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Introduced as an analog of {@link org.hibernate.query.spi.QueryEngine}
@@ -22,7 +24,9 @@ import java.util.Set;
 public interface SqlTranslationEngine extends SqlAstCreationContext {
 	// TODO: consider implementing SqlStringGenerationContext
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean containsFetchProfileDefinition(String name);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Set<String> getDefinedFetchProfileNames();
 }

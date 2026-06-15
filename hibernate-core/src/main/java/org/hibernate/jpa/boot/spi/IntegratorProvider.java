@@ -7,6 +7,8 @@ package org.hibernate.jpa.boot.spi;
 import java.util.List;
 
 import org.hibernate.integrator.spi.Integrator;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An object that provides a list of {@link Integrator}s to the JPA persistence provider.
@@ -17,5 +19,6 @@ import org.hibernate.integrator.spi.Integrator;
  * @author Steve Ebersole
  */
 public interface IntegratorProvider {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<Integrator> getIntegrators();
 }

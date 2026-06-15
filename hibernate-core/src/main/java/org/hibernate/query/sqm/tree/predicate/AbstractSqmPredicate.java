@@ -20,6 +20,8 @@ import org.hibernate.query.sqm.tree.expression.SqmBooleanExpressionImplementor;
 import org.hibernate.type.descriptor.java.JavaType;
 
 import static org.hibernate.internal.util.NullnessUtil.castNonNull;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -33,27 +35,32 @@ public abstract class AbstractSqmPredicate
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nonnull JavaType<Boolean> getJavaTypeDescriptor(){
 		return castNonNull( super.getJavaTypeDescriptor() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nonnull JavaType<Boolean> getNodeJavaType() {
 		return castNonNull( super.getNodeJavaType() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nonnull SqmBindableType<Boolean> getExpressible() {
 		return castNonNull( super.getExpressible() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nonnull SqmBindableType<Boolean> getNodeType() {
 		return castNonNull( super.getNodeType() );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BooleanOperator getOperator() {
 		// most predicates are conjunctive
 		return BooleanOperator.AND;
@@ -61,6 +68,7 @@ public abstract class AbstractSqmPredicate
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<Expression<Boolean>> getExpressions() {
 		/// most predicates do not have sub-predicates
 		return new ArrayList<>(0);
@@ -68,54 +76,63 @@ public abstract class AbstractSqmPredicate
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JpaNumericExpression<Long> count() {
 		throw new UnsupportedOperationException( "Cannot apply `count()` to predicates" );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JpaNumericExpression<Long> countDistinct() {
 		throw new UnsupportedOperationException( "Cannot apply `countDistinct()` to predicates" );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmBooleanExpression coalesce(@Nonnull Expression<? extends Boolean> y) {
 		return (SqmBooleanExpression) super.coalesce( y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmBooleanExpression coalesce(Boolean y) {
 		return (SqmBooleanExpression) super.coalesce( y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmBooleanExpression nullif(@Nonnull Expression<? extends Boolean> y) {
 		return (SqmBooleanExpression) super.nullif( y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmBooleanExpression nullif(Boolean y) {
 		return (SqmBooleanExpression) super.nullif( y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmPredicate and(@Nonnull Expression<Boolean> y) {
 		return nodeBuilder().and( this, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmPredicate or(@Nonnull Expression<Boolean> y) {
 		return nodeBuilder().or( this, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmPredicate not() {
 		return nodeBuilder().not( this );
 	}

@@ -9,6 +9,8 @@ import org.hibernate.InstantiationException;
 import org.hibernate.resource.beans.spi.BeanInstanceProducer;
 
 import static org.hibernate.resource.beans.internal.BeansMessageLogger.BEANS_MSG_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * {@link BeanInstanceProducer} implementation based on direct instantiation.
@@ -30,6 +32,7 @@ public class FallbackBeanInstanceProducer implements BeanInstanceProducer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <B> B produceBeanInstance(Class<B> beanType) {
 		BEANS_MSG_LOGGER.creatingManagedBeanUsingDirectInstantiation( beanType.getName() );
 		try {
@@ -43,6 +46,7 @@ public class FallbackBeanInstanceProducer implements BeanInstanceProducer {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <B> B produceBeanInstance(String name, Class<B> beanType) {
 		return produceBeanInstance( beanType );
 	}

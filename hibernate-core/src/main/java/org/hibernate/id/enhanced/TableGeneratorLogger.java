@@ -23,6 +23,8 @@ import java.util.Locale;
 import static org.jboss.logging.Logger.Level.ERROR;
 import static org.jboss.logging.Logger.Level.INFO;
 import static org.jboss.logging.Logger.Level.TRACE;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Logging related to {@link TableGenerator} operations
@@ -48,34 +50,42 @@ public interface TableGeneratorLogger extends BasicLogger {
 
 	@LogMessage(level = ERROR)
 	@Message(value = "Could not read hi value in table: %s", id = 90101)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void unableToReadHiValue(String tableName, @Cause SQLException e);
 
 	@LogMessage(level = ERROR)
 	@Message(value = "Could not read or initialize hi value in table: %s", id = 90102)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void unableToReadOrInitializeHiValue(String tableName, @Cause SQLException e);
 
 	@LogMessage(level = ERROR)
 	@Message(value = "Could not update hi value in table: %s", id = 90103)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void unableToUpdateHiValue(String tableName, @Cause SQLException e);
 
 	@LogMessage(level = INFO)
 	@Message(value = "Forcing table use for sequence-style generator due to pooled optimizer selection where db does not support pooled sequences",
 			id = 90107)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void forcingTableUse();
 
 	@LogMessage(level = INFO)
 	@Message(value = "Explicit segment value for id generator [%s.%s] suggested; using default [%s]", id = 90110)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void usingDefaultIdGeneratorSegmentValue(String tableName, String segmentColumnName, String defaultToUse);
 
 	@LogMessage(level = TRACE)
 	@Message(value = "Retrieving current value for table generator segment '%s'", id = 90111)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void retrievingCurrentValueForSegment(String segmentValue);
 
 	@LogMessage(level = TRACE)
 	@Message(value = "Inserting initial value '%s' for table generator segment '%s'", id = 90112)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void insertingInitialValueForSegment(Object value, String segmentValue);
 
 	@LogMessage(level = TRACE)
 	@Message(value = "Updating current value to '%s' for table generator segment '%s'", id = 90113)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void updatingCurrentValueForSegment(Object updateValue, String segmentValue);
 }

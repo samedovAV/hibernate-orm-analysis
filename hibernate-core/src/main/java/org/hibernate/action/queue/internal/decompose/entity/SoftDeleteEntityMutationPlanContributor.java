@@ -24,6 +24,8 @@ import org.hibernate.sql.model.ast.TableMutation;
 import org.hibernate.sql.model.ast.TableUpdate;
 import org.hibernate.sql.model.ast.builder.TableUpdateBuilder;
 import org.hibernate.sql.model.ast.builder.TableUpdateBuilderStandard;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Graph mutation plan contributor for soft-delete entity deletes.
 ///
@@ -44,11 +46,13 @@ public class SoftDeleteEntityMutationPlanContributor implements EntityMutationPl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, ? extends TableMutation<?>> getStaticDeleteOperations() {
 		return Map.of( softDeleteOperation.getTableName(), softDeleteOperation );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean contributeReplacementDelete(
 			DeleteContext context,
 			Consumer<FlushOperation> operationConsumer) {
@@ -82,6 +86,7 @@ public class SoftDeleteEntityMutationPlanContributor implements EntityMutationPl
 		return true;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private TableUpdate<?> generateSoftDeleteOperation() {
 		final SoftDeleteMapping softDeleteMapping = entityPersister.getSoftDeleteMapping();
 		assert softDeleteMapping != null;
@@ -111,6 +116,7 @@ public class SoftDeleteEntityMutationPlanContributor implements EntityMutationPl
 		return (TableUpdate<?>) tableUpdateBuilder.buildMutation();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void applySoftDelete(
 			SoftDeleteMapping softDeleteMapping,
 			TableUpdateBuilder<?> tableUpdateBuilder) {
@@ -123,6 +129,7 @@ public class SoftDeleteEntityMutationPlanContributor implements EntityMutationPl
 		tableUpdateBuilder.addNonKeyRestriction( softDeleteMapping.createNonDeletedValueBinding( softDeleteColumnReference ) );
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private void applyPartitionKeyRestrictionForSoftDelete(TableUpdateBuilder<?> tableUpdateBuilder) {
 		if ( entityPersister.hasPartitionedSelectionMapping() ) {
 			final var attributeMappings = entityPersister.getAttributeMappings();

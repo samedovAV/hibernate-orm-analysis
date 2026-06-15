@@ -8,6 +8,8 @@ import java.lang.annotation.Annotation;
 
 import org.hibernate.boot.internal.Abstract;
 import org.hibernate.models.spi.ModelsContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -18,6 +20,7 @@ public class AbstractXmlAnnotation implements Abstract {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return Abstract.class;
 	}

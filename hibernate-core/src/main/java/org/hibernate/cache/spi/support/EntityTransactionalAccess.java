@@ -10,6 +10,8 @@ import org.hibernate.cache.spi.DomainDataRegion;
 import org.hibernate.cache.spi.access.AccessType;
 import org.hibernate.cache.spi.access.SoftLock;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -24,6 +26,7 @@ public class EntityTransactionalAccess extends AbstractEntityDataAccess {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean insert(
 			SharedSessionContractImplementor session,
 			Object key,
@@ -34,6 +37,7 @@ public class EntityTransactionalAccess extends AbstractEntityDataAccess {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean afterInsert(
 			SharedSessionContractImplementor session,
 			Object key,
@@ -43,6 +47,7 @@ public class EntityTransactionalAccess extends AbstractEntityDataAccess {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean update(
 			SharedSessionContractImplementor session,
 			Object key,
@@ -54,6 +59,7 @@ public class EntityTransactionalAccess extends AbstractEntityDataAccess {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean afterUpdate(
 			SharedSessionContractImplementor session,
 			Object key,
@@ -65,6 +71,7 @@ public class EntityTransactionalAccess extends AbstractEntityDataAccess {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AccessType getAccessType() {
 		return AccessType.TRANSACTIONAL;
 	}

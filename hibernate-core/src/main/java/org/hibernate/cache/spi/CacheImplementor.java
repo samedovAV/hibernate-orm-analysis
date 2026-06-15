@@ -21,6 +21,8 @@ import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.metamodel.model.domain.NavigableRole;
 import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.service.Service;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An SPI supported by any Hibernate {@linkplain Service service} that provides an
@@ -35,6 +37,7 @@ import org.hibernate.service.Service;
 public interface CacheImplementor extends Service, Cache, Serializable {
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryImplementor getSessionFactory();
 
 	/**
@@ -44,6 +47,7 @@ public interface CacheImplementor extends Service, Cache, Serializable {
 	 * of interacting with the configured RegionFactory.  Care should
 	 * be taken when accessing the RegionFactory directly.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	RegionFactory getRegionFactory();
 
 	/**
@@ -52,6 +56,7 @@ public interface CacheImplementor extends Service, Cache, Serializable {
 	 *
 	 * @since 5.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void prime(Set<DomainDataRegionConfig> cacheRegionConfigs);
 
 	/**
@@ -65,6 +70,7 @@ public interface CacheImplementor extends Service, Cache, Serializable {
 	 * @since 5.3
 	 */
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Region getRegion(String regionName);
 
 	/**
@@ -73,6 +79,7 @@ public interface CacheImplementor extends Service, Cache, Serializable {
 	 * @since 5.3
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Set<String> getCacheRegionNames();
 
 	/**
@@ -81,6 +88,7 @@ public interface CacheImplementor extends Service, Cache, Serializable {
 	 *
 	 * @since 5.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TimestampsCache getTimestampsCache();
 
 	/**
@@ -88,6 +96,7 @@ public interface CacheImplementor extends Service, Cache, Serializable {
 	 * was requested but no region was explicitly named.  Will return {@code null}
 	 * if Hibernate is not configured for query result caching
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	QueryResultsCache getDefaultQueryResultsCache();
 
 	/**
@@ -97,6 +106,7 @@ public interface CacheImplementor extends Service, Cache, Serializable {
 	 *
 	 * Will return {@code null} if Hibernate is not configured for query result caching
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	QueryResultsCache getQueryResultsCache(String regionName);
 
 	/**
@@ -108,6 +118,7 @@ public interface CacheImplementor extends Service, Cache, Serializable {
 	 *
 	 * @since 5.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	QueryResultsCache getQueryResultsCacheStrictly(String regionName);
 
 	/**
@@ -116,6 +127,7 @@ public interface CacheImplementor extends Service, Cache, Serializable {
 	 * @deprecated only because it's currently never called
 	 */
 	@Deprecated
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void evictQueries() throws HibernateException {
 		final var cache = getDefaultQueryResultsCache();
 		if ( cache != null ) {
@@ -126,6 +138,7 @@ public interface CacheImplementor extends Service, Cache, Serializable {
 	/**
 	 * Close this "cache", releasing all underlying resources.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void close();
 
 	/**
@@ -141,6 +154,7 @@ public interface CacheImplementor extends Service, Cache, Serializable {
 	 */
 	@Internal
 	@Remove
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityDataAccess getEntityRegionAccess(NavigableRole rootEntityName);
 
 	/**
@@ -157,6 +171,7 @@ public interface CacheImplementor extends Service, Cache, Serializable {
 	 */
 	@Internal
 	@Remove
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NaturalIdDataAccess getNaturalIdCacheRegionAccessStrategy(NavigableRole rootEntityName);
 
 	/**
@@ -170,5 +185,6 @@ public interface CacheImplementor extends Service, Cache, Serializable {
 	 */
 	@Internal
 	@Remove
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CollectionDataAccess getCollectionRegionAccess(NavigableRole collectionRole);
 }

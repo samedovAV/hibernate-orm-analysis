@@ -15,6 +15,8 @@ import org.hibernate.type.BasicType;
 
 import java.time.Duration;
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link ArgumentsValidator} that validates the array type is compatible with the element type.
@@ -28,6 +30,7 @@ public class GenerateSeriesArgumentTypeResolver implements AbstractFunctionArgum
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable MappingModelExpressible<?> resolveFunctionArgumentType(List<? extends SqmTypedNode<?>> arguments, int argumentIndex, SqmToSqlAstConverter converter) {
 		if ( argumentIndex == 0 ) {
 			final MappingModelExpressible<?> mappingModelExpressible = converter.resolveFunctionImpliedReturnType();

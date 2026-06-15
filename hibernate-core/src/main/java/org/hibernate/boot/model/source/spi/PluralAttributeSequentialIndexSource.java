@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.boot.model.source.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Defines the index of a persistent list/array
@@ -17,5 +20,6 @@ public interface PluralAttributeSequentialIndexSource extends PluralAttributeInd
 	 *
 	 * @return The index base value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getBase();
 }

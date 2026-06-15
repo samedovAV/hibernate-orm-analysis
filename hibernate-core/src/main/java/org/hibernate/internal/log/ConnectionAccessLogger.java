@@ -17,6 +17,8 @@ import java.lang.invoke.MethodHandles;
 import java.util.Locale;
 
 import static org.jboss.logging.Logger.Level.TRACE;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -48,5 +50,6 @@ public interface ConnectionAccessLogger extends BasicLogger {
 					"the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.",
 			id = 10001501
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void informConnectionLocalTransactionForNonJtaDdl();
 }

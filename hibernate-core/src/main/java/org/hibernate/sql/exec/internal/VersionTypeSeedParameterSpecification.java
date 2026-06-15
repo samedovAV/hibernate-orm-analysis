@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import org.hibernate.metamodel.mapping.EntityVersionMapping;
 import org.hibernate.sql.exec.spi.ExecutionContext;
 import org.hibernate.sql.exec.spi.JdbcParameterBindings;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Parameter bind specification used for optimistic lock version seeding (from insert statements).
@@ -30,6 +32,7 @@ public class VersionTypeSeedParameterSpecification extends AbstractJdbcParameter
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void bindParameterValue(
 			PreparedStatement statement,
 			int startPosition,

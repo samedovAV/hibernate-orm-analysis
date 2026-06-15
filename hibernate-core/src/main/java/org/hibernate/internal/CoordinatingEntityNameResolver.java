@@ -8,6 +8,8 @@ import org.hibernate.EntityNameResolver;
 import org.hibernate.Interceptor;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -31,6 +33,7 @@ class CoordinatingEntityNameResolver implements EntityNameResolver {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public String resolveEntityName(Object entity) {
 		final String interceptorEntityName = session == null
 				? interceptor.getEntityName( entity )

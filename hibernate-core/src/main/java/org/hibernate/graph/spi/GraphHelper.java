@@ -6,6 +6,8 @@ package org.hibernate.graph.spi;
 
 import org.hibernate.graph.Graph;
 import org.hibernate.metamodel.model.domain.ManagedDomainType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Helper containing utilities useful for graph handling
@@ -14,6 +16,7 @@ import org.hibernate.metamodel.model.domain.ManagedDomainType;
  */
 public class GraphHelper {
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static boolean appliesTo(Graph<?> graph, ManagedDomainType<?> managedType) {
 		final ManagedDomainType<?> graphedType = graph.getGraphedType();
 		ManagedDomainType<?> superType = managedType;

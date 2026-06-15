@@ -5,6 +5,8 @@
 package org.hibernate.boot.spi;
 
 import org.hibernate.boot.SessionFactoryBuilder;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Additional SPI contract for {@link SessionFactoryBuilder}, mainly intended for
@@ -18,11 +20,13 @@ public interface SessionFactoryBuilderImplementor extends SessionFactoryBuilder 
 	 * Called if {@link org.hibernate.cfg.AvailableSettings#ALLOW_JTA_TRANSACTION_ACCESS}
 	 * is not enabled.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void disableJtaTransactionAccess();
 
 	/**
 	 * Build the {@link SessionFactoryOptions} that will ultimately be passed to the
 	 * constructor of {@link org.hibernate.internal.SessionFactoryImpl}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryOptions buildSessionFactoryOptions();
 }

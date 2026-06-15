@@ -11,6 +11,8 @@ import jakarta.persistence.PersistenceException;
 import org.hibernate.engine.jdbc.connections.spi.JdbcConnectionAccess;
 
 import static org.hibernate.engine.jdbc.JdbcLogging.JDBC_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Implementation of JdbcConnectionAccess for cases where we are provided
@@ -29,6 +31,7 @@ public class JdbcConnectionAccessProvidedConnectionImpl implements JdbcConnectio
 		JDBC_LOGGER.initialAutoCommit( wasInitiallyAutoCommit );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean enableAutoCommit(Connection jdbcConnection) {
 		try {
 			final boolean wasInitiallyAutoCommit = jdbcConnection.getAutoCommit();
@@ -55,11 +58,13 @@ public class JdbcConnectionAccessProvidedConnectionImpl implements JdbcConnectio
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Connection obtainConnection() throws SQLException {
 		return jdbcConnection;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void releaseConnection(Connection connection) throws SQLException {
 		// NOTE: reset auto-commit, but *do not* close the Connection.
 		//       The application handed us this connection.
@@ -76,6 +81,7 @@ public class JdbcConnectionAccessProvidedConnectionImpl implements JdbcConnectio
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsAggressiveRelease() {
 		return false;
 	}

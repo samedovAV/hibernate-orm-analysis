@@ -29,12 +29,15 @@ import static org.hibernate.action.queue.internal.decompose.collection.Collectio
 import static org.hibernate.action.queue.internal.decompose.collection.CollectionOrdinalSupport.Slot;
 import static org.hibernate.action.queue.internal.decompose.collection.CollectionOrdinalSupport.calculateOrdinal;
 import static org.hibernate.temporal.TemporalTableStrategy.SINGLE_TABLE;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Collection mutation contributor for single-table temporal state management.
 ///
 /// @author Steve Ebersole
 public class TemporalCollectionMutationPlanContributor implements CollectionMutationPlanContributor {
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionJdbcOperations.DeleteRowPlan buildDeleteRowPlan(
 			DeleteRowPlanContext context,
 			Supplier<CollectionJdbcOperations.DeleteRowPlan> standardPlanSupplier) {
@@ -71,6 +74,7 @@ public class TemporalCollectionMutationPlanContributor implements CollectionMuta
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutationOperation buildRemoveOperation(
 			RemoveOperationContext context,
 			Supplier<MutationOperation> standardOperationSupplier) {
@@ -93,6 +97,7 @@ public class TemporalCollectionMutationPlanContributor implements CollectionMuta
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void bindRemoveValues(
 			RemoveBindContext context,
 			org.hibernate.action.queue.spi.bind.JdbcValueBindings valueBindings) {
@@ -101,6 +106,7 @@ public class TemporalCollectionMutationPlanContributor implements CollectionMuta
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean contributeValueChange(
 			ValueChangeContext context,
 			Consumer<FlushOperation> operationConsumer) {
@@ -160,28 +166,33 @@ public class TemporalCollectionMutationPlanContributor implements CollectionMuta
 		return true;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static TemporalMapping resolveTemporalMapping(DeleteRowPlanContext context) {
 		return isSingleTableTemporalCollection( context )
 				? context.persister().getAttributeMapping().getTemporalMapping()
 				: null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static TemporalMapping resolveTemporalMapping(RemoveOperationContext context) {
 		return isSingleTableTemporalCollection( context )
 				? context.persister().getAttributeMapping().getTemporalMapping()
 				: null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isSingleTableTemporalCollection(DeleteRowPlanContext context) {
 		return context.persister().getAttributeMapping().getTemporalMapping() != null
 			&& context.factory().getSessionFactoryOptions().getTemporalTableStrategy() == SINGLE_TABLE;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isSingleTableTemporalCollection(RemoveOperationContext context) {
 		return context.persister().getAttributeMapping().getTemporalMapping() != null
 			&& context.factory().getSessionFactoryOptions().getTemporalTableStrategy() == SINGLE_TABLE;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isSingleTableTemporalCollection(ValueChangeContext context) {
 		return context.persister().getAttributeMapping().getTemporalMapping() != null
 			&& context.session().getFactory().getSessionFactoryOptions().getTemporalTableStrategy() == SINGLE_TABLE;

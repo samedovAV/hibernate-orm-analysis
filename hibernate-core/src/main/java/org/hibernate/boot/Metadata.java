@@ -25,6 +25,8 @@ import org.hibernate.mapping.PersistentClass;
 import org.hibernate.mapping.Table;
 import org.hibernate.query.sqm.function.SqmFunctionDescriptor;
 import org.hibernate.type.MappingContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents the ORM model as determined by aggregating the provided mapping sources.
@@ -40,6 +42,7 @@ public interface Metadata extends MappingContext {
 	 *
 	 * @return The builder for {@link SessionFactory} instances.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryBuilder getSessionFactoryBuilder();
 
 	/**
@@ -48,6 +51,7 @@ public interface Metadata extends MappingContext {
 	 *
 	 * @return THe built SessionFactory.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactory buildSessionFactory();
 
 	/**
@@ -55,6 +59,7 @@ public interface Metadata extends MappingContext {
 	 *
 	 * @return the UUID.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	UUID getUUID();
 
 	/**
@@ -62,6 +67,7 @@ public interface Metadata extends MappingContext {
 	 *
 	 * @return The database model.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Database getDatabase();
 
 	/**
@@ -71,6 +77,7 @@ public interface Metadata extends MappingContext {
 	 *
 	 * @return All PersistentClass representations.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	java.util.Collection<PersistentClass> getEntityBindings();
 
 	/**
@@ -81,6 +88,7 @@ public interface Metadata extends MappingContext {
 	 *
 	 * @return The entity mapping metadata, or {@code null} if no matching entity found.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PersistentClass getEntityBinding(String entityName);
 
 	/**
@@ -90,6 +98,7 @@ public interface Metadata extends MappingContext {
 	 *
 	 * @return All Collection representations.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	java.util.Collection<Collection> getCollectionBindings();
 
 	/**
@@ -99,6 +108,7 @@ public interface Metadata extends MappingContext {
 	 *
 	 * @return The collection mapping metadata, or {@code null} if no matching collection found.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Collection getCollectionBinding(String role);
 
 	/**
@@ -106,6 +116,7 @@ public interface Metadata extends MappingContext {
 	 *
 	 * @return All imports
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Map<String,String> getImports();
 
 	/**
@@ -113,11 +124,13 @@ public interface Metadata extends MappingContext {
 	 *
 	 * @return The named query metadata, or {@code null}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NamedHqlQueryDefinition<?> getNamedHqlQueryMapping(String name);
 
 	/**
 	 * Visit all named HQL query definitions
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitNamedHqlQueryDefinitions(Consumer<NamedHqlQueryDefinition<?>> definitionConsumer);
 
 	/**
@@ -125,11 +138,13 @@ public interface Metadata extends MappingContext {
 	 *
 	 * @return The named query metadata, or {@code null}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NamedNativeQueryDefinition<?> getNamedNativeQueryMapping(String name);
 
 	/**
 	 * Visit all named native query definitions
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitNamedNativeQueryDefinitions(Consumer<NamedNativeQueryDefinition<?>> definitionConsumer);
 
 	/**
@@ -137,11 +152,13 @@ public interface Metadata extends MappingContext {
 	 *
 	 * @return The named procedure metadata, or {@code null}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NamedProcedureCallDefinition getNamedProcedureCallMapping(String name);
 
 	/**
 	 * Visit all named callable query definitions
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitNamedProcedureCallDefinition(Consumer<NamedProcedureCallDefinition> definitionConsumer);
 
 	/**
@@ -151,11 +168,13 @@ public interface Metadata extends MappingContext {
 	 *
 	 * @return The named result set mapping metadata, or {@code null} if none found.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NamedResultSetMappingDescriptor getResultSetMapping(String name);
 
 	/**
 	 * Visit all named SQL result set mapping definitions
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void visitNamedResultSetMappingDefinition(Consumer<NamedResultSetMappingDescriptor> definitionConsumer);
 
 	/**
@@ -163,6 +182,7 @@ public interface Metadata extends MappingContext {
 	 *
 	 * @return The named type definition, or {@code null}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TypeDefinition getTypeDefinition(String typeName);
 
 	/**
@@ -172,6 +192,7 @@ public interface Metadata extends MappingContext {
 	 *
 	 * @return The filter definition map.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Map<String,FilterDefinition> getFilterDefinitions();
 
 	/**
@@ -181,24 +202,33 @@ public interface Metadata extends MappingContext {
 	 * .
 	 * @return The filter definition, or {@code null}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	FilterDefinition getFilterDefinition(String name);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	FetchProfile getFetchProfile(String name);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	java.util.Collection<FetchProfile> getFetchProfiles();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NamedEntityGraphDefinition getNamedEntityGraph(String name);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Map<String, NamedEntityGraphDefinition> getNamedEntityGraphs();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	IdentifierGeneratorDefinition getIdentifierGenerator(String name);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	java.util.Collection<Table> collectTableMappings();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Map<String, SqmFunctionDescriptor> getSqlFunctionMap();
 
 	/**
 	 * All of the known model contributors
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Set<String> getContributors();
 }

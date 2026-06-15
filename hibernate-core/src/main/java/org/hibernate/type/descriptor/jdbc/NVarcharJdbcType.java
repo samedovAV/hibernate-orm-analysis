@@ -19,6 +19,8 @@ import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.descriptor.jdbc.internal.JdbcLiteralFormatterCharacterData;
 import org.hibernate.type.descriptor.jdbc.spi.JdbcTypeRegistry;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Descriptor for {@link Types#NVARCHAR NVARCHAR} handling.
@@ -32,21 +34,25 @@ public class NVarcharJdbcType implements AdjustableJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getJdbcTypeCode() {
 		return Types.NVARCHAR;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getFriendlyName() {
 		return "NVARCHAR";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "NVarcharTypeDescriptor";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<?> getRecommendedJavaType(
 			Integer length,
 			Integer scale,
@@ -58,11 +64,13 @@ public class NVarcharJdbcType implements AdjustableJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> JdbcLiteralFormatter<T> getJdbcLiteralFormatter(JavaType<T> javaType) {
 		return new JdbcLiteralFormatterCharacterData<>( javaType, true );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcType resolveIndicatedType(
 			JdbcTypeIndicators indicators,
 			JavaType<?> domainJtd) {
@@ -85,6 +93,7 @@ public class NVarcharJdbcType implements AdjustableJdbcType {
 		return jdbcTypeRegistry.getDescriptor( jdbcTypeCode );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean shouldUseMaterializedLob(JdbcTypeIndicators indicators) {
 		final Dialect dialect = indicators.getDialect();
 		final long length = indicators.getColumnLength();
@@ -95,14 +104,17 @@ public class NVarcharJdbcType implements AdjustableJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getPreferredJavaTypeClass(WrapperOptions options) {
 		return String.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> ValueBinder<X> getBinder(final JavaType<X> javaType) {
 		return new BasicBinder<>( javaType, this ) {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBind(PreparedStatement st, X value, int index, WrapperOptions options) throws SQLException {
 				if ( options.getDialect().supportsNationalizedMethods() ) {
 					st.setNString( index, javaType.unwrap( value, String.class, options ) );
@@ -113,6 +125,7 @@ public class NVarcharJdbcType implements AdjustableJdbcType {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected void doBind(CallableStatement st, X value, String name, WrapperOptions options)
 					throws SQLException {
 				if ( options.getDialect().supportsNationalizedMethods() ) {
@@ -124,6 +137,7 @@ public class NVarcharJdbcType implements AdjustableJdbcType {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			protected void doBindNull(PreparedStatement st, int index, WrapperOptions options) throws SQLException {
 				if ( options.getDialect().supportsNationalizedMethods() ) {
 					super.doBindNull( st, index, options );
@@ -134,6 +148,7 @@ public class NVarcharJdbcType implements AdjustableJdbcType {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			protected void doBindNull(CallableStatement st, String name, WrapperOptions options)
 					throws SQLException {
 				if ( options.getDialect().supportsNationalizedMethods() ) {
@@ -147,9 +162,11 @@ public class NVarcharJdbcType implements AdjustableJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> ValueExtractor<X> getExtractor(final JavaType<X> javaType) {
 		return new BasicExtractor<>( javaType, this ) {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(ResultSet rs, int paramIndex, WrapperOptions options) throws SQLException {
 				if ( options.getDialect().supportsNationalizedMethods() ) {
 					return javaType.wrap( rs.getNString( paramIndex ), options );
@@ -160,6 +177,7 @@ public class NVarcharJdbcType implements AdjustableJdbcType {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(CallableStatement statement, int index, WrapperOptions options) throws SQLException {
 				if ( options.getDialect().supportsNationalizedMethods() ) {
 					return javaType.wrap( statement.getNString( index ), options );
@@ -170,6 +188,7 @@ public class NVarcharJdbcType implements AdjustableJdbcType {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected X doExtract(CallableStatement statement, String name, WrapperOptions options) throws SQLException {
 				if ( options.getDialect().supportsNationalizedMethods() ) {
 					return javaType.wrap( statement.getNString( name ), options );

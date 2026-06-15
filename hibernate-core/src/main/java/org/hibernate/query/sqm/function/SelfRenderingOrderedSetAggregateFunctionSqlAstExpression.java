@@ -15,6 +15,8 @@ import org.hibernate.sql.ast.tree.SqlAstNode;
 import org.hibernate.sql.ast.tree.expression.OrderedSetAggregateFunctionExpression;
 import org.hibernate.sql.ast.tree.predicate.Predicate;
 import org.hibernate.sql.ast.tree.select.SortSpecification;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Representation of an aggregate function call in the SQL AST for impls that know how to
@@ -41,11 +43,13 @@ public class SelfRenderingOrderedSetAggregateFunctionSqlAstExpression<T>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<SortSpecification> getWithinGroup() {
 		return withinGroup;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void renderToSql(
 			SqlAppender sqlAppender,
 			SqlAstTranslator<?> walker,

@@ -7,6 +7,8 @@ package org.hibernate.boot.model.naming;
 import java.io.Serializable;
 
 import org.hibernate.engine.jdbc.env.spi.JdbcEnvironment;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard implementation of the {@link PhysicalNamingStrategy} contract. This is a trivial implementation
@@ -21,26 +23,31 @@ public class PhysicalNamingStrategyStandardImpl implements PhysicalNamingStrateg
 	public static final PhysicalNamingStrategyStandardImpl INSTANCE = new PhysicalNamingStrategyStandardImpl();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Identifier toPhysicalCatalogName(Identifier logicalName, JdbcEnvironment context) {
 		return logicalName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Identifier toPhysicalSchemaName(Identifier logicalName, JdbcEnvironment context) {
 		return logicalName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Identifier toPhysicalTableName(Identifier logicalName, JdbcEnvironment context) {
 		return logicalName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Identifier toPhysicalSequenceName(Identifier logicalName, JdbcEnvironment context) {
 		return logicalName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Identifier toPhysicalColumnName(Identifier logicalName, JdbcEnvironment context) {
 		return logicalName;
 	}

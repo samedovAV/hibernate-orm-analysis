@@ -19,6 +19,8 @@ import static org.hibernate.internal.log.DeprecationLogger.DEPRECATION_LOGGER;
 import static org.hibernate.internal.util.config.ConfigurationHelper.getBoolean;
 import static org.hibernate.jpa.HibernateHints.HINT_FOLLOW_ON_LOCKING;
 import static org.hibernate.jpa.HibernateHints.HINT_FOLLOW_ON_STRATEGY;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public final class LockOptionsHelper {
 
@@ -34,12 +36,14 @@ public final class LockOptionsHelper {
 	 * @param properties The configuration properties
 	 * @param lockOptions The reference to the lock to modify
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void applyPropertiesToLockOptions(Map<String, Object> properties, Supplier<LockOptions> lockOptions) {
 		applyScope( properties, lockOptions );
 		applyTimeout( properties, lockOptions );
 		applyFollowOn( properties, lockOptions );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void applyScope(Map<String, Object> properties, Supplier<LockOptions> lockOptions) {
 		final String lockScopeHint =
 				properties.containsKey( JAKARTA_LOCK_SCOPE )
@@ -52,6 +56,7 @@ public final class LockOptionsHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void applyTimeout(Map<String, Object> properties, Supplier<LockOptions> lockOptions) {
 		final String lockTimeoutHint =
 				properties.containsKey( JAKARTA_LOCK_TIMEOUT )
@@ -67,6 +72,7 @@ public final class LockOptionsHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void applyFollowOn(Map<String, Object> properties, Supplier<LockOptions> lockOptions) {
 		final Object strategyValue = properties.get( HINT_FOLLOW_ON_STRATEGY );
 		if ( strategyValue != null ) {

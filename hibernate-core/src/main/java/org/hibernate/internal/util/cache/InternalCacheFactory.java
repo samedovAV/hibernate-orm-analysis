@@ -5,6 +5,8 @@
 package org.hibernate.internal.util.cache;
 
 import org.hibernate.service.Service;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Internal components can use this factory to create an efficient cache for internal purposes.
@@ -15,6 +17,7 @@ import org.hibernate.service.Service;
  */
 public interface InternalCacheFactory extends Service {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<K,V> InternalCache<K,V> createInternalCache(int intendedApproximateSize);
 
 }

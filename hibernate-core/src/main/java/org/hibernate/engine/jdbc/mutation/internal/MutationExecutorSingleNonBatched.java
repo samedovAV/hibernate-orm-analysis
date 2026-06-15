@@ -11,6 +11,8 @@ import org.hibernate.generator.values.GeneratedValues;
 import org.hibernate.generator.values.GeneratedValuesMutationDelegate;
 import org.hibernate.sql.model.PreparableMutationOperation;
 import org.hibernate.sql.model.ValuesAnalysis;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -30,11 +32,13 @@ public class MutationExecutorSingleNonBatched extends AbstractSingleMutationExec
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected PreparedStatementGroupSingleTable getStatementGroup() {
 		return statementGroup;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected GeneratedValues performNonBatchedOperations(
 			Object modelReference,
 			ValuesAnalysis valuesAnalysis,
@@ -63,6 +67,7 @@ public class MutationExecutorSingleNonBatched extends AbstractSingleMutationExec
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void release() {
 		// nothing to do - `#performNonBatchedMutation` already releases the statement
 		assert statementGroup.getSingleStatementDetails().getStatement() == null;

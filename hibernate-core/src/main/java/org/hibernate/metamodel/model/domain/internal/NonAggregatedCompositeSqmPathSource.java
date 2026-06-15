@@ -9,6 +9,8 @@ import org.hibernate.metamodel.model.domain.ManagedDomainType;
 import org.hibernate.query.sqm.SqmPathSource;
 import org.hibernate.query.sqm.tree.domain.NonAggregatedCompositeSimplePath;
 import org.hibernate.query.sqm.tree.domain.SqmPath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Support for non-aggregated composite values
@@ -30,11 +32,13 @@ public class NonAggregatedCompositeSqmPathSource<J>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable SqmPathSource<?> findSubPathSource(String name) {
 		return (SqmPathSource<?>) container.findAttribute( name );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPath<J> createSqmPath(SqmPath<?> lhs, @Nullable SqmPathSource<?> intermediatePathSource) {
 		return new NonAggregatedCompositeSimplePath<>(
 				PathHelper.append( lhs, this, intermediatePathSource ),

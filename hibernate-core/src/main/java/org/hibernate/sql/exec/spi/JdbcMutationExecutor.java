@@ -7,6 +7,8 @@ package org.hibernate.sql.exec.spi;
 import java.sql.PreparedStatement;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Executor for model-mutation operations
@@ -17,6 +19,7 @@ public interface JdbcMutationExecutor {
 	/**
 	 * Perform the execution
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int execute(
 			JdbcOperationQueryMutation jdbcMutation,
 			JdbcParameterBindings jdbcParameterBindings,

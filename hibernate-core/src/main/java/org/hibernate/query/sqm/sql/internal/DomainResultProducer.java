@@ -6,6 +6,8 @@ package org.hibernate.query.sqm.sql.internal;
 
 import org.hibernate.sql.results.graph.DomainResult;
 import org.hibernate.sql.results.graph.DomainResultCreationState;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Something that can produce a DomainResult as part of a SQM interpretation
@@ -39,6 +41,7 @@ public interface DomainResultProducer<T> {
 	/**
 	 * Produce the domain query
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	DomainResult<T> createDomainResult(
 			String resultVariable,
 			DomainResultCreationState creationState);
@@ -49,5 +52,6 @@ public interface DomainResultProducer<T> {
 	 *
 	 * This default impl assumes this producer is a true (Sql)Expression
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void applySqlSelections(DomainResultCreationState creationState);
 }

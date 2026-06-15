@@ -25,6 +25,8 @@ import static org.hibernate.tool.schema.internal.ColumnDefinitions.getColumnDefi
 import static org.hibernate.tool.schema.internal.ColumnDefinitions.hasMatchingLength;
 import static org.hibernate.tool.schema.internal.ColumnDefinitions.hasMatchingType;
 import static org.hibernate.tool.schema.internal.ColumnDefinitions.getFullColumnDeclaration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link TableMigrator} that only knows how to add new columns.
@@ -43,6 +45,7 @@ public class StandardTableMigrator implements TableMigrator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getSqlAlterStrings(
 			Table table,
 			Metadata metadata,
@@ -59,6 +62,7 @@ public class StandardTableMigrator implements TableMigrator {
 	}
 
 	@Internal
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static List<String> sqlAlterStrings(
 			Table table,
 			Dialect dialect,
@@ -104,6 +108,7 @@ public class StandardTableMigrator implements TableMigrator {
 		return results;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static String getTableName(Table table, SqlStringGenerationContext context) {
 		return context.format( new QualifiedTableName(
 				toIdentifier( table.getCatalog(), table.isCatalogQuoted() ),

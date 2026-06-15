@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.resource.transaction.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * SPI contract for {@link SynchronizationRegistry} implementors.
@@ -14,6 +17,7 @@ public interface SynchronizationRegistryImplementor extends SynchronizationRegis
 	 * Delegates the {@link jakarta.transaction.Synchronization#beforeCompletion}
 	 * call to each registered {@code Synchronization}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void notifySynchronizationsBeforeTransactionCompletion();
 
 	/**
@@ -24,6 +28,7 @@ public interface SynchronizationRegistryImplementor extends SynchronizationRegis
 	 * @param status The transaction status, per {@link jakarta.transaction.Status}
 	 *               constants
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void notifySynchronizationsAfterTransactionCompletion(int status);
 
 	/**
@@ -31,5 +36,6 @@ public interface SynchronizationRegistryImplementor extends SynchronizationRegis
 	 * The synchronizations are automatically cleared during after-completion
 	 * handling; see {@link #notifySynchronizationsAfterTransactionCompletion}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void clearSynchronizations();
 }

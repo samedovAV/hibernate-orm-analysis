@@ -42,6 +42,8 @@ import static org.hibernate.cfg.QuerySettings.QUERY_PLAN_CACHE_ENABLED;
 import static org.hibernate.cfg.QuerySettings.QUERY_PLAN_CACHE_MAX_SIZE;
 import static org.hibernate.internal.util.config.ConfigurationHelper.getBoolean;
 import static org.hibernate.internal.util.config.ConfigurationHelper.getInteger;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Aggregation and encapsulation of the components Hibernate uses
@@ -88,6 +90,7 @@ public class QueryEngineImpl implements QueryEngine {
 		hqlTranslator = resolveHqlTranslator( options, dialect, nodeBuilder );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static SqmCriteriaNodeBuilder createCriteriaBuilder(
 			BindingContext context, QueryEngine engine, QueryEngineOptions options,
 			ServiceRegistryImplementor serviceRegistry,
@@ -95,6 +98,7 @@ public class QueryEngineImpl implements QueryEngine {
 		return new SqmCriteriaNodeBuilder( uuid, name, engine, options, context, serviceRegistry );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static HqlTranslator resolveHqlTranslator(
 			QueryEngineOptions options,
 			Dialect dialect,
@@ -111,6 +115,7 @@ public class QueryEngineImpl implements QueryEngine {
 				new SqmCreationOptionsStandard( options ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static SqmTranslatorFactory resolveSqmTranslatorFactory(
 			QueryEngineOptions runtimeOptions,
 			Dialect dialect) {
@@ -125,6 +130,7 @@ public class QueryEngineImpl implements QueryEngine {
 		return new StandardSqmTranslatorFactory();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static SqmFunctionRegistry createFunctionRegistry(
 			ServiceRegistry serviceRegistry,
 			MetadataImplementor metadata,
@@ -159,6 +165,7 @@ public class QueryEngineImpl implements QueryEngine {
 		return sqmFunctionRegistry;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static List<FunctionContributor> sortedFunctionContributors(ServiceRegistry serviceRegistry) {
 		final var functionContributors =
 				serviceRegistry.requireService(ClassLoaderService.class)
@@ -171,6 +178,7 @@ public class QueryEngineImpl implements QueryEngine {
 		return contributors;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static QueryInterpretationCache buildInterpretationCache(
 			ServiceRegistry serviceRegistry, Map<String, Object> properties) {
 		final boolean useCache = getBoolean(
@@ -208,71 +216,85 @@ public class QueryEngineImpl implements QueryEngine {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void validateNamedQueries() {
 		namedObjectRepository.validateNamedQueries( this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NamedObjectRepository getNamedObjectRepository() {
 		return namedObjectRepository;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TypeConfiguration getTypeConfiguration() {
 		return typeConfiguration;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NodeBuilder getCriteriaBuilder() {
 		return nodeBuilder;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ClassLoaderService getClassLoaderService() {
 		return classLoaderService;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HqlTranslator getHqlTranslator() {
 		return hqlTranslator;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmTranslatorFactory getSqmTranslatorFactory() {
 		return sqmTranslatorFactory;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NativeQueryInterpreter getNativeQueryInterpreter() {
 		return nativeQueryInterpreter;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QueryInterpretationCache getInterpretationCache() {
 		return interpretationCache;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmFunctionRegistry getSqmFunctionRegistry() {
 		return sqmFunctionRegistry;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaMetamodel getJpaMetamodel() {
 		return bindingContext.getJpaMetamodel();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public MappingMetamodel getMappingMetamodel() {
 		return bindingContext.getMappingMetamodel();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Dialect getDialect() {
 		return dialect;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void close() {
 		if ( namedObjectRepository != null ) {
 			namedObjectRepository.close();
@@ -302,16 +324,19 @@ public class QueryEngineImpl implements QueryEngine {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public TypeConfiguration getTypeConfiguration() {
 			return typeConfiguration;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public SqmFunctionRegistry getFunctionRegistry() {
 			return functionRegistry;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public ServiceRegistry getServiceRegistry() {
 			return serviceRegistry;
 		}

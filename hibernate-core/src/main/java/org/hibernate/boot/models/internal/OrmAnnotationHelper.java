@@ -22,6 +22,8 @@ import org.hibernate.models.AnnotationAccessException;
 import org.hibernate.models.spi.AnnotationDescriptor;
 import org.hibernate.models.spi.AttributeDescriptor;
 import org.hibernate.models.spi.ModelsContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -29,6 +31,7 @@ import org.hibernate.models.spi.ModelsContext;
  */
 public class OrmAnnotationHelper {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void forEachOrmAnnotation(Consumer<AnnotationDescriptor<?>> consumer) {
 		JpaAnnotations.forEachAnnotation( consumer );
 		HibernateAnnotations.forEachAnnotation( consumer );
@@ -36,6 +39,7 @@ public class OrmAnnotationHelper {
 		XmlAnnotations.forEachAnnotation( consumer );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void forEachOrmAnnotation(Class<?> declarer, Consumer<AnnotationDescriptor<?>> consumer) {
 		for ( var field : declarer.getFields() ) {
 			if ( AnnotationDescriptor.class.isAssignableFrom( field.getType() ) ) {
@@ -56,17 +60,20 @@ public class OrmAnnotationHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <V, A extends Annotation> V extractJdkValue(A jdkAnnotation, AttributeDescriptor<V> attributeDescriptor, ModelsContext modelContext) {
 		return attributeDescriptor.getTypeDescriptor()
 				.createJdkValueExtractor( modelContext )
 				.extractValue( jdkAnnotation, attributeDescriptor, modelContext );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static <V, A extends Annotation> V extractJdkValue(A jdkAnnotation, AnnotationDescriptor<A> annotationDescriptor, String attributeName, ModelsContext modelContext) {
 		final AttributeDescriptor<V> attributeDescriptor = annotationDescriptor.getAttribute( attributeName );
 		return extractJdkValue( jdkAnnotation, attributeDescriptor, modelContext );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static List<Annotation> extractAnnotationTypeAnnotations(Class<? extends Annotation> annotationType) {
 		final ArrayList<Annotation> result = new ArrayList<>();
 		final var annotationTypeAnnotations = annotationType.getAnnotations();

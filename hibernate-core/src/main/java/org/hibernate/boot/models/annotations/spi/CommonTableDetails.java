@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.boot.models.annotations.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Information which is common across all table annotations
@@ -14,10 +17,12 @@ public interface CommonTableDetails
 	/**
 	 * The table name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String name();
 
 	/**
 	 * Setter for {@linkplain #name()}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void name(String name);
 }

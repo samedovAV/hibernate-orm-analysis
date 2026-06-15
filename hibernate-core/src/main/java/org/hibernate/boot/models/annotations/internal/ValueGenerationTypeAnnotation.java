@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.hibernate.annotations.ValueGenerationType;
 import org.hibernate.models.spi.ModelsContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -36,15 +38,18 @@ public class ValueGenerationTypeAnnotation implements ValueGenerationType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return ValueGenerationType.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public java.lang.Class<? extends org.hibernate.generator.Generator> generatedBy() {
 		return generatedBy;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void generatedBy(java.lang.Class<? extends org.hibernate.generator.Generator> value) {
 		this.generatedBy = value;
 	}

@@ -34,6 +34,8 @@ import org.hibernate.mapping.Array;
 import org.hibernate.type.SqlTypes;
 
 import org.jboss.logging.Logger;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Maintains the JDBC recommended mappings for JDBC type-code to/from Java Class
@@ -64,6 +66,7 @@ public final class JdbcTypeJavaClassMappings {
 	 * and <em>TABLE B-4: Java Object Types Mapped to JDBC Types</em>, as well as some additional
 	 * "common sense" mappings.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int determineJdbcTypeCodeForJavaClass(Class<?> type) {
 		final Integer typeCode = javaClassToJdbcTypeCodeMap.get( type );
 		if ( typeCode != null ) {
@@ -83,6 +86,7 @@ public final class JdbcTypeJavaClassMappings {
 	 * <p>
 	 * These mappings are defined by <em>TABLE B-1: JDBC Types Mapped to Java Types</em>.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> determineJavaClassForJdbcTypeCode(Integer typeCode) {
 		final var cls = jdbcTypeCodeToJavaClassMap.get( typeCode );
 		if ( cls != null ) {
@@ -99,6 +103,7 @@ public final class JdbcTypeJavaClassMappings {
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static ConcurrentHashMap<Class<?>, Integer> buildJavaClassToJdbcTypeCodeMappings() {
 		final ConcurrentHashMap<Class<?>, Integer> workMap = new ConcurrentHashMap<>();
 
@@ -150,6 +155,7 @@ public final class JdbcTypeJavaClassMappings {
 		return workMap;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static ConcurrentHashMap<Integer, Class<?>> buildJdbcTypeCodeToJavaClassMappings() {
 		final ConcurrentHashMap<Integer, Class<?>> workMap = new ConcurrentHashMap<>();
 

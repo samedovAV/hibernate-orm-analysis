@@ -8,6 +8,8 @@ import java.util.Collection;
 import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.Set;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Set implementation that use == instead of equals() as its comparison
@@ -38,48 +40,57 @@ public class IdentitySet<E> implements Set<E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int size() {
 		return map.size();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isEmpty() {
 		return map.isEmpty();
 	}
 
 	@Override
 	@SuppressWarnings("SuspiciousMethodCalls")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean contains(Object o) {
 		return map.get( o ) == DUMP_VALUE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Iterator<E> iterator() {
 		return map.keySet().iterator();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object[] toArray() {
 		return map.keySet().toArray();
 	}
 
 	@SuppressWarnings("SuspiciousToArrayCall")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> T[] toArray(T[] a) {
 		return map.keySet().toArray( a );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean add(E o) {
 		return map.put( o, DUMP_VALUE ) == null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean remove(Object o) {
 		return map.remove( o ) == DUMP_VALUE;
 	}
 
 	@Override
 	@SuppressWarnings("SuspiciousMethodCalls")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean containsAll(Collection<?> checkValues) {
 		for ( Object checkValue : checkValues ) {
 			if ( ! map.containsKey( checkValue ) ) {
@@ -91,6 +102,7 @@ public class IdentitySet<E> implements Set<E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean addAll(Collection<? extends E> additions) {
 		boolean changed = false;
 
@@ -101,11 +113,13 @@ public class IdentitySet<E> implements Set<E> {
 		return changed;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean retainAll(Collection<?> keepers) {
 		//doable if needed
 		throw new UnsupportedOperationException();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean removeAll(Collection<?> removals) {
 		boolean changed = false;
 
@@ -116,6 +130,7 @@ public class IdentitySet<E> implements Set<E> {
 		return changed;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void clear() {
 		map.clear();
 	}

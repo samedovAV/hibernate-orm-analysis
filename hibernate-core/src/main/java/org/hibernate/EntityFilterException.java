@@ -9,6 +9,8 @@ import java.util.Locale;
 import org.hibernate.annotations.FilterDef;
 
 import jakarta.persistence.EntityNotFoundException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Thrown if an enabled {@linkplain FilterDef filter} would filter out
@@ -47,14 +49,17 @@ public class EntityFilterException extends EntityNotFoundException {
 		this.role = role;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getEntityName() {
 		return entityName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getIdentifier() {
 		return identifier;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getRole() {
 		return role;
 	}

@@ -18,6 +18,8 @@ import org.hibernate.sql.model.jdbc.JdbcMutationOperation;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.BiConsumer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Update defined using custom sql-update
@@ -68,31 +70,37 @@ public class TableUpdateCustomSql
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCustomSql() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getCustomSql() {
 		return mutationDetails.getCustomSql();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isCallable() {
 		return mutationDetails.isCallable();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<ColumnReference> getReturningColumns() {
 		return Collections.emptyList();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void forEachReturningColumn(BiConsumer<Integer, ColumnReference> consumer) {
 		// nothing to do
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker walker) {
 		walker.visitCustomTableUpdate( this );
 	}

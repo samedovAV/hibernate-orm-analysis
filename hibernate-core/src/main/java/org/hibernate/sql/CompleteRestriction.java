@@ -5,6 +5,8 @@
 package org.hibernate.sql;
 
 import org.hibernate.Internal;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * For a complete predicate.  E.g. {@link org.hibernate.annotations.SQLRestriction}
@@ -20,6 +22,7 @@ public class CompleteRestriction implements Restriction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void render(StringBuilder sqlBuffer, RestrictionRenderingContext context) {
 		sqlBuffer.append( predicate );
 	}

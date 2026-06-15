@@ -14,6 +14,8 @@ import org.hibernate.metamodel.mapping.MappingModelExpressible;
 import org.hibernate.query.QueryArgumentException;
 import org.hibernate.query.QueryParameter;
 import org.hibernate.type.BindableType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The value and type binding information for a particular query parameter.
@@ -33,6 +35,7 @@ public interface QueryParameterBinding<T> {
 	/**
 	 * The query parameter associated with this binding.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	QueryParameter<T> getQueryParameter();
 
 	/**
@@ -41,11 +44,13 @@ public interface QueryParameterBinding<T> {
 	 * {@link #setBindValue} or {@link #setBindValues} methods
 	 * execute successfully?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isBound();
 
 	/**
 	 * Is the binding multivalued?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isMultiValued();
 
 	/**
@@ -56,13 +61,15 @@ public interface QueryParameterBinding<T> {
 	 *
 	 * @return The currently associated {@link BindableType}
 	 */
-	@Nullable BindableType<T> getBindType();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	BindableType<T> getBindType();
 
 	/**
 	 * If the parameter is of a temporal type, return the explicitly
 	 * specified precision, if any.
 	 */
-	@Nullable @SuppressWarnings("deprecation") TemporalType getExplicitTemporalPrecision();
+	@Nullable @SuppressWarnings("deprecation") @Prove(complexity = Complexity.O_1, n = "", count = {})
+	TemporalType getExplicitTemporalPrecision();
 
 	/**
 	 * Set argument. If the given value is a {@link Collection},
@@ -72,6 +79,7 @@ public interface QueryParameterBinding<T> {
 	 * @throws QueryArgumentException
 	 *        if the value cannot be bound to the parameter
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void setBindValue(Object value) {
 		setBindValue( value, false );
 	}
@@ -87,6 +95,7 @@ public interface QueryParameterBinding<T> {
 	 * @throws QueryArgumentException
 	 *        if the value cannot be bound to the parameter
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setBindValue(Object value, boolean resolveJdbcTypeIfNecessary);
 
 	/**
@@ -95,6 +104,7 @@ public interface QueryParameterBinding<T> {
 	 * @param value The argument
 	 * @param clarifiedType The explicit type
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<A> void setBindValue(A value, @Nullable BindableType<A> clarifiedType);
 
 	/**
@@ -107,6 +117,7 @@ public interface QueryParameterBinding<T> {
 	 * @throws QueryArgumentException
 	 *        if the value cannot be bound to the parameter
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setBindValue(Object value, @SuppressWarnings("deprecation") TemporalType temporalTypePrecision);
 
 	/**
@@ -116,6 +127,7 @@ public interface QueryParameterBinding<T> {
 	 * @throws IllegalStateException
 	 *         if the parameter is multivalued
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	T getBindValue();
 
 	/**
@@ -127,6 +139,7 @@ public interface QueryParameterBinding<T> {
 	 * @throws QueryArgumentException
 	 *        if one of the values cannot be bound to the parameter
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setBindValues(Collection<?> values);
 
 	/**
@@ -140,6 +153,7 @@ public interface QueryParameterBinding<T> {
 	 * @throws QueryArgumentException
 	 *        if one of the values cannot be bound to the parameter
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<A> void setBindValues(Collection<? extends A> values, BindableType<A> clarifiedType);
 
 	/**
@@ -153,6 +167,7 @@ public interface QueryParameterBinding<T> {
 	 * @throws QueryArgumentException
 	 *        if one of the values cannot be bound to the parameter
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setBindValues(
 			Collection<?> values,
 			@SuppressWarnings("deprecation")
@@ -164,6 +179,7 @@ public interface QueryParameterBinding<T> {
 	 * @return The arguments currently bound
 	 * @throws IllegalArgumentException if the parameter is not multivalued
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Collection<? extends T> getBindValues();
 
 	/**
@@ -172,7 +188,8 @@ public interface QueryParameterBinding<T> {
 	 *
 	 * @return the inferred mapping model expressible or {@code null}
 	 */
-	@Nullable MappingModelExpressible<T> getType();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	MappingModelExpressible<T> getType();
 
 	/**
 	 * Sets the mapping model expressible for this parameter.
@@ -180,5 +197,6 @@ public interface QueryParameterBinding<T> {
 	 * @param type The mapping model expressible
 	 * @return Whether the binding type was actually changed
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean setType(@Nullable MappingModelExpressible<T> type);
 }

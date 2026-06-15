@@ -8,6 +8,8 @@ import java.util.Locale;
 
 import org.hibernate.FlushMode;
 import org.hibernate.HibernateException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * JAXB marshalling for the {@link FlushMode} enum.
@@ -19,6 +21,7 @@ import org.hibernate.HibernateException;
  * @author Steve Ebersole
  */
 public class FlushModeConverter {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static FlushMode fromXml(String name) {
 		// valid values are a subset of all FlushMode possibilities, so we will
 		// handle the conversion here directly.
@@ -43,6 +46,7 @@ public class FlushModeConverter {
 		throw new HibernateException( "Unrecognized flush mode : " + name );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String toXml(FlushMode mode) {
 		if ( mode == null ) {
 			return null;

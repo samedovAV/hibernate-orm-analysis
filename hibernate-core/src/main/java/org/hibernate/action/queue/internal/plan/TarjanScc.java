@@ -12,11 +12,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Applies Uses Tarjan’s Algorithm for finding strongly connected components (SCCs).
 ///
 /// @author Steve Ebersole
 public class TarjanScc {
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	static List<List<GroupNode>> compute(Graph graph) {
 		final int nodeCount = graph.nodes().size();
 		final int[] index = new int[nodeCount];
@@ -36,6 +39,7 @@ public class TarjanScc {
 		return out;
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private static void strongConnect(
 			Graph graph,
 			GroupNode v,
@@ -85,6 +89,7 @@ public class TarjanScc {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static int nodeIndex(GroupNode node) {
 		return Math.toIntExact( node.stableId() - 1 );
 	}

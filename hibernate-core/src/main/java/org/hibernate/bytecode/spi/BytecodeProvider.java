@@ -14,6 +14,8 @@ import org.hibernate.service.JavaServiceLoadable;
 import org.hibernate.service.Service;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for providers of bytecode services to Hibernate.
@@ -34,6 +36,7 @@ public interface BytecodeProvider extends Service {
 	 * @return The provider specific factory.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProxyFactoryFactory getProxyFactoryFactory();
 
 	/**
@@ -49,6 +52,7 @@ public interface BytecodeProvider extends Service {
 	 */
 	@Deprecated(forRemoval = true)
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ReflectionOptimizer getReflectionOptimizer(@Nonnull Class<?> clazz, @Nonnull String[] getterNames, @Nonnull String[] setterNames, @Nonnull Class<?>[] types);
 
 	/**
@@ -60,6 +64,7 @@ public interface BytecodeProvider extends Service {
 	 * @return The reflection optimization delegate.
 	 */
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ReflectionOptimizer getReflectionOptimizer(@Nonnull Class<?> clazz, @Nonnull Map<String, PropertyAccess> propertyAccessMap);
 
 	/**
@@ -69,7 +74,8 @@ public interface BytecodeProvider extends Service {
 	 *
 	 * @return An enhancer to perform byte code manipulations.
 	 */
-	@Nullable Enhancer getEnhancer(@Nonnull EnhancementContext enhancementContext);
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	Enhancer getEnhancer(@Nonnull EnhancementContext enhancementContext);
 
 	/**
 	 * Some BytecodeProvider implementations will have classloader specific caching.
@@ -80,6 +86,7 @@ public interface BytecodeProvider extends Service {
 	 * performance degradation on the SessionFactory instances which haven't been closed.
 	 * This limitation will be removed in the future, when these providers will no longer be static.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void resetCaches() {}
 
 }

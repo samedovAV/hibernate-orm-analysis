@@ -12,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import static org.hibernate.engine.jdbc.batch.JdbcBatchLogging.BATCH_MESSAGE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public abstract class AbstractPreparedStatementGroup implements PreparedStatementGroup {
 	private final SharedSessionContractImplementor session;
@@ -20,6 +22,7 @@ public abstract class AbstractPreparedStatementGroup implements PreparedStatemen
 		this.session = session;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void clearBatch(PreparedStatementDetails statementDetails) {
 		final PreparedStatement statement = statementDetails.getStatement();
 		assert statement != null;
@@ -40,6 +43,7 @@ public abstract class AbstractPreparedStatementGroup implements PreparedStatemen
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void release(PreparedStatementDetails statementDetails) {
 		if ( statementDetails.toRelease() ) {
 			if ( statementDetails.getStatement() == null ) {

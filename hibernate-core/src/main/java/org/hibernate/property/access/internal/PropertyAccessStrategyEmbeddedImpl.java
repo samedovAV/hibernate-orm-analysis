@@ -6,6 +6,8 @@ package org.hibernate.property.access.internal;
 
 import org.hibernate.property.access.spi.PropertyAccess;
 import org.hibernate.property.access.spi.PropertyAccessStrategy;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link PropertyAccessStrategy} that deals with non-aggregated composites.
@@ -20,6 +22,7 @@ public class PropertyAccessStrategyEmbeddedImpl implements PropertyAccessStrateg
 	public static final PropertyAccessStrategy INSTANCE = new PropertyAccessStrategyEmbeddedImpl();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PropertyAccess buildPropertyAccess(Class<?> containerJavaType, String propertyName, boolean setterRequired) {
 		return new PropertyAccessEmbeddedImpl( this, containerJavaType, propertyName );
 	}

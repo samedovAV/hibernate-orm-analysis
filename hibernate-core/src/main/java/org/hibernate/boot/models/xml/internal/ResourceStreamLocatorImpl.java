@@ -10,6 +10,8 @@ import java.net.URL;
 
 import org.hibernate.boot.ResourceStreamLocator;
 import org.hibernate.models.spi.ClassLoading;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Adapts {@linkplain ClassLoading} as a {@linkplain ResourceStreamLocator}
@@ -24,6 +26,7 @@ public class ResourceStreamLocatorImpl implements ResourceStreamLocator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public InputStream locateResourceStream(String resourceName) {
 		final URL resource = classLoadingAccess.locateResource( resourceName );
 		try {

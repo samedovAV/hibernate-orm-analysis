@@ -27,6 +27,8 @@ import java.util.Locale;
 import java.util.Map;
 
 import static org.hibernate.query.internal.AbstractSqmQuery.CRITERIA_HQL_STRING;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class CriteriaSelectionMementoImpl<R>
 		extends AbstractSelectionMemento<R>
@@ -76,53 +78,63 @@ public class CriteriaSelectionMementoImpl<R>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getHqlString() {
 		return CRITERIA_HQL_STRING;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSelectionString() {
 		return getHqlString();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmStatement<R> getSqmStatement() {
 		return selectAst;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, String> getAnticipatedParameterTypes() {
 		return parameterTypes;
 	}
 
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getEntityGraphName() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NamedSqmQueryMemento<R> makeCopy(String name) {
 		return new CriteriaSelectionMementoImpl<>( name, this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void validate(QueryEngine queryEngine) {
 		// nothing to do
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SelectionQueryImplementor<R> toSelectionQuery(SharedSessionContractImplementor session) {
 		return toSelectionQuery( session, queryType );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> SelectionQueryImplementor<T> toSelectionQuery(SharedSessionContractImplementor session, Class<T> javaType) {
 		checkResultType( javaType, selectAst );
 		//noinspection rawtypes,unchecked
 		return new SelectionQueryImpl( this, selectAst, javaType, session );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static <T> void checkResultType(Class<T> resultType, SqmSelectStatement<?> selectStatement) {
 		final Class<?> expectedResultType = selectStatement.getResultType();
 		if ( expectedResultType != Object.class

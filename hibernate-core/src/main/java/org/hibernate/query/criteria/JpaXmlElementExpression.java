@@ -9,6 +9,8 @@ import java.util.List;
 import org.hibernate.Incubating;
 
 import jakarta.persistence.criteria.Expression;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A special expression for the {@code xmlelement} function.
@@ -22,6 +24,7 @@ public interface JpaXmlElementExpression extends JpaExpression<String> {
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaXmlElementExpression attribute(String attributeName, Expression<?> expression);
 
 	/**
@@ -29,6 +32,7 @@ public interface JpaXmlElementExpression extends JpaExpression<String> {
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaXmlElementExpression content(List<? extends Expression<?>> expressions);
 
 	/**
@@ -36,5 +40,6 @@ public interface JpaXmlElementExpression extends JpaExpression<String> {
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaXmlElementExpression content(Expression<?>... expressions);
 }

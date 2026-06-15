@@ -12,6 +12,8 @@ import org.hibernate.cache.spi.access.SoftLock;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.persister.entity.EntityPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -32,6 +34,7 @@ public abstract class AbstractEntityDataAccess
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object generateCacheKey(
 			Object id,
 			EntityPersister rootEntityDescriptor,
@@ -46,20 +49,24 @@ public abstract class AbstractEntityDataAccess
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getCacheKeyId(Object cacheKey) {
 		return cacheKeysFactory.getEntityId( cacheKey );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SoftLock lockRegion() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void unlockRegion(SoftLock lock) {
 		clearCache();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SoftLock lockItem(
 			SharedSessionContractImplementor session,
 			Object key,
@@ -68,6 +75,7 @@ public abstract class AbstractEntityDataAccess
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void unlockItem(
 			SharedSessionContractImplementor session,
 			Object key,

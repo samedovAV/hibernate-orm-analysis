@@ -6,6 +6,8 @@ package org.hibernate.query.criteria;
 
 import jakarta.persistence.criteria.Expression;
 import org.hibernate.Incubating;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A special expression for the {@code json_table} function.
@@ -19,6 +21,7 @@ public interface JpaJsonTableFunction extends JpaJsonTableColumnsNode {
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonTableFunction passing(String parameterName, Expression<?> expression);
 
 	/**
@@ -26,6 +29,7 @@ public interface JpaJsonTableFunction extends JpaJsonTableColumnsNode {
 	 *
 	 * @return the error behavior
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ErrorBehavior getErrorBehavior();
 
 	/**
@@ -33,21 +37,25 @@ public interface JpaJsonTableFunction extends JpaJsonTableColumnsNode {
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonTableFunction unspecifiedOnError();
 	/**
 	 * Sets the {@link ErrorBehavior#ERROR} for this json table expression.
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonTableFunction errorOnError();
 	/**
 	 * Sets the {@link ErrorBehavior#NULL} for this json table expression.
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonTableFunction nullOnError();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonTableFunction ordinalityColumn(String columnName);
 
 	/**

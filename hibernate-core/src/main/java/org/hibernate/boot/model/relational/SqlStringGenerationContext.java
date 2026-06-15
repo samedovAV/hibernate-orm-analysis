@@ -6,6 +6,8 @@ package org.hibernate.boot.model.relational;
 
 import org.hibernate.boot.model.naming.Identifier;
 import org.hibernate.dialect.Dialect;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A context provided to methods responsible for generating SQL strings on startup.
@@ -16,6 +18,7 @@ public interface SqlStringGenerationContext {
 	 * @return The database dialect of the current JDBC environment,
 	 * to generate SQL fragments that are specific to each vendor.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Dialect getDialect();
 
 	/**
@@ -29,6 +32,7 @@ public interface SqlStringGenerationContext {
 	 *
 	 * @return The identifier form of the name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier toIdentifier(String text);
 
 	/**
@@ -37,6 +41,7 @@ public interface SqlStringGenerationContext {
 	 * This default is generally applied automatically by the {@link #format(QualifiedName) format methods},
 	 * but in some cases it can be useful to access it directly.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier getDefaultCatalog();
 
 	/**
@@ -45,6 +50,7 @@ public interface SqlStringGenerationContext {
 	 *
 	 * @apiNote May return {@code null} if {@linkplain #getDefaultCatalog() default catalog} is {@code null}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Identifier catalogWithDefault(Identifier explicitCatalogOrNull) {
 		return explicitCatalogOrNull != null ? explicitCatalogOrNull : getDefaultCatalog();
 	}
@@ -55,6 +61,7 @@ public interface SqlStringGenerationContext {
 	 * This default is generally applied automatically by the {@link #format(QualifiedName) format methods},
 	 * but in some cases it can be useful to access it directly.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier getDefaultSchema();
 
 	/**
@@ -63,6 +70,7 @@ public interface SqlStringGenerationContext {
 	 *
 	 * @apiNote May return {@code null} if {@linkplain #getDefaultSchema() default schema} is {@code null}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Identifier schemaWithDefault(Identifier explicitSchemaOrNull) {
 		return explicitSchemaOrNull != null ? explicitSchemaOrNull : getDefaultSchema();
 	}
@@ -74,6 +82,7 @@ public interface SqlStringGenerationContext {
 	 *
 	 * @return The formatted name,
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String format(QualifiedTableName qualifiedName);
 
 	/**
@@ -83,6 +92,7 @@ public interface SqlStringGenerationContext {
 	 *
 	 * @return The formatted name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String format(QualifiedSequenceName qualifiedName);
 
 	/**
@@ -92,6 +102,7 @@ public interface SqlStringGenerationContext {
 	 *
 	 * @return The formatted name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String format(QualifiedName qualifiedName);
 
 	/**
@@ -101,6 +112,7 @@ public interface SqlStringGenerationContext {
 	 *
 	 * @return The formatted name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String formatWithoutCatalog(QualifiedSequenceName qualifiedName);
 
 	/**
@@ -108,11 +120,13 @@ public interface SqlStringGenerationContext {
 	 *
 	 * @return {@code true} if and only if this is a migration
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isMigration();
 
 	/**
 	 * Apply default catalog and schema, if necessary, to the given name.  May return a new reference.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default QualifiedTableName withDefaults(QualifiedTableName name) {
 		if ( name.getCatalogName() == null && getDefaultCatalog() != null
 				|| name.getSchemaName() == null && getDefaultSchema() != null ) {
@@ -128,6 +142,7 @@ public interface SqlStringGenerationContext {
 	/**
 	 * Apply default catalog and schema, if necessary, to the given name.  May return a new reference.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default QualifiedSequenceName withDefaults(QualifiedSequenceName name) {
 		if ( name.getCatalogName() == null && getDefaultCatalog() != null
 				|| name.getSchemaName() == null && getDefaultSchema() != null ) {
@@ -143,6 +158,7 @@ public interface SqlStringGenerationContext {
 	/**
 	 * Apply default catalog and schema, if necessary, to the given name.  May return a new reference.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default QualifiedName withDefaults(QualifiedName name) {
 		if ( name.getCatalogName() == null && getDefaultCatalog() != null
 				|| name.getSchemaName() == null && getDefaultSchema() != null ) {

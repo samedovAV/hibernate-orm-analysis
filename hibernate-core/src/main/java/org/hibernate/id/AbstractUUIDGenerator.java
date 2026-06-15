@@ -9,6 +9,8 @@ import java.net.InetAddress;
 import org.hibernate.internal.util.BytesHelper;
 
 import static java.lang.System.currentTimeMillis;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The base class for identifier generators that use a UUID algorithm. This
@@ -45,6 +47,7 @@ public abstract class AbstractUUIDGenerator implements IdentifierGenerator {
 	 * Unique across JVMs on this machine (unless they load this class
 	 * in the same quarter-second, which is very unlikely)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected int getJVM() {
 		return JVM;
 	}
@@ -54,6 +57,7 @@ public abstract class AbstractUUIDGenerator implements IdentifierGenerator {
 	 * are more than {@value Short#MAX_VALUE} instances created in
 	 * a millisecond)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected short getCount() {
 		synchronized(AbstractUUIDGenerator.class) {
 			if ( counter < 0 ) {
@@ -66,6 +70,7 @@ public abstract class AbstractUUIDGenerator implements IdentifierGenerator {
 	/**
 	 * Unique in a local network
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected int getIP() {
 		return IP;
 	}
@@ -73,10 +78,12 @@ public abstract class AbstractUUIDGenerator implements IdentifierGenerator {
 	/**
 	 * Unique down to millisecond
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected short getHiTime() {
 		return (short) ( currentTimeMillis() >>> 32 );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected int getLoTime() {
 		return (int) currentTimeMillis();
 	}

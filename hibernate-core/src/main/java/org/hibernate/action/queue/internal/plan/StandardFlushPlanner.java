@@ -14,6 +14,8 @@ import org.hibernate.action.queue.internal.graph.GroupNode;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Standard FlushPlanner
 /// @author Steve Ebersole
@@ -25,6 +27,7 @@ public class StandardFlushPlanner implements FlushPlanner {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FlushPlan plan(Graph graph, DeferrableConstraintMode deferrableConstraintMode) {
 		// Fast path: if graph has no edges, operations are independent
 		// Skip cycle detection and topological sort - just use natural order
@@ -51,6 +54,7 @@ public class StandardFlushPlanner implements FlushPlanner {
 		return new FlushPlan(buildSteps(topoOrder));
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private List<PlanStep> buildSteps(List<GroupNode> topoOrder) {
 		final ArrayList<PlanStep> steps = new ArrayList<>();
 
@@ -83,6 +87,7 @@ public class StandardFlushPlanner implements FlushPlanner {
 		return steps;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean sameShape(StatementShapeKey a, StatementShapeKey b) {
 		return a != null && b != null
 			&& a.tableExpression().equalsIgnoreCase(b.tableExpression())

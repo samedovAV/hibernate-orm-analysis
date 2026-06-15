@@ -16,6 +16,8 @@ import org.hibernate.resource.jdbc.spi.PhysicalConnectionHandlingMode;
 import org.hibernate.resource.jdbc.spi.StatementInspector;
 
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * SessionBuilder implementation.
@@ -37,10 +39,12 @@ public abstract class SessionBuilderImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected SessionBuilderImplementor getThis() {
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected StatefulOptions options() {
 		return options;
 	}
@@ -50,6 +54,7 @@ public abstract class SessionBuilderImpl
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SessionBuilderImplementor withOption(EntityManager.CreationOption option) {
 		options.apply( option );
 		return this;
@@ -57,16 +62,19 @@ public abstract class SessionBuilderImpl
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SessionImplementor openSession() {
 		CORE_LOGGER.openingSession( options.getTenantIdentifierValue() );
 		return createSession( options );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract SessionImplementor createSession(StatefulOptions options);
 
 	@Override
 	@Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor statementInspector(@Nonnull StatementInspector statementInspector) {
 		options.statementInspector( statementInspector );
 		return this;
@@ -75,6 +83,7 @@ public abstract class SessionBuilderImpl
 	@Override
 	@Deprecated
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor connectionHandlingMode(@Nonnull PhysicalConnectionHandlingMode connectionHandlingMode) {
 		options.connectionHandlingMode( connectionHandlingMode );
 		return this;
@@ -82,6 +91,7 @@ public abstract class SessionBuilderImpl
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor autoJoinTransactions(boolean autoJoinTransactions) {
 		options.autoJoinTransactions( autoJoinTransactions );
 		return this;
@@ -89,6 +99,7 @@ public abstract class SessionBuilderImpl
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor autoClose(boolean autoClose) {
 		options.autoClose( autoClose );
 		return this;
@@ -96,6 +107,7 @@ public abstract class SessionBuilderImpl
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor autoClear(boolean autoClear) {
 		options.autoClear( autoClear );
 		return this;
@@ -103,6 +115,7 @@ public abstract class SessionBuilderImpl
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor flushMode(@Nonnull FlushMode flushMode) {
 		options.flushMode( flushMode );
 		return this;
@@ -110,6 +123,7 @@ public abstract class SessionBuilderImpl
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor identifierRollback(boolean identifierRollback) {
 		options.identifierRollback( identifierRollback );
 		return this;
@@ -117,6 +131,7 @@ public abstract class SessionBuilderImpl
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor eventListeners(@Nonnull SessionEventListener... listeners) {
 		options.eventListeners( sessionFactory, listeners );
 		return this;
@@ -124,6 +139,7 @@ public abstract class SessionBuilderImpl
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor clearEventListeners() {
 		options.clearEventListeners();
 		return this;
@@ -131,6 +147,7 @@ public abstract class SessionBuilderImpl
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor defaultBatchFetchSize(int defaultBatchFetchSize) {
 		options.defaultBatchFetchSize( defaultBatchFetchSize );
 		return this;
@@ -138,6 +155,7 @@ public abstract class SessionBuilderImpl
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionBuilderImplementor subselectFetchEnabled(boolean subselectFetchEnabled) {
 		options.subselectFetchEnabled( subselectFetchEnabled );
 		return this;

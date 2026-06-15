@@ -8,8 +8,11 @@ import jakarta.annotation.Nullable;
 import org.hibernate.query.sqm.SqmPathSource;
 import org.hibernate.query.sqm.tree.domain.SqmPath;
 import org.hibernate.spi.NavigablePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class PathHelper {
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static NavigablePath append(SqmPath<?> lhs, SqmPathSource<?> rhs, @Nullable SqmPathSource<?> intermediatePathSource) {
 		final var navigablePath = lhs.getNavigablePath();
 		return intermediatePathSource == null

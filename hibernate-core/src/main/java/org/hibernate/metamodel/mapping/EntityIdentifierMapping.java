@@ -14,6 +14,8 @@ import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import org.hibernate.sql.results.graph.Fetchable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -28,12 +30,14 @@ public interface EntityIdentifierMapping extends ValuedModelPart, Fetchable {
 	String ID_ROLE_NAME = "{id}";
 	String LEGACY_ID_NAME = "id";
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static boolean matchesRoleName(String name) {
 		return LEGACY_ID_NAME.equalsIgnoreCase( name )
 			|| ID_ROLE_NAME.equals( name );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String getPartName() {
 		return ID_ROLE_NAME;
 	}
@@ -41,11 +45,13 @@ public interface EntityIdentifierMapping extends ValuedModelPart, Fetchable {
 	/**
 	 * @see Nature
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Nature getNature();
 
 	/**
 	 * The name of the attribute defining the id, if one
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getAttributeName();
 
 	/**
@@ -54,6 +60,7 @@ public interface EntityIdentifierMapping extends ValuedModelPart, Fetchable {
 	 *
 	 * @see EntityVersionMapping#getUnsavedStrategy()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	IdentifierValue getUnsavedStrategy();
 
 	/**
@@ -61,11 +68,13 @@ public interface EntityIdentifierMapping extends ValuedModelPart, Fetchable {
 	 *
 	 * @apiNote This is really only valid on {@linkplain CompositeIdentifierMapping composite identifiers}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object instantiate();
 
 	/**
 	 * Extract the identifier from an instance of the entity
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getIdentifier(Object entity);
 
 	/**
@@ -73,6 +82,7 @@ public interface EntityIdentifierMapping extends ValuedModelPart, Fetchable {
 	 *
 	 * @apiNote Intended for use during the merging process
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default Object getIdentifier(Object entity, MergeContext mergeContext){
 		return getIdentifier( entity );
 	}
@@ -97,6 +107,7 @@ public interface EntityIdentifierMapping extends ValuedModelPart, Fetchable {
 	 * @see org.hibernate.engine.internal.ForeignKeys#getEntityIdentifierIfNotUnsaved
 	 * @since 6.1.1
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Object getIdentifierIfNotUnsaved(Object entity, SharedSessionContractImplementor session) {
 		if ( entity == null ) {
 			return null;
@@ -127,6 +138,7 @@ public interface EntityIdentifierMapping extends ValuedModelPart, Fetchable {
 	/**
 	 * Inject an identifier value into an instance of the entity
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setIdentifier(Object entity, Object id, SharedSessionContractImplementor session);
 
 	/**
@@ -162,6 +174,7 @@ public interface EntityIdentifierMapping extends ValuedModelPart, Fetchable {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isEntityIdentifierMapping() {
 		return true;
 	}

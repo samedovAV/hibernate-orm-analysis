@@ -5,6 +5,8 @@
 package org.hibernate;
 
 import static org.hibernate.pretty.MessageHelper.infoString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * This exception is thrown when an operation would break session-scoped identity.
@@ -45,15 +47,18 @@ public class NonUniqueObjectException extends HibernateException {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getEntityName() {
 		return entityName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getIdentifier() {
 		return identifier;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getMessage() {
 		return super.getMessage() + " for entity " + infoString( entityName, identifier );
 	}

@@ -7,6 +7,8 @@ package org.hibernate.tool.schema.internal.exec;
 import org.hibernate.tool.schema.spi.GenerationTarget;
 import org.hibernate.tool.schema.spi.SchemaManagementException;
 import org.hibernate.tool.schema.spi.ScriptTargetOutput;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link GenerationTarget} that writes DDL to scripts.
@@ -29,16 +31,19 @@ public class GenerationTargetToScript implements GenerationTarget {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void prepare() {
 		scriptTarget.prepare();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void accept(String command) {
 		scriptTarget.accept( delimiter == null ? command : command + delimiter );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void release() {
 		scriptTarget.release();
 	}

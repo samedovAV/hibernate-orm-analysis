@@ -7,6 +7,8 @@ package org.hibernate.query.criteria;
 import jakarta.persistence.criteria.Expression;
 import jakarta.annotation.Nullable;
 import org.hibernate.Incubating;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The base for {@code json_value} function nodes.
@@ -19,6 +21,7 @@ public interface JpaJsonValueNode<T> {
 	 *
 	 * @return the error behavior
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ErrorBehavior getErrorBehavior();
 
 	/**
@@ -26,6 +29,7 @@ public interface JpaJsonValueNode<T> {
 	 *
 	 * @return the empty behavior
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EmptyBehavior getEmptyBehavior();
 
 	/**
@@ -34,7 +38,8 @@ public interface JpaJsonValueNode<T> {
 	 *
 	 * @return the value to return on a json processing error
 	 */
-	@Nullable JpaExpression<T> getErrorDefault();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	JpaExpression<T> getErrorDefault();
 
 	/**
 	 * Get the {@link JpaExpression} that is returned when the JSON path does not resolve for a JSON document.
@@ -42,31 +47,36 @@ public interface JpaJsonValueNode<T> {
 	 *
 	 * @return the value to return on a json processing error
 	 */
-	@Nullable JpaExpression<T> getEmptyDefault();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	JpaExpression<T> getEmptyDefault();
 
 	/**
 	 * Sets the {@link ErrorBehavior#UNSPECIFIED} for this json value expression.
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonValueNode<T> unspecifiedOnError();
 	/**
 	 * Sets the {@link ErrorBehavior#ERROR} for this json value expression.
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonValueNode<T> errorOnError();
 	/**
 	 * Sets the {@link ErrorBehavior#NULL} for this json value expression.
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonValueNode<T> nullOnError();
 	/**
 	 * Sets the {@link ErrorBehavior#DEFAULT} for this json value expression.
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonValueNode<T> defaultOnError(Expression<?> expression);
 
 	/**
@@ -74,24 +84,28 @@ public interface JpaJsonValueNode<T> {
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonValueNode<T> unspecifiedOnEmpty();
 	/**
 	 * Sets the {@link EmptyBehavior#ERROR} for this json value expression.
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonValueNode<T> errorOnEmpty();
 	/**
 	 * Sets the {@link EmptyBehavior#NULL} for this json value expression.
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonValueNode<T> nullOnEmpty();
 	/**
 	 * Sets the {@link EmptyBehavior#DEFAULT} for this json value expression.
 	 *
 	 * @return {@code this} for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaJsonValueNode<T> defaultOnEmpty(Expression<?> expression);
 
 	/**

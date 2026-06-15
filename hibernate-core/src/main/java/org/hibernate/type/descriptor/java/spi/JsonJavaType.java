@@ -13,6 +13,8 @@ import org.hibernate.type.descriptor.jdbc.JdbcType;
 import org.hibernate.type.descriptor.jdbc.JdbcTypeIndicators;
 import org.hibernate.type.format.FormatMapper;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @Incubating
 public class JsonJavaType<T> extends FormatMapperBasedJavaType<T> {
@@ -25,16 +27,19 @@ public class JsonJavaType<T> extends FormatMapperBasedJavaType<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected FormatMapper getFormatMapper(TypeConfiguration typeConfiguration) {
 		return typeConfiguration.getJsonFormatMapper();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcType getRecommendedJdbcType(JdbcTypeIndicators context) {
 		return context.getJdbcType( SqlTypes.JSON );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "JsonJavaType(" + getTypeName() + ")";
 	}

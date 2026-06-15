@@ -14,6 +14,8 @@ import org.hibernate.metamodel.mapping.JdbcMappingContainer;
 import org.hibernate.sql.ast.SqlAstWalker;
 
 import static org.hibernate.internal.util.collections.CollectionHelper.arrayList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Collection of {@link FilterFragmentPredicate} sub-predicates, each
@@ -30,10 +32,12 @@ public class FilterPredicate implements Predicate {
 	public FilterPredicate() {
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applyFragment(FilterFragmentPredicate predicate) {
 		fragments.add( predicate );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void applyFragment(String processedFragment, Filter filter, List<String> parameterNames) {
 		applyFragment( new FilterFragmentPredicate( processedFragment, filter, parameterNames ) );
 	}
@@ -45,6 +49,7 @@ public class FilterPredicate implements Predicate {
 //		parameters.add( parameter );
 //	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<FilterFragmentPredicate> getFragments() {
 		return fragments;
 	}
@@ -54,20 +59,24 @@ public class FilterPredicate implements Predicate {
 //	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isEmpty() {
 		return fragments.isEmpty();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker sqlTreeWalker) {
 		sqlTreeWalker.visitFilterPredicate( this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcMappingContainer getExpressionType() {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static List<FilterFragmentParameter> fragmentParameters(Filter filter, List<String> parameterNames) {
 		if ( CollectionHelper.isEmpty( parameterNames ) ) {
 			return null;
@@ -98,18 +107,22 @@ public class FilterPredicate implements Predicate {
 			this.value = value;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getFilterName() {
 			return filterName;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getParameterName() {
 			return parameterName;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public JdbcMapping getValueMapping() {
 			return valueMapping;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Object getValue() {
 			return value;
 		}
@@ -126,33 +139,40 @@ public class FilterPredicate implements Predicate {
 			this.parameters = fragmentParameters( filter, parameterNames );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Filter getFilter() {
 			return filter;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getFilterName() {
 			return filter.getName();
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getSqlFragment() {
 			return sqlFragment;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public List<FilterFragmentParameter> getParameters() {
 			return parameters;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void accept(SqlAstWalker sqlTreeWalker) {
 			sqlTreeWalker.visitFilterFragmentPredicate( this );
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public JdbcMappingContainer getExpressionType() {
 			return null;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean isEmpty() {
 			return false;
 		}

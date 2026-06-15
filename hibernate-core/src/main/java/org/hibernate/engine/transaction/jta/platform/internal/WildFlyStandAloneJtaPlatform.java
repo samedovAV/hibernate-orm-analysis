@@ -9,6 +9,8 @@ import jakarta.transaction.UserTransaction;
 
 import org.hibernate.boot.registry.classloading.spi.ClassLoaderService;
 import org.hibernate.engine.transaction.jta.platform.spi.JtaPlatformException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Return a standalone JTA transaction manager for WildFly transaction client
@@ -21,6 +23,7 @@ public class WildFlyStandAloneJtaPlatform extends AbstractJtaPlatform {
 	public static final String WILDFLY_UT_CLASS_NAME = "org.wildfly.transaction.client.LocalUserTransaction";
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected TransactionManager locateTransactionManager() {
 		try {
 			return (TransactionManager) serviceRegistry()
@@ -38,6 +41,7 @@ public class WildFlyStandAloneJtaPlatform extends AbstractJtaPlatform {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected UserTransaction locateUserTransaction() {
 		try {
 			return (UserTransaction) serviceRegistry()

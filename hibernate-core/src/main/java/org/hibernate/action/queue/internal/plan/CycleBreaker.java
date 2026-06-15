@@ -25,6 +25,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Makes a flush dependency graph schedulable by breaking selected cycle edges.
 ///
@@ -55,6 +57,7 @@ public class CycleBreaker {
 	public CycleBreaker() {
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void applyCycleBreaks(
 			Graph graph,
 			PlanningOptions planningOptions,
@@ -69,6 +72,7 @@ public class CycleBreaker {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private boolean hasSelfLoop(Graph graph, GroupNode n) {
 		for ( GraphEdge e : graph.outgoing().getOrDefault(n, List.of())) {
 			if (!e.isBroken() && e.getTo() == n) {
@@ -78,6 +82,7 @@ public class CycleBreaker {
 		return false;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void breakSccCycles(
 			Graph graph,
 			List<GroupNode> scc,
@@ -164,6 +169,7 @@ public class CycleBreaker {
 
 	private enum VisitState { UNVISITED, VISITING, VISITED }
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private List<GraphEdge> findAnyCycleInScc(Graph graph, List<GroupNode> scc, Set<GroupNode> inScc) {
 		final Map<GroupNode, VisitState> state = new HashMap<>();
 		final Deque<GraphEdge> stack = new ArrayDeque<>();
@@ -180,6 +186,7 @@ public class CycleBreaker {
 		return List.of();
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private List<GraphEdge> depthFirstSearchForCycle(
 			Graph graph,
 			GroupNode u,
@@ -216,6 +223,7 @@ public class CycleBreaker {
 		return List.of();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private List<GraphEdge> extractCycle(Deque<GraphEdge> stack, GroupNode cycleStartNode) {
 		final ArrayList<GraphEdge> path = new ArrayList<>(stack);
 		int start = 0;
@@ -225,6 +233,7 @@ public class CycleBreaker {
 		return path.subList(start, path.size());
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private GraphEdge chooseEdgeToBreak(List<GraphEdge> cycle) {
 		GraphEdge best = null;
 		for (GraphEdge e : cycle) {
@@ -261,10 +270,12 @@ public class CycleBreaker {
 		return best;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean isNullPatchableBreakCandidate(GraphEdge edge) {
 		return edge.isNullPatchable();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private GraphEdge findPreferredOrderEdge(List<GraphEdge> cycle) {
 		for (GraphEdge e : cycle) {
 			if (isPreferredBreakCandidate( e )) {
@@ -274,10 +285,12 @@ public class CycleBreaker {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean isPreferredBreakCandidate(GraphEdge edge) {
 		return !edge.isBroken() && edge.isPreferredOrder();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private boolean hasAnyBreakableEdge(List<GraphEdge> cycle) {
 		for (GraphEdge e : cycle) {
 			if (isNullPatchableBreakCandidate( e )) {
@@ -287,6 +300,7 @@ public class CycleBreaker {
 		return false;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void installPatchForEdge(GraphEdge chosen) {
 		// Table-level edges (e.g., DELETE->INSERT for same table) don't have patch nodes
 		// They can only be broken, not patched
@@ -327,16 +341,19 @@ public class CycleBreaker {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Set<SelectableMapping> toSet(SelectableMappings mappings) {
 		final var set = new LinkedHashSet<SelectableMapping>();
 		apply( mappings, set );
 		return set;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void apply(SelectableMappings selectableMappings, Set<SelectableMapping> set) {
 		selectableMappings.forEachSelectable( (selectionIndex, selectableMapping) -> set.add(selectableMapping) );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private boolean isDeleteOnlyCycle(List<GraphEdge> cycle) {
 		// Check if all nodes in the cycle are DELETE operations
 		for (GraphEdge e : cycle) {
@@ -360,6 +377,7 @@ public class CycleBreaker {
 	///
 	/// Prefer deferrable edges, then edges that flow backward relative to operation
 	/// ordinal so cascade delete order is preserved where possible.
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void breakArbitraryDeleteEdge(
 			List<GraphEdge> cycle,
 			DeferrableConstraintMode deferrableConstraintMode) {
@@ -400,6 +418,7 @@ public class CycleBreaker {
 
 	/// Find an UPDATE edge in the cycle. UPDATEs reference existing rows, so this
 	/// can preserve progress when no temporary-null candidate exists.
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private GraphEdge findUpdateEdge(List<GraphEdge> cycle) {
 		for (GraphEdge e : cycle) {
 			if (e.isBroken()) {
@@ -415,6 +434,7 @@ public class CycleBreaker {
 
 	/// Find an effectively deferred edge in the cycle. Deferred constraints are
 	/// checked at transaction commit.
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private GraphEdge findEffectivelyDeferredEdge(
 			List<GraphEdge> cycle,
 			DeferrableConstraintMode deferrableConstraintMode) {
@@ -426,11 +446,13 @@ public class CycleBreaker {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean isDeferrableBreakCandidate(GraphEdge edge, DeferrableConstraintMode deferrableConstraintMode) {
 		return !edge.isBroken() && edge.isEffectivelyDeferred( deferrableConstraintMode );
 	}
 
 	/// Find a non-DELETE edge in the cycle as a last resort.
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private GraphEdge findNonDeleteEdge(List<GraphEdge> cycle) {
 		for (GraphEdge e : cycle) {
 			if (!isLastResortBreakCandidate( e )) {
@@ -451,6 +473,7 @@ public class CycleBreaker {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean isLastResortBreakCandidate(GraphEdge edge) {
 		return !edge.isBroken()
 			&& (edge.getFrom().group().kind() != MutationKind.DELETE
@@ -458,6 +481,7 @@ public class CycleBreaker {
 	}
 
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private GraphEdge findUniquePatchCandidate(List<GraphEdge> cycle) {
 		for (GraphEdge e : cycle) {
 			if (!hasPatchColumns( e )) {
@@ -470,6 +494,7 @@ public class CycleBreaker {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean hasPatchColumns(GraphEdge edge) {
 		return edge.getPatchNode() != null
 			&& edge.getColumnsToNull() != null
@@ -479,6 +504,7 @@ public class CycleBreaker {
 	/// Check whether a cycle is made only of unique-slot ordering edges and involves
 	/// UPDATEs. This classification says what kind of ordering problem we found; it
 	/// does not mean the cycle is patchable.
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private boolean isUniqueUpdateOrderingCycle(List<GraphEdge> cycle) {
 		// Required unique edges are ordering edges, but not patch candidates. Nullable
 		// unique swaps are represented explicitly by GraphEdgeKind.NULL_PATCHABLE_UNIQUE.
@@ -500,6 +526,7 @@ public class CycleBreaker {
 		return allUniqueEdges && hasUpdate;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static String describeScc(List<GroupNode> scc) {
 		StringBuilder sb = new StringBuilder("{");
 		boolean first = true;

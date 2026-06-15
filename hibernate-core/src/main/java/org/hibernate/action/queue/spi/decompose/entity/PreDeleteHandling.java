@@ -10,6 +10,8 @@ import org.hibernate.action.queue.spi.bind.PreExecutionCallback;
 import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.event.spi.PreDeleteEvent;
 import org.hibernate.jpa.event.spi.CallbackType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Pre-execution callback for entity delete actions.
 ///
@@ -26,6 +28,7 @@ public class PreDeleteHandling implements PreExecutionCallback {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean beforeExecution(SessionImplementor session) {
 		if ( !invoked ) {
 			veto = action.getInstance() != null && firePreDelete( session );
@@ -34,6 +37,7 @@ public class PreDeleteHandling implements PreExecutionCallback {
 		return !veto;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private boolean firePreDelete(SessionImplementor session) {
 		final var callbacks = action.getPersister().getEntityCallbacks();
 		if ( callbacks.hasRegisteredCallbacks( CallbackType.PRE_DELETE ) ) {
@@ -59,6 +63,7 @@ public class PreDeleteHandling implements PreExecutionCallback {
 		return veto;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isVeto() {
 		return veto;
 	}

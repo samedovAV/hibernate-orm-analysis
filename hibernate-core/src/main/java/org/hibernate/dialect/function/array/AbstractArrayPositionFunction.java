@@ -17,6 +17,8 @@ import org.hibernate.query.sqm.tree.SqmTypedNode;
 import org.hibernate.type.spi.TypeConfiguration;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Encapsulates the validator, return type and argument type resolvers for the array_position functions.
@@ -39,6 +41,7 @@ public abstract class AbstractArrayPositionFunction extends AbstractSqmSelfRende
 				StandardFunctionReturnTypeResolvers.invariant( typeConfiguration.standardBasicTypeForJavaType( Integer.class ) ),
 				new AbstractFunctionArgumentTypeResolver() {
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public @Nullable MappingModelExpressible<?> resolveFunctionArgumentType(List<? extends SqmTypedNode<?>> arguments, int argumentIndex, SqmToSqlAstConverter converter) {
 						if ( argumentIndex == 2 ) {
 							return converter.getCreationContext()
@@ -58,6 +61,7 @@ public abstract class AbstractArrayPositionFunction extends AbstractSqmSelfRende
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getArgumentListSignature() {
 		return "(ARRAY array, OBJECT element[, INTEGER startPosition])";
 	}

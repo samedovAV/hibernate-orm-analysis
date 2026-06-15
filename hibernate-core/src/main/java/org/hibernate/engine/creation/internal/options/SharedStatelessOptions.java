@@ -7,6 +7,8 @@ package org.hibernate.engine.creation.internal.options;
 import org.hibernate.Transaction;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.engine.spi.TransactionCompletionCallbacksImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Mutable collector for creating a stateless child session from an existing
 /// session.
@@ -31,16 +33,19 @@ public class SharedStatelessOptions extends StatelessOptions implements CommonSh
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SharedSessionContractImplementor getOriginalSession() {
 		return original;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isTransactionCoordinatorShared() {
 		return shareTransactionContext;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Transaction getTransaction() {
 		return shareTransactionContext
 				? original.getTransaction()
@@ -48,6 +53,7 @@ public class SharedStatelessOptions extends StatelessOptions implements CommonSh
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TransactionCompletionCallbacksImplementor getTransactionCompletionCallbacks() {
 		return shareTransactionContext
 				? original.getTransactionCompletionCallbacksImplementor()
@@ -55,6 +61,7 @@ public class SharedStatelessOptions extends StatelessOptions implements CommonSh
 	}
 
 	/// Enable sharing of the original session's transaction/JDBC context.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void shareTransactionContext() {
 		shareTransactionContext = true;
 	}

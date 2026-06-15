@@ -9,6 +9,8 @@ import java.lang.reflect.Field;
 
 import org.hibernate.internal.util.ReflectHelper;
 import org.hibernate.property.access.spi.PropertyAccessSerializationException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base Serializable form for field (used as Getter or Setter)
@@ -28,6 +30,7 @@ public abstract class AbstractFieldSerialForm implements Serializable {
 		this.fieldName = fieldName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Field resolveField() {
 		try {
 			final var field = declaringClass.getDeclaredField( fieldName );

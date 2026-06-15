@@ -8,6 +8,8 @@ import org.hibernate.Incubating;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 
 import java.sql.SQLException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Used to check the results of a statement execution
 ///
@@ -22,6 +24,7 @@ public interface OperationResultChecker {
 	/// @param batchPosition The execution's position within the active batch, if one; if not batching, -1 will be passed
 	///
 	/// @return `true` indicates an execution that is considered successful; `false` indicates unsuccessful
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean checkResult(
 			int affectedRowCount,
 			int batchPosition,

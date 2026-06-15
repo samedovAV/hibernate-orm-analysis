@@ -17,6 +17,8 @@ import org.hibernate.boot.model.relational.QualifiedTableName;
 import org.hibernate.boot.model.relational.SqlStringGenerationContext;
 import org.hibernate.engine.jdbc.env.spi.JdbcEnvironment;
 import org.hibernate.service.ServiceRegistry;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Defines a context for performing extraction including providing access to information about ongoing extraction as
@@ -27,13 +29,19 @@ import org.hibernate.service.ServiceRegistry;
  */
 @Incubating
 public interface ExtractionContext {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ServiceRegistry getServiceRegistry();
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcEnvironment getJdbcEnvironment();
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqlStringGenerationContext getSqlStringGenerationContext();
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Connection getJdbcConnection();
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	DatabaseMetaData getJdbcDatabaseMetaData();
 
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default <T> T getQueryResults(
 			String queryString,
 			Object[] positionalParameters,
@@ -50,11 +58,14 @@ public interface ExtractionContext {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier getDefaultCatalog();
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier getDefaultSchema();
 
 	@Incubating
 	interface ResultSetProcessor<T> {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		T process(ResultSet resultSet) throws SQLException;
 	}
 
@@ -64,60 +75,77 @@ public interface ExtractionContext {
 	 */
 	@Incubating
 	interface DatabaseObjectAccess {
-		@Nullable TableInformation locateTableInformation(QualifiedTableName tableName);
+		@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+		TableInformation locateTableInformation(QualifiedTableName tableName);
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		SequenceInformation locateSequenceInformation(QualifiedSequenceName sequenceName);
-		@Nullable PrimaryKeyInformation locatePrimaryKeyInformation(QualifiedTableName tableName);
+		@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+		PrimaryKeyInformation locatePrimaryKeyInformation(QualifiedTableName tableName);
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		Iterable<ForeignKeyInformation> locateForeignKeyInformation(QualifiedTableName tableName);
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		Iterable<IndexInformation> locateIndexesInformation(QualifiedTableName tableName);
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		boolean isCaching();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	DatabaseObjectAccess getDatabaseObjectAccess();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void cleanup();
 
 	abstract class EmptyExtractionContext implements ExtractionContext {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public ServiceRegistry getServiceRegistry() {
 			return null;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public JdbcEnvironment getJdbcEnvironment() {
 			return null;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public SqlStringGenerationContext getSqlStringGenerationContext() {
 			return null;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Connection getJdbcConnection() {
 			return null;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public DatabaseMetaData getJdbcDatabaseMetaData() {
 			return null;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Identifier getDefaultCatalog() {
 			return null;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Identifier getDefaultSchema() {
 			return null;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public DatabaseObjectAccess getDatabaseObjectAccess() {
 			return null;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void cleanup() {
 
 		}

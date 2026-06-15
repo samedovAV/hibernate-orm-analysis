@@ -9,6 +9,8 @@ import org.hibernate.sql.ast.SqlAstWalker;
 import org.hibernate.sql.ast.tree.expression.Expression;
 import org.hibernate.sql.ast.tree.select.QueryPart;
 import org.hibernate.sql.ast.tree.select.SelectStatement;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -27,15 +29,18 @@ public class InSubQueryPredicate extends AbstractPredicate {
 		this.subQuery = subQuery;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression getTestExpression() {
 		return testExpression;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SelectStatement getSubQuery() {
 		return subQuery;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker sqlTreeWalker) {
 		sqlTreeWalker.visitInSubQueryPredicate( this );
 	}

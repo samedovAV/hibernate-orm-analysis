@@ -12,6 +12,8 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 
 
 import static org.hibernate.cache.spi.SecondLevelCacheLogger.L2CACHE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -29,26 +31,31 @@ public abstract class AbstractCachedDomainDataAccess implements CachedDomainData
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainDataRegion getRegion() {
 		return region;
 	}
 
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainDataStorageAccess getStorageAccess() {
 		return storageAccess;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void clearCache() {
 		L2CACHE_LOGGER.clearingCacheDataMap( region.getName() );
 		getStorageAccess().evictData();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean contains(Object key) {
 		return getStorageAccess().contains( key );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object get(SharedSessionContractImplementor session, Object key) {
 		final boolean traceEnabled = L2CACHE_LOGGER.isTraceEnabled();
 		if ( traceEnabled ) {
@@ -67,6 +74,7 @@ public abstract class AbstractCachedDomainDataAccess implements CachedDomainData
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean putFromLoad(
 			SharedSessionContractImplementor session,
 			Object key,
@@ -80,6 +88,7 @@ public abstract class AbstractCachedDomainDataAccess implements CachedDomainData
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean putFromLoad(
 			SharedSessionContractImplementor session,
 			Object key,
@@ -101,36 +110,43 @@ public abstract class AbstractCachedDomainDataAccess implements CachedDomainData
 	};
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SoftLock lockRegion() {
 		return REGION_LOCK;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void unlockRegion(SoftLock lock) {
 		evictAll();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void remove(SharedSessionContractImplementor session, Object key) {
 		getStorageAccess().removeFromCache( key, session );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void removeAll(SharedSessionContractImplementor session) {
 		getStorageAccess().clearCache( session );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void evict(Object key) {
 		getStorageAccess().evictData( key );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void evictAll() {
 		getStorageAccess().evictData();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void destroy() {
 		getStorageAccess().release();
 	}

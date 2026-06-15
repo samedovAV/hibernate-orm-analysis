@@ -12,6 +12,8 @@ import org.hibernate.resource.transaction.spi.TransactionCoordinator;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -28,8 +30,10 @@ import java.sql.SQLException;
  */
 public interface JdbcSessionOwner {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcSessionContext getJdbcSessionContext();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcConnectionAccess getJdbcConnectionAccess();
 
 	/**
@@ -37,6 +41,7 @@ public interface JdbcSessionOwner {
 	 *
 	 * @return The {@code TransactionCoordinator}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TransactionCoordinator getTransactionCoordinator();
 
 	/**
@@ -45,16 +50,19 @@ public interface JdbcSessionOwner {
 	 * {@link org.hibernate.Transaction} API or via registration
 	 * of Hibernate's JTA Synchronization impl with a JTA Transaction
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void startTransactionBoundary();
 
 	/**
 	 * An after-begin callback from the coordinator to its owner.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void afterTransactionBegin();
 
 	/**
 	 * A before-completion callback to the owner.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void beforeTransactionCompletion();
 
 	/**
@@ -63,8 +71,10 @@ public interface JdbcSessionOwner {
 	 * @param successful Was the transaction successful?
 	 * @param delayed Is this a delayed after transaction completion call (aka after a timeout)?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void afterTransactionCompletion(boolean successful, boolean delayed);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void flushBeforeTransactionCompletion();
 
 	/**
@@ -73,8 +83,10 @@ public interface JdbcSessionOwner {
 	 *
 	 * @since 5.2
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Integer getJdbcBatchSize();
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default SqlExceptionHelper getSqlExceptionHelper() {
 		return getJdbcSessionContext().getJdbcServices().getSqlExceptionHelper();
 	}
@@ -93,6 +105,7 @@ public interface JdbcSessionOwner {
 	 * @since 7.1
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void afterObtainConnection(Connection connection) throws SQLException;
 
 	/**
@@ -106,6 +119,7 @@ public interface JdbcSessionOwner {
 	 * @since 7.1
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void beforeReleaseConnection(Connection connection) throws SQLException;
 
 	/**
@@ -113,6 +127,7 @@ public interface JdbcSessionOwner {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EventMonitor getEventMonitor();
 
 }

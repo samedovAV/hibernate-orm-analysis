@@ -7,6 +7,8 @@ package org.hibernate.query;
 import org.hibernate.Incubating;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Identifies a page of query results by {@linkplain #size page size}
@@ -50,6 +52,7 @@ public class Page {
 	 * The size of the page, that is, the maximum number
 	 * of results on the page.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getSize() {
 		return size;
 	}
@@ -57,6 +60,7 @@ public class Page {
 	/**
 	 * The page number, where {@code 0} is the first page.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getNumber() {
 		return number;
 	}
@@ -64,6 +68,7 @@ public class Page {
 	/**
 	 * @return {@code true} is this is the first page.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isFirst() {
 		return number == 0;
 	}
@@ -73,6 +78,7 @@ public class Page {
 	 *         {@linkplain SelectionQuery#getMaxResults()
 	 *         maximum number of results} on the page.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getMaxResults() {
 		return size;
 	}
@@ -81,6 +87,7 @@ public class Page {
 	 * @return the {@linkplain SelectionQuery#getFirstResult()
 	 *         offset} of this page.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getFirstResult() {
 		return size*number;
 	}
@@ -101,6 +108,7 @@ public class Page {
 	 * @param size the number of results on the initial page.
 	 * @param number the number of the page, where {@code 0} is the first page.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Page page(int size, int number) {
 		return new Page( size, number );
 	}
@@ -109,6 +117,7 @@ public class Page {
 	 * Obtain an initial page with the given size.
 	 * @param size the number of results on the initial page.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Page first(int size) {
 		return new Page( size, 0 );
 	}
@@ -116,6 +125,7 @@ public class Page {
 	/**
 	 * Obtain the next page with the same size as this page.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Page next() {
 		return new Page( size, number+1 );
 	}
@@ -124,6 +134,7 @@ public class Page {
 	 * Obtain the previous page with the same size as this page.
 	 * @throws IllegalStateException if this is the first page
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Page previous() {
 		if ( isFirst() ) {
 			throw new IllegalStateException("already at first page");
@@ -131,6 +142,7 @@ public class Page {
 		return new Page( size, number-1 );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Page first() {
 		return first( size );
 	}
@@ -144,6 +156,7 @@ public class Page {
 	 *
 	 * @since 6.5
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <R> KeyedPage<R> keyedBy(Order<? super R> keyDefinition) {
 		if ( keyDefinition == null )  {
 			throw new IllegalArgumentException("Key definition must not null");
@@ -160,6 +173,7 @@ public class Page {
 	 *
 	 * @since 6.5
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <R> KeyedPage<R> keyedBy(List<Order<? super R>> keyDefinition) {
 		if ( keyDefinition == null || keyDefinition.isEmpty() )  {
 			throw new IllegalArgumentException("Key definition must not be empty or null");

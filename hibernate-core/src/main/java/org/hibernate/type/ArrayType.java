@@ -22,6 +22,8 @@ import org.hibernate.persister.collection.CollectionPersister;
 
 import static org.hibernate.Hibernate.isInitialized;
 import static org.hibernate.bytecode.enhance.spi.LazyPropertyInitializer.UNFETCHED_PROPERTY;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A type for persistent arrays.
@@ -40,16 +42,19 @@ public class ArrayType extends CollectionType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getReturnedClass() {
 		return arrayClass;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionClassification getCollectionClassification() {
 		return CollectionClassification.ARRAY;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistentCollection<?> instantiate(SharedSessionContractImplementor session, CollectionPersister persister, Object key)
 			throws HibernateException {
 		return new PersistentArrayHolder<>(session, persister);
@@ -59,21 +64,25 @@ public class ArrayType extends CollectionType {
 	 * Not defined for collections of primitive type
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Iterator<?> getElementsIterator(Object collection) {
 		return Arrays.asList( (Object[]) collection ).iterator();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistentCollection<?> wrap(SharedSessionContractImplementor session, Object array) {
 		return new PersistentArrayHolder<>(session, array);
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isArrayType() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String toLoggableString(Object value, SessionFactoryImplementor factory) throws HibernateException {
 		if ( value == null ) {
 			return "null";
@@ -89,6 +98,7 @@ public class ArrayType extends CollectionType {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static String loggableString(SessionFactoryImplementor factory, Object element, Type elemType) {
 		return element == UNFETCHED_PROPERTY || !isInitialized( element )
 				? "<uninitialized>"
@@ -96,11 +106,13 @@ public class ArrayType extends CollectionType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object instantiateResult(Object original) {
 		return Array.newInstance( elementClass, Array.getLength(original) );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object replaceElements(
 		Object original,
 		Object target,
@@ -124,11 +136,13 @@ public class ArrayType extends CollectionType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object instantiate(int anticipatedSize) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object indexOf(Object array, Object element) {
 		final int length = Array.getLength(array);
 		for ( int i=0; i<length; i++ ) {
@@ -141,11 +155,13 @@ public class ArrayType extends CollectionType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean initializeImmediately() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasHolder() {
 		return true;
 	}

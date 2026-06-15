@@ -13,6 +13,8 @@ import org.hibernate.pretty.MessageHelper;
 import org.hibernate.type.Type;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Used to uniquely key an entity instance in relation to a particular session
@@ -44,18 +46,22 @@ public class EntityUniqueKey implements Serializable {
 		this.hashCode = generateHashCode( entityName, uniqueKeyName, keyType, key, factory );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getEntityName() {
 		return entityName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getKey() {
 		return key;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getUniqueKeyName() {
 		return uniqueKeyName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static int generateHashCode(String entityName, String uniqueKeyName, Type keyType, Object key, SessionFactoryImplementor factory) {
 		int result = 17;
 		result = 37 * result + entityName.hashCode();
@@ -65,11 +71,13 @@ public class EntityUniqueKey implements Serializable {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int hashCode() {
 		return hashCode;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean equals(@Nullable Object other) {
 		if ( other == null || other.getClass() != EntityUniqueKey.class ) {
 			return false;
@@ -81,15 +89,18 @@ public class EntityUniqueKey implements Serializable {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "EntityUniqueKey" + MessageHelper.infoString( entityName, uniqueKeyName, key );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void writeObject(ObjectOutputStream oos) throws IOException {
 		checkAbilityToSerialize();
 		oos.defaultWriteObject();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void checkAbilityToSerialize() {
 		// The unique property value represented here may or may not be
 		// serializable, so we do an explicit check here in order to generate
@@ -109,6 +120,7 @@ public class EntityUniqueKey implements Serializable {
 	 * @param oos The stream to which we should write the serial data.
 	 *
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void serialize(ObjectOutputStream oos) throws IOException {
 		checkAbilityToSerialize();
 		oos.writeObject( uniqueKeyName );
@@ -127,6 +139,7 @@ public class EntityUniqueKey implements Serializable {
 	 * @return The deserialized EntityEntry
 	 *
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static EntityUniqueKey deserialize(
 			ObjectInputStream ois,
 			SessionImplementor session) throws IOException, ClassNotFoundException {

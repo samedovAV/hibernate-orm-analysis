@@ -13,6 +13,8 @@ import org.hibernate.event.spi.PostCollectionRemoveEventListener;
 import org.hibernate.event.spi.PreCollectionRemoveEvent;
 import org.hibernate.event.spi.PreCollectionRemoveEventListener;
 import org.hibernate.persister.collection.CollectionPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The action for removing a collection
@@ -103,11 +105,13 @@ public final class CollectionRemoveAction extends CollectionAction {
 		affectedOwnerId = null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isEmptySnapshot() {
 		return emptySnapshot;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void execute() throws HibernateException {
 		preRemove();
 		final var session = getSession();
@@ -143,30 +147,36 @@ public final class CollectionRemoveAction extends CollectionAction {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void preRemove() {
 		getEventListenerGroups().eventListenerGroup_PRE_COLLECTION_REMOVE
 				.fireLazyEventOnEachListener( this::newPreCollectionRemoveEvent,
 						PreCollectionRemoveEventListener::onPreRemoveCollection );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private PreCollectionRemoveEvent newPreCollectionRemoveEvent() {
 		return new PreCollectionRemoveEvent( getPersister(), getCollection(), eventSource(), affectedOwner );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void postRemove() {
 		getEventListenerGroups().eventListenerGroup_POST_COLLECTION_REMOVE
 				.fireLazyEventOnEachListener( this::newPostCollectionRemoveEvent,
 						PostCollectionRemoveEventListener::onPostRemoveCollection );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private PostCollectionRemoveEvent newPostCollectionRemoveEvent() {
 		return new PostCollectionRemoveEvent( getPersister(), getCollection(), eventSource(), affectedOwner );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getAffectedOwner() {
 		return affectedOwner;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getAffectedOwnerId() {
 		return affectedOwnerId;
 	}

@@ -25,6 +25,8 @@ import org.hibernate.query.named.NamedSqmQueryMemento;
 import org.hibernate.query.named.internal.HqlSelectionMementoImpl;
 
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Support for [jakarta.persistence.NamedQuery] and
 /// [org.hibernate.annotations.NamedQuery] definitions.
@@ -86,28 +88,33 @@ public class NamedHqlSelectionDefinitionImpl<R>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getHqlString() {
 		return hqlString;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getQueryString() {
 		return getHqlString();
 	}
 
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<R> getResultType() {
 		return resultType;
 	}
 
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getEntityGraphName() {
 		return entityGraphName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NamedSqmQueryMemento<R> resolve(SessionFactoryImplementor factory) {
 		return new HqlSelectionMementoImpl<>(
 				getRegistrationName(), hqlString,
@@ -125,6 +132,7 @@ public class NamedHqlSelectionDefinitionImpl<R>
 	///
 	/// @param annotation The annotation.
 	/// @param location Where the annotation was found.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static NamedHqlSelectionDefinitionImpl<?> from(NamedQuery annotation, AnnotationTarget location) {
 		//noinspection rawtypes,unchecked
 		return new NamedHqlSelectionDefinitionImpl(
@@ -152,6 +160,7 @@ public class NamedHqlSelectionDefinitionImpl<R>
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static FlushMode resolveFlushMode(QueryFlushMode queryFlushMode) {
 		if ( queryFlushMode == QueryFlushMode.DEFAULT ) {
 			return null;
@@ -168,6 +177,7 @@ public class NamedHqlSelectionDefinitionImpl<R>
 	/// @param name The name to use.
 	/// @param annotation The annotation.
 	/// @param location Location where the annotation was found.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static NamedHqlSelectionDefinitionImpl<?> from(String name, HQLSelect annotation, AnnotationTarget location) {
 		return new NamedHqlSelectionDefinitionImpl<>(
 				name,
@@ -198,6 +208,7 @@ public class NamedHqlSelectionDefinitionImpl<R>
 	///
 	/// @param annotation The annotation.
 	/// @param location Where the annotation was found.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static NamedHqlSelectionDefinitionImpl<?> from(jakarta.persistence.NamedQuery annotation, AnnotationTarget location) {
 		//noinspection rawtypes,unchecked
 		return new NamedHqlSelectionDefinitionImpl(

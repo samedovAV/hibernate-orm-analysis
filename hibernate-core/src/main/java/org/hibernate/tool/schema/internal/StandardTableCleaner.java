@@ -18,6 +18,8 @@ import java.util.Collection;
 import static java.util.Arrays.stream;
 import static org.hibernate.boot.model.naming.Identifier.toIdentifier;
 import static org.hibernate.internal.util.collections.ArrayHelper.join;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The basic implementation of {@link Cleaner}.
@@ -33,16 +35,19 @@ public class StandardTableCleaner implements Cleaner {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSqlBeforeString() {
 		return dialect.getDisableConstraintsStatement();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSqlAfterString() {
 		return dialect.getEnableConstraintsStatement();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getSqlTruncateStrings(Collection<Table> tables, Metadata metadata, SqlStringGenerationContext context) {
 		final String[] tableNames =
 				tables.stream()
@@ -58,15 +63,18 @@ public class StandardTableCleaner implements Cleaner {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSqlDisableConstraintString(ForeignKey foreignKey, Metadata metadata, SqlStringGenerationContext context) {
 		return dialect.getDisableConstraintStatement( context.format( getTableName( foreignKey.getTable() ) ), foreignKey.getName() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSqlEnableConstraintString(ForeignKey foreignKey, Metadata metadata, SqlStringGenerationContext context) {
 		return dialect.getEnableConstraintStatement( context.format( getTableName( foreignKey.getTable() ) ), foreignKey.getName() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static QualifiedNameParser.NameParts getTableName(Table table) {
 		return new QualifiedNameParser.NameParts(
 				toIdentifier( table.getCatalog(), table.isCatalogQuoted() ),

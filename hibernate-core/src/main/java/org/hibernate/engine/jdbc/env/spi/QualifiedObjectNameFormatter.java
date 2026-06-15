@@ -8,6 +8,8 @@ import org.hibernate.boot.model.relational.QualifiedName;
 import org.hibernate.boot.model.relational.QualifiedSequenceName;
 import org.hibernate.boot.model.relational.QualifiedTableName;
 import org.hibernate.dialect.Dialect;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for rendering qualified object names for use in queries, etc.
@@ -23,6 +25,7 @@ public interface QualifiedObjectNameFormatter {
 	 *
 	 * @return The formatted name,
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String format(QualifiedTableName qualifiedTableName, Dialect dialect);
 
 	/**
@@ -33,6 +36,7 @@ public interface QualifiedObjectNameFormatter {
 	 *
 	 * @return The formatted name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String format(QualifiedSequenceName qualifiedSequenceName, Dialect dialect);
 
 	/**
@@ -43,5 +47,6 @@ public interface QualifiedObjectNameFormatter {
 	 *
 	 * @return The formatted name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String format(QualifiedName qualifiedName, Dialect dialect);
 }

@@ -22,6 +22,8 @@ import org.hibernate.query.sqm.mutation.spi.SqmMultiTableInsertStrategy;
 import org.hibernate.query.sqm.tree.insert.SqmInsertStatement;
 import org.hibernate.sql.ast.tree.cte.CteTable;
 import org.hibernate.sql.exec.spi.JdbcParameterBindings;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /// [SqmMultiTableInsertStrategy] implementation using SQL's modifiable CTE (Common Table Expression)
@@ -140,6 +142,7 @@ public class CteInsertStrategy implements SqmMultiTableInsertStrategy {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MultiTableHandlerBuildResult buildHandler(SqmInsertStatement<?> sqmInsertStatement, DomainParameterXref domainParameterXref, DomainQueryExecutionContext context) {
 		final MutableObject<JdbcParameterBindings> firstJdbcParameterBindings = new MutableObject<>();
 		final InsertHandler multiTableHandler = new CteInsertHandler(
@@ -152,14 +155,17 @@ public class CteInsertStrategy implements SqmMultiTableInsertStrategy {
 		return new MultiTableHandlerBuildResult( multiTableHandler, firstJdbcParameterBindings.get() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected EntityPersister getRootDescriptor() {
 		return rootDescriptor;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected SessionFactoryImplementor getSessionFactory() {
 		return sessionFactory;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected CteTable getEntityCteTable() {
 		return entityCteTable;
 	}

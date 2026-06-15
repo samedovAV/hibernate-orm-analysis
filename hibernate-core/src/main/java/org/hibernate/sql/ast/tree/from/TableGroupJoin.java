@@ -14,6 +14,8 @@ import org.hibernate.sql.ast.tree.predicate.Predicate;
 import org.hibernate.sql.ast.tree.predicate.PredicateContainer;
 import org.hibernate.sql.results.graph.DomainResult;
 import org.hibernate.sql.results.graph.DomainResultCreationState;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -48,10 +50,12 @@ public class TableGroupJoin implements TableJoin, PredicateContainer, DomainResu
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqlAstJoinType getJoinType() {
 		return joinType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setJoinType(SqlAstJoinType joinType) {
 //		SqlTreeCreationLogger.LOGGER.tracef(
 //				"Adjusting join-type for TableGroupJoin(%s) : %s -> %s",
@@ -62,44 +66,53 @@ public class TableGroupJoin implements TableJoin, PredicateContainer, DomainResu
 		this.joinType = joinType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableGroup getJoinedGroup() {
 		return joinedGroup;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqlAstNode getJoinedNode() {
 		return joinedGroup;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Predicate getPredicate() {
 		return predicate;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applyPredicate(Predicate predicate) {
 		this.predicate = SqlAstTreeHelper.combinePredicates( this.predicate, predicate );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker sqlTreeWalker) {
 		sqlTreeWalker.visitTableGroupJoin( this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isInitialized() {
 		return joinedGroup.isInitialized();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigablePath getNavigablePath() {
 		return navigablePath;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isImplicit() {
 		return !navigablePath.isAliased();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public DomainResult<?> createDomainResult(
 			String resultVariable,
 			DomainResultCreationState creationState) {
@@ -107,6 +120,7 @@ public class TableGroupJoin implements TableJoin, PredicateContainer, DomainResu
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void applySqlSelections(DomainResultCreationState creationState) {
 		getJoinedGroup().applySqlSelections( creationState );
 	}

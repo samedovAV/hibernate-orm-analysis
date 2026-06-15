@@ -7,6 +7,8 @@ package org.hibernate.cache.spi.access;
 import org.hibernate.cache.CacheException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.persister.entity.EntityPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for managing transactional and concurrent access to cached naturalId
@@ -44,6 +46,7 @@ public interface NaturalIdDataAccess extends CachedDomainDataAccess {
 	 *
 	 * @return a key which can be used to identify an element unequivocally on this same region
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object generateCacheKey(
 			Object naturalIdValues,
 			EntityPersister rootEntityDescriptor,
@@ -56,6 +59,7 @@ public interface NaturalIdDataAccess extends CachedDomainDataAccess {
 	 *
 	 * @return the sequence of values which unequivocally identifies a cached element on this region
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getNaturalIdValues(Object cacheKey);
 
 	/**
@@ -71,6 +75,7 @@ public interface NaturalIdDataAccess extends CachedDomainDataAccess {
 	 *
 	 * @throws CacheException Propagated from underlying cache provider
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean insert(SharedSessionContractImplementor session, Object key, Object value);
 
 	/**
@@ -86,6 +91,7 @@ public interface NaturalIdDataAccess extends CachedDomainDataAccess {
 	 *
 	 * @throws CacheException Propagated from underlying cache provider
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean afterInsert(SharedSessionContractImplementor session, Object key, Object value);
 
 	/**
@@ -101,6 +107,7 @@ public interface NaturalIdDataAccess extends CachedDomainDataAccess {
 	 *
 	 * @throws CacheException Propagated from underlying cache provider
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean update(SharedSessionContractImplementor session, Object key, Object value);
 
 	/**
@@ -117,5 +124,6 @@ public interface NaturalIdDataAccess extends CachedDomainDataAccess {
 	 *
 	 * @throws CacheException Propagated from underlying cache provider
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean afterUpdate(SharedSessionContractImplementor session, Object key, Object value, SoftLock lock);
 }

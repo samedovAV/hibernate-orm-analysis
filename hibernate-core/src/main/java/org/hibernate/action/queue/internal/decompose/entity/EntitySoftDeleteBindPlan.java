@@ -19,6 +19,8 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.persister.entity.EntityPersister;
 
 import java.sql.SQLException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Specialized BindPlan for soft delete operations.
 ///
@@ -50,11 +52,13 @@ public class EntitySoftDeleteBindPlan implements BindPlan, OperationResultChecke
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable Object getEntityId() {
 		return identifier;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void bindValues(
 			JdbcValueBindings valueBindings,
 			FlushOperation flushOperation,
@@ -80,6 +84,7 @@ public class EntitySoftDeleteBindPlan implements BindPlan, OperationResultChecke
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void breakDownKeyJdbcValue(
 			JdbcValueBindings valueBindings,
 			SharedSessionContractImplementor session) {
@@ -96,6 +101,7 @@ public class EntitySoftDeleteBindPlan implements BindPlan, OperationResultChecke
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void applyVersionBasedOptLocking(
 			JdbcValueBindings jdbcValueBindings,
 			SharedSessionContractImplementor session) {
@@ -121,6 +127,7 @@ public class EntitySoftDeleteBindPlan implements BindPlan, OperationResultChecke
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void applyNonVersionOptLocking(
 			JdbcValueBindings jdbcValueBindings,
 			SharedSessionContractImplementor session) {
@@ -151,6 +158,7 @@ public class EntitySoftDeleteBindPlan implements BindPlan, OperationResultChecke
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void applyPartitionedSelectionRestrictions(
 			JdbcValueBindings jdbcValueBindings,
 			SharedSessionContractImplementor session) {
@@ -187,11 +195,13 @@ public class EntitySoftDeleteBindPlan implements BindPlan, OperationResultChecke
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public OperationResultChecker getOperationResultChecker() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean checkResult(
 			int affectedRowCount,
 			int batchPosition,

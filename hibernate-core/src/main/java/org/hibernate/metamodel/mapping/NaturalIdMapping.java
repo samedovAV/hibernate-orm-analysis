@@ -12,6 +12,8 @@ import org.hibernate.cache.spi.access.NaturalIdDataAccess;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.loader.ast.spi.MultiNaturalIdLoader;
 import org.hibernate.loader.ast.spi.NaturalIdLoader;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Mapping for an entity's natural-id, if one is defined.
 ///
@@ -41,26 +43,32 @@ public interface NaturalIdMapping extends VirtualModelPart {
 
 	/// A [class][org.hibernate.annotations.NaturalIdClass] which used
 	/// as a wrapper for natural-id values.
-	@Nullable Class<?> getNaturalIdClass();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	Class<?> getNaturalIdClass();
 
 	/// The attribute(s) making up the natural-id.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<SingularAttributeMapping> getNaturalIdAttributes();
 
 	/// Whether the natural-id is mutable.
 	///
 	/// @apiNote For compound natural-ids, this is true if any of the attributes are mutable.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isMutable();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String getPartName() {
 		return PART_NAME;
 	}
 
 	/// Access to the natural-id's L2 cache access.
 	/// Returns null if the natural-id is not configured for caching.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NaturalIdDataAccess getCacheAccess();
 
 	/// Verify the natural-id value(s) we are about to flush to the database
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void verifyFlushState(
 			Object id,
 			Object[] currentState,
@@ -72,6 +80,7 @@ public interface NaturalIdMapping extends VirtualModelPart {
 	/// @param state The attribute state array
 	///
 	/// @return The extracted natural id values.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object extractNaturalIdFromEntityState(Object[] state);
 
 	/// Given an entity instance, extract the normalized natural-id representation.
@@ -79,31 +88,38 @@ public interface NaturalIdMapping extends VirtualModelPart {
 	/// @param entity The entity instance
 	///
 	/// @return The extracted natural-id values.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object extractNaturalIdFromEntity(Object entity);
 
 	/// Normalize a user-provided natural-id value into the representation Hibernate uses internally.
 	///
 	/// @param incoming The user-supplied value
 	/// @return The normalized, internal representation
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object normalizeInput(Object incoming);
 
 	/// Whether the incoming value is in normalized internal form.
 	///
 	/// @see #normalizeInput
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isNormalized(Object incoming);
 
 	/// Validates a natural id value(s) for the described natural-id based on the expected internal representation
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void validateInternalForm(Object naturalIdValue);
 
 	/// Calculate the hash-code of a natural-id value
 	///
 	/// @param value The natural-id value
 	/// @return The hash-code
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int calculateHashCode(Object value);
 
 	/// Make a loader capable of loading a single entity by natural-id
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NaturalIdLoader<?> makeLoader(EntityMappingType entityDescriptor);
 
 	/// Make a loader capable of loading multiple entities by natural-id
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MultiNaturalIdLoader<?> makeMultiLoader(EntityMappingType entityDescriptor);
 }

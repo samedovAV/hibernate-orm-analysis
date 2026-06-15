@@ -22,6 +22,8 @@ import org.hibernate.type.descriptor.java.JavaType;
 
 import static jakarta.persistence.metamodel.Bindable.BindableType.PLURAL_ATTRIBUTE;
 import static org.hibernate.query.sqm.spi.SqmCreationHelper.buildSubNavigablePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @param <D> The (D)eclaring type
@@ -59,22 +61,26 @@ public abstract class AbstractPluralAttribute<D, C, E>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getPathName() {
 		return getName();
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionClassification getCollectionClassification() {
 		return classification;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPathSource<E> getElementPathSource() {
 		return elementPathSource;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nullable SqmPathSource<?> findSubPathSource(String name) {
 		return CollectionPart.Nature.ELEMENT.getName().equals( name )
 				? elementPathSource
@@ -82,6 +88,7 @@ public abstract class AbstractPluralAttribute<D, C, E>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nullable SqmPathSource<?> findSubPathSource(String name, boolean includeSubtypes) {
 		return CollectionPart.Nature.ELEMENT.getName().equals( name )
 				? elementPathSource
@@ -89,28 +96,33 @@ public abstract class AbstractPluralAttribute<D, C, E>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPathSource<?> getIntermediatePathSource(SqmPathSource<?> pathSource) {
 		return pathSource.getPathName().equals( elementPathSource.getPathName() ) ? null : elementPathSource;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionType getCollectionType() {
 		return getCollectionClassification().toJpaClassification();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JavaType<E> getExpressibleJavaType() {
 		return getElementType().getExpressibleJavaType();
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SimpleDomainType<E> getElementType() {
 		return getValueGraphType();
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<C> getJavaType() {
 		return getAttributeJavaType().getJavaTypeClass();
 	}
@@ -118,17 +130,20 @@ public abstract class AbstractPluralAttribute<D, C, E>
 	@Override
 	@SuppressWarnings("unchecked")
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SimpleDomainType<E> getValueGraphType() {
 		return (SimpleDomainType<E>) super.getValueGraphType();
 	}
 
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SimpleDomainType<?> getKeyGraphType() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isAssociation() {
 		final var persistentAttributeType = getPersistentAttributeType();
 		return persistentAttributeType == PersistentAttributeType.ONE_TO_MANY
@@ -136,24 +151,28 @@ public abstract class AbstractPluralAttribute<D, C, E>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCollection() {
 		return true;
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BindableType getBindableType() {
 		return PLURAL_ATTRIBUTE;
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<E> getBindableJavaType() {
 		return getElementType().getJavaType();
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPath<E> createSqmPath(SqmPath<?> lhs, @Nullable SqmPathSource<?> intermediatePathSource) {
 		// We need an unchecked cast here: PluralPersistentAttribute implements PathSource with
 		// its element type, but resolving paths from it must produce collection-typed expressions.
@@ -166,6 +185,7 @@ public abstract class AbstractPluralAttribute<D, C, E>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigablePath createNavigablePath(SqmPath<?> parent, @Nullable String alias) {
 		if ( parent == null ) {
 			throw new IllegalArgumentException(
@@ -176,6 +196,7 @@ public abstract class AbstractPluralAttribute<D, C, E>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isGeneric() {
 		return elementPathSource.isGeneric();
 	}

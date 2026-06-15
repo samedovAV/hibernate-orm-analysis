@@ -17,6 +17,8 @@ import org.hibernate.sql.ast.tree.expression.Expression;
 import org.hibernate.type.BasicPluralType;
 import org.hibernate.type.SqlTypes;
 import org.hibernate.type.descriptor.java.BasicPluralJavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -32,6 +34,7 @@ public class PostgreSQLUnnestFunction extends UnnestFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void renderJsonTable(
 			SqlAppender sqlAppender,
 			Expression array,
@@ -100,6 +103,7 @@ public class PostgreSQLUnnestFunction extends UnnestFunction {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderXmlTable(
 			SqlAppender sqlAppender,
 			Expression array,

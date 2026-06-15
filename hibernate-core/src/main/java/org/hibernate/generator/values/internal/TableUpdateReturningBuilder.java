@@ -14,6 +14,8 @@ import org.hibernate.sql.model.ast.MutatingTableReference;
 import org.hibernate.sql.model.ast.builder.AbstractTableUpdateBuilder;
 import org.hibernate.sql.model.internal.TableUpdateStandard;
 import org.hibernate.sql.model.jdbc.JdbcMutationOperation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Marco Belladelli
@@ -32,11 +34,13 @@ public class TableUpdateReturningBuilder
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected EntityPersister getMutationTarget() {
 		return (EntityPersister) super.getMutationTarget();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LogicalTableUpdate<JdbcMutationOperation> buildMutation() {
 		return new TableUpdateStandard(
 				getMutatingTable(),

@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.source.spi;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Additional contract describing the source of an identifier mapping whose
@@ -23,6 +25,7 @@ public interface IdentifierSourceAggregatedComposite extends CompositeIdentifier
 	 *
 	 * @return The identifier attribute source.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SingularAttributeSourceEmbedded getIdentifierAttributeSource();
 
 	/**
@@ -30,5 +33,6 @@ public interface IdentifierSourceAggregatedComposite extends CompositeIdentifier
 	 *
 	 * @return The MapsId sources.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<MapsIdSource> getMapsIdSources();
 }

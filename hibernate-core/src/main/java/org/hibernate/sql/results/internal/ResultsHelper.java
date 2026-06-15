@@ -22,12 +22,15 @@ import org.hibernate.sql.results.spi.RowTransformer;
 
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
 import static org.hibernate.pretty.MessageHelper.collectionInfoString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
  */
 public class ResultsHelper {
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static <R> RowReader<R> createRowReader(
 			SessionFactoryImplementor sessionFactory,
 			RowTransformer<R> rowTransformer,
@@ -36,6 +39,7 @@ public class ResultsHelper {
 		return createRowReader( sessionFactory, rowTransformer, transformedResultJavaType, jdbcValues.getValuesMapping() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <R> RowReader<R> createRowReader(
 			SessionFactoryImplementor sessionFactory,
 			RowTransformer<R> rowTransformer,
@@ -48,6 +52,7 @@ public class ResultsHelper {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void finalizeCollectionLoading(
 			PersistenceContext persistenceContext,
 			CollectionPersister collectionDescriptor,
@@ -79,6 +84,7 @@ public class ResultsHelper {
 		// 		see org.hibernate.engine.loading.internal.CollectionLoadContext#endLoadingCollection in 5.x
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean addToCache(
 			SharedSessionContractImplementor session,
 			PersistentCollection<?> collection,
@@ -91,6 +97,7 @@ public class ResultsHelper {
 			&& !hasQueuedCollectionRemove( session, collection );  // this is not a forced initialization during flush
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static boolean hasQueuedCollectionRemove(SharedSessionContractImplementor session, PersistentCollection<?> collection) {
 		final var collectionFlushActionTracker =
 				session.getPersistenceContextInternal()
@@ -99,6 +106,7 @@ public class ResultsHelper {
 				&& collectionFlushActionTracker.hasQueuedCollectionRemove( collection );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static void addCollectionHolder(
 			PersistenceContext persistenceContext,
 			CollectionPersister collectionDescriptor,
@@ -117,6 +125,7 @@ public class ResultsHelper {
 		persistenceContext.addCollectionHolder( collectionInstance );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static CollectionEntry initializedEntry(
 			PersistenceContext context,
 			CollectionPersister collectionDescriptor,
@@ -136,6 +145,7 @@ public class ResultsHelper {
 	/**
 	 * Add the collection to the second-level cache
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static void addCollectionToCache(
 			PersistenceContext persistenceContext,
 			CollectionPersister collectionDescriptor,
@@ -177,6 +187,7 @@ public class ResultsHelper {
 		addCollectionToCache( persistenceContext, collectionDescriptor, collection, key, version, cacheStoreMode );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void addCollectionToCache(
 			PersistenceContext context,
 			CollectionPersister collectionDescriptor,
@@ -239,18 +250,21 @@ public class ResultsHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isCachePutEnabled(SharedSessionContract session, CacheStoreMode cacheStoreMode) {
 		return cacheStoreMode == null
 				? session.getCacheMode().isPutEnabled()
 				: cacheStoreMode != CacheStoreMode.BYPASS;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isCacheRefreshEnabled(SharedSessionContract session, CacheStoreMode cacheStoreMode) {
 		return cacheStoreMode == null
 				? session.getCacheMode().isRefreshEnabled()
 				: cacheStoreMode == CacheStoreMode.REFRESH;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static boolean isPutFromLoad(
 			PersistenceContext context,
 			CollectionPersister collectionDescriptor,
@@ -266,6 +280,7 @@ public class ResultsHelper {
 		return true;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static Object getCollectionOwner(
 			PersistenceContext context,
 			CollectionPersister collectionDescriptor,

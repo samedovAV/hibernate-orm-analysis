@@ -17,6 +17,8 @@ import org.hibernate.models.spi.ModelsContext;
 
 import static org.hibernate.boot.models.HibernateAnnotations.FILTER_JOIN_TABLE;
 import static org.hibernate.boot.models.internal.OrmAnnotationHelper.extractJdkValue;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -56,50 +58,60 @@ public class FilterJoinTableAnnotation implements FilterJoinTable, FilterDetails
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return FilterJoinTable.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String name() {
 		return name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void name(String value) {
 		this.name = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String condition() {
 		return condition;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void condition(String value) {
 		this.condition = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean deduceAliasInjectionPoints() {
 		return deduceAliasInjectionPoints;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void deduceAliasInjectionPoints(boolean value) {
 		this.deduceAliasInjectionPoints = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public org.hibernate.annotations.SqlFragmentAlias[] aliases() {
 		return aliases;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void aliases(org.hibernate.annotations.SqlFragmentAlias[] value) {
 		this.aliases = value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void apply(JaxbFilterImpl jaxbFilter, XmlDocumentContext xmlDocumentContext) {
 		name( jaxbFilter.getName() );
 

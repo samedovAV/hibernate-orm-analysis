@@ -21,6 +21,8 @@ import java.util.Locale;
 import static org.jboss.logging.Logger.Level.DEBUG;
 import static org.jboss.logging.Logger.Level.INFO;
 import static org.jboss.logging.Logger.Level.TRACE;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -42,6 +44,7 @@ public interface BeansMessageLogger {
 			id = 10005001,
 			value = "Creating ManagedBean [%s] using direct instantiation"
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void creatingManagedBeanUsingDirectInstantiation(String beanName);
 
 	@LogMessage( level = INFO )
@@ -50,6 +53,7 @@ public interface BeansMessageLogger {
 			value = "No explicit CDI BeanManager reference was passed to Hibernate, " +
 					"but CDI is available on the Hibernate class loader"
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void noBeanManagerButCdiAvailable();
 
 	@LogMessage( level = DEBUG )
@@ -57,6 +61,7 @@ public interface BeansMessageLogger {
 			id = 10005003,
 			value = "Error resolving CDI bean - using fallback"
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void errorResolvingCdiBeanUsingFallback();
 
 	@LogMessage( level = DEBUG )
@@ -64,6 +69,7 @@ public interface BeansMessageLogger {
 			id = 10005004,
 			value = "Stopping BeanContainer: %s"
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void stoppingBeanContainer(BeanContainer beanContainer);
 
 	@LogMessage( level = DEBUG )
@@ -71,6 +77,7 @@ public interface BeansMessageLogger {
 			id = 10005005,
 			value = "Error resolving CDI bean [%s] - using fallback"
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void errorResolvingCdiBeanUsingFallback(String identifier);
 
 	@LogMessage( level = DEBUG )
@@ -78,6 +85,7 @@ public interface BeansMessageLogger {
 			id = 10005006,
 			value = "Standard access to BeanManager"
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void standardAccessToBeanManager();
 
 	@LogMessage( level = DEBUG )
@@ -85,6 +93,7 @@ public interface BeansMessageLogger {
 			id = 10005007,
 			value = "Extended access to BeanManager"
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void extendedAccessToBeanManager();
 
 	@LogMessage( level = DEBUG )
@@ -93,5 +102,6 @@ public interface BeansMessageLogger {
 			value = "Error destroying managed bean instance [%s] - the context is not active anymore."
 					+ " The instance must have been destroyed already - ignoring."
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void errorDestroyingManagedBeanInstanceContextNotActive(Object instance, @Cause Throwable e);
 }

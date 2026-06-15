@@ -13,6 +13,8 @@ import org.hibernate.sql.model.ast.MutatingTableReference;
 import org.hibernate.sql.model.ast.TableInsert;
 import org.hibernate.sql.model.ast.builder.AbstractTableInsertBuilder;
 import org.hibernate.sql.model.internal.TableInsertStandard;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -30,11 +32,13 @@ public class TableInsertReturningBuilder extends AbstractTableInsertBuilder {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected EntityPersister getMutationTarget() {
 		return (EntityPersister) super.getMutationTarget();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableInsert buildMutation() {
 		return new TableInsertStandard(
 				getMutatingTable(),

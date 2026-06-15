@@ -18,6 +18,8 @@ import org.hibernate.type.Type;
 import org.hibernate.type.descriptor.java.UUIDJavaType;
 
 import static org.hibernate.id.UUIDLogger.UUID_MESSAGE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An {@link IdentifierGenerator} which generates {@link UUID} values using a pluggable
@@ -48,6 +50,7 @@ public class UUIDGenerator implements IdentifierGenerator {
 	private Class<?> generatedType;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void configure(GeneratorCreationContext creationContext, Properties parameters) throws MappingException {
 		// check first for an explicit strategy instance
 		strategy = (UUIDGenerationStrategy) parameters.get( UUID_GEN_STRATEGY );
@@ -58,6 +61,7 @@ public class UUIDGenerator implements IdentifierGenerator {
 		valueTransformer = valueTransformer( creationContext );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private UUIDJavaType.ValueTransformer valueTransformer(GeneratorCreationContext creationContext) {
 		final Type type = creationContext.getType();
 		generatedType = type.getReturnedClass();
@@ -76,6 +80,7 @@ public class UUIDGenerator implements IdentifierGenerator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private UUIDGenerationStrategy strategy(GeneratorCreationContext creationContext, Properties parameters) {
 		final String strategyClassName = parameters.getProperty( UUID_GEN_STRATEGY_CLASS );
 		if ( strategyClassName != null ) {
@@ -99,10 +104,12 @@ public class UUIDGenerator implements IdentifierGenerator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getGeneratedType() {
 		return generatedType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object generate(SharedSessionContractImplementor session, Object object) {
 		return valueTransformer.transform( strategy.generateUUID( session ) );
 	}

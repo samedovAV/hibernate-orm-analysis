@@ -19,6 +19,8 @@ import static org.hibernate.internal.util.collections.CollectionHelper.isEmpty;
 import static org.hibernate.internal.util.collections.CollectionHelper.isNotEmpty;
 import static org.hibernate.internal.util.collections.CollectionHelper.toSmallList;
 import static org.hibernate.internal.util.collections.CollectionHelper.toSmallMap;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Standard implementation of ParameterInterpretation
 ///
@@ -36,6 +38,7 @@ public class ParameterInterpretationImpl implements ParameterInterpretation {
 		this.namedParameters = toSmallMap( parameterRecognizer.getNamedQueryParameters() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static ParameterInterpretationImpl interpretParameters(
 			String sqlString,
 			SessionFactoryImplementor sessionFactory) {
@@ -47,11 +50,13 @@ public class ParameterInterpretationImpl implements ParameterInterpretation {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<ParameterOccurrence> getOrderedParameterOccurrences() {
 		return parameterList;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ParameterMetadataImplementor toParameterMetadata(SharedSessionContractImplementor session1) {
 		return isEmpty( positionalParameters ) && isEmpty( namedParameters )
 				? ParameterMetadataImpl.EMPTY
@@ -59,11 +64,13 @@ public class ParameterInterpretationImpl implements ParameterInterpretation {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getAdjustedSqlString() {
 		return sqlString;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public String toString() {
 		final var buffer =
 				new StringBuilder( "ParameterInterpretationImpl (" )

@@ -25,6 +25,8 @@ import org.hibernate.type.descriptor.java.JavaType;
 
 import static org.hibernate.internal.util.NullnessUtil.castNonNull;
 import static org.hibernate.sql.results.graph.embeddable.AggregateEmbeddableResultGraphNode.determineAggregateValuesArrayPositions;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A Result for an embeddable that is mapped as aggregate e.g. STRUCT, JSON or XML.
@@ -101,10 +103,12 @@ public class AggregateEmbeddableResultImpl<T> extends AbstractFetchParent
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int[] getAggregateValuesArrayPositions() {
 		return aggregateValuesArrayPositions;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static boolean determineIfContainedAnyScalars(ImmutableFetchList fetches) {
 		for ( var fetch : fetches ) {
 			if ( fetch.containsAnyNonScalarResults() ) {
@@ -115,36 +119,43 @@ public class AggregateEmbeddableResultImpl<T> extends AbstractFetchParent
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getResultVariable() {
 		return resultVariable;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean containsAnyNonScalarResults() {
 		return containsAnyNonScalars;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableMappingType getFetchContainer() {
 		return this.fetchContainer;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<?> getResultJavaType() {
 		return getReferencedMappingType().getJavaType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableMappingType getReferencedMappingType() {
 		return getFetchContainer();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableValuedModelPart getReferencedMappingContainer() {
 		return getFetchContainer().getEmbeddedValueMapping();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResultAssembler<T> createResultAssembler(
 			InitializerParent<?> parent,
 			AssemblerCreationState creationState) {
@@ -153,6 +164,7 @@ public class AggregateEmbeddableResultImpl<T> extends AbstractFetchParent
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Initializer<?> createInitializer(
 			AggregateEmbeddableResultImpl<T> resultGraphNode,
 			InitializerParent<?> parent,
@@ -161,6 +173,7 @@ public class AggregateEmbeddableResultImpl<T> extends AbstractFetchParent
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Initializer<?> createInitializer(InitializerParent<?> parent, AssemblerCreationState creationState) {
 		return new AggregateEmbeddableInitializerImpl(
 				this,

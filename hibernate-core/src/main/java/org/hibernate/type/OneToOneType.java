@@ -15,6 +15,8 @@ import org.hibernate.type.spi.TypeConfiguration;
 
 import static org.hibernate.internal.util.collections.ArrayHelper.EMPTY_BOOLEAN_ARRAY;
 import static org.hibernate.internal.util.collections.ArrayHelper.EMPTY_INT_ARRAY;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A one-to-one association to an entity
@@ -55,11 +57,13 @@ public class OneToOneType extends EntityType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getPropertyName() {
 		return propertyName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isNull(Object owner, SharedSessionContractImplementor session) {
 		if ( propertyName != null ) {
 			final var ownerPersister =
@@ -75,21 +79,25 @@ public class OneToOneType extends EntityType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getColumnSpan(MappingContext session) throws MappingException {
 		return 0;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int[] getSqlTypeCodes(MappingContext mappingContext) {
 		return EMPTY_INT_ARRAY;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean[] toColumnNullness(Object value, MappingContext mapping) {
 		return EMPTY_BOOLEAN_ARRAY;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void nullSafeSet(
 			PreparedStatement st,
 			Object value,
@@ -100,51 +108,61 @@ public class OneToOneType extends EntityType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isOneToOne() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isDirty(Object old, Object current, SharedSessionContractImplementor session) {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isDirty(Object old, Object current, boolean[] checkable, SharedSessionContractImplementor session) {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isModified(Object old, Object current, boolean[] checkable, SharedSessionContractImplementor session) {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ForeignKeyDirection getForeignKeyDirection() {
 		return foreignKeyType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isNullable() {
 		return !constrained;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean useLHSPrimaryKey() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Serializable disassemble(Object value, SharedSessionContractImplementor session, Object owner) {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Serializable disassemble(Object value, SessionFactoryImplementor sessionFactory) {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object assemble(Serializable oid, SharedSessionContractImplementor session, Object owner)
 			throws HibernateException {
 		// this should be a call to resolve(), not resolveIdentifier(),
@@ -159,6 +177,7 @@ public class OneToOneType extends EntityType {
 	 * association is never dirty
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isAlwaysDirtyChecked() {
 		//TODO: this is kinda inconsistent with CollectionType
 		return false;

@@ -58,6 +58,8 @@ import org.hibernate.type.descriptor.java.JavaType;
 import static org.hibernate.metamodel.mapping.internal.MappingModelCreationHelper.getSelectablePath;
 import static org.hibernate.metamodel.mapping.internal.MappingModelCreationHelper.getTableIdentifierExpression;
 import static org.hibernate.query.sqm.ComparisonOperator.EQUAL;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents the "type" of an any-valued mapping
@@ -66,6 +68,7 @@ import static org.hibernate.query.sqm.ComparisonOperator.EQUAL;
  */
 public class DiscriminatedAssociationMapping implements MappingType, FetchOptions {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static DiscriminatedAssociationMapping from(
 			NavigableRole containerRole,
 			JavaType<?> baseAssociationJtd,
@@ -179,18 +182,22 @@ public class DiscriminatedAssociationMapping implements MappingType, FetchOption
 		this.sessionFactory = sessionFactory;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DiscriminatedAssociationModelPart getModelPart() {
 		return modelPart;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DiscriminatorMapping getDiscriminatorMapping() {
 		return discriminatorPart;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BasicValuedModelPart getKeyPart() {
 		return keyPart;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object resolveDiscriminatorValueToEntityMapping(EntityMappingType entityMappingType) {
 		final var details =
 				discriminatorPart.getValueConverter()
@@ -198,6 +205,7 @@ public class DiscriminatedAssociationMapping implements MappingType, FetchOption
 		return details == null ? null : details.getValue();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityMappingType resolveDiscriminatorValueToEntityMapping(Object discriminatorValue) {
 		final var details =
 				discriminatorPart.getValueConverter().
@@ -205,6 +213,7 @@ public class DiscriminatedAssociationMapping implements MappingType, FetchOption
 		return details == null ? null : details.getIndicatedEntity();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X, Y> int breakDownJdbcValues(
 			int offset,
 			X x,
@@ -232,6 +241,7 @@ public class DiscriminatedAssociationMapping implements MappingType, FetchOption
 		return getDiscriminatorMapping().getJdbcTypeCount() + getKeyPart().getJdbcTypeCount();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <X, Y> int decompose(
 			int offset,
 			X x,
@@ -256,6 +266,7 @@ public class DiscriminatedAssociationMapping implements MappingType, FetchOption
 		return getDiscriminatorMapping().getJdbcTypeCount() + getKeyPart().getJdbcTypeCount();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private EntityMappingType determineConcreteType(Object entity, SharedSessionContractImplementor session) {
 		final String entityName =
 				session == null
@@ -265,6 +276,7 @@ public class DiscriminatedAssociationMapping implements MappingType, FetchOption
 				.getEntityDescriptor( entityName );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ModelPart findSubPart(String name, EntityMappingType treatTarget) {
 		if ( AnyDiscriminatorPart.ROLE_NAME.equals( name ) ) {
 			return getDiscriminatorMapping();
@@ -295,6 +307,7 @@ public class DiscriminatedAssociationMapping implements MappingType, FetchOption
 		} );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private ModelPart resolveAssociatedSubPart(String name, EntityMappingType entityMapping) {
 		final var identifierMapping = entityMapping.getIdentifierMapping();
 
@@ -312,6 +325,7 @@ public class DiscriminatedAssociationMapping implements MappingType, FetchOption
 		return entityMapping.findSubPart( name );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void ensureMapped(EntityMappingType treatTarget) {
 		assert treatTarget != null;
 
@@ -330,29 +344,35 @@ public class DiscriminatedAssociationMapping implements MappingType, FetchOption
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MappingType getPartMappingType() {
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<?> getJavaType() {
 		return baseAssociationJtd;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<?> getMappedJavaType() {
 		return baseAssociationJtd;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchStyle getStyle() {
 		return fetchTiming == FetchTiming.IMMEDIATE ? FetchStyle.JOIN : FetchStyle.SELECT;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchTiming getTiming() {
 		return fetchTiming;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	AssociationKey getAssociationKey() {
 		if ( associationKey == null ) {
 			final List<String> columns = new ArrayList<>( discriminatorPart.getJdbcTypeCount() + keyPart.getJdbcTypeCount() );
@@ -363,6 +383,7 @@ public class DiscriminatedAssociationMapping implements MappingType, FetchOption
 		return associationKey;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Fetch resolveCircularFetch(
 			FetchParent fetchParent,
 			NavigablePath fetchablePath,
@@ -381,6 +402,7 @@ public class DiscriminatedAssociationMapping implements MappingType, FetchOption
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Fetch withRegisteredAssociationKey(
 			Supplier<Fetch> fetchCreator,
 			DomainResultCreationState creationState) {
@@ -395,16 +417,19 @@ public class DiscriminatedAssociationMapping implements MappingType, FetchOption
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<DiscriminatorValueDetails> getMappedEntityValueDetails() {
 		final var valueDetails = new ArrayList<DiscriminatorValueDetails>();
 		discriminatorPart.getValueConverter().forEachValueDetail( valueDetails::add );
 		return valueDetails;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static NavigablePath concreteEntityPath(NavigablePath associationPath, EntityMappingType entityMappingType) {
 		return associationPath.treatAs( entityMappingType.getEntityName() );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	TableGroup createRootTableGroupJoin(
 			NavigablePath navigablePath,
 			TableGroup lhs,
@@ -434,6 +459,7 @@ public class DiscriminatedAssociationMapping implements MappingType, FetchOption
 		return virtualTableGroup;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void addConcreteEntityTableGroupJoin(
 			StandardVirtualTableGroup virtualTableGroup,
 			TableGroup lhs,
@@ -474,6 +500,7 @@ public class DiscriminatedAssociationMapping implements MappingType, FetchOption
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void applyEntityRestrictions(
 			PredicateCollector predicateCollector,
 			EntityMappingType entityMappingType,
@@ -512,6 +539,7 @@ public class DiscriminatedAssociationMapping implements MappingType, FetchOption
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Predicate createAssociationPredicate(
 			TableGroup lhs,
 			TableGroup entityTableGroup,
@@ -551,6 +579,7 @@ public class DiscriminatedAssociationMapping implements MappingType, FetchOption
 		return predicate;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private TableGroup resolveJoinedFetchTableGroup(
 			FetchParent fetchParent,
 			NavigablePath fetchablePath,
@@ -577,6 +606,7 @@ public class DiscriminatedAssociationMapping implements MappingType, FetchOption
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Fetch generateFetch(
 			FetchParent fetchParent,
 			NavigablePath fetchablePath,
@@ -611,6 +641,7 @@ public class DiscriminatedAssociationMapping implements MappingType, FetchOption
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> DomainResult<T> createDomainResult(
 			NavigablePath navigablePath,
 			TableGroup tableGroup,
@@ -637,6 +668,7 @@ public class DiscriminatedAssociationMapping implements MappingType, FetchOption
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private TableGroup resolveJoinedResultTableGroup(
 			NavigablePath navigablePath,
 			TableGroup tableGroup,
@@ -656,6 +688,7 @@ public class DiscriminatedAssociationMapping implements MappingType, FetchOption
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean isModelPartWithRealJoins(TableGroup joinedTableGroup) {
 		return joinedTableGroup.getModelPart() == modelPart
 			&& joinedTableGroup.hasRealJoins();

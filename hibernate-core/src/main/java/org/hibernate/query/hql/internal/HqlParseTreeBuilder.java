@@ -8,6 +8,8 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.hibernate.grammars.hql.HqlLexer;
 import org.hibernate.grammars.hql.HqlParser;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Leverages ANTLR to build a parse tree from an HQL query.
@@ -20,10 +22,12 @@ public class HqlParseTreeBuilder {
 	 */
 	public static final HqlParseTreeBuilder INSTANCE = new HqlParseTreeBuilder();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HqlLexer buildHqlLexer(String hql) {
 		return new HqlLexer( CharStreams.fromString( hql ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HqlParser buildHqlParser(String hql, HqlLexer hqlLexer) {
 		// Build the parser
 		return new HqlParser( new CommonTokenStream( hqlLexer ) );

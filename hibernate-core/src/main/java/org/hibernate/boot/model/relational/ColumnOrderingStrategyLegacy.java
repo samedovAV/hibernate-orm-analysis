@@ -12,6 +12,8 @@ import org.hibernate.mapping.Column;
 import org.hibernate.mapping.Constraint;
 import org.hibernate.mapping.Table;
 import org.hibernate.mapping.UserDefinedObjectType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A no-op implementation.
@@ -20,21 +22,25 @@ public class ColumnOrderingStrategyLegacy implements ColumnOrderingStrategy {
 	public static final ColumnOrderingStrategyLegacy INSTANCE = new ColumnOrderingStrategyLegacy();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<Column> orderTableColumns(Table table, Metadata metadata) {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<Column> orderConstraintColumns(Constraint constraint, Metadata metadata) {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<Column> orderUserDefinedTypeColumns(UserDefinedObjectType userDefinedType, Metadata metadata) {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void orderTemporaryTableColumns(List<TemporaryTableColumn> temporaryTableColumns, Metadata metadata) {
 	}
 }

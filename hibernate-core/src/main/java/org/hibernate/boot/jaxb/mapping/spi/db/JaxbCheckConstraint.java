@@ -3,12 +3,18 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.boot.jaxb.mapping.spi.db;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * @author Steve Ebersole
  */
 public interface JaxbCheckConstraint {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getName();
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getConstraint();
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getOptions();
 }

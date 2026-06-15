@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.naming;
 
 import org.hibernate.Incubating;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A set of rules for determining the {@linkplain PhysicalNamingStrategy logical name}
@@ -56,6 +58,7 @@ public interface ImplicitNamingStrategy {
 	 *
 	 * @return The implicit table name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier determinePrimaryTableName(ImplicitEntityNameSource source);
 
 	/**
@@ -68,6 +71,7 @@ public interface ImplicitNamingStrategy {
 	 *
 	 * @return The implicit table name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier determineJoinTableName(ImplicitJoinTableNameSource source);
 
 	/**
@@ -80,6 +84,7 @@ public interface ImplicitNamingStrategy {
 	 *
 	 * @return The implicit table name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier determineCollectionTableName(ImplicitCollectionTableNameSource source);
 
 
@@ -92,6 +97,7 @@ public interface ImplicitNamingStrategy {
 	 *
 	 * @return The implicit discriminator column name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier determineDiscriminatorColumnName(ImplicitDiscriminatorColumnNameSource source);
 
 	/**
@@ -103,6 +109,7 @@ public interface ImplicitNamingStrategy {
 	 *
 	 * @return The determined tenant identifier column name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier determineTenantIdColumnName(ImplicitTenantIdColumnNameSource source);
 
 	/**
@@ -114,6 +121,7 @@ public interface ImplicitNamingStrategy {
 	 *
 	 * @return The determined identifier column name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier determineIdentifierColumnName(ImplicitIdentifierColumnNameSource source);
 
 	/**
@@ -124,6 +132,7 @@ public interface ImplicitNamingStrategy {
 	 *
 	 * @return The implicit column name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier determineBasicColumnName(ImplicitBasicColumnNameSource source);
 
 	/**
@@ -137,6 +146,7 @@ public interface ImplicitNamingStrategy {
 	 *
 	 * @return The determined join column name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier determineJoinColumnName(ImplicitJoinColumnNameSource source);
 
 	/**
@@ -150,6 +160,7 @@ public interface ImplicitNamingStrategy {
 	 *
 	 * @return The determined column name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier determinePrimaryKeyJoinColumnName(ImplicitPrimaryKeyJoinColumnNameSource source);
 
 	/**
@@ -161,6 +172,7 @@ public interface ImplicitNamingStrategy {
 	 *
 	 * @return The determined column name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier determineAnyDiscriminatorColumnName(ImplicitAnyDiscriminatorColumnNameSource source);
 
 	/**
@@ -172,6 +184,7 @@ public interface ImplicitNamingStrategy {
 	 *
 	 * @return The determined identifier column name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier determineAnyKeyColumnName(ImplicitAnyKeyColumnNameSource source);
 
 	/**
@@ -182,6 +195,7 @@ public interface ImplicitNamingStrategy {
 	 *
 	 * @return The implicit column name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier determineMapKeyColumnName(ImplicitMapKeyColumnNameSource source);
 
 	/**
@@ -192,6 +206,7 @@ public interface ImplicitNamingStrategy {
 	 *
 	 * @return The implicit column name.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier determineListIndexColumnName(ImplicitIndexColumnNameSource source);
 
 	/**
@@ -202,6 +217,7 @@ public interface ImplicitNamingStrategy {
 	 *
 	 * @return The determined foreign key name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier determineForeignKeyName(ImplicitForeignKeyNameSource source);
 
 	/**
@@ -212,6 +228,7 @@ public interface ImplicitNamingStrategy {
 	 *
 	 * @return The determined foreign key name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier determineUniqueKeyName(ImplicitUniqueKeyNameSource source);
 
 	/**
@@ -222,5 +239,6 @@ public interface ImplicitNamingStrategy {
 	 *
 	 * @return The determined foreign key name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Identifier determineIndexName(ImplicitIndexNameSource source);
 }

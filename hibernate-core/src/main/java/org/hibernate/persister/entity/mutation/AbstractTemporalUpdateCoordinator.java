@@ -20,6 +20,8 @@ import org.hibernate.sql.model.ast.builder.TableUpdateBuilderStandard;
 import org.hibernate.sql.model.internal.MutationGroupSingle;
 
 import static org.hibernate.sql.model.internal.MutationOperationGroupFactory.singleOperation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gavin King
@@ -29,6 +31,7 @@ abstract class AbstractTemporalUpdateCoordinator extends AbstractMutationCoordin
 		super( entityPersister, factory );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static void applyTemporalEnding(TableUpdateBuilder<?> tableUpdateBuilder, TemporalMapping temporalMapping) {
 		final var endingColumnReference =
 				new ColumnReference( tableUpdateBuilder.getMutatingTable(), temporalMapping.getEndingColumnMapping() );
@@ -36,6 +39,7 @@ abstract class AbstractTemporalUpdateCoordinator extends AbstractMutationCoordin
 		tableUpdateBuilder.addNonKeyRestriction( temporalMapping.createNullEndingValueBinding( endingColumnReference ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOperationGroup buildEndingUpdateGroup(EntityTableMapping tableMapping, TemporalMapping temporalMapping) {
 		final var tableUpdateBuilder =
 				new TableUpdateBuilderStandard<>( entityPersister(), tableMapping, factory() );
@@ -48,6 +52,7 @@ abstract class AbstractTemporalUpdateCoordinator extends AbstractMutationCoordin
 		return createMutationOperationGroup( tableUpdateBuilder );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MutationOperationGroup createMutationOperationGroup(TableUpdateBuilderStandard<MutationOperation> tableUpdateBuilder) {
 		final var tableMutation = tableUpdateBuilder.buildMutation();
 		return singleOperation(
@@ -56,8 +61,10 @@ abstract class AbstractTemporalUpdateCoordinator extends AbstractMutationCoordin
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	abstract void bindVersionRestriction(Object oldVersion, JdbcValueBindings jdbcValueBindings, String temporalTableName);
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	void performRowEndUpdate(
 			Object entity,
 			Object id,

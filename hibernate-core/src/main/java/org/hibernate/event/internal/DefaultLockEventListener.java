@@ -13,6 +13,8 @@ import org.hibernate.event.spi.LockEventListener;
 
 import static org.hibernate.engine.internal.ProxyUtil.forceInitialize;
 import static org.hibernate.loader.ast.internal.LoaderHelper.upgradeLock;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Defines the default lock event listeners used by hibernate to lock entities
@@ -28,6 +30,7 @@ public class DefaultLockEventListener implements LockEventListener {
 	 * @param event The lock event to be handled.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void onLock(LockEvent event) throws HibernateException {
 
 		final Object instance = event.getObject();

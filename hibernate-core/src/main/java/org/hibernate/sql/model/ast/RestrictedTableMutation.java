@@ -9,6 +9,8 @@ import java.util.function.BiConsumer;
 
 import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.sql.model.MutationOperation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specialized TableMutation implementation for mutations which
@@ -21,11 +23,13 @@ public interface RestrictedTableMutation<O extends MutationOperation>
 	/**
 	 * The bindings for each key restriction (WHERE clause).
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<ColumnValueBinding> getKeyBindings();
 
 	/**
 	 * The number of {@linkplain #getKeyBindings() key bindings}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int getNumberOfKeyBindings() {
 		return getKeyBindings().size();
 	}
@@ -33,6 +37,7 @@ public interface RestrictedTableMutation<O extends MutationOperation>
 	/**
 	 * Visit each {@linkplain #getKeyBindings() key binding}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void forEachKeyBinding(BiConsumer<Integer,ColumnValueBinding> consumer);
 
 	/**
@@ -41,12 +46,14 @@ public interface RestrictedTableMutation<O extends MutationOperation>
 	 *
 	 * @see OptimisticLockType
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<ColumnValueBinding> getOptimisticLockBindings();
 
 	/**
 	 * The number of {@linkplain #getOptimisticLockBindings() optimistic-lock bindings}
 	 */
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int getNumberOfOptimisticLockBindings() {
 		final List<ColumnValueBinding> bindings = getOptimisticLockBindings();
 		return bindings == null ? 0 : bindings.size();
@@ -55,5 +62,6 @@ public interface RestrictedTableMutation<O extends MutationOperation>
 	/**
 	 * Visit each {@linkplain #getOptimisticLockBindings() optimistic-lock binding}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void forEachOptimisticLockBinding(BiConsumer<Integer,ColumnValueBinding> consumer);
 }

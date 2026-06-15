@@ -5,6 +5,8 @@
 package org.hibernate.type.descriptor.jdbc;
 
 import org.hibernate.metamodel.spi.ValueAccess;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Marco Belladelli
@@ -25,10 +27,12 @@ public class StructAttributeValues implements ValueAccess {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object[] getValues() {
 		return attributeValues;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setAttributeValue(int index, Object value) {
 		if ( index == size ) {
 			discriminator = value;
@@ -38,6 +42,7 @@ public class StructAttributeValues implements ValueAccess {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getDiscriminator() {
 		return discriminator;
 	}

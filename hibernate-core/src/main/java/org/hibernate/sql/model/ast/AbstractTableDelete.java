@@ -11,6 +11,8 @@ import org.hibernate.sql.exec.spi.JdbcParameterBinder;
 import org.hibernate.sql.model.MutationTarget;
 import org.hibernate.sql.model.TableMapping;
 import org.hibernate.sql.model.jdbc.JdbcDeleteMutation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -44,16 +46,19 @@ public abstract class AbstractTableDelete extends AbstractRestrictedTableMutatio
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getLoggableName() {
 		return "TableDelete";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Expectation getExpectation() {
 		return getMutatingTable().getTableMapping().getDeleteDetails().getExpectation();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected JdbcDeleteMutation createMutationOperation(
 			TableMapping tableDetails,
 			String sql,

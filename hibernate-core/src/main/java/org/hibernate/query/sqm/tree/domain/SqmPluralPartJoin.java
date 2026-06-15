@@ -21,6 +21,8 @@ import org.hibernate.query.sqm.tree.predicate.SqmPredicate;
 import org.hibernate.spi.NavigablePath;
 
 import static org.hibernate.internal.util.NullnessUtil.castNonNull;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -61,11 +63,13 @@ public class SqmPluralPartJoin<O,T> extends AbstractSqmJoin<O,T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isImplicitlySelectable() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmPluralPartJoin<O, T> copy(SqmCopyContext context) {
 		final var existing = context.getCopy( this );
 		if ( existing != null ) {
@@ -88,39 +92,46 @@ public class SqmPluralPartJoin<O,T> extends AbstractSqmJoin<O,T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nonnull SqmFrom<?, O> getLhs() {
 		return castNonNull( super.getLhs() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable SqmPredicate getJoinPredicate() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setJoinPredicate(@Nullable SqmPredicate predicate) {
 		throw new UnsupportedOperationException( "Setting a predicate for a plural part join is unsupported" );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> X accept(SemanticQueryWalker<X> walker) {
 		return walker.visitPluralPartJoin( this );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S extends T> SqmTreatedPluralPartJoin<O, T, S> treatAs(@Nonnull Class<S> treatJavaType) {
 		return treatAs( nodeBuilder().getDomainModel().entity( treatJavaType ) );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S extends T> SqmTreatedPluralPartJoin<O, T, S> treatAs(@Nonnull EntityDomainType<S> treatTarget) {
 		return treatAs( treatTarget, null );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S extends T> SqmTreatedPluralPartJoin<O, T, S> treatAs(@Nonnull Class<S> treatJavaType, @Nullable String alias) {
 		return treatAs( nodeBuilder().getDomainModel().entity( treatJavaType ), alias );
 	}
@@ -128,6 +139,7 @@ public class SqmPluralPartJoin<O,T> extends AbstractSqmJoin<O,T> {
 	@SuppressWarnings("unchecked")
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends T> SqmTreatedPluralPartJoin<O, T, S> treatAs(
 			@Nonnull EntityDomainType<S> treatTarget,
 			@Nullable String alias) {
@@ -142,6 +154,7 @@ public class SqmPluralPartJoin<O,T> extends AbstractSqmJoin<O,T> {
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S extends T> SqmTreatedPluralPartJoin<O, T, S> treatAs(
 			@Nonnull Class<S> treatJavaType,
 			@Nullable String alias,
@@ -151,6 +164,7 @@ public class SqmPluralPartJoin<O,T> extends AbstractSqmJoin<O,T> {
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends T> SqmTreatedPluralPartJoin<O, T, S> treatAs(
 			@Nonnull EntityDomainType<S> treatTarget,
 			@Nullable String alias,
@@ -166,17 +180,20 @@ public class SqmPluralPartJoin<O,T> extends AbstractSqmJoin<O,T> {
 
 	@Nullable
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistentAttribute<? super O, ?> getAttribute() {
 		return null;
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmCorrelatedPluralPartJoin<O, T> createCorrelation() {
 		return new SqmCorrelatedPluralPartJoin<>( this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return String.format(
 				Locale.ROOT,

@@ -12,6 +12,8 @@ import org.hibernate.query.sqm.produce.function.FunctionArgumentException;
 import org.hibernate.query.sqm.tree.SqmTypedNode;
 
 import static org.hibernate.query.sqm.internal.TypecheckUtil.isTypeAssignable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link ArgumentsValidator} that validates the array type is compatible with the element type.
@@ -28,6 +30,7 @@ public class ArrayAndElementArgumentValidator extends ArrayArgumentValidator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void validate(
 			List<? extends SqmTypedNode<?>> arguments,
 			String functionName,

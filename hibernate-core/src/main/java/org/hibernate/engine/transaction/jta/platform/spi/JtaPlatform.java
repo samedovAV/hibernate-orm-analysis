@@ -12,6 +12,8 @@ import jakarta.transaction.UserTransaction;
 import jakarta.annotation.Nullable;
 
 import org.hibernate.service.Service;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link Service} that defines how Hibernate interacts with JTA on a certain
@@ -36,7 +38,8 @@ public interface JtaPlatform extends Service {
 	 *
 	 * @return The {@link TransactionManager}
 	 */
-	@Nullable TransactionManager retrieveTransactionManager();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	TransactionManager retrieveTransactionManager();
 
 	/**
 	 * Locate the {@link UserTransaction}.
@@ -47,7 +50,8 @@ public interface JtaPlatform extends Service {
 	 *
 	 * @return The {@link UserTransaction}
 	 */
-	@Nullable UserTransaction retrieveUserTransaction();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	UserTransaction retrieveUserTransaction();
 
 	/**
 	 * Determine an identifier for the given transaction appropriate for use in caching/lookup usages.
@@ -58,13 +62,15 @@ public interface JtaPlatform extends Service {
 	 * @param transaction The transaction to be identified.
 	 * @return An appropriate identifier
 	 */
-	@Nullable Object getTransactionIdentifier(Transaction transaction);
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	Object getTransactionIdentifier(Transaction transaction);
 
 	/**
 	 * Can we currently register a {@link Synchronization}?
 	 *
 	 * @return True if registering a {@link Synchronization} is currently allowed; false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean canRegisterSynchronization();
 
 	/**
@@ -72,6 +78,7 @@ public interface JtaPlatform extends Service {
 	 *
 	 * @param synchronization The synchronization to register
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void registerSynchronization(Synchronization synchronization);
 
 	/**
@@ -81,5 +88,6 @@ public interface JtaPlatform extends Service {
 	 *
 	 * @throws SystemException Indicates a problem access the underlying status
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getCurrentStatus() throws SystemException;
 }

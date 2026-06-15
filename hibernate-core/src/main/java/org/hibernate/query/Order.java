@@ -21,6 +21,8 @@ import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toList;
 import static org.hibernate.query.SortDirection.ASCENDING;
 import static org.hibernate.query.SortDirection.DESCENDING;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A rule for sorting a query result set. This allows query result ordering
@@ -76,6 +78,7 @@ public interface Order<X> {
 	 * with smaller values first. If the given attribute is of textual
 	 * type, the ordering is case-sensitive.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <T> Order<T> asc(SingularAttribute<T,?> attribute) {
 		return new AttributeOrder<>(ASCENDING, Nulls.NONE, attribute);
 	}
@@ -85,6 +88,7 @@ public interface Order<X> {
 	 * with larger values first. If the given attribute is of textual
 	 * type, the ordering is case-sensitive.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <T> Order<T> desc(SingularAttribute<T,?> attribute) {
 		return new AttributeOrder<>(DESCENDING, Nulls.NONE, attribute);
 	}
@@ -94,6 +98,7 @@ public interface Order<X> {
 	 * in the given direction. If the given attribute is of textual
 	 * type, the ordering is case-sensitive.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <T> Order<T> by(SingularAttribute<T,?> attribute, SortDirection direction) {
 		return new AttributeOrder<>(direction, Nulls.NONE, attribute);
 	}
@@ -102,6 +107,7 @@ public interface Order<X> {
 	 * An order where an entity is sorted by the given attribute,
 	 * in the given direction, with the specified case-sensitivity.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <T> Order<T> by(SingularAttribute<T,?> attribute, SortDirection direction, boolean ignoreCase) {
 		return new AttributeOrder<>(direction, Nulls.NONE, attribute, !ignoreCase);
 	}
@@ -112,6 +118,7 @@ public interface Order<X> {
 	 * null values. If the given attribute is of textual type, the
 	 * ordering is case-sensitive.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <T> Order<T> by(SingularAttribute<T, ?> attribute, SortDirection direction, Nulls nullPrecedence) {
 		return new AttributeOrder<>(direction, nullPrecedence, attribute);
 	}
@@ -122,6 +129,7 @@ public interface Order<X> {
 	 * the named attribute is of textual type, the ordering is
 	 * case-sensitive.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <T> Order<T> asc(Class<T> entityClass, String attributeName) {
 		return new NamedAttributeOrder<>( ASCENDING, Nulls.NONE, entityClass, attributeName );
 	}
@@ -132,6 +140,7 @@ public interface Order<X> {
 	 * the named attribute is of textual type, the ordering is
 	 * case-sensitive.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <T> Order<T> desc(Class<T> entityClass, String attributeName) {
 		return new NamedAttributeOrder<>( DESCENDING, Nulls.NONE, entityClass, attributeName );
 	}
@@ -142,6 +151,7 @@ public interface Order<X> {
 	 * named attribute is of textual type, the ordering is
 	 * case-sensitive.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <T> Order<T> by(Class<T> entityClass, String attributeName, SortDirection direction) {
 		return new NamedAttributeOrder<>( direction, Nulls.NONE, entityClass, attributeName );
 	}
@@ -151,6 +161,7 @@ public interface Order<X> {
 	 * attribute with the given name, in the given direction, with
 	 * the specified case-sensitivity.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <T> Order<T> by(Class<T> entityClass, String attributeName, SortDirection direction, boolean ignoreCase) {
 		return new NamedAttributeOrder<>( direction, Nulls.NONE, entityClass, attributeName, !ignoreCase );
 	}
@@ -162,6 +173,7 @@ public interface Order<X> {
 	 * precedence for null values. If the named attribute is of
 	 * textual type, the ordering is case-sensitive.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <T> Order<T> by(Class<T> entityClass, String attributeName, SortDirection direction, Nulls nullPrecedence) {
 		return new NamedAttributeOrder<>( direction, nullPrecedence, entityClass, attributeName );
 	}
@@ -171,6 +183,7 @@ public interface Order<X> {
 	 * in the given position with smaller values first. If the
 	 * item is of textual type, the ordering is case-sensitive.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static Order<Object[]> asc(int element) {
 		return new ElementOrder<>( ASCENDING, Nulls.NONE, element );
 	}
@@ -180,6 +193,7 @@ public interface Order<X> {
 	 * in the given position with larger values first. If the
 	 * item is of textual type, the ordering is case-sensitive.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static Order<Object[]> desc(int element) {
 		return new ElementOrder<>( DESCENDING, Nulls.NONE, element );
 	}
@@ -189,6 +203,7 @@ public interface Order<X> {
 	 * in the given position, in the given direction. If the item
 	 * is of textual type, the ordering is case-sensitive.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static Order<Object[]> by(int element, SortDirection direction) {
 		return new ElementOrder<>( direction, Nulls.NONE, element );
 	}
@@ -198,6 +213,7 @@ public interface Order<X> {
 	 * in the given position in the given direction, with the specified
 	 * case-sensitivity.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static Order<Object[]> by(int element, SortDirection direction, boolean ignoreCase) {
 		return new ElementOrder<>( direction, Nulls.NONE, element, !ignoreCase );
 	}
@@ -208,6 +224,7 @@ public interface Order<X> {
 	 * precedence for null values. If the named attribute is of
 	 * textual type, the ordering is case-sensitive.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static Order<Object[]> by(int element, SortDirection direction, Nulls nullPrecedence) {
 		return new ElementOrder<>( direction, nullPrecedence, element );
 	}
@@ -219,6 +236,7 @@ public interface Order<X> {
 	 *
 	 * @since 7
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SortDirection direction();
 
 	/**
@@ -226,6 +244,7 @@ public interface Order<X> {
 	 *
 	 * @since 7
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Nulls nullPrecedence();
 
 	/**
@@ -234,6 +253,7 @@ public interface Order<X> {
 	 *
 	 * @since 7
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean caseSensitive();
 
 	/**
@@ -245,6 +265,7 @@ public interface Order<X> {
 	 *
 	 * @since 7
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Class<X> entityClass();
 
 	/**
@@ -256,6 +277,7 @@ public interface Order<X> {
 	 *
 	 * @since 7
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String attributeName();
 
 	/**
@@ -268,6 +290,7 @@ public interface Order<X> {
 	 *
 	 * @since 7
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SingularAttribute<X, ?> attribute();
 
 	/**
@@ -279,30 +302,35 @@ public interface Order<X> {
 	 *
 	 * @since 7
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int element();
 
 	/**
 	 * @return this order, but with the sorting direction reversed.
 	 * @since 6.5
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Order<X> reverse();
 
 	/**
 	 * @return this order, but without case-sensitivity.
 	 * @since 6.5
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Order<X> ignoringCase();
 
 	/**
 	 * @return this order, but with nulls sorted first.
 	 * @since 6.5
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Order<X> withNullsFirst();
 
 	/**
 	 * @return this order, but with nulls sorted last.
 	 * @since 6.5
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Order<X> withNullsLast();
 
 	/**
@@ -316,6 +344,7 @@ public interface Order<X> {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Order<X> reversedIf(boolean reverse) {
 		return reverse ? reverse() : this;
 	}
@@ -331,6 +360,7 @@ public interface Order<X> {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Order<X> ignoringCaseIf(boolean ignoreCase) {
 		return ignoreCase ? ignoringCase() : this;
 	}
@@ -342,6 +372,7 @@ public interface Order<X> {
 	 * @since 8.0
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void apply(CriteriaQuery<?> query, Root<?> root, CriteriaBuilder builder) {
 		requireNonNull( query, "missing query" );
 		requireNonNull( root, "missing root" );
@@ -355,6 +386,7 @@ public interface Order<X> {
 		query.orderBy( orders );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private jakarta.persistence.criteria.Order order(
 			Expression<?> expression,
 			CriteriaBuilder builder) {
@@ -363,11 +395,13 @@ public interface Order<X> {
 				: builder.asc( expression, nullPrecedence() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Expression<?> expression(Root<?> root, CriteriaBuilder builder) {
 		final var path = path( root, attributeName() );
 		return caseSensitive() ? path : builder.lower( path.as( String.class ) );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static Path<?> path(Root<?> root, String path) {
 		requireNonNull( path, "missing path" );
 		final var tokens = new StringTokenizer( path, "." );
@@ -391,41 +425,49 @@ public interface Order<X> {
 	 *
 	 * @since 6.5
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <T> List<Order<? super T>> reverse(List<Order<? super T>> ordering) {
 		return ordering.stream().map(Order::reverse).collect(toList());
 	}
 
 	@Deprecated(since = "7", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SortDirection getDirection() {
 		return direction();
 	}
 
 	@Deprecated(since = "7", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Nulls getNullPrecedence() {
 		return nullPrecedence();
 	}
 
 	@Deprecated(since = "7", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isCaseInsensitive() {
 		return !caseSensitive();
 	}
 
 	@Deprecated(since = "7", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SingularAttribute<X, ?> getAttribute() {
 		return attribute();
 	}
 
 	@Deprecated(since = "7", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Class<X> getEntityClass() {
 		return entityClass();
 	}
 
 	@Deprecated(since = "7", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String getAttributeName() {
 		return attributeName();
 	}
 
 	@Deprecated(since = "7", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int getElement() {
 		return element();
 	}

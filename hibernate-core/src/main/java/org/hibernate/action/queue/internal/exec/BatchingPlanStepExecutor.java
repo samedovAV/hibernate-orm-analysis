@@ -19,6 +19,8 @@ import org.hibernate.sql.model.PreparableMutationOperation;
 import org.hibernate.sql.model.SelfExecutingUpdateOperation;
 
 import java.util.function.Consumer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// PlanStepExecutor with support for JDBC batching.
 ///
@@ -44,6 +46,7 @@ public class BatchingPlanStepExecutor extends AbstractStepExecutor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void execute(
 			java.util.List<FlushOperation> flushOperations,
 			Consumer<Object> newlyManagedEntityConsumer,
@@ -64,6 +67,7 @@ public class BatchingPlanStepExecutor extends AbstractStepExecutor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void executePreparable(PreparableMutationOperation preparable, FlushOperation flushOperation) {
 		final StatementShapeKey operationShapeKey = flushOperation.getShapeKey();
 		if ( batchKey == null ) {
@@ -78,6 +82,7 @@ public class BatchingPlanStepExecutor extends AbstractStepExecutor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected boolean beforeOperationExecution(FlushOperation flushOperation) {
 		if ( flushOperation.getPreExecutionCallback() != null && batchKey != null ) {
 			executeBatch();
@@ -86,6 +91,7 @@ public class BatchingPlanStepExecutor extends AbstractStepExecutor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void afterOperationExecution(
 			FlushOperation flushOperation,
 			Consumer<Object> newlyManagedEntityConsumer,
@@ -102,6 +108,7 @@ public class BatchingPlanStepExecutor extends AbstractStepExecutor {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void newBatch(StatementShapeKey operationShapeKey, PreparableMutationOperation preparable) {
 		batchKey = operationShapeKey;
 		currentBatchIndex = 0;
@@ -110,6 +117,7 @@ public class BatchingPlanStepExecutor extends AbstractStepExecutor {
 		batch = session.getJdbcCoordinator().getSingleStatementBatch( operationShapeKey, batchSize, preparable );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void applyToBatch(
 			PreparableMutationOperation preparable,
 			FlushOperation flushOperation) {
@@ -141,6 +149,7 @@ public class BatchingPlanStepExecutor extends AbstractStepExecutor {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private JdbcValueBindings getReusableValueBindings(
 			PreparableMutationOperation preparable,
 			FlushOperation flushOperation) {
@@ -154,6 +163,7 @@ public class BatchingPlanStepExecutor extends AbstractStepExecutor {
 		return reusableValueBindings;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void executeBatch() {
 		final int batchCount = currentBatchIndex;
 		try {
@@ -175,6 +185,7 @@ public class BatchingPlanStepExecutor extends AbstractStepExecutor {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private RuntimeException convertBatchException(ConstraintViolationException cve, int batchCount) {
 		return session.getFactory().getSessionFactoryOptions().isJpaBootstrap()
 			&& cve.getKind() == ConstraintViolationException.ConstraintKind.UNIQUE
@@ -183,6 +194,7 @@ public class BatchingPlanStepExecutor extends AbstractStepExecutor {
 				: cve;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private boolean hasEntityInsert(int batchCount) {
 		for ( int i = 0; i < batchCount; i++ ) {
 			final var operation = batchOperations[i];
@@ -195,6 +207,7 @@ public class BatchingPlanStepExecutor extends AbstractStepExecutor {
 		return false;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void runPostBatchCallbacks(int batchCount) {
 		final FlushOperation[] operations = batchOperations;
 		if ( batchCount > operations.length ) {
@@ -208,6 +221,7 @@ public class BatchingPlanStepExecutor extends AbstractStepExecutor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void executeWithGeneratedValues(FlushOperation flushOperation) {
 		if ( batchKey != null ) {
 			executeBatch();
@@ -216,6 +230,7 @@ public class BatchingPlanStepExecutor extends AbstractStepExecutor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void executeSelfExecuting(SelfExecutingUpdateOperation selfExecuting, FlushOperation flushOperation) {
 		if ( batchKey != null ) {
 			executeBatch();
@@ -224,6 +239,7 @@ public class BatchingPlanStepExecutor extends AbstractStepExecutor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void finishUp() {
 		super.finishUp();
 

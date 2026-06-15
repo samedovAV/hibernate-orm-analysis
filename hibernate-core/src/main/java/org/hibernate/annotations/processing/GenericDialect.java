@@ -8,6 +8,8 @@ import org.hibernate.dialect.DatabaseVersion;
 import org.hibernate.dialect.Dialect;
 import org.hibernate.dialect.lock.internal.NoLockingSupport;
 import org.hibernate.dialect.lock.spi.LockingSupport;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A generic {@linkplain Dialect dialect} for ANSI-like SQL.
@@ -23,6 +25,7 @@ public class GenericDialect extends Dialect {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LockingSupport getLockingSupport() {
 		return NoLockingSupport.NO_LOCKING_SUPPORT;
 	}

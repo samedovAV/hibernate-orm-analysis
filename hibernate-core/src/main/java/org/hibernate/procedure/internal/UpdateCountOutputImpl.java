@@ -5,6 +5,8 @@
 package org.hibernate.procedure.internal;
 
 import org.hibernate.procedure.UpdateCountOutput;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Implementation of UpdateCountOutput
@@ -19,11 +21,13 @@ public class UpdateCountOutputImpl implements UpdateCountOutput {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getUpdateCount() {
 		return updateCount;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isResultSet() {
 		return false;
 	}

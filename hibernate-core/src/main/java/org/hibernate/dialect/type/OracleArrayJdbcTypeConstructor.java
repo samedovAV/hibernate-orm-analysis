@@ -12,6 +12,8 @@ import org.hibernate.type.descriptor.jdbc.JdbcTypeConstructor;
 import org.hibernate.type.spi.TypeConfiguration;
 
 import java.sql.Types;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Factory for {@link OracleArrayJdbcType}.
@@ -22,6 +24,7 @@ import java.sql.Types;
  */
 public class OracleArrayJdbcTypeConstructor implements JdbcTypeConstructor {
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcType resolveType(
 			TypeConfiguration typeConfiguration,
 			Dialect dialect,
@@ -40,6 +43,7 @@ public class OracleArrayJdbcTypeConstructor implements JdbcTypeConstructor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcType resolveType(
 			TypeConfiguration typeConfiguration,
 			Dialect dialect,
@@ -64,6 +68,7 @@ public class OracleArrayJdbcTypeConstructor implements JdbcTypeConstructor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getDefaultSqlTypeCode() {
 		return Types.ARRAY;
 	}

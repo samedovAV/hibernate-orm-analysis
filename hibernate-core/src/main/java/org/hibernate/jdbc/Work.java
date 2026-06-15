@@ -6,6 +6,8 @@ package org.hibernate.jdbc;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A discrete piece of work making use of a {@linkplain Connection JDBC connection}.
@@ -25,5 +27,6 @@ public interface Work {
 	 * @throws SQLException Thrown during execution of the underlying JDBC interaction.
 	 * @throws org.hibernate.HibernateException Generally indicates a wrapped SQLException.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void execute(Connection connection) throws SQLException;
 }

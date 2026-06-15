@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Thrown if Hibernate can't instantiate a class at runtime.
@@ -51,11 +54,13 @@ public class InstantiationException extends HibernateException {
 	 *
 	 * @return The class we are unable to instantiate
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getUninstantiatableClass() {
 		return clazz;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getMessage() {
 		final String message = super.getMessage() + " '" + clazz.getName() + "'";
 		final Throwable cause = getCause();

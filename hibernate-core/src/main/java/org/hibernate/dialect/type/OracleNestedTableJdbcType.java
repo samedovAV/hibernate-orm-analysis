@@ -12,6 +12,8 @@ import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
 
 import static org.hibernate.internal.util.StringHelper.truncate;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Descriptor for {@link SqlTypes#TABLE TABLE} handling.
@@ -23,11 +25,13 @@ public class OracleNestedTableJdbcType extends OracleArrayJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getDdlTypeCode() {
 		return SqlTypes.TABLE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getExtraCreateTableInfo(JavaType<?> javaType, String columnName, String tableName, Database database) {
 		final Dialect dialect = database.getDialect();
 		final BasicPluralJavaType<?> pluralJavaType = (BasicPluralJavaType<?>) javaType;
@@ -39,6 +43,7 @@ public class OracleNestedTableJdbcType extends OracleArrayJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "OracleNestedTableTypeDescriptor(" + getSqlTypeName() + ")";
 	}

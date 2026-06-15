@@ -18,6 +18,8 @@ import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
 import org.hibernate.type.descriptor.jdbc.JdbcTypeIndicators;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base implementation of {@link ResultSetAccess}.
@@ -32,20 +34,25 @@ public abstract class AbstractResultSetAccess implements ResultSetAccess {
 		this.persistenceContext = persistenceContext;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract SessionFactoryImplementor getFactory();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected SharedSessionContractImplementor getPersistenceContext() {
 		return persistenceContext;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private SqlExceptionHelper getSqlExceptionHelper() {
 		return getFactory().getJdbcServices().getSqlExceptionHelper();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private Dialect getDialect() {
 		return getFactory().getJdbcServices().getDialect();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private ResultSetMetaData getResultSetMetaData() {
 		if ( resultSetMetaData == null ) {
 			try {
@@ -61,6 +68,7 @@ public abstract class AbstractResultSetAccess implements ResultSetAccess {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int getColumnCount() {
 		try {
 			return getResultSetMetaData().getColumnCount();
@@ -72,6 +80,7 @@ public abstract class AbstractResultSetAccess implements ResultSetAccess {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int resolveColumnPosition(String columnName) {
 		try {
 			return getResultSet().findColumn( normalizeColumnName( columnName ) );
@@ -82,12 +91,14 @@ public abstract class AbstractResultSetAccess implements ResultSetAccess {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String normalizeColumnName(String columnName) {
 		return getFactory().getJdbcServices().getJdbcEnvironment().getIdentifierHelper()
 				.toMetaDataObjectName( Identifier.toIdentifier( columnName ) );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String resolveColumnName(int position) {
 		try {
 			return getDialect().getColumnAliasExtractor()
@@ -100,11 +111,13 @@ public abstract class AbstractResultSetAccess implements ResultSetAccess {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getResultCountEstimate() {
 		return -1;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <J> BasicType<J> resolveType(int position, JavaType<J> explicitJavaType, TypeConfiguration typeConfiguration) {
 		try {
 			final var metaData = getResultSetMetaData();
@@ -136,6 +149,7 @@ public abstract class AbstractResultSetAccess implements ResultSetAccess {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private <J> JdbcType jdbcType(
 			JavaType<J> javaType,
 			JdbcType resolvedJdbcType,
@@ -144,31 +158,37 @@ public abstract class AbstractResultSetAccess implements ResultSetAccess {
 		return javaType.getRecommendedJdbcType(
 				new JdbcTypeIndicators() {
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public TypeConfiguration getTypeConfiguration() {
 						return typeConfiguration;
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public long getColumnLength() {
 						return length;
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public int getColumnPrecision() {
 						return precision;
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public int getColumnScale() {
 						return scale;
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public EnumType getEnumeratedType() {
 						return resolvedJdbcType.isNumber() ? EnumType.ORDINAL : EnumType.STRING;
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public Dialect getDialect() {
 						return AbstractResultSetAccess.this.getDialect();
 					}

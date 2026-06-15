@@ -19,6 +19,8 @@ import java.io.FileOutputStream;
 
 import static java.lang.System.currentTimeMillis;
 import static org.hibernate.boot.jaxb.JaxbLogger.JAXB_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Support for creating a mapping {@linkplain Binding binding} from "cached" XML files.
@@ -32,6 +34,7 @@ import static org.hibernate.boot.jaxb.JaxbLogger.JAXB_LOGGER;
  */
 public class CacheableFileXmlSource {
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static Binding<? extends JaxbBindableMappingDescriptor> fromCacheableFile(
 			File xmlFile,
 			File serLocation,
@@ -41,6 +44,7 @@ public class CacheableFileXmlSource {
 		return fromCacheableFile( xmlFile, serLocation, origin, strict, binder );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Binding<? extends JaxbBindableMappingDescriptor> fromCacheableFile(
 			File xmlFile,
 			File serLocation,
@@ -103,6 +107,7 @@ public class CacheableFileXmlSource {
 	 *
 	 * @return The ser file reference.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static File resolveSerFile(File xmlFile, File serLocation) {
 		if ( serLocation == null ) {
 			return determineCachedFile( xmlFile );
@@ -116,20 +121,24 @@ public class CacheableFileXmlSource {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static File determineCachedFile(File xmlFile) {
 		return new File( xmlFile.getAbsolutePath() + ".bin" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static File determineCachedFile(File xmlFile, File serDirectory) {
 		return new File( serDirectory, xmlFile.getName() + ".bin" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static <T extends JaxbBindableMappingDescriptor> T readSerFile(File serFile)
 			throws SerializationException, FileNotFoundException {
 		JAXB_LOGGER.readingCachedMappings( serFile );
 		return SerializationHelper.deserialize( new FileInputStream( serFile ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static <T extends JaxbBindableMappingDescriptor> void writeSerFile(
 			T jaxbModel,
 			File xmlFile,
@@ -149,14 +158,17 @@ public class CacheableFileXmlSource {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void createSerFile(File xmlFile, MappingBinder binder) {
 		createSerFile( xmlFile, determineCachedFile( xmlFile ), binder );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void createSerFile(File xmlFile, File outputFile, MappingBinder binder) {
 		writeSerFile( FileXmlSource.fromFile( xmlFile, binder ).getRoot(), xmlFile, outputFile );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isSerfileObsolete(File xmlFile, File serFile) {
 		return xmlFile.exists()
 			&& serFile.exists()

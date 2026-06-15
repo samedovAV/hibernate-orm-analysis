@@ -11,6 +11,8 @@ import org.hibernate.dialect.lock.spi.ConnectionLockTimeoutStrategy;
 import org.hibernate.dialect.lock.spi.LockTimeoutType;
 import org.hibernate.dialect.lock.spi.LockingSupport;
 import org.hibernate.dialect.lock.spi.OuterJoinLockingType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * LockingSupport implementation based on the legacy, standard
@@ -68,31 +70,37 @@ public class LockingSupportSimple implements LockingSupport, LockingSupport.Meta
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Metadata getMetadata() {
 		return this;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PessimisticLockStyle getPessimisticLockStyle() {
 		return lockStyle;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public RowLockStrategy getWriteRowLockStrategy() {
 		return rowLockStrategy;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LockTimeoutType getLockTimeoutType(Timeout timeout) {
 		return lockTimeoutType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public OuterJoinLockingType getOuterJoinLockingType() {
 		return joinLockingType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ConnectionLockTimeoutStrategy getConnectionLockTimeoutStrategy() {
 		return connectionStrategy;
 	}

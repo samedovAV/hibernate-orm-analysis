@@ -33,6 +33,8 @@ import static org.hibernate.id.PersistentIdentifierGenerator.PK;
 import static org.hibernate.id.PersistentIdentifierGenerator.TABLE;
 import static org.hibernate.id.PersistentIdentifierGenerator.TABLES;
 import static org.hibernate.internal.util.collections.CollectionHelper.size;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Template support for IdGeneratorResolver implementations dealing with entity identifiers
@@ -60,6 +62,7 @@ public abstract class AbstractEntityIdGeneratorResolver implements IdGeneratorRe
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final void doSecondPass(Map<String, PersistentClass> persistentClasses) throws MappingException {
 		switch ( generatedValue.strategy() ) {
 			case UUID -> handleUuidStrategy();
@@ -70,6 +73,7 @@ public abstract class AbstractEntityIdGeneratorResolver implements IdGeneratorRe
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void handleUuidStrategy() {
 		GeneratorAnnotationHelper.handleUuidStrategy(
 				idValue,
@@ -80,6 +84,7 @@ public abstract class AbstractEntityIdGeneratorResolver implements IdGeneratorRe
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void handleSequenceStrategy() {
 		if ( generatedValue.generator().isBlank() ) {
 			handleUnnamedSequenceGenerator();
@@ -89,10 +94,13 @@ public abstract class AbstractEntityIdGeneratorResolver implements IdGeneratorRe
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract void handleUnnamedSequenceGenerator();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract void handleNamedSequenceGenerator();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void handleTableStrategy() {
 		if ( generatedValue.generator().isBlank() ) {
 			handleUnnamedTableGenerator();
@@ -102,10 +110,13 @@ public abstract class AbstractEntityIdGeneratorResolver implements IdGeneratorRe
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract void handleUnnamedTableGenerator();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract void handleNamedTableGenerator();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void handleAutoStrategy() {
 		if ( generatedValue.generator().isBlank() ) {
 			handleUnnamedAutoGenerator();
@@ -115,10 +126,13 @@ public abstract class AbstractEntityIdGeneratorResolver implements IdGeneratorRe
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract void handleUnnamedAutoGenerator();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract void handleNamedAutoGenerator();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean handleAsMetaAnnotated() {
 		final var fromMember = findGeneratorAnnotation( idMember );
 		if ( fromMember != null ) {
@@ -158,6 +172,7 @@ public abstract class AbstractEntityIdGeneratorResolver implements IdGeneratorRe
 		return false;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Annotation findGeneratorAnnotation(AnnotationTarget annotationTarget) {
 		final var metaAnnotated =
 				annotationTarget.getMetaAnnotated( IdGeneratorType.class,
@@ -166,6 +181,7 @@ public abstract class AbstractEntityIdGeneratorResolver implements IdGeneratorRe
 
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean handleAsLegacyGenerator() {
 		// Handle a few legacy Hibernate generators...
 		final String nameFromGeneratedValue = generatedValue.generator();
@@ -189,6 +205,7 @@ public abstract class AbstractEntityIdGeneratorResolver implements IdGeneratorRe
 		return false;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private HashMap<String, String> buildLegacyGeneratorConfig() {
 		final var database = buildingContext.getMetadataCollector().getDatabase();
 		final var dialect = database.getDialect();

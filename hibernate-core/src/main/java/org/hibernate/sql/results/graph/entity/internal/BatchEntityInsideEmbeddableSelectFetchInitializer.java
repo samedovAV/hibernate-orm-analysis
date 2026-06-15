@@ -27,6 +27,8 @@ import org.hibernate.sql.results.jdbc.spi.RowProcessingState;
 import org.hibernate.type.Type;
 
 import static org.hibernate.internal.log.LoggingHelper.toLoggableString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class BatchEntityInsideEmbeddableSelectFetchInitializer extends AbstractBatchEntitySelectFetchInitializer<BatchEntityInsideEmbeddableSelectFetchInitializer.BatchEntityInsideEmbeddableSelectFetchInitializerData> {
 	protected final Setter referencedModelPartSetter;
@@ -40,10 +42,12 @@ public class BatchEntityInsideEmbeddableSelectFetchInitializer extends AbstractB
 	 */
 	public static final Serializable BATCH_PROPERTY = new Serializable() {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String toString() {
 			return "<batch>";
 		}
 		@Serial
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Object readResolve() {
 			return BATCH_PROPERTY;
 		}
@@ -86,10 +90,12 @@ public class BatchEntityInsideEmbeddableSelectFetchInitializer extends AbstractB
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected InitializerData createInitializerData(RowProcessingState rowProcessingState) {
 		return new BatchEntityInsideEmbeddableSelectFetchInitializerData( this, rowProcessingState );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected Type[] getParentEntityAttributeTypes(String attributeName) {
 		final var entityDescriptor = owningEntityInitializer.getEntityDescriptor();
 		final int size =
@@ -103,6 +109,7 @@ public class BatchEntityInsideEmbeddableSelectFetchInitializer extends AbstractB
 		return attributeTypes;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void initializeAttributeType(Type[] attributeTypes, EntityPersister entityDescriptor, String attributeName) {
 		final int subclassId = entityDescriptor.getSubclassId();
 		if ( rootEmbeddableAttributes[subclassId] != null ) {
@@ -111,12 +118,14 @@ public class BatchEntityInsideEmbeddableSelectFetchInitializer extends AbstractB
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void registerToBatchFetchQueue(BatchEntityInsideEmbeddableSelectFetchInitializerData data) {
 		super.registerToBatchFetchQueue( data );
 		data.setInstance( BATCH_PROPERTY );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void initializeInstance(BatchEntityInsideEmbeddableSelectFetchInitializerData data) {
 		super.initializeInstance( data );
 		// todo: check why this can't be moved to #registerToBatchFetchQueue
@@ -144,6 +153,7 @@ public class BatchEntityInsideEmbeddableSelectFetchInitializer extends AbstractB
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void registerResolutionListener(BatchEntityInsideEmbeddableSelectFetchInitializerData data) {
 	}
 
@@ -166,6 +176,7 @@ public class BatchEntityInsideEmbeddableSelectFetchInitializer extends AbstractB
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void endLoading(BatchEntityInsideEmbeddableSelectFetchInitializerData data) {
 		super.endLoading( data );
 		final var toBatchLoad = data.toBatchLoad;
@@ -204,6 +215,7 @@ public class BatchEntityInsideEmbeddableSelectFetchInitializer extends AbstractB
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected static String getRootEmbeddablePropertyName(
 			EntityInitializer<?> firstEntityInitializer,
 			InitializerParent<?> parent,
@@ -220,6 +232,7 @@ public class BatchEntityInsideEmbeddableSelectFetchInitializer extends AbstractB
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "BatchEntityInsideEmbeddableSelectFetchInitializer("
 				+ toLoggableString( getNavigablePath() ) + ")";

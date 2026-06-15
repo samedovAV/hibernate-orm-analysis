@@ -10,6 +10,8 @@ import org.hibernate.engine.jdbc.NClobImplementer;
 
 import java.io.Reader;
 import java.sql.NClob;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Manages aspects of proxying {@link NClob}s for non-contextual creation, including proxy creation and
@@ -43,6 +45,7 @@ public class NClobProxy extends ClobProxy implements NClob, NClobImplementer {
 	 *
 	 * @return The generated proxy.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static NClob generateProxy(String string) {
 		return new NClobProxy( string );
 	}
@@ -55,6 +58,7 @@ public class NClobProxy extends ClobProxy implements NClob, NClobImplementer {
 	 *
 	 * @return The generated proxy.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static NClob generateProxy(Reader reader, long length) {
 		return new NClobProxy( reader, length );
 	}
@@ -65,6 +69,7 @@ public class NClobProxy extends ClobProxy implements NClob, NClobImplementer {
 	 *
 	 * @return The class loader appropriate for proxy construction.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected static ClassLoader getProxyClassLoader() {
 		return NClobImplementer.class.getClassLoader();
 	}

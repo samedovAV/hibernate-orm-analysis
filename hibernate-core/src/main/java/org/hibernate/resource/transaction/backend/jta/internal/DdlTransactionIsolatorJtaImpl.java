@@ -16,6 +16,8 @@ import org.hibernate.tool.schema.internal.exec.JdbcContext;
 
 
 import static org.hibernate.resource.transaction.backend.jta.internal.JtaLogging.JTA_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * DdlExecutor for use in JTA environments
@@ -28,6 +30,7 @@ public class DdlTransactionIsolatorJtaImpl implements DdlTransactionIsolator {
 	private final Transaction suspendedTransaction;
 	private Connection jdbcConnection;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static JtaPlatform getJtaPlatform(JdbcContext jdbcContext) {
 		return jdbcContext.getServiceRegistry().requireService( JtaPlatform.class );
 	}
@@ -54,16 +57,19 @@ public class DdlTransactionIsolatorJtaImpl implements DdlTransactionIsolator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcContext getJdbcContext() {
 		return jdbcContext;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Connection getIsolatedConnection() {
 		return getIsolatedConnection(true);
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Connection getIsolatedConnection(boolean autocommit) {
 		if ( jdbcConnection == null ) {
 			try {
@@ -88,6 +94,7 @@ public class DdlTransactionIsolatorJtaImpl implements DdlTransactionIsolator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void release() {
 		if ( jdbcConnection != null ) {
 			try {

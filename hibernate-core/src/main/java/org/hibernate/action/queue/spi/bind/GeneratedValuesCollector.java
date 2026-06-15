@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.Locale;
 
 import static org.hibernate.generator.values.internal.GeneratedValuesHelper.noCustomSql;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Used from [org.hibernate.action.queue.internal.decompose.entity.EntityInsertBindPlan]
 /// and [org.hibernate.action.queue.internal.decompose.entity.EntityUpdateBindPlan] to aggregate
@@ -33,6 +35,7 @@ import static org.hibernate.generator.values.internal.GeneratedValuesHelper.noCu
 /// @since 8.0
 @Incubating
 public final class GeneratedValuesCollector {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static @Nullable GeneratedValuesCollector forInsert(
 			EntityPersister entityPersister,
 			SessionFactoryImplementor sessionFactory) {
@@ -43,12 +46,14 @@ public final class GeneratedValuesCollector {
 		return forTiming( entityPersister, EventType.INSERT, supportsRowId );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static @Nullable GeneratedValuesCollector forUpdate(
 			EntityPersister entityPersister,
 			SessionFactoryImplementor sessionFactory) {
 		return forTiming( entityPersister, EventType.UPDATE, false );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static @Nullable GeneratedValuesCollector forTiming(
 			EntityPersister entityPersister,
 			EventType timing,
@@ -81,22 +86,27 @@ public final class GeneratedValuesCollector {
 		this.generatedValues = new GeneratedValuesImpl( generatedModelParts );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EventType getTiming() {
 		return timing;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityPersister getEntityPersister() {
 		return entityPersister;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void apply(GeneratedValues generatedValues) {
 		this.generatedValues.apply( generatedValues );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public GeneratedValues generatedValues() {
 		return generatedValues;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean containsGeneratedValues(TableDescriptor tableDescriptor) {
 		for ( var generatedModelPart : generatedModelParts ) {
 			final BasicValuedModelPart basicValuedModelPart = generatedModelPart.asBasicValuedModelPart();
@@ -108,15 +118,18 @@ public final class GeneratedValuesCollector {
 		return false;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setIdentifierHandle(DelayedValueAccess identifierHandle) {
 		this.identifierHandle = identifierHandle;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DelayedValueAccess getIdentifierHandle() {
 		return identifierHandle;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return String.format( Locale.ROOT,
 				"GeneratedValuesCollector(%s:%s)",

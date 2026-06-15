@@ -11,6 +11,8 @@ import jakarta.persistence.Timeout;
 import org.hibernate.graph.GraphSemantic;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Loads multiple instances of a given entity type at once, by
@@ -49,6 +51,7 @@ public interface NaturalIdMultiLoadAccess<T> {
 	 * @param lockMode The lock mode to apply
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default NaturalIdMultiLoadAccess<T> with(LockMode lockMode) {
 		return with( lockMode, PessimisticLockScope.NORMAL );
 	}
@@ -61,6 +64,7 @@ public interface NaturalIdMultiLoadAccess<T> {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NaturalIdMultiLoadAccess<T> with(LockMode lockMode, PessimisticLockScope lockScope);
 
 	/**
@@ -71,6 +75,7 @@ public interface NaturalIdMultiLoadAccess<T> {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NaturalIdMultiLoadAccess<T> with(Timeout timeout);
 
 	/**
@@ -86,6 +91,7 @@ public interface NaturalIdMultiLoadAccess<T> {
 	 * and/or {@linkplain #with(Timeout)} instead.
 	 */
 	@Deprecated(since = "7.0", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NaturalIdMultiLoadAccess<T> with(LockOptions lockOptions);
 
 	/**
@@ -95,6 +101,7 @@ public interface NaturalIdMultiLoadAccess<T> {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NaturalIdMultiLoadAccess<T> with(CacheMode cacheMode);
 
 	/**
@@ -104,6 +111,7 @@ public interface NaturalIdMultiLoadAccess<T> {
 	 *
 	 * @since 6.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default NaturalIdMultiLoadAccess<T> withFetchGraph(EntityGraph<T> graph) {
 		return with( graph, GraphSemantic.FETCH );
 	}
@@ -115,6 +123,7 @@ public interface NaturalIdMultiLoadAccess<T> {
 	 *
 	 * @since 6.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default NaturalIdMultiLoadAccess<T> withLoadGraph(EntityGraph<T> graph) {
 		return with( graph, GraphSemantic.LOAD );
 	}
@@ -123,6 +132,7 @@ public interface NaturalIdMultiLoadAccess<T> {
 	 * @deprecated use {@link #withLoadGraph}
 	 */
 	@Deprecated(since = "6.3")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default NaturalIdMultiLoadAccess<T> with(EntityGraph<T> graph) {
 		return with( graph, GraphSemantic.LOAD );
 	}
@@ -132,6 +142,7 @@ public interface NaturalIdMultiLoadAccess<T> {
 	 * {@linkplain jakarta.persistence.EntityGraph entity graph},
 	 * and how it should be {@linkplain GraphSemantic interpreted}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NaturalIdMultiLoadAccess<T> with(EntityGraph<T> graph, GraphSemantic semantic);
 
 	/**
@@ -154,6 +165,7 @@ public interface NaturalIdMultiLoadAccess<T> {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NaturalIdMultiLoadAccess<T> withBatchSize(int batchSize);
 
 	/**
@@ -170,6 +182,7 @@ public interface NaturalIdMultiLoadAccess<T> {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NaturalIdMultiLoadAccess<T> enableReturnOfDeletedEntities(boolean enabled);
 
 	/**
@@ -187,6 +200,7 @@ public interface NaturalIdMultiLoadAccess<T> {
 	 *
 	 * @return {@code this}, for method chaining
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NaturalIdMultiLoadAccess<T> enableOrderedReturn(boolean enabled);
 
 	/**
@@ -200,6 +214,7 @@ public interface NaturalIdMultiLoadAccess<T> {
 	 *
 	 * @return The managed entities.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<T> multiLoad(Object... ids);
 
 	/**
@@ -213,5 +228,6 @@ public interface NaturalIdMultiLoadAccess<T> {
 	 *
 	 * @return The managed entities.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<T> multiLoad(List<?> ids);
 }

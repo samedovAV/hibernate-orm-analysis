@@ -7,6 +7,8 @@ package org.hibernate.bytecode.spi;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.proxy.ProxyFactory;
 import org.hibernate.service.Service;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An interface for factories of {@link ProxyFactory proxy factory} instances.
@@ -23,6 +25,7 @@ public interface ProxyFactoryFactory extends Service {
 	 *
 	 * @return The lazy-load proxy factory.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ProxyFactory buildProxyFactory(SessionFactoryImplementor sessionFactory);
 
 	/**
@@ -39,6 +42,7 @@ public interface ProxyFactoryFactory extends Service {
 	 * interface to be proxied.
 	 * @return The proxy class
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	BasicProxyFactory buildBasicProxyFactory(Class superClassOrInterface);
 
 }

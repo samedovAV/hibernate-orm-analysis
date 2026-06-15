@@ -22,6 +22,8 @@ import org.jboss.logging.annotations.ValidIdRange;
 
 import static org.jboss.logging.Logger.Level.DEBUG;
 import static org.jboss.logging.Logger.Level.WARN;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Class to consolidate logging about usage of deprecated features.
@@ -46,6 +48,7 @@ public interface DeprecationLogger extends BasicLogger {
 					"removed, embed-xml attributes are no longer supported and should be removed from mappings.",
 			id = 90000004
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void logDeprecationOfEmbedXmlSupport();
 
 	@LogMessage(level = WARN)
@@ -54,6 +57,7 @@ public interface DeprecationLogger extends BasicLogger {
 					"identifier to a physical entity attribute",
 			id = 90000005
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void logDeprecationOfNonNamedIdAttribute(String entityName);
 
 	/**
@@ -66,6 +70,7 @@ public interface DeprecationLogger extends BasicLogger {
 					"PhysicalNamingStrategy; use [--implicit-naming] or [--physical-naming], respectively, instead.",
 			id = 90000007
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void logDeprecatedNamingStrategyArgument();
 
 	/**
@@ -78,6 +83,7 @@ public interface DeprecationLogger extends BasicLogger {
 					"PhysicalNamingStrategy.",
 			id = 90000008
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void logDeprecatedNamingStrategyAntArgument();
 
 	@LogMessage(level = WARN)
@@ -88,6 +94,7 @@ public interface DeprecationLogger extends BasicLogger {
 					"a proxy) as needed.",
 			id = 90000009
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void deprecatedManyToManyOuterJoin();
 
 	@LogMessage(level = WARN)
@@ -98,11 +105,13 @@ public interface DeprecationLogger extends BasicLogger {
 					"a proxy) as needed.",
 			id = 90000010
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void deprecatedManyToManyFetch();
 
 	@LogMessage(level = WARN)
 	@Message(value = "Recognized obsolete hibernate namespace %s. Use namespace %s instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.",
 			id = 90000012)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void recognizedObsoleteHibernateNamespace(
 			String oldHibernateNamespace,
 			String hibernateNamespace);
@@ -112,6 +121,7 @@ public interface DeprecationLogger extends BasicLogger {
 			id = 90000018,
 			value = "Found use of deprecated transaction factory setting [%s]; use the new TransactionCoordinatorBuilder settings [%s] instead"
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void logDeprecatedTransactionFactorySetting(String legacySettingName, String updatedSettingName);
 
 	@LogMessage(level = WARN)
@@ -119,6 +129,7 @@ public interface DeprecationLogger extends BasicLogger {
 			id = 90000021,
 			value = "Encountered deprecated setting [%s], use [%s] instead"
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void deprecatedSetting(String oldSettingName, String newSettingName);
 
 	@LogMessage(level = WARN)
@@ -126,22 +137,26 @@ public interface DeprecationLogger extends BasicLogger {
 			id = 90000022,
 			value = "Encountered deprecated setting [%s]"
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void deprecatedSetting(String settingName);
 
 	@LogMessage(level = WARN)
 	@Message(value = "%s does not need to be specified explicitly using 'hibernate.dialect' "
 			+ "(remove the property setting and it will be selected by default)",
 			id = 90000025)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void automaticDialect(String dialect);
 
 	@LogMessage(level = WARN)
 	@Message(value = "%s has been deprecated",
 			id = 90000026)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void deprecatedDialect(String dialect);
 
 	@LogMessage(level = WARN)
 	@Message(value = "%s has been deprecated; use %s instead",
 			id = 90000026)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void deprecatedDialect(String dialect, String replacement);
 
 	/**
@@ -155,6 +170,7 @@ public interface DeprecationLogger extends BasicLogger {
 					"migrate to orm.xml or mapping.xml, or enable `" + AvailableSettings.TRANSFORM_HBM_XML +
 					"` for on the fly transformation"
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void logDeprecatedHbmXmlProcessing(SourceType sourceType, String name);
 
 	/**
@@ -166,6 +182,7 @@ public interface DeprecationLogger extends BasicLogger {
 			id = 90000029,
 			value = "The [%s] configuration is deprecated and will be removed. Set the value to [%s] to get rid of this warning"
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void deprecatedSettingForRemoval(String settingName, String defaultValue);
 
 	/**
@@ -177,6 +194,7 @@ public interface DeprecationLogger extends BasicLogger {
 			id = 90000030,
 			value = "The [%s] configuration is deprecated and will be removed."
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void deprecatedSettingNoReplacement(String settingName);
 
 	@LogMessage(level = WARN)
@@ -184,6 +202,7 @@ public interface DeprecationLogger extends BasicLogger {
 			id = 90000031,
 			value = "The native query colon escaping used for the [%s] operator is deprecated and will be removed. Use [%s] instead."
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void deprecatedNativeQueryColonEscaping(String oldOperator, String newOperator);
 
 	@LogMessage(level = WARN)
@@ -191,6 +210,7 @@ public interface DeprecationLogger extends BasicLogger {
 			id = 90000032,
 			value = "The support for passing arrays to array_contains() is deprecated and will be removed. Use array_includes() instead."
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void deprecatedArrayContainsWithArray();
 
 	@LogMessage(level = WARN)
@@ -198,6 +218,7 @@ public interface DeprecationLogger extends BasicLogger {
 			id = 90000033,
 			value = "Encountered use of deprecated annotation [%s] at %s."
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void deprecatedAnnotation(Class<? extends Annotation> annotationType, String locationDescription);
 
 	@LogMessage(level = WARN)
@@ -207,6 +228,7 @@ public interface DeprecationLogger extends BasicLogger {
 					+ " relies on an undocumented and unsupported capability"
 					+ " (lifecycle callback methods should be declared by entity classes)"
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void embeddableLifecycleCallback(String annotationType, String embeddable);
 
 	@LogMessage(level = WARN)
@@ -214,6 +236,7 @@ public interface DeprecationLogger extends BasicLogger {
 			id = 90000036,
 			value = "Encountered deprecated hint [%s]"
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void deprecatedHint(String deprecatedHint);
 
 	@LogMessage(level = WARN)
@@ -221,6 +244,7 @@ public interface DeprecationLogger extends BasicLogger {
 			id = 90000037,
 			value = "Encountered deprecated hint [%s], use [%s] instead"
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void deprecatedHint(String deprecatedHint, String replacementHint);
 
 	@LogMessage(level = WARN)
@@ -228,6 +252,7 @@ public interface DeprecationLogger extends BasicLogger {
 			id = 90000038,
 			value = "Encountered deprecated value for JtaPlatform setting [%s]: [%s]; use a non-deprecated value among %s instead"
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void deprecatedJtaPlatformSetting(String settingName, String deprecatedValue, List<String> replacements);
 
 	@LogMessage(level = WARN)
@@ -235,6 +260,7 @@ public interface DeprecationLogger extends BasicLogger {
 			id = 90000039,
 			value = "Using %s which does not generate IETF RFC 4122 compliant UUID values; consider using %s instead"
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void deprecatedUuidHexGenerator(String name, String name2);
 
 	@LogMessage(level = WARN)
@@ -242,6 +268,7 @@ public interface DeprecationLogger extends BasicLogger {
 			id = 90000040,
 			value = "DEPRECATED: use [%s] instead with custom [%s] implementation"
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void deprecatedUuidGenerator(String name, String name2);
 
 	@LogMessage(level = WARN)
@@ -249,6 +276,7 @@ public interface DeprecationLogger extends BasicLogger {
 			id = 90000041,
 			value = "Marking named native queries as callable is deprecated; use <named-stored-procedure-query/> instead"
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void callableNamedNativeQuery();
 
 	@LogMessage(level = WARN)
@@ -256,6 +284,7 @@ public interface DeprecationLogger extends BasicLogger {
 			id = 90000042,
 			value = "Implicit/explicit polymorphism no longer supported"
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void explicitPolymorphism();
 
 	@LogMessage(level = DEBUG)
@@ -263,6 +292,7 @@ public interface DeprecationLogger extends BasicLogger {
 			id = 90000043,
 			value = "Custom CollectionPersister implementations are no longer supported - %s (%s)"
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void customCollectionPersister(String role, String name);
 
 	@LogMessage(level = WARN)
@@ -271,6 +301,7 @@ public interface DeprecationLogger extends BasicLogger {
 			value = "Deprecated syntax when using @NamedEntityGraph: 'Type: attr1, attr2' is deprecated. " +
 					"Specify the root entity using the 'root' attribute instead of prefixing the graph with the entity type."
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void deprecatedNamedEntityGraphTextThatContainTypeIndicator();
 
 	@LogMessage(level = WARN)
@@ -278,5 +309,6 @@ public interface DeprecationLogger extends BasicLogger {
 			id = 90000045,
 			value = "Hibernate-envers is considered deprecated in favor of @Temporal and @Audited in hibernate-core."
 	)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void envers();
 }

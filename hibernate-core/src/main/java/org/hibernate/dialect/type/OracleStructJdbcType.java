@@ -12,6 +12,8 @@ import org.hibernate.type.descriptor.WrapperOptions;
 import org.hibernate.type.descriptor.jdbc.AggregateJdbcType;
 
 import oracle.sql.TIMESTAMPTZ;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -28,6 +30,7 @@ public class OracleStructJdbcType extends OracleBaseStructJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AggregateJdbcType resolveAggregateJdbcType(
 			EmbeddableMappingType mappingType,
 			String sqlType,
@@ -44,6 +47,7 @@ public class OracleStructJdbcType extends OracleBaseStructJdbcType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Object transformRawJdbcValue(Object rawJdbcValue, WrapperOptions options) {
 		if ( rawJdbcValue.getClass() == TIMESTAMPTZ.class ) {
 			try {

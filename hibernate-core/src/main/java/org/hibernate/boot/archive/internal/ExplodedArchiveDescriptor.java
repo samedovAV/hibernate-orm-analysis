@@ -23,6 +23,8 @@ import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
 
 import static org.hibernate.internal.log.UrlMessageBundle.URL_MESSAGE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// An `ArchiveDescriptor` for exploded (directory) archives.
 ///
@@ -42,6 +44,7 @@ public class ExplodedArchiveDescriptor extends AbstractArchiveDescriptor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void visitClassEntries(Consumer<ArchiveEntry> entryConsumer) {
 		final File rootDirectory = resolveRootDirectory();
 		if ( rootDirectory == null ) {
@@ -57,6 +60,7 @@ public class ExplodedArchiveDescriptor extends AbstractArchiveDescriptor {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private File resolveRootDirectory() {
 		final File archiveUrlDirectory;
 		try {
@@ -92,6 +96,7 @@ public class ExplodedArchiveDescriptor extends AbstractArchiveDescriptor {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private void processDirectory(
 			File directory,
 			String path,
@@ -128,6 +133,7 @@ public class ExplodedArchiveDescriptor extends AbstractArchiveDescriptor {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void processZippedRoot(File rootFile, Consumer<ArchiveEntry> entryConsumer) {
 		final String entryUriBase = getArchiveUrl().toString();
 
@@ -177,6 +183,7 @@ public class ExplodedArchiveDescriptor extends AbstractArchiveDescriptor {
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable ArchiveEntry findEntry(String relativePath) {
 		final File file = resolveRelativePath( relativePath );
 		if ( file == null ) {
@@ -187,6 +194,7 @@ public class ExplodedArchiveDescriptor extends AbstractArchiveDescriptor {
 		return new ArchiveEntryImpl( name, relativePath, file.toURI(), inputStreamAccess );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private File resolveRelativePath(String relativePath) {
 		final File rootDirectory = resolveRootDirectory();
 		if ( rootDirectory == null ) {
@@ -202,6 +210,7 @@ public class ExplodedArchiveDescriptor extends AbstractArchiveDescriptor {
 	}
 
 	@Override @Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ArchiveDescriptor resolveJarFileReference(@Nonnull String jarFileReference) {
 		// try it as a relative reference
 		final ArchiveEntry entry = findEntry( jarFileReference );

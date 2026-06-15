@@ -24,6 +24,8 @@ import java.util.jar.JarInputStream;
 import java.util.zip.ZipEntry;
 
 import static org.hibernate.internal.log.UrlMessageBundle.URL_MESSAGE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// An `ArchiveDescriptor` that works on archives accessible through a [JarInputStream].
 ///
@@ -46,6 +48,7 @@ public class JarInputStreamBasedArchiveDescriptor extends AbstractArchiveDescrip
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void visitClassEntries(Consumer<ArchiveEntry> entryConsumer) {
 		final JarInputStream jarInputStream;
 		try {
@@ -152,6 +155,7 @@ public class JarInputStreamBasedArchiveDescriptor extends AbstractArchiveDescrip
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public @Nullable ArchiveEntry findEntry(String path) {
 		final JarInputStream jarInputStream;
 		try {
@@ -246,6 +250,7 @@ public class JarInputStreamBasedArchiveDescriptor extends AbstractArchiveDescrip
 	}
 
 	@Override @Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ArchiveDescriptor resolveJarFileReference(@Nonnull String jarFileReference) {
 		// try it as a relative reference
 		final ArchiveEntry entry = findEntry( jarFileReference );

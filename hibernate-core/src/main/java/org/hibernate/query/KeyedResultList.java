@@ -7,6 +7,8 @@ package org.hibernate.query;
 import org.hibernate.Incubating;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Support for pagination based on a unique key of the result
@@ -79,6 +81,7 @@ public class KeyedResultList<R> {
 	/**
 	 * The results on the current page.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<R> getResultList() {
 		return resultList;
 	}
@@ -86,6 +89,7 @@ public class KeyedResultList<R> {
 	/**
 	 * The keys of the results, in order.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<List<?>> getKeyList() {
 		return keyList;
 	}
@@ -95,6 +99,7 @@ public class KeyedResultList<R> {
 	 * approximate {@linkplain Page#getNumber()
 	 * page number} of the current page.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public KeyedPage<R> getPage() {
 		return page;
 	}
@@ -105,6 +110,7 @@ public class KeyedResultList<R> {
 	 * it is known that there are no more results
 	 * after this page.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public KeyedPage<R> getNextPage() {
 		return nextPage;
 	}
@@ -114,6 +120,7 @@ public class KeyedResultList<R> {
 	 * or {@code null} if it is known that this is the
 	 * first page.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public KeyedPage<R> getPreviousPage() {
 		return previousPage;
 	}
@@ -122,6 +129,7 @@ public class KeyedResultList<R> {
 	 * @return {@code true} if this is known to be the
 	 *         last page of results.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isLastPage() {
 		return nextPage == null;
 	}
@@ -130,6 +138,7 @@ public class KeyedResultList<R> {
 	 * @return {@code true} if this is the first page
 	 *         of results.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isFirstPage() {
 		return page.getPage().isFirst();
 	}

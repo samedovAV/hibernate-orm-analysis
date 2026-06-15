@@ -7,6 +7,8 @@ package org.hibernate.query.sqm.tree.domain;
 import jakarta.annotation.Nonnull;
 import org.hibernate.query.sqm.tree.from.SqmFrom;
 import org.hibernate.query.sqm.tree.from.SqmRoot;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specialization of {@link SqmFrom} for sub-query correlations
@@ -19,10 +21,12 @@ import org.hibernate.query.sqm.tree.from.SqmRoot;
  * @author Steve Ebersole
  */
 public interface SqmCorrelation<L,R> extends SqmFrom<L,R>, SqmPathWrapper<R,R> {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqmRoot<L> getCorrelatedRoot();
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SqmRoot<?> findRoot() {
 		return getCorrelatedRoot();
 	}

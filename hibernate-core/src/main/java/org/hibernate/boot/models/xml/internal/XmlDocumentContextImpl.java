@@ -12,6 +12,8 @@ import org.hibernate.boot.spi.BootstrapContext;
 import org.hibernate.boot.spi.EffectiveMappingDefaults;
 import org.hibernate.internal.util.StringHelper;
 import org.hibernate.models.spi.ModelsContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -34,25 +36,30 @@ public class XmlDocumentContextImpl implements XmlDocumentContext {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public XmlDocument getXmlDocument() {
 		return xmlDocument;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EffectiveMappingDefaults getEffectiveDefaults() {
 		return effectiveDefaults;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ModelsContext getModelBuildingContext() {
 		return modelBuildingContext;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BootstrapContext getBootstrapContext() {
 		return bootstrapContext;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static EffectiveMappingDefaults buildEffectiveDefaults(
 			XmlDocument xmlDocument,
 			RootMappingDefaults mappingDefaults) {

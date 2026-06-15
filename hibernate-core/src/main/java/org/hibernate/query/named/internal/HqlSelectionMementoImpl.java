@@ -23,6 +23,8 @@ import org.hibernate.query.sqm.tree.SqmStatement;
 
 import java.io.Serializable;
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Definition of a named query, defined in the mapping metadata.
@@ -79,54 +81,64 @@ public class HqlSelectionMementoImpl<R>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getHqlString() {
 		return hqlString;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSelectionString() {
 		return getHqlString();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmStatement<R> getSqmStatement() {
 		return null;
 	}
 
 	@Override
 	@Nullable //FIXME: declared @Nonnull by JPA
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class< R> getResultType() {
 		return queryType;
 	}
 
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getEntityGraphName() {
 		return entityGraphName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, String> getAnticipatedParameterTypes() {
 		return parameterTypes;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NamedSqmQueryMemento<R> makeCopy(String name) {
 		return new HqlSelectionMementoImpl<>( name, this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void validate(QueryEngine queryEngine) {
 		final var interpretationCache = queryEngine.getInterpretationCache();
 		interpretationCache.resolveHqlInterpretation( hqlString, getResultType(), queryEngine.getHqlTranslator() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SelectionQueryImplementor<R> toSelectionQuery(SharedSessionContractImplementor session) {
 		return toSelectionQuery( session, queryType );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> SelectionQueryImplementor<T> toSelectionQuery(SharedSessionContractImplementor session, Class<T> javaType) {
 		final HqlInterpretation<T> interpretation = QueryHelper.interpretation( this, javaType, session );
 		return new SelectionQueryImpl<>( this, interpretation, javaType, session );

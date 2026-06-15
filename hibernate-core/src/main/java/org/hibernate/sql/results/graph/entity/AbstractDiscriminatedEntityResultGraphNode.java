@@ -15,6 +15,8 @@ import org.hibernate.sql.results.graph.FetchParent;
 import org.hibernate.sql.results.graph.Fetchable;
 import org.hibernate.sql.results.graph.internal.ImmutableFetchList;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public abstract class AbstractDiscriminatedEntityResultGraphNode implements DomainResultGraphNode, FetchParent {
 	private final NavigablePath navigablePath;
@@ -35,6 +37,7 @@ public abstract class AbstractDiscriminatedEntityResultGraphNode implements Doma
 		this.baseAssociationJtd = baseAssociationJtd;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void afterInitialize(DomainResultCreationState creationState) {
 		this.fetches = creationState.visitFetches( this );
 		assert fetches.size() == 2;
@@ -43,49 +46,59 @@ public abstract class AbstractDiscriminatedEntityResultGraphNode implements Doma
 		keyValueFetch = fetches.get( graphedPart.getKeyPart() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Fetch getDiscriminatorValueFetch() {
 		return discriminatorValueFetch;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Fetch getKeyValueFetch() {
 		return keyValueFetch;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<?> getBaseAssociationJtd() {
 		return baseAssociationJtd;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigablePath getNavigablePath() {
 		return navigablePath;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<?> getResultJavaType() {
 		return baseAssociationJtd;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean containsAnyNonScalarResults() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DiscriminatedAssociationModelPart getReferencedMappingContainer() {
 		return graphedPart;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DiscriminatedAssociationModelPart getReferencedMappingType() {
 		return graphedPart;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ImmutableFetchList getFetches() {
 		return fetches;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Fetch findFetch(Fetchable fetchable) {
 		if ( graphedPart.getDiscriminatorMapping() == fetchable ) {
 			return discriminatorValueFetch;
@@ -99,15 +112,18 @@ public abstract class AbstractDiscriminatedEntityResultGraphNode implements Doma
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasJoinFetches() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean containsCollectionFetches() {
 		return false;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void collectValueIndexesToCache(BitSet valueIndexes) {
 		FetchParent.super.collectValueIndexesToCache( valueIndexes );
 	}

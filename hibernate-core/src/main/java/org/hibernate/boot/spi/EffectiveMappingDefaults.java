@@ -13,6 +13,8 @@ import org.hibernate.cache.spi.access.AccessType;
 import org.hibernate.metamodel.CollectionClassification;
 
 import jakarta.persistence.CascadeType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Defaults which are in effect for each mapping.
@@ -35,6 +37,7 @@ public interface EffectiveMappingDefaults {
 	 * @see MappingDefaults#getImplicitCatalogName()
 	 * @see PersistenceUnitMetadata#getDefaultCatalog()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getDefaultCatalogName();
 
 	/**
@@ -43,6 +46,7 @@ public interface EffectiveMappingDefaults {
 	 * @see MappingDefaults#getImplicitCatalogName()
 	 * @see PersistenceUnitMetadata#getDefaultCatalog()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getDefaultSchemaName();
 
 	/**
@@ -52,6 +56,7 @@ public interface EffectiveMappingDefaults {
 	 * @see PersistenceUnitMetadata#useQuotedIdentifiers()
 	 *
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isDefaultQuoteIdentifiers();
 
 	/**
@@ -59,6 +64,7 @@ public interface EffectiveMappingDefaults {
 	 * the mapping.
 	 * Falls back to {@value #DEFAULT_IDENTIFIER_COLUMN_NAME}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getDefaultIdColumnName();
 
 	/**
@@ -66,6 +72,7 @@ public interface EffectiveMappingDefaults {
 	 * in the mapping.
 	 * Falls back to {@value #DEFAULT_DISCRIMINATOR_COLUMN_NAME}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getDefaultDiscriminatorColumnName();
 
 	/**
@@ -73,6 +80,7 @@ public interface EffectiveMappingDefaults {
 	 * specified in the mapping.
 	 * Falls back to {@value #DEFAULT_TENANT_IDENTIFIER_COLUMN_NAME}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getDefaultTenantIdColumnName();
 
 	/**
@@ -82,6 +90,7 @@ public interface EffectiveMappingDefaults {
 	 * @see MappingDefaults#getImplicitPackageName()
 	 * @see JaxbEntityMappingsImpl#getPackage()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getDefaultPackageName();
 
 	/**
@@ -90,6 +99,7 @@ public interface EffectiveMappingDefaults {
 	 * @see MappingDefaults#isAutoImportEnabled()
 	 * @see JaxbEntityMappingsImpl#isAutoImport()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isDefaultAutoImport();
 
 	/**
@@ -99,6 +109,7 @@ public interface EffectiveMappingDefaults {
 	 * @see PersistenceUnitMetadata#getDefaultCascadeTypes()
 	 * @see JaxbEntityMappingsImpl#getDefaultCascade()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EnumSet<CascadeType> getDefaultCascadeTypes();
 
 	/**
@@ -106,6 +117,7 @@ public interface EffectiveMappingDefaults {
 	 *
 	 * @see PersistenceUnitMetadata#getAccessType()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	jakarta.persistence.AccessType getDefaultPropertyAccessType();
 
 	/**
@@ -116,6 +128,7 @@ public interface EffectiveMappingDefaults {
 	 * @see MappingDefaults#getImplicitPropertyAccessorName()
 	 * @see JaxbEntityMappingsImpl#getAttributeAccessor()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getDefaultAccessStrategyName();
 
 	/**
@@ -125,6 +138,7 @@ public interface EffectiveMappingDefaults {
 	 * @see JaxbEntityMappingsImpl#isDefaultLazy()
 	 * @see JaxbPersistenceImpl.JaxbPersistenceUnitImpl#getDefaultToOneFetchType()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isDefaultEntityLaziness();
 
 	/**
@@ -133,6 +147,7 @@ public interface EffectiveMappingDefaults {
 	 * @see MappingDefaults#areCollectionsImplicitlyLazy() ()
 	 * @see JaxbEntityMappingsImpl#isDefaultLazy()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isDefaultCollectionLaziness();
 
 	/**
@@ -140,12 +155,14 @@ public interface EffectiveMappingDefaults {
 	 *
 	 * @see MappingDefaults#getImplicitCacheAccessType()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	AccessType getDefaultCacheAccessType();
 
 	/**
 	 * @deprecated No longer supported
 	 */
 	@Deprecated
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default CollectionClassification getDefaultListClassification() {
 		return CollectionClassification.LIST;
 	}

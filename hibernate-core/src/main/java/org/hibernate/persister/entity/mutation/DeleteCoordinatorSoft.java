@@ -12,6 +12,8 @@ import org.hibernate.sql.ast.tree.expression.ColumnReference;
 import org.hibernate.sql.model.MutationOperation;
 import org.hibernate.sql.model.MutationOperationGroup;
 import org.hibernate.sql.model.ast.builder.TableUpdateBuilderStandard;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * DeleteCoordinator for soft-deletes
@@ -24,6 +26,7 @@ public class DeleteCoordinatorSoft extends AbstractDeleteCoordinator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected MutationOperationGroup generateOperationGroup(
 			Object rowId,
 			Object[] loadedState,
@@ -45,6 +48,7 @@ public class DeleteCoordinatorSoft extends AbstractDeleteCoordinator {
 		return createMutationOperationGroup( tableUpdateBuilder );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void applySoftDelete(
 			SoftDeleteMapping softDeleteMapping,
 			TableUpdateBuilderStandard<MutationOperation> tableUpdateBuilder) {

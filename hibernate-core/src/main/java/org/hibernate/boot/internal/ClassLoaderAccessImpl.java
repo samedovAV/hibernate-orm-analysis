@@ -12,6 +12,8 @@ import org.hibernate.boot.spi.ClassLoaderAccess;
 import org.hibernate.service.ServiceRegistry;
 
 import static org.hibernate.boot.BootLogging.BOOT_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard implementation of ClassLoaderAccess
@@ -38,12 +40,14 @@ public class ClassLoaderAccessImpl implements ClassLoaderAccess {
 		this( null, classLoaderService );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void injectTempClassLoader(ClassLoader jpaTempClassLoader) {
 		this.jpaTempClassLoader = jpaTempClassLoader;
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Class<?> classForName(String name) {
 		if ( name == null ) {
 			throw new IllegalArgumentException( "Name of class to load cannot be null" );
@@ -69,6 +73,7 @@ public class ClassLoaderAccessImpl implements ClassLoaderAccess {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean isSafeClass(String name) {
 		// classes in any of these packages are safe to load through the "live" ClassLoader
 		return name.startsWith( "java." )
@@ -78,15 +83,18 @@ public class ClassLoaderAccessImpl implements ClassLoaderAccess {
 
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ClassLoader getJpaTempClassLoader() {
 		return jpaTempClassLoader;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public URL locateResource(String resourceName) {
 		return classLoaderService.locateResource( resourceName );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void release() {
 	}
 }

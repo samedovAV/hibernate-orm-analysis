@@ -13,6 +13,8 @@ import org.hibernate.Remove;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The contract for getting the value of a persistent attribute from its container/owner.
@@ -29,7 +31,8 @@ public interface Getter {
 	 *
 	 * @return The extracted value.
 	 */
-	@Nullable Object get(Object owner);
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	Object get(Object owner);
 
 	/**
 	 * Get the property value from the given owner instance.
@@ -40,13 +43,15 @@ public interface Getter {
 	 *
 	 * @return The extracted value.
 	 */
-	@Nullable Object getForInsert(Object owner, Map<Object, Object> mergeMap, SharedSessionContractImplementor session);
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	Object getForInsert(Object owner, Map<Object, Object> mergeMap, SharedSessionContractImplementor session);
 
 	/**
 	 * Retrieve the declared Java type class
 	 *
 	 * @return The declared java type class.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Class<?> getReturnTypeClass();
 
 	/**
@@ -54,6 +59,7 @@ public interface Getter {
 	 *
 	 * @return The declared java type.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Type getReturnType();
 
 	/**
@@ -64,7 +70,8 @@ public interface Getter {
 	 *
 	 * @return The mapped member, or {@code null}.
 	 */
-	@Nullable Member getMember();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	Member getMember();
 
 	/**
 	 * Retrieve the getter-method name.
@@ -73,7 +80,8 @@ public interface Getter {
 	 *
 	 * @return The name of the getter method, or {@code null}.
 	 */
-	@Nullable String getMethodName();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	String getMethodName();
 
 	/**
 	 * Retrieve the getter-method.
@@ -82,5 +90,6 @@ public interface Getter {
 	 *
 	 * @return The getter method, or {@code null}.
 	 */
-	@Nullable Method getMethod();
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	Method getMethod();
 }

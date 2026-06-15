@@ -9,6 +9,8 @@ import org.hibernate.SessionFactoryObserver;
 import org.hibernate.engine.jndi.spi.JndiService;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.internal.SessionFactoryRegistry;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Responsible for registering and de-registering the {@link SessionFactory}
@@ -24,6 +26,7 @@ class SessionFactoryObserverForRegistration implements SessionFactoryObserver {
 	private JndiService jndiService;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void sessionFactoryCreated(SessionFactory factory) {
 		final var sessionFactory = (SessionFactoryImplementor) factory;
 		jndiService = sessionFactory.getServiceRegistry().getService( JndiService.class );
@@ -37,6 +40,7 @@ class SessionFactoryObserverForRegistration implements SessionFactoryObserver {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void sessionFactoryClosed(SessionFactory factory) {
 		final var sessionFactory = (SessionFactoryImplementor) factory;
 		SessionFactoryRegistry.INSTANCE.removeSessionFactory(

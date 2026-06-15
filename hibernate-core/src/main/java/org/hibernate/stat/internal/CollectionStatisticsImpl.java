@@ -9,6 +9,8 @@ import java.util.concurrent.atomic.LongAdder;
 
 import org.hibernate.persister.collection.CollectionPersister;
 import org.hibernate.stat.CollectionStatistics;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Collection related statistics
@@ -32,46 +34,57 @@ public class CollectionStatisticsImpl extends AbstractCacheableDataStatistics im
 		collectionRole = persister.getRole();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getLoadCount() {
 		return loadCount.sum();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getFetchCount() {
 		return fetchCount.sum();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getRecreateCount() {
 		return recreateCount.sum();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getRemoveCount() {
 		return removeCount.sum();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getUpdateCount() {
 		return updateCount.sum();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void incrementLoadCount() {
 		loadCount.increment();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void incrementFetchCount() {
 		fetchCount.increment();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void incrementUpdateCount() {
 		updateCount.increment();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void incrementRecreateCount() {
 		recreateCount.increment();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void incrementRemoveCount() {
 		removeCount.increment();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String toString() {
 		final var text = new StringBuilder()
 				.append( "CollectionStatistics" )

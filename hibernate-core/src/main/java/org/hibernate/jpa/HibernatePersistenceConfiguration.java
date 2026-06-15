@@ -38,6 +38,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -160,6 +162,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionFactory createEntityManagerFactory() {
 		new EntityManagerFactoryBuilderImpl( this ).build();
 
@@ -173,6 +176,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @see #JDBC_DRIVER
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration jdbcDriver(String driverName) {
 		property( JDBC_DRIVER, driverName );
 		return this;
@@ -185,6 +189,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @see #JDBC_URL
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration jdbcUrl(String url) {
 		property( JDBC_URL, url );
 		return this;
@@ -199,6 +204,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @see javax.sql.DataSource#getConnection(String, String)
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration jdbcUsername(String username) {
 		property( JDBC_USER, username );
 		return this;
@@ -213,6 +219,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @see javax.sql.DataSource#getConnection(String, String)
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration jdbcPassword(String password) {
 		property( JDBC_PASSWORD, password );
 		return this;
@@ -229,6 +236,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @see javax.sql.DataSource#getConnection(String, String)
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration jdbcCredentials(String username, String password) {
 		jdbcUsername( username );
 		jdbcPassword( password );
@@ -242,6 +250,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @see JdbcSettings#POOL_SIZE
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration jdbcPoolSize(int poolSize) {
 		property( JdbcSettings.POOL_SIZE, poolSize );
 		return this;
@@ -255,6 +264,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @see JdbcSettings#AUTOCOMMIT
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration jdbcAutocommit(boolean autocommit) {
 		property( JdbcSettings.AUTOCOMMIT, autocommit );
 		return this;
@@ -274,6 +284,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @see JdbcSettings#ISOLATION
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration jdbcTransactionIsolation(int isolationLevel) {
 		property( JdbcSettings.ISOLATION, isolationLevel );
 		return this;
@@ -290,6 +301,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @param highlightSql should logged SQL be highlighted with pretty colors
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration showSql(boolean showSql, boolean formatSql, boolean highlightSql) {
 		property( JdbcSettings.SHOW_SQL, showSql );
 		property( JdbcSettings.FORMAT_SQL, formatSql );
@@ -304,6 +316,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @see JpaComplianceSettings#JPA_QUERY_COMPLIANCE
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration queryCompliance(boolean enabled) {
 		property( JpaComplianceSettings.JPA_QUERY_COMPLIANCE, enabled );
 		return this;
@@ -316,6 +329,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @see JpaComplianceSettings#JPA_TRANSACTION_COMPLIANCE
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration transactionCompliance(boolean enabled) {
 		property( JpaComplianceSettings.JPA_TRANSACTION_COMPLIANCE, enabled );
 		return this;
@@ -331,6 +345,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @see JpaComplianceSettings#JPA_CLOSED_COMPLIANCE
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration closedCompliance(boolean enabled) {
 		property( JpaComplianceSettings.JPA_CLOSED_COMPLIANCE, enabled );
 		return this;
@@ -343,6 +358,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @see JpaComplianceSettings#JPA_PROXY_COMPLIANCE
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration proxyCompliance(boolean enabled) {
 		property( JpaComplianceSettings.JPA_PROXY_COMPLIANCE, enabled );
 		return this;
@@ -355,6 +371,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @see JpaComplianceSettings#JPA_PROXY_COMPLIANCE
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration cachingCompliance(boolean enabled) {
 		property( JpaComplianceSettings.JPA_PROXY_COMPLIANCE, enabled );
 		return this;
@@ -367,6 +384,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @see JpaComplianceSettings#JPA_ID_GENERATOR_GLOBAL_SCOPE_COMPLIANCE
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration globalGeneratorCompliance(boolean enabled) {
 		property( JpaComplianceSettings.JPA_ID_GENERATOR_GLOBAL_SCOPE_COMPLIANCE, enabled );
 		return this;
@@ -379,6 +397,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @see JpaComplianceSettings#JPA_ORDER_BY_MAPPING_COMPLIANCE
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration orderByMappingCompliance(boolean enabled) {
 		property( JpaComplianceSettings.JPA_ORDER_BY_MAPPING_COMPLIANCE, enabled );
 		return this;
@@ -393,6 +412,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @see JpaComplianceSettings#JPA_LOAD_BY_ID_COMPLIANCE
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration loadByIdCompliance(boolean enabled) {
 		property( JpaComplianceSettings.JPA_LOAD_BY_ID_COMPLIANCE, enabled );
 		return this;
@@ -402,6 +422,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * Enable or disable the second-level and query caches.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration caching(@Nonnull CachingType type) {
 		assert Objects.nonNull( type );
 		if ( type == CachingType.NONE || type == CachingType.AUTO ) {
@@ -433,6 +454,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @see CacheSettings#DEFAULT_CACHE_CONCURRENCY_STRATEGY
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration cachingAccessType(@Nonnull AccessType type) {
 		// todo (7.0) : should this enable second-level cache if not?
 		property( CacheSettings.DEFAULT_CACHE_CONCURRENCY_STRATEGY, type );
@@ -445,6 +467,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @see JdbcSettings#STATEMENT_INSPECTOR
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration statementInspector(Class<? extends StatementInspector> inspectorImpl) {
 		property( JdbcSettings.STATEMENT_INSPECTOR, inspectorImpl );
 		return this;
@@ -456,6 +479,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @see JdbcSettings#STATEMENT_INSPECTOR
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration statementInspector(StatementInspector inspector) {
 		property( JdbcSettings.STATEMENT_INSPECTOR, inspector );
 		return this;
@@ -468,6 +492,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @see MappingSettings#DEFAULT_CATALOG
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration defaultCatalog(String catalogName) {
 		property( MappingSettings.DEFAULT_CATALOG, catalogName );
 		return this;
@@ -480,6 +505,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @see MappingSettings#DEFAULT_SCHEMA
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration defaultSchema(String schemaName) {
 		property( MappingSettings.DEFAULT_SCHEMA, schemaName );
 		return this;
@@ -491,6 +517,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 *
 	 * @see MappingSettings#USE_NATIONALIZED_CHARACTER_DATA
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration nationalizedCharacterData(boolean enabled) {
 		property( MappingSettings.USE_NATIONALIZED_CHARACTER_DATA, enabled );
 		return this;
@@ -501,6 +528,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 *
 	 * @see MappingSettings#XML_MAPPING_ENABLED
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration xmlMappings(boolean enabled) {
 		property( MappingSettings.XML_MAPPING_ENABLED, enabled );
 		return this;
@@ -511,6 +539,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 *
 	 * @see MappingSettings#VALIDATE_XML
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration xmlValidation(boolean enabled) {
 		property( MappingSettings.VALIDATE_XML, enabled );
 		return this;
@@ -521,6 +550,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 *
 	 * @see StatisticsSettings#GENERATE_STATISTICS
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration collectStatistics(boolean enabled) {
 		property( StatisticsSettings.GENERATE_STATISTICS, enabled );
 		return this;
@@ -532,6 +562,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @see #managedClass
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public HibernatePersistenceConfiguration managedClasses(@Nonnull Class<?>... managedClasses) {
 		Collections.addAll( managedClasses(), managedClasses );
 		return this;
@@ -543,6 +574,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @see #managedClass
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public HibernatePersistenceConfiguration managedClasses(@Nonnull Collection<Class<?>> managedClasses) {
 		managedClasses().addAll( managedClasses );
 		return this;
@@ -554,6 +586,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @see #mappingFiles()
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public HibernatePersistenceConfiguration mappingFiles(@Nonnull String... names) {
 		Collections.addAll( mappingFiles(), names );
 		return this;
@@ -565,6 +598,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @see #mappingFiles()
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public HibernatePersistenceConfiguration mappingFiles(@Nonnull Collection<String> names) {
 		mappingFiles().addAll( names );
 		return this;
@@ -581,6 +615,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @since 7.1
 	 */
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public URL rootUrl() {
 		return rootUrl;
 	}
@@ -596,6 +631,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @since 7.1
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<URL> jarFileUrls() {
 		return jarFileUrls;
 	}
@@ -608,6 +644,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @since 7.1
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration jarFileUrl(@Nonnull URL url) {
 		jarFileUrls.add( url );
 		return this;
@@ -621,6 +658,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @since 7.1
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration jarFileUrls(@Nonnull URL... urls) {
 		Collections.addAll( jarFileUrls, urls );
 		return this;
@@ -634,6 +672,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @since 7.1
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration jarFileUrls(@Nonnull Collection<URL> urls) {
 		jarFileUrls.addAll( urls );
 		return this;
@@ -648,6 +687,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @since 8.0
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration jarFileUrl(@Nonnull Class<?> classFromJarFile) {
 		jarFileUrls.add( classFromJarFile.getProtectionDomain().getCodeSource().getLocation() );
 		return this;
@@ -662,6 +702,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @since 8.0
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public HibernatePersistenceConfiguration jarFileUrls(@Nonnull Class<?>... classesFromJarFiles) {
 		for ( int i = 0; i < classesFromJarFiles.length; i++ ) {
 			jarFileUrls.add( classesFromJarFiles[i].getProtectionDomain().getCodeSource().getLocation() );
@@ -680,6 +721,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @see SchemaToolingSettings#HBM2DDL_AUTO
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration schemaToolingAction(Action action) {
 		property( SchemaToolingSettings.HBM2DDL_AUTO, action );
 		return this;
@@ -691,6 +733,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @see JdbcSettings#STATEMENT_OBSERVER
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration statementObserver(StatementObserver statementObserver) {
 		property( JdbcSettings.STATEMENT_OBSERVER, statementObserver );
 		return this;
@@ -702,6 +745,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 	 * @see JdbcSettings#STATEMENT_OBSERVER
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernatePersistenceConfiguration statementObserver(Class<? extends StatementObserver> statementObserverImpl) {
 		property( JdbcSettings.STATEMENT_OBSERVER, statementObserverImpl );
 		return this;
@@ -713,6 +757,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public HibernatePersistenceConfiguration provider(@Nullable String providerClassName) {
 		super.provider( providerClassName );
 		return this;
@@ -720,6 +765,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public HibernatePersistenceConfiguration jtaDataSource(@Nullable String dataSourceJndiName) {
 		super.jtaDataSource( dataSourceJndiName );
 		return this;
@@ -727,6 +773,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public HibernatePersistenceConfiguration nonJtaDataSource(@Nullable String dataSourceJndiName) {
 		super.nonJtaDataSource( dataSourceJndiName );
 		return this;
@@ -734,6 +781,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public HibernatePersistenceConfiguration managedClass(@Nonnull Class<?> managedClass) {
 		super.managedClass( managedClass );
 		return this;
@@ -741,6 +789,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public HibernatePersistenceConfiguration mappingFile(@Nonnull String name) {
 		super.mappingFile( name );
 		return this;
@@ -748,6 +797,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public HibernatePersistenceConfiguration transactionType(@Nonnull PersistenceUnitTransactionType transactionType) {
 		super.transactionType( transactionType );
 		return this;
@@ -755,6 +805,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public HibernatePersistenceConfiguration sharedCacheMode(@Nonnull SharedCacheMode sharedCacheMode) {
 		super.sharedCacheMode( sharedCacheMode );
 		return this;
@@ -762,6 +813,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public HibernatePersistenceConfiguration validationMode(@Nonnull ValidationMode validationMode) {
 		super.validationMode( validationMode );
 		return this;
@@ -769,6 +821,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public HibernatePersistenceConfiguration defaultToOneFetchType(@Nonnull FetchType defaultToOneFetchType) {
 		super.defaultToOneFetchType( defaultToOneFetchType );
 		return this;
@@ -776,6 +829,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public HibernatePersistenceConfiguration schemaManagementDatabaseAction(@Nonnull SchemaManagementAction action) {
 		super.schemaManagementDatabaseAction( action );
 		return this;
@@ -783,6 +837,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public HibernatePersistenceConfiguration schemaManagementScriptsAction(@Nonnull SchemaManagementAction action) {
 		super.schemaManagementScriptsAction( action );
 		return this;
@@ -790,6 +845,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public HibernatePersistenceConfiguration property(@Nonnull String name, @Nullable Object value) {
 		super.property( name, value );
 		return this;
@@ -797,6 +853,7 @@ public class HibernatePersistenceConfiguration extends PersistenceConfiguration 
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public HibernatePersistenceConfiguration properties(@Nonnull Map<String, ?> properties) {
 		super.properties( properties );
 		return this;

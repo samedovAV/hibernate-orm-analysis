@@ -24,6 +24,8 @@ import org.jboss.logging.Logger;
 import static org.hibernate.engine.jdbc.JdbcLogging.JDBC_LOGGER;
 
 import static org.hibernate.internal.util.NullnessUtil.castNonNull;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Strategy based on ANSI SQL's definition of a "global temporary table".
@@ -55,15 +57,18 @@ public class GlobalTemporaryTableStrategy {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected static TemporaryTableStrategy requireGlobalTemporaryTableStrategy(Dialect dialect) {
 		return Objects.requireNonNull( dialect.getGlobalTemporaryTableStrategy(),
 				"Dialect does not define a global temporary table strategy: " + dialect.getClass().getSimpleName() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TemporaryTableStrategy getTemporaryTableStrategy() {
 		return castNonNull( sessionFactory.getJdbcServices().getDialect().getGlobalTemporaryTableStrategy() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void prepare(MappingModelCreationProcess mappingModelCreationProcess, JdbcConnectionAccess connectionAccess) {
 		if ( prepared ) {
 			return;
@@ -110,6 +115,7 @@ public class GlobalTemporaryTableStrategy {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void release(SessionFactoryImplementor sessionFactory, JdbcConnectionAccess connectionAccess) {
 		if ( !dropIdTables ) {
 			return;
@@ -151,10 +157,12 @@ public class GlobalTemporaryTableStrategy {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TemporaryTable getTemporaryTable() {
 		return temporaryTable;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SessionFactoryImplementor getSessionFactory() {
 		return sessionFactory;
 	}

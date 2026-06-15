@@ -27,6 +27,8 @@ import static java.util.Collections.emptySet;
 import static java.util.Collections.unmodifiableList;
 import static org.hibernate.internal.util.collections.CollectionHelper.isNotEmpty;
 import static org.hibernate.internal.util.collections.CollectionHelper.setOfSize;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A list of {@linkplain Executable executable actions}. Responsible
@@ -53,6 +55,7 @@ public class ExecutableList<E extends ComparableExecutable>
 		/**
 		 * Sorts the list.
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void sort(List<ComparableExecutable> l);
 	}
 
@@ -128,6 +131,7 @@ public class ExecutableList<E extends ComparableExecutable>
 	 *
 	 * @return the querySpaces affected by the actions in this list
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Set<Serializable> getQuerySpaces() {
 		if ( querySpaces == null ) {
 			for ( var executable : executables ) {
@@ -149,6 +153,7 @@ public class ExecutableList<E extends ComparableExecutable>
 	/**
 	 * @return true if the list is empty.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isEmpty() {
 		return executables.isEmpty();
 	}
@@ -160,6 +165,7 @@ public class ExecutableList<E extends ComparableExecutable>
 	 *
 	 * @return the entry that was removed
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public ComparableExecutable remove(int index) {
 		// removals are generally safe with regard to sorting
 		final var executable = executables.remove( index );
@@ -178,6 +184,7 @@ public class ExecutableList<E extends ComparableExecutable>
 	/**
 	 * Clears the list of executions.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void clear() {
 		executables.clear();
 		querySpaces = null;
@@ -189,6 +196,7 @@ public class ExecutableList<E extends ComparableExecutable>
 	 *
 	 * @param n The number of elements to remove.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void removeLastN(int n) {
 		if ( n > 0 ) {
 			final int size = executables.size();
@@ -211,6 +219,7 @@ public class ExecutableList<E extends ComparableExecutable>
 	 *
 	 * @return true if the object was added to the list
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean add(E executable) {
 		final var previousLast =
 				sorter != null || executables.isEmpty()
@@ -249,6 +258,7 @@ public class ExecutableList<E extends ComparableExecutable>
 	 * Sorts the list using the natural ordering or using the {@link Sorter}
 	 * if it's not null.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void sort() {
 		if ( !sorted && requiresSorting ) {
 			if ( sorter != null ) {
@@ -265,6 +275,7 @@ public class ExecutableList<E extends ComparableExecutable>
 	/**
 	 * @return the current size of the list
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int size() {
 		return executables.size();
 	}
@@ -274,6 +285,7 @@ public class ExecutableList<E extends ComparableExecutable>
 	 *
 	 * @return The element at specified index
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public E get(int index) {
 		return executables.get( index );
 	}
@@ -284,6 +296,7 @@ public class ExecutableList<E extends ComparableExecutable>
 	 * @return an unmodifiable iterator
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Iterator<E> iterator() {
 		return unmodifiableList( executables ).iterator();
 	}
@@ -294,6 +307,7 @@ public class ExecutableList<E extends ComparableExecutable>
 	 * @param oos The stream to which to serialize our state
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void writeExternal(ObjectOutput oos) throws IOException {
 		oos.writeBoolean( sorted );
 
@@ -323,6 +337,7 @@ public class ExecutableList<E extends ComparableExecutable>
 	 * @param in The stream from which to read our serial state
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
 		sorted = in.readBoolean();
 
@@ -356,12 +371,14 @@ public class ExecutableList<E extends ComparableExecutable>
 	 *
 	 * @param session The session with which to associate the {@code Executable}s
 	 */
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void afterDeserialize(EventSource session) {
 		for ( var executable : executables ) {
 			executable.afterDeserialize( session );
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "ExecutableList{size=" + executables.size() + "}";
 	}

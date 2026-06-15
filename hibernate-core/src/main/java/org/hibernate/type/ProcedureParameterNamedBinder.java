@@ -9,6 +9,8 @@ import java.sql.SQLException;
 
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Optional {@link Type} contract for implementations enabled
@@ -23,6 +25,7 @@ public interface ProcedureParameterNamedBinder<J> {
 	 *
 	 * @return {@code true} indicates that @{link #nullSafeSet} calls will not fail
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean canDoSetting();
 
 	/**
@@ -38,5 +41,6 @@ public interface ProcedureParameterNamedBinder<J> {
 	 * @throws HibernateException An error from Hibernate
 	 * @throws SQLException An error from the JDBC driver
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void nullSafeSet(CallableStatement statement, J value, String name, SharedSessionContractImplementor session) throws SQLException;
 }

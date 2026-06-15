@@ -11,6 +11,8 @@ import org.hibernate.query.sql.spi.NativeSelectQueryDefinition;
 import org.hibernate.query.sql.spi.NativeSelectQueryPlan;
 import org.hibernate.query.sql.spi.ParameterRecognizer;
 import org.hibernate.service.Service;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Service contract for dealing with native queries.
@@ -28,11 +30,13 @@ public interface NativeQueryInterpreter extends Service {
 	 * @param nativeQuery The query to recognize parameters in
 	 * @param recognizer The recognizer to call
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void recognizeParameters(String nativeQuery, ParameterRecognizer recognizer);
 
 	/**
 	 * Creates a new query plan for the passed native query definition
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <R> NativeSelectQueryPlan<R> createQueryPlan(
 			NativeSelectQueryDefinition<R> queryDefinition,
 			SessionFactoryImplementor sessionFactory) {

@@ -17,6 +17,8 @@ import org.hibernate.proxy.ProxyFactory;
 import org.hibernate.type.CompositeType;
 
 import static org.hibernate.internal.util.collections.ArrayHelper.EMPTY_CLASS_ARRAY;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class ByteBuddyProxyFactory implements ProxyFactory, Serializable {
 
@@ -37,6 +39,7 @@ public class ByteBuddyProxyFactory implements ProxyFactory, Serializable {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void postInstantiate(
 			String entityName,
 			Class<?> persistentClass,
@@ -54,11 +57,13 @@ public class ByteBuddyProxyFactory implements ProxyFactory, Serializable {
 		this.proxyClass = byteBuddyProxyHelper.buildProxy( persistentClass, this.interfaces );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private Class<?>[] toArray(Set<Class<?>> interfaces) {
 		return interfaces == null ? EMPTY_CLASS_ARRAY : interfaces.toArray(EMPTY_CLASS_ARRAY);
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernateProxy getProxy(
 			Object id,
 			SharedSessionContractImplementor session) throws HibernateException {
@@ -83,6 +88,7 @@ public class ByteBuddyProxyFactory implements ProxyFactory, Serializable {
 		return instance;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private HibernateProxy getHibernateProxy() {
 		final var internal = getHibernateProxyInternal();
 		final var hibernateProxy = internal.asHibernateProxy();
@@ -98,6 +104,7 @@ public class ByteBuddyProxyFactory implements ProxyFactory, Serializable {
 	 * We therefore declare it as PrimeAmongSecondarySupertypes, and require the
 	 * invoker to perform the narrowing
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private PrimeAmongSecondarySupertypes getHibernateProxyInternal() throws HibernateException {
 		try {
 			return (PrimeAmongSecondarySupertypes) proxyClass.getConstructor().newInstance();

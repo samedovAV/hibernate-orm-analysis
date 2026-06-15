@@ -12,12 +12,15 @@ import org.hibernate.internal.util.StringHelper;
 import org.hibernate.models.spi.MutableMemberDetails;
 
 import jakarta.persistence.ForeignKey;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
  */
 public class ForeignKeyProcessing {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void applyForeignKey(
 			JaxbForeignKeyImpl jaxbForeignKey,
 			MutableMemberDetails memberDetails,
@@ -29,6 +32,7 @@ public class ForeignKeyProcessing {
 		createForeignKeyAnnotation( jaxbForeignKey, memberDetails, xmlDocumentContext );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static ForeignKey createForeignKeyAnnotation(
 			JaxbForeignKeyImpl jaxbForeignKey,
 			MutableMemberDetails memberDetails,
@@ -44,6 +48,7 @@ public class ForeignKeyProcessing {
 		return foreignKeyUsage;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void transferFkDetails(
 			JaxbForeignKeyImpl jaxbForeignKey,
 			ForeignKeyJpaAnnotation foreignKeyUsage,
@@ -64,6 +69,7 @@ public class ForeignKeyProcessing {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static ForeignKeyJpaAnnotation createNestedForeignKeyAnnotation(
 			JaxbForeignKeyImpl jaxbForeignKey,
 			XmlDocumentContext xmlDocumentContext) {

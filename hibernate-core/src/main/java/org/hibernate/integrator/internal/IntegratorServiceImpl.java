@@ -13,6 +13,8 @@ import org.hibernate.integrator.spi.Integrator;
 import org.hibernate.integrator.spi.IntegratorService;
 
 import static org.hibernate.service.internal.ServiceLogger.SERVICE_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -36,6 +38,7 @@ public class IntegratorServiceImpl implements IntegratorService {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void addIntegrator(LinkedHashSet<Integrator> integrators, Integrator integrator) {
 		if ( SERVICE_LOGGER.isDebugEnabled() ) {
 			SERVICE_LOGGER.addingIntegrator( integrator.getClass().getName() );
@@ -44,6 +47,7 @@ public class IntegratorServiceImpl implements IntegratorService {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Iterable<Integrator> getIntegrators() {
 		return integrators;
 	}

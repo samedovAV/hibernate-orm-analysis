@@ -10,6 +10,8 @@ import java.util.Map;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 
 import static org.hibernate.internal.util.collections.CollectionHelper.mapOfSize;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Structured CacheEntry format for persistent Maps.
@@ -23,6 +25,7 @@ public class StructuredMapCacheEntry implements CacheEntryStructure {
 	public static final StructuredMapCacheEntry INSTANCE = new StructuredMapCacheEntry();
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object structure(Object item) {
 		final var entry = (CollectionCacheEntry) item;
 		final Serializable[] state = entry.getState();
@@ -34,6 +37,7 @@ public class StructuredMapCacheEntry implements CacheEntryStructure {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object destructure(Object structured, SessionFactoryImplementor factory) {
 		final var map = (Map<?,?>) structured;
 		final Serializable[] state = new Serializable[ map.size()*2 ];

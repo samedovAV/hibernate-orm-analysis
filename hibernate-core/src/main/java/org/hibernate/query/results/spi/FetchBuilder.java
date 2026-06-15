@@ -13,6 +13,8 @@ import org.hibernate.sql.results.graph.Fetchable;
 import org.hibernate.sql.results.jdbc.spi.JdbcValuesMetadata;
 
 import java.util.function.BiConsumer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Responsible for building a single {@link Fetch} instance.
@@ -28,14 +30,17 @@ import java.util.function.BiConsumer;
  */
 @Incubating
 public interface FetchBuilder extends GraphNodeBuilder {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Fetch buildFetch(
 			FetchParent parent,
 			NavigablePath fetchPath,
 			JdbcValuesMetadata jdbcResultsMetadata,
 			DomainResultCreationState domainResultCreationState);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void visitFetchBuilders(BiConsumer<Fetchable, FetchBuilder> consumer) {
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	FetchBuilder cacheKeyInstance();
 }

@@ -14,6 +14,8 @@ import org.hibernate.metamodel.model.domain.PathSource;
 import org.hibernate.query.sqm.tree.domain.SqmDomainType;
 import org.hibernate.query.sqm.tree.SqmExpressibleAccessor;
 import org.hibernate.query.sqm.tree.domain.SqmPath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents any part of the domain model which can be used to create a
@@ -32,6 +34,7 @@ public interface SqmPathSource<J>
 	 * The type of {@linkplain SqmPath path} this source creates.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqmDomainType<J> getPathType();
 
 	/**
@@ -41,7 +44,8 @@ public interface SqmPathSource<J>
 	 * @return null if the subPathSource is not found
 	 * @throws IllegalStateException to indicate that this source cannot be de-referenced
 	 */
-	@Nullable SqmPathSource<?> findSubPathSource(String name);
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	SqmPathSource<?> findSubPathSource(String name);
 
 	/**
 	 * Find a {@link SqmPathSource} by name relative to this source. If {@code includeSubtypes} is set
@@ -52,6 +56,7 @@ public interface SqmPathSource<J>
 	 * @return null if the subPathSource is not found
 	 * @throws IllegalStateException to indicate that this source cannot be de-referenced
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default @Nullable SqmPathSource<?> findSubPathSource(String name, boolean includeSubtypes) {
 		return findSubPathSource( name );
 	}
@@ -63,6 +68,7 @@ public interface SqmPathSource<J>
 	 * @throws IllegalStateException to indicate that this source cannot be de-referenced
 	 * @throws IllegalArgumentException if the subPathSource is not found
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SqmPathSource<?> getSubPathSource(String name) {
 		final SqmPathSource<?> subPathSource = findSubPathSource( name );
 		if ( subPathSource == null ) {
@@ -87,6 +93,7 @@ public interface SqmPathSource<J>
 	 * @throws IllegalStateException to indicate that this source cannot be de-referenced
 	 * @throws IllegalArgumentException if the subPathSource is not found
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SqmPathSource<?> getSubPathSource(String name, boolean subtypes) {
 		final var subPathSource = findSubPathSource( name, subtypes );
 		if ( subPathSource == null ) {
@@ -106,6 +113,7 @@ public interface SqmPathSource<J>
 	 * Returns the intermediate {@link SqmPathSource} for a path source
 	 * previously acquired via {@link #findSubPathSource(String)}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default @Nullable SqmPathSource<?> getIntermediatePathSource(SqmPathSource<?> pathSource) {
 		return null;
 	}
@@ -113,14 +121,17 @@ public interface SqmPathSource<J>
 	/**
 	 * Create an SQM path for this source relative to the given left hand side
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SqmPath<J> createSqmPath(SqmPath<?> lhs, @Nullable SqmPathSource<?> intermediatePathSource);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default @Nonnull SqmBindableType<J> getExpressible() {
 		return getPathType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default @Nullable SqmDomainType<J> getSqmType() {
 		return getPathType();
 	}
@@ -128,6 +139,7 @@ public interface SqmPathSource<J>
 	/**
 	 * Indicates if this path source is generically typed
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isGeneric() {
 		return false;
 	}

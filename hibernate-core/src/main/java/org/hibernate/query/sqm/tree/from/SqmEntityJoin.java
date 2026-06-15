@@ -30,6 +30,8 @@ import jakarta.persistence.metamodel.EntityType;
 import java.util.List;
 
 import static org.hibernate.query.sqm.spi.SqmCreationHelper.buildRootNavigablePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -75,11 +77,13 @@ public class SqmEntityJoin<L,R>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isImplicitlySelectable() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmEntityJoin<L,R> copy(SqmCopyContext context) {
 		final var existing = context.getCopy( this );
 		if ( existing != null ) {
@@ -99,81 +103,95 @@ public class SqmEntityJoin<L,R>
 		return path;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmRoot<L> getRoot() {
 		return sqmRoot;
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmFrom<?, L> getParent() {
 		return getRoot();
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmRoot<?> findRoot() {
 		return getRoot();
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JoinType getJoinType() {
 		return getSqmJoinType().getCorrespondingJpaJoinType();
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmEntityDomainType<R> getModel() {
 		return (SqmEntityDomainType<R>) super.getModel();
 	}
 
 	@Nullable
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmFrom<?,L> getLhs() {
 		// An entity-join has no LHS
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmEntityDomainType<R> getReferencedPathSource() {
 		return (SqmEntityDomainType<R>) super.getReferencedPathSource();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getEntityName() {
 		return getReferencedPathSource().getHibernateEntityName();
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmEntityJoin<L,R> on(@Nullable JpaExpression<Boolean> restriction) {
 		return (SqmEntityJoin<L,R>) super.on( restriction );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmEntityJoin<L,R> on(@Nonnull Expression<Boolean> restriction) {
 		return (SqmEntityJoin<L,R>) super.on( restriction );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmEntityJoin<L,R> on(@Nullable JpaPredicate... restrictions) {
 		return (SqmEntityJoin<L,R>) super.on( restrictions );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmEntityJoin<L, R> on(@Nonnull BooleanExpression... restrictions) {
 		return (SqmEntityJoin<L,R>) super.on( restrictions );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmEntityJoin<L, R> on(@Nonnull List<? extends Expression<Boolean>> restrictions) {
 		return (SqmEntityJoin<L,R>) super.on( restrictions );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> X accept(SemanticQueryWalker<X> walker) {
 		return walker.visitQualifiedEntityJoin( this );
 	}
@@ -184,12 +202,14 @@ public class SqmEntityJoin<L,R>
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S extends R> SqmTreatedEntityJoin<L,R,S> treatAs(@Nonnull Class<S> treatAsType) {
 		return treatAs( nodeBuilder().getDomainModel().entity( treatAsType ) );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends R> SqmTreatedEntityJoin<L,R,S> treatAs(@Nonnull EntityDomainType<S> treatAsType) {
 		final var treat = (SqmTreatedEntityJoin<L, R, S>) findTreat( treatAsType, null );
 		if ( treat == null ) {
@@ -202,30 +222,35 @@ public class SqmEntityJoin<L,R>
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends R> SqmTreatedEntityJoin<L,R,S> treatAs(@Nonnull Class<S> treatJavaType, @Nullable String alias) {
 		throw new UnsupportedOperationException( "Entity join treats can not be aliased" );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends R> SqmTreatedEntityJoin<L,R,S> treatAs(@Nonnull EntityDomainType<S> treatTarget, @Nullable String alias) {
 		throw new UnsupportedOperationException( "Entity join treats can not be aliased" );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends R> SqmTreatedEntityJoin<L,R,S> treatAs(@Nonnull Class<S> treatJavaType, @Nullable String alias, boolean fetched) {
 		throw new UnsupportedOperationException( "Entity join treats can not be aliased" );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends R> SqmTreatedEntityJoin<L,R,S> treatAs(@Nonnull EntityDomainType<S> treatTarget, @Nullable String alias, boolean fetched) {
 		throw new UnsupportedOperationException( "Entity join treats can not be aliased" );
 	}
 
 	@Nullable
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistentAttribute<? super L, ?> getAttribute() {
 		// there is no attribute
 		return null;
@@ -233,10 +258,12 @@ public class SqmEntityJoin<L,R>
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmCorrelatedEntityJoin<L,R> createCorrelation() {
 		return new SqmCorrelatedEntityJoin<>( this );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmEntityJoin<L,R> makeCopy(SqmCreationProcessingState creationProcessingState) {
 		final var pathRegistry = creationProcessingState.getPathRegistry();
 		return new SqmEntityJoin<>(

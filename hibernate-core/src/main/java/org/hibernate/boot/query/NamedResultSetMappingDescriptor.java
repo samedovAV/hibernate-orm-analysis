@@ -10,6 +10,8 @@ import org.hibernate.query.named.NamedResultSetMappingMemento;
 import org.hibernate.query.spi.QueryEngine;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Models the "boot view" of a ResultSet mapping used in the mapping
@@ -25,6 +27,7 @@ public interface NamedResultSetMappingDescriptor {
 	/**
 	 * The name under which the result-set-mapping is to be registered
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getRegistrationName();
 
 	/**
@@ -33,6 +36,7 @@ public interface NamedResultSetMappingDescriptor {
 	 * in XML or otherwise not associated with a static metamodel class.
 	 */
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String getLocation() {
 		return null;
 	}
@@ -43,5 +47,6 @@ public interface NamedResultSetMappingDescriptor {
 	 *
 	 * @see QueryEngine#getNamedObjectRepository()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NamedResultSetMappingMemento resolve(ResultSetMappingResolutionContext resolutionContext);
 }

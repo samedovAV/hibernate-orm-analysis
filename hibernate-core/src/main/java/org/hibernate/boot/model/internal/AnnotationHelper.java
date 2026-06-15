@@ -26,11 +26,14 @@ import jakarta.persistence.AttributeConverter;
 
 import static org.hibernate.internal.util.collections.CollectionHelper.mapOfSize;
 import static org.hibernate.type.descriptor.converter.internal.ConverterHelper.createJpaAttributeConverter;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
  */
 public class AnnotationHelper {
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static HashMap<String, String> extractParameterMap(Parameter[] parameters) {
 		final HashMap<String,String> paramMap = mapOfSize( parameters.length );
 		for ( var parameter : parameters ) {
@@ -39,6 +42,7 @@ public class AnnotationHelper {
 		return paramMap;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static JdbcMapping resolveUserType(Class<UserType<?>> userTypeClass, MetadataBuildingContext context) {
 		final var bootstrapContext = context.getBootstrapContext();
 		final var userType =
@@ -48,6 +52,7 @@ public class AnnotationHelper {
 		return new CustomType<>( userType, bootstrapContext.getTypeConfiguration() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <X,Y> JdbcMapping resolveAttributeConverter(
 			Class<? extends AttributeConverter<? extends X,? extends Y>> type,
 			MetadataBuildingContext context) {
@@ -72,6 +77,7 @@ public class AnnotationHelper {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static BasicType<?> resolveBasicType(Class<?> type, MetadataBuildingContext context) {
 		final var typeConfiguration = context.getBootstrapContext().getTypeConfiguration();
 		final var jtd = typeConfiguration.getJavaTypeRegistry().findDescriptor( type );
@@ -79,36 +85,43 @@ public class AnnotationHelper {
 			final JdbcType jdbcType = jtd.getRecommendedJdbcType(
 					new JdbcTypeIndicators() {
 						@Override
+						@Prove(complexity = Complexity.O_1, n = "", count = {})
 						public TypeConfiguration getTypeConfiguration() {
 							return typeConfiguration;
 						}
 
 						@Override
+						@Prove(complexity = Complexity.O_N, n = "", count = {})
 						public int getPreferredSqlTypeCodeForBoolean() {
 							return context.getPreferredSqlTypeCodeForBoolean();
 						}
 
 						@Override
+						@Prove(complexity = Complexity.O_N, n = "", count = {})
 						public int getPreferredSqlTypeCodeForDuration() {
 							return context.getPreferredSqlTypeCodeForDuration();
 						}
 
 						@Override
+						@Prove(complexity = Complexity.O_N, n = "", count = {})
 						public int getPreferredSqlTypeCodeForUuid() {
 							return context.getPreferredSqlTypeCodeForUuid();
 						}
 
 						@Override
+						@Prove(complexity = Complexity.O_N, n = "", count = {})
 						public int getPreferredSqlTypeCodeForInstant() {
 							return context.getPreferredSqlTypeCodeForInstant();
 						}
 
 						@Override
+						@Prove(complexity = Complexity.O_N, n = "", count = {})
 						public int getPreferredSqlTypeCodeForArray() {
 							return context.getPreferredSqlTypeCodeForArray();
 						}
 
 						@Override
+						@Prove(complexity = Complexity.O_N, n = "", count = {})
 						public Dialect getDialect() {
 							return context.getMetadataCollector().getDatabase().getDialect();
 						}
@@ -121,6 +134,7 @@ public class AnnotationHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static JdbcMapping resolveJavaType(Class<JavaType<?>> type, MetadataBuildingContext context) {
 		final var typeConfiguration = context.getBootstrapContext().getTypeConfiguration();
 		final var jtd = getJavaType( type, context, typeConfiguration );
@@ -128,6 +142,7 @@ public class AnnotationHelper {
 		return typeConfiguration.getBasicTypeRegistry().resolve( jtd, jdbcType );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static JavaType<?> getJavaType(
 			Class<JavaType<?>> javaTypeClass,
 			MetadataBuildingContext context,

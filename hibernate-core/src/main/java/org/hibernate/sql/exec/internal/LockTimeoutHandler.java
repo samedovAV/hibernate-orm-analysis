@@ -14,6 +14,8 @@ import org.hibernate.sql.exec.spi.PreAction;
 import org.hibernate.sql.exec.spi.StatementAccess;
 
 import java.sql.Connection;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Handles lock timeouts using setting on the JDBC Connection.
@@ -34,11 +36,13 @@ public class LockTimeoutHandler implements PreAction, PostAction {
 		this.lockTimeoutStrategy = lockTimeoutStrategy;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Timeout getBaseline() {
 		return baseline;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void performPreAction(StatementAccess jdbcStatementAccess, Connection jdbcConnection, ExecutionContext executionContext) {
 		final var factory = executionContext.getSession().getFactory();
 
@@ -51,6 +55,7 @@ public class LockTimeoutHandler implements PreAction, PostAction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void performPostAction(StatementAccess jdbcStatementAccess, Connection jdbcConnection, ExecutionContext executionContext, LoadedValuesCollector loadedValuesCollector) {
 		final SessionFactoryImplementor factory = executionContext.getSession().getFactory();
 
@@ -59,6 +64,7 @@ public class LockTimeoutHandler implements PreAction, PostAction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean shouldRunAfterFail() {
 		// if we set the timeout in the pre-action, we should always reset it in post-action
 		return setTimeout;

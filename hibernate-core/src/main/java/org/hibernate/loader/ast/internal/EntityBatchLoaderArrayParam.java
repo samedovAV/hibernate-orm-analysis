@@ -29,6 +29,8 @@ import static org.hibernate.loader.ast.internal.MultiKeyLoadHelper.trimIdBatch;
 import static org.hibernate.loader.ast.internal.MultiKeyLoadLogging.MULTI_KEY_LOAD_LOGGER;
 import static org.hibernate.pretty.MessageHelper.infoString;
 import static org.hibernate.sql.exec.spi.JdbcParameterBindings.NO_BINDINGS;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * {@link SingleIdEntityLoaderSupport} implementation based on using a single
@@ -107,11 +109,13 @@ public class EntityBatchLoaderArrayParam<T>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getDomainBatchSize() {
 		return domainBatchSize;
 	}
 
 	@AllowReflection
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Object[] resolveIdsToInitialize(Object pkValue, SharedSessionContractImplementor session) {
 		//TODO: should this really be different to EntityBatchLoaderInPredicate impl?
 		final Object[] idsToLoad = new Object[domainBatchSize];
@@ -126,6 +130,7 @@ public class EntityBatchLoaderArrayParam<T>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void initializeEntities(
 			Object[] idsToInitialize,
 			Object id,
@@ -155,6 +160,7 @@ public class EntityBatchLoaderArrayParam<T>
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void removeBatchLoadableEntityKeys(Object[] idsToInitialize, SharedSessionContractImplementor session) {
 		final var batchFetchQueue = session.getPersistenceContextInternal().getBatchFetchQueue();
 		final var persister = getLoadable().getEntityPersister();
@@ -167,11 +173,13 @@ public class EntityBatchLoaderArrayParam<T>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public T load(Object pkValue, LockOptions lockOptions, Boolean readOnly, SharedSessionContractImplementor session) {
 		return load( pkValue, null, lockOptions, readOnly, session );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return String.format(
 				Locale.ROOT,

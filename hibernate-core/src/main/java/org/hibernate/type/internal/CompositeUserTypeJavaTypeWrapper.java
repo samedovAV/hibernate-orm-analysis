@@ -17,6 +17,8 @@ import org.hibernate.type.descriptor.java.MutabilityPlanExposer;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
 import org.hibernate.type.descriptor.jdbc.JdbcTypeIndicators;
 import org.hibernate.usertype.CompositeUserType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  *
@@ -62,6 +64,7 @@ public class CompositeUserTypeJavaTypeWrapper<J> implements JavaType<J> {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private int compare(J first, J second) {
 		if ( userType.equals( first, second ) ) {
 			return 0;
@@ -70,42 +73,50 @@ public class CompositeUserTypeJavaTypeWrapper<J> implements JavaType<J> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutabilityPlan<J> getMutabilityPlan() {
 		return mutabilityPlan;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcType getRecommendedJdbcType(JdbcTypeIndicators context) {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Comparator<J> getComparator() {
 		return comparator;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int extractHashCode(J value) {
 		return userType.hashCode(value );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean areEqual(J one, J another) {
 		return userType.equals( one, another );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public J fromString(CharSequence string) {
 		throw new UnsupportedOperationException( "No support for parsing UserType values from String: " + userType );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> X unwrap(J value, Class<X> type, WrapperOptions options) {
 		assert value == null || userType.returnedClass().isInstance( value );
 		return type.cast( value );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> J wrap(X value, WrapperOptions options) {
 //		assert value == null || userType.returnedClass().isInstance( value );
 		//noinspection unchecked
@@ -113,6 +124,7 @@ public class CompositeUserTypeJavaTypeWrapper<J> implements JavaType<J> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<J> getJavaTypeClass() {
 		return userType.returnedClass();
 	}
@@ -125,21 +137,25 @@ public class CompositeUserTypeJavaTypeWrapper<J> implements JavaType<J> {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public boolean isMutable() {
 			return userType.isMutable();
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public J deepCopy(J value) {
 			return userType.deepCopy( value );
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public Serializable disassemble(J value, SharedSessionContract session) {
 			return userType.disassemble( value );
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public J assemble(Serializable cached, SharedSessionContract session) {
 			return userType.assemble( cached, null );
 		}

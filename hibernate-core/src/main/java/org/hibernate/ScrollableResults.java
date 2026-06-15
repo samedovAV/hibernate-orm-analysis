@@ -5,6 +5,8 @@
 package org.hibernate;
 
 import org.hibernate.query.Query;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A result iterator that allows moving around within the results by
@@ -26,16 +28,19 @@ public interface ScrollableResults<R> extends AutoCloseable {
 	 *
 	 * @return The array of results
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	R get();
 
 	/**
 	 * Release resources immediately.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void close();
 
 	/**
 	 * @return {@code true} if {@link #close()} was already called
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isClosed();
 
 	/**
@@ -43,6 +48,7 @@ public interface ScrollableResults<R> extends AutoCloseable {
 	 *
 	 * @return {@code true} if there is another result
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean next();
 
 	/**
@@ -50,6 +56,7 @@ public interface ScrollableResults<R> extends AutoCloseable {
 	 *
 	 * @return {@code true} if there is a previous result
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean previous();
 
 	/**
@@ -61,6 +68,7 @@ public interface ScrollableResults<R> extends AutoCloseable {
 	 *
 	 * @return {@code true} if there is a result at the new location
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean scroll(int positions);
 
 	/**
@@ -77,6 +85,7 @@ public interface ScrollableResults<R> extends AutoCloseable {
 	 *
 	 * @return {@code true} if there is a result at the new location
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean position(int position);
 
 	/**
@@ -90,6 +99,7 @@ public interface ScrollableResults<R> extends AutoCloseable {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getPosition();
 
 	/**
@@ -97,6 +107,7 @@ public interface ScrollableResults<R> extends AutoCloseable {
 	 *
 	 * @return {@code true} if there are any results
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean last();
 
 	/**
@@ -104,6 +115,7 @@ public interface ScrollableResults<R> extends AutoCloseable {
 	 *
 	 * @return {@code true} if there are any results
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean first();
 
 	/**
@@ -112,11 +124,13 @@ public interface ScrollableResults<R> extends AutoCloseable {
 	 * This is the location of the cursor on a newly returned
 	 * scrollable result.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void beforeFirst();
 
 	/**
 	 * Go to a location just after the last result.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void afterLast();
 
 	/**
@@ -125,6 +139,7 @@ public interface ScrollableResults<R> extends AutoCloseable {
 	 * @return {@code true} if this is the first row of results,
 	 *         otherwise {@code false}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isFirst();
 
 	/**
@@ -132,6 +147,7 @@ public interface ScrollableResults<R> extends AutoCloseable {
 	 *
 	 * @return {@code true} if this is the last row of results.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isLast();
 
 	/**
@@ -145,6 +161,7 @@ public interface ScrollableResults<R> extends AutoCloseable {
 	 * @deprecated Use {@link #getPosition()}
 	 */
 	@Deprecated(since = "7", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getRowNumber();
 
 	/**
@@ -164,6 +181,7 @@ public interface ScrollableResults<R> extends AutoCloseable {
 	 * @deprecated Use {@link #position(int)}
 	 */
 	@Deprecated(since = "7", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean setRowNumber(int rowNumber);
 
 	/**
@@ -176,5 +194,6 @@ public interface ScrollableResults<R> extends AutoCloseable {
 	 *
 	 * @since 6.1.2
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setFetchSize(int fetchSize);
 }

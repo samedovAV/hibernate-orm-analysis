@@ -7,6 +7,8 @@ package org.hibernate.id;
 import org.hibernate.boot.model.relational.ExportableProducer;
 import org.hibernate.id.enhanced.Optimizer;
 import org.hibernate.id.enhanced.StandardOptimizerDescriptor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Commonality between sequence-based and table-based generators
@@ -43,5 +45,6 @@ public interface OptimizableGenerator extends IdentifierGenerator, ExportablePro
 	 */
 	String OPT_PARAM = "optimizer";
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Optimizer getOptimizer();
 }

@@ -27,6 +27,8 @@ import org.hibernate.sql.results.graph.entity.EntityFetch;
 import org.hibernate.sql.results.graph.entity.EntityInitializer;
 import org.hibernate.sql.results.graph.entity.EntityValuedFetchable;
 import org.hibernate.sql.results.graph.internal.ImmutableFetchList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Andrea Boriero
@@ -104,36 +106,43 @@ public class EntityFetchJoinedImpl implements EntityFetch, FetchParent, Initiali
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityValuedFetchable getEntityValuedModelPart() {
 		return fetchContainer;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityValuedFetchable getReferencedModePart() {
 		return getEntityValuedModelPart();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityValuedFetchable getReferencedMappingType() {
 		return getEntityValuedModelPart();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityValuedFetchable getFetchedMapping() {
 		return getEntityValuedModelPart();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchOptions getFetchOptions() {
 		return fetchOptions;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchParent getFetchParent() {
 		return fetchParent;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResultAssembler<?> createAssembler(
 			InitializerParent<?> parent,
 			AssemblerCreationState creationState) {
@@ -143,11 +152,13 @@ public class EntityFetchJoinedImpl implements EntityFetch, FetchParent, Initiali
 	/**
 	 * Used by Hibernate Reactive
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected EntityAssembler<?> buildEntityAssembler(EntityInitializer<?> entityInitializer) {
 		return new EntityAssembler<>( getFetchedMapping().getJavaType(), entityInitializer );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Initializer<?> createInitializer(
 			EntityFetchJoinedImpl resultGraphNode,
 			InitializerParent<?> parent,
@@ -156,6 +167,7 @@ public class EntityFetchJoinedImpl implements EntityFetch, FetchParent, Initiali
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityInitializer<?> createInitializer(InitializerParent<?> parent, AssemblerCreationState creationState) {
 		return new EntityInitializerImpl(
 				this,
@@ -174,45 +186,54 @@ public class EntityFetchJoinedImpl implements EntityFetch, FetchParent, Initiali
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchTiming getTiming() {
 		return FetchTiming.IMMEDIATE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasTableGroup() {
 		return true;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityResultImpl<?> getEntityResult() {
 		return entityResult;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public NavigablePath getNavigablePath() {
 		return entityResult.getNavigablePath();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public ImmutableFetchList getFetches() {
 		return entityResult.getFetches();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Fetch findFetch(Fetchable fetchable) {
 		return entityResult.findFetch( fetchable );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean hasJoinFetches() {
 		return entityResult.hasJoinFetches();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean containsCollectionFetches() {
 		return entityResult.containsCollectionFetches();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void collectValueIndexesToCache(BitSet valueIndexes) {
 		entityResult.collectValueIndexesToCache( valueIndexes );
 	}
@@ -220,18 +241,22 @@ public class EntityFetchJoinedImpl implements EntityFetch, FetchParent, Initiali
 	/*
 	 * BEGIN: For Hibernate Reactive
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected DomainResult<?> getKeyResult() {
 		return keyResult;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected NotFoundAction getNotFoundAction() {
 		return notFoundAction;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean isAffectedByFilter() {
 		return isAffectedByFilter;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getSourceAlias() {
 		return sourceAlias;
 	}

@@ -44,6 +44,8 @@ import java.util.List;
 import java.util.Map;
 
 import static org.hibernate.sql.exec.SqlExecLogger.SQL_EXEC_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Helper for dealing with follow-on locking for collection-tables.
@@ -61,6 +63,7 @@ public class LockingHelper {
 	 *
 	 * @see Session#lock
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void lockCollectionTable(
 			PluralAttributeMapping attributeMapping,
 			LockMode lockMode,
@@ -149,6 +152,7 @@ public class LockingHelper {
 	 * @param lockTimeout A lock timeout to apply, if one.
 	 * @param ownerDetailsMap Details for each owner, whose collection-table rows should be locked.
 	 */
+@Prove(complexity = Complexity.O_1, n = "", count = {})
 public static void lockCollectionTable(
 			PluralAttributeMapping attributeMapping,
 			LockMode lockMode,
@@ -217,6 +221,7 @@ public static void lockCollectionTable(
 				lockingExecutionContext( lockMode, lockTimeout, executionContext ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static ExecutionContext lockingExecutionContext(LockMode lockMode, Timeout lockTimeout, ExecutionContext executionContext) {
 		final var lockingQueryOptions = new QueryOptionsImpl();
 		final var lockOptions = lockingQueryOptions.getLockOptions();
@@ -224,12 +229,14 @@ public static void lockCollectionTable(
 		lockOptions.setTimeout( lockTimeout );
 		return new BaseExecutionContext( executionContext.getSession() ) {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			public QueryOptions getQueryOptions() {
 				return lockingQueryOptions;
 			}
 		};
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void applySimpleCollectionKeyTableLockRestrictions(
 			PluralAttributeMapping attributeMapping,
 			ForeignKeyDescriptor keyDescriptor,
@@ -256,6 +263,7 @@ public static void lockCollectionTable(
 		} );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static InListPredicate applyCompositeCollectionKeyTableLockRestrictions(
 			PluralAttributeMapping attributeMapping,
 			ForeignKeyDescriptor keyDescriptor,
@@ -310,6 +318,7 @@ public static void lockCollectionTable(
 	 * @param lockTimeout A lock timeout to apply, if one.
 	 * @param collectionKeys Keys of collection-table rows that should be locked.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void lockCollectionTable(
 			PluralAttributeMapping attributeMapping,
 			LockMode lockMode,
@@ -376,6 +385,7 @@ public static void lockCollectionTable(
 				lockingExecutionContext( lockMode, lockTimeout, executionContext ) );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static void applySimpleCollectionKeyTableLockRestrictions(
 			ForeignKeyDescriptor keyDescriptor,
 			InListPredicate restriction,
@@ -397,6 +407,7 @@ public static void lockCollectionTable(
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static InListPredicate applyCompositeCollectionKeyTableLockRestrictions(
 			PluralAttributeMapping attributeMapping,
 			ForeignKeyDescriptor keyDescriptor,
@@ -438,6 +449,7 @@ public static void lockCollectionTable(
 		return inListPredicate;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void performLocking(
 			QuerySpec querySpec,
 			JdbcParameterBindings jdbcParameterBindings,
@@ -460,6 +472,7 @@ public static void lockCollectionTable(
 	/**
 	 * Log information about the entries in LoadedValuesCollector.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void logLoadedValues(LoadedValuesCollector collector) {
 		if ( SQL_EXEC_LOGGER.isDebugEnabled() ) {
 			var summary = new StringBuilder();
@@ -480,6 +493,7 @@ public static void lockCollectionTable(
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void segmentLoadedValues(List<LoadedValuesCollector.LoadedEntityRegistration> registrations, Map<EntityMappingType, List<EntityKey>> map) {
 		if ( registrations != null ) {
 			registrations.forEach( (registration) -> {
@@ -491,6 +505,7 @@ public static void lockCollectionTable(
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void segmentLoadedCollections(
 			List<LoadedValuesCollector.LoadedCollectionRegistration> registrations,
 			PessimisticLockScope lockScope,
@@ -514,6 +529,7 @@ public static void lockCollectionTable(
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Map<Object, EntityDetails> resolveEntityKeys(List<EntityKey> entityKeys, ExecutionContext executionContext) {
 		final Map<Object, EntityDetails> map = new HashMap<>();
 		final var persistenceContext = executionContext.getSession().getPersistenceContext();

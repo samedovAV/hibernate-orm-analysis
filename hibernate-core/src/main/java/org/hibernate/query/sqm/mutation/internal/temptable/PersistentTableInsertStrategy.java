@@ -18,6 +18,8 @@ import org.hibernate.query.sqm.mutation.spi.MultiTableHandlerBuildResult;
 import org.hibernate.query.sqm.mutation.spi.SqmMultiTableInsertStrategy;
 import org.hibernate.query.sqm.tree.insert.SqmInsertStatement;
 import org.hibernate.sql.exec.spi.JdbcParameterBindings;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 
@@ -62,6 +64,7 @@ public class PersistentTableInsertStrategy extends PersistentTableStrategy imple
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MultiTableHandlerBuildResult buildHandler(SqmInsertStatement<?> sqmInsertStatement, DomainParameterXref domainParameterXref, DomainQueryExecutionContext context) {
 		final MutableObject<JdbcParameterBindings> firstJdbcParameterBindings = new MutableObject<>();
 		final MultiTableHandler multiTableHandler = new TableBasedInsertHandler(

@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.source.internal.hbm;
 
 import org.hibernate.boot.model.source.spi.DerivedValueSource;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -22,16 +24,19 @@ class FormulaImpl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Nature getNature() {
 		return Nature.DERIVED;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getExpression() {
 		return expression;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getContainingTableName() {
 		return tableName;
 	}

@@ -18,6 +18,8 @@ import org.hibernate.type.descriptor.java.JavaType;
 
 import static java.util.Collections.unmodifiableList;
 import static org.hibernate.internal.util.collections.CollectionHelper.arrayList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -34,20 +36,24 @@ public class ResultMementoInstantiationStandard implements ResultMementoInstanti
 		this.argumentMementos = argumentMementos;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<?> getInstantiatedJavaType() {
 		return instantiatedJtd;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<ArgumentMemento> getArgumentMementos() {
 		return unmodifiableList( argumentMementos );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getResultJavaType() {
 		return instantiatedJtd.getJavaTypeClass();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public ResultBuilder resolve(
 			Consumer<String> querySpaceConsumer,
 			ResultSetMappingResolutionContext context) {
@@ -61,6 +67,7 @@ public class ResultMementoInstantiationStandard implements ResultMementoInstanti
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <R> ResultSetMapping<R> toJpaMapping(SessionFactory sessionFactory) {
 		//noinspection unchecked
 		return new ConstructorMapping<>(
@@ -70,6 +77,7 @@ public class ResultMementoInstantiationStandard implements ResultMementoInstanti
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private MappingElement<?>[] convertArguments(SessionFactory sessionFactory) {
 		var arguments = new MappingElement<?>[ argumentMementos.size() ];
 		for ( int i = 0; i < arguments.length; i++ ) {

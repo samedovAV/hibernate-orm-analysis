@@ -44,6 +44,8 @@ import java.util.stream.Stream;
 
 import static org.hibernate.jpa.internal.util.FlushModeTypeHelper.getFlushModeType;
 import static org.hibernate.jpa.internal.util.FlushModeTypeHelper.queryFlushModeFromFlushModeType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Within the context of an active {@linkplain org.hibernate.Session session},
@@ -104,6 +106,7 @@ public interface Query<T> extends CommonQueryContract {
 	 * The {@code Query<T>} as a string, or {@code null} in the case of a criteria query.
 	 */
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getQueryString();
 
 
@@ -116,6 +119,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setQueryFlushMode(@Nonnull QueryFlushMode queryFlushMode);
 
 	/**
@@ -123,6 +127,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setComment(@Nullable String comment);
 
 	/**
@@ -130,6 +135,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> addQueryHint(@Nonnull String hint);
 
 	/**
@@ -140,6 +146,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setTimeout(int timeout);
 
 	/**
@@ -150,6 +157,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setTimeout(@Nullable Integer timeout);
 
 	/**
@@ -157,6 +165,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setTimeout(@Nullable Timeout timeout);
 
 	/**
@@ -164,6 +173,7 @@ public interface Query<T> extends CommonQueryContract {
 	 *
 	 * @since 6.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isQueryPlanCacheable();
 
 	/**
@@ -174,6 +184,7 @@ public interface Query<T> extends CommonQueryContract {
 	 * @since 6.3
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setQueryPlanCacheable(boolean queryPlanCacheable);
 
 	/**
@@ -181,6 +192,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setHint(@Nonnull String hintName, @Nullable Object value);
 
 
@@ -192,6 +204,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setParameter(@Nonnull String parameter, @Nullable Object argument);
 
 	/**
@@ -199,6 +212,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> Query<T> setParameter(@Nonnull String parameter, @Nullable P argument, @Nonnull Class<P> type);
 
 	/**
@@ -206,6 +220,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> Query<T> setParameter(@Nonnull String parameter, @Nullable P argument, @Nonnull Type<P> type);
 
 	/**
@@ -213,6 +228,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setParameter(int parameter, @Nullable Object argument);
 
 	/**
@@ -220,6 +236,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setParameters(@Nonnull Object... arguments);
 
 	/**
@@ -227,6 +244,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> Query<T> setParameter(int parameter, @Nullable P argument, @Nonnull Class<P> type);
 
 	/**
@@ -234,6 +252,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> Query<T> setParameter(int parameter, @Nullable P argument, @Nonnull Type<P> type);
 
 	/**
@@ -241,6 +260,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> Query<T> setParameter(@Nonnull QueryParameter<P> parameter, @Nullable P argument);
 
 	/**
@@ -248,6 +268,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> Query<T> setParameter(@Nonnull QueryParameter<P> parameter, @Nullable P argument, @Nonnull Class<P> type);
 
 	/**
@@ -255,6 +276,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> Query<T> setParameter(@Nonnull QueryParameter<P> parameter, @Nullable P argument, @Nonnull Type<P> type);
 
 	/**
@@ -262,6 +284,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> Query<T> setParameter(@Nonnull Parameter<P> parameter, @Nullable P argument);
 
 	/**
@@ -269,6 +292,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> Query<T> setConvertedParameter(@Nonnull String name, @Nullable P value, @Nonnull Class<? extends AttributeConverter<P, ?>> converter);
 
 	/**
@@ -276,6 +300,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> Query<T> setConvertedParameter(int position, @Nullable P value, @Nonnull Class<? extends AttributeConverter<P, ?>> converter);
 
 	/**
@@ -283,6 +308,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setProperties(@Nonnull Object bean);
 
 	/**
@@ -290,6 +316,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setProperties(@SuppressWarnings("rawtypes") @Nonnull Map bean);
 
 	/**
@@ -297,6 +324,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setParameterList(@Nonnull String parameter, @SuppressWarnings("rawtypes") @Nonnull Collection arguments);
 
 	/**
@@ -304,6 +332,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> Query<T> setParameterList(@Nonnull String parameter, @Nonnull Collection<? extends P> arguments, @Nonnull Class<P> javaType);
 
 	/**
@@ -311,6 +340,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> Query<T> setParameterList(@Nonnull String parameter, @Nonnull Collection<? extends P> arguments, @Nonnull Type<P> type);
 
 	/**
@@ -318,6 +348,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setParameterList(@Nonnull String parameter, @Nonnull Object[] values);
 
 	/**
@@ -325,6 +356,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> Query<T> setParameterList(@Nonnull String parameter, @Nonnull P[] arguments, @Nonnull Class<P> javaType);
 
 	/**
@@ -332,6 +364,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> Query<T> setParameterList(@Nonnull String parameter, @Nonnull P[] arguments, @Nonnull Type<P> type);
 
 	/**
@@ -339,6 +372,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setParameterList(int parameter, @SuppressWarnings("rawtypes") @Nonnull Collection arguments);
 
 	/**
@@ -346,6 +380,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> Query<T> setParameterList(int parameter, @Nonnull Collection<? extends P> arguments, @Nonnull Class<P> javaType);
 
 	/**
@@ -353,6 +388,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> Query<T> setParameterList(int parameter, @Nonnull Collection<? extends P> arguments, @Nonnull Type<P> type);
 
 	/**
@@ -360,6 +396,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setParameterList(int parameter, @Nonnull Object[] arguments);
 
 	/**
@@ -367,6 +404,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> Query<T> setParameterList(int parameter, @Nonnull P[] arguments, @Nonnull Class<P> javaType);
 
 	/**
@@ -374,6 +412,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> Query<T> setParameterList(int parameter, @Nonnull P[] arguments, @Nonnull Type<P> type);
 
 	/**
@@ -381,6 +420,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> Query<T> setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull Collection<? extends P> arguments);
 
 	/**
@@ -388,6 +428,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> Query<T> setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull Collection<? extends P> arguments, @Nonnull Class<P> javaType);
 
 	/**
@@ -395,6 +436,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> Query<T> setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull Collection<? extends P> arguments, @Nonnull Type<P> type);
 
 	/**
@@ -402,6 +444,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> Query<T> setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull P[] arguments);
 
 	/**
@@ -409,6 +452,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> Query<T> setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull P[] arguments, @Nonnull Class<P> javaType);
 
 	/**
@@ -416,6 +460,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<P> Query<T> setParameterList(@Nonnull QueryParameter<P> parameter, @Nonnull P[] arguments, @Nonnull Type<P> type);
 
 
@@ -441,6 +486,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Deprecated(since = "8.0", forRemoval = true)
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Integer getFetchSize();
 
 	/**
@@ -459,6 +505,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Deprecated(since = "8.0", forRemoval = true)
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setFetchSize(int fetchSize);
 
 	/**
@@ -482,6 +529,7 @@ public interface Query<T> extends CommonQueryContract {
 	 * selection queries
 	 */
 	@Deprecated(since = "8.0", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isReadOnly();
 
 	/**
@@ -518,6 +566,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Deprecated(since = "8.0", forRemoval = true)
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setReadOnly(boolean readOnly);
 
 	/**
@@ -536,6 +585,7 @@ public interface Query<T> extends CommonQueryContract {
 	 * selection queries
 	 */
 	@Deprecated(since = "8.0", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isCacheable();
 
 	/**
@@ -548,6 +598,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Deprecated(since = "8.0", forRemoval = true)
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setCacheable(boolean cacheable);
 
 	/**
@@ -570,6 +621,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Deprecated(since = "8.0", forRemoval = true)
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CacheMode getCacheMode();
 
 	/**
@@ -586,6 +638,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Deprecated(since = "8.0", forRemoval = true)
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setCacheMode(@Nonnull CacheMode cacheMode);
 
 	/**
@@ -599,6 +652,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Deprecated(since = "8.0", forRemoval = true)
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getCacheRegion();
 
 	/**
@@ -612,6 +666,7 @@ public interface Query<T> extends CommonQueryContract {
 	 * selection queries
 	 */
 	@Deprecated(since = "8.0", forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setCacheRegion(@Nullable String cacheRegion);
 
 	/**
@@ -621,6 +676,7 @@ public interface Query<T> extends CommonQueryContract {
 	@Override
 	@Deprecated(since = "8.0") @SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CacheStoreMode getCacheStoreMode();
 
 	/**
@@ -630,6 +686,7 @@ public interface Query<T> extends CommonQueryContract {
 	@Override
 	@Deprecated(since = "8.0") @SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setCacheStoreMode(@Nonnull CacheStoreMode cacheStoreMode);
 
 	/**
@@ -639,6 +696,7 @@ public interface Query<T> extends CommonQueryContract {
 	@Override
 	@Deprecated(since = "8.0") @SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CacheRetrieveMode getCacheRetrieveMode();
 
 	/**
@@ -648,6 +706,7 @@ public interface Query<T> extends CommonQueryContract {
 	@Override
 	@Deprecated(since = "8.0") @SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setCacheRetrieveMode(@Nonnull CacheRetrieveMode cacheRetrieveMode);
 
 	/**
@@ -656,6 +715,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Deprecated(since = "8.0") @SuppressWarnings("removal")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getMaxResults();
 
 	/**
@@ -665,6 +725,7 @@ public interface Query<T> extends CommonQueryContract {
 	@Override
 	@Deprecated(since = "8.0") @SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setMaxResults(int maxResults);
 
 	/**
@@ -673,6 +734,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override
 	@Deprecated(since = "8.0") @SuppressWarnings("removal")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getFirstResult();
 
 	/**
@@ -682,6 +744,7 @@ public interface Query<T> extends CommonQueryContract {
 	@Override
 	@Deprecated(since = "8.0") @SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setFirstResult(int startPosition);
 
 	/**
@@ -691,6 +754,7 @@ public interface Query<T> extends CommonQueryContract {
 	@Override
 	@Deprecated(since = "8.0") @SuppressWarnings("removal")
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	LockModeType getLockMode();
 
 	/**
@@ -700,6 +764,7 @@ public interface Query<T> extends CommonQueryContract {
 	@Override
 	@Deprecated(since = "8.0") @SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setLockMode(@Nonnull LockModeType lockMode);
 
 	/**
@@ -713,6 +778,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Deprecated(since = "8.0")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	LockMode getHibernateLockMode();
 
 	/**
@@ -726,6 +792,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Deprecated(since = "8.0")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setHibernateLockMode(@Nonnull LockMode lockMode);
 
 	/**
@@ -744,6 +811,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Deprecated(since = "8.0")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setFollowOnStrategy(@Nonnull Locking.FollowOn strategy);
 
 	/**
@@ -755,6 +823,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Deprecated(since = "8.0", forRemoval = true)
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X> Query<X> setTupleTransformer(@Nonnull TupleTransformer<X> transformer);
 
 	/**
@@ -766,6 +835,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Deprecated(since = "8.0", forRemoval = true)
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setResultListTransformer(@Nonnull ResultListTransformer<T> transformer);
 
 	/**
@@ -780,6 +850,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Deprecated(since = "8.0", forRemoval = true)
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<T> list();
 
 	/**
@@ -797,6 +868,7 @@ public interface Query<T> extends CommonQueryContract {
 	@Override
 	@Deprecated(since = "8.0", forRemoval = true) @SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default List<T> getResultList() {
 		return list();
 	}
@@ -818,6 +890,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Deprecated(since = "8.0", forRemoval = true)
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ScrollableResults<T> scroll();
 
 	/**
@@ -832,6 +905,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Deprecated(since = "8.0", forRemoval = true)
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ScrollableResults<T> scroll(@Nonnull ScrollMode scrollMode);
 
 	/**
@@ -855,6 +929,7 @@ public interface Query<T> extends CommonQueryContract {
 	@Deprecated(since = "8.0", forRemoval = true)
 	@SuppressWarnings("removal")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Stream<T> getResultStream() {
 		return stream();
 	}
@@ -876,6 +951,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Deprecated(since = "8.0", forRemoval = true)
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default Stream<T> stream() {
 		return list().stream();
 	}
@@ -892,6 +968,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Deprecated(since = "8.0", forRemoval = true)
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	T uniqueResult();
 
 	/**
@@ -908,6 +985,7 @@ public interface Query<T> extends CommonQueryContract {
 	@Override
 	@Deprecated(since = "8.0", forRemoval = true)
 	@SuppressWarnings("removal")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	T getSingleResult();
 
 	/**
@@ -926,6 +1004,7 @@ public interface Query<T> extends CommonQueryContract {
 	@Deprecated(since = "8.0", forRemoval = true)
 	@SuppressWarnings("removal")
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	T getSingleResultOrNull();
 
 	/**
@@ -940,6 +1019,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Deprecated(since = "8.0", forRemoval = true)
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Optional<T> uniqueResultOptional();
 
 	/**
@@ -966,6 +1046,7 @@ public interface Query<T> extends CommonQueryContract {
 	@Override
 	@Deprecated(since = "8.0", forRemoval = true)
 	@SuppressWarnings("removal")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int executeUpdate();
 
 	/**
@@ -985,6 +1066,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Deprecated(since = "8.0", forRemoval = true)
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> enableFetchProfile(@Nonnull String profileName);
 
 	/**
@@ -1001,6 +1083,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Deprecated(since = "8.0", forRemoval = true)
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> disableFetchProfile(@Nonnull String profileName);
 
 
@@ -1017,6 +1100,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override @Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default FlushModeType getFlushMode() {
 		return getFlushModeType( getQueryFlushMode() );
 	}
@@ -1038,6 +1122,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override @Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Query<T> setFlushMode(@Nonnull FlushModeType flushMode) {
 		setQueryFlushMode( queryFlushModeFromFlushModeType( flushMode ) );
 		return this;
@@ -1061,6 +1146,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Deprecated(since = "8.0", forRemoval = true)
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setEntityGraph(@Nonnull EntityGraph<? super T> graph, @Nonnull GraphSemantic semantic);
 
 	/**
@@ -1077,6 +1163,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Deprecated(since = "8.0", forRemoval = true)
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	QueryOptions getQueryOptions();
 
 
@@ -1088,6 +1175,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override @Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setParameter(@Nonnull Parameter<Calendar> parameter, @Nullable Calendar argument, @Nonnull TemporalType temporalType);
 
 	/**
@@ -1095,6 +1183,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override @Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setParameter(@Nonnull Parameter<Date> parameter, @Nullable Date argument, @Nonnull TemporalType temporalType);
 
 	/**
@@ -1103,6 +1192,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setParameter(@Nonnull String parameter, @Nullable Instant argument, @Nonnull TemporalType temporalType);
 
 	/**
@@ -1110,6 +1200,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override @Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setParameter(@Nonnull String parameter, @Nullable Calendar argument, @Nonnull TemporalType temporalType);
 
 	/**
@@ -1117,6 +1208,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override @Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setParameter(@Nonnull String parameter, @Nullable Date argument, @Nonnull TemporalType temporalType);
 
 	/**
@@ -1125,6 +1217,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setParameter(int parameter, @Nullable Instant argument, @Nonnull TemporalType temporalType);
 
 	/**
@@ -1132,6 +1225,7 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override @Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setParameter(int parameter, @Nullable Date argument, @Nonnull TemporalType temporalType);
 
 	/**
@@ -1139,5 +1233,6 @@ public interface Query<T> extends CommonQueryContract {
 	 */
 	@Override @Deprecated(since = "7")
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Query<T> setParameter(int parameter, @Nullable Calendar argument, @Nonnull TemporalType temporalType);
 }

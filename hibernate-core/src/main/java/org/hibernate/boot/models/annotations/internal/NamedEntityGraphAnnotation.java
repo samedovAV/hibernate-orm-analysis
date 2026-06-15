@@ -9,6 +9,8 @@ import org.hibernate.models.spi.ModelsContext;
 
 import java.lang.annotation.Annotation;
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -45,33 +47,40 @@ public class NamedEntityGraphAnnotation implements NamedEntityGraph {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return NamedEntityGraph.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> root() {
 		return this.root;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void root(Class<?> root) {
 		this.root = root;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String name() {
 		return name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void name(String name) {
 		this.name = name;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String graph() {
 		return graph;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void graph(String graph) {
 		this.graph = graph;
 	}

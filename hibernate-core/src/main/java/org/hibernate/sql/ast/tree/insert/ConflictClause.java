@@ -10,6 +10,8 @@ import org.hibernate.sql.ast.tree.predicate.Predicate;
 import org.hibernate.sql.ast.tree.update.Assignment;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @since 6.5
@@ -31,26 +33,32 @@ public class ConflictClause {
 		this.predicate = predicate;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable String getConstraintName() {
 		return constraintName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<String> getConstraintColumnNames() {
 		return constraintColumnNames;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<Assignment> getAssignments() {
 		return assignments;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isDoNothing() {
 		return assignments.isEmpty();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isDoUpdate() {
 		return !assignments.isEmpty();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable Predicate getPredicate() {
 		return predicate;
 	}

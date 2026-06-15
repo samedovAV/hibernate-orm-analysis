@@ -38,6 +38,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -70,41 +72,49 @@ public class JdbcSelectWithActions implements JdbcOperationQuery, JdbcSelect {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcValuesMappingProducer getJdbcValuesMappingProducer() {
 		return primaryOperation.getJdbcValuesMappingProducer();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcLockStrategy getLockStrategy() {
 		return primaryOperation.getLockStrategy();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean usesLimitParameters() {
 		return primaryOperation.usesLimitParameters();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcParameter getLimitParameter() {
 		return primaryOperation.getLimitParameter();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int getRowsToSkip() {
 		return primaryOperation.getRowsToSkip();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int getMaxRows() {
 		return primaryOperation.getMaxRows();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable LoadedValuesCollectorFactory getLoadedValuesCollectorFactory() {
 		return loadedValuesCollectorFactory;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void performPreActions(StatementAccess jdbcStatementAccess, Connection jdbcConnection, ExecutionContext executionContext) {
 		if ( preActions == null ) {
 			return;
@@ -116,6 +126,7 @@ public class JdbcSelectWithActions implements JdbcOperationQuery, JdbcSelect {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void performPostActions(boolean succeeded, StatementAccess jdbcStatementAccess, Connection jdbcConnection, ExecutionContext executionContext, LoadedValuesCollector loadedValuesCollector) {
 		if ( postActions != null ) {
 			for ( int i = 0; i < postActions.length; i++ ) {
@@ -127,6 +138,7 @@ public class JdbcSelectWithActions implements JdbcOperationQuery, JdbcSelect {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Set<String> getAffectedTableNames() {
 		// NOTE: the complete set of affected table-names might be
 		// slightly expanded here accounting for pre- and post-actions
@@ -134,26 +146,31 @@ public class JdbcSelectWithActions implements JdbcOperationQuery, JdbcSelect {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getSqlString() {
 		return primaryOperation.getSqlString();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public List<JdbcParameterBinder> getParameterBinders() {
 		return primaryOperation.getParameterBinders();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean dependsOnParameterBindings() {
 		return primaryOperation.dependsOnParameterBindings();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Map<JdbcParameter, JdbcParameterBinding> getAppliedParameters() {
 		return primaryOperation.getAppliedParameters();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isCompatibleWith(JdbcParameterBindings jdbcParameterBindings, QueryOptions queryOptions) {
 		// todo : is this enough here?
 		return primaryOperation.isCompatibleWith( jdbcParameterBindings, queryOptions );
@@ -172,6 +189,7 @@ public class JdbcSelectWithActions implements JdbcOperationQuery, JdbcSelect {
 		boolean isFollowOnLockStrategy;
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder setPrimaryAction(JdbcSelect primaryAction){
 			assert primaryAction instanceof JdbcOperationQuerySelect;
 			this.primaryAction = (JdbcOperationQuerySelect) primaryAction;
@@ -179,48 +197,56 @@ public class JdbcSelectWithActions implements JdbcOperationQuery, JdbcSelect {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public JdbcSelectWithActionsBuilder setLoadedValuesCollectorFactory(LoadedValuesCollectorFactory loadedValuesCollectorFactory) {
 			this.loadedValuesCollectorFactory = loadedValuesCollectorFactory;
 			return this;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder setLockTimeoutType(LockTimeoutType lockTimeoutType){
 			this.lockTimeoutType = lockTimeoutType;
 			return this;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder setLockingSupport(LockingSupport lockingSupport){
 			this.lockingSupport = lockingSupport;
 			return this;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder setLockOptions(LockOptions lockOptions){
 			this.lockOptions = lockOptions;
 			return this;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder setLockingTarget(QuerySpec lockingTarget){
 			this.lockingTarget = lockingTarget;
 			return this;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder setLockingClauseStrategy(LockingClauseStrategy lockingClauseStrategy){
 			this.lockingClauseStrategy = lockingClauseStrategy;
 			return this;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder setIsFollowOnLockStrategy(boolean isFollowOnLockStrategy){
 			this.isFollowOnLockStrategy = isFollowOnLockStrategy;
 			return this;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public JdbcSelect build() {
 			if ( lockTimeoutType == LockTimeoutType.CONNECTION ) {
 				addSecondaryActionPair(
@@ -252,6 +278,7 @@ public class JdbcSelectWithActions implements JdbcOperationQuery, JdbcSelect {
 		 * @return {@code this}, for method chaining.
 		 */
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder appendPreAction(PreAction... actions) {
 			if ( preActions == null ) {
 				preActions = new ArrayList<>();
@@ -266,6 +293,7 @@ public class JdbcSelectWithActions implements JdbcOperationQuery, JdbcSelect {
 		 * @return {@code this}, for method chaining.
 		 */
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder prependPreAction(PreAction... actions) {
 			if ( preActions == null ) {
 				preActions = new ArrayList<>();
@@ -281,6 +309,7 @@ public class JdbcSelectWithActions implements JdbcOperationQuery, JdbcSelect {
 		 * @return {@code this}, for method chaining.
 		 */
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder appendPostAction(PostAction... actions) {
 			if ( postActions == null ) {
 				postActions = new ArrayList<>();
@@ -295,6 +324,7 @@ public class JdbcSelectWithActions implements JdbcOperationQuery, JdbcSelect {
 		 * @return {@code this}, for method chaining.
 		 */
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder prependPostAction(PostAction... actions) {
 			if ( postActions == null ) {
 				postActions = new ArrayList<>();
@@ -317,6 +347,7 @@ public class JdbcSelectWithActions implements JdbcOperationQuery, JdbcSelect {
 		 * @return {@code this}, for method chaining.
 		 */
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public Builder addSecondaryActionPair(SecondaryAction action) {
 			return addSecondaryActionPair( (PreAction) action, (PostAction) action );
 		}
@@ -330,6 +361,7 @@ public class JdbcSelectWithActions implements JdbcOperationQuery, JdbcSelect {
 		 * @return {@code this}, for method chaining.
 		 */
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Builder addSecondaryActionPair(PreAction preAction, PostAction postAction) {
 			prependPreAction( preAction );
 			appendPostAction( postAction );
@@ -337,6 +369,7 @@ public class JdbcSelectWithActions implements JdbcOperationQuery, JdbcSelect {
 		}
 
 		// Used by Hibernate Reactive
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static PreAction[] toPreActionArray(List<PreAction> actions) {
 			if ( CollectionHelper.isEmpty( actions ) ) {
 				return null;
@@ -344,6 +377,7 @@ public class JdbcSelectWithActions implements JdbcOperationQuery, JdbcSelect {
 			return actions.toArray( new PreAction[0] );
 		}
 		// Used by Hibernate Reactive
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		static PostAction[] toPostActionArray(List<PostAction> actions) {
 			if ( CollectionHelper.isEmpty( actions ) ) {
 				return null;

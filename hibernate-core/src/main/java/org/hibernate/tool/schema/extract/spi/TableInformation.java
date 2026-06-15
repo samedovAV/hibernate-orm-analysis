@@ -6,6 +6,8 @@ package org.hibernate.tool.schema.extract.spi;
 
 import org.hibernate.boot.model.naming.Identifier;
 import org.hibernate.boot.model.relational.QualifiedTableName;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Provides access to information about existing tables in the database
@@ -20,6 +22,7 @@ public interface TableInformation {
 	 *
 	 * @return The qualified table name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	QualifiedTableName getName();
 
 	/**
@@ -27,6 +30,7 @@ public interface TableInformation {
 	 *
 	 * @return {@code true} if this is a physical table; {@code false} otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isPhysicalTable();
 
 	/**
@@ -34,6 +38,7 @@ public interface TableInformation {
 	 *
 	 * @return The table comments
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getComment();
 
 	/**
@@ -43,6 +48,7 @@ public interface TableInformation {
 	 *
 	 * @return The matching column information.  May return {@code null}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ColumnInformation getColumn(Identifier columnIdentifier);
 
 	/**
@@ -50,6 +56,7 @@ public interface TableInformation {
 	 *
 	 * @return The primary key information, or {@code null} if the table did not define a primary key.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PrimaryKeyInformation getPrimaryKey();
 
 	/**
@@ -57,6 +64,7 @@ public interface TableInformation {
 	 *
 	 * @return The iterable.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Iterable<ForeignKeyInformation> getForeignKeys();
 
 	/**
@@ -66,6 +74,7 @@ public interface TableInformation {
 	 *
 	 * @return The matching foreign key information.  May return {@code null}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ForeignKeyInformation getForeignKey(Identifier keyName);
 
 	/**
@@ -73,6 +82,7 @@ public interface TableInformation {
 	 *
 	 * @return The iterable.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Iterable<IndexInformation> getIndexes();
 
 	/**
@@ -82,7 +92,9 @@ public interface TableInformation {
 	 *
 	 * @return The matching index information.  May return {@code null}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	IndexInformation getIndex(Identifier indexName);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addColumn(ColumnInformation columnIdentifier);
 }

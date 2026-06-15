@@ -12,6 +12,8 @@ import org.hibernate.sql.exec.spi.JdbcParameterBindings;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * JdbcParameter for temporal restrictions; bound via JdbcParameterBindings.
@@ -25,6 +27,7 @@ public class TemporalJdbcParameter extends SqlTypedMappingJdbcParameter {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void bindParameterValue(PreparedStatement statement, int startPosition, JdbcParameterBindings jdbcParamBindings, ExecutionContext executionContext)
 			throws SQLException {
 		final SharedSessionContractImplementor session = executionContext.getSession();

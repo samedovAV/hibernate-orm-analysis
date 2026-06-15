@@ -27,6 +27,8 @@ import static org.hibernate.id.enhanced.SequenceStyleGenerator.DEF_SEQUENCE_SUFF
 import static org.hibernate.id.enhanced.TableGenerator.DEF_TABLE;
 import static org.hibernate.internal.util.StringHelper.isNotEmpty;
 import static org.hibernate.internal.util.config.ConfigurationHelper.getString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The standard {@linkplain ImplicitDatabaseObjectNamingStrategy implicit naming strategy}
@@ -69,6 +71,7 @@ public class StandardNamingStrategy implements ImplicitDatabaseObjectNamingStrat
 	public static final String STRATEGY_NAME = "standard";
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QualifiedName determineSequenceName(
 			Identifier catalogName,
 			Identifier schemaName,
@@ -78,6 +81,7 @@ public class StandardNamingStrategy implements ImplicitDatabaseObjectNamingStrat
 				implicitSequenceName( getString( TABLE, configValues ), configValues ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static String implicitSequenceName(String rootTableName, Map<?, ?> configValues) {
 		final String explicitSuffix = getString( CONFIG_SEQUENCE_PER_ENTITY_SUFFIX, configValues );
 		final String base = getString( IMPLICIT_NAME_BASE, configValues, rootTableName );
@@ -104,6 +108,7 @@ public class StandardNamingStrategy implements ImplicitDatabaseObjectNamingStrat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QualifiedName determineTableName(
 			Identifier catalogName,
 			Identifier schemaName,
@@ -113,11 +118,13 @@ public class StandardNamingStrategy implements ImplicitDatabaseObjectNamingStrat
 				implicitTableName( configValues ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static String implicitTableName(Map<?, ?> configValues) {
 		final String generatorName = getString( GENERATOR_NAME, configValues );
 		return isNotEmpty( generatorName ) ? generatorName : DEF_TABLE;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static QualifiedName qualifiedSequenceName(Identifier catalogName, Identifier schemaName, ServiceRegistry serviceRegistry, String implicitName) {
 		return implicitName.contains( "." )
 				? QualifiedNameParser.INSTANCE.parse( implicitName )
@@ -130,6 +137,7 @@ public class StandardNamingStrategy implements ImplicitDatabaseObjectNamingStrat
 				);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static QualifiedName qualifiedTableName(Identifier catalogName, Identifier schemaName, ServiceRegistry serviceRegistry, String implicitName) {
 		return implicitName.contains( "." )
 				? QualifiedNameParser.INSTANCE.parse( implicitName )

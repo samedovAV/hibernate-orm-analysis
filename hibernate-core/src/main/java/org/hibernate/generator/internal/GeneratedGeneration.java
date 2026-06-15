@@ -16,6 +16,8 @@ import java.util.EnumSet;
 
 import static org.hibernate.generator.EventTypeSets.fromArray;
 import static org.hibernate.internal.util.StringHelper.isEmpty;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A fairly generic {@link OnExecutionGenerator} which marks a property as generated in the
@@ -54,16 +56,19 @@ public class GeneratedGeneration implements OnExecutionGenerator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EnumSet<EventType> getEventTypes() {
 		return eventTypes;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getGeneratedType() {
 		return generatedType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean referenceColumnsInSql(Dialect dialect) {
 		// include the column in when the field is writable,
 		// or when there is an explicit SQL expression
@@ -71,11 +76,13 @@ public class GeneratedGeneration implements OnExecutionGenerator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getReferencedColumnValues(Dialect dialect) {
 		return sql;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean writePropertyValue() {
 		// include a ? parameter when the field is writable,
 		// but there is no explicit SQL expression
@@ -83,6 +90,7 @@ public class GeneratedGeneration implements OnExecutionGenerator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean generatedOnExecution(Object entity, SharedSessionContractImplementor session) {
 		if ( writable ) {
 			// When this is the identifier generator and writable is true, allow pre-assigned identifiers
@@ -96,11 +104,13 @@ public class GeneratedGeneration implements OnExecutionGenerator {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean allowAssignedIdentifiers() {
 		return writable;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean allowMutation() {
 		// the user may specify @Immutable if mutation should be disallowed
 		return true;

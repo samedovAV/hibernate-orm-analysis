@@ -9,6 +9,8 @@ import org.hibernate.boot.model.naming.Identifier;
 import org.hibernate.boot.model.relational.Namespace;
 import org.hibernate.boot.model.relational.QualifiedSequenceName;
 import org.hibernate.boot.model.relational.QualifiedTableName;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Provides access to information about existing schema objects (tables, sequences etc) of existing database.
@@ -26,6 +28,7 @@ public interface DatabaseInformation {
 	 *
 	 * @return {@code true} indicates a schema with the given name already exists
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean schemaExists(Namespace.Name schema);
 
 	/**
@@ -37,6 +40,7 @@ public interface DatabaseInformation {
 	 *
 	 * @return The table information.  May return {@code null} if not found.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TableInformation getTableInformation(Identifier catalogName, Identifier schemaName, Identifier tableName);
 
 	/**
@@ -47,6 +51,7 @@ public interface DatabaseInformation {
 	 *
 	 * @return The table information.  May return {@code null} if not found.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TableInformation getTableInformation(Namespace.Name schemaName, Identifier tableName);
 
 	/**
@@ -56,6 +61,7 @@ public interface DatabaseInformation {
 	 *
 	 * @return The table information.  May return {@code null} if not found.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TableInformation getTableInformation(QualifiedTableName tableName);
 
 	/**
@@ -65,6 +71,7 @@ public interface DatabaseInformation {
 	 *
 	 * @return a {@link NameSpaceTablesInformation}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NameSpaceTablesInformation getTablesInformation(Namespace namespace);
 
 	/**
@@ -76,6 +83,7 @@ public interface DatabaseInformation {
 	 *
 	 * @return The sequence information.  May return {@code null} if not found.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SequenceInformation getSequenceInformation(
 			Identifier catalogName,
 			Identifier schemaName,
@@ -89,6 +97,7 @@ public interface DatabaseInformation {
 	 *
 	 * @return The sequence information.  May return {@code null} if not found.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SequenceInformation getSequenceInformation(Namespace.Name schemaName, Identifier sequenceName);
 
 	/**
@@ -98,6 +107,7 @@ public interface DatabaseInformation {
 	 *
 	 * @return The sequence information.  May return {@code null} if not found.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SequenceInformation getSequenceInformation(QualifiedSequenceName sequenceName);
 
 	/**
@@ -107,7 +117,9 @@ public interface DatabaseInformation {
 	 *
 	 * @return {@code true} indicates a catalog with the given name already exists
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean catalogExists(Identifier catalog);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void cleanup();
 }

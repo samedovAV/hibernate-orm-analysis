@@ -25,6 +25,8 @@ import static org.hibernate.ConnectionReleaseMode.BEFORE_TRANSACTION_COMPLETION;
 import static org.hibernate.ConnectionReleaseMode.ON_CLOSE;
 import static org.hibernate.resource.jdbc.internal.LogicalConnectionLogging.CONNECTION_LOGGER;
 import static org.hibernate.resource.jdbc.spi.PhysicalConnectionHandlingMode.DELAYED_ACQUISITION_AND_RELEASE_AFTER_TRANSACTION;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents a {@link LogicalConnection} where we manage obtaining and releasing the {@link Connection} as needed.
@@ -57,6 +59,7 @@ public class LogicalConnectionManagedImpl extends AbstractLogicalConnectionImple
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private PhysicalConnectionHandlingMode determineConnectionHandlingMode(JdbcSessionOwner sessionOwner) {
 		final var connectionHandlingMode = sessionOwner.getJdbcSessionContext().getPhysicalConnectionHandlingMode();
 		return connectionHandlingMode.getReleaseMode() == AFTER_STATEMENT
@@ -70,18 +73,22 @@ public class LogicalConnectionManagedImpl extends AbstractLogicalConnectionImple
 		this.closed = closed;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private JdbcSessionContext getJdbcSessionContext() {
 		return jdbcSessionOwner.getJdbcSessionContext();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private JdbcConnectionAccess getJdbcConnectionAccess() {
 		return jdbcSessionOwner.getJdbcConnectionAccess();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private SqlExceptionHelper getExceptionHelper() {
 		return jdbcSessionOwner.getSqlExceptionHelper();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Connection acquireConnectionIfNeeded() {
 		if ( physicalConnection == null ) {
 			physicalConnection = acquire();
@@ -90,6 +97,7 @@ public class LogicalConnectionManagedImpl extends AbstractLogicalConnectionImple
 		return physicalConnection;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void releaseConnectionIfNeeded() {
 		final Connection connection = physicalConnection;
 		if ( connection != null ) {
@@ -106,27 +114,32 @@ public class LogicalConnectionManagedImpl extends AbstractLogicalConnectionImple
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isOpen() {
 		return !closed;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PhysicalConnectionHandlingMode getConnectionHandlingMode() {
 		return connectionHandlingMode;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isPhysicallyConnected() {
 		return physicalConnection != null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Connection getPhysicalConnection() {
 		errorIfClosed();
 		return acquireConnectionIfNeeded();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void afterStatement() {
 		super.afterStatement();
 		if ( connectionHandlingMode.getReleaseMode() == AFTER_STATEMENT ) {
@@ -141,6 +154,7 @@ public class LogicalConnectionManagedImpl extends AbstractLogicalConnectionImple
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void beforeTransactionCompletion() {
 		super.beforeTransactionCompletion();
 		if ( connectionHandlingMode.getReleaseMode() == BEFORE_TRANSACTION_COMPLETION ) {
@@ -150,6 +164,7 @@ public class LogicalConnectionManagedImpl extends AbstractLogicalConnectionImple
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void afterTransaction() {
 		super.afterTransaction();
 		if ( connectionHandlingMode.getReleaseMode() != ON_CLOSE ) {
@@ -163,6 +178,7 @@ public class LogicalConnectionManagedImpl extends AbstractLogicalConnectionImple
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Connection manualDisconnect() {
 		if ( closed ) {
 			throw new ResourceClosedException( "Logical connection is closed" );
@@ -173,6 +189,7 @@ public class LogicalConnectionManagedImpl extends AbstractLogicalConnectionImple
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void manualReconnect(Connection suppliedConnection) {
 		if ( closed ) {
 			throw new ResourceClosedException( "Logical connection is closed" );
@@ -180,6 +197,7 @@ public class LogicalConnectionManagedImpl extends AbstractLogicalConnectionImple
 		throw new IllegalStateException( "Cannot manually reconnect unless Connection was originally supplied by user" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Connection acquire() {
 		final var eventHandler = getJdbcSessionContext().getEventHandler();
 		eventHandler.jdbcConnectionAcquisitionStart();
@@ -194,6 +212,7 @@ public class LogicalConnectionManagedImpl extends AbstractLogicalConnectionImple
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void release(Connection connection) {
 		final var eventHandler = getJdbcSessionContext().getEventHandler();
 		try {
@@ -216,6 +235,7 @@ public class LogicalConnectionManagedImpl extends AbstractLogicalConnectionImple
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void afterAcquire() {
 		try {
 			// give the session a chance to set the schema
@@ -232,6 +252,7 @@ public class LogicalConnectionManagedImpl extends AbstractLogicalConnectionImple
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void beforeRelease() {
 		try {
 			// give the session a chance to change the schema back to null
@@ -243,16 +264,19 @@ public class LogicalConnectionManagedImpl extends AbstractLogicalConnectionImple
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void serialize(ObjectOutputStream oos) throws IOException {
 		oos.writeBoolean( closed );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static LogicalConnectionManagedImpl deserialize(ObjectInputStream ois, JdbcSessionOwner owner)
 			throws IOException {
 		return new LogicalConnectionManagedImpl( owner, ois.readBoolean() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Connection close() {
 		if ( !closed ) {
 			try {
@@ -277,6 +301,7 @@ public class LogicalConnectionManagedImpl extends AbstractLogicalConnectionImple
 	// PhysicalJdbcTransaction impl ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Connection getConnectionForTransactionManagement() {
 		return getPhysicalConnection();
 	}
@@ -284,6 +309,7 @@ public class LogicalConnectionManagedImpl extends AbstractLogicalConnectionImple
 	boolean initiallyAutoCommit;
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void begin() {
 		initiallyAutoCommit =
 				!doConnectionsFromProviderHaveAutoCommitDisabled()
@@ -292,6 +318,7 @@ public class LogicalConnectionManagedImpl extends AbstractLogicalConnectionImple
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void afterCompletion() {
 		resetConnection( initiallyAutoCommit );
 		initiallyAutoCommit = false;
@@ -299,6 +326,7 @@ public class LogicalConnectionManagedImpl extends AbstractLogicalConnectionImple
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean doConnectionsFromProviderHaveAutoCommitDisabled() {
 		return getJdbcSessionContext().doesConnectionProviderDisableAutoCommit();
 	}

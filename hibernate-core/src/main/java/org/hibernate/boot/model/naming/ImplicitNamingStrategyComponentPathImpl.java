@@ -7,6 +7,8 @@ package org.hibernate.boot.model.naming;
 import org.hibernate.boot.model.source.spi.AttributePath;
 import org.hibernate.internal.util.StringHelper;
 import org.hibernate.spi.NavigablePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An ImplicitNamingStrategy implementation which uses full composite paths
@@ -22,12 +24,14 @@ public class ImplicitNamingStrategyComponentPathImpl extends ImplicitNamingStrat
 	public static final ImplicitNamingStrategyComponentPathImpl INSTANCE = new ImplicitNamingStrategyComponentPathImpl();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String transformAttributePath(AttributePath attributePath) {
 		final StringBuilder sb = new StringBuilder();
 		process( attributePath, sb );
 		return sb.toString();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void process(AttributePath attributePath, StringBuilder sb) {
 		String property = attributePath.getProperty();
 		final AttributePath parent = attributePath.getParent();

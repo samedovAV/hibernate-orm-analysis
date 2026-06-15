@@ -11,6 +11,8 @@ import org.hibernate.sql.results.internal.RowProcessingStateStandardImpl;
 import org.hibernate.sql.results.jdbc.spi.JdbcValues;
 import org.hibernate.sql.results.jdbc.spi.JdbcValuesSourceProcessingOptions;
 import org.hibernate.sql.results.jdbc.spi.JdbcValuesSourceProcessingState;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Used beneath {@link SelectionQuery#getResultCount()}.
@@ -25,11 +27,13 @@ public class SingleResultConsumer<T> implements ResultsConsumer<T, T> {
 	private static final SingleResultConsumer<?> INSTANCE = new SingleResultConsumer<>();
 
 	@SuppressWarnings( "unchecked" )
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static <T> SingleResultConsumer<T> instance() {
 		return (SingleResultConsumer<T>) INSTANCE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public T consume(
 			JdbcValues jdbcValues,
 			SharedSessionContractImplementor session,
@@ -82,6 +86,7 @@ public class SingleResultConsumer<T> implements ResultsConsumer<T, T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean canResultsBeCached() {
 		return false;
 	}

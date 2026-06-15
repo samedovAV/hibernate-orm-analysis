@@ -5,6 +5,8 @@
 package org.hibernate.engine.jdbc.proxy;
 
 import java.sql.NClob;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for {@link NClob} wrappers.
@@ -18,5 +20,6 @@ public interface WrappedNClob extends WrappedClob {
 	 *
 	 * @return The wrapped {@link java.sql.Blob} reference
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NClob getWrappedNClob();
 }

@@ -16,6 +16,8 @@ import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.type.Type;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * MessageHelper methods for rendering log messages relating to managed
@@ -41,6 +43,7 @@ public final class MessageHelper {
 	 * @param id The entity id value.
 	 * @return An info string, in the form [FooBar#1].
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String infoString(@Nullable String entityName, @Nullable Object id) {
 		final StringBuilder info = new StringBuilder();
 		info.append( '[' );
@@ -69,6 +72,7 @@ public final class MessageHelper {
 	 * @param factory The session factory - Could be null!
 	 * @return An info string, in the form [FooBar#1]
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String infoString(
 			@Nullable EntityPersister persister,
 			@Nullable Object id,
@@ -116,6 +120,7 @@ public final class MessageHelper {
 	 * @param factory The session factory
 	 * @return An info string, in the form [FooBar#1]
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String infoString(
 			@Nullable EntityPersister persister,
 			@Nullable Object id,
@@ -149,6 +154,7 @@ public final class MessageHelper {
 	 * @param factory The session factory
 	 * @return An info string, in the form [FooBar#&lt;1,2,3&gt;]
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String infoString(
 			@Nullable EntityPersister persister,
 			Object[] ids,
@@ -181,6 +187,7 @@ public final class MessageHelper {
 	 * @param persister The persister.
 	 * @return An info string, in the form [FooBar]
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String infoString(@Nullable EntityPersister persister) {
 		final StringBuilder info = new StringBuilder();
 		info.append( '[' );
@@ -203,6 +210,7 @@ public final class MessageHelper {
 	 * @param key The property value.
 	 * @return An info string, in the form [Foo.bars#1]
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String infoString(String entityName, String propertyName, @Nullable Object key) {
 		final StringBuilder info = new StringBuilder()
 				.append( '[' )
@@ -234,6 +242,7 @@ public final class MessageHelper {
 	 * @param session The session
 	 * @return An info string, in the form [Foo.bars#1]
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String collectionInfoString(
 			@Nullable CollectionPersister persister,
 			@Nullable PersistentCollection<?> collection,
@@ -279,6 +288,7 @@ public final class MessageHelper {
 	 * @param factory The session factory
 	 * @return An info string, in the form [Foo.bars#&lt;1,2,3&gt;]
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String collectionInfoString(
 			@Nullable CollectionPersister persister,
 			Object[] ids,
@@ -313,6 +323,7 @@ public final class MessageHelper {
 	 * @param factory The session factory
 	 * @return An info string, in the form [Foo.bars#1]
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String collectionInfoString(
 			@Nullable CollectionPersister persister,
 			@Nullable Object id,
@@ -337,6 +348,7 @@ public final class MessageHelper {
 		return info.toString();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void addIdToCollectionInfoString(
 			CollectionPersister persister,
 			Object id,
@@ -370,6 +382,7 @@ public final class MessageHelper {
 	 * @param id The id value of the owner
 	 * @return An info string, in the form [Foo.bars#1]
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String collectionInfoString(@Nullable String role, @Nullable Object id) {
 		final StringBuilder info = new StringBuilder();
 		info.append( '[' );
@@ -389,11 +402,13 @@ public final class MessageHelper {
 		return info.toString();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String collectionInfoString(PluralAttributeMapping loadable, Object key) {
 		final CollectionPersister collectionDescriptor = loadable.getCollectionDescriptor();
 		return collectionInfoString( collectionDescriptor, key, collectionDescriptor.getFactory() );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String infoString(EntityMappingType loadable, Object id) {
 		final EntityPersister persister = loadable.getEntityPersister();
 		return infoString( persister, id, persister.getFactory() );

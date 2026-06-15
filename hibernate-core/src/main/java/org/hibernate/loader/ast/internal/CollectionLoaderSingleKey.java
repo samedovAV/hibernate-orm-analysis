@@ -25,6 +25,8 @@ import org.hibernate.sql.results.internal.RowTransformerStandardImpl;
 import org.hibernate.sql.results.spi.ListResultsConsumer;
 
 import static org.hibernate.sql.exec.spi.JdbcParameterBindings.NO_BINDINGS;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Main implementation of CollectionLoader for handling a load of a single collection-key
@@ -81,23 +83,28 @@ public class CollectionLoaderSingleKey implements CollectionLoader {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PluralAttributeMapping getLoadable() {
 		return getAttributeMapping();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PluralAttributeMapping getAttributeMapping() {
 		return attributeMapping;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SelectStatement getSqlAst() {
 		return sqlAst;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcParametersList getJdbcParameters() {
 		return jdbcParameters;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistentCollection<?> load(Object key, SharedSessionContractImplementor session) {
 		final var collectionKey = session.generateCollectionKey( attributeMapping.getCollectionDescriptor(), key );
 
@@ -142,11 +149,13 @@ public class CollectionLoaderSingleKey implements CollectionLoader {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public CollectionKey getCollectionKey() {
 			return collectionKey;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public void registerLoadingEntityHolder(EntityHolder holder) {
 			subSelectFetchableKeysHandler.addKey( holder );
 		}

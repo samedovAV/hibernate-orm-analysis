@@ -8,6 +8,8 @@ import org.hibernate.boot.model.convert.spi.AutoApplicableConverterDescriptor;
 import org.hibernate.boot.model.convert.spi.ConverterDescriptor;
 import org.hibernate.boot.spi.MetadataBuildingContext;
 import org.hibernate.models.spi.MemberDetails;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An implementation of AutoApplicableConverterDescriptor that always reports
@@ -25,11 +27,13 @@ public class AutoApplicableConverterDescriptorBypassedImpl implements AutoApplic
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isAutoApplicable() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ConverterDescriptor<?,?> getAutoAppliedConverterDescriptorForAttribute(
 			MemberDetails memberDetails,
 			MetadataBuildingContext context) {
@@ -37,6 +41,7 @@ public class AutoApplicableConverterDescriptorBypassedImpl implements AutoApplic
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ConverterDescriptor<?,?> getAutoAppliedConverterDescriptorForCollectionElement(
 			MemberDetails memberDetails,
 			MetadataBuildingContext context) {
@@ -44,6 +49,7 @@ public class AutoApplicableConverterDescriptorBypassedImpl implements AutoApplic
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ConverterDescriptor<?,?> getAutoAppliedConverterDescriptorForMapKey(
 			MemberDetails memberDetails,
 			MetadataBuildingContext context) {

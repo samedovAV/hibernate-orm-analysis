@@ -15,6 +15,8 @@ import org.hibernate.dialect.Dialect;
 import static org.hibernate.engine.jdbc.env.internal.LobCreationLogging.LOB_LOGGER;
 import static org.hibernate.engine.jdbc.env.internal.LobCreationLogging.LOB_MESSAGE_LOGGER;
 import static org.hibernate.internal.util.config.ConfigurationHelper.getBoolean;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Utilities for LOB creation
@@ -34,6 +36,7 @@ public class LobCreationHelper {
 	 * @param configValues The map of settings
 	 * @param jdbcConnection The connection which can be used in level-of-support testing.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static EnumSet<LobTypes> getSupportedContextualLobTypes(Dialect dialect, Map<String,Object> configValues, Connection jdbcConnection) {
 		if ( getBoolean( Environment.NON_CONTEXTUAL_LOB_CREATION, configValues ) ) {
 			LOB_MESSAGE_LOGGER.disablingContextualLOBCreation( Environment.NON_CONTEXTUAL_LOB_CREATION );
@@ -73,6 +76,7 @@ public class LobCreationHelper {
 		return NONE;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean canCreateClob(Connection jdbcConnection) {
 		try {
 			// We just want to see if the driver can create one
@@ -92,6 +96,7 @@ public class LobCreationHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean canCreateNClob(Connection jdbcConnection) {
 		try {
 			// We just want to see if the driver can create one

@@ -12,6 +12,8 @@ import org.hibernate.action.queue.spi.plan.FlushOperation;
 import org.hibernate.collection.spi.PersistentCollection;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.persister.collection.CollectionPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Bind plan for updating only the order/index column of a collection row.
 ///
@@ -51,11 +53,13 @@ public class OrderOnlyUpdateBindPlan implements BindPlan {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getEntityInstance() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object[] getUniqueConstraintValues(
 			UniqueConstraint constraint,
 			SharedSessionContractImplementor session) {
@@ -71,6 +75,7 @@ public class OrderOnlyUpdateBindPlan implements BindPlan {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object[] getPreviousUniqueConstraintValues(
 			UniqueConstraint constraint,
 			SharedSessionContractImplementor session) {
@@ -86,6 +91,7 @@ public class OrderOnlyUpdateBindPlan implements BindPlan {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void bindValues(
 			JdbcValueBindings valueBindings,
 			FlushOperation flushOperation,
@@ -95,6 +101,7 @@ public class OrderOnlyUpdateBindPlan implements BindPlan {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "OrderOnlyUpdateBindPlan(" + collection.getRole() + ", " + oldPosition + "->" + newPosition + ")";
 	}

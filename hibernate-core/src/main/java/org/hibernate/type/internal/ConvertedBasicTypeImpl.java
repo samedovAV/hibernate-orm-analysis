@@ -37,6 +37,8 @@ import org.hibernate.type.descriptor.java.MutabilityPlan;
 import org.hibernate.type.descriptor.jdbc.JdbcLiteralFormatter;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
 import org.hibernate.type.MappingContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -94,147 +96,176 @@ public class ConvertedBasicTypeImpl<J> implements ConvertedBasicType<J>,
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return name;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getRegistrationKeys() {
 		// irrelevant - these are created on-the-fly
 		return NO_REG_KEYS;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BasicValueConverter getValueConverter() {
 		return converter;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ValueExtractor<J> getJdbcValueExtractor() {
 		return jdbcValueExtractor;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ValueBinder<J> getJdbcValueBinder() {
 		return jdbcValueBinder;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcLiteralFormatter getJdbcLiteralFormatter() {
 		return jdbcLiteralFormatter;
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<J> getJavaType() {
 		return getExpressibleJavaType().getJavaTypeClass();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<?> getJdbcJavaType() {
 		return converter.getRelationalJavaType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean[] toColumnNullness(Object value, MappingContext mapping) {
 		return value == null ? ArrayHelper.FALSE : ArrayHelper.TRUE;
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final JavaType<J> getJavaTypeDescriptor() {
 		return converter.getDomainJavaType();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final JdbcType getJdbcType() {
 		return jdbcType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final Class<?> getReturnedClass() {
 		return converter.getDomainJavaType().getJavaTypeClass();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final int getColumnSpan(MappingContext mapping) throws MappingException {
 		return 1;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final int[] getSqlTypeCodes(MappingContext mappingContext) throws MappingException {
 		return sqlTypes;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final boolean isAssociationType() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final boolean isCollectionType() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final boolean isComponentType() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final boolean isEntityType() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final boolean isAnyType() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final boolean isSame(Object x, Object y) {
 		return isEqual( x, y );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final boolean isEqual(Object x, Object y, SessionFactoryImplementor factory) {
 		return isEqual( x, y );
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isEqual(Object one, Object another) {
 		return converter.getDomainJavaType().areEqual( (J) one, (J) another );
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getHashCode(Object x) {
 		return converter.getDomainJavaType().extractHashCode( (J) x );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final int getHashCode(Object x, SessionFactoryImplementor factory) {
 		return getHashCode( x );
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final int compare(Object x, Object y) {
 		return converter.getDomainJavaType().getComparator().compare( (J) x, (J) y );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final boolean isDirty(Object old, Object current, SharedSessionContractImplementor session) {
 		return isDirty( old, current );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final boolean isDirty(Object old, Object current, boolean[] checkable, SharedSessionContractImplementor session) {
 		return checkable[0] && isDirty( old, current );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected final boolean isDirty(Object old, Object current) {
 		return !isSame( old, current );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final boolean isModified(
 			Object oldHydratedState,
 			Object currentState,
@@ -244,6 +275,7 @@ public class ConvertedBasicTypeImpl<J> implements ConvertedBasicType<J>,
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final void nullSafeSet(PreparedStatement st, Object value, int index, boolean[] settable, SharedSessionContractImplementor session)
 			throws HibernateException, SQLException {
 		if ( settable[0] ) {
@@ -252,6 +284,7 @@ public class ConvertedBasicTypeImpl<J> implements ConvertedBasicType<J>,
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void nullSafeSet(
 			CallableStatement st,
 			J value,
@@ -262,6 +295,7 @@ public class ConvertedBasicTypeImpl<J> implements ConvertedBasicType<J>,
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final void nullSafeSet(
 			PreparedStatement st,
 			Object value,
@@ -274,6 +308,7 @@ public class ConvertedBasicTypeImpl<J> implements ConvertedBasicType<J>,
 
 	@Override
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final String toLoggableString(Object value, SessionFactoryImplementor factory) {
 		if ( value == LazyPropertyInitializer.UNFETCHED_PROPERTY || !Hibernate.isInitialized( value ) ) {
 			return  "<uninitialized>";
@@ -281,40 +316,47 @@ public class ConvertedBasicTypeImpl<J> implements ConvertedBasicType<J>,
 		return converter.getDomainJavaType().extractLoggableRepresentation( (J) value );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected MutabilityPlan<J> getMutabilityPlan() {
 		return converter.getDomainJavaType().getMutabilityPlan();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final boolean isMutable() {
 		return getMutabilityPlan().isMutable();
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final Object deepCopy(Object value, SessionFactoryImplementor factory) {
 		return getMutabilityPlan().deepCopy( (J) value );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final Object assemble(Serializable cached, SharedSessionContractImplementor session, Object owner) throws HibernateException {
 		return getMutabilityPlan().assemble( cached, session );
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final Serializable disassemble(Object value, SharedSessionContractImplementor session, Object owner) throws HibernateException {
 		return getMutabilityPlan().disassemble( (J) value, session );
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object disassemble(Object value, SharedSessionContractImplementor session) {
 		return converter.toRelationalValue( (J) value );
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final Object replace(Object original, Object target, SharedSessionContractImplementor session, Object owner, Map<Object, Object> copyCache) {
 		return original == null && target == null
 				? null
@@ -324,6 +366,7 @@ public class ConvertedBasicTypeImpl<J> implements ConvertedBasicType<J>,
 
 	@Override
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object replace(
 			Object original,
 			Object target,
@@ -337,12 +380,14 @@ public class ConvertedBasicTypeImpl<J> implements ConvertedBasicType<J>,
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean canDoExtraction() {
 		return true;
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public J extract(CallableStatement statement, int startIndex, final SharedSessionContractImplementor session) throws SQLException {
 		return (J) getValueConverter().toDomainValue(
 				getJdbcValueExtractor().extract(
@@ -355,6 +400,7 @@ public class ConvertedBasicTypeImpl<J> implements ConvertedBasicType<J>,
 
 	@Override
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public J extract(CallableStatement statement, String paramName, final SharedSessionContractImplementor session) throws SQLException {
 		return (J) getValueConverter().toDomainValue(
 				getJdbcValueExtractor().extract(
@@ -366,11 +412,13 @@ public class ConvertedBasicTypeImpl<J> implements ConvertedBasicType<J>,
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean canDoSetting() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public CastType getCastType() {
 		final JdbcType jdbcType = getJdbcType();
 		final int jdbcTypeCode = jdbcType.getDefaultSqlTypeCode();
@@ -408,6 +456,7 @@ public class ConvertedBasicTypeImpl<J> implements ConvertedBasicType<J>,
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return description;
 	}

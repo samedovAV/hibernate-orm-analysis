@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static org.hibernate.internal.log.ConnectionInfoLogger.CONNECTION_INFO_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 class PooledConnections {
 
@@ -42,6 +44,7 @@ class PooledConnections {
 		addConnections( builder.initialSize );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void validate() {
 		final int size = size();
 
@@ -64,6 +67,7 @@ class PooledConnections {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void add(Connection conn) {
 		final Connection connection = releaseConnection( conn );
 		if ( connection != null ) {
@@ -71,6 +75,7 @@ class PooledConnections {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Connection releaseConnection(Connection conn) {
 		Exception t = null;
 		try {
@@ -88,6 +93,7 @@ class PooledConnections {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	Connection poll() {
 		Connection conn;
 		do {
@@ -108,6 +114,7 @@ class PooledConnections {
 		return conn;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected Connection prepareConnection(Connection conn) {
 		Exception t = null;
 		try {
@@ -124,6 +131,7 @@ class PooledConnections {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void closeConnection(Connection conn, Throwable t) {
 		try {
 			conn.close();
@@ -141,6 +149,7 @@ class PooledConnections {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void close() throws SQLException {
 		try {
 			final int allocationCount = allConnections.size() - availableConnections.size();
@@ -154,10 +163,12 @@ class PooledConnections {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int size() {
 		return allConnections.size();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void removeConnections(int numberToBeRemoved) {
 		for ( int i = 0; i < numberToBeRemoved; i++ ) {
 			final Connection connection = availableConnections.poll();
@@ -168,6 +179,7 @@ class PooledConnections {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void addConnections(int numberOfConnections) {
 		for ( int i = 0; i < numberOfConnections; i++ ) {
 			Connection connection = connectionCreator.createConnection();
@@ -176,14 +188,17 @@ class PooledConnections {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getUrl() {
 		return connectionCreator.getUrl();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getOpenConnectionCount() {
 		return allConnections.size() - availableConnections.size();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Iterable<Connection> getAllConnections() {
 		return allConnections;
 	}
@@ -200,31 +215,37 @@ class PooledConnections {
 			this.connectionCreator = connectionCreator;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		Builder autoCommit(boolean autoCommit) {
 			this.autoCommit = autoCommit;
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		Builder initialSize(int initialSize) {
 			this.initialSize = initialSize;
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		Builder minSize(int minSize) {
 			this.minSize = minSize;
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		Builder maxSize(int maxSize) {
 			this.maxSize = maxSize;
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		Builder validator(ConnectionValidator connectionValidator) {
 			this.connectionValidator = connectionValidator;
 			return this;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		PooledConnections build() {
 			return new PooledConnections( this );
 		}

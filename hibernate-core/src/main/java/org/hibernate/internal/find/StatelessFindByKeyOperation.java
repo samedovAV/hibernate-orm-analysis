@@ -18,6 +18,8 @@ import org.hibernate.graph.GraphSemantic;
 import org.hibernate.graph.spi.RootGraphImplementor;
 import org.hibernate.loader.internal.CacheLoadHelper;
 import org.hibernate.persister.entity.EntityPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Support for loading a single entity by key by either
 /// [id][org.hibernate.KeyType#IDENTIFIER] or
@@ -47,21 +49,25 @@ public class StatelessFindByKeyOperation<T> extends AbstractFindByKeyOperation<T
 		this.loadAccessContext = loadAccessContext;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private StatelessSessionImplementor getSession() {
 		return loadAccessContext.getStatelessSession();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected SharedSessionContractImplementor getEntityHandler() {
 		return getSession();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected CacheMode getCacheModeForOptions() {
 		return CacheMode.fromJpaModes( getCacheRetrieveMode(), getCacheStoreMode() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void afterOptions() {
 		final var persistenceContext = getSession().getPersistenceContextInternal();
 		if ( persistenceContext.isLoadFinished() ) {
@@ -70,6 +76,7 @@ public class StatelessFindByKeyOperation<T> extends AbstractFindByKeyOperation<T
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected T findById(Object key) {
 		final Object keyToLoad =
 				Helper.coerceId( getEntityDescriptor(), key,
@@ -99,6 +106,7 @@ public class StatelessFindByKeyOperation<T> extends AbstractFindByKeyOperation<T
 		} );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private Object loadFromSecondLevelCache(
 			Object key,
 			StatelessLoadAccessContext context) {
@@ -111,6 +119,7 @@ public class StatelessFindByKeyOperation<T> extends AbstractFindByKeyOperation<T
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private LockMode getNullSafeLockMode() {
 		return getLockMode() == null ? LockMode.NONE : getLockMode();
 	}

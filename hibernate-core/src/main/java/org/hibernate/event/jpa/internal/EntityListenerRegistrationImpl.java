@@ -7,6 +7,8 @@ package org.hibernate.event.jpa.internal;
 import jakarta.persistence.EntityListenerRegistration;
 import org.hibernate.event.jpa.spi.Callback;
 import org.hibernate.jpa.event.spi.CallbackType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -26,6 +28,7 @@ public class EntityListenerRegistrationImpl<E> implements EntityListenerRegistra
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void cancel() {
 		entityCallbacks.remove( registeredCallbackType, registeredCallback );
 	}

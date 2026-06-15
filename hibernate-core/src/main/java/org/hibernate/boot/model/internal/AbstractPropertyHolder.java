@@ -43,6 +43,8 @@ import static org.hibernate.internal.util.StringHelper.isNotBlank;
 import static org.hibernate.internal.util.StringHelper.qualify;
 import static org.hibernate.internal.util.collections.CollectionHelper.isEmpty;
 import static org.hibernate.internal.util.collections.CollectionHelper.isNotEmpty;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Emmanuel Bernard
@@ -77,13 +79,18 @@ public abstract class AbstractPropertyHolder implements PropertyHolder {
 		buildHierarchyColumnOverride( clazzToProcess );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract String normalizeCompositePathForLogging(String attributeName);
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract String normalizeCompositePath(String attributeName);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract AttributeConversionInfo locateAttributeConversionInfo(MemberDetails attributeMember);
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract AttributeConversionInfo locateAttributeConversionInfo(String path);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ConverterDescriptor<?,?> resolveAttributeConverterDescriptor(MemberDetails attributeMember, boolean autoApply) {
 		final var info = locateAttributeConversionInfo( attributeMember );
 		if ( info != null ) {
@@ -106,12 +113,14 @@ public abstract class AbstractPropertyHolder implements PropertyHolder {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private ConverterDescriptor<?, ?> autoApplyConverterForAttribute(MemberDetails attributeMember) {
 		return context.getMetadataCollector().getConverterRegistry()
 				.getAttributeConverterAutoApplyHandler()
 				.findAutoApplyConverterForAttribute( attributeMember, context );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected IllegalStateException buildExceptionFromInstantiationError(AttributeConversionInfo info, Exception e) {
 		if ( AttributeConverter.class.equals( info.getConverterClass() ) ) {
 			// the user forgot to set @Convert.converter
@@ -133,6 +142,7 @@ public abstract class AbstractPropertyHolder implements PropertyHolder {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected ConverterDescriptor<?,?> makeAttributeConverterDescriptor(AttributeConversionInfo conversion) {
 		try {
 			return ConverterDescriptors.of( conversion.getConverterClass(), null, false );
@@ -143,6 +153,7 @@ public abstract class AbstractPropertyHolder implements PropertyHolder {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isInIdClass() {
 		if ( isInIdClass != null ) {
 			return isInIdClass;
@@ -156,11 +167,13 @@ public abstract class AbstractPropertyHolder implements PropertyHolder {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setInIdClass(Boolean isInIdClass) {
 		this.isInIdClass = isInIdClass;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getPath() {
 		return path;
 	}
@@ -170,10 +183,12 @@ public abstract class AbstractPropertyHolder implements PropertyHolder {
 	 *
 	 * @return The mappings
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected MetadataBuildingContext getContext() {
 		return context;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected ModelsContext getSourceModelContext() {
 		return getContext().getBootstrapContext().getModelsContext();
 	}
@@ -183,6 +198,7 @@ public abstract class AbstractPropertyHolder implements PropertyHolder {
 	 *
 	 * @param attributeMember The property
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void setCurrentProperty(MemberDetails attributeMember) {
 		// todo (jpa32) : some of this (association override handling esp) does the same work multiple times - consolidate
 
@@ -228,6 +244,7 @@ public abstract class AbstractPropertyHolder implements PropertyHolder {
 	 * These rules are here to support both JPA 2 and legacy overriding rules.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Column[] getOverriddenColumn(String propertyName) {
 		final var overriddenColumn = getExactOverriddenColumn( propertyName );
 		// support for non-map collections where no prefix is needed
@@ -237,6 +254,7 @@ public abstract class AbstractPropertyHolder implements PropertyHolder {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public ColumnTransformer getOverriddenColumnTransformer(String logicalColumnName) {
 		if ( parent != null ) {
 			final var result = parent.getOverriddenColumnTransformer( logicalColumnName );
@@ -266,6 +284,7 @@ public abstract class AbstractPropertyHolder implements PropertyHolder {
 	 * Get column overriding, property first, then parent, then holder
 	 * find the overridden rules from the exact property name.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private Column[] getExactOverriddenColumn(String propertyName) {
 		if ( parent != null ) {
 			final var result = parent.getExactOverriddenColumn( propertyName );
@@ -298,6 +317,7 @@ public abstract class AbstractPropertyHolder implements PropertyHolder {
 	 * These rules are here to support both JPA 2 and legacy overriding rules.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JoinColumn[] getOverriddenJoinColumn(String propertyName) {
 		final var result = getExactOverriddenJoinColumn( propertyName );
 		if ( result == null && propertyName.contains( ".{element}." ) ) {
@@ -313,6 +333,7 @@ public abstract class AbstractPropertyHolder implements PropertyHolder {
 	/**
 	 * Get column overriding, property first, then parent, then holder
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private JoinColumn[] getExactOverriddenJoinColumn(String propertyName) {
 		if ( parent != null ) {
 			final var result = parent.getExactOverriddenJoinColumn( propertyName );
@@ -339,6 +360,7 @@ public abstract class AbstractPropertyHolder implements PropertyHolder {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ForeignKey getOverriddenForeignKey(String propertyName) {
 		final var result = getExactOverriddenForeignKey( propertyName );
 		if ( result == null && propertyName.contains( ".{element}." ) ) {
@@ -351,6 +373,7 @@ public abstract class AbstractPropertyHolder implements PropertyHolder {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private ForeignKey getExactOverriddenForeignKey(String propertyName) {
 		if ( parent != null ) {
 			final var result = parent.getExactOverriddenForeignKey( propertyName );
@@ -380,6 +403,7 @@ public abstract class AbstractPropertyHolder implements PropertyHolder {
 	 * These rules are here to support both JPA 2 and legacy overriding rules.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JoinTable getJoinTable(MemberDetails attributeMember) {
 		final String propertyName = qualify( getPath(), attributeMember.getName() );
 		final var result = getOverriddenJoinTable( propertyName );
@@ -394,6 +418,7 @@ public abstract class AbstractPropertyHolder implements PropertyHolder {
 	 *
 	 * These rules are here to support both JPA 2 and legacy overriding rules.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JoinTable getOverriddenJoinTable(String propertyName) {
 		final var result = getExactOverriddenJoinTable( propertyName );
 		if ( result == null && propertyName.contains( ".{element}." ) ) {
@@ -409,6 +434,7 @@ public abstract class AbstractPropertyHolder implements PropertyHolder {
 	/**
 	 * Get column overriding, property first, then parent, then holder
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private JoinTable getExactOverriddenJoinTable(String propertyName) {
 		if ( parent != null ) {
 			final var override = parent.getExactOverriddenJoinTable( propertyName );
@@ -431,6 +457,7 @@ public abstract class AbstractPropertyHolder implements PropertyHolder {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void buildHierarchyColumnOverride(ClassDetails element) {
 		ClassDetails current = element;
 		Map<String, Column[]> columnOverride = new HashMap<>();
@@ -467,12 +494,14 @@ public abstract class AbstractPropertyHolder implements PropertyHolder {
 		holderForeignKeyOverride = foreignKeyOverride.isEmpty() ? null : foreignKeyOverride;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean isManagedType(ClassDetails current) {
 		return EntityBinder.isEntity( current )
 			|| EntityBinder.isMappedSuperclass( current )
 			|| EmbeddableBinder.isEmbeddable( current );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static Map<String, Column[]> buildColumnOverride(
 			AnnotationTarget element,
 			String path,
@@ -522,6 +551,7 @@ public abstract class AbstractPropertyHolder implements PropertyHolder {
 		return result;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Column createTimeZoneColumn(
 			AnnotationTarget element,
 			Column column,
@@ -556,6 +586,7 @@ public abstract class AbstractPropertyHolder implements PropertyHolder {
 		return created;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Column createTemporalColumn(
 			AnnotationTarget element,
 			String path,
@@ -582,16 +613,19 @@ public abstract class AbstractPropertyHolder implements PropertyHolder {
 							final AttributePath attributePath = AttributePath.parse(path);
 
 							@Override
+							@Prove(complexity = Complexity.O_1, n = "", count = {})
 							public AttributePath getAttributePath() {
 								return attributePath;
 							}
 
 							@Override
+							@Prove(complexity = Complexity.O_1, n = "", count = {})
 							public boolean isCollectionElement() {
 								return false;
 							}
 
 							@Override
+							@Prove(complexity = Complexity.O_1, n = "", count = {})
 							public MetadataBuildingContext getBuildingContext() {
 								return context;
 							}
@@ -609,6 +643,7 @@ public abstract class AbstractPropertyHolder implements PropertyHolder {
 		return created;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Map<String, ColumnTransformer> buildColumnTransformerOverride(AnnotationTarget element, MetadataBuildingContext context) {
 		if ( element == null ) {
 			return emptyMap();
@@ -622,6 +657,7 @@ public abstract class AbstractPropertyHolder implements PropertyHolder {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static Map<String, JoinColumn[]> buildJoinColumnOverride(AnnotationTarget element, String path, MetadataBuildingContext context) {
 		if ( element == null ) {
 			return emptyMap();
@@ -635,6 +671,7 @@ public abstract class AbstractPropertyHolder implements PropertyHolder {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static Map<String, ForeignKey> buildForeignKeyOverride(AnnotationTarget element, String path, MetadataBuildingContext context) {
 		if ( element == null ) {
 			return emptyMap();
@@ -648,10 +685,12 @@ public abstract class AbstractPropertyHolder implements PropertyHolder {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static AssociationOverride[] buildAssociationOverrides(AnnotationTarget element, MetadataBuildingContext context) {
 		return element.getRepeatedAnnotationUsages( AssociationOverride.class, context.getBootstrapContext().getModelsContext() );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static Map<String, JoinTable> buildJoinTableOverride(AnnotationTarget element, String path, MetadataBuildingContext context) {
 		if ( element == null ) {
 			return emptyMap();
@@ -668,6 +707,7 @@ public abstract class AbstractPropertyHolder implements PropertyHolder {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setParentProperty(String parentProperty) {
 		throw new AssertionFailure( "Setting the parent property to a non component" );
 	}

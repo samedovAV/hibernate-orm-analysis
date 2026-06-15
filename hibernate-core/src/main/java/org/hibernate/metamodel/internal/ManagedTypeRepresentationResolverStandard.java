@@ -18,6 +18,8 @@ import org.hibernate.metamodel.spi.RuntimeModelCreationContext;
 import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.resource.beans.internal.FallbackBeanInstanceProducer;
 import org.hibernate.usertype.CompositeUserType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -29,6 +31,7 @@ public class ManagedTypeRepresentationResolverStandard implements ManagedTypeRep
 	public static final ManagedTypeRepresentationResolverStandard INSTANCE = new ManagedTypeRepresentationResolverStandard();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EntityRepresentationStrategy resolveStrategy(
 			PersistentClass bootDescriptor,
 			EntityPersister runtimeDescriptor,
@@ -48,6 +51,7 @@ public class ManagedTypeRepresentationResolverStandard implements ManagedTypeRep
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EmbeddableRepresentationStrategy resolveStrategy(
 			Component bootDescriptor,
 			Supplier<EmbeddableMappingType> runtimeDescriptorAccess,
@@ -83,6 +87,7 @@ public class ManagedTypeRepresentationResolverStandard implements ManagedTypeRep
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static CompositeUserType<?> getCompositeUserType(
 			Component bootDescriptor, RuntimeModelCreationContext creationContext) {
 		if ( bootDescriptor.getTypeName() != null ) {
@@ -95,6 +100,7 @@ public class ManagedTypeRepresentationResolverStandard implements ManagedTypeRep
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static EmbeddableInstantiator getCustomInstantiator(
 			Component bootDescriptor, RuntimeModelCreationContext creationContext, CompositeUserType<?> compositeUserType) {
 		if ( bootDescriptor.getCustomInstantiator() != null ) {
@@ -128,12 +134,14 @@ public class ManagedTypeRepresentationResolverStandard implements ManagedTypeRep
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static <T> T beanInstance(RuntimeModelCreationContext creationContext, Class<T> userTypeClass) {
 		return creationContext.getBootModel().getMetadataBuildingOptions().isAllowExtensionsInCdi()
 				? getBeanInstance( creationContext, userTypeClass )
 				: FallbackBeanInstanceProducer.INSTANCE.produceBeanInstance( userTypeClass );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static <T> T getBeanInstance(RuntimeModelCreationContext creationContext, Class<T> userTypeClass) {
 		return creationContext.getBootstrapContext().getManagedBeanRegistry()
 				.getBean( userTypeClass )

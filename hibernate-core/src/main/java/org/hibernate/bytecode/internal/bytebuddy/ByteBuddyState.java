@@ -45,6 +45,8 @@ import static net.bytebuddy.matcher.ElementMatchers.returns;
 import static net.bytebuddy.matcher.ElementMatchers.takesNoArguments;
 import static org.hibernate.bytecode.enhance.spi.EnhancerConstants.PERSISTENT_FIELD_READER_PREFIX;
 import static org.hibernate.bytecode.enhance.spi.EnhancerConstants.PERSISTENT_FIELD_WRITER_PREFIX;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A utility to hold all ByteBuddy related state, as in the current version of
@@ -95,6 +97,7 @@ public final class ByteBuddyState {
 	 * @param makeProxyFunction A function building the proxy.
 	 * @return The loaded proxy class.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> loadProxy(Class<?> referenceClass, String proxyClassName,
 							BiFunction<ByteBuddy, NamingStrategy, DynamicType.Builder<?>> makeProxyFunction) {
 		return load( referenceClass, proxyClassName, makeProxyFunction );
@@ -108,6 +111,7 @@ public final class ByteBuddyState {
 	 * @param makeProxyFunction A function building the proxy.
 	 * @return The loaded proxy class.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Class<?> loadBasicProxy(Class<?> referenceClass, String proxyClassName,
 							BiFunction<ByteBuddy, NamingStrategy, DynamicType.Builder<?>> makeProxyFunction) {
 		return load( referenceClass, proxyClassName, makeProxyFunction );
@@ -120,6 +124,7 @@ public final class ByteBuddyState {
 	 * @param makeClassFunction A function building the class.
 	 * @return The loaded generated class.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Class<?> load(Class<?> referenceClass, Function<ByteBuddy, DynamicType.Builder<?>> makeClassFunction) {
 		return make( makeClassFunction.apply( byteBuddy ) )
 				.load( referenceClass.getClassLoader(), resolveClassLoadingStrategy( referenceClass ) )
@@ -137,6 +142,7 @@ public final class ByteBuddyState {
 	 * @param rewriteClassFunction The function used to rewrite the class.
 	 * @return The rewritten content of the class or null if rewriteClassFunction returns a null builder.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public byte[] rewrite(TypePool typePool, String className,
 			Function<ByteBuddy, DynamicType.Builder<?>> rewriteClassFunction) {
 		var builder = rewriteClassFunction.apply( byteBuddy );
@@ -151,6 +157,7 @@ public final class ByteBuddyState {
 	 *
 	 * @return The proxy definition helpers.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ProxyDefinitionHelpers getProxyDefinitionHelpers() {
 		return proxyDefinitionHelpers;
 	}
@@ -163,6 +170,7 @@ public final class ByteBuddyState {
 	 * The assumption is that closing SessionFactories is a rare event; in this perspective the cost
 	 * of re-creating the small helpers should be negligible.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void clearState() {
 		proxyCache.clear();
 		basicProxyCache.clear();
@@ -176,6 +184,7 @@ public final class ByteBuddyState {
 	 * @param makeClassFunction A function building the class.
 	 * @return The loaded generated class.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Class<?> load(Class<?> referenceClass, String className, BiFunction<ByteBuddy, NamingStrategy, DynamicType.Builder<?>> makeClassFunction) {
 		try {
 			final var result = referenceClass.getClassLoader().loadClass( className );
@@ -202,6 +211,7 @@ public final class ByteBuddyState {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private Class<?> load(Class<?> referenceClass, TypeCache<TypeCache.SimpleKey> cache,
 			TypeCache.SimpleKey cacheKey, Function<ByteBuddy, DynamicType.Builder<?>> makeProxyFunction) {
 		return cache.findOrInsert(
@@ -215,22 +225,27 @@ public final class ByteBuddyState {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Unloaded<?> make(Function<ByteBuddy, DynamicType.Builder<?>> makeProxyFunction) {
 		return make( makeProxyFunction.apply( byteBuddy ) );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Unloaded<?> make(TypePool typePool, Function<ByteBuddy, DynamicType.Builder<?>> makeProxyFunction) {
 		return make( typePool, makeProxyFunction.apply( byteBuddy ) );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private Unloaded<?> make(DynamicType.Builder<?> builder) {
 		return make( null, builder );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private Unloaded<?> make(TypePool typePool, DynamicType.Builder<?> builder) {
 		return typePool == null ? builder.make() : builder.make( typePool );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EnhancerImplConstants getEnhancerConstants() {
 		return this.enhancerConstants;
 	}
@@ -282,26 +297,32 @@ public final class ByteBuddyState {
 							.withAssigner( Assigner.DEFAULT, Assigner.Typing.DYNAMIC );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public ElementMatcher<? super MethodDescription> getGroovyGetMetaClassFilter() {
 			return groovyGetMetaClassFilter;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public ElementMatcher<? super MethodDescription> getVirtualNotFinalizerFilter() {
 			return virtualNotFinalizerFilter;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public ElementMatcher<? super MethodDescription> getProxyNonInterceptedMethodFilter() {
 			return proxyNonInterceptedMethodFilter;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public MethodDelegation getDelegateToInterceptorDispatcherMethodDelegation() {
 			return delegateToInterceptorDispatcherMethodDelegation;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public FieldAccessor.PropertyConfigurable getInterceptorFieldAccessor() {
 			return interceptorFieldAccessor;
 		}
 
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public DynamicType.Builder<?> appendIgnoreAlsoAtEnd(DynamicType.Builder<?> builder) {
 			for ( var elementMatcher : toFullyIgnore ) {
 				builder = builder.ignoreAlso( elementMatcher );
@@ -310,6 +331,7 @@ public final class ByteBuddyState {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static ClassLoadingStrategy<ClassLoader> resolveClassLoadingStrategy(Class<?> originalClass) {
 		try {
 			return ClassLoadingStrategy.UsingLookup.of( MethodHandles.privateLookupIn( originalClass, LOOKUP ) );
@@ -329,6 +351,7 @@ public final class ByteBuddyState {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		protected String name(TypeDescription typeDescription) {
 			return className;
 		}

@@ -18,6 +18,8 @@ import org.hibernate.sql.ast.tree.expression.Expression;
 
 import static org.hibernate.query.sqm.produce.function.FunctionParameterType.ANY;
 import static org.hibernate.query.sqm.produce.function.FunctionParameterType.INTEGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Spanner PostgreSQL specific emulation of array_remove_index.
@@ -46,6 +48,7 @@ public class SpannerPostgreSQLArrayRemoveIndexFunction extends AbstractSqmSelfRe
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,

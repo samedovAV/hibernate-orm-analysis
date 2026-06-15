@@ -11,6 +11,8 @@ import java.sql.DatabaseMetaData;
 import java.util.Map;
 
 import static java.util.Collections.emptyMap;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Exposes information about the database and JDBC driver that can be used in resolving the appropriate Dialect
@@ -29,6 +31,7 @@ public interface DialectResolutionInfo extends DatabaseVersion {
 	 *
 	 * @see java.sql.DatabaseMetaData#getDatabaseProductName()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getDatabaseName();
 
 	/**
@@ -39,6 +42,7 @@ public interface DialectResolutionInfo extends DatabaseVersion {
 	 *
 	 * @see java.sql.DatabaseMetaData#getDatabaseProductVersion()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getDatabaseVersion();
 
 	/**
@@ -49,6 +53,7 @@ public interface DialectResolutionInfo extends DatabaseVersion {
 	 *
 	 * @see java.sql.DatabaseMetaData#getDriverName()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getDriverName();
 
 	/**
@@ -59,6 +64,7 @@ public interface DialectResolutionInfo extends DatabaseVersion {
 	 *
 	 * @see java.sql.DatabaseMetaData#getDriverMajorVersion()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getDriverMajorVersion();
 
 	/**
@@ -69,6 +75,7 @@ public interface DialectResolutionInfo extends DatabaseVersion {
 	 *
 	 * @see java.sql.DatabaseMetaData#getDriverMinorVersion()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getDriverMinorVersion();
 
 	/**
@@ -79,6 +86,7 @@ public interface DialectResolutionInfo extends DatabaseVersion {
 	 *
 	 * @see java.sql.DatabaseMetaData#getSQLKeywords()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getSQLKeywords();
 
 	/**
@@ -86,6 +94,7 @@ public interface DialectResolutionInfo extends DatabaseVersion {
 	 *
 	 * @return The {@link DatabaseMetaData} or <code>null</code> if not available
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default DatabaseMetaData getDatabaseMetadata() {
 		return null;
 	}
@@ -95,6 +104,7 @@ public interface DialectResolutionInfo extends DatabaseVersion {
 	 *
 	 * @return The immutable map of config settings.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Map<String, Object> getConfigurationValues() {
 		return emptyMap();
 	}

@@ -8,6 +8,8 @@ import org.hibernate.Incubating;
 import org.hibernate.cache.MutableCacheKeyBuilder;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.internal.util.IndexedConsumer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for things at the domain mapping level that can be bound
@@ -22,6 +24,7 @@ public interface Bindable extends JdbcMappingContainer {
 	 * The number of JDBC mappings
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int getJdbcTypeCount() {
 		return forEachJdbcType( (index, jdbcMapping) -> {} );
 	}
@@ -32,6 +35,7 @@ public interface Bindable extends JdbcMappingContainer {
 	 * @apiNote Same as {@link #forEachJdbcType(int, IndexedConsumer)} starting from `0`
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default int forEachJdbcType(IndexedConsumer<JdbcMapping> action) {
 		return forEachJdbcType( 0, action );
 	}
@@ -72,6 +76,7 @@ public interface Bindable extends JdbcMappingContainer {
 	 *
 	 * @see org.hibernate.engine.spi.EntityEntry
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object disassemble(Object value, SharedSessionContractImplementor session);
 
 	/**
@@ -82,6 +87,7 @@ public interface Bindable extends JdbcMappingContainer {
 	 * @param value the value to disassemble
 	 * @param session the SharedSessionContractImplementor
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addToCacheKey(MutableCacheKeyBuilder cacheKey, Object value, SharedSessionContractImplementor session);
 
 	/**
@@ -98,6 +104,7 @@ public interface Bindable extends JdbcMappingContainer {
 	 * Think of it as breaking the multidimensional array into a visitable flat array.
 	 * Additionally, it passes through the values {@code X} and {@code Y} to the consumer.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default <X, Y> int forEachDisassembledJdbcValue(
 			Object value,
 			X x,
@@ -111,6 +118,7 @@ public interface Bindable extends JdbcMappingContainer {
 	 * Like {@link #forEachDisassembledJdbcValue(Object, Object, Object, JdbcValuesBiConsumer, SharedSessionContractImplementor)},
 	 * but additionally receives an offset by which the selectionIndex is incremented when calling {@link JdbcValuesBiConsumer#consume(int, Object, Object, Object, JdbcMapping)}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<X, Y> int forEachDisassembledJdbcValue(
 			Object value,
 			int offset,
@@ -123,6 +131,7 @@ public interface Bindable extends JdbcMappingContainer {
 	 * A short hand form of {@link #forEachDisassembledJdbcValue(Object, Object, Object, JdbcValuesBiConsumer, SharedSessionContractImplementor)},
 	 * that passes null for the two values {@code X} and {@code Y}.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default int forEachDisassembledJdbcValue(
 			Object value,
 			JdbcValuesConsumer valuesConsumer,
@@ -134,6 +143,7 @@ public interface Bindable extends JdbcMappingContainer {
 	 * A short hand form of {@link #forEachDisassembledJdbcValue(Object, int, Object, Object, JdbcValuesBiConsumer, SharedSessionContractImplementor)},
 	 * that passes null for the two values {@code X} and {@code Y} .
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default int forEachDisassembledJdbcValue(
 			Object value,
 			int offset,
@@ -148,6 +158,7 @@ public interface Bindable extends JdbcMappingContainer {
 	 * Short-hand form of calling {@link #disassemble} and piping its result to
 	 * {@link #forEachDisassembledJdbcValue(Object, JdbcValuesConsumer, SharedSessionContractImplementor)}
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default <X, Y> int forEachJdbcValue(
 			Object value,
 			X x,
@@ -163,6 +174,7 @@ public interface Bindable extends JdbcMappingContainer {
 	 * Short-hand form of calling {@link #disassemble} and piping its result to
 	 * {@link #forEachDisassembledJdbcValue(Object, int, JdbcValuesConsumer, SharedSessionContractImplementor)}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <X, Y> int forEachJdbcValue(
 			Object value,
 			int offset,
@@ -177,6 +189,7 @@ public interface Bindable extends JdbcMappingContainer {
 	 * A short hand form of {@link #forEachJdbcValue(Object, Object, Object, JdbcValuesBiConsumer, SharedSessionContractImplementor)},
 	 * that passes null for the two values {@code X} and {@code Y}.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default int forEachJdbcValue(
 			Object value,
 			JdbcValuesConsumer valuesConsumer,
@@ -188,6 +201,7 @@ public interface Bindable extends JdbcMappingContainer {
 	 * A short hand form of {@link #forEachJdbcValue(Object, int, Object, Object, JdbcValuesBiConsumer, SharedSessionContractImplementor)},
 	 * that passes null for the two values {@code X} and {@code Y}.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default int forEachJdbcValue(
 			Object value,
 			int offset,
@@ -202,6 +216,7 @@ public interface Bindable extends JdbcMappingContainer {
 	@FunctionalInterface
 	interface JdbcValuesConsumer extends JdbcValuesBiConsumer<Object, Object> {
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		default void consume(int valueIndex, Object o, Object o2, Object jdbcValue, JdbcMapping jdbcMapping) {
 			consume( valueIndex, jdbcValue, jdbcMapping );
 		}
@@ -209,6 +224,7 @@ public interface Bindable extends JdbcMappingContainer {
 		/**
 		 * Consume a JDBC-level jdbcValue.  The JDBC jdbcMapping descriptor is also passed in
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void consume(int valueIndex, Object jdbcValue, JdbcMapping jdbcMapping);
 	}
 
@@ -220,6 +236,7 @@ public interface Bindable extends JdbcMappingContainer {
 		/**
 		 * Consume a JDBC-level jdbcValue.  The JDBC jdbcMapping descriptor is also passed in
 		 */
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void consume(int valueIndex, X x, Y y, Object jdbcValue, JdbcMapping jdbcMapping);
 	}
 }

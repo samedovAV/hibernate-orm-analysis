@@ -7,6 +7,8 @@ package org.hibernate.action.queue.internal.plan;
 
 import org.hibernate.action.queue.internal.constraint.DeferrableConstraintMode;
 import org.hibernate.action.queue.internal.graph.Graph;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Creates an executable plan from the dependency graph.
 /// Applies topological sort with cycle breaking.
@@ -17,9 +19,11 @@ import org.hibernate.action.queue.internal.graph.Graph;
 ///
 /// @author Steve Ebersole
 public interface FlushPlanner {
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default FlushPlan plan(Graph graph) {
 		return plan( graph, DeferrableConstraintMode.DEFAULT );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	FlushPlan plan(Graph graph, DeferrableConstraintMode deferrableConstraintMode);
 }

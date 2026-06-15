@@ -10,6 +10,8 @@ import org.hibernate.sql.results.graph.AssemblerCreationState;
 import org.hibernate.sql.results.graph.DomainResultCreationState;
 import org.hibernate.sql.results.graph.Initializer;
 import org.hibernate.sql.results.graph.InitializerParent;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class NonAggregatedIdentifierMappingResult<T> extends EmbeddableResultImpl<T> {
 	public NonAggregatedIdentifierMappingResult(
@@ -21,6 +23,7 @@ public class NonAggregatedIdentifierMappingResult<T> extends EmbeddableResultImp
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Initializer<?> createInitializer(
 			EmbeddableResultImpl<T> resultGraphNode,
 			InitializerParent<?> parent,

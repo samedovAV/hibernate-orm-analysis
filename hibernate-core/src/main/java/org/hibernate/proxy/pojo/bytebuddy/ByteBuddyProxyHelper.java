@@ -29,6 +29,8 @@ import net.bytebuddy.implementation.SuperMethodCall;
 import net.bytebuddy.pool.TypePool;
 
 import static org.hibernate.internal.util.ReflectHelper.overridesEquals;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class ByteBuddyProxyHelper implements Serializable {
 
@@ -43,6 +45,7 @@ public class ByteBuddyProxyHelper implements Serializable {
 		this.constants = byteBuddyState.getEnhancerConstants();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> buildProxy(
 			final Class<?> persistentClass,
 			final Class<?>[] interfaces) {
@@ -56,6 +59,7 @@ public class ByteBuddyProxyHelper implements Serializable {
 	 * @deprecated Use {@link #buildUnloadedProxy(TypePool, TypeDefinition, Collection)} instead.
 	 */
 	@Deprecated
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DynamicType.Unloaded<?> buildUnloadedProxy(final Class<?> persistentClass, final Class<?>[] interfaces) {
 		return byteBuddyState.make( proxyBuilderLegacy( TypeDescription.ForLoadedType.of( persistentClass ),
 				new TypeList.Generic.ForLoadedTypes( interfaces ) ) );
@@ -65,11 +69,13 @@ public class ByteBuddyProxyHelper implements Serializable {
 	 * Do not remove: used by Quarkus
 	 */
 	@SuppressWarnings("unused")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DynamicType.Unloaded<?> buildUnloadedProxy(TypePool typePool, TypeDefinition persistentClass,
 			Collection<? extends TypeDefinition> interfaces) {
 		return byteBuddyState.make( typePool, proxyBuilderLegacy( persistentClass, interfaces ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Function<ByteBuddy, DynamicType.Builder<?>> proxyBuilderLegacy(TypeDefinition persistentClass,
 			Collection<? extends TypeDefinition> interfaces) {
 		final var proxyBuilder = proxyBuilder( persistentClass, interfaces );
@@ -79,6 +85,7 @@ public class ByteBuddyProxyHelper implements Serializable {
 		return byteBuddy -> proxyBuilder.apply( byteBuddy, namingStrategy );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private BiFunction<ByteBuddy, NamingStrategy, DynamicType.Builder<?>> proxyBuilder(TypeDefinition persistentClass,
 			Collection<? extends TypeDefinition> interfaces) {
 		var helpers = byteBuddyState.getProxyDefinitionHelpers();
@@ -97,6 +104,7 @@ public class ByteBuddyProxyHelper implements Serializable {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HibernateProxy deserializeProxy(SerializableProxy proxy) {
 		final var interceptor = new ByteBuddyInterceptor(
 				proxy.getEntityName(),
@@ -131,6 +139,7 @@ public class ByteBuddyProxyHelper implements Serializable {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Method resolveIdGetterMethod(SerializableProxy serializableProxy) {
 		if ( serializableProxy.getIdentifierGetterMethodName() == null ) {
 			return null;
@@ -154,6 +163,7 @@ public class ByteBuddyProxyHelper implements Serializable {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Method resolveIdSetterMethod(SerializableProxy serializableProxy) {
 		if ( serializableProxy.getIdentifierSetterMethodName() == null ) {
 			return null;

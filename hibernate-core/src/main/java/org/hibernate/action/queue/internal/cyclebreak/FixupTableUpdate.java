@@ -17,6 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Specialized build for cycle-break fixup updates.
 /// Defined as a template that works for both foreign-key and unique-key fixups.
@@ -65,26 +67,32 @@ public class FixupTableUpdate {
 		this.sql = buildSql( tableDescriptor, fixupColumnDescriptors, pkColumnDescriptors, jdbcValueDescriptorMap::put );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableDescriptor getTableDescriptor() {
 		return tableDescriptor;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSql() {
 		return sql;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, JdbcValueDescriptor> getJdbcValueDescriptorMap() {
 		return jdbcValueDescriptorMap;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<ColumnDescriptor> getNormalizedFkColumns() {
 		return fixupColumnDescriptors;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<ColumnDescriptor> getNormalizedPkColumns() {
 		return pkColumnDescriptors;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PreparableMutationOperation buildJdbcUpdate() {
 		return new FixupJdbcUpdate(
 				sql,
@@ -94,6 +102,7 @@ public class FixupTableUpdate {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static String buildSql(
 			TableDescriptor tableDescriptor,
 			List<ColumnDescriptor> fixupColumnDescriptors,

@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.resource.transaction.backend.jta.internal.synchronization;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Defines "inflow" for JTA transactions from the perspective of Hibernate's registered JTA Synchronization
@@ -37,6 +40,7 @@ public interface SynchronizationCallbackTarget {
 	 *
 	 * @return {@code true} indicates the target is active; {@code false} indicates it is not.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isActive();
 
 	/**
@@ -44,6 +48,7 @@ public interface SynchronizationCallbackTarget {
 	 *
 	 * @see jakarta.transaction.Synchronization#beforeCompletion
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void beforeCompletion();
 
 	/**
@@ -53,5 +58,6 @@ public interface SynchronizationCallbackTarget {
 	 *
 	 * @see jakarta.transaction.Synchronization#afterCompletion
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void afterCompletion(boolean successful, boolean delayed);
 }

@@ -24,6 +24,8 @@ import org.hibernate.sql.results.jdbc.spi.RowProcessingState;
 import jakarta.annotation.Nullable;
 
 import static org.hibernate.internal.log.LoggingHelper.toLoggableString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -57,6 +59,7 @@ public class SetInitializer extends AbstractImmediateCollectionInitializer<Abstr
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void forEachSubInitializer(BiConsumer<Initializer<?>, RowProcessingState> consumer, InitializerData data) {
 		super.forEachSubInitializer( consumer, data );
 		final var initializer = elementAssembler.getInitializer();
@@ -66,11 +69,13 @@ public class SetInitializer extends AbstractImmediateCollectionInitializer<Abstr
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nullable PersistentSet<?> getCollectionInstance(ImmediateCollectionInitializerData data) {
 		return (PersistentSet<?>) super.getCollectionInstance( data );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void readCollectionRow(ImmediateCollectionInitializerData data, List<Object> loadingState) {
 		final var rowProcessingState = data.getRowProcessingState();
 		final Object element = elementAssembler.assemble( rowProcessingState );
@@ -81,6 +86,7 @@ public class SetInitializer extends AbstractImmediateCollectionInitializer<Abstr
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected void initializeSubInstancesFromParent(ImmediateCollectionInitializerData data) {
 		final var initializer = elementAssembler.getInitializer();
 		if ( initializer != null ) {
@@ -94,6 +100,7 @@ public class SetInitializer extends AbstractImmediateCollectionInitializer<Abstr
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void resolveInstanceSubInitializers(ImmediateCollectionInitializerData data) {
 		final var initializer = elementAssembler.getInitializer();
 		if ( initializer != null ) {
@@ -102,16 +109,19 @@ public class SetInitializer extends AbstractImmediateCollectionInitializer<Abstr
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResultAssembler<?> getIndexAssembler() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResultAssembler<?> getElementAssembler() {
 		return elementAssembler;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "SetInitializer(" + toLoggableString( getNavigablePath() ) + ")";
 	}

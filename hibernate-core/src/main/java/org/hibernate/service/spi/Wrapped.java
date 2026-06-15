@@ -6,6 +6,8 @@ package org.hibernate.service.spi;
 
 import jakarta.annotation.Nonnull;
 import org.hibernate.service.UnknownUnwrapTypeException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Optional contract for services that wrap stuff that to which it is useful to have access.
@@ -23,6 +25,7 @@ public interface Wrapped {
 	 *
 	 * @return True/false.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isUnwrappableAs(@Nonnull Class<?> unwrapType);
 
 	/**
@@ -34,5 +37,6 @@ public interface Wrapped {
 	 *
 	 * @throws UnknownUnwrapTypeException if the service cannot be unwrapped as the indicated type
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T unwrap(@Nonnull Class<T> unwrapType);
 }

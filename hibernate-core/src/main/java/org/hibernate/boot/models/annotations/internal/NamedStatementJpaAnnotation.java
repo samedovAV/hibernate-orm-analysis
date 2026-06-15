@@ -15,6 +15,8 @@ import java.lang.annotation.Annotation;
 import java.util.Map;
 
 import static org.hibernate.boot.models.internal.OrmAnnotationHelper.extractJdkValue;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -49,40 +51,48 @@ public class NamedStatementJpaAnnotation implements NamedStatement {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return NamedStatement.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String name() {
 		return name;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void name(String value) {
 		this.name = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String statement() {
 		return statement;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void statement(String value) {
 		this.statement = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.QueryHint[] hints() {
 		return hints;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void hints(jakarta.persistence.QueryHint[] value) {
 		this.hints = value;
 	}
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void apply(JaxbNamedStatementImpl jaxbStatement, XmlDocumentContext xmlDocumentContext) {
 		name( jaxbStatement.getName() );
 		statement( jaxbStatement.getStatement() );

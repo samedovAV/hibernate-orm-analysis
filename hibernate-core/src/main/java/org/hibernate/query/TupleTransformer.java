@@ -8,6 +8,8 @@ import org.hibernate.Incubating;
 import org.hibernate.sql.results.internal.RowTransformerTupleTransformerAdapter;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Defines some transformation applied to each result of a {@link Query} before
@@ -42,5 +44,6 @@ public interface TupleTransformer<T> {
 	 *
 	 * @return The transformed row.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	T transformTuple(Object[] tuple, String[] aliases);
 }

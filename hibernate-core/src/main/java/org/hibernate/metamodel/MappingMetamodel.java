@@ -21,6 +21,8 @@ import org.hibernate.sql.ast.tree.from.TableGroup;
 import org.hibernate.type.spi.TypeConfiguration;
 
 import jakarta.persistence.metamodel.Metamodel;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Access to information about the runtime relational O/R mapping model.
@@ -34,11 +36,13 @@ public interface MappingMetamodel extends Metamodel {
 	/**
 	 * The {@link TypeConfiguration} this metamodel is associated with
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TypeConfiguration getTypeConfiguration();
 
 	/**
 	 * Access to constraint details from the domain model.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ConstraintModel getConstraintModel();
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -47,6 +51,7 @@ public interface MappingMetamodel extends Metamodel {
 	/**
 	 * Visit all entity mapping descriptors defined in the model
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void forEachEntityDescriptor(Consumer<EntityPersister> action);
 
 	/**
@@ -56,6 +61,7 @@ public interface MappingMetamodel extends Metamodel {
 	 *
 	 * @see #findEntityDescriptor
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityPersister getEntityDescriptor(String entityName);
 
 	/**
@@ -65,6 +71,7 @@ public interface MappingMetamodel extends Metamodel {
 	 *
 	 * @see #findEntityDescriptor
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityPersister getEntityDescriptor(NavigableRole name);
 
 	/**
@@ -74,6 +81,7 @@ public interface MappingMetamodel extends Metamodel {
 	 *
 	 * @see #findEntityDescriptor
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EmbeddableValuedModelPart getEmbeddableValuedModelPart(NavigableRole role);
 
 
@@ -84,6 +92,7 @@ public interface MappingMetamodel extends Metamodel {
 	 *
 	 * @see #findEntityDescriptor
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityPersister getEntityDescriptor(Class<?> entityJavaType);
 
 	/**
@@ -91,6 +100,7 @@ public interface MappingMetamodel extends Metamodel {
 	 *
 	 * @apiNote Returns {@code null} rather than throwing exception
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityPersister findEntityDescriptor(String entityName);
 
 	/**
@@ -98,10 +108,13 @@ public interface MappingMetamodel extends Metamodel {
 	 *
 	 * @apiNote Returns {@code null} rather than throwing exception
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityPersister findEntityDescriptor(Class<?> entityJavaType);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isEntityClass(Class<?> entityJavaType);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getImportedName(String name);
 
 
@@ -111,6 +124,7 @@ public interface MappingMetamodel extends Metamodel {
 	/**
 	 * Visit the mapping descriptors for all collections defined in the model
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void forEachCollectionDescriptor(Consumer<CollectionPersister> action);
 
 	/**
@@ -120,6 +134,7 @@ public interface MappingMetamodel extends Metamodel {
 	 *
 	 * @see #findCollectionDescriptor
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CollectionPersister getCollectionDescriptor(String role);
 
 	/**
@@ -129,6 +144,7 @@ public interface MappingMetamodel extends Metamodel {
 	 *
 	 * @see #findCollectionDescriptor
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CollectionPersister getCollectionDescriptor(NavigableRole role);
 
 	/**
@@ -137,6 +153,7 @@ public interface MappingMetamodel extends Metamodel {
 	 *
 	 * @see #findCollectionDescriptor
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CollectionPersister findCollectionDescriptor(NavigableRole role);
 
 	/**
@@ -145,6 +162,7 @@ public interface MappingMetamodel extends Metamodel {
 	 *
 	 * @see #findCollectionDescriptor
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CollectionPersister findCollectionDescriptor(String role);
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -153,6 +171,7 @@ public interface MappingMetamodel extends Metamodel {
 	// TODO Layer breaker used in SQM to SQL translation.
 	//      Consider moving to QueryEngine or collaborators.
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	MappingModelExpressible<?> resolveMappingExpressible(
 			SqmExpressible<?> sqmExpressible,
 			Function<NavigablePath, TableGroup> tableGroupLocator);

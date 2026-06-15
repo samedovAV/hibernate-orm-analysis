@@ -23,6 +23,8 @@ import org.hibernate.sql.exec.spi.JdbcParameterBindings;
 
 import static org.hibernate.loader.ast.internal.LoaderHelper.loadByArrayParameter;
 import static org.hibernate.loader.ast.internal.LoaderHelper.normalizeKeys;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard MultiNaturalIdLoader implementation
@@ -36,15 +38,18 @@ public class MultiNaturalIdLoaderArrayParam<E> extends AbstractMultiNaturalIdLoa
 		keyClass = entityDescriptor.getNaturalIdMapping().getJavaType().getJavaTypeClass();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected SimpleNaturalIdMapping getNaturalIdMapping()  {
 		return (SimpleNaturalIdMapping) getEntityDescriptor().getNaturalIdMapping();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected BasicAttributeMapping getNaturalIdAttribute()  {
 		return (BasicAttributeMapping) getNaturalIdMapping().asAttributeMapping();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<E> loadEntitiesWithUnresolvedIds(
 			Object[] naturalIds,
 			MultiNaturalIdLoadOptions loadOptions,
@@ -80,6 +85,7 @@ public class MultiNaturalIdLoaderArrayParam<E> extends AbstractMultiNaturalIdLoa
 						.buildSelectTranslator( factory, sqlAst )
 						.translate( JdbcParameterBindings.NO_BINDINGS, new QueryOptionsAdapter() {
 							@Override
+							@Prove(complexity = Complexity.O_1, n = "", count = {})
 							public LockOptions getLockOptions() {
 								return lockOptions;
 							}

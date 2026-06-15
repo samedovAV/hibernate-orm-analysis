@@ -12,6 +12,8 @@ import org.hibernate.type.BasicType;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
 import org.hibernate.type.descriptor.jdbc.JdbcTypeConstructor;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Factory for {@link PostgreSQLArrayJdbcType}.
@@ -21,6 +23,7 @@ public class PostgreSQLArrayJdbcTypeConstructor implements JdbcTypeConstructor {
 	public static final PostgreSQLArrayJdbcTypeConstructor INSTANCE = new PostgreSQLArrayJdbcTypeConstructor();
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcType resolveType(
 			TypeConfiguration typeConfiguration,
 			Dialect dialect,
@@ -30,6 +33,7 @@ public class PostgreSQLArrayJdbcTypeConstructor implements JdbcTypeConstructor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcType resolveType(
 			TypeConfiguration typeConfiguration,
 			Dialect dialect,
@@ -39,6 +43,7 @@ public class PostgreSQLArrayJdbcTypeConstructor implements JdbcTypeConstructor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getDefaultSqlTypeCode() {
 		return Types.ARRAY;
 	}

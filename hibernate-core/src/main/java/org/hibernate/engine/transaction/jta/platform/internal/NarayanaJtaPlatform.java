@@ -8,6 +8,8 @@ import jakarta.transaction.TransactionManager;
 import jakarta.transaction.UserTransaction;
 import org.hibernate.boot.registry.classloading.spi.ClassLoaderService;
 import org.hibernate.engine.transaction.jta.platform.spi.JtaPlatformException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Return a standalone JTA transaction manager for Narayana (Arjuna) Transactions.
@@ -21,6 +23,7 @@ public class NarayanaJtaPlatform extends AbstractJtaPlatform {
 	public static final String UT_CLASS_NAME = "com.arjuna.ats.jta.UserTransaction";
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected TransactionManager locateTransactionManager() {
 		try {
 			return (TransactionManager) serviceRegistry().requireService( ClassLoaderService.class )
@@ -34,6 +37,7 @@ public class NarayanaJtaPlatform extends AbstractJtaPlatform {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected UserTransaction locateUserTransaction() {
 		try {
 			return (UserTransaction) serviceRegistry()

@@ -7,6 +7,8 @@ package org.hibernate.sql.model.ast;
 import org.hibernate.engine.jdbc.mutation.ParameterUsage;
 import org.hibernate.sql.ast.tree.expression.ColumnReference;
 import org.hibernate.sql.exec.internal.AbstractJdbcParameter;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Parameter descriptor specific to mutations.
 /// It exposes metadata about the parameter.
@@ -37,15 +39,18 @@ public class ColumnValueParameter extends AbstractJdbcParameter {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ColumnReference getColumnReference() {
 		return columnReference;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ParameterUsage getUsage() {
 		return usage;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "ColumnValueParameter(" + columnReference.getColumnExpression() + ')';
 	}

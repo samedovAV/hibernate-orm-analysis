@@ -18,6 +18,8 @@ import org.hibernate.sql.ast.tree.predicate.Predicate;
 import org.hibernate.sql.results.graph.DomainResult;
 import org.hibernate.sql.results.graph.DomainResultCreationState;
 import org.hibernate.sql.results.graph.basic.BasicResult;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -38,24 +40,29 @@ public class CaseSearchedExpression implements Expression, DomainResultProducer 
 		this.otherwise = otherwise;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<WhenFragment> getWhenFragments() {
 		return whenFragments;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expression getOtherwise() {
 		return otherwise;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void when(Predicate predicate, Expression result) {
 		whenFragments.add( new WhenFragment( predicate, result ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void otherwise(Expression otherwiseExpression) {
 		this.otherwise = otherwiseExpression;
 		// todo : inject implied type?
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResult createDomainResult(
 			String resultVariable,
 			DomainResultCreationState creationState) {
@@ -77,6 +84,7 @@ public class CaseSearchedExpression implements Expression, DomainResultProducer 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void applySqlSelections(DomainResultCreationState creationState) {
 		final SqlExpressionResolver sqlExpressionResolver = creationState.getSqlAstCreationState()
 				.getSqlExpressionResolver();
@@ -89,11 +97,13 @@ public class CaseSearchedExpression implements Expression, DomainResultProducer 
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker walker) {
 		walker.visitCaseSearchedExpression( this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MappingModelExpressible getExpressionType() {
 		return type;
 	}
@@ -107,10 +117,12 @@ public class CaseSearchedExpression implements Expression, DomainResultProducer 
 			this.result = result;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Predicate getPredicate() {
 			return predicate;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Expression getResult() {
 			return result;
 		}

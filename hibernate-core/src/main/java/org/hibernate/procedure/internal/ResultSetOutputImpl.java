@@ -14,6 +14,8 @@ import org.hibernate.query.results.spi.ResultSetMapping;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Function;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Implementation of ResultSetOutput
@@ -37,11 +39,13 @@ public class ResultSetOutputImpl<T> implements ResultSetOutput<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isResultSet() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> ResultSetOutput<X> asResultSetOutput(Class<X> resultType) {
 		if ( resultSetMapping == null
 				|| (resultSetMapping.isDynamic() && resultSetMapping.getNumberOfResultBuilders() == 0) ) {
@@ -69,6 +73,7 @@ public class ResultSetOutputImpl<T> implements ResultSetOutput<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> ResultSetOutput<X> asResultSetOutput(jakarta.persistence.sql.ResultSetMapping<X> japMMapping) {
 		this.resultSetMapping = JpaMappingHelper.toHibernateMapping( japMMapping, sessionFactory );
 		//noinspection unchecked
@@ -76,6 +81,7 @@ public class ResultSetOutputImpl<T> implements ResultSetOutput<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<T> getResultList() {
 		if ( resultList == null ) {
 			resultList = resultSetSupplier.apply( resultSetMapping );
@@ -84,6 +90,7 @@ public class ResultSetOutputImpl<T> implements ResultSetOutput<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getSingleResult() {
 		final List<?> results = getResultList();
 		return results == null || results.isEmpty() ? null : results.get( 0 );

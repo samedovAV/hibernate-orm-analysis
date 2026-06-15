@@ -14,6 +14,8 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.boot.Metadata;
 
 import static org.hibernate.internal.util.StringHelper.qualify;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A mapping model object representing a {@linkplain jakarta.persistence.ForeignKey foreign key} constraint.
@@ -34,20 +36,24 @@ public class ForeignKey extends Constraint {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getExportIdentifier() {
 		// Not sure name is always set.  Might need some implicit naming
 		return qualify( getTable().getExportIdentifier(), "FK-" + getName() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void disableCreation() {
 		creationEnabled = false;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCreationEnabled() {
 		return creationEnabled;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void setName(String name) {
 		super.setName( name );
 		// the FK name "none" was a magic value in the hbm.xml
@@ -57,10 +63,12 @@ public class ForeignKey extends Constraint {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Table getReferencedTable() {
 		return referencedTable;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void appendColumns(StringBuilder stringBuilder, Iterator<Column> columns) {
 		while ( columns.hasNext() ) {
 			final var column = columns.next();
@@ -71,6 +79,7 @@ public class ForeignKey extends Constraint {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setReferencedTable(Table referencedTable) throws MappingException {
 		this.referencedTable = referencedTable;
 	}
@@ -80,6 +89,7 @@ public class ForeignKey extends Constraint {
 	 * <p>
 	 * Furthermore it aligns the length of the underlying tables columns.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void alignColumns() {
 		if ( isReferenceToPrimaryKey() ) {
 			final int columnSpan = getColumnSpan();
@@ -100,6 +110,7 @@ public class ForeignKey extends Constraint {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String unalignedColumnsMessage(PrimaryKey primaryKey) {
 		final var message = new StringBuilder();
 		message.append( "Foreign key (" ).append( getName() ).append( ":" )
@@ -115,30 +126,37 @@ public class ForeignKey extends Constraint {
 		return message.toString();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getReferencedEntityName() {
 		return referencedEntityName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setReferencedEntityName(String referencedEntityName) {
 		this.referencedEntityName = referencedEntityName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getKeyDefinition() {
 		return keyDefinition;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setKeyDefinition(String keyDefinition) {
 		this.keyDefinition = keyDefinition;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setOnDeleteAction(OnDeleteAction onDeleteAction) {
 		this.onDeleteAction = onDeleteAction;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public OnDeleteAction getOnDeleteAction() {
 		return onDeleteAction;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isPhysicalConstraint() {
 		return referencedTable.isPhysicalTable()
 			&& getTable().isPhysicalTable()
@@ -148,6 +166,7 @@ public class ForeignKey extends Constraint {
 	/**
 	 * Returns the referenced columns if the foreignkey does not refer to the primary key
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<Column> getReferencedColumns() {
 		return referencedColumns;
 	}
@@ -155,10 +174,12 @@ public class ForeignKey extends Constraint {
 	/**
 	 * Does this foreignkey reference the primary key of the reference table
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isReferenceToPrimaryKey() {
 		return referencedColumns.isEmpty();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void addReferencedColumns(List<Column> referencedColumns) {
 		for ( var referencedColumn : referencedColumns ) {
 //			if ( !referencedColumn.isFormula() ) {
@@ -167,12 +188,14 @@ public class ForeignKey extends Constraint {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void addReferencedColumn(Column column) {
 		if ( !referencedColumns.contains( column ) ) {
 			referencedColumns.add( column );
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String toString() {
 		if ( !isReferenceToPrimaryKey() ) {
 			return getClass().getSimpleName()
@@ -186,6 +209,7 @@ public class ForeignKey extends Constraint {
 	}
 
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistentClass resolveReferencedClass(Metadata metadata) {
 		final String referencedEntityName = getReferencedEntityName();
 		if ( referencedEntityName == null ) {

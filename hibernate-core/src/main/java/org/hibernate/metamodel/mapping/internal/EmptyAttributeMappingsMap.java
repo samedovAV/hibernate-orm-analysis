@@ -10,27 +10,33 @@ import org.hibernate.metamodel.mapping.AttributeMapping;
 import org.hibernate.metamodel.mapping.AttributeMappingsMap;
 
 import static java.util.Collections.emptyList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public final class EmptyAttributeMappingsMap implements AttributeMappingsMap {
 
 	public static final EmptyAttributeMappingsMap INSTANCE = new EmptyAttributeMappingsMap();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void forEachValue(Consumer<? super AttributeMapping> action) {
 		//no-op
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int size() {
 		return 0;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AttributeMapping get(String name) {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Iterable<AttributeMapping> valueIterator() {
 		return emptyList();
 	}

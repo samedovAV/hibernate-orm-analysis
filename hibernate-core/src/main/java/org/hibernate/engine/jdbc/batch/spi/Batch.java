@@ -5,6 +5,8 @@
 package org.hibernate.engine.jdbc.batch.spi;
 
 import org.hibernate.Incubating;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Represents the lifecycle of a batch of statements to be executed together.
 ///
@@ -33,6 +35,7 @@ public interface Batch {
 	/// execute and release it.
 	///
 	/// @return The batch key.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	BatchKey getKey();
 
 	/// Adds an observer to this batch.
@@ -42,6 +45,7 @@ public interface Batch {
 	/// configured JDBC batch size.
 	///
 	/// @param observer The batch observer.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addObserver(BatchObserver observer);
 
 	/// Execute this batch.
@@ -49,6 +53,7 @@ public interface Batch {
 	/// Implementations should tolerate being called when there is no pending row.
 	/// This method is also responsible for any observer notification associated
 	/// with explicit execution.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void execute();
 
 	/// Used to indicate that the batch instance is no longer needed and that, therefore,
@@ -58,5 +63,6 @@ public interface Batch {
 	/// owning coordinator.  Implementations should release JDBC statements and
 	/// clear transient row state, but should not execute pending work that has not
 	/// already been executed by [#execute()].
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void release();
 }

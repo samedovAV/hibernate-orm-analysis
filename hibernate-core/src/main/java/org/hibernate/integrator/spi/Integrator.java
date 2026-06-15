@@ -9,6 +9,8 @@ import org.hibernate.boot.spi.BootstrapContext;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.service.JavaServiceLoadable;
 import org.hibernate.service.spi.SessionFactoryServiceRegistry;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for extensions that integrate with Hibernate.
@@ -37,6 +39,7 @@ public interface Integrator {
 	 * @param bootstrapContext The context for bootstrapping of the SessionFactory
 	 * @param sessionFactory The SessionFactory being created
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void integrate(
 			Metadata metadata,
 			BootstrapContext bootstrapContext,
@@ -49,6 +52,7 @@ public interface Integrator {
 	 * @param sessionFactory The session factory being closed.
 	 * @param serviceRegistry That session factory's service registry
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void disintegrate(SessionFactoryImplementor sessionFactory, SessionFactoryServiceRegistry serviceRegistry) {
 		// do nothing by default
 	}

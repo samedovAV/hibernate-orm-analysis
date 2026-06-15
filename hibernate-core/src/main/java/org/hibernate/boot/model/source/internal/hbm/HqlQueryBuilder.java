@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.hibernate.jpa.internal.util.FlushModeTypeHelper.interpretFlushMode;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Used to build NamedHqlSelectionDefinitionImpl references
 /// from named queries defined in hbm.xml mappings.
@@ -35,38 +37,46 @@ public class HqlQueryBuilder<E> extends AbstractNamedQueryBuilder<E, HqlQueryBui
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected HqlQueryBuilder<E> getThis() {
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getHqlString() {
 		return hqlString;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HqlQueryBuilder<E> setHqlString(String hqlString) {
 		this.hqlString = hqlString;
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getEntityGraphName() {
 		return entityGraphName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HqlQueryBuilder<E> setEntityGraphName(String entityGraphName) {
 		this.entityGraphName = entityGraphName;
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HqlQueryBuilder<E> setFirstResult(Integer firstResult) {
 		this.firstResult = firstResult;
 		return getThis();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public HqlQueryBuilder<E> setMaxResults(Integer maxResults) {
 		this.maxResults = maxResults;
 		return getThis();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NamedHqlSelectionDefinitionImpl<E> build() {
 		return new NamedHqlSelectionDefinitionImpl<>(
 				getName(),
@@ -93,6 +103,7 @@ public class HqlQueryBuilder<E> extends AbstractNamedQueryBuilder<E, HqlQueryBui
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addParameterTypeHint(String name, String type) {
 		if ( parameterTypes == null ) {
 			parameterTypes = new HashMap<>();

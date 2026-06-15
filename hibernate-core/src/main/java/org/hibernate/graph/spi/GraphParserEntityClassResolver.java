@@ -6,6 +6,8 @@ package org.hibernate.graph.spi;
 
 import org.hibernate.Incubating;
 import org.hibernate.metamodel.model.domain.EntityDomainType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gavin King
@@ -15,5 +17,6 @@ import org.hibernate.metamodel.model.domain.EntityDomainType;
 @Incubating
 @FunctionalInterface
 public interface GraphParserEntityClassResolver {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityDomainType<?> resolveEntityClass(Class<?> entityClass);
 }

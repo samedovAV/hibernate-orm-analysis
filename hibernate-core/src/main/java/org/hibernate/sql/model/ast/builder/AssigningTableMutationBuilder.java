@@ -9,6 +9,8 @@ import org.hibernate.Internal;
 import org.hibernate.metamodel.mapping.SelectableMapping;
 import org.hibernate.sql.model.ast.ColumnValueBinding;
 import org.hibernate.sql.model.ast.TableMutation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Specialized builder for building mutations which allow assigning values (INSERT or UPDATE).
 ///
@@ -17,15 +19,18 @@ import org.hibernate.sql.model.ast.TableMutation;
 public interface AssigningTableMutationBuilder<M extends TableMutation<?>> extends TableMutationBuilder<M> {
 	/// Whether this builder currently contains any assignment bindings.
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean hasAssignmentBindings();
 
 	/// Adds a column assignment defined by the given `columnValueBinding`, which represents a
 	/// [column][ColumnValueBinding#getColumnReference()] and its [assignment][ColumnValueBinding#getValueExpression()] .
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addColumnAssignment(ColumnValueBinding columnValueBinding);
 
 	/// Adds a column assignment defined by `columnMapping = {columnMapping.getWriteExpression()}`
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void addColumnAssignment(SelectableMapping columnMapping) {
 		// Formulas are read-only computed columns and cannot be included in UPDATE/INSERT statements
 		if ( !columnMapping.isFormula() ) {
@@ -35,9 +40,11 @@ public interface AssigningTableMutationBuilder<M extends TableMutation<?>> exten
 
 	/// Adds a column assignment defined by `columnMapping = assignment`
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addColumnAssignment(SelectableMapping columnMapping, String assignment);
 
 	/// Acts as a [org.hibernate.metamodel.mapping.SelectableConsumer].
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void addColumnAssignment(int index, SelectableMapping selectableMapping) {
 		addValueColumn(
 				selectableMapping.getWriteExpression(),
@@ -57,6 +64,7 @@ public interface AssigningTableMutationBuilder<M extends TableMutation<?>> exten
 	@Internal
 	@Incubating
 	@Deprecated(since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void addValueColumn(ColumnValueBinding valueBinding) {
 		addColumnAssignment( valueBinding );
 	}
@@ -65,6 +73,7 @@ public interface AssigningTableMutationBuilder<M extends TableMutation<?>> exten
 	///
 	/// @deprecated Use [#addColumnAssignment(SelectableMapping, String)] instead.
 	@Deprecated(since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void addValueColumn(String columnWriteFragment, SelectableMapping selectableMapping) {
 		addColumnAssignment(  selectableMapping, columnWriteFragment );
 	}
@@ -73,6 +82,7 @@ public interface AssigningTableMutationBuilder<M extends TableMutation<?>> exten
 	///
 	/// @deprecated Use [#addColumnAssignment(SelectableMapping)] instead.
 	@Deprecated(since = "8.0")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void addValueColumn(SelectableMapping selectableMapping) {
 		if ( !selectableMapping.isFormula() ) {
 //		if ( selectableMapping.isInsertable() || selectableMapping.isUpdateable() ) {
@@ -87,6 +97,7 @@ public interface AssigningTableMutationBuilder<M extends TableMutation<?>> exten
 	///
 	/// @deprecated Use [#addColumnAssignment(int, SelectableMapping)] instead.
 	@Deprecated(since = "8.0")
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void addValueColumn(int index, SelectableMapping selectableMapping) {
 		addValueColumn(
 				selectableMapping.getWriteExpression(),
@@ -96,6 +107,7 @@ public interface AssigningTableMutationBuilder<M extends TableMutation<?>> exten
 
 	/// @deprecated Use [#hasAssignmentBindings()] instead.
 	@Deprecated(since = "8.0")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean hasValueBindings() {
 		return hasAssignmentBindings();
 	}

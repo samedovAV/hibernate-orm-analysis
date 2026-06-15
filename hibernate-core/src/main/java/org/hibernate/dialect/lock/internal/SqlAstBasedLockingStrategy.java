@@ -41,6 +41,8 @@ import org.hibernate.sql.results.spi.SingleResultConsumer;
 
 import java.util.List;
 import java.util.Locale;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * LockingStrategy implementation which uses Hibernate's SQL AST
@@ -60,6 +62,7 @@ public class SqlAstBasedLockingStrategy implements LockingStrategy {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void lock(
 			Object id,
 			Object version,
@@ -212,6 +215,7 @@ public class SqlAstBasedLockingStrategy implements LockingStrategy {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void handleRestriction(
 			Object value,
 			SelectableMapping jdbcValueMapping,

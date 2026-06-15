@@ -10,6 +10,8 @@ import java.util.Set;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.type.CompositeType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for runtime, proxy-based lazy initialization proxies.
@@ -42,6 +44,7 @@ public interface ProxyFactory {
 	 * @throws HibernateException Indicates a problem completing post
 	 * instantiation initialization.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void postInstantiate(
 			String entityName,
 			Class<?> persistentClass,
@@ -60,5 +63,6 @@ public interface ProxyFactory {
 	 * @throws HibernateException Indicates problems generating the requested
 	 * proxy.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	HibernateProxy getProxy(Object id, SharedSessionContractImplementor session) throws HibernateException;
 }

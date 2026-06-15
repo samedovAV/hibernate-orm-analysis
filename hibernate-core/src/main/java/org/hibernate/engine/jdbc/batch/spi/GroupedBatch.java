@@ -8,6 +8,8 @@ import org.hibernate.Incubating;
 import org.hibernate.engine.jdbc.mutation.JdbcValueBindings;
 import org.hibernate.engine.jdbc.mutation.TableInclusionChecker;
 import org.hibernate.engine.jdbc.mutation.group.PreparedStatementGroup;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Batch variant based on a group of prepared statements.
 ///
@@ -33,6 +35,7 @@ public interface GroupedBatch extends Batch {
 	/// expose statement details for generated values handling or other execution
 	/// infrastructure.  The returned group is owned by the batch and is released
 	/// when the batch is released.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PreparedStatementGroup getStatementGroup();
 
 	/// Add one logical row to this grouped batch.
@@ -45,6 +48,7 @@ public interface GroupedBatch extends Batch {
 	/// @param jdbcValueBindings values for the current logical mutation row
 	/// @param inclusionChecker optional selector for statements/tables that should
 	/// be included for this row
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addToBatch(JdbcValueBindings jdbcValueBindings, TableInclusionChecker inclusionChecker);
 
 	/// Add one logical row to this grouped batch with stale-state exception mapping.
@@ -59,6 +63,7 @@ public interface GroupedBatch extends Batch {
 	/// be included for this row
 	/// @param staleStateMapper optional mapper for stale-state failures associated
 	/// with this row
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addToBatch(
 			JdbcValueBindings jdbcValueBindings,
 			TableInclusionChecker inclusionChecker,

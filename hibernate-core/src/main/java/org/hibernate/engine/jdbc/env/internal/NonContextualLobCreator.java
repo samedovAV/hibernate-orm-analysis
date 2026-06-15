@@ -14,6 +14,8 @@ import java.io.Reader;
 import java.sql.Blob;
 import java.sql.Clob;
 import java.sql.NClob;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * {@link LobCreator} implementation using non-contextual or local creation, meaning that we generate the LOB
@@ -32,31 +34,37 @@ public class NonContextualLobCreator extends AbstractLobCreator implements LobCr
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Blob createBlob(byte[] bytes) {
 		return BlobProxy.generateProxy( bytes );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Blob createBlob(InputStream stream, long length) {
 		return BlobProxy.generateProxy( stream, length );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Clob createClob(String string) {
 		return ClobProxy.generateProxy( string );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Clob createClob(Reader reader, long length) {
 		return ClobProxy.generateProxy( reader, length );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NClob createNClob(String string) {
 		return NClobProxy.generateProxy( string );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NClob createNClob(Reader reader, long length) {
 		return NClobProxy.generateProxy( reader, length );
 	}

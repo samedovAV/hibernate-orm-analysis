@@ -12,6 +12,8 @@ import org.hibernate.sql.ast.tree.from.FromClause;
 import org.hibernate.sql.ast.tree.from.NamedTableReference;
 import org.hibernate.sql.ast.tree.predicate.Predicate;
 import org.hibernate.sql.model.MutationTarget;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public abstract class AbstractUpdateOrDeleteStatement extends AbstractMutationStatement {
 	private final FromClause fromClause;
@@ -29,10 +31,12 @@ public abstract class AbstractUpdateOrDeleteStatement extends AbstractMutationSt
 		this.restriction = restriction;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FromClause getFromClause() {
 		return fromClause;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Predicate getRestriction() {
 		return restriction;
 	}

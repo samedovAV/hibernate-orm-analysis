@@ -8,6 +8,8 @@ import java.util.Map;
 
 import org.hibernate.service.Service;
 import org.hibernate.service.spi.ServiceRegistryImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link Service} defining a strategy for obtaining a {@link JtaPlatform}
@@ -22,5 +24,6 @@ import org.hibernate.service.spi.ServiceRegistryImplementor;
  * @author Steve Ebersole
  */
 public interface JtaPlatformResolver extends Service {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JtaPlatform resolveJtaPlatform(Map<?,?> configurationValues, ServiceRegistryImplementor registry);
 }

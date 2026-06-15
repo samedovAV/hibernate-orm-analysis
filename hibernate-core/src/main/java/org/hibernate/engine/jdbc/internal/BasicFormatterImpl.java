@@ -11,6 +11,8 @@ import java.util.StringTokenizer;
 
 import static java.lang.Character.isJavaIdentifierStart;
 import static org.hibernate.internal.util.StringHelper.WHITESPACE;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Performs formatting of basic SQL statements (DML + query).
@@ -28,6 +30,7 @@ public class BasicFormatterImpl implements Formatter {
 	private static final String INITIAL = System.lineSeparator() + INDENT_STRING;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String format(String source) {
 		return new FormatProcess( source ).perform();
 	}
@@ -63,6 +66,7 @@ public class BasicFormatterImpl implements Formatter {
 			);
 		}
 
+		@Prove(complexity = Complexity.O_N2, n = "", count = {})
 		public String perform() {
 
 			result.append( INITIAL );
@@ -206,6 +210,7 @@ public class BasicFormatterImpl implements Formatter {
 			return result.toString();
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void forUpdate() {
 			if ( inFunction==0 ) {
 				decrementIndent();
@@ -219,10 +224,12 @@ public class BasicFormatterImpl implements Formatter {
 			}
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void or() {
 			logical();
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void and() {
 			if ( afterBetween ) {
 				misc();
@@ -233,6 +240,7 @@ public class BasicFormatterImpl implements Formatter {
 			}
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void from() {
 			if ( inFunction == 0 ) {
 				endNewClause();
@@ -242,6 +250,7 @@ public class BasicFormatterImpl implements Formatter {
 			}
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void comma() {
 			if ( afterByOrSetOrFromOrSelect && inFunction == 0 ) {
 				commaAfterByOrFromOrSelect();
@@ -254,12 +263,14 @@ public class BasicFormatterImpl implements Formatter {
 			}
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void then() {
 			incrementIndent();
 			newline();
 			misc();
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void when() {
 			decrementIndent();
 			newline();
@@ -276,17 +287,20 @@ public class BasicFormatterImpl implements Formatter {
 //			afterByOrSetOrFromOrSelect = true;
 //		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void commaAfterByOrFromOrSelect() {
 			out();
 			newline();
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void logical() {
 			newline();
 			out();
 			beginLine = false;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void endCase() {
 			afterBeginBeforeEnd = false;
 			decrementIndent();
@@ -294,6 +308,7 @@ public class BasicFormatterImpl implements Formatter {
 			logical();
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void on() {
 			if ( afterOn == 0 ) {
 				incrementIndent();
@@ -308,6 +323,7 @@ public class BasicFormatterImpl implements Formatter {
 			beginLine = false;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void beginCase() {
 			out();
 			beginLine = false;
@@ -316,6 +332,7 @@ public class BasicFormatterImpl implements Formatter {
 			afterBeginBeforeEnd = true;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void misc() {
 			out();
 			if ( afterInsert && inFunction == 0 ) {
@@ -327,12 +344,14 @@ public class BasicFormatterImpl implements Formatter {
 			}
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void white() {
 			if ( !beginLine ) {
 				result.append( " " );
 			}
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void updateOrInsertOrDelete() {
 			if ( indent > 1 ) {
 				//probably just the insert SQL function
@@ -351,6 +370,7 @@ public class BasicFormatterImpl implements Formatter {
 			}
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void select() {
 //			if ( parensSinceSelect > 0 ) {
 //				newline();
@@ -370,6 +390,7 @@ public class BasicFormatterImpl implements Formatter {
 			afterByOrSetOrFromOrSelect = true;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void out() {
 			if ( result.charAt( result.length() - 1 ) == ',' ) {
 				result.append( " " );
@@ -377,6 +398,7 @@ public class BasicFormatterImpl implements Formatter {
 			result.append( token );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void endNewClause() {
 			if ( !afterBeginBeforeEnd ) {
 				decrementIndent();
@@ -399,6 +421,7 @@ public class BasicFormatterImpl implements Formatter {
 										|| "from".equals( lcToken );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void beginNewClause() {
 			if ( !afterBeginBeforeEnd ) {
 				if ( afterOn == 1 ) {
@@ -415,6 +438,7 @@ public class BasicFormatterImpl implements Formatter {
 			afterBeginBeforeEnd = true;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void values() {
 			if ( parensSinceSelect == 0 ) {
 				if ( !afterBeginBeforeEnd ) {
@@ -431,6 +455,7 @@ public class BasicFormatterImpl implements Formatter {
 			}
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void closeParen() {
 			if ( parensSinceSelect == 0 ) {
 				decrementIndent();
@@ -467,6 +492,7 @@ public class BasicFormatterImpl implements Formatter {
 			beginLine = false;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void openParen() {
 			if ( isFunctionName( lastToken ) || inFunction > 0 ) {
 				inFunction++;
@@ -486,16 +512,19 @@ public class BasicFormatterImpl implements Formatter {
 			parensSinceSelect++;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void incrementIndent() {
 			indent++;
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void decrementIndent() {
 			if ( indent > 0 ) {
 				indent--;
 			}
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private static boolean isFunctionName(String tok) {
 			if ( tok == null || tok.isEmpty() ) {
 				return false;
@@ -507,16 +536,19 @@ public class BasicFormatterImpl implements Formatter {
 			}
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private static boolean isWhitespace(String token) {
 			return WHITESPACE.contains( token );
 		}
 
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private void newline() {
 			result.append( System.lineSeparator() )
 					.append( INDENT_STRING.repeat( indent ) );
 			beginLine = true;
 		}
 
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		private void appendUntilToken(String stopToken) {
 			final StringBuilder quoted = new StringBuilder( this.token );
 			String t;

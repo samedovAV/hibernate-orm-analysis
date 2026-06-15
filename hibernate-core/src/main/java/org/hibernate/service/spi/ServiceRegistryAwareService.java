@@ -7,6 +7,8 @@ package org.hibernate.service.spi;
 import jakarta.annotation.Nonnull;
 
 import org.hibernate.internal.util.NullnessUtil;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Allows services to be injected with the {@link org.hibernate.service.ServiceRegistry} during configuration phase.
@@ -20,5 +22,6 @@ public interface ServiceRegistryAwareService {
 	 * @param serviceRegistry The registry
 	 */
 	@NullnessUtil.Initializer
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void injectServices(@Nonnull ServiceRegistryImplementor serviceRegistry);
 }

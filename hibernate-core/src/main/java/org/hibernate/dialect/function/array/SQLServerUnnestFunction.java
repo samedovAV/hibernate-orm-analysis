@@ -17,6 +17,8 @@ import org.hibernate.type.SqlTypes;
 import org.hibernate.type.descriptor.java.BasicPluralJavaType;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * SQL Server unnest function.
@@ -28,6 +30,7 @@ public class SQLServerUnnestFunction extends UnnestFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderJsonTable(
 			SqlAppender sqlAppender,
 			Expression array,
@@ -95,6 +98,7 @@ public class SQLServerUnnestFunction extends UnnestFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderXmlTable(
 			SqlAppender sqlAppender,
 			Expression array,

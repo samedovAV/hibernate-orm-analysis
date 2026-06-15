@@ -32,6 +32,8 @@ import static org.hibernate.generator.values.internal.GeneratedValuesHelper.getA
 import static org.hibernate.generator.values.internal.GeneratedValuesHelper.getGeneratedValues;
 import static org.hibernate.internal.util.StringHelper.EMPTY_STRINGS;
 import static org.hibernate.internal.util.StringHelper.unquote;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Delegate for dealing with generated values using the JDBC3 method
@@ -68,6 +70,7 @@ public class GetGeneratedKeysDelegate extends AbstractReturningDelegate {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableMutationBuilder<?> createTableMutationBuilder(
 			Expectation expectation,
 			SessionFactoryImplementor factory) {
@@ -78,6 +81,7 @@ public class GetGeneratedKeysDelegate extends AbstractReturningDelegate {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public PreparedStatement prepareStatement(String sql, SharedSessionContractImplementor session) {
 		var preparer = session.getJdbcCoordinator().getMutationStatementPreparer();
 		return columnNames == null
@@ -86,6 +90,7 @@ public class GetGeneratedKeysDelegate extends AbstractReturningDelegate {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public GeneratedValues performMutation(
 			PreparedStatementDetails statementDetails,
 			JdbcValueBindings jdbcValueBindings,
@@ -112,6 +117,7 @@ public class GetGeneratedKeysDelegate extends AbstractReturningDelegate {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public GeneratedValues performGraphMutation(
 			FlushOperation operation,
 			Object entity,
@@ -147,6 +153,7 @@ public class GetGeneratedKeysDelegate extends AbstractReturningDelegate {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public GeneratedValues executeAndExtractReturning(
 			String sql,
 			PreparedStatement preparedStatement,
@@ -156,6 +163,7 @@ public class GetGeneratedKeysDelegate extends AbstractReturningDelegate {
 				() -> "Unable to extract generated keys from ResultSet" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private @Nullable GeneratedValues extractGeneratedValues(
 			SharedSessionContractImplementor session,
 			PreparedStatement preparedStatement,

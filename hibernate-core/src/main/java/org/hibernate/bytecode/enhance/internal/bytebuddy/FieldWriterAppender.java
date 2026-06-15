@@ -19,6 +19,8 @@ import net.bytebuddy.jar.asm.Type;
 
 import static net.bytebuddy.ClassFileVersion.JAVA_V6;
 import static org.hibernate.bytecode.enhance.internal.bytebuddy.EnhancerImpl.capitalize;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 abstract class FieldWriterAppender implements ByteCodeAppender {
 
@@ -37,6 +39,7 @@ abstract class FieldWriterAppender implements ByteCodeAppender {
 		this.constants = constants;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static ByteCodeAppender of(
 			TypeDescription managedCtClass,
 			AnnotatedFieldDescription persistentField,
@@ -47,6 +50,7 @@ abstract class FieldWriterAppender implements ByteCodeAppender {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Size apply(
 			MethodVisitor methodVisitor,
 			Implementation.Context implementationContext,
@@ -122,8 +126,10 @@ abstract class FieldWriterAppender implements ByteCodeAppender {
 				instrumentedMethod.getStackSize() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract void fieldRead(MethodVisitor methodVisitor);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected abstract void fieldWrite(MethodVisitor methodVisitor);
 
 	private static class FieldWriting extends FieldWriterAppender {
@@ -136,6 +142,7 @@ abstract class FieldWriterAppender implements ByteCodeAppender {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		protected void fieldRead(MethodVisitor methodVisitor) {
 			methodVisitor.visitFieldInsn(
 					Opcodes.GETFIELD,
@@ -146,6 +153,7 @@ abstract class FieldWriterAppender implements ByteCodeAppender {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		protected void fieldWrite(MethodVisitor methodVisitor) {
 			methodVisitor.visitFieldInsn(
 					Opcodes.PUTFIELD,
@@ -166,6 +174,7 @@ abstract class FieldWriterAppender implements ByteCodeAppender {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		protected void fieldRead(MethodVisitor methodVisitor) {
 			methodVisitor.visitMethodInsn(
 					Opcodes.INVOKESPECIAL,
@@ -177,6 +186,7 @@ abstract class FieldWriterAppender implements ByteCodeAppender {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		protected void fieldWrite(MethodVisitor methodVisitor) {
 			methodVisitor.visitMethodInsn(
 					Opcodes.INVOKESPECIAL,

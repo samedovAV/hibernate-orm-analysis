@@ -29,6 +29,8 @@ import org.hibernate.event.spi.PreCollectionUpdateEvent;
 import org.hibernate.event.spi.PreCollectionUpdateEventListener;
 import org.hibernate.jpa.event.spi.CallbackType;
 import org.hibernate.persister.collection.CollectionPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Manages listener/callack events for collection actions when decomposed and performed
 /// through the graph-based action queue.
@@ -39,6 +41,7 @@ public class DecompositionSupport {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Recreate events
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void firePreRecreate(
 			CollectionPersister persister,
 			PersistentCollection<?> collection,
@@ -49,6 +52,7 @@ public class DecompositionSupport {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void firePostRecreate(
 			CollectionPersister persister,
 			PersistentCollection<?> collection,
@@ -65,6 +69,7 @@ public class DecompositionSupport {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Update events
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void firePreUpdate(
 			CollectionPersister persister,
 			PersistentCollection<?> collection,
@@ -75,6 +80,7 @@ public class DecompositionSupport {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void firePostUpdate(
 			CollectionPersister persister,
 			PersistentCollection<?> collection,
@@ -87,6 +93,7 @@ public class DecompositionSupport {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static PostExecutionCallback withOwnerUpdateCallbacks(
 			CollectionPersister persister,
 			Object affectedOwner,
@@ -121,6 +128,7 @@ public class DecompositionSupport {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void firePreRemove(
 			CollectionPersister persister,
 			PersistentCollection<?> collection,
@@ -132,6 +140,7 @@ public class DecompositionSupport {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void firePostRemove(
 			CollectionPersister persister,
 			PersistentCollection<?> collection,
@@ -152,6 +161,7 @@ public class DecompositionSupport {
 	/// Creates a no-op FlushOperation to carry a post-execution callback.
 	/// Used when decomposition produces no SQL operations but needs to defer
 	/// the POST event callback until after all decompositions complete.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static org.hibernate.action.queue.spi.plan.FlushOperation createNoOpCallbackCarrier(
 			TableDescriptor tableDescriptor,
 			int ordinal,
@@ -174,6 +184,7 @@ public class DecompositionSupport {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Internals
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static EventListenerGroups getListenerGroups(SharedSessionContractImplementor session) {
 		return session.getFactory().getEventListenerGroups();
 	}
@@ -182,6 +193,7 @@ public class DecompositionSupport {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Caching
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static Object generateCacheKey(CollectionAction action, SharedSessionContractImplementor session) {
 		if (!action.getPersister().hasCache()) {
 			return null;
@@ -196,6 +208,7 @@ public class DecompositionSupport {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void syncOwnerCollectionLoadedState(
 			CollectionPersister persister,
 			Object affectedOwner,

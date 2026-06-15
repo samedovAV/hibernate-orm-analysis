@@ -65,6 +65,8 @@ import static org.hibernate.boot.models.JpaAnnotations.NAMED_STORED_PROCEDURE_QU
 import static org.hibernate.internal.util.StringHelper.isNotEmpty;
 import static org.hibernate.internal.util.collections.CollectionHelper.isEmpty;
 import static org.hibernate.internal.util.collections.CollectionHelper.isNotEmpty;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Processing of queries from XML
@@ -72,6 +74,7 @@ import static org.hibernate.internal.util.collections.CollectionHelper.isNotEmpt
  * @author Steve Ebersole
  */
 public class QueryProcessing {
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void applyNamedQueries(
 			JaxbEntityImpl jaxbEntity,
 			MutableClassDetails classDetails,
@@ -126,6 +129,7 @@ public class QueryProcessing {
 	}
 
 	public static final QueryHint[] NO_HINTS = new QueryHint[0];
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static QueryHint[] collectQueryHints(List<JaxbQueryHintImpl> jaxbHints, XmlDocumentContext xmlDocumentContext) {
 		if ( isEmpty( jaxbHints ) ) {
 			return NO_HINTS;
@@ -143,6 +147,7 @@ public class QueryProcessing {
 		return hints;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void applyNamedNativeQueries(
 			JaxbEntityImpl jaxbEntity,
 			MutableClassDetails classDetails,
@@ -197,6 +202,7 @@ public class QueryProcessing {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean needsJpaNativeQuery(JaxbNamedNativeQueryImpl jaxbNamedQuery) {
 		return isNotEmpty( jaxbNamedQuery.getHints() )
 			|| isNotEmpty( jaxbNamedQuery.getColumnResult() )
@@ -204,6 +210,7 @@ public class QueryProcessing {
 			|| isNotEmpty( jaxbNamedQuery.getEntityResult() );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void applyNamedStatements(
 			JaxbEntityImpl jaxbEntity,
 			MutableClassDetails classDetails,
@@ -231,6 +238,7 @@ public class QueryProcessing {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void applyNamedNativeStatements(
 			JaxbEntityImpl jaxbEntity,
 			MutableClassDetails classDetails,
@@ -260,6 +268,7 @@ public class QueryProcessing {
 
 
 	private static final ColumnResult[] NO_COLUMN_RESULTS = new ColumnResult[0];
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static ColumnResult[] extractColumnResults(
 			List<JaxbColumnResultImpl> jaxbColumnResultList,
 			XmlDocumentContext xmlDocumentContext) {
@@ -283,6 +292,7 @@ public class QueryProcessing {
 	}
 
 	private final static ConstructorResult[] NO_CONSTRUCTOR_RESULTS = new ConstructorResult[0];
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static ConstructorResult[] extractConstructorResults(
 			List<JaxbConstructorResultImpl> jaxbConstructorResultList,
 			XmlDocumentContext xmlDocumentContext) {
@@ -321,6 +331,7 @@ public class QueryProcessing {
 	}
 
 	private static final EntityResult[] NO_ENTITY_RESULTS = new EntityResult[0];
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static EntityResult[] extractEntityResults(
 			List<JaxbEntityResultImpl> jaxbEntityResults,
 			XmlDocumentContext xmlDocumentContext) {
@@ -354,6 +365,7 @@ public class QueryProcessing {
 		return entityResults;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static FieldResult[] extractFieldResults(
 			List<JaxbFieldResultImpl> jaxbFieldResults,
 			XmlDocumentContext xmlDocumentContext) {
@@ -374,6 +386,7 @@ public class QueryProcessing {
 		return fieldResults;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void applyNamedProcedureQueries(
 			JaxbEntityImpl jaxbEntity,
 			MutableClassDetails classDetails,
@@ -403,6 +416,7 @@ public class QueryProcessing {
 	}
 
 	private static final StoredProcedureParameter[] NO_PARAMS = new StoredProcedureParameter[0];
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static StoredProcedureParameter[] collectParameters(
 			List<JaxbStoredProcedureParameterImpl> jaxbParameters,
 			XmlDocumentContext xmlDocumentContext) {
@@ -423,6 +437,7 @@ public class QueryProcessing {
 	}
 
 	private static final Class<?>[] NO_CLASSES = new Class[0];
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static Class<?>[] collectResultClasses(List<String> resultClasses, XmlDocumentContext xmlDocumentContext) {
 		if ( isEmpty( resultClasses ) ) {
 			return NO_CLASSES;
@@ -434,6 +449,7 @@ public class QueryProcessing {
 		return result;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String[] collectResultMappings(List<String> resultClasses, XmlDocumentContext xmlDocumentContext) {
 		if ( isEmpty( resultClasses ) ) {
 			return ArrayHelper.EMPTY_STRING_ARRAY;

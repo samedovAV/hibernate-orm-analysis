@@ -14,6 +14,8 @@ import net.bytebuddy.implementation.bind.annotation.Origin;
 import net.bytebuddy.implementation.bind.annotation.RuntimeType;
 import net.bytebuddy.implementation.bind.annotation.StubValue;
 import net.bytebuddy.implementation.bind.annotation.This;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A proxy configuration allows the definition of an interceptor object that decides on the behavior of a proxy.
@@ -35,9 +37,11 @@ public interface ProxyConfiguration extends PrimeAmongSecondarySupertypes {
 	 *
 	 * @param interceptor The interceptor object.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void $$_hibernate_set_interceptor(Interceptor interceptor);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default ProxyConfiguration asProxyConfiguration() {
 		return this;
 	}
@@ -59,6 +63,7 @@ public interface ProxyConfiguration extends PrimeAmongSecondarySupertypes {
 		 * @throws Throwable If the intercepted method raises an exception.
 		 */
 		@RuntimeType
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		Object intercept(@This Object instance, @Origin Method method, @AllArguments Object[] arguments) throws Throwable;
 	}
 
@@ -81,6 +86,7 @@ public interface ProxyConfiguration extends PrimeAmongSecondarySupertypes {
 		 * @throws Throwable If the intercepted method raises an exception.
 		 */
 		@RuntimeType
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public static Object intercept(
 				@This final Object instance,
 				@Origin final Method method,

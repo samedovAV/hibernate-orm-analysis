@@ -18,6 +18,8 @@ import org.hibernate.sql.model.ast.ColumnValueBinding;
 import org.hibernate.sql.model.ast.MutatingTableReference;
 import org.hibernate.sql.model.ast.RestrictedTableMutation;
 import org.hibernate.sql.model.ast.TableUpdate;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base support for TableUpdateBuilder implementations
@@ -49,10 +51,12 @@ public abstract class AbstractTableUpdateBuilder<O extends MutationOperation>
 		this.sqlComment = "update for " + mutationTarget.getRolePath();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getSqlComment() {
 		return sqlComment;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setSqlComment(String sqlComment) {
 		this.sqlComment = sqlComment;
 	}
@@ -62,6 +66,7 @@ public abstract class AbstractTableUpdateBuilder<O extends MutationOperation>
 	 *
 	 * @see TableUpdate#getKeyBindings
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected List<ColumnValueBinding> getKeyBindings() {
 		return keyBindings;
 	}
@@ -71,6 +76,7 @@ public abstract class AbstractTableUpdateBuilder<O extends MutationOperation>
 	 *
 	 * @see TableUpdate#getValueBindings
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected List<ColumnValueBinding> getValueBindings() {
 		return valueBindings;
 	}
@@ -82,16 +88,19 @@ public abstract class AbstractTableUpdateBuilder<O extends MutationOperation>
 	 *
 	 * @see TableUpdate#getValueBindings
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected List<ColumnValueBinding> getLobValueBindings() {
 		return lobValueBindings;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasAssignmentBindings() {
 		return !valueBindings.isEmpty() || CollectionHelper.isNotEmpty( lobValueBindings );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addColumnAssignment(ColumnValueBinding valueBinding) {
 		if ( valueBinding.getColumnReference().getJdbcMapping().getJdbcType().isLob()
 				&& getJdbcServices().getDialect().forceLobAsLastValue() ) {
@@ -106,6 +115,7 @@ public abstract class AbstractTableUpdateBuilder<O extends MutationOperation>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void addColumnAssignment(SelectableMapping columnMapping, String assignment) {
 		addColumnAssignment( createValueBinding( assignment, columnMapping ) );
 	}

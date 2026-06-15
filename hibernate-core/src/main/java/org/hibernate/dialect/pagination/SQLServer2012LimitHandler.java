@@ -9,6 +9,8 @@ import java.util.regex.Pattern;
 
 import static java.util.regex.Pattern.CASE_INSENSITIVE;
 import static java.util.regex.Pattern.compile;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@link LimitHandler} compatible with SQL Server 2012 which
@@ -54,6 +56,7 @@ public class SQLServer2012LimitHandler extends OffsetFetchLimitHandler {
 		 *         0 if it never occurs outside of quotes or
 		 *         parentheses.
 		 */
+		@Prove(complexity = Complexity.O_N2, n = "", count = {})
 		int rootOffset(String sql) {
 			//TODO: does not handle comments
 
@@ -107,6 +110,7 @@ public class SQLServer2012LimitHandler extends OffsetFetchLimitHandler {
 	 * <pre>order by ... offset m rows [fetch next n rows only]</pre>
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void begin(String sql, StringBuilder offsetFetch, boolean hasFirstRow, boolean hasMaxRows) {
 
 		//see https://docs.microsoft.com/en-us/sql/t-sql/queries/select-order-by-clause-transact-sql?view=sql-server-2017

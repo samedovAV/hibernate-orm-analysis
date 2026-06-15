@@ -31,6 +31,8 @@ import org.hibernate.type.SqlTypes;
 import org.hibernate.type.spi.TypeConfiguration;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * H2 generate_series function.
@@ -55,12 +57,14 @@ public class H2GenerateSeriesFunction extends NumberSeriesGenerateSeriesFunction
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean rendersIdentifierVariable(List<SqlAstNode> arguments, SessionFactoryImplementor sessionFactory) {
 		// To make our lives simpler during emulation
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected <T> SelfRenderingSqmSetReturningFunction<T> generateSqmSetReturningFunctionExpression(List<? extends SqmTypedNode<?>> arguments, QueryEngine queryEngine) {
 		//noinspection unchecked
 		return new SelfRenderingSqmSetReturningFunction<>(
@@ -73,6 +77,7 @@ public class H2GenerateSeriesFunction extends NumberSeriesGenerateSeriesFunction
 				getName()
 		) {
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public TableGroup convertToSqlAst(
 					NavigablePath navigablePath,
 					String identifierVariable,
@@ -127,6 +132,7 @@ public class H2GenerateSeriesFunction extends NumberSeriesGenerateSeriesFunction
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public SelectableMapping[] resolveFunctionReturnType(
 				List<? extends SqlAstNode> arguments,
 				String tableIdentifierVariable,
@@ -164,6 +170,7 @@ public class H2GenerateSeriesFunction extends NumberSeriesGenerateSeriesFunction
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderGenerateSeries(
 			SqlAppender sqlAppender,
 			Expression start,
@@ -231,6 +238,7 @@ public class H2GenerateSeriesFunction extends NumberSeriesGenerateSeriesFunction
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean needsEmulation(Expression expression) {
 		return !( expression instanceof Literal || AbstractSqlAstTranslator.isParameter( expression ) );
 	}

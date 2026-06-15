@@ -19,6 +19,8 @@ import java.util.Locale;
 import static org.jboss.logging.Logger.Level.INFO;
 import static org.jboss.logging.Logger.Level.TRACE;
 import static org.jboss.logging.Logger.Level.WARN;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Logging related to {@link TableGenerator} operations
@@ -45,22 +47,26 @@ public interface SequenceGeneratorLogger extends BasicLogger {
 	@LogMessage(level = INFO)
 	@Message(value = "Forcing table use for sequence-style generator due to pooled optimizer selection where db does not support pooled sequences",
 			id = 90201)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void forcingTableUse();
 
 	@LogMessage(level = WARN)
 	@Message(value = "The increment size of the sequence '%s' is set to [%d] in the entity mapping but the mapped database sequence increment size is [%d]",
 			id = 90202)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void sequenceIncrementSizeMismatch(String sequenceName, int incrementSize, int databaseIncrementSize);
 
 	@LogMessage(level = TRACE)
 	@Message(value = "The increment size of the sequence '%s' is set to [%d] in the entity mapping but the mapped database sequence increment size is [%d]"
 					+ " - the database sequence increment size will take precedence to avoid identifier allocation conflicts.",
 			id = 90203)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void sequenceIncrementSizeMismatchFixed(String sequenceName, int incrementSize, int databaseIncrementSize);
 
 	@LogMessage(level = WARN)
 	@Message(value = "Sequence-style generator configuration specified explicit optimizer [%s], but [%s=%s]; using optimizer [%s] increment default of [%s]",
 			id = 90205)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void honoringOptimizerSetting(
 			String none,
 			String incrementParam,

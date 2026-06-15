@@ -8,6 +8,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.QueryException;
 
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Indicates that validation and translation of one or more named
@@ -30,6 +32,7 @@ public class NamedQueryValidationException extends QueryException {
 	 * A map from query name to the error that occurred while
 	 * interpreting or translating the named query.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, HibernateException> getErrors() {
 		return errors;
 	}

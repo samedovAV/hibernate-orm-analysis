@@ -11,6 +11,8 @@ import jakarta.persistence.EntityManager;
 import org.hibernate.metamodel.RepresentationMode;
 import org.hibernate.metamodel.spi.EntityRepresentationStrategy;
 import org.hibernate.type.Type;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Allows user code to inspect and/or change entity property values before they are
@@ -78,6 +80,7 @@ public interface Interceptor extends EntityManager.CreationOption, EntityAgent.C
 	 *
 	 * @return {@code true} if the user modified the {@code state} in any way.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean onLoad(Object entity, Object id, Object[] state, String[] propertyNames, Type[] types) {
 		return false;
 	}
@@ -99,6 +102,7 @@ public interface Interceptor extends EntityManager.CreationOption, EntityAgent.C
 	 * @see Session#persist(Object)
 	 * @see Session#merge(Object)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean onPersist(Object entity, Object id, Object[] state, String[] propertyNames, Type[] types) {
 		return onSave(entity, id, state, propertyNames, types);
 	}
@@ -116,6 +120,7 @@ public interface Interceptor extends EntityManager.CreationOption, EntityAgent.C
 	 *
 	 * @see Session#remove(Object)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void onRemove(Object entity, Object id, Object[] state, String[] propertyNames, Type[] types) {
 		onDelete(entity, id, state, propertyNames, types);
 	}
@@ -141,6 +146,7 @@ public interface Interceptor extends EntityManager.CreationOption, EntityAgent.C
 	 *
 	 * @see Session#flush()
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean onFlushDirty(
 			Object entity,
 			Object id,
@@ -171,6 +177,7 @@ public interface Interceptor extends EntityManager.CreationOption, EntityAgent.C
 	 * @deprecated Use {@link #onPersist(Object, Object, Object[], String[], Type[])}
 	 */
 	@Deprecated(since = "6.6")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean onSave(Object entity, Object id, Object[] state, String[] propertyNames, Type[] types) {
 		return false;
 	}
@@ -191,6 +198,7 @@ public interface Interceptor extends EntityManager.CreationOption, EntityAgent.C
 	 * @deprecated Use {@link #onRemove(Object, Object, Object[], String[], Type[])}
 	 */
 	@Deprecated(since = "6.6")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void onDelete(Object entity, Object id, Object[] state, String[] propertyNames, Type[] types) {
 	}
 
@@ -200,6 +208,7 @@ public interface Interceptor extends EntityManager.CreationOption, EntityAgent.C
 	 * @param collection The collection instance.
 	 * @param key The collection key value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void onCollectionRecreate(Object collection, Object key) {
 	}
 
@@ -209,6 +218,7 @@ public interface Interceptor extends EntityManager.CreationOption, EntityAgent.C
 	 * @param collection The collection instance.
 	 * @param key The collection key value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void onCollectionRemove(Object collection, Object key) {
 	}
 
@@ -218,6 +228,7 @@ public interface Interceptor extends EntityManager.CreationOption, EntityAgent.C
 	 * @param collection The collection instance.
 	 * @param key The collection key value.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void onCollectionUpdate(Object collection, Object key) {
 	}
 
@@ -226,6 +237,7 @@ public interface Interceptor extends EntityManager.CreationOption, EntityAgent.C
 	 *
 	 * @param entities The entities to be flushed.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void preFlush(Iterator<Object> entities) {}
 
 	/**
@@ -234,6 +246,7 @@ public interface Interceptor extends EntityManager.CreationOption, EntityAgent.C
 	 *
 	 * @param entities The entities that were flushed.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void postFlush(Iterator<Object> entities) {}
 
 	/**
@@ -253,6 +266,7 @@ public interface Interceptor extends EntityManager.CreationOption, EntityAgent.C
 	 * @param entity a transient or detached entity
 	 * @return {@link Boolean} or {@code null} to choose default behaviour
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Boolean isTransient(Object entity) {
 		return null;
 	}
@@ -277,6 +291,7 @@ public interface Interceptor extends EntityManager.CreationOption, EntityAgent.C
 	 * @return array of dirty property indices or {@code null} to indicate Hibernate
 	 *         should perform default behaviour
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int[] findDirty(
 			Object entity,
 			Object id,
@@ -292,6 +307,7 @@ public interface Interceptor extends EntityManager.CreationOption, EntityAgent.C
 	 * use the default constructor of the class. The identifier property of the
 	 * returned instance should be initialized with the given identifier.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default Object instantiate(
 			String entityName,
 			EntityRepresentationStrategy representationStrategy,
@@ -304,6 +320,7 @@ public interface Interceptor extends EntityManager.CreationOption, EntityAgent.C
 	 * use the default constructor of the class. The identifier property of the
 	 * returned instance should be initialized with the given identifier.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Object instantiate(
 			String entityName,
 			RepresentationMode representationMode,
@@ -320,6 +337,7 @@ public interface Interceptor extends EntityManager.CreationOption, EntityAgent.C
 	 *
 	 * @see EntityNameResolver
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String getEntityName(Object object) {
 		return null;
 	}
@@ -332,6 +350,7 @@ public interface Interceptor extends EntityManager.CreationOption, EntityAgent.C
 	 *
 	 * @return a fully initialized entity
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Object getEntity(String entityName, Object id) {
 		return null;
 	}
@@ -344,6 +363,7 @@ public interface Interceptor extends EntityManager.CreationOption, EntityAgent.C
 	 *
 	 * @param tx The Hibernate transaction facade object
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void afterTransactionBegin(Transaction tx) {}
 
 	/**
@@ -351,6 +371,7 @@ public interface Interceptor extends EntityManager.CreationOption, EntityAgent.C
 	 *
 	 * @param tx The Hibernate transaction facade object
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void beforeTransactionCompletion(Transaction tx) {}
 
 	/**
@@ -358,6 +379,7 @@ public interface Interceptor extends EntityManager.CreationOption, EntityAgent.C
 	 *
 	 * @param tx The Hibernate transaction facade object
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void afterTransactionCompletion(Transaction tx) {}
 
 	/**
@@ -371,6 +393,7 @@ public interface Interceptor extends EntityManager.CreationOption, EntityAgent.C
 	 *
 	 * @see StatelessSession#insert(Object)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void onInsert(Object entity, Object id, Object[] state, String[] propertyNames, Type[] propertyTypes) {}
 
 	/**
@@ -384,6 +407,7 @@ public interface Interceptor extends EntityManager.CreationOption, EntityAgent.C
 	 *
 	 * @see StatelessSession#update(Object)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void onUpdate(Object entity, Object id, Object[] state, String[] propertyNames, Type[] propertyTypes) {}
 
 	/**
@@ -397,6 +421,7 @@ public interface Interceptor extends EntityManager.CreationOption, EntityAgent.C
 	 *
 	 * @see StatelessSession#upsert(String, Object)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void onUpsert(Object entity, Object id, Object[] state, String[] propertyNames, Type[] propertyTypes) {}
 
 	/**
@@ -409,6 +434,7 @@ public interface Interceptor extends EntityManager.CreationOption, EntityAgent.C
 	 *
 	 * @see StatelessSession#delete(Object)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void onDelete(Object entity, Object id, String[] propertyNames, Type[] propertyTypes) {}
 
 	/**
@@ -425,6 +451,7 @@ public interface Interceptor extends EntityManager.CreationOption, EntityAgent.C
 	 * @since 7.1
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void preMerge(Object entity, Object[] state, String[] propertyNames, Type[] propertyTypes) {}
 
 	/**
@@ -445,6 +472,7 @@ public interface Interceptor extends EntityManager.CreationOption, EntityAgent.C
 	 * @since 7.1
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void postMerge(
 			Object source, Object target, Object id,
 			Object[] targetState, Object[] originalState,

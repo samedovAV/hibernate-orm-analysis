@@ -9,6 +9,8 @@ import org.hibernate.graph.spi.GraphHelper;
 import org.hibernate.graph.spi.GraphImplementor;
 import org.hibernate.graph.spi.RootGraphImplementor;
 import org.hibernate.metamodel.model.domain.EntityDomainType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -35,23 +37,27 @@ public class RootGraphImpl<J> extends GraphImpl<J> implements RootGraphImplement
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return name;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean appliesTo(EntityDomainType<?> entityType) {
 		return GraphHelper.appliesTo( this, entityType );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public RootGraphImplementor<J> makeCopy(boolean mutable) {
 		return makeCopy( mutable, null );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public RootGraphImplementor<J> makeCopy(boolean mutable, String name) {
 		return !mutable && !isMutable() ? this : new RootGraphImpl<>( name, this, mutable );
 	}

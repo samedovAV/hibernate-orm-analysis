@@ -11,6 +11,8 @@ import org.hibernate.service.Service;
 
 import jakarta.annotation.Nullable;
 import org.hibernate.service.spi.Stoppable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Service which acts as a registry for named strategy implementations.
@@ -45,6 +47,7 @@ public interface StrategySelector extends Service, Stoppable {
 	 *
 	 * @return The named strategy implementation class.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> Class<? extends T> selectStrategyImplementor(Class<T> strategy, String name);
 
 	/**
@@ -58,6 +61,7 @@ public interface StrategySelector extends Service, Stoppable {
 	 *
 	 * @return The strategy instance
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T resolveStrategy(Class<T> strategy, @Nullable Object strategyReference);
 
 	/**
@@ -86,6 +90,7 @@ public interface StrategySelector extends Service, Stoppable {
 	 *
 	 * @return The strategy instance
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T resolveDefaultableStrategy(Class<T> strategy, Object strategyReference, T defaultValue);
 
 	/**
@@ -114,10 +119,13 @@ public interface StrategySelector extends Service, Stoppable {
 	 *
 	 * @return The strategy instance
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T resolveDefaultableStrategy(Class<T> strategy, Object strategyReference, Callable<T> defaultResolver);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T resolveStrategy(Class<T> strategy, Object strategyReference, Callable<T> defaultResolver, StrategyCreator<T> creator);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T resolveStrategy(Class<T> strategy, Object strategyReference, T defaultValue, StrategyCreator<T> creator);
 
 	/**
@@ -127,6 +135,7 @@ public interface StrategySelector extends Service, Stoppable {
 	 *
 	 * @return The implementors.  Should never return {@code null}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> Collection<Class<? extends T>> getRegisteredStrategyImplementors(Class<T> strategy);
 
 	/**
@@ -141,6 +150,7 @@ public interface StrategySelector extends Service, Stoppable {
 	 * @deprecated Use {@linkplain NamedStrategyContributor} instead
 	 */
 	@Deprecated( since = "7.0", forRemoval = true )
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> void registerStrategyImplementor(Class<T> strategy, String name, Class<? extends T> implementation);
 
 	/**
@@ -156,5 +166,6 @@ public interface StrategySelector extends Service, Stoppable {
 	 * @deprecated Use {@linkplain NamedStrategyContributor} instead
 	 */
 	@Deprecated( since = "7.0", forRemoval = true )
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> void unRegisterStrategyImplementor(Class<T> strategy, Class<? extends T> implementation);
 }

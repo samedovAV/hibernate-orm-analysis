@@ -16,6 +16,8 @@ import java.util.List;
 import static java.util.Collections.emptyList;
 import static org.hibernate.boot.model.naming.Identifier.toIdentifier;
 import static org.hibernate.internal.util.collections.CollectionHelper.arrayList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class ForeignKeyNameSource implements ImplicitForeignKeyNameSource {
 
@@ -34,21 +36,25 @@ public class ForeignKeyNameSource implements ImplicitForeignKeyNameSource {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Identifier getTableName() {
 		return table.getNameIdentifier();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<Identifier> getColumnNames() {
 		return columnNames;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Identifier getReferencedTableName() {
 		return foreignKey.getReferencedTable().getNameIdentifier();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<Identifier> getReferencedColumnNames() {
 		if ( referencedColumnNames == null ) {
 			referencedColumnNames = extractColumnNames( foreignKey.getReferencedColumns() );
@@ -57,16 +63,19 @@ public class ForeignKeyNameSource implements ImplicitForeignKeyNameSource {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Identifier getUserProvidedIdentifier() {
 		String name = foreignKey.getName();
 		return name != null ? toIdentifier(name) : null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MetadataBuildingContext getBuildingContext() {
 		return buildingContext;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private List<Identifier> extractColumnNames(List<Column> columns) {
 		if ( columns == null || columns.isEmpty() ) {
 			return emptyList();

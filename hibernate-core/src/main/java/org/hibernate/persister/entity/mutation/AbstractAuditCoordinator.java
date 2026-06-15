@@ -17,6 +17,8 @@ import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.sql.model.MutationOperationGroup;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base support for audit log insert coordinators.
@@ -48,6 +50,7 @@ abstract class AbstractAuditCoordinator extends AbstractMutationCoordinator impl
 	/**
 	 * Enqueue an audit entry for deferred writing at transaction completion.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void enqueueAuditEntry(
 			EntityKey entityKey,
 			Object entity,
@@ -64,6 +67,7 @@ abstract class AbstractAuditCoordinator extends AbstractMutationCoordinator impl
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected EntityKey resolveEntityKey(Object entity, Object id, SharedSessionContractImplementor session) {
 		final var entityEntry = session.getPersistenceContextInternal().getEntry( entity );
 		return entityEntry != null
@@ -76,6 +80,7 @@ abstract class AbstractAuditCoordinator extends AbstractMutationCoordinator impl
 	 * at transaction completion.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void writeAuditRow(
 			EntityKey entityKey,
 			Object entity,
@@ -119,10 +124,12 @@ abstract class AbstractAuditCoordinator extends AbstractMutationCoordinator impl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected BatchKey getBatchKey() {
 		return auditBatchKey;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void bindAuditValues(
 			Object id,
 			Object[] values,
@@ -155,6 +162,7 @@ abstract class AbstractAuditCoordinator extends AbstractMutationCoordinator impl
 	 * @param modificationType the modification type of the new audit row
 	 * @param session the current session
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void updatePreviousTransactionEnd(
 			Object id,
 			ModificationType modificationType,
@@ -190,6 +198,7 @@ abstract class AbstractAuditCoordinator extends AbstractMutationCoordinator impl
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static boolean verifyOutcome(
 			PreparedStatementDetails statementDetails,
 			int affectedRowCount,

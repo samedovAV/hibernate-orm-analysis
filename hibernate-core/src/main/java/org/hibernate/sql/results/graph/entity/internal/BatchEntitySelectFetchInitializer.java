@@ -27,6 +27,8 @@ import org.hibernate.sql.results.jdbc.spi.RowProcessingState;
 import org.hibernate.type.Type;
 
 import static org.hibernate.internal.log.LoggingHelper.toLoggableString;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class BatchEntitySelectFetchInitializer extends AbstractBatchEntitySelectFetchInitializer<BatchEntitySelectFetchInitializer.BatchEntitySelectFetchInitializerData> {
 	protected final AttributeMapping[] parentAttributes;
@@ -62,11 +64,13 @@ public class BatchEntitySelectFetchInitializer extends AbstractBatchEntitySelect
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected InitializerData createInitializerData(RowProcessingState rowProcessingState) {
 		return new BatchEntitySelectFetchInitializerData( this, rowProcessingState );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void registerResolutionListener(BatchEntitySelectFetchInitializerData data) {
 		final var rowProcessingState = data.getRowProcessingState();
 		final var owningData = owningEntityInitializer.getData( rowProcessingState );
@@ -101,6 +105,7 @@ public class BatchEntitySelectFetchInitializer extends AbstractBatchEntitySelect
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void endLoading(BatchEntitySelectFetchInitializerData data) {
 		super.endLoading( data );
 		final var toBatchLoad = data.toBatchLoad;
@@ -132,6 +137,7 @@ public class BatchEntitySelectFetchInitializer extends AbstractBatchEntitySelect
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private boolean initializeSubselect(
 			HashMap<EntityKey, List<ParentInfo>> toBatchLoad,
 			SharedSessionContractImplementor session,
@@ -166,6 +172,7 @@ public class BatchEntitySelectFetchInitializer extends AbstractBatchEntitySelect
 		return true;
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private SubselectFetch findSubselectFetch(
 			HashMap<EntityKey, List<ParentInfo>> toBatchLoad,
 			PersistenceContext persistenceContext) {
@@ -185,6 +192,7 @@ public class BatchEntitySelectFetchInitializer extends AbstractBatchEntitySelect
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return "BatchEntitySelectFetchInitializer("
 				+ toLoggableString( getNavigablePath() ) + ")";

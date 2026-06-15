@@ -7,6 +7,8 @@ package org.hibernate.mapping;
 import org.hibernate.MappingException;
 import org.hibernate.property.access.internal.PropertyAccessStrategyBackRefImpl;
 import org.hibernate.property.access.spi.PropertyAccessStrategy;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gavin King
@@ -16,24 +18,29 @@ public class Backref extends Property {
 	private String entityName;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isBackRef() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isSynthetic() {
 		return true;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getCollectionRole() {
 		return collectionRole;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setCollectionRole(String collectionRole) {
 		this.collectionRole = collectionRole;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isBasicPropertyAccessor() {
 		return false;
 	}
@@ -41,6 +48,7 @@ public class Backref extends Property {
 	private PropertyAccessStrategy propertyAccessStrategy;
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PropertyAccessStrategy getPropertyAccessStrategy(Class clazz) throws MappingException {
 		if ( propertyAccessStrategy == null ) {
 			propertyAccessStrategy = new PropertyAccessStrategyBackRefImpl( collectionRole, entityName );
@@ -48,10 +56,12 @@ public class Backref extends Property {
 		return propertyAccessStrategy;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getEntityName() {
 		return entityName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setEntityName(String entityName) {
 		this.entityName = entityName;
 	}

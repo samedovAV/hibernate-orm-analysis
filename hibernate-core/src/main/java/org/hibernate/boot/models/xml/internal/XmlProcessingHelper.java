@@ -16,6 +16,8 @@ import org.hibernate.models.spi.MutableClassDetails;
 import org.hibernate.models.spi.MutableMemberDetails;
 
 import jakarta.persistence.AccessType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Common helper utilities for handling mapping XML processing
@@ -29,10 +31,12 @@ public class XmlProcessingHelper {
 	 * @param jaxbRoot The {@code <entity-mappings/>} node for access to the package (if one)
 	 * @param jaxbManagedType The class JAXB node
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String determineClassName(JaxbEntityMappingsImpl jaxbRoot, JaxbManagedType jaxbManagedType) {
 		return StringHelper.qualifyConditionallyIfNot( jaxbRoot.getPackage(), jaxbManagedType.getClazz() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static AccessType inverse(AccessType accessType) {
 		return accessType == AccessType.FIELD ? AccessType.PROPERTY : AccessType.FIELD;
 	}
@@ -40,6 +44,7 @@ public class XmlProcessingHelper {
 	/**
 	 * Find the member backing the named attribute
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static MutableMemberDetails getAttributeMember(
 			String attributeName,
 			AccessType accessType,
@@ -64,6 +69,7 @@ public class XmlProcessingHelper {
 	/**
 	 * Find the member backing the named attribute
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static MutableMemberDetails findAttributeMember(
 			String attributeName,
 			AccessType accessType,

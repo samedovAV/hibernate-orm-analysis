@@ -15,6 +15,8 @@ import org.jboss.logging.annotations.ValidIdRange;
 
 import java.lang.invoke.MethodHandles;
 import java.util.Locale;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -31,14 +33,17 @@ public interface HqlLogging extends BasicLogger {
 
 	HqlLogging QUERY_LOGGER = Logger.getMessageLogger( MethodHandles.lookup(), HqlLogging.class, LOGGER_NAME, Locale.ROOT );
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static String subLoggerName(String subName) {
 		return LOGGER_NAME + '.' + subName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static Logger subLogger(String subName) {
 		return Logger.getLogger( subLoggerName( subName ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <T> T subLogger(String subName, Class<T> loggerJavaType) {
 		return Logger.getMessageLogger( MethodHandles.lookup(), loggerJavaType, subLoggerName( subName ), Locale.ROOT );
 	}

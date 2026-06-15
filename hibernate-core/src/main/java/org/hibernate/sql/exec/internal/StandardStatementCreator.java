@@ -12,6 +12,8 @@ import org.hibernate.sql.exec.spi.ExecutionContext;
 import org.hibernate.sql.exec.spi.JdbcSelectExecutor;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class StandardStatementCreator implements JdbcSelectExecutor.StatementCreator {
 
@@ -27,6 +29,7 @@ public class StandardStatementCreator implements JdbcSelectExecutor.StatementCre
 		INSTANCES = instances;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static JdbcSelectExecutor.StatementCreator getStatementCreator(@Nullable ScrollMode scrollMode) {
 		return StandardStatementCreator.INSTANCES[scrollMode == null
 				? StandardStatementCreator.INSTANCES.length - 1
@@ -40,6 +43,7 @@ public class StandardStatementCreator implements JdbcSelectExecutor.StatementCre
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PreparedStatement createStatement(ExecutionContext executionContext, String sql)
 			throws SQLException {
 		return executionContext.getSession().getJdbcCoordinator().getStatementPreparer()

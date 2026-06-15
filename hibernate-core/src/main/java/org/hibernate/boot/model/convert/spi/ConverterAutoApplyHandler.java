@@ -9,6 +9,8 @@ import org.hibernate.boot.spi.MetadataBuildingContext;
 import org.hibernate.models.spi.MemberDetails;
 
 import jakarta.persistence.Converter;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Manages resolution of auto-applied {@link jakarta.persistence.AttributeConverter}
@@ -27,6 +29,7 @@ public interface ConverterAutoApplyHandler {
 	 *
 	 * @param attributeMember The HCANN descriptor for the basic attribute
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ConverterDescriptor<?,?> findAutoApplyConverterForAttribute(MemberDetails attributeMember, MetadataBuildingContext context);
 
 	/**
@@ -36,6 +39,7 @@ public interface ConverterAutoApplyHandler {
 	 *
 	 * @param attributeMember The HCANN descriptor for the plural attribute
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ConverterDescriptor<?,?> findAutoApplyConverterForCollectionElement(MemberDetails attributeMember, MetadataBuildingContext context);
 
 	/**
@@ -45,5 +49,6 @@ public interface ConverterAutoApplyHandler {
 	 *
 	 * @param attributeMember The HCANN descriptor for the Map-typed plural attribute
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ConverterDescriptor<?,?> findAutoApplyConverterForMapKey(MemberDetails attributeMember, MetadataBuildingContext context);
 }

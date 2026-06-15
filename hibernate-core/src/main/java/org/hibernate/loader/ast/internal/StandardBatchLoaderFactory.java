@@ -17,6 +17,8 @@ import org.hibernate.service.spi.ServiceRegistryImplementor;
 import org.hibernate.type.BasicType;
 
 import static org.hibernate.loader.ast.internal.MultiKeyLoadHelper.supportsSqlArrayType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard {@link BatchLoaderFactory} implementation
@@ -29,6 +31,7 @@ public class StandardBatchLoaderFactory implements BatchLoaderFactory {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> EntityBatchLoader<T> createEntityBatchLoader(
 			int domainBatchSize,
 			EntityMappingType entityDescriptor,
@@ -48,6 +51,7 @@ public class StandardBatchLoaderFactory implements BatchLoaderFactory {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionBatchLoader createCollectionBatchLoader(
 			int domainBatchSize,
 			LoadQueryInfluencers influencers,

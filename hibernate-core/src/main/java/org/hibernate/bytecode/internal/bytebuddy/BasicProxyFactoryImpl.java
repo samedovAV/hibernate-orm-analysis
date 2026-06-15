@@ -17,6 +17,8 @@ import org.hibernate.proxy.ProxyConfiguration;
 import net.bytebuddy.dynamic.scaffold.subclass.ConstructorStrategy;
 
 import static org.hibernate.proxy.ProxyConfiguration.INTERCEPTOR_FIELD_NAME;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class BasicProxyFactoryImpl implements BasicProxyFactory {
 
@@ -62,6 +64,7 @@ public class BasicProxyFactoryImpl implements BasicProxyFactory {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getProxy() {
 		final var instance = instantiateProxy();
 		final var proxyConfiguration = instance.asProxyConfiguration();
@@ -75,6 +78,7 @@ public class BasicProxyFactoryImpl implements BasicProxyFactory {
 		return instance;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private PrimeAmongSecondarySupertypes instantiateProxy() {
 		try {
 			return (PrimeAmongSecondarySupertypes) proxyClassConstructor.newInstance();
@@ -84,6 +88,7 @@ public class BasicProxyFactoryImpl implements BasicProxyFactory {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isInstance(Object object) {
 		return proxyClass.isInstance( object );
 	}

@@ -10,6 +10,8 @@ import java.util.Map;
 import org.hibernate.models.spi.ModelsContext;
 
 import jakarta.persistence.EntityResult;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -49,45 +51,54 @@ public class EntityResultJpaAnnotation implements EntityResult {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return EntityResult.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public java.lang.Class<?> entityClass() {
 		return entityClass;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void entityClass(java.lang.Class<?> value) {
 		this.entityClass = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.LockModeType lockMode() {
 		return lockMode;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void lockMode(jakarta.persistence.LockModeType value) {
 		this.lockMode = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.FieldResult[] fields() {
 		return fields;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void fields(jakarta.persistence.FieldResult[] value) {
 		this.fields = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String discriminatorColumn() {
 		return discriminatorColumn;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void discriminatorColumn(String value) {
 		this.discriminatorColumn = value;
 	}

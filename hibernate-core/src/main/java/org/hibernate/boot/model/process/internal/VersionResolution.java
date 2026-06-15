@@ -22,12 +22,15 @@ import org.hibernate.type.descriptor.java.MutabilityPlan;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
 import org.hibernate.type.descriptor.jdbc.JdbcTypeIndicators;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
  */
 public class VersionResolution<E> implements BasicValue.Resolution<E> {
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static VersionResolution<?> from(
 			Function<TypeConfiguration, java.lang.reflect.Type> implicitJavaTypeAccess,
 			TimeZoneStorageType timeZoneStorageType,
@@ -38,6 +41,7 @@ public class VersionResolution<E> implements BasicValue.Resolution<E> {
 		return resolve( timeZoneStorageType, context, (BasicJavaType<?>) registered );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static <E> VersionResolution<E> resolve(
 			TimeZoneStorageType timeZoneStorageType,
 			MetadataBuildingContext context,
@@ -46,57 +50,68 @@ public class VersionResolution<E> implements BasicValue.Resolution<E> {
 		final var recommendedJdbcType = basicJavaType.getRecommendedJdbcType(
 				new JdbcTypeIndicators() {
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public TypeConfiguration getTypeConfiguration() {
 						return typeConfiguration;
 					}
 
 					@Override @SuppressWarnings("deprecation")
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public TemporalType getTemporalPrecision() {
 						// if it is a temporal version, it needs to be a TIMESTAMP
 						return TemporalType.TIMESTAMP;
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public boolean isPreferJavaTimeJdbcTypesEnabled() {
 						return context.isPreferJavaTimeJdbcTypesEnabled();
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public boolean isPreferNativeEnumTypesEnabled() {
 						return context.isPreferNativeEnumTypesEnabled();
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_1, n = "", count = {})
 					public TimeZoneStorageStrategy getDefaultTimeZoneStorageStrategy() {
 						return BasicValue.timeZoneStorageStrategy( timeZoneStorageType, context );
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public int getPreferredSqlTypeCodeForBoolean() {
 						return context.getPreferredSqlTypeCodeForBoolean();
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public int getPreferredSqlTypeCodeForDuration() {
 						return context.getPreferredSqlTypeCodeForDuration();
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public int getPreferredSqlTypeCodeForUuid() {
 						return context.getPreferredSqlTypeCodeForUuid();
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public int getPreferredSqlTypeCodeForInstant() {
 						return context.getPreferredSqlTypeCodeForInstant();
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public int getPreferredSqlTypeCodeForArray() {
 						return context.getPreferredSqlTypeCodeForArray();
 					}
 
 					@Override
+					@Prove(complexity = Complexity.O_N, n = "", count = {})
 					public Dialect getDialect() {
 						return context.getMetadataCollector().getDatabase().getDialect();
 					}
@@ -129,36 +144,43 @@ public class VersionResolution<E> implements BasicValue.Resolution<E> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcMapping getJdbcMapping() {
 		return jdbcMapping;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public BasicType<E> getLegacyResolvedBasicType() {
 		return legacyType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<E> getDomainJavaType() {
 		return javaType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<?> getRelationalJavaType() {
 		return javaType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcType getJdbcType() {
 		return jdbcType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public BasicValueConverter<E,?> getValueConverter() {
 		return legacyType.getValueConverter();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutabilityPlan<E> getMutabilityPlan() {
 		return ImmutableMutabilityPlan.instance();
 	}

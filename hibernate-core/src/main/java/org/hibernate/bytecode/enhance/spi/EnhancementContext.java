@@ -8,6 +8,8 @@ import org.hibernate.bytecode.spi.BytecodeProvider;
 
 import jakarta.persistence.metamodel.Type;
 import org.hibernate.Incubating;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * The context for performing an enhancement.  Enhancement can happen in any number of ways:<ul>
@@ -31,6 +33,7 @@ public interface EnhancementContext extends EnhancementOptions {
 	 *
 	 * @return The class loader that the enhancer can use.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ClassLoader getLoadingClassLoader();
 
 	/**
@@ -40,6 +43,7 @@ public interface EnhancementContext extends EnhancementOptions {
 	 *
 	 * @return {@code true} if the class is an entity; {@code false} otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isEntityClass(UnloadedClass classDescriptor);
 
 	/**
@@ -49,6 +53,7 @@ public interface EnhancementContext extends EnhancementOptions {
 	 *
 	 * @return {@code true} if the class is an embeddable/component; {@code false} otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isCompositeClass(UnloadedClass classDescriptor);
 
 	/**
@@ -58,6 +63,7 @@ public interface EnhancementContext extends EnhancementOptions {
 	 *
 	 * @return {@code true} if the class is a mapped super class; {@code false} otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isMappedSuperclassClass(UnloadedClass classDescriptor);
 
 	/**
@@ -69,6 +75,7 @@ public interface EnhancementContext extends EnhancementOptions {
 	 * @deprecated Will be removed without replacement. See HHH-15641
 	 */
 	@Deprecated(forRemoval = true)
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean hasLazyLoadableAttributes(UnloadedClass classDescriptor);
 
 	// todo : may be better to invert these 2 such that the context is asked for an ordered list of persistent fields for an entity/composite
@@ -83,6 +90,7 @@ public interface EnhancementContext extends EnhancementOptions {
 	 *
 	 * @return {@code true} if the field is ; {@code false} otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isPersistentField(UnloadedField ctField);
 
 	/**
@@ -93,6 +101,7 @@ public interface EnhancementContext extends EnhancementOptions {
 	 *
 	 * @return The ordered references.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	UnloadedField[] order(UnloadedField[] persistentFields);
 
 	/**
@@ -102,6 +111,7 @@ public interface EnhancementContext extends EnhancementOptions {
 	 *
 	 * @return {@code true} if the field is lazy loadable; {@code false} otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isLazyLoadable(UnloadedField field);
 
 	/**
@@ -109,10 +119,13 @@ public interface EnhancementContext extends EnhancementOptions {
 	 *
 	 * @return {@code true} if the field is mapped
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isMappedCollection(UnloadedField field);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isDiscoveredType(UnloadedClass classDescriptor);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void registerDiscoveredType(UnloadedClass classDescriptor, Type.PersistenceType type);
 
 	/**
@@ -122,6 +135,7 @@ public interface EnhancementContext extends EnhancementOptions {
 	 * @see <a href="https://hibernate.atlassian.net/browse/HHH-18833">HHH-18833</a>
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default UnsupportedEnhancementStrategy getUnsupportedEnhancementStrategy() {
 		return UnsupportedEnhancementStrategy.SKIP;
 	}
@@ -132,6 +146,7 @@ public interface EnhancementContext extends EnhancementOptions {
 	 * you need to override the default implementation.
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default BytecodeProvider getBytecodeProvider() {
 		return null;
 	}

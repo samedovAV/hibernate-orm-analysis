@@ -15,6 +15,8 @@ import org.hibernate.sql.results.graph.Initializer;
 import org.hibernate.sql.results.graph.InitializerParent;
 import org.hibernate.sql.results.jdbc.spi.RowProcessingState;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -38,11 +40,13 @@ public class SqmMapEntryResult<K, V, R extends Map.Entry<K, V>> implements Domai
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getResultVariable() {
 		return alias;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public DomainResultAssembler<R> createResultAssembler(
 			InitializerParent<?> parent,
 			AssemblerCreationState creationState) {
@@ -59,11 +63,13 @@ public class SqmMapEntryResult<K, V, R extends Map.Entry<K, V>> implements Domai
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<R> getResultJavaType() {
 		return javaType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void collectValueIndexesToCache(BitSet valueIndexes) {
 		keyResult.collectValueIndexesToCache( valueIndexes );
 		valueResult.collectValueIndexesToCache( valueIndexes );
@@ -83,6 +89,7 @@ public class SqmMapEntryResult<K, V, R extends Map.Entry<K, V>> implements Domai
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public R assemble(RowProcessingState rowProcessingState) {
 			final K key = keyAssembler.assemble( rowProcessingState );
 			final V value = valueAssembler.assemble( rowProcessingState );
@@ -91,17 +98,20 @@ public class SqmMapEntryResult<K, V, R extends Map.Entry<K, V>> implements Domai
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public JavaType<R> getAssembledJavaType() {
 			return javaType;
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public <X> void forEachResultAssembler(BiConsumer<Initializer<?>, X> consumer, X arg) {
 			keyAssembler.forEachResultAssembler( consumer, arg );
 			valueAssembler.forEachResultAssembler( consumer, arg );
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public void resolveState(RowProcessingState rowProcessingState) {
 			keyAssembler.resolveState( rowProcessingState );
 			valueAssembler.resolveState( rowProcessingState );

@@ -30,6 +30,8 @@ import org.hibernate.query.sqm.tree.expression.SqmBooleanExpression;
 import java.time.temporal.Temporal;
 import java.util.Collection;
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Commonality between entity and any discriminators
@@ -38,6 +40,7 @@ import java.util.Map;
  */
 public interface DiscriminatorSqmPath<T> extends SqmPath<T> {
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void appendHqlString(StringBuilder hql, SqmRenderContext context) {
 		hql.append( "type(" );
 		getLhs().appendHqlString( hql, context );
@@ -45,60 +48,70 @@ public interface DiscriminatorSqmPath<T> extends SqmPath<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SqmPath<?> resolvePathPart(String name, boolean isTerminal, SqmCreationState creationState) {
 		throw new IllegalStateException( "Discriminator cannot be de-referenced" );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <Y> SqmPath<Y> get(@Nonnull String attributeName) {
 		throw new IllegalStateException( "Discriminator cannot be de-referenced" );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <Y> SqmPath<Y> get(@Nonnull SingularAttribute<? super T, Y> attribute) {
 		throw new IllegalStateException( "Discriminator cannot be de-referenced" );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <E, C extends Collection<E>> SqmPluralPath<C, E> get(@Nonnull PluralAttribute<? super T, C, E> collection) {
 		throw new IllegalStateException( "Discriminator cannot be de-referenced" );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <K, V, M extends Map<K, V>> SqmPluralPath<M, V> get(@Nonnull MapAttribute<? super T, K, V> map) {
 		throw new IllegalStateException( "Discriminator cannot be de-referenced" );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SqmBooleanExpression get(@Nonnull BooleanAttribute<? super T> attribute) {
 		throw new IllegalStateException( "Discriminator cannot be de-referenced" );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <C extends Comparable<? super C>> ComparableExpression<C> get(@Nonnull ComparableAttribute<? super T, C> attribute) {
 		throw new IllegalStateException( "Discriminator cannot be de-referenced" );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <A extends Temporal & Comparable<? super A>> TemporalExpression<A> get(@Nonnull TemporalAttribute<? super T, A> attribute) {
 		throw new IllegalStateException( "Discriminator cannot be de-referenced" );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <N extends Number & Comparable<N>> NumericExpression<N> get(@Nonnull NumericAttribute<? super T, N> attribute) {
 		throw new IllegalStateException( "Discriminator cannot be de-referenced" );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default TextExpression get(@Nonnull TextAttribute<? super T> attribute) {
 		throw new IllegalStateException( "Discriminator cannot be de-referenced" );
 	}
@@ -108,6 +121,7 @@ public interface DiscriminatorSqmPath<T> extends SqmPath<T> {
 	@Nonnull
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SqmTreatedPath treatAs(@Nonnull Class treatJavaType) {
 		throw new UnsupportedMappingException( "Cannot apply TREAT operator to discriminator path" );
 	}
@@ -115,6 +129,7 @@ public interface DiscriminatorSqmPath<T> extends SqmPath<T> {
 	@Nonnull
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SqmTreatedPath treatAs(@Nonnull EntityDomainType treatTarget) {
 		throw new UnsupportedMappingException( "Cannot apply TREAT operator to discriminator path" );
 	}
@@ -122,6 +137,7 @@ public interface DiscriminatorSqmPath<T> extends SqmPath<T> {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SqmTreatedPath treatAs(@Nonnull Class treatJavaType, @Nullable String alias) {
 		throw new UnsupportedMappingException( "Cannot apply TREAT operator to discriminator path" );
 	}
@@ -129,6 +145,7 @@ public interface DiscriminatorSqmPath<T> extends SqmPath<T> {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SqmTreatedPath treatAs(@Nonnull EntityDomainType treatTarget, @Nullable String alias) {
 		throw new UnsupportedMappingException( "Cannot apply TREAT operator to discriminator path" );
 	}
@@ -136,6 +153,7 @@ public interface DiscriminatorSqmPath<T> extends SqmPath<T> {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SqmTreatedPath treatAs(@Nonnull Class treatJavaType, @Nullable String alias, boolean fetch) {
 		throw new UnsupportedMappingException( "Cannot apply TREAT operator to discriminator path" );
 	}
@@ -143,6 +161,7 @@ public interface DiscriminatorSqmPath<T> extends SqmPath<T> {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SqmTreatedPath treatAs(@Nonnull EntityDomainType treatTarget, @Nullable String alias, boolean fetch) {
 		throw new UnsupportedMappingException( "Cannot apply TREAT operator to discriminator path" );
 	}

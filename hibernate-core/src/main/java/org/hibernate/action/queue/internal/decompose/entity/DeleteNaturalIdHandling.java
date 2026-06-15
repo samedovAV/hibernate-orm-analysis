@@ -7,11 +7,14 @@ package org.hibernate.action.queue.internal.decompose.entity;
 
 import org.hibernate.action.internal.EntityDeleteAction;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Natural-id bookkeeping for graph-based entity deletes.
 ///
 /// @author Steve Ebersole
 public class DeleteNaturalIdHandling {
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static Object removeLocalResolution(
 			EntityDeleteAction action,
 			SharedSessionContractImplementor session) {

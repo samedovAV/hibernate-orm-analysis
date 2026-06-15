@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.resource.transaction.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Enumeration of statuses in which a transaction facade ({@link org.hibernate.Transaction}) might be.
@@ -50,11 +53,13 @@ public enum TransactionStatus {
 	 */
 	ROLLING_BACK;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isActive() {
 		return this == ACTIVE
 			|| this == MARKED_ROLLBACK;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isOneOf(TransactionStatus... statuses) {
 		for ( var status : statuses ) {
 			if ( this == status ) {
@@ -64,10 +69,12 @@ public enum TransactionStatus {
 		return false;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isNotOneOf(TransactionStatus... statuses) {
 		return !isOneOf( statuses );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean canRollback() {
 		return this == ACTIVE
 			|| this == FAILED_COMMIT

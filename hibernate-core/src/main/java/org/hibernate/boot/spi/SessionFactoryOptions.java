@@ -46,6 +46,8 @@ import org.hibernate.type.descriptor.java.ObjectJavaType;
 import org.hibernate.type.format.FormatMapper;
 
 import jakarta.persistence.criteria.Nulls;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Aggregator of special options used to build the {@link org.hibernate.SessionFactory}.
@@ -72,6 +74,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 */
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getUuid();
 
 	/**
@@ -80,22 +83,26 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 * @return The service registry to use.
 	 */
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StandardServiceRegistry getServiceRegistry();
 
 	/**
 	 * @see org.hibernate.cfg.ManagedBeanSettings#JAKARTA_CDI_BEAN_MANAGER
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getBeanManagerReference();
 
 	/**
 	 * @see org.hibernate.cfg.ValidationSettings#JAKARTA_VALIDATION_FACTORY
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getValidatorFactoryReference();
 
 	/**
 	 * @see org.hibernate.cfg.JpaComplianceSettings
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JpaCompliance getJpaCompliance();
 
 	/**
@@ -105,6 +112,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 * @return {@code true} indicates the SessionFactory was built through JPA
 	 * bootstrapping; {@code false} indicates it was built through native bootstrapping.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isJpaBootstrap();
 
 	/**
@@ -118,6 +126,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 * @see org.hibernate.cfg.PersistenceSettings#SESSION_FACTORY_NAME
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getSessionFactoryName();
 
 	/**
@@ -128,6 +137,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.cfg.PersistenceSettings#SESSION_FACTORY_NAME_IS_JNDI
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Boolean isSessionFactoryNameAlsoJndiName();
 
 	/**
@@ -138,6 +148,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.stat.Statistics#setStatisticsEnabled(boolean)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isStatisticsEnabled();
 
 	/**
@@ -151,6 +162,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.SessionBuilder#interceptor(Interceptor)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Interceptor getInterceptor();
 
 	/**
@@ -159,6 +171,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 * @see org.hibernate.cfg.JdbcSettings#STATEMENT_OBSERVER
 	 */
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StatementObserver getStatementObserver();
 
 	/**
@@ -172,6 +185,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.SessionBuilder#interceptor(Interceptor)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Supplier<? extends Interceptor> getStatelessInterceptorImplementorSupplier();
 
 	/**
@@ -181,6 +195,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.SessionBuilder#statementInspector(StatementInspector)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	StatementInspector getStatementInspector();
 
 	/**
@@ -188,6 +203,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#SESSION_FACTORY_OBSERVER
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionFactoryObserver[] getSessionFactoryObservers();
 
 	/**
@@ -197,6 +213,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.SessionBuilder#eventListeners(SessionEventListener...)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SessionEventListener[] buildSessionEventListeners();
 
 	/**
@@ -206,6 +223,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.SessionBuilder#identifierRollback(boolean)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isIdentifierRollbackEnabled();
 
 	/**
@@ -213,6 +231,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.cfg.ValidationSettings#CHECK_NULLABILITY
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isCheckNullability();
 
 	/**
@@ -223,6 +242,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *          integration logic.
 	 */
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setCheckNullability(boolean enabled);
 
 	/**
@@ -234,6 +254,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#ENABLE_LAZY_LOAD_NO_TRANS
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isInitializeLazyStateOutsideTransactionsEnabled();
 
 	/**
@@ -241,6 +262,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.cfg.PersistenceSettings#BIDIRECTIONALITY_MANAGEMENT
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isBidirectionalAssociationManagementEnabled();
 
 	/**
@@ -250,11 +272,13 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.Session#setFetchBatchSize(int)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getDefaultBatchFetchSize();
 
 	/**
 	 * @see org.hibernate.cfg.FetchSettings#MAX_FETCH_DEPTH
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Integer getMaximumFetchDepth();
 
 	/**
@@ -264,6 +288,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.Session#setSubselectFetchingEnabled(boolean)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isSubselectFetchEnabled();
 
 	/**
@@ -271,16 +296,19 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.cfg.QuerySettings#DEFAULT_NULL_ORDERING
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Nulls getDefaultNullPrecedence();
 
 	/**
 	 * @see org.hibernate.cfg.BatchSettings#ORDER_UPDATES
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isOrderUpdatesEnabled();
 
 	/**
 	 * @see org.hibernate.cfg.BatchSettings#ORDER_INSERTS
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isOrderInsertsEnabled();
 
 	/**
@@ -290,6 +318,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.cfg.MultiTenancySettings#MULTI_TENANT_CONNECTION_PROVIDER
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isMultiTenancyEnabled();
 
 	/**
@@ -299,6 +328,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.cfg.MultiTenancySettings#MULTI_TENANT_IDENTIFIER_RESOLVER
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CurrentTenantIdentifierResolver<Object> getCurrentTenantIdentifierResolver();
 
 	/**
@@ -311,6 +341,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @since 7.1
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TenantSchemaMapper<Object> getTenantSchemaMapper();
 
 	/**
@@ -322,11 +353,13 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @since 7.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TenantCredentialsMapper<Object> getTenantCredentialsMapper();
 
 	/**
 	 * @see org.hibernate.cfg.TransactionSettings#JTA_TRACK_BY_THREAD
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isJtaTrackByThread();
 
 	/**
@@ -334,6 +367,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.cfg.QuerySettings#QUERY_STARTUP_CHECKING
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isNamedQueryStartupCheckingEnabled();
 
 	/**
@@ -341,6 +375,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.cfg.CacheSettings#USE_SECOND_LEVEL_CACHE
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isSecondLevelCacheEnabled();
 
 	/**
@@ -348,6 +383,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.cfg.CacheSettings#USE_QUERY_CACHE
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isQueryCacheEnabled();
 
 	/**
@@ -356,6 +392,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 * @see org.hibernate.cfg.CacheSettings#QUERY_CACHE_LAYOUT
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CacheLayout getQueryCacheLayout();
 
 	/**
@@ -364,6 +401,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.cfg.CacheSettings#QUERY_CACHE_FACTORY
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TimestampsCacheFactory getTimestampsCacheFactory();
 
 	/**
@@ -371,6 +409,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.cfg.CacheSettings#CACHE_REGION_PREFIX
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getCacheRegionPrefix();
 
 	/**
@@ -383,6 +422,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.cfg.CacheSettings#USE_MINIMAL_PUTS
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isMinimalPutsEnabled();
 
 	/**
@@ -390,16 +430,19 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.cfg.CacheSettings#USE_STRUCTURED_CACHE
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isStructuredCacheEntriesEnabled();
 
 	/**
 	 * @see org.hibernate.cfg.CacheSettings#USE_DIRECT_REFERENCE_CACHE_ENTRIES
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isDirectReferenceCacheEntriesEnabled();
 
 	/**
 	 * @see org.hibernate.cfg.CacheSettings#AUTO_EVICT_COLLECTION_CACHE
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isAutoEvictCollectionCache();
 
 	/**
@@ -409,21 +452,25 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.Session#setJdbcBatchSize(Integer)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getJdbcBatchSize();
 
 	/**
 	 * @see org.hibernate.cfg.JdbcSettings#USE_SCROLLABLE_RESULTSET
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isScrollableResultSetsEnabled();
 
 	/**
 	 * @see org.hibernate.cfg.JdbcSettings#USE_GET_GENERATED_KEYS
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isGetGeneratedKeysEnabled();
 
 	/**
 	 * @see org.hibernate.cfg.JdbcSettings#STATEMENT_FETCH_SIZE
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Integer getJdbcFetchSize();
 
 	/**
@@ -431,6 +478,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.SessionBuilder#connectionHandlingMode(PhysicalConnectionHandlingMode)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	PhysicalConnectionHandlingMode getPhysicalConnectionHandlingMode();
 
 	/**
@@ -439,6 +487,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.cfg.JdbcSettings#CONNECTION_PROVIDER_DISABLES_AUTOCOMMIT
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean doesConnectionProviderDisableAutoCommit();
 
 	/**
@@ -446,6 +495,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.cfg.JdbcSettings#USE_SQL_COMMENTS
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isCommentsEnabled();
 
 	/**
@@ -454,6 +504,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#CUSTOM_ENTITY_DIRTINESS_STRATEGY
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CustomEntityDirtinessStrategy getCustomEntityDirtinessStrategy();
 
 	/**
@@ -461,6 +512,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.cfg.Configuration#addEntityNameResolver(EntityNameResolver)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityNameResolver[] getEntityNameResolvers();
 
 	/**
@@ -473,31 +525,37 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.cfg.Configuration#setEntityNotFoundDelegate
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityNotFoundDelegate getEntityNotFoundDelegate();
 
 	/**
 	 * @see org.hibernate.cfg.TransactionSettings#FLUSH_BEFORE_COMPLETION
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isFlushBeforeCompletionEnabled();
 
 	/**
 	 * @see org.hibernate.cfg.TransactionSettings#AUTO_CLOSE_SESSION
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isAutoCloseSessionEnabled();
 
 	/**
 	 * @see org.hibernate.cfg.TransactionSettings#ALLOW_JTA_TRANSACTION_ACCESS
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isJtaTransactionAccessEnabled();
 
 	/**
 	 * @see org.hibernate.cfg.TransactionSettings#PREFER_USER_TRANSACTION
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isPreferUserTransaction();
 
 	/**
 	 * @see org.hibernate.cfg.TransactionSettings#ALLOW_UPDATE_OUTSIDE_TRANSACTION
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isAllowOutOfTransactionUpdateOperations();
 
 	/**
@@ -507,27 +565,32 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.SessionBuilder#jdbcTimeZone(TimeZone)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TimeZone getJdbcTimeZone();
 
 	/**
 	 * @see StateManagementSettings#TEMPORAL_TABLE_STRATEGY
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TemporalTableStrategy getTemporalTableStrategy();
 
 	/**
 	 * @see StateManagementSettings#AUDIT_STRATEGY
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	AuditStrategy getAuditStrategy();
 
 	/**
 	 * @see org.hibernate.cfg.AvailableSettings#CRITERIA_COPY_TREE
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isCriteriaCopyTreeEnabled() {
 		return false;
 	}
 	/**
 	 * @see org.hibernate.cfg.AvailableSettings#CRITERIA_PLAN_CACHE_ENABLED
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isCriteriaPlanCacheEnabled() {
 		return false;
 	}
@@ -535,6 +598,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	/**
 	 * @see org.hibernate.cfg.AvailableSettings#NATIVE_IGNORE_JDBC_PARAMETERS
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean getNativeJdbcParametersIgnored() {
 		return false;
 	}
@@ -542,6 +606,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	/**
 	 * @see org.hibernate.cfg.QuerySettings#FAIL_ON_PAGINATION_OVER_COLLECTION_FETCH
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isFailOnPaginationOverCollectionFetchEnabled();
 
 	/**
@@ -552,6 +617,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.cfg.MappingSettings#DEFAULT_CATALOG
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String getDefaultCatalog() {
 		return null;
 	}
@@ -564,6 +630,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.cfg.MappingSettings#DEFAULT_SCHEMA
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String getDefaultSchema() {
 		return null;
 	}
@@ -571,6 +638,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	/**
 	 * @see org.hibernate.cfg.AvailableSettings#IN_CLAUSE_PARAMETER_PADDING
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean inClauseParameterPaddingEnabled() {
 		return false;
 	}
@@ -581,6 +649,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.cfg.StatisticsSettings#QUERY_STATISTICS_MAX_SIZE
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getQueryStatisticsMaxSize();
 
 	/**
@@ -590,6 +659,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 * @see org.hibernate.event.jpa.spi.EntityCallbacks
 	 * @see org.hibernate.metamodel.mapping.EntityMappingType#getEntityCallbacks
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean areJPACallbacksEnabled();
 
 	/**
@@ -616,8 +686,10 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.cfg.AvailableSettings#CALLABLE_NAMED_PARAMS_ENABLED
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isUseOfJdbcNamedParametersEnabled();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isCollectionsInDefaultFetchGroupEnabled() {
 		return false;
 	}
@@ -625,57 +697,67 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	/**
 	 * @see org.hibernate.cfg.PersistenceSettings#UNOWNED_ASSOCIATION_TRANSIENT_CHECK
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isUnownedAssociationTransientCheck();
 
 	/**
 	 * @see org.hibernate.cfg.MappingSettings#PREFERRED_BOOLEAN_JDBC_TYPE
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getPreferredSqlTypeCodeForBoolean();
 
 	/**
 	 * @see org.hibernate.cfg.MappingSettings#PREFERRED_DURATION_JDBC_TYPE
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getPreferredSqlTypeCodeForDuration();
 
 	/**
 	 * @see org.hibernate.cfg.MappingSettings#PREFERRED_UUID_JDBC_TYPE
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getPreferredSqlTypeCodeForUuid();
 
 	/**
 	 * @see org.hibernate.cfg.MappingSettings#PREFERRED_INSTANT_JDBC_TYPE
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getPreferredSqlTypeCodeForInstant();
 
 	/**
 	 * @see org.hibernate.cfg.MappingSettings#PREFERRED_ARRAY_JDBC_TYPE
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getPreferredSqlTypeCodeForArray();
 
 	/**
 	 * @see org.hibernate.cfg.MappingSettings#TIMEZONE_DEFAULT_STORAGE
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TimeZoneStorageStrategy getDefaultTimeZoneStorageStrategy();
 
 	/**
 	 * @see org.hibernate.cfg.MappingSettings#JAVA_TIME_USE_DIRECT_JDBC
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isPreferJavaTimeJdbcTypesEnabled();
 
 	/**
 	 * @see org.hibernate.cfg.MappingSettings#PREFER_NATIVE_ENUM_TYPES
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isPreferNativeEnumTypesEnabled();
 
 	/**
 	 * @see org.hibernate.cfg.MappingSettings#PREFER_LOCALE_LANGUAGE_TAG
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isPreferLocaleLanguageTagEnabled();
 
 	/**
@@ -686,6 +768,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 * @since 6.0
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	FormatMapper getJsonFormatMapper();
 
 	/**
@@ -696,6 +779,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 * @since 6.0.1
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	FormatMapper getXmlFormatMapper();
 
 	/**
@@ -705,6 +789,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 * @see org.hibernate.cfg.MappingSettings#XML_FORMAT_MAPPER_LEGACY_FORMAT
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isXmlFormatMapperLegacyFormatEnabled();
 
 	/**
@@ -713,6 +798,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 * @since 6.4
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default JavaType<Object> getDefaultTenantIdentifierJavaType() {
 		return ObjectJavaType.INSTANCE;
 	}
@@ -720,6 +806,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	/**
 	 * @see org.hibernate.cfg.QuerySettings#QUERY_PASS_PROCEDURE_PARAMETER_NAMES
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isPassProcedureParameterNames();
 
 	/**
@@ -730,6 +817,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.cfg.QuerySettings#NATIVE_PREFER_JDBC_DATETIME_TYPES
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isPreferJdbcDatetimeTypesInNativeQueriesEnabled();
 
 	/**
@@ -740,6 +828,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 * @return either the {@link CacheStoreMode} as defined in the session-specific properties,
 	 *         or as defined in the properties shared across all sessions (the defaults).
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CacheStoreMode getCacheStoreMode(Map<String, Object> properties);
 
 	/**
@@ -750,6 +839,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 * @return either the {@link CacheRetrieveMode} as defined in the session-specific properties,
 	 *         or as defined in the properties shared across all sessions (the defaults).
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CacheRetrieveMode getCacheRetrieveMode(Map<String, Object> properties);
 
 	/**
@@ -760,6 +850,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.Session#setCacheMode(CacheMode)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CacheMode getInitialSessionCacheMode();
 
 	/**
@@ -770,6 +861,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 * @see org.hibernate.SessionBuilder#flushMode(FlushMode)
 	 * @see org.hibernate.Session#setHibernateFlushMode(FlushMode)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	FlushMode getInitialSessionFlushMode();
 
 	/**
@@ -778,6 +870,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 * @see org.hibernate.cfg.AvailableSettings#JAKARTA_LOCK_TIMEOUT
 	 * @see org.hibernate.cfg.AvailableSettings#JAKARTA_LOCK_SCOPE
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	LockOptions getDefaultLockOptions();
 
 	/**
@@ -785,6 +878,7 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @see org.hibernate.Session#setProperty(String, Object)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Map<String, Object> getDefaultSessionProperties();
 
 	/**
@@ -794,5 +888,6 @@ public interface SessionFactoryOptions extends QueryEngineOptions {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	GraphParserMode getGraphParserMode();
 }

@@ -20,6 +20,8 @@ import static org.hibernate.engine.jdbc.JdbcLogging.JDBC_LOGGER;
 import static org.hibernate.id.IdentifierGeneratorHelper.extractLong;
 import static org.hibernate.id.enhanced.ResyncHelper.getNextSequenceValue;
 import static org.hibernate.id.enhanced.ResyncHelper.getMaxPrimaryKey;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Describes a sequence.
@@ -69,31 +71,37 @@ public class SequenceStructure implements DatabaseStructure {
 		}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QualifiedName getPhysicalName() {
 		return physicalSequenceName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getIncrementSize() {
 		return incrementSize;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getTimesAccessed() {
 		return accessCounter;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getInitialValue() {
 		return initialValue;
 	}
 
 	@Override @Deprecated
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getAllSqlForTests() {
 		return new String[] { sql };
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AccessCallback buildCallback(final SharedSessionContractImplementor session) {
 		if ( sql == null ) {
 			throw new AssertionFailure( "SequenceStyleGenerator's SequenceStructure was not properly initialized" );
@@ -101,6 +109,7 @@ public class SequenceStructure implements DatabaseStructure {
 
 			return new AccessCallback() {
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				public long getNextValue() {
 					accessCounter++;
 					try {
@@ -142,6 +151,7 @@ public class SequenceStructure implements DatabaseStructure {
 			}
 
 			@Override
+			@Prove(complexity = Complexity.O_N, n = "", count = {})
 			public String getTenantIdentifier() {
 				return session.getTenantIdentifier();
 			}
@@ -149,22 +159,26 @@ public class SequenceStructure implements DatabaseStructure {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void configure(Optimizer optimizer) {
 		applyIncrementSizeToSourceValues = optimizer.applyIncrementSizeToSourceValues();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void registerExportables(Database database) {
 		buildSequence( database );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void initialize(SqlStringGenerationContext context) {
 		sql = context.getDialect().getSequenceSupport()
 				.getSequenceNextValString( context.format( physicalSequenceName ) );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void registerExtraExportables(Table table, Optimizer optimizer) {
 		table.addResyncCommand( (sqlContext, isolator) -> {
 			final String sequenceName = sqlContext.format( physicalSequenceName );
@@ -187,18 +201,22 @@ public class SequenceStructure implements DatabaseStructure {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isPhysicalSequence() {
 		return true;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected final int getSourceIncrementSize() {
 		return applyIncrementSizeToSourceValues ? incrementSize : 1;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected QualifiedName getQualifiedName() {
 		return logicalQualifiedSequenceName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void buildSequence(Database database) {
 		final var sequence =
 				locateOrCreateSequence( database.locateNamespace(
@@ -208,6 +226,7 @@ public class SequenceStructure implements DatabaseStructure {
 		physicalSequenceName = sequence.getName();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Sequence locateOrCreateSequence(Namespace namespace) {
 		final int sourceIncrementSize = getSourceIncrementSize();
 		final var objectName = logicalQualifiedSequenceName.getObjectName();

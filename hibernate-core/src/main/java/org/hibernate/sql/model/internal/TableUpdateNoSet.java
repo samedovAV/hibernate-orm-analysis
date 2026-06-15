@@ -23,6 +23,8 @@ import org.hibernate.sql.model.ast.TableUpdate;
 import org.hibernate.sql.model.jdbc.JdbcMutationOperation;
 
 import static java.util.Collections.emptyList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A skipped update
@@ -44,25 +46,30 @@ public class TableUpdateNoSet
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getLoggableName() {
 		return "TableUpdateNoSet";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCustomSql() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker walker) {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void forEachValueBinding(BiConsumer<Integer, ColumnValueBinding> consumer) {
 		// there are none
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected JdbcMutationOperation createMutationOperation(
 			TableMapping tableDetails,
 			String sql,
@@ -72,30 +79,36 @@ public class TableUpdateNoSet
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Expectation getExpectation() {
 		return Expectation.None.INSTANCE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isCallable() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<ColumnValueBinding> getValueBindings() {
 		return emptyList();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void forEachParameter(Consumer<ColumnValueParameter> consumer) {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<ColumnReference> getReturningColumns() {
 		return emptyList();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void forEachReturningColumn(BiConsumer<Integer, ColumnReference> consumer) {
 		// nothing to do
 	}

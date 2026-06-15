@@ -16,6 +16,8 @@ import org.hibernate.loader.ast.spi.CascadingFetchProfile;
 import org.hibernate.metamodel.mapping.EntityMappingType;
 import org.hibernate.sql.ast.spi.SqlAliasBaseManager;
 import org.hibernate.sql.exec.spi.JdbcParametersList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard implementation of {@link org.hibernate.loader.ast.spi.SingleIdEntityLoader}.
@@ -59,12 +61,14 @@ public class SingleIdEntityLoaderStandardImpl<T> extends SingleIdEntityLoaderSup
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public T load(Object key, LockOptions lockOptions, Boolean readOnly, SharedSessionContractImplementor session) {
 		return resolveLoadPlan( lockOptions, session.getLoadQueryInfluencers() )
 				.load( key, readOnly, true, session );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public T load(
 			Object key,
 			Object entityInstance,
@@ -76,6 +80,7 @@ public class SingleIdEntityLoaderStandardImpl<T> extends SingleIdEntityLoaderSup
 	}
 
 	@Internal // public for tests, also called by Hibernate Reactive
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SingleIdLoadPlan<T> resolveLoadPlan(LockOptions lockOptions, LoadQueryInfluencers influencers) {
 		if ( getLoadable().isAffectedByEnabledFilters( influencers, true ) ) {
 			// This case is special because the filters need to be applied in order to
@@ -101,6 +106,7 @@ public class SingleIdEntityLoaderStandardImpl<T> extends SingleIdEntityLoaderSup
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private SingleIdLoadPlan<T> getRegularLoadPlan(LockOptions lockOptions, LoadQueryInfluencers influencers) {
 		if ( isLoadPlanReusable( lockOptions, influencers )  ) {
 			final var existing = selectByLockMode.get( lockOptions.getLockMode() );
@@ -118,6 +124,7 @@ public class SingleIdEntityLoaderStandardImpl<T> extends SingleIdEntityLoaderSup
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private SingleIdLoadPlan<T> getInternalCascadeLoadPlan(LockOptions lockOptions, LoadQueryInfluencers influencers) {
 		// TODO: It might be more efficient to just instantiate a LoadPlanKey
 		//       object here than it is to maintain an EnumMap of EnumMaps
@@ -156,6 +163,7 @@ public class SingleIdEntityLoaderStandardImpl<T> extends SingleIdEntityLoaderSup
 	 * If there is a pessimistic lock with non-default options like timeout, a custom
 	 * fetch profile, or an entity graph, we don't cache and reuse the plan.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean isLoadPlanReusable(LockOptions lockOptions, LoadQueryInfluencers influencers) {
 		if ( lockOptions.getLockMode().isPessimistic() && lockOptions.hasNonDefaultOptions() ) {
 			return false;
@@ -167,6 +175,7 @@ public class SingleIdEntityLoaderStandardImpl<T> extends SingleIdEntityLoaderSup
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static <T> SingleIdLoadPlan<T> createLoadPlan(
 			EntityMappingType loadable,
 			LockOptions lockOptions,

@@ -17,6 +17,8 @@ import java.util.List;
 import static java.lang.Character.isWhitespace;
 import static org.hibernate.internal.CoreMessageLogger.CORE_LOGGER;
 import static org.hibernate.sql.ast.internal.ParameterMarkerStrategyStandard.isStandardRenderer;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Helper for expanding native query collection-valued parameters.
@@ -25,6 +27,7 @@ public final class NativeQueryParameterListHelper {
 	private NativeQueryParameterListHelper() {
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static String expandParameterLists(
 			String sqlString,
 			List<ParameterOccurrence> parameterOccurrences,
@@ -107,6 +110,7 @@ public final class NativeQueryParameterListHelper {
 		return sql == null ? sqlString : sql.toString();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static void logTooManyExpressions(
 			int inExprLimit, int bindValueCount,
 			Dialect dialect, QueryParameterImplementor<?> queryParameter) {
@@ -122,6 +126,7 @@ public final class NativeQueryParameterListHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static String expandList(
 			int bindValueMaxCount,
 			boolean isEnclosedInParens,
@@ -174,6 +179,7 @@ public final class NativeQueryParameterListHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static boolean isEnclosedInParens(String sqlString, int sourcePosition) {
 		boolean isEnclosedInParens = true;
 		for ( int i = sourcePosition - 1; i >= 0; i-- ) {
@@ -195,6 +201,7 @@ public final class NativeQueryParameterListHelper {
 		return isEnclosedInParens;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static int determineBindValueMaxCount(boolean paddingEnabled, int inExprLimit, int bindValueCount) {
 		int bindValueMaxCount = bindValueCount;
 

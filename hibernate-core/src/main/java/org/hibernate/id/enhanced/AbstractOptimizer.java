@@ -5,6 +5,8 @@
 package org.hibernate.id.enhanced;
 
 import org.hibernate.HibernateException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Common support for {@link Optimizer} implementations.
@@ -35,11 +37,13 @@ public abstract class AbstractOptimizer implements Optimizer {
 	 *
 	 * @return Value for property 'returnClass'.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final Class<?> getReturnClass() {
 		return returnClass;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final int getIncrementSize() {
 		return incrementSize;
 	}

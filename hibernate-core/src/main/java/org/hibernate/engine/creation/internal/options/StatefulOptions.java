@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Collections.addAll;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Mutable collector for options which only apply to
 /// [stateful sessions][org.hibernate.Session].
@@ -49,6 +51,7 @@ public class StatefulOptions extends CommonOptions implements SessionCreationOpt
 	/**
 	 * Apply a Jakarta Persistence creation option to this collector.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public StatefulOptions apply(EntityManager.CreationOption option) {
 		OptionsHelper.applyOption( this, option );
 		return this;
@@ -57,6 +60,7 @@ public class StatefulOptions extends CommonOptions implements SessionCreationOpt
 	/**
 	 * Apply Jakarta Persistence creation options to this collector.
 	 */
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public StatefulOptions apply(EntityManager.CreationOption... options) {
 		if ( options != null ) {
 			for ( var option : options ) {
@@ -67,51 +71,62 @@ public class StatefulOptions extends CommonOptions implements SessionCreationOpt
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean shouldAutoJoinTransactions() {
 		return autoJoinTransactions;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FlushMode getInitialSessionFlushMode() {
 		return flushMode;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean shouldAutoClose() {
 		return autoClose;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean shouldAutoClear() {
 		return autoClear;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isIdentifierRollbackEnabled() {
 		return identifierRollback;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<SessionEventListener> getCustomSessionEventListeners() {
 		return listeners;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void autoJoinTransactions(boolean autoJoinTransactions) {
 		this.autoJoinTransactions = autoJoinTransactions;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void autoClose(boolean autoClose) {
 		this.autoClose = autoClose;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void autoClear(boolean autoClear) {
 		this.autoClear = autoClear;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void flushMode(FlushMode flushMode) {
 		this.flushMode = flushMode;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void identifierRollback(boolean identifierRollback) {
 		this.identifierRollback = identifierRollback;
 	}
@@ -121,6 +136,7 @@ public class StatefulOptions extends CommonOptions implements SessionCreationOpt
 	///
 	/// A fresh listener list is required for each session because listener
 	/// instances are not reusable across sessions.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void eventListeners(SessionFactoryImplementor sessionFactory, SessionEventListener... listeners) {
 		if ( this.listeners == null ) {
 			final var baselineListeners =
@@ -135,6 +151,7 @@ public class StatefulOptions extends CommonOptions implements SessionCreationOpt
 	///
 	/// A `null` listener list means "use factory defaults", so clearing must
 	/// initialize an empty list.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void clearEventListeners() {
 		if ( listeners == null ) {
 			// Needs to initialize explicitly to an empty list as otherwise "null" implies the default listeners will be applied.

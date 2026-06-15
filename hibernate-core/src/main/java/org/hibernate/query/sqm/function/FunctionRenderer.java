@@ -12,6 +12,8 @@ import org.hibernate.sql.ast.spi.SqlAppender;
 import org.hibernate.sql.ast.tree.SqlAstNode;
 import org.hibernate.sql.ast.tree.predicate.Predicate;
 import org.hibernate.sql.ast.tree.select.SortSpecification;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Support for {@link SqmFunctionDescriptor}s that ultimately want
@@ -30,6 +32,7 @@ public interface FunctionRenderer {
 	 * @deprecated Use {@link #render(SqlAppender, List, ReturnableType, SqlAstTranslator)} instead
 	 */
 	@Deprecated(forRemoval = true)
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,
@@ -37,12 +40,14 @@ public interface FunctionRenderer {
 		render( sqlAppender, sqlAstArguments, null, walker );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,
 			ReturnableType<?> returnType,
 			SqlAstTranslator<?> walker);
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,
@@ -53,6 +58,7 @@ public interface FunctionRenderer {
 		render( sqlAppender, sqlAstArguments, returnType, walker );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,
@@ -64,6 +70,7 @@ public interface FunctionRenderer {
 		render( sqlAppender, sqlAstArguments, returnType, walker );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void render(
 			SqlAppender sqlAppender,
 			List<? extends SqlAstNode> sqlAstArguments,

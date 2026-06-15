@@ -5,6 +5,8 @@
 package org.hibernate.boot.models.spi;
 
 import org.hibernate.models.spi.ClassDetails;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * {@linkplain org.hibernate.type.descriptor.java.JavaType} registration
@@ -23,10 +25,12 @@ public class JavaTypeRegistration {
 		this.descriptor = descriptor;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ClassDetails getDomainType() {
 		return domainType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ClassDetails getDescriptor() {
 		return descriptor;
 	}

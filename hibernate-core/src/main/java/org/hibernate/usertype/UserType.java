@@ -17,6 +17,8 @@ import org.hibernate.engine.jdbc.Size;
 import org.hibernate.metamodel.mapping.JdbcMapping;
 import org.hibernate.type.descriptor.WrapperOptions;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * This interface should be implemented by user-defined custom types
@@ -273,6 +275,7 @@ public interface UserType<J> {
 	 *
 	 * @see org.hibernate.type.SqlTypes
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getSqlType();
 
 	/**
@@ -280,6 +283,7 @@ public interface UserType<J> {
 	 *
 	 * @return Class
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Class<J> returnedClass();
 
 	/**
@@ -289,6 +293,7 @@ public interface UserType<J> {
 	 *
 	 * @implNote The default implementation calls {@link Objects#equals}.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default boolean equals(J x, J y) {
 		return Objects.equals( x, y );
 	}
@@ -301,6 +306,7 @@ public interface UserType<J> {
 	 *
 	 * @implNote The default implementation calls {@link Objects#hashCode}.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default int hashCode(J x) {
 		return Objects.hashCode( x );
 	}
@@ -317,6 +323,7 @@ public interface UserType<J> {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default J nullSafeGet(ResultSet rs, int position, WrapperOptions options)
 			throws SQLException {
 		J result = rs.getObject( position, returnedClass() );
@@ -336,6 +343,7 @@ public interface UserType<J> {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void nullSafeSet(PreparedStatement st, J value, int position, WrapperOptions options)
 			throws SQLException {
 		if ( value == null ) {
@@ -365,6 +373,7 @@ public interface UserType<J> {
 	 * @return a clone if the argument is mutable, or the argument if
 	 *         it's an immutable object
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	J deepCopy(J value);
 
 	/**
@@ -373,6 +382,7 @@ public interface UserType<J> {
 	 *
 	 * @return {@code true} if instances are mutable
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isMutable();
 
 	/**
@@ -400,6 +410,7 @@ public interface UserType<J> {
 	 *
 	 * @see org.hibernate.Cache
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Serializable disassemble(J value) {
 		if ( Serializable.class.isAssignableFrom( returnedClass() ) ) {
 			return (Serializable) deepCopy( value );
@@ -433,6 +444,7 @@ public interface UserType<J> {
 	 *
 	 * @see org.hibernate.Cache
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default J assemble(Serializable cached, Object owner) {
 		final var returnedClass = returnedClass();
 		if ( returnedClass.isInstance( cached ) ) {
@@ -464,6 +476,7 @@ public interface UserType<J> {
 	 *
 	 * @see org.hibernate.Session#merge(Object)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default J replace(J detached, J managed, Object owner) {
 		return deepCopy( detached );
 	}
@@ -473,6 +486,7 @@ public interface UserType<J> {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default long getDefaultSqlLength() {
 		return Size.DEFAULT_LENGTH;
 	}
@@ -482,6 +496,7 @@ public interface UserType<J> {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int getDefaultSqlPrecision() {
 		return Size.DEFAULT_PRECISION;
 	}
@@ -491,6 +506,7 @@ public interface UserType<J> {
 	 *
 	 * @since 7.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default int getDefaultSqlScale() {
 		return Size.DEFAULT_SCALE;
 	}
@@ -503,6 +519,7 @@ public interface UserType<J> {
 	 *             Use {@link #getDefaultSqlLength()}
 	 */
 	@Deprecated(since = "7.0", forRemoval = true)
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default long getDefaultSqlLength(Dialect dialect, JdbcType jdbcType) {
 		return getDefaultSqlLength();
 	}
@@ -515,6 +532,7 @@ public interface UserType<J> {
 	 *             Use {@link #getDefaultSqlPrecision()}
 	 */
 	@Deprecated(since = "7.0", forRemoval = true)
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default int getDefaultSqlPrecision(Dialect dialect, JdbcType jdbcType) {
 		return getDefaultSqlPrecision();
 	}
@@ -527,6 +545,7 @@ public interface UserType<J> {
 	 *             Use {@link #getDefaultSqlScale()}
 	 */
 	@Deprecated(since = "7.0", forRemoval = true)
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default int getDefaultSqlScale(Dialect dialect, JdbcType jdbcType) {
 		return getDefaultSqlScale();
 	}
@@ -546,6 +565,7 @@ public interface UserType<J> {
 	 * @since 7.0
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default AttributeConverter<J, ?> getValueConverter() {
 		return null;
 	}
@@ -561,6 +581,7 @@ public interface UserType<J> {
 	 * @since 7.0
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Boolean isComparable() {
 		return null;
 	}

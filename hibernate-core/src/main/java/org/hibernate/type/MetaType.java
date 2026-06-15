@@ -17,6 +17,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gavin King
@@ -50,46 +52,56 @@ public class MetaType extends AbstractType {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Type getBaseType() {
 		return valueType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ImplicitDiscriminatorStrategy getImplicitValueStrategy() {
 		return implicitValueStrategy;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] getRegistrationKeys() {
 		return REGISTRATION_KEYS;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<DiscriminatorValue, String> getDiscriminatorValuesToEntityNameMap() {
 		return discriminatorValuesToEntityNameMap;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String,Object> getEntityNameToDiscriminatorValueMap(){
 		return entityNameToDiscriminatorValueMap;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int[] getSqlTypeCodes(MappingContext mappingContext) throws MappingException {
 		return valueType.getSqlTypeCodes( mappingContext );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int getColumnSpan(MappingContext mapping) throws MappingException {
 		return valueType.getColumnSpan(mapping);
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getReturnedClass() {
 		return String.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int compare(Object x, Object y, SessionFactoryImplementor sessionFactory) {
 		return compare( x, y );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void nullSafeSet(
 			PreparedStatement st,
 			Object value,
@@ -100,6 +112,7 @@ public class MetaType extends AbstractType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void nullSafeSet(
 			PreparedStatement st,
 			Object value,
@@ -112,29 +125,35 @@ public class MetaType extends AbstractType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toLoggableString(Object value, SessionFactoryImplementor factory) throws HibernateException {
 		return toXMLString(value, factory);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toXMLString(Object value, SessionFactoryImplementor factory) throws HibernateException {
 		return (String) value; //value is the entity name
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object fromXMLString(String xml, MappingContext mappingContext) throws HibernateException {
 		return xml; //xml is the entity name
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getName() {
 		return valueType.getName(); //TODO!
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object deepCopy(Object value, SessionFactoryImplementor factory) throws HibernateException {
 		return value;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object replace(
 			Object original,
 			Object target,
@@ -145,16 +164,19 @@ public class MetaType extends AbstractType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isMutable() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean[] toColumnNullness(Object value, MappingContext mapping) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isDirty(Object old, Object current, boolean[] checkable, SharedSessionContractImplementor session) throws HibernateException {
 		return checkable[0] && isDirty(old, current, session);
 	}

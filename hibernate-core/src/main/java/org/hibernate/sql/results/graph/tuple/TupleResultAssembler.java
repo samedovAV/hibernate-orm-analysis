@@ -8,6 +8,8 @@ import org.hibernate.sql.results.ResultsLogger;
 import org.hibernate.sql.results.graph.DomainResultAssembler;
 import org.hibernate.sql.results.jdbc.spi.RowProcessingState;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -24,6 +26,7 @@ public class TupleResultAssembler<J> implements DomainResultAssembler<J> {
 		this.assembledJavaType = assembledJavaType;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int[] getValuesArrayPositions() {
 		return valuesArrayPositions;
 	}
@@ -31,6 +34,7 @@ public class TupleResultAssembler<J> implements DomainResultAssembler<J> {
 	/**
 	 * Access to the raw value (unconverted, if a converter applied)
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object[] extractRawValue(RowProcessingState rowProcessingState) {
 		final Object[] values = new Object[valuesArrayPositions.length];
 		for ( int i = 0; i < valuesArrayPositions.length; i++ ) {
@@ -40,6 +44,7 @@ public class TupleResultAssembler<J> implements DomainResultAssembler<J> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public J assemble(
 			RowProcessingState rowProcessingState) {
 		final Object[] jdbcValues = extractRawValue( rowProcessingState );
@@ -59,6 +64,7 @@ public class TupleResultAssembler<J> implements DomainResultAssembler<J> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<J> getAssembledJavaType() {
 		return assembledJavaType;
 	}

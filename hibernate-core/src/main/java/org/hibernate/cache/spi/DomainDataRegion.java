@@ -8,6 +8,8 @@ import org.hibernate.cache.spi.access.CollectionDataAccess;
 import org.hibernate.cache.spi.access.EntityDataAccess;
 import org.hibernate.cache.spi.access.NaturalIdDataAccess;
 import org.hibernate.metamodel.model.domain.NavigableRole;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A {@linkplain Region second-level cache region} that holds cacheable
@@ -42,6 +44,7 @@ public interface DomainDataRegion extends Region {
 	 *
 	 * @throws org.hibernate.cache.CacheException If the provider cannot provide the requested access
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityDataAccess getEntityDataAccess(NavigableRole rootEntityRole);
 
 	/**
@@ -56,6 +59,7 @@ public interface DomainDataRegion extends Region {
 	 *
 	 * @throws org.hibernate.cache.CacheException If the provider cannot provide the requested access
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	NaturalIdDataAccess getNaturalIdDataAccess(NavigableRole rootEntityRole);
 
 	/**
@@ -70,5 +74,6 @@ public interface DomainDataRegion extends Region {
 	 *
 	 * @throws org.hibernate.cache.CacheException If the provider cannot provide the requested access
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CollectionDataAccess getCollectionDataAccess(NavigableRole collectionRole);
 }

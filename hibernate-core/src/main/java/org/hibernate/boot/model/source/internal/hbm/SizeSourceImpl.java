@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.source.internal.hbm;
 
 import org.hibernate.boot.model.source.spi.SizeSource;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Implementation of SizeSource
@@ -24,16 +26,19 @@ public class SizeSourceImpl implements SizeSource {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Integer getLength() {
 		return length;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Integer getPrecision() {
 		return precision;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Integer getScale() {
 		return scale;
 	}

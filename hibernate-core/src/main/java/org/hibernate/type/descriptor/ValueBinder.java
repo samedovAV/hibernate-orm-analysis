@@ -7,6 +7,8 @@ package org.hibernate.type.descriptor;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for binding values to a JDBC {@link PreparedStatement}.
@@ -27,6 +29,7 @@ public interface ValueBinder<X> {
 	 *
 	 * @throws SQLException Indicates a JDBC error occurred.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void bind(PreparedStatement st, X value, int index, WrapperOptions options) throws SQLException;
 
 	/**
@@ -34,8 +37,10 @@ public interface ValueBinder<X> {
 	 *
 	 * @throws SQLException Indicates a JDBC error occurred.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void bind(CallableStatement st, X value, String name, WrapperOptions options) throws SQLException;
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Object getBindValue(X value, WrapperOptions options) throws SQLException {
 		return value;
 	}

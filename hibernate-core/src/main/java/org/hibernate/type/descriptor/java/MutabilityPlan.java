@@ -9,6 +9,8 @@ import java.io.Serializable;
 import org.hibernate.SharedSessionContract;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Describes the mutability aspects of a given Java type.
@@ -56,6 +58,7 @@ public interface MutabilityPlan<T> extends Serializable {
 	 *
 	 * @return True if the internal state can be changed; false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isMutable();
 
 	/**
@@ -65,7 +68,8 @@ public interface MutabilityPlan<T> extends Serializable {
 	 *
 	 * @return The deep copy.
 	 */
-	@Nullable T deepCopy(@Nullable T value);
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	T deepCopy(@Nullable T value);
 
 	/**
 	 * Return a disassembled representation of the value.
@@ -76,7 +80,8 @@ public interface MutabilityPlan<T> extends Serializable {
 	 *
 	 * @see #assemble
 	 */
-	@Nullable Serializable disassemble(@Nullable T value, SharedSessionContract session);
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	Serializable disassemble(@Nullable T value, SharedSessionContract session);
 
 	/**
 	 * Assemble a previously {@linkplain #disassemble disassembled} value.
@@ -87,5 +92,6 @@ public interface MutabilityPlan<T> extends Serializable {
 	 *
 	 * @see #disassemble
 	 */
-	@Nullable T assemble(@Nullable Serializable cached, SharedSessionContract session);
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	T assemble(@Nullable Serializable cached, SharedSessionContract session);
 }

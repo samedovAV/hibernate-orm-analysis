@@ -24,6 +24,8 @@ import org.hibernate.sql.results.jdbc.spi.RowProcessingState;
 import org.hibernate.type.descriptor.java.JavaType;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Andrea Boriero
@@ -52,41 +54,49 @@ public class CircularBiDirectionalFetchImpl implements BiDirectionalFetch {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigablePath getNavigablePath() {
 		return navigablePath;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ToOneAttributeMapping getFetchedMapping() {
 		return fetchedModelPart;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType<?> getResultJavaType() {
 		return fetchedModelPart.getJavaType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchParent getFetchParent() {
 		return fetchParent;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public NavigablePath getReferencedPath() {
 		return referencedNavigablePath;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public FetchTiming getTiming() {
 		return timing;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean hasTableGroup() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void collectValueIndexesToCache(BitSet valueIndexes) {
 		if ( keyResult != null ) {
 			keyResult.collectValueIndexesToCache( valueIndexes );
@@ -94,6 +104,7 @@ public class CircularBiDirectionalFetchImpl implements BiDirectionalFetch {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResultAssembler<?> createAssembler(InitializerParent<?> parent, AssemblerCreationState creationState) {
 		return new CircularBiDirectionalFetchAssembler(
 				getResultJavaType(),
@@ -102,6 +113,7 @@ public class CircularBiDirectionalFetchImpl implements BiDirectionalFetch {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private EntityInitializer<?> resolveCircularInitializer(InitializerParent<?> parent) {
 		while (parent != null && getReferencedPath().isParent( parent.getNavigablePath() ) ) {
 			parent = parent.getParent();
@@ -126,6 +138,7 @@ public class CircularBiDirectionalFetchImpl implements BiDirectionalFetch {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public Object assemble(RowProcessingState rowProcessingState) {
 			if ( keyDomainResultAssembler != null ) {
 				final Object foreignKey = keyDomainResultAssembler.assemble( rowProcessingState );
@@ -154,6 +167,7 @@ public class CircularBiDirectionalFetchImpl implements BiDirectionalFetch {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public void resolveState(RowProcessingState rowProcessingState) {
 			if ( keyDomainResultAssembler != null ) {
 				keyDomainResultAssembler.resolveState( rowProcessingState );
@@ -161,11 +175,13 @@ public class CircularBiDirectionalFetchImpl implements BiDirectionalFetch {
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_N, n = "", count = {})
 		public @Nullable Initializer<?> getInitializer() {
 			return keyDomainResultAssembler == null ? null : keyDomainResultAssembler.getInitializer();
 		}
 
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public JavaType<Object> getAssembledJavaType() {
 			return javaType;
 		}

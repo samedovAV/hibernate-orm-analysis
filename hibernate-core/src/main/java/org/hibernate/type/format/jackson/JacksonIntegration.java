@@ -14,6 +14,8 @@ import tools.jackson.databind.cfg.MapperBuilder;
 
 import org.hibernate.type.format.FormatMapper;
 import org.hibernate.type.format.FormatMapperCreationContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public final class JacksonIntegration {
 
@@ -30,18 +32,22 @@ public final class JacksonIntegration {
 		//To not be instantiated: static helpers only
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean ableToLoadJacksonJSONMapper() {
 		return canLoad( "com.fasterxml.jackson.databind.ObjectMapper" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean ableToLoadJackson3JSONMapper() {
 		return canLoad( "tools.jackson.databind.json.JsonMapper" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean ableToLoadJacksonXMLMapper() {
 		return canLoad( "com.fasterxml.jackson.dataformat.xml.XmlMapper" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean ableToLoadJackson3XMLMapper() {
 		return canLoad( "tools.jackson.dataformat.xml.XmlMapper" );
 	}
@@ -51,49 +57,58 @@ public final class JacksonIntegration {
 	 * in the classpath.
 	 * @return true if we can load the OSON support, false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean ableToLoadJacksonOSONFactory() {
 		return ableToLoadJacksonJSONMapper() &&
 			canLoad( "oracle.jdbc.provider.oson.OsonFactory" );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static @Nullable FormatMapper getXMLJacksonFormatMapperOrNull(FormatMapperCreationContext creationContext) {
 		return JACKSON_XML_AVAILABLE
 				? new JacksonXmlFormatMapper( creationContext )
 				: null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static @Nullable FormatMapper getXMLJackson3FormatMapperOrNull(FormatMapperCreationContext creationContext) {
 		return JACKSON3_XML_AVAILABLE
 				? new Jackson3XmlFormatMapper( creationContext )
 				: null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static @Nullable FormatMapper getJsonJacksonFormatMapperOrNull(FormatMapperCreationContext creationContext) {
 		return JACKSON_JSON_AVAILABLE
 				? new JacksonJsonFormatMapper( creationContext )
 				: null;
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static @Nullable FormatMapper getJsonJackson3FormatMapperOrNull(FormatMapperCreationContext creationContext) {
 		return JACKSON3_JSON_AVAILABLE
 				? new Jackson3JsonFormatMapper( creationContext )
 				: null;
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static @Nullable FormatMapper getOsonJacksonFormatMapperOrNull(FormatMapperCreationContext creationContext) {
 		return JACKSON_OSON_AVAILABLE
 				? new JacksonOsonFormatMapper( creationContext )
 				: null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static @Nullable FormatMapper getJsonJacksonFormatMapperOrNull() {
 		return JACKSON_JSON_AVAILABLE
 				? new JacksonJsonFormatMapper()
 				: null;
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static @Nullable FormatMapper getJsonJackson3FormatMapperOrNull() {
 		return JACKSON3_JSON_AVAILABLE
 				? new Jackson3JsonFormatMapper()
 				: null;
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static @Nullable FormatMapper getOsonJacksonFormatMapperOrNull() {
 		return JACKSON_OSON_AVAILABLE
 				? new JacksonOsonFormatMapper()
@@ -105,10 +120,12 @@ public final class JacksonIntegration {
 	 *
 	 * @return true if we can load the OSON support, false otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static boolean isJacksonOsonExtensionAvailable() {
 		return JACKSON_OSON_AVAILABLE;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean canLoad(String name) {
 		try {
 			//N.B. intentionally not using the context classloader
@@ -123,6 +140,7 @@ public final class JacksonIntegration {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static List<Module> loadModules(FormatMapperCreationContext creationContext) {
 		final ClassLoader classLoader = JacksonIntegration.class.getClassLoader();
 		final ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
@@ -146,6 +164,7 @@ public final class JacksonIntegration {
 		return ObjectMapper.findModules( classLoader );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static List<JacksonModule> loadJackson3Modules(FormatMapperCreationContext creationContext) {
 		final ClassLoader classLoader = JacksonIntegration.class.getClassLoader();
 		final ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();

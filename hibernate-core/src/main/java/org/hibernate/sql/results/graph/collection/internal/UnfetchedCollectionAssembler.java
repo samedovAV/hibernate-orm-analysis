@@ -9,6 +9,8 @@ import org.hibernate.metamodel.mapping.PluralAttributeMapping;
 import org.hibernate.sql.results.graph.DomainResultAssembler;
 import org.hibernate.sql.results.jdbc.spi.RowProcessingState;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class UnfetchedCollectionAssembler implements DomainResultAssembler {
 
@@ -19,11 +21,13 @@ public class UnfetchedCollectionAssembler implements DomainResultAssembler {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object assemble(RowProcessingState rowProcessingState) {
 		return LazyPropertyInitializer.UNFETCHED_PROPERTY;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JavaType getAssembledJavaType() {
 		return fetchedMapping.getJavaType();
 	}

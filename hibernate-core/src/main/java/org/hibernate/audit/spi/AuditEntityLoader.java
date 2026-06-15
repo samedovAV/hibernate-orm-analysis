@@ -5,6 +5,8 @@
 package org.hibernate.audit.spi;
 
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for loading entity snapshots from audit tables at a specific transaction
@@ -25,5 +27,6 @@ public interface AuditEntityLoader {
 	 *
 	 * @return the entity instance, or {@code null}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<T> T find(Object id, Object changesetId, boolean includeDeletions, SharedSessionContractImplementor session);
 }

@@ -13,6 +13,8 @@ import org.hibernate.models.spi.ModelsContext;
 
 import static org.hibernate.boot.models.HibernateAnnotations.SQL_SELECT;
 import static org.hibernate.boot.models.internal.OrmAnnotationHelper.extractJdkValue;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -49,35 +51,42 @@ public class SQLSelectAnnotation implements SQLSelect {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return SQLSelect.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String sql() {
 		return sql;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void sql(String value) {
 		this.sql = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.SqlResultSetMapping resultSetMapping() {
 		return resultSetMapping;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void resultSetMapping(jakarta.persistence.SqlResultSetMapping value) {
 		this.resultSetMapping = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String[] querySpaces() {
 		return querySpaces;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void querySpaces(String[] value) {
 		this.querySpaces = value;
 	}

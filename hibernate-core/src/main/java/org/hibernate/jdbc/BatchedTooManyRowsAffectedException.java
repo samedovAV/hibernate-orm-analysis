@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.jdbc;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 
 /**
@@ -20,6 +23,7 @@ public class BatchedTooManyRowsAffectedException extends TooManyRowsAffectedExce
 		this.batchPosition = batchPosition;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getBatchPosition() {
 		return batchPosition;
 	}

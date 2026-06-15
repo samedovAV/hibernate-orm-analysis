@@ -19,6 +19,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A SQL {@code SELECT} statement with no table joins.
@@ -57,6 +59,7 @@ public class SimpleSelect implements RestrictionRenderingContext {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String makeParameterMarker() {
 		return parameterMarkerStrategy.createMarker( ++parameterCount, null );
 	}
@@ -64,6 +67,7 @@ public class SimpleSelect implements RestrictionRenderingContext {
 	/**
 	 * Sets the name of the table we are selecting from
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SimpleSelect setTableName(String tableName) {
 		this.tableName = tableName;
 		return this;
@@ -72,6 +76,7 @@ public class SimpleSelect implements RestrictionRenderingContext {
 	/**
 	 * Adds selections
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SimpleSelect addColumns(String[] columnNames) {
 		for ( String columnName : columnNames ) {
 			if ( columnName != null ) {
@@ -84,6 +89,7 @@ public class SimpleSelect implements RestrictionRenderingContext {
 	/**
 	 * Adds a selection
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SimpleSelect addColumn(String columnName) {
 		columns.add( columnName );
 		return this;
@@ -92,6 +98,7 @@ public class SimpleSelect implements RestrictionRenderingContext {
 	/**
 	 * Adds a selection, with an alias
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SimpleSelect addColumn(String columnName, String alias) {
 		columns.add( columnName );
 		aliases.put( columnName, alias );
@@ -102,6 +109,7 @@ public class SimpleSelect implements RestrictionRenderingContext {
 	 * Appends a complete {@linkplain org.hibernate.annotations.SQLRestriction where} condition.
 	 * The {@code condition} is added as-is.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SimpleSelect addWhereToken(String condition) {
 		if ( condition != null ) {
 			restrictions.add( new CompleteRestriction( condition ) );
@@ -114,6 +122,7 @@ public class SimpleSelect implements RestrictionRenderingContext {
 	 *
 	 * @see #addRestriction(String, ComparisonRestriction.Operator, String)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SimpleSelect addRestriction(String columnName) {
 		restrictions.add( new ComparisonRestriction( columnName ) );
 		return this;
@@ -125,6 +134,7 @@ public class SimpleSelect implements RestrictionRenderingContext {
 	 * The {@code rhs} is checked for parameter marker and processed via {@link ParameterMarkerStrategy}
 	 * if needed.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SimpleSelect addRestriction(String lhs, ComparisonRestriction.Operator op, String rhs) {
 		restrictions.add( new ComparisonRestriction( lhs, op, rhs ) );
 		return this;
@@ -135,6 +145,7 @@ public class SimpleSelect implements RestrictionRenderingContext {
 	 *
 	 * @see #addRestriction(String)
 	 */
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public SimpleSelect addRestriction(String... columnNames) {
 		for ( int i = 0; i < columnNames.length; i++ ) {
 			if ( columnNames[i] != null ) {
@@ -144,26 +155,31 @@ public class SimpleSelect implements RestrictionRenderingContext {
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SimpleSelect setLockOptions(LockOptions lockOptions) {
 		LockOptions.copy( lockOptions, this.lockOptions );
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SimpleSelect setLockMode(LockMode lockMode) {
 		this.lockOptions.setLockMode( lockMode );
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SimpleSelect setOrderBy(String orderBy) {
 		this.orderBy = orderBy;
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SimpleSelect setComment(String comment) {
 		this.comment = comment;
 		return this;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toStatementString() {
 		final StringBuilder buf = new StringBuilder(
 				columns.size() * 10 +
@@ -185,12 +201,14 @@ public class SimpleSelect implements RestrictionRenderingContext {
 		return dialect.transformSelectString( selectString );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void applyComment(StringBuilder buf) {
 		if ( comment != null ) {
 			buf.append( "/* " ).append( Dialect.escapeComment( comment ) ).append( " */ " );
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void applySelectClause(StringBuilder buf) {
 		buf.append( "select " );
 
@@ -213,6 +231,7 @@ public class SimpleSelect implements RestrictionRenderingContext {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void applyFromClause(StringBuilder buf) {
 		buf.append( " from " ).append( dialect.appendLockHint( lockOptions, tableName ) );
 		if ( tableName.charAt( 0 ) == '(' ) {
@@ -220,6 +239,7 @@ public class SimpleSelect implements RestrictionRenderingContext {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void applyWhereClause(StringBuilder buf) {
 		if ( restrictions.isEmpty() ) {
 			return;
@@ -237,6 +257,7 @@ public class SimpleSelect implements RestrictionRenderingContext {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void applyOrderBy(StringBuilder buf) {
 		if ( orderBy != null ) {
 			buf.append( ' ' ).append( orderBy );

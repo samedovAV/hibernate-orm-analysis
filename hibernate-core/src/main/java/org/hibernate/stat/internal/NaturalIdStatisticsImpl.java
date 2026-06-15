@@ -11,6 +11,8 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.stat.NaturalIdStatistics;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * NaturalId cache statistics of a specific entity
@@ -44,6 +46,7 @@ public class NaturalIdStatisticsImpl extends AbstractCacheableDataStatistics imp
 	 * queries executed to the DB
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getExecutionCount() {
 		return executionCount.get();
 	}
@@ -52,6 +55,7 @@ public class NaturalIdStatisticsImpl extends AbstractCacheableDataStatistics imp
 	 * average time in ms taken by the execution of this query onto the DB
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getExecutionAvgTime() {
 		// We write lock here to be sure that we always calculate the average time
 		// with all updates from the executed applied: executionCount and totalExecutionTime
@@ -70,6 +74,7 @@ public class NaturalIdStatisticsImpl extends AbstractCacheableDataStatistics imp
 	 * max time in ms taken by the execution of this query onto the DB
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getExecutionMaxTime() {
 		return executionMaxTime.get();
 	}
@@ -78,15 +83,18 @@ public class NaturalIdStatisticsImpl extends AbstractCacheableDataStatistics imp
 	 * min time in ms taken by the execution of this query onto the DB
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getExecutionMinTime() {
 		return executionMinTime.get();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public long getNormalizationCount() {
 		return normalizationCount.get();
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	void queryExecuted(long time) {
 		// read lock is enough, concurrent updates are supported by the underlying type AtomicLong
 		// this only guards executed(long, long) to be called, when another thread is executing getExecutionAvgTime()
@@ -111,11 +119,13 @@ public class NaturalIdStatisticsImpl extends AbstractCacheableDataStatistics imp
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void valueNormalized() {
 		normalizationCount.getAndIncrement();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String toString() {
 		final var text = new StringBuilder()
 				.append( "NaturalIdCacheStatistics" )

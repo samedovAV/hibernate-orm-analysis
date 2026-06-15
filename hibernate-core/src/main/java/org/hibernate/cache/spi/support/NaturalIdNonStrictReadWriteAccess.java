@@ -10,6 +10,8 @@ import org.hibernate.cache.spi.DomainDataRegion;
 import org.hibernate.cache.spi.access.AccessType;
 import org.hibernate.cache.spi.access.SoftLock;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard support for {@link org.hibernate.cache.spi.access.NaturalIdDataAccess}
@@ -27,21 +29,25 @@ public class NaturalIdNonStrictReadWriteAccess extends AbstractNaturalIdDataAcce
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public AccessType getAccessType() {
 		return AccessType.NONSTRICT_READ_WRITE;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void unlockItem(SharedSessionContractImplementor session, Object key, SoftLock lock) {
 		getStorageAccess().removeFromCache( key, session );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean insert(SharedSessionContractImplementor session, Object key, Object value) {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean update(SharedSessionContractImplementor session, Object key, Object value) {
 		getStorageAccess().removeFromCache( key, session );
 		return false;

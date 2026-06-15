@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.resource.beans.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Contract for producing a bean instance
@@ -15,6 +18,7 @@ public interface BeanInstanceProducer {
 	 *
 	 * @param beanType The Java type of bean to produce
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<B> B produceBeanInstance(Class<B> beanType);
 
 	/**
@@ -23,5 +27,6 @@ public interface BeanInstanceProducer {
 	 * @param name The bean name
 	 * @param beanType The Java type that the produced bean should be typed as
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<B> B produceBeanInstance(String name, Class<B> beanType);
 }

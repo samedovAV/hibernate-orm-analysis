@@ -15,6 +15,8 @@ import org.hibernate.persister.entity.EntityPersister;
 import static org.hibernate.generator.EventType.INSERT;
 import static org.hibernate.internal.NaturalIdHelper.getNaturalIdPropertyNames;
 import static org.hibernate.generator.values.internal.GeneratedValuesHelper.noCustomSql;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A generator which produces a new value by actually going ahead and writing a row to the
@@ -60,6 +62,7 @@ public interface OnExecutionGenerator extends Generator {
 	 *
 	 * @return {@code true} if the column is included in the column list of the SQL statement.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean referenceColumnsInSql(Dialect dialect);
 
 	/**
@@ -74,6 +77,7 @@ public interface OnExecutionGenerator extends Generator {
 	 * @since 7.4
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default boolean referenceColumnsInSql(Dialect dialect, EventType eventType) {
 		return referenceColumnsInSql( dialect );
 	}
@@ -82,6 +86,7 @@ public interface OnExecutionGenerator extends Generator {
 	 * Determines if the property values are written to JDBC as the argument of a JDBC
 	 * {@code ?} parameter.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean writePropertyValue();
 
 	/**
@@ -96,6 +101,7 @@ public interface OnExecutionGenerator extends Generator {
 	 * @since 7.4
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default boolean writePropertyValue(EventType eventType) {
 		return writePropertyValue();
 	}
@@ -113,6 +119,7 @@ public interface OnExecutionGenerator extends Generator {
 	 *				  in dialect-specific SQL.
 	 * @return The column value to be used in the generated SQL statement.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String[] getReferencedColumnValues(Dialect dialect);
 
 	/**
@@ -127,6 +134,7 @@ public interface OnExecutionGenerator extends Generator {
 	 * @since 7.4
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default String[] getReferencedColumnValues(Dialect dialect, EventType eventType) {
 		return getReferencedColumnValues( dialect );
 	}
@@ -140,6 +148,7 @@ public interface OnExecutionGenerator extends Generator {
 	 * @since 7.4
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean[] getColumnInclusions(Dialect dialect, EventType eventType) {
 		return null;
 	}
@@ -175,6 +184,7 @@ public interface OnExecutionGenerator extends Generator {
 	 * identity columns is the reason why this layer-breaking method exists.
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default InsertGeneratedIdentifierDelegate getGeneratedIdentifierDelegate(EntityPersister persister) {
 		final var factory = persister.getFactory();
 		final var dialect = factory.getJdbcServices().getDialect();
@@ -200,11 +210,13 @@ public interface OnExecutionGenerator extends Generator {
 	 * property, if there is one.
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String[] getUniqueKeyPropertyNames(EntityPersister persister) {
 		return getNaturalIdPropertyNames( persister );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean generatedOnExecution() {
 		return true;
 	}

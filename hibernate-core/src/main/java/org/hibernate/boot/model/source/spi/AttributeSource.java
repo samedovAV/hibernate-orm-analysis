@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.source.spi;
 
 import org.hibernate.boot.model.source.internal.hbm.XmlElementMetadata;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for sources of persistent attribute descriptions.
@@ -14,6 +16,7 @@ import org.hibernate.boot.model.source.internal.hbm.XmlElementMetadata;
  * @author Steve Ebersole
  */
 public interface AttributeSource extends ToolingHintContextContainer {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	XmlElementMetadata getSourceType();
 
 	/**
@@ -21,6 +24,7 @@ public interface AttributeSource extends ToolingHintContextContainer {
 	 *
 	 * @return The attribute name. {@code null} is NOT allowed!
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getName();
 
 	/**
@@ -30,6 +34,7 @@ public interface AttributeSource extends ToolingHintContextContainer {
 	 * to {@link SingularAttributeSource}); {@code false} indicates it is plural (and
 	 * therefore castable to {@link PluralAttributeSource}).
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isSingular();
 
 	/**
@@ -38,9 +43,12 @@ public interface AttributeSource extends ToolingHintContextContainer {
 	 *
 	 * @return The xml node name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getXmlNodeName();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	AttributePath getAttributePath();
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	AttributeRole getAttributeRole();
 
 	/**
@@ -48,6 +56,7 @@ public interface AttributeSource extends ToolingHintContextContainer {
 	 *
 	 * @return The Hibernate type information
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	HibernateTypeSource getTypeInformation();
 
 	/**
@@ -57,6 +66,7 @@ public interface AttributeSource extends ToolingHintContextContainer {
 	 *
 	 * @see org.hibernate.property.access.spi.PropertyAccessStrategy
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getPropertyAccessorName();
 
 	/**
@@ -67,5 +77,6 @@ public interface AttributeSource extends ToolingHintContextContainer {
 	 *
 	 * @return {@code true} indicates it should be included; {@code false}, it should not.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isIncludedInOptimisticLocking();
 }

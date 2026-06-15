@@ -10,6 +10,8 @@ import org.hibernate.type.descriptor.WrapperOptions;
 import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.descriptor.jdbc.JdbcLiteralFormatter;
 import org.hibernate.type.descriptor.jdbc.spi.BasicJdbcLiteralFormatter;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class JdbcLiteralFormatterArray<T> extends BasicJdbcLiteralFormatter<T> {
 
@@ -22,10 +24,12 @@ public class JdbcLiteralFormatterArray<T> extends BasicJdbcLiteralFormatter<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void appendJdbcLiteral(SqlAppender appender, T value, Dialect dialect, WrapperOptions wrapperOptions) {
 		dialect.appendArrayLiteral( appender, unwrapArray( value, wrapperOptions ), elementFormatter, wrapperOptions );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Object[] unwrapArray(Object value, WrapperOptions wrapperOptions) {
 		return unwrap( value, Object[].class, wrapperOptions );
 	}

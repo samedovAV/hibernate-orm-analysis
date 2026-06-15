@@ -15,6 +15,8 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.type.spi.TypeConfiguration;
 
 import static org.hibernate.engine.internal.ForeignKeys.getEntityIdentifierIfNotUnsaved;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A many-to-one association to an entity.
@@ -69,16 +71,19 @@ public class ManyToOneType extends EntityType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isNullable() {
 		return ignoreNotFound;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getPropertyName() {
 		return propertyName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isAlwaysDirtyChecked() {
 		// always need to dirty-check, even when non-updatable;
 		// this ensures that when the association is updated,
@@ -88,26 +93,31 @@ public class ManyToOneType extends EntityType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isOneToOne() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isLogicalOneToOne() {
 		return isLogicalOneToOne;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int getColumnSpan(MappingContext mapping) throws MappingException {
 		return requireIdentifierOrUniqueKeyType( mapping ).getColumnSpan( mapping );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public int[] getSqlTypeCodes(MappingContext mappingContext) throws MappingException {
 		return requireIdentifierOrUniqueKeyType( mappingContext ).getSqlTypeCodes( mappingContext );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ForeignKeyDirection getForeignKeyDirection() {
 		return ForeignKeyDirection.FROM_PARENT;
 	}
@@ -115,6 +125,7 @@ public class ManyToOneType extends EntityType {
 	/**
 	 * Register the entity as batch loadable, if enabled
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void scheduleBatchLoadIfNeeded(Object id, SharedSessionContractImplementor session)
 			throws MappingException {
 		//cannot batch fetch by unique key (property-ref associations)
@@ -131,11 +142,13 @@ public class ManyToOneType extends EntityType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean useLHSPrimaryKey() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isModified(
 			Object old,
 			Object current,
@@ -157,6 +170,7 @@ public class ManyToOneType extends EntityType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Serializable disassemble(
 			Object value,
 			SharedSessionContractImplementor session,
@@ -176,6 +190,7 @@ public class ManyToOneType extends EntityType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Serializable disassemble(Object value, SessionFactoryImplementor sessionFactory)
 			throws HibernateException {
 		if ( value == null ) {
@@ -191,6 +206,7 @@ public class ManyToOneType extends EntityType {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void checkIdNotNull(Object id) {
 		if ( id == null ) {
 			throw new AssertionFailure(
@@ -200,6 +216,7 @@ public class ManyToOneType extends EntityType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object assemble(
 			Serializable oid,
 			SharedSessionContractImplementor session,
@@ -210,12 +227,14 @@ public class ManyToOneType extends EntityType {
 		return id == null ? null : resolveIdentifier( id, session );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private Object assembleId(Serializable oid, SharedSessionContractImplementor session) {
 		//the owner of the association is not the owner of the id
 		return getIdentifierType( session ).assemble( oid, session, null );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean[] toColumnNullness(Object value, MappingContext mapping) {
 		final boolean[] result = new boolean[ getColumnSpan( mapping ) ];
 		if ( value != null ) {
@@ -225,6 +244,7 @@ public class ManyToOneType extends EntityType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isDirty(
 			Object old,
 			Object current,
@@ -241,6 +261,7 @@ public class ManyToOneType extends EntityType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isDirty(
 			Object old,
 			Object current,

@@ -15,6 +15,8 @@ import org.hibernate.type.Type;
 import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
 import org.hibernate.type.descriptor.sql.spi.DdlTypeRegistry;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Descriptor for a DDL column type. An instance of this type abstracts over
@@ -34,6 +36,7 @@ public interface DdlType extends Serializable {
 	 *
 	 * @return a SQL type code
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getSqlTypeCode();
 
 	/**
@@ -43,8 +46,10 @@ public interface DdlType extends Serializable {
 	 *
 	 * @since 6.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getTypeName(Size columnSize, Type type, DdlTypeRegistry ddlTypeRegistry);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isLob(Size size) {
 		// Let's be defensive and assume that LONG32 are LOBs as well
 		return JdbcType.isLobOrLong( getSqlTypeCode() );
@@ -64,6 +69,7 @@ public interface DdlType extends Serializable {
 	 *
 	 * @since 6.3
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getCastTypeName(Size columnSize, SqlExpressible type, DdlTypeRegistry ddlTypeRegistry);
 
 	/**
@@ -74,6 +80,7 @@ public interface DdlType extends Serializable {
 	 *
 	 * @since 7.4
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String getNarrowCastTypeName(Size columnSize, SqlExpressible type, DdlTypeRegistry ddlTypeRegistry) {
 		return getCastTypeName( columnSize, type, ddlTypeRegistry );
 	}
@@ -85,5 +92,6 @@ public interface DdlType extends Serializable {
 	 */
 	@Incubating
 	@Deprecated(since = "6.3")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String[] getRawTypeNames();
 }

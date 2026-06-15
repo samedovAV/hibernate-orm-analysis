@@ -5,6 +5,8 @@
 package org.hibernate.mapping;
 
 import org.hibernate.MappingException;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Identifies a mapping model object which may have {@linkplain Property attributes}
@@ -26,11 +28,13 @@ public interface AttributeContainer {
 	/**
 	 * Add an attribute to this {@link PersistentClass} or {@link Join}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addProperty(Property property);
 
 	/**
 	 * Determine if the given attribute belongs to this container.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean contains(Property property);
 
 	/**
@@ -39,11 +43,13 @@ public interface AttributeContainer {
 	 * @throws MappingException if there is no attribute with the given name
 	 * @since 7.2
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Property getProperty(String propertyName) throws MappingException;
 
 	/**
 	 * The {@link Table} with the columns mapped by attributes belonging
 	 * to this container.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Table getTable();
 }

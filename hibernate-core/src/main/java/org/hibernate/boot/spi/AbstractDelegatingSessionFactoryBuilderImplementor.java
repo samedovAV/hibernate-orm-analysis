@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.boot.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Convenience base class for custom implementors of {@link SessionFactoryBuilderImplementor}, using delegation
@@ -20,16 +23,19 @@ public abstract class AbstractDelegatingSessionFactoryBuilderImplementor<T exten
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected SessionFactoryBuilderImplementor delegate() {
 		return (SessionFactoryBuilderImplementor) super.delegate();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void disableJtaTransactionAccess() {
 		delegate().disableJtaTransactionAccess();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SessionFactoryOptions buildSessionFactoryOptions() {
 		return delegate().buildSessionFactoryOptions();
 	}

@@ -6,9 +6,12 @@ package org.hibernate.internal.util;
 
 import jakarta.persistence.Reference;
 import org.hibernate.query.spi.QueryImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class ArgumentsHelper {
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static void bindReferenceArguments(QueryImplementor<?> query, Reference reference) {
 		final var arguments = reference.getArguments();
 		if ( arguments != null && !arguments.isEmpty() ) {
@@ -26,6 +29,7 @@ public class ArgumentsHelper {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static boolean hasNamedParameters(QueryImplementor<?> query) {
 		for ( var parameter : query.getParameters() ) {
 			if ( parameter.getName() != null ) {

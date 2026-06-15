@@ -14,6 +14,8 @@ import org.hibernate.metamodel.CollectionClassification;
 import org.hibernate.persister.collection.CollectionPersister;
 
 import static org.hibernate.metamodel.CollectionClassification.LIST;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class ListType extends CollectionType {
 
@@ -22,31 +24,37 @@ public class ListType extends CollectionType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionClassification getCollectionClassification() {
 		return LIST;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistentCollection<?> instantiate(SharedSessionContractImplementor session, CollectionPersister persister, Object key) {
 		return new PersistentList<>( session );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<?> getReturnedClass() {
 		return List.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistentCollection<?> wrap(SharedSessionContractImplementor session, Object collection) {
 		return new PersistentList<>( session, (List<?>) collection );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object instantiate(int anticipatedSize) {
 		return anticipatedSize <= 0 ? new ArrayList<>() : new ArrayList<>( anticipatedSize + 1 );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Object indexOf(Object collection, Object element) {
 		final var list = (List<?>) collection;
 		for ( int i=0; i<list.size(); i++ ) {

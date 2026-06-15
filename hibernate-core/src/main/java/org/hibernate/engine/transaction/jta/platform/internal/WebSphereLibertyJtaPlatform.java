@@ -14,6 +14,8 @@ import jakarta.transaction.UserTransaction;
 import org.hibernate.boot.registry.classloading.spi.ClassLoaderService;
 import org.hibernate.engine.transaction.jta.platform.spi.JtaPlatformException;
 import org.hibernate.internal.util.NullnessUtil;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * JTA platform implementation intended for use with WebSphere Liberty and OpenLiberty
@@ -28,6 +30,7 @@ public class WebSphereLibertyJtaPlatform extends AbstractJtaPlatform {
 	public static final String UT_NAME = "java:comp/UserTransaction";
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected TransactionManager locateTransactionManager() {
 		try {
 			return (TransactionManager) serviceRegistry().requireService( ClassLoaderService.class )
@@ -41,11 +44,13 @@ public class WebSphereLibertyJtaPlatform extends AbstractJtaPlatform {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected UserTransaction locateUserTransaction() {
 		return (UserTransaction) jndiService().locate( UT_NAME );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean canRegisterSynchronization() {
 		try {
 			return getCurrentStatus() == Status.STATUS_ACTIVE;
@@ -56,11 +61,13 @@ public class WebSphereLibertyJtaPlatform extends AbstractJtaPlatform {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getCurrentStatus() throws SystemException {
 		return NullnessUtil.castNonNull( retrieveTransactionManager() ).getStatus();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void registerSynchronization(Synchronization synchronization) {
 		try {
 			NullnessUtil.castNonNull( retrieveTransactionManager() ).getTransaction().registerSynchronization(synchronization);

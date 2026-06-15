@@ -18,6 +18,8 @@ import org.hibernate.query.sqm.tree.domain.SqmMapJoin;
 import org.hibernate.query.sqm.tree.domain.SqmMapPersistentAttribute;
 import org.hibernate.query.sqm.tree.from.SqmAttributeJoin;
 import org.hibernate.query.sqm.tree.from.SqmFrom;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -38,27 +40,32 @@ public class MapAttributeImpl<X, K, V>
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionType getCollectionType() {
 		return CollectionType.MAP;
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<K> getKeyJavaType() {
 		return keyPathSource.getBindableJavaType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPathSource<K> getKeyPathSource() {
 		return keyPathSource;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPathSource<K> getIndexPathSource() {
 		return getKeyPathSource();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nullable SqmPathSource<?> findSubPathSource(String name) {
 		final CollectionPart.Nature nature = CollectionPart.Nature.fromNameExact( name );
 		if ( nature != null ) {
@@ -73,6 +80,7 @@ public class MapAttributeImpl<X, K, V>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nullable SqmPathSource<?> findSubPathSource(String name, boolean includeSubtypes) {
 		return CollectionPart.Nature.INDEX.getName().equals( name )
 				? keyPathSource
@@ -80,6 +88,7 @@ public class MapAttributeImpl<X, K, V>
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPathSource<?> getIntermediatePathSource(SqmPathSource<?> pathSource) {
 		final String pathName = pathSource.getPathName();
 		return pathName.equals( getElementPathSource().getPathName() )
@@ -88,17 +97,20 @@ public class MapAttributeImpl<X, K, V>
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SimpleDomainType<K> getKeyType() {
 		return (SimpleDomainType<K>) keyPathSource.getPathType();
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SimpleDomainType<K> getKeyGraphType() {
 		return getKeyType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmAttributeJoin<X,V> createSqmJoin(
 			SqmFrom<?,X> lhs, SqmJoinType joinType, @Nullable String alias, boolean fetched, SqmCreationState creationState) {
 		return new SqmMapJoin<>(

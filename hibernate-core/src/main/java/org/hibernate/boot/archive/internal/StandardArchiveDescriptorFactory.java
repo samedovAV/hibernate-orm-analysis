@@ -11,6 +11,8 @@ import org.hibernate.internal.util.StringHelper;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Standard implementation of ArchiveDescriptorFactory
 ///
@@ -22,11 +24,13 @@ public class StandardArchiveDescriptorFactory implements ArchiveDescriptorFactor
 	public static final StandardArchiveDescriptorFactory INSTANCE = new StandardArchiveDescriptorFactory();
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public ArchiveDescriptor buildArchiveDescriptor(URL url) {
 		return buildArchiveDescriptor( url, "" );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ArchiveDescriptor buildArchiveDescriptor(URL url, String entry) {
 		final String protocol = url.getProtocol();
 //		if ( "jar".equals( protocol ) ) {
@@ -51,6 +55,7 @@ public class StandardArchiveDescriptorFactory implements ArchiveDescriptorFactor
 
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String extractLocalFilePath(URL url) {
 		final String filePart = url.getFile();
 		if ( filePart != null && filePart.indexOf( ' ' ) != -1 ) {

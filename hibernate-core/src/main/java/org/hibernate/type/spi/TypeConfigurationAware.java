@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.type.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Optional contract for a {@link org.hibernate.type.Type} which is aware
@@ -19,6 +22,8 @@ package org.hibernate.type.spi;
  * @author Steve Ebersole
  */
 public interface TypeConfigurationAware {
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TypeConfiguration getTypeConfiguration();
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setTypeConfiguration(TypeConfiguration typeConfiguration);
 }

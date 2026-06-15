@@ -29,6 +29,8 @@ import static java.util.Collections.emptyList;
 import static java.util.Collections.singleton;
 import static java.util.concurrent.CompletableFuture.completedFuture;
 import static org.hibernate.event.internal.EventListenerLogging.EVENT_LISTENER_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Standard EventListenerGroup implementation
@@ -41,10 +43,12 @@ class EventListenerGroupImpl<T> implements EventListenerGroup<T> {
 	private static final DuplicationStrategy DEFAULT_DUPLICATION_STRATEGY =
 			new DuplicationStrategy() {
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				public boolean areMatch(Object listener, Object original) {
 					return listener.getClass().equals( original.getClass() );
 				}
 				@Override
+				@Prove(complexity = Complexity.O_1, n = "", count = {})
 				public Action getAction() {
 					return Action.ERROR;
 				}
@@ -54,6 +58,7 @@ class EventListenerGroupImpl<T> implements EventListenerGroup<T> {
 
 	private static final CompletableFuture<?> COMPLETED = completedFuture( null );
 	@SuppressWarnings("unchecked")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static <R> CompletableFuture<R> nullCompletion() {
 		return (CompletableFuture<R>) COMPLETED;
 	}
@@ -74,22 +79,26 @@ class EventListenerGroupImpl<T> implements EventListenerGroup<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public EventType<T> getEventType() {
 		return eventType;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isEmpty() {
 		return count() <= 0;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int count() {
 		final T[] ls = listeners;
 		return ls == null ? 0 : ls.length;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void clear() {
 		//Odd semantics: we're expected (for backwards compatibility)
 		//               to also clear the default DuplicationStrategy.
@@ -100,6 +109,7 @@ class EventListenerGroupImpl<T> implements EventListenerGroup<T> {
 	// For efficiency reasons we use both a representation as List and as array;
 	// ensure consistency between the two fields by delegating any mutation to both
 	// fields to this method.
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private synchronized void setListeners(T[] newListeners) {
 		listeners = newListeners;
 		listenersAsList = newListeners == null || newListeners.length == 0
@@ -108,11 +118,13 @@ class EventListenerGroupImpl<T> implements EventListenerGroup<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void clearListeners() {
 		setListeners( null );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final <U> void fireLazyEventOnEachListener(Supplier<U> eventSupplier, BiConsumer<T,U> actionOnEvent) {
 		final T[] ls = listeners;
 		if ( ls != null && ls.length != 0 ) {
@@ -125,6 +137,7 @@ class EventListenerGroupImpl<T> implements EventListenerGroup<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final <U> void fireEventOnEachListener(U event, BiConsumer<T,U> actionOnEvent) {
 		final T[] ls = listeners;
 		if ( ls != null ) {
@@ -136,6 +149,7 @@ class EventListenerGroupImpl<T> implements EventListenerGroup<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <U,X> void fireEventOnEachListener(U event, X parameter, EventActionWithParameter<T, U, X> actionOnEvent) {
 		final T[] ls = listeners;
 		if ( ls != null ) {
@@ -147,6 +161,7 @@ class EventListenerGroupImpl<T> implements EventListenerGroup<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <R, U, RL> CompletionStage<R> fireEventOnEachListener(
 			final U event,
 			final Function<RL, Function<U, CompletionStage<R>>> fun) {
@@ -163,6 +178,7 @@ class EventListenerGroupImpl<T> implements EventListenerGroup<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <R, U, RL, X> CompletionStage<R> fireEventOnEachListener(
 			U event, X param, Function<RL, BiFunction<U, X, CompletionStage<R>>> fun) {
 		CompletionStage<R> ret = nullCompletion();
@@ -178,6 +194,7 @@ class EventListenerGroupImpl<T> implements EventListenerGroup<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <R, U, RL> CompletionStage<R> fireLazyEventOnEachListener(
 			Supplier<U> eventSupplier,
 			Function<RL, Function<U, CompletionStage<R>>> fun) {
@@ -195,6 +212,7 @@ class EventListenerGroupImpl<T> implements EventListenerGroup<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addDuplicationStrategy(DuplicationStrategy strategy) {
 		if ( duplicationStrategies == DEFAULT_DUPLICATION_STRATEGIES ) {
 			// At minimum make sure we do not register the same exact listener class multiple times.
@@ -204,12 +222,14 @@ class EventListenerGroupImpl<T> implements EventListenerGroup<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void appendListener(T listener) {
 		handleListenerAddition( listener, this::internalAppend );
 	}
 
 	@Override
 	@SafeVarargs
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final void appendListeners(T... listeners) {
 		//noinspection ForLoopReplaceableByForEach
 		for ( int i = 0; i < listeners.length; i++ ) {
@@ -217,6 +237,7 @@ class EventListenerGroupImpl<T> implements EventListenerGroup<T> {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void internalAppend(T listener) {
 		prepareListener( listener );
 		final T[] listenersRead = listeners;
@@ -241,12 +262,14 @@ class EventListenerGroupImpl<T> implements EventListenerGroup<T> {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void prependListener(T listener) {
 		handleListenerAddition( listener, this::internalPrepend );
 	}
 
 	@Override
 	@SafeVarargs
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final void prependListeners(T... listeners) {
 		//noinspection ForLoopReplaceableByForEach
 		for ( int i = 0; i < listeners.length; i++ ) {
@@ -254,6 +277,7 @@ class EventListenerGroupImpl<T> implements EventListenerGroup<T> {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void internalPrepend(T listener) {
 		prepareListener( listener );
 		final T[] listenersRead = listeners;
@@ -277,6 +301,7 @@ class EventListenerGroupImpl<T> implements EventListenerGroup<T> {
 		setListeners( listenersWrite );
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private void handleListenerAddition(T listener, Consumer<T> additionHandler) {
 		final T[] listenersRead = listeners;
 		if ( listenersRead == null ) {
@@ -344,14 +369,17 @@ class EventListenerGroupImpl<T> implements EventListenerGroup<T> {
 
 	@SuppressWarnings("unchecked")
 	@AllowReflection // Possible array types are registered in org.hibernate.graalvm.internal.StaticClassLists.typesNeedingArrayCopy
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private T[] createListenerArrayForWrite(int len) {
 		return (T[]) Array.newInstance( eventType.baseListenerInterface(), len );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void prepareListener(T listener) {
 		checkAgainstBaseInterface( listener );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void checkAgainstBaseInterface(T listener) {
 		if ( !eventType.baseListenerInterface().isInstance( listener ) ) {
 			throw new EventListenerRegistrationException( "Listener did not implement expected interface ["
@@ -366,6 +394,7 @@ class EventListenerGroupImpl<T> implements EventListenerGroup<T> {
 	 */
 	@Override
 	@Deprecated
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final Iterable<T> listeners() {
 		return listenersAsList;
 	}

@@ -14,6 +14,8 @@ import org.hibernate.service.ServiceRegistry;
 import java.util.Map;
 
 import static org.hibernate.internal.util.ReflectHelper.getConstructorOrNull;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * {@link BeanInstanceProducer} implementation for building beans related to custom types.
@@ -31,6 +33,7 @@ public class TypeBeanInstanceProducer implements BeanInstanceProducer, TypeBoots
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <B> B produceBeanInstance(Class<B> beanType) {
 		final var bootstrapContextAwareConstructor =
 				getConstructorOrNull( beanType, TypeBootstrapContext.class );
@@ -59,16 +62,19 @@ public class TypeBeanInstanceProducer implements BeanInstanceProducer, TypeBoots
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <B> B produceBeanInstance(String name, Class<B> beanType) {
 		return produceBeanInstance( beanType );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, Object> getConfigurationSettings() {
 		return configurationService.getSettings();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ServiceRegistry getServiceRegistry() {
 		return serviceRegistry;
 	}

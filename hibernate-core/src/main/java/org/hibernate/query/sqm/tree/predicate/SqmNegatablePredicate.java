@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.query.sqm.tree.predicate;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Contract for predicates that have a negated form, e.g. {@code x is not null}
@@ -16,6 +19,7 @@ public interface SqmNegatablePredicate extends SqmPredicate {
 	 *
 	 * @return {@code true} if we have a negated form currently
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isNegated();
 
 	/**
@@ -29,5 +33,6 @@ public interface SqmNegatablePredicate extends SqmPredicate {
 	 * Can be applied nested as well.  For example, {@code not(not(x is null))}
 	 * becomes {@code x is null} because the double-negative cancel each other out.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void negate();
 }

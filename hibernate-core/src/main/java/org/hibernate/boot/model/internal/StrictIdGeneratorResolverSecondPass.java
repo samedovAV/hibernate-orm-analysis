@@ -21,6 +21,8 @@ import static org.hibernate.boot.model.internal.GeneratorAnnotationHelper.handle
 import static org.hibernate.boot.model.internal.GeneratorAnnotationHelper.handleSequenceGenerator;
 import static org.hibernate.boot.model.internal.GeneratorAnnotationHelper.handleTableGenerator;
 import static org.hibernate.boot.model.internal.GeneratorAnnotationHelper.handleUuidStrategy;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * SecondPass implementing delayed resolution of id-generators associated with an entity
@@ -47,11 +49,13 @@ public class StrictIdGeneratorResolverSecondPass extends AbstractEntityIdGenerat
 		super( entityMapping, idValue, idMember, generatedValue, buildingContext );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private ModelsContext modelsContext() {
 		return buildingContext.getBootstrapContext().getModelsContext();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void handleUnnamedSequenceGenerator() {
 		// according to the spec, this should locate a generator with the same name as the entity-name
 		final var globalMatch =
@@ -78,6 +82,7 @@ public class StrictIdGeneratorResolverSecondPass extends AbstractEntityIdGenerat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void handleNamedSequenceGenerator() {
 		final var globalMatch =
 				getGlobalRegistrations().getSequenceGeneratorRegistrations()
@@ -103,6 +108,7 @@ public class StrictIdGeneratorResolverSecondPass extends AbstractEntityIdGenerat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void handleUnnamedTableGenerator() {
 		final var globalMatch =
 				getGlobalRegistrations().getTableGeneratorRegistrations()
@@ -128,6 +134,7 @@ public class StrictIdGeneratorResolverSecondPass extends AbstractEntityIdGenerat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void handleNamedTableGenerator() {
 		final var globalMatch =
 				getGlobalRegistrations().getTableGeneratorRegistrations()
@@ -153,15 +160,18 @@ public class StrictIdGeneratorResolverSecondPass extends AbstractEntityIdGenerat
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void handleUnnamedAutoGenerator() {
 		handleAutoGenerator( entityMapping.getJpaEntityName() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void handleNamedAutoGenerator() {
 		handleAutoGenerator( generatedValue.generator() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void handleAutoGenerator(String globalRegistrationName) {
 
 		final var globalSequenceMatch =
@@ -237,6 +247,7 @@ public class StrictIdGeneratorResolverSecondPass extends AbstractEntityIdGenerat
 		);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private GlobalRegistrations getGlobalRegistrations() {
 		return buildingContext.getMetadataCollector().getGlobalRegistrations();
 	}

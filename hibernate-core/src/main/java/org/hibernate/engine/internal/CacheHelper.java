@@ -12,6 +12,8 @@ import org.hibernate.persister.collection.CollectionPersister;
 import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.type.descriptor.converter.spi.BasicValueConverter;
 import org.hibernate.type.descriptor.java.JavaType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -22,6 +24,7 @@ public final class CacheHelper {
 	private CacheHelper() {
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public static Object fromSharedCache(
 			SharedSessionContractImplementor session,
 			Object cacheKey,
@@ -30,6 +33,7 @@ public final class CacheHelper {
 		return fromSharedCache( session, cacheKey, persister, false, cacheAccess );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Object fromSharedCache(
 			SharedSessionContractImplementor session,
 			Object cacheKey,
@@ -58,6 +62,7 @@ public final class CacheHelper {
 		return cachedValue;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Object fromSharedCache(
 			SharedSessionContractImplementor session,
 			Object cacheKey,
@@ -83,6 +88,7 @@ public final class CacheHelper {
 		}
 		return cachedValue;
 	}
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static void addBasicValueToCacheKey(
 			MutableCacheKeyBuilder cacheKey,
 			Object value,

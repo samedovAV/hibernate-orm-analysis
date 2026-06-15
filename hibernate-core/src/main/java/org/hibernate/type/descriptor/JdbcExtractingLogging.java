@@ -8,6 +8,8 @@ import org.hibernate.Internal;
 import org.hibernate.internal.log.SubSystemLogging;
 
 import org.jboss.logging.Logger;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SubSystemLogging(
 		name = JdbcExtractingLogging.NAME,
@@ -19,6 +21,7 @@ public interface JdbcExtractingLogging {
 
 	Logger LOGGER = Logger.getLogger( NAME );
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static void logExtracted(int jdbcPosition, int typeCode, Object value) {
 		if ( LOGGER.isTraceEnabled() ) {
 			JdbcExtractingLogging.LOGGER.tracef(
@@ -30,6 +33,7 @@ public interface JdbcExtractingLogging {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static void logNullExtracted(int jdbcPosition, int typeCode) {
 		if ( LOGGER.isTraceEnabled() ) {
 			JdbcExtractingLogging.LOGGER.tracef(
@@ -40,6 +44,7 @@ public interface JdbcExtractingLogging {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static void logExtracted(String callableParamName, int typeCode, Object value) {
 		if ( LOGGER.isTraceEnabled() ) {
 			JdbcExtractingLogging.LOGGER.tracef(
@@ -51,6 +56,7 @@ public interface JdbcExtractingLogging {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static void logNullExtracted(String callableParamName, int typeCode) {
 		if ( LOGGER.isTraceEnabled() ) {
 			JdbcExtractingLogging.LOGGER.tracef(

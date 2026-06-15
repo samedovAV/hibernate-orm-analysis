@@ -13,6 +13,8 @@ import org.hibernate.boot.models.JpaAnnotations;
 import org.hibernate.models.spi.ModelsContext;
 
 import static org.hibernate.boot.models.internal.OrmAnnotationHelper.extractJdkValue;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -50,35 +52,42 @@ public class CollectionIdAnnotation implements CollectionId {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return CollectionId.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public jakarta.persistence.Column column() {
 		return column;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void column(jakarta.persistence.Column value) {
 		this.column = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public java.lang.Class<? extends org.hibernate.id.IdentifierGenerator> generatorImplementation() {
 		return generatorImplementation;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void generatorImplementation(java.lang.Class<? extends org.hibernate.id.IdentifierGenerator> value) {
 		this.generatorImplementation = value;
 	}
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String generator() {
 		return generator;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void generator(String value) {
 		this.generator = value;
 	}

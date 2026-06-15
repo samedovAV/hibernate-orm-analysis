@@ -11,6 +11,8 @@ import java.util.Objects;
 
 import org.hibernate.HibernateException;
 import org.hibernate.internal.util.compare.ComparableComparator;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Abstract adapter for Java type descriptors.
@@ -55,41 +57,49 @@ public abstract class AbstractJavaType<T> implements BasicJavaType<T>, Serializa
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public MutabilityPlan<T> getMutabilityPlan() {
 		return mutabilityPlan;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Type getJavaType() {
 		return type;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int extractHashCode(T value) {
 		return value.hashCode();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean areEqual(T one, T another) {
 		return Objects.equals( one, another );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Comparator<T> getComparator() {
 		return comparator;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String extractLoggableRepresentation(T value) {
 		return (value == null) ? "null" : value.toString();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected HibernateException unknownUnwrap(Class<?> conversionType) {
 		throw new HibernateException(
 				"Unknown unwrap conversion requested: " + type.getTypeName() + " to " + conversionType.getName()
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected HibernateException unknownWrap(Class<?> conversionType) {
 		throw new HibernateException(
 				"Unknown wrap conversion requested: " + conversionType.getName() + " to " + type.getTypeName()

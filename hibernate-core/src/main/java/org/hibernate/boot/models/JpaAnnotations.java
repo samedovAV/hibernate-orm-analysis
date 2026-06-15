@@ -210,6 +210,8 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.Transient;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.persistence.Version;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Descriptors for JPA annotations
@@ -920,6 +922,7 @@ public interface JpaAnnotations {
 			false
 	);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static void forEachAnnotation(Consumer<AnnotationDescriptor<? extends Annotation>> consumer) {
 		OrmAnnotationHelper.forEachOrmAnnotation( JpaAnnotations.class, consumer );
 	}

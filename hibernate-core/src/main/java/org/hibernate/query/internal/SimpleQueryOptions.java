@@ -6,6 +6,8 @@ package org.hibernate.query.internal;
 
 import org.hibernate.LockOptions;
 import org.hibernate.query.spi.QueryOptionsAdapter;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -21,11 +23,13 @@ public class SimpleQueryOptions extends QueryOptionsAdapter {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LockOptions getLockOptions() {
 		return lockOptions;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Boolean isReadOnly() {
 		return readOnlyEnabled;
 	}

@@ -12,6 +12,8 @@ import java.util.function.Supplier;
 
 import org.hibernate.Incubating;
 import org.hibernate.event.spi.EventType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for a groups of events listeners for a particular event type.
@@ -25,6 +27,7 @@ public interface EventListenerGroup<T> {
 	 *
 	 * @return The event type.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EventType<T> getEventType();
 
 	/**
@@ -32,8 +35,10 @@ public interface EventListenerGroup<T> {
 	 *
 	 * @return {@literal true} if no listeners are registered; {@literal false} otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean isEmpty();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int count();
 
 	/**
@@ -42,6 +47,7 @@ public interface EventListenerGroup<T> {
 	 * @return The Iterable.
 	 */
 	@Deprecated
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Iterable<T> listeners();
 
 	/**
@@ -53,28 +59,33 @@ public interface EventListenerGroup<T> {
 	 *
 	 * @param strategy The duplication strategy
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addDuplicationStrategy(DuplicationStrategy strategy);
 
 	/**
 	 * Add a listener to the group.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void appendListener(T listener);
 
 	/**
 	 * Add the given listeners to the group.
 	 */
 	@SuppressWarnings("unchecked") // heap pollution due to varargs
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void appendListeners(T... listeners);
 
 	/**
 	 * Add a listener to the group.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void prependListener(T listener);
 
 	/**
 	 * Add the given listeners to the group.
 	 */
 	@SuppressWarnings("unchecked") // heap pollution due to varargs
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void prependListeners(T... listeners);
 
 	/**
@@ -85,11 +96,13 @@ public interface EventListenerGroup<T> {
 	 *             the registered {@link DuplicationStrategy}s.
 	 */
 	@Deprecated
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void clear();
 
 	/**
 	 * Removes all registered listeners
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void clearListeners();
 
 	/**
@@ -102,6 +115,7 @@ public interface EventListenerGroup<T> {
 	 * @param <U> the kind of event
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<U> void fireLazyEventOnEachListener(Supplier<U> eventSupplier, BiConsumer<T,U> actionOnEvent);
 
 	/**
@@ -112,6 +126,7 @@ public interface EventListenerGroup<T> {
 	 * @param <U> the kind of event
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<U> void fireEventOnEachListener(U event, BiConsumer<T,U> actionOnEvent);
 
 	/**
@@ -121,6 +136,7 @@ public interface EventListenerGroup<T> {
 	 * reduce allocations.
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<U,X> void fireEventOnEachListener(U event, X param, EventActionWithParameter<T,U,X> actionOnEvent);
 
 	/**
@@ -139,6 +155,7 @@ public interface EventListenerGroup<T> {
 	 * @return the composite completion stage of invoking fun(event) on each listener.
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R, U, RL> CompletionStage<R> fireEventOnEachListener(U event, Function<RL, Function<U, CompletionStage<R>>> fun);
 
 	/**
@@ -158,6 +175,7 @@ public interface EventListenerGroup<T> {
 	 * @return the composite completion stage of invoking fun(event) on each listener.
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R, U, RL, X> CompletionStage<R> fireEventOnEachListener(U event, X param, Function<RL, BiFunction<U, X, CompletionStage<R>>> fun);
 
 	/**
@@ -181,6 +199,7 @@ public interface EventListenerGroup<T> {
 	 * @return the composite completion stage of invoking fun(event) on each listener.
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<R, U, RL> CompletionStage<R> fireLazyEventOnEachListener(Supplier<U> eventSupplier, Function<RL, Function<U, CompletionStage<R>>> fun);
 
 }

@@ -15,6 +15,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import static org.hibernate.boot.jaxb.JaxbLogger.JAXB_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Support for processing mapping XML from a {@linkplain File} reference.
@@ -27,6 +29,7 @@ public class FileXmlSource {
 	/**
 	 * Create a mapping {@linkplain Binding binding} from a File reference.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static Binding<? extends JaxbBindableMappingDescriptor> fromFile(
 			File file,
 			MappingBinder mappingBinder) {

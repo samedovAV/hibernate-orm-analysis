@@ -7,6 +7,8 @@ package org.hibernate.engine.internal;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.engine.spi.TransactionCompletionCallbacks.BeforeCompletionCallback;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Encapsulates behavior needed for before transaction processing
@@ -18,6 +20,7 @@ class BeforeTransactionCompletionProcessQueue
 		super( session );
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	void beforeTransactionCompletion() {
 		BeforeCompletionCallback process;
 		while ( (process = processes.poll()) != null ) {

@@ -6,6 +6,8 @@ package org.hibernate.metamodel.mapping.ordering.ast;
 
 import org.hibernate.metamodel.mapping.PluralAttributeMapping;
 import org.hibernate.metamodel.mapping.ordering.TranslationContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 
 /**
@@ -32,10 +34,12 @@ public class PathConsumer {
 		this.rootSequencePart = new RootSequencePart( pluralAttributeMapping );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SequencePart getConsumedPart() {
 		return currentPart;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void consumeIdentifier(
 			String unquotedIdentifier,
 			String identifier, boolean isBase,
@@ -58,6 +62,7 @@ public class PathConsumer {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void reset() {
 		pathSoFar.setLength( 0 );
 		currentPart = rootSequencePart;

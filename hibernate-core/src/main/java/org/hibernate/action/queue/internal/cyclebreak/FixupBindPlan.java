@@ -16,6 +16,8 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.persister.entity.EntityPersister;
 
 import java.util.Map;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// @author Steve Ebersole
 public class FixupBindPlan implements BindPlan, OperationResultChecker {
@@ -30,6 +32,7 @@ public class FixupBindPlan implements BindPlan, OperationResultChecker {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void bindValues(
 			JdbcValueBindings valueBindings,
 			FlushOperation flushOperation,
@@ -58,6 +61,7 @@ public class FixupBindPlan implements BindPlan, OperationResultChecker {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean checkResult(int affectedRowCount, int batchPosition, String sqlString, SessionFactoryImplementor f) {
 		// technically we could make sure 1 row was affected...
 		return true;

@@ -7,6 +7,8 @@ package org.hibernate.resource.beans.container.spi;
 import org.hibernate.resource.beans.spi.BeanInstanceProducer;
 import org.hibernate.service.JavaServiceLoadable;
 import org.hibernate.service.spi.Stoppable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Abstracts any kind of container for managed beans, for example,
@@ -23,15 +25,19 @@ import org.hibernate.service.spi.Stoppable;
 @JavaServiceLoadable
 public interface BeanContainer extends Stoppable {
 	interface LifecycleOptions {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		boolean canUseCachedReferences();
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		boolean useJpaCompliantCreation();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<B> ContainedBean<B> getBean(
 			Class<B> beanType,
 			LifecycleOptions lifecycleOptions,
 			BeanInstanceProducer fallbackProducer);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	<B> ContainedBean<B> getBean(
 			String name,
 			Class<B> beanType,

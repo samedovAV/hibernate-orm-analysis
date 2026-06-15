@@ -11,6 +11,8 @@ import org.hibernate.sql.results.graph.InitializerParent;
 import org.hibernate.sql.results.jdbc.spi.RowProcessingState;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Initializer implementation for initializing entity references.
@@ -22,10 +24,13 @@ public interface EntityInitializer<Data extends InitializerData> extends Initial
 	/**
 	 * Get the descriptor for the type of entity being initialized
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityPersister getEntityDescriptor();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityPersister getConcreteDescriptor(Data data);
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default EntityPersister getConcreteDescriptor(RowProcessingState rowProcessingState) {
 		return getConcreteDescriptor( getData( rowProcessingState ) );
 	}
@@ -37,13 +42,16 @@ public interface EntityInitializer<Data extends InitializerData> extends Initial
 	 * {@link #resolveKey(InitializerData)} has been called until {@link #finishUpRow(InitializerData)}
 	 * has been called for the currently processing row
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default Object getTargetInstance(Data data) {
 		return getResolvedInstance( data );
 	}
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default Object getTargetInstance(RowProcessingState rowProcessingState) {
 		return getTargetInstance( getData( rowProcessingState ) );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default @Nullable EntityKey resolveEntityKeyOnly(RowProcessingState rowProcessingState) {
 		final Data data = getData( rowProcessingState );
 		resolveKey( data );
@@ -55,7 +63,9 @@ public interface EntityInitializer<Data extends InitializerData> extends Initial
 		return entityKey;
 	}
 
-	@Nullable Object getEntityIdentifier(Data data);
+	@Nullable @Prove(complexity = Complexity.O_1, n = "", count = {})
+	Object getEntityIdentifier(Data data);
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default @Nullable Object getEntityIdentifier(RowProcessingState rowProcessingState) {
 		return getEntityIdentifier( getData( rowProcessingState ) );
 	}
@@ -65,15 +75,18 @@ public interface EntityInitializer<Data extends InitializerData> extends Initial
 	 *
 	 * @see org.hibernate.sql.results.graph.embeddable.EmbeddableInitializer#resetResolvedEntityRegistrations(RowProcessingState)
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void resetResolvedEntityRegistrations(RowProcessingState rowProcessingState) {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean isEntityInitializer() {
 		return true;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default EntityInitializer<?> asEntityInitializer() {
 		return this;
 	}

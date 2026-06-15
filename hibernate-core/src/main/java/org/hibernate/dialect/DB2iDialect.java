@@ -32,6 +32,8 @@ import org.hibernate.sql.exec.spi.JdbcOperation;
 import java.util.List;
 
 import static org.hibernate.type.SqlTypes.ROWID;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A SQL dialect for DB2 for IBM i version 7.2 and above, previously known as "DB2/400".
@@ -61,11 +63,13 @@ public class DB2iDialect extends DB2Dialect {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected LockingSupport buildLockingSupport() {
 		return DB2LockingSupport.forDB2i();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void initializeFunctionRegistry(FunctionContributions functionContributions) {
 		super.initializeFunctionRegistry( functionContributions );
 		// DB2 for i doesn't allow code units: https://www.ibm.com/docs/en/i/7.1.0?topic=functions-substring
@@ -76,16 +80,19 @@ public class DB2iDialect extends DB2Dialect {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected DatabaseVersion getMinimumSupportedVersion() {
 		return MINIMUM_VERSION;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DatabaseVersion getDB2Version() {
 		return DB2_LUW_VERSION;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getCreateIndexString(boolean unique) {
 		// we only create unique indexes, as opposed to unique constraints,
 		// when the column is nullable, so safe to infer unique => nullable
@@ -93,16 +100,19 @@ public class DB2iDialect extends DB2Dialect {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getCreateIndexTail(boolean unique, List<Column> columns) {
 		return "";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsIfExistsBeforeTableName() {
 		return false;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsUpdateReturning() {
 		// Only supported as of version 7.6: https://www.ibm.com/docs/en/i/7.6.0?topic=clause-table-reference
 		return getVersion().isSameOrAfter( 7, 6 );
@@ -112,6 +122,7 @@ public class DB2iDialect extends DB2Dialect {
 	 * No support for sequences.
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SequenceSupport getSequenceSupport() {
 		return getVersion().isSameOrAfter(7, 3)
 				? DB2iSequenceSupport.INSTANCE
@@ -119,6 +130,7 @@ public class DB2iDialect extends DB2Dialect {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getQuerySequencesString() {
 		if ( getVersion().isSameOrAfter(7,3) ) {
 			return "select distinct sequence_schema as seqschema, sequence_name as seqname, START, minimum_value as minvalue, maximum_value as maxvalue, increment from qsys2.syssequences " +
@@ -132,6 +144,7 @@ public class DB2iDialect extends DB2Dialect {
 
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public LimitHandler getLimitHandler() {
 		return getVersion().isSameOrAfter(7, 3)
 				? FetchLimitHandler.INSTANCE
@@ -139,6 +152,7 @@ public class DB2iDialect extends DB2Dialect {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public IdentityColumnSupport getIdentityColumnSupport() {
 		return getVersion().isSameOrAfter(7, 3)
 				? DB2IdentityColumnSupport.INSTANCE
@@ -146,9 +160,11 @@ public class DB2iDialect extends DB2Dialect {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqlAstTranslatorFactory getSqlAstTranslatorFactory() {
 		return new StandardSqlAstTranslatorFactory() {
 			@Override
+			@Prove(complexity = Complexity.O_1, n = "", count = {})
 			protected <T extends JdbcOperation> SqlAstTranslator<T> buildTranslator(
 					SessionFactoryImplementor sessionFactory, Statement statement) {
 				return new DB2iSqlAstTranslator<>( sessionFactory, statement, getVersion() );
@@ -157,26 +173,31 @@ public class DB2iDialect extends DB2Dialect {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String rowId(String rowId) {
 		return rowId;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int rowIdSqlType() {
 		return ROWID;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getRowIdColumnString(String rowId) {
 		return rowId( rowId ) + " rowid not null generated always";
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getForUpdateString() {
 		return FOR_UPDATE_SQL;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getForUpdateSkipLockedString() {
 		return supportsSkipLocked()
 				? FOR_UPDATE_SKIP_LOCKED_SQL
@@ -184,11 +205,13 @@ public class DB2iDialect extends DB2Dialect {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getForUpdateSkipLockedString(String aliases) {
 		return getForUpdateSkipLockedString();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getWriteLockString(Timeout timeout) {
 		return timeout.milliseconds() == Timeouts.SKIP_LOCKED_MILLI && supportsSkipLocked()
 				? FOR_UPDATE_SKIP_LOCKED_SQL
@@ -196,6 +219,7 @@ public class DB2iDialect extends DB2Dialect {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getReadLockString(Timeout timeout) {
 		return timeout.milliseconds() == Timeouts.SKIP_LOCKED_MILLI && supportsSkipLocked()
 				? FOR_UPDATE_SKIP_LOCKED_SQL
@@ -203,6 +227,7 @@ public class DB2iDialect extends DB2Dialect {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getWriteLockString(int timeout) {
 		return timeout == Timeouts.SKIP_LOCKED_MILLI && supportsSkipLocked()
 				? FOR_UPDATE_SKIP_LOCKED_SQL
@@ -210,6 +235,7 @@ public class DB2iDialect extends DB2Dialect {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getReadLockString(int timeout) {
 		return timeout == Timeouts.SKIP_LOCKED_MILLI && supportsSkipLocked()
 				? FOR_UPDATE_SKIP_LOCKED_SQL

@@ -60,6 +60,8 @@ import jakarta.persistence.criteria.Selection;
 import jakarta.persistence.criteria.SetJoin;
 import jakarta.persistence.criteria.Subquery;
 import jakarta.persistence.criteria.TemporalField;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilder {
 	private final HibernateCriteriaBuilder criteriaBuilder;
@@ -72,128 +74,151 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 		this.criteriaBuilder = (HibernateCriteriaBuilder) criteriaBuilder;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected HibernateCriteriaBuilder getCriteriaBuilder() {
 		return criteriaBuilder;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <X, T> JpaExpression<X> cast(JpaExpression<T> expression, Class<X> castTargetJavaType) {
 		return criteriaBuilder.cast( expression, castTargetJavaType );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <X, T> JpaExpression<X> cast(JpaExpression<T> expression, JpaCastTarget<X> castTarget) {
 		return criteriaBuilder.cast( expression, castTarget );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <X> JpaCastTarget<X> castTarget(Class<X> castTargetJavaType) {
 		return criteriaBuilder.castTarget( castTargetJavaType );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <X> JpaCastTarget<X> castTarget(Class<X> castTargetJavaType, long length) {
 		return criteriaBuilder.castTarget( castTargetJavaType, length );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <X> JpaCastTarget<X> castTarget(Class<X> castTargetJavaType, int precision, int scale) {
 		return criteriaBuilder.castTarget( castTargetJavaType, precision, scale );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate wrap(Expression<Boolean> expression) {
 		return criteriaBuilder.wrap( expression );
 	}
 
 	@Override @SafeVarargs
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final JpaPredicate wrap(Expression<Boolean>... expressions) {
 		return criteriaBuilder.wrap( expressions );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate wrap(BooleanExpression... expressions) {
 		return criteriaBuilder.wrap( expressions );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T extends HibernateCriteriaBuilder> T unwrap(Class<T> clazz) {
 		return criteriaBuilder.unwrap( clazz );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaCriteriaQuery<Object> createQuery() {
 		return criteriaBuilder.createQuery();
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaCriteriaQuery<T> createQuery(@Nonnull Class<T> resultClass) {
 		return criteriaBuilder.createQuery( resultClass );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaCriteriaQuery<T> createQuery(String hql, Class<T> resultClass) {
 		return criteriaBuilder.createQuery( hql, resultClass );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> CriteriaQuery<T> createQuery(@Nonnull Class<T> resultClass, @Nonnull String jpql) {
 		return criteriaBuilder.createQuery( resultClass, jpql );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public CriteriaQuery<?> createQuery(@Nonnull String jpql) {
 		return criteriaBuilder.createQuery( jpql );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaCriteriaQuery<Tuple> createTupleQuery() {
 		return criteriaBuilder.createTupleQuery();
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaCriteriaUpdate<T> createCriteriaUpdate(@Nonnull Class<T> targetEntity) {
 		return criteriaBuilder.createCriteriaUpdate( targetEntity );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> CriteriaUpdate<T> createCriteriaUpdate(@Nonnull Class<T> targetEntity, @Nonnull String jpql) {
 		return criteriaBuilder.createCriteriaUpdate( targetEntity, jpql );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public CriteriaUpdate<?> createCriteriaUpdate(@Nonnull String jpql) {
 		return criteriaBuilder.createCriteriaUpdate( jpql );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaCriteriaDelete<T> createCriteriaDelete(@Nonnull Class<T> targetEntity) {
 		return criteriaBuilder.createCriteriaDelete( targetEntity );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> CriteriaDelete<T> createCriteriaDelete(@Nonnull Class<T> targetEntity, @Nonnull String jpql) {
 		return criteriaBuilder.createCriteriaDelete( targetEntity, jpql );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public CriteriaDelete<?> createCriteriaDelete(@Nonnull String jpql) {
 		return criteriaBuilder.createCriteriaDelete( jpql );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> TypedQueryReference<T> augment(
 			@Nonnull TypedQueryReference<T> reference,
 			@Nonnull Consumer<CriteriaQuery<T>> augmentation) {
@@ -201,6 +226,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public @Nonnull <T> TypedQueryReference<T> augment(
 			@Nonnull TypedQueryReference<?> reference,
 			@Nonnull Class<T> augmentedResultType,
@@ -210,6 +236,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public StatementReference augment(
 			@Nonnull StatementReference reference,
 			@Nonnull Consumer<CriteriaStatement<?>> augmentation) {
@@ -217,53 +244,63 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaCriteriaInsertValues<T> createCriteriaInsertValues(Class<T> targetEntity) {
 		return criteriaBuilder.createCriteriaInsertValues( targetEntity );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaCriteriaInsertSelect<T> createCriteriaInsertSelect(Class<T> targetEntity) {
 		return criteriaBuilder.createCriteriaInsertSelect( targetEntity );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaValues values(Expression<?>... expressions) {
 		return criteriaBuilder.values( expressions );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaValues values(List<? extends Expression<?>> expressions) {
 		return criteriaBuilder.values( expressions );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaCriteriaQuery<T> unionAll(CriteriaQuery<? extends T> query1, CriteriaQuery<?>... queries) {
 		return criteriaBuilder.unionAll( query1, queries );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaCriteriaQuery<T> union(CriteriaQuery<? extends T> query1, CriteriaQuery<?>... queries) {
 		return criteriaBuilder.union( query1, queries );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaCriteriaQuery<T> union(boolean all, CriteriaQuery<? extends T> query1, CriteriaQuery<?>... queries) {
 		return criteriaBuilder.union( all, query1, queries );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaCriteriaQuery<T> intersectAll(CriteriaQuery<? extends T> query1, CriteriaQuery<?>... queries) {
 		return criteriaBuilder.intersectAll( query1, queries );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaCriteriaQuery<T> intersect(CriteriaQuery<? extends T> query1, CriteriaQuery<?>... queries) {
 		return criteriaBuilder.intersect( query1, queries );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaCriteriaQuery<T> intersect(
 			boolean all,
 			CriteriaQuery<? extends T> query1,
@@ -272,85 +309,101 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaCriteriaQuery<T> exceptAll(CriteriaQuery<? extends T> query1, CriteriaQuery<?>... queries) {
 		return criteriaBuilder.exceptAll( query1, queries );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaCriteriaQuery<T> except(CriteriaQuery<? extends T> query1, CriteriaQuery<?>... queries) {
 		return criteriaBuilder.except( query1, queries );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaCriteriaQuery<T> except(boolean all, CriteriaQuery<? extends T> query1, CriteriaQuery<?>... queries) {
 		return criteriaBuilder.except( all, query1, queries );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> CriteriaSelect<T> union(@Nonnull CriteriaSelect<? extends T> left, @Nonnull CriteriaSelect<? extends T> right) {
 		return criteriaBuilder.union( left, right );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaSubQuery<T> unionAll(JpaSubQuery<? extends T> query1, JpaSubQuery<? extends T> query2) {
 		return criteriaBuilder.unionAll( query1, query2 );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> CriteriaSelect<T> unionAll(@Nonnull CriteriaSelect<? extends T> left, @Nonnull CriteriaSelect<? extends T> right) {
 		return criteriaBuilder.unionAll( left, right );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaSubQuery<T> union(Subquery<? extends T> query1, Subquery<?>... queries) {
 		return criteriaBuilder.union( query1, queries );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaSubQuery<T> union(boolean all, Subquery<? extends T> query1, Subquery<?>... queries) {
 		return criteriaBuilder.union( all, query1, queries );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaSubQuery<T> intersectAll(Subquery<? extends T> query1, Subquery<?>... queries) {
 		return criteriaBuilder.intersectAll( query1, queries );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaSubQuery<T> intersect(Subquery<? extends T> query1, Subquery<?>... queries) {
 		return criteriaBuilder.intersect( query1, queries );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaSubQuery<T> intersect(boolean all, Subquery<? extends T> query1, Subquery<?>... queries) {
 		return criteriaBuilder.intersect( all, query1, queries );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> CriteriaSelect<T> except(@Nonnull CriteriaSelect<T> left, @Nonnull CriteriaSelect<?> right) {
 		return criteriaBuilder.except( left, right );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> CriteriaSelect<T> exceptAll(@Nonnull CriteriaSelect<T> left, @Nonnull CriteriaSelect<?> right) {
 		return criteriaBuilder.exceptAll( left, right );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaSubQuery<T> exceptAll(Subquery<? extends T> query1, Subquery<?>... queries) {
 		return criteriaBuilder.exceptAll( query1, queries );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaSubQuery<T> except(Subquery<? extends T> query1, Subquery<?>... queries) {
 		return criteriaBuilder.except( query1, queries );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaSubQuery<T> except(boolean all, Subquery<? extends T> query1, Subquery<?>... queries) {
 		return criteriaBuilder.except( all, query1, queries );
 	}
@@ -359,910 +412,1065 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Integer> sign(@Nonnull Expression<? extends Number> x) {
 		return criteriaBuilder.sign( x );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <N extends Number> JpaExpression<N> ceiling(@Nonnull Expression<N> x) {
 		return criteriaBuilder.ceiling( x );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <N extends Number> JpaExpression<N> floor(@Nonnull Expression<N> x) {
 		return criteriaBuilder.floor( x );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Double> exp(@Nonnull Expression<? extends Number> x) {
 		return criteriaBuilder.exp( x );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Double> ln(@Nonnull Expression<? extends Number> x) {
 		return criteriaBuilder.ln( x );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Double> power(@Nonnull Expression<? extends Number> x, @Nonnull Expression<? extends Number> y) {
 		return criteriaBuilder.power( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Double> power(@Nonnull Expression<? extends Number> x, Number y) {
 		return criteriaBuilder.power( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T extends Number> JpaExpression<T> round(@Nonnull Expression<T> x, @Nonnull Integer n) {
 		return criteriaBuilder.round( x, n );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T extends Number> JpaExpression<T> truncate(Expression<T> x, Integer n) {
 		return criteriaBuilder.truncate( x, n );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<LocalDate> localDate() {
 		return criteriaBuilder.localDate();
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<LocalDateTime> localDateTime() {
 		return criteriaBuilder.localDateTime();
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<LocalTime> localTime() {
 		return criteriaBuilder.localTime();
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <N, T extends Temporal> JpaExpression<N> extract(@Nonnull TemporalField<N, T> field, @Nonnull Expression<T> temporal) {
 		return criteriaBuilder.extract( field, temporal );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<?> fk(Path<?> path) {
 		return criteriaBuilder.fk( path );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <X, T extends X> JpaPath<T> treat(@Nonnull Path<X> path, @Nonnull Class<T> type) {
 		return criteriaBuilder.treat( path, type );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <X, T extends X> JpaRoot<T> treat(@Nonnull Root<X> root, @Nonnull Class<T> type) {
 		return criteriaBuilder.treat( root, type );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <X, Y, T extends Y> JpaFrom<X, T> treat(@Nonnull From<X, Y> from, @Nonnull Class<T> type) {
 		return criteriaBuilder.treat( from, type );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaCriteriaQuery<T> union(@Nonnull CriteriaQuery<? extends T> left, @Nonnull CriteriaQuery<? extends T> right) {
 		return criteriaBuilder.union( left, right );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaCriteriaQuery<T> unionAll(@Nonnull CriteriaQuery<? extends T> left, @Nonnull CriteriaQuery<? extends T> right) {
 		return criteriaBuilder.unionAll( left, right );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> CriteriaSelect<T> intersect(@Nonnull CriteriaSelect<? super T> left, @Nonnull CriteriaSelect<? super T> right) {
 		return criteriaBuilder.intersect( left, right );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> CriteriaSelect<T> intersectAll(@Nonnull CriteriaSelect<? super T> left, @Nonnull CriteriaSelect<? super T> right) {
 		return criteriaBuilder.intersectAll( left, right );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaCriteriaQuery<T> intersect(@Nonnull CriteriaQuery<? super T> left, @Nonnull CriteriaQuery<? super T> right) {
 		return criteriaBuilder.intersect( left, right );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaCriteriaQuery<T> intersectAll(@Nonnull CriteriaQuery<? super T> left, @Nonnull CriteriaQuery<? super T> right) {
 		return criteriaBuilder.intersectAll( left, right );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaCriteriaQuery<T> except(@Nonnull CriteriaQuery<T> left, @Nonnull CriteriaQuery<?> right) {
 		return criteriaBuilder.except( left, right );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaCriteriaQuery<T> exceptAll(@Nonnull CriteriaQuery<T> left, @Nonnull CriteriaQuery<?> right) {
 		return criteriaBuilder.exceptAll( left, right );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <X, T, V extends T> JpaJoin<X, V> treat(@Nonnull Join<X, T> join, @Nonnull Class<V> type) {
 		return criteriaBuilder.treat( join, type );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <X, T, E extends T> JpaCollectionJoin<X, E> treat(@Nonnull CollectionJoin<X, T> join, @Nonnull Class<E> type) {
 		return criteriaBuilder.treat( join, type );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <X, T, E extends T> JpaSetJoin<X, E> treat(@Nonnull SetJoin<X, T> join, @Nonnull Class<E> type) {
 		return criteriaBuilder.treat( join, type );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <X, T, E extends T> JpaListJoin<X, E> treat(@Nonnull ListJoin<X, T> join, @Nonnull Class<E> type) {
 		return criteriaBuilder.treat( join, type );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <X, K, T, V extends T> JpaMapJoin<X, K, V> treat(@Nonnull MapJoin<X, K, T> join, @Nonnull Class<V> type) {
 		return criteriaBuilder.treat( join, type );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <Y> JpaCompoundSelection<Y> construct(@Nonnull Class<Y> resultClass, @Nonnull Selection<?>... selections) {
 		return criteriaBuilder.construct( resultClass, selections );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <Y> JpaCompoundSelection<Y> construct(Class<Y> resultClass, List<? extends Selection<?>> arguments) {
 		return criteriaBuilder.construct( resultClass, arguments );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaCompoundSelection<Tuple> tuple(@Nonnull Selection<?>... selections) {
 		return criteriaBuilder.tuple( selections );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaCompoundSelection<Tuple> tuple(@Nonnull List<Selection<?>> selections) {
 		return criteriaBuilder.tuple( selections );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaCompoundSelection<Object[]> array(@Nonnull Selection<?>... selections) {
 		return criteriaBuilder.array( selections );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaCompoundSelection<Object[]> array(@Nonnull List<Selection<?>> selections) {
 		return criteriaBuilder.array( selections );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <Y> JpaCompoundSelection<Y> array(Class<Y> resultClass, Selection<?>... selections) {
 		return criteriaBuilder.array( resultClass, selections );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <Y> JpaCompoundSelection<Y> array(Class<Y> resultClass, List<? extends Selection<?>> selections) {
 		return criteriaBuilder.array( resultClass, selections );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <N extends Number> JpaExpression<Double> avg(@Nonnull Expression<N> argument) {
 		return criteriaBuilder.avg( argument );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <N extends Number> JpaExpression<N> sum(@Nonnull Expression<N> argument) {
 		return criteriaBuilder.sum( argument );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Long> sumAsLong(@Nonnull Expression<Integer> argument) {
 		return criteriaBuilder.sumAsLong( argument );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Double> sumAsDouble(@Nonnull Expression<Float> argument) {
 		return criteriaBuilder.sumAsDouble( argument );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <N extends Number> JpaExpression<N> max(@Nonnull Expression<N> argument) {
 		return criteriaBuilder.max( argument );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <N extends Number> JpaExpression<N> min(@Nonnull Expression<N> argument) {
 		return criteriaBuilder.min( argument );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <X extends Comparable<? super X>> JpaExpression<X> greatest(@Nonnull Expression<X> argument) {
 		return criteriaBuilder.greatest( argument );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <X extends Comparable<? super X>> JpaExpression<X> least(@Nonnull Expression<X> argument) {
 		return criteriaBuilder.least( argument );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Long> count(@Nonnull Expression<?> argument) {
 		return criteriaBuilder.count( argument );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Long> count() {
 		return criteriaBuilder.count();
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Long> countDistinct(@Nonnull Expression<?> x) {
 		return criteriaBuilder.countDistinct( x );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <N extends Number> JpaExpression<N> neg(@Nonnull Expression<N> x) {
 		return criteriaBuilder.neg( x );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <N extends Number> JpaExpression<N> abs(@Nonnull Expression<N> x) {
 		return criteriaBuilder.abs( x );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <N extends Number> JpaExpression<N> sum(@Nonnull Expression<? extends N> x, @Nonnull Expression<? extends N> y) {
 		return criteriaBuilder.sum( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <N extends Number> JpaExpression<N> sum(@Nonnull Expression<? extends N> x, N y) {
 		return criteriaBuilder.sum( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <N extends Number> JpaExpression<N> sum(N x, @Nonnull Expression<? extends N> y) {
 		return criteriaBuilder.sum( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <N extends Number> JpaExpression<N> prod(@Nonnull Expression<? extends N> x, @Nonnull Expression<? extends N> y) {
 		return criteriaBuilder.prod( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <N extends Number> JpaExpression<N> prod(@Nonnull Expression<? extends N> x, N y) {
 		return criteriaBuilder.prod( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <N extends Number> JpaExpression<N> prod(N x, @Nonnull Expression<? extends N> y) {
 		return criteriaBuilder.prod( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <N extends Number> JpaExpression<N> diff(@Nonnull Expression<? extends N> x, @Nonnull Expression<? extends N> y) {
 		return criteriaBuilder.diff( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <N extends Number> JpaExpression<N> diff(@Nonnull Expression<? extends N> x, N y) {
 		return criteriaBuilder.diff( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <N extends Number> JpaExpression<N> diff(N x, @Nonnull Expression<? extends N> y) {
 		return criteriaBuilder.diff( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Number> quot(@Nonnull Expression<? extends Number> x, @Nonnull Expression<? extends Number> y) {
 		return criteriaBuilder.quot( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Number> quot(@Nonnull Expression<? extends Number> x, Number y) {
 		return criteriaBuilder.quot( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Number> quot(Number x, @Nonnull Expression<? extends Number> y) {
 		return criteriaBuilder.quot( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Integer> mod(@Nonnull Expression<Integer> x, @Nonnull Expression<Integer> y) {
 		return criteriaBuilder.mod( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Integer> mod(@Nonnull Expression<Integer> x, Integer y) {
 		return criteriaBuilder.mod( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Integer> mod(Integer x, @Nonnull Expression<Integer> y) {
 		return criteriaBuilder.mod( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Double> sqrt(@Nonnull Expression<? extends Number> x) {
 		return criteriaBuilder.sqrt( x );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Long> toLong(@Nonnull Expression<? extends Number> number) {
 		return criteriaBuilder.toLong( number );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Integer> toInteger(@Nonnull Expression<? extends Number> number) {
 		return criteriaBuilder.toInteger( number );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Float> toFloat(@Nonnull Expression<? extends Number> number) {
 		return criteriaBuilder.toFloat( number );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Double> toDouble(@Nonnull Expression<? extends Number> number) {
 		return criteriaBuilder.toDouble( number );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<BigDecimal> toBigDecimal(@Nonnull Expression<? extends Number> number) {
 		return criteriaBuilder.toBigDecimal( number );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<BigInteger> toBigInteger(@Nonnull Expression<? extends Number> number) {
 		return criteriaBuilder.toBigInteger( number );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> toString(@Nonnull Expression<Character> character) {
 		return criteriaBuilder.toString( character );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T> literal(@Nonnull T value) {
 		return criteriaBuilder.literal( value );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <N extends Number & Comparable<N>> NumericExpression<N> numericLiteral(@Nonnull N value) {
 		return criteriaBuilder.numericLiteral( value );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public TextExpression stringLiteral(@Nonnull String value) {
 		return criteriaBuilder.stringLiteral( value );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T extends Temporal & Comparable<? super T>> TemporalExpression<T> temporalLiteral(@Nonnull T value) {
 		return criteriaBuilder.temporalLiteral( value );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public BooleanExpression booleanLiteral(boolean value) {
 		return criteriaBuilder.booleanLiteral( value );
 	}
 
 	@Override @SafeVarargs
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final <T> List<? extends JpaExpression<T>> literals(T... values) {
 		return criteriaBuilder.literals( values );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> List<? extends JpaExpression<T>> literals(List<T> values) {
 		return criteriaBuilder.literals( values );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T> nullLiteral(@Nonnull Class<T> resultClass) {
 		return criteriaBuilder.nullLiteral( resultClass );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaParameterExpression<T> parameter(@Nonnull Class<T> paramClass) {
 		return criteriaBuilder.parameter( paramClass );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaParameterExpression<T> parameter(@Nonnull Class<T> paramClass, @Nonnull String name) {
 		return criteriaBuilder.parameter( paramClass, name );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> ParameterExpression<T> convertedParameter(@Nonnull Class<? extends AttributeConverter<T, ?>> converter) {
 		return criteriaBuilder.convertedParameter( converter );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> concat(@Nonnull Expression<String> x, @Nonnull Expression<String> y) {
 		return criteriaBuilder.concat( x, y );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaParameterExpression<List<T>> listParameter(Class<T> paramClass) {
 		return criteriaBuilder.listParameter( paramClass );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaParameterExpression<List<T>> listParameter(Class<T> paramClass, String name) {
 		return criteriaBuilder.listParameter( paramClass, name );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> concat(@Nonnull Expression<String> x, @Nonnull String y) {
 		return criteriaBuilder.concat( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> concat(@Nonnull String x, @Nonnull Expression<String> y) {
 		return criteriaBuilder.concat( x, y );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> concat(String x, String y) {
 		return criteriaBuilder.concat( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> substring(@Nonnull Expression<String> x, @Nonnull Expression<Integer> from) {
 		return criteriaBuilder.substring( x, from );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> substring(@Nonnull Expression<String> x, int from) {
 		return criteriaBuilder.substring( x, from );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> substring(@Nonnull Expression<String> x, @Nonnull Expression<Integer> from, @Nonnull Expression<Integer> len) {
 		return criteriaBuilder.substring( x, from, len );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> substring(@Nonnull Expression<String> x, int from, int len) {
 		return criteriaBuilder.substring( x, from, len );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> trim(@Nonnull Expression<String> x) {
 		return criteriaBuilder.trim( x );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> trim(@Nonnull Trimspec ts, @Nonnull Expression<String> x) {
 		return criteriaBuilder.trim( ts, x );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> trim(@Nonnull Expression<Character> t, @Nonnull Expression<String> x) {
 		return criteriaBuilder.trim( t, x );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> trim(@Nonnull Trimspec ts, @Nonnull Expression<Character> t, @Nonnull Expression<String> x) {
 		return criteriaBuilder.trim( ts, t, x );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> trim(char t, @Nonnull Expression<String> x) {
 		return criteriaBuilder.trim( t, x );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> trim(@Nonnull Trimspec ts, char t, @Nonnull Expression<String> x) {
 		return criteriaBuilder.trim( ts, t, x );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> lower(@Nonnull Expression<String> x) {
 		return criteriaBuilder.lower( x );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> upper(@Nonnull Expression<String> x) {
 		return criteriaBuilder.upper( x );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<Integer> length(@Nonnull Expression<String> x) {
 		return criteriaBuilder.length( x );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<Integer> locate(@Nonnull Expression<String> x, @Nonnull Expression<String> pattern) {
 		return criteriaBuilder.locate( x, pattern );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<Integer> locate(@Nonnull Expression<String> x, @Nonnull String pattern) {
 		return criteriaBuilder.locate( x, pattern );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<Integer> locate(@Nonnull Expression<String> x, @Nonnull Expression<String> pattern, @Nonnull Expression<Integer> from) {
 		return criteriaBuilder.locate( x, pattern, from );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<Integer> locate(@Nonnull Expression<String> x, @Nonnull String pattern, int from) {
 		return criteriaBuilder.locate( x, pattern, from );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<Date> currentDate() {
 		return criteriaBuilder.currentDate();
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<Time> currentTime() {
 		return criteriaBuilder.currentTime();
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<Timestamp> currentTimestamp() {
 		return criteriaBuilder.currentTimestamp();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<Instant> currentInstant() {
 		return criteriaBuilder.currentInstant();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<?> id(Path<?> path) {
 		return criteriaBuilder.id( path );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<?> version(Path<?> path) {
 		return criteriaBuilder.version( path );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaFunction<T> function(@Nonnull String name, @Nonnull Class<T> type, @Nonnull Expression<?>... args) {
 		return criteriaBuilder.function( name, type, args );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <Y> JpaExpression<Y> all(@Nonnull Subquery<Y> subquery) {
 		return criteriaBuilder.all( subquery );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <Y> JpaExpression<Y> some(@Nonnull Subquery<Y> subquery) {
 		return criteriaBuilder.some( subquery );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <Y> JpaExpression<Y> any(@Nonnull Subquery<Y> subquery) {
 		return criteriaBuilder.any( subquery );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <K, L extends List<?>> JpaExpression<Set<K>> indexes(L list) {
 		return criteriaBuilder.indexes( list );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T> value(@Nullable T value) {
 		return criteriaBuilder.value( value );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <C extends Collection<?>> JpaExpression<Integer> size(@Nonnull Expression<C> collection) {
 		return criteriaBuilder.size( collection );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <C extends Collection<?>> JpaExpression<Integer> size(@Nonnull C collection) {
 		return criteriaBuilder.size( collection );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaCoalesce<T> coalesce() {
 		return criteriaBuilder.coalesce();
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <Y> JpaCoalesce<Y> coalesce(@Nonnull Expression<? extends Y> x, @Nonnull Expression<? extends Y> y) {
 		return criteriaBuilder.coalesce( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <Y> JpaCoalesce<Y> coalesce(@Nonnull Expression<? extends Y> x, Y y) {
 		return criteriaBuilder.coalesce( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <Y> JpaExpression<Y> nullif(@Nonnull Expression<Y> x, @Nonnull Expression<?> y) {
 		return criteriaBuilder.nullif( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <Y> JpaExpression<Y> nullif(@Nonnull Expression<Y> x, Y y) {
 		return criteriaBuilder.nullif( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <C, R> JpaSimpleCase<C, R> selectCase(@Nonnull Expression<? extends C> expression) {
 		return criteriaBuilder.selectCase( expression );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <C, R> JpaSimpleCase<C, R> selectCase(@Nonnull Expression<? extends C> expression, @Nonnull Class<R> resultType) {
 		return criteriaBuilder.selectCase( expression, resultType );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <R> JpaSearchedCase<R> selectCase() {
 		return criteriaBuilder.selectCase();
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <R> JpaSearchedCase<R> selectCase(@Nonnull Class<R> resultType) {
 		return criteriaBuilder.selectCase( resultType );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate and(@Nonnull Expression<Boolean> x, @Nonnull Expression<Boolean> y) {
 		return criteriaBuilder.and( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate and(@Nonnull Predicate... restrictions) {
 		return criteriaBuilder.and( restrictions );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate and(@Nonnull BooleanExpression... restrictions) {
 		return criteriaBuilder.and( restrictions );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate and(@Nonnull List<? extends Expression<Boolean>> restrictions) {
 		return criteriaBuilder.and( restrictions );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate or(@Nonnull Expression<Boolean> x, @Nonnull Expression<Boolean> y) {
 		return criteriaBuilder.or( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate or(@Nonnull Predicate... restrictions) {
 		return criteriaBuilder.or( restrictions );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate or(@Nonnull BooleanExpression... restrictions) {
 		return criteriaBuilder.or( restrictions );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate or(@Nonnull List<? extends Expression<Boolean>> restrictions) {
 		return criteriaBuilder.or( restrictions );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate not(@Nonnull Expression<Boolean> restriction) {
 		return criteriaBuilder.not( restriction );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate conjunction() {
 		return criteriaBuilder.conjunction();
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate disjunction() {
 		return criteriaBuilder.disjunction();
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate isTrue(@Nonnull Expression<Boolean> x) {
 		return criteriaBuilder.isTrue( x );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate isFalse(@Nonnull Expression<Boolean> x) {
 		return criteriaBuilder.isFalse( x );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate isNull(@Nonnull Expression<?> x) {
 		return criteriaBuilder.isNull( x );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate isNotNull(@Nonnull Expression<?> x) {
 		return criteriaBuilder.isNotNull( x );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate equal(@Nonnull Expression<?> x, @Nonnull Expression<?> y) {
 		return criteriaBuilder.equal( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate equal(@Nonnull Expression<?> x, Object y) {
 		return criteriaBuilder.equal( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate notEqual(@Nonnull Expression<?> x, @Nonnull Expression<?> y) {
 		return criteriaBuilder.notEqual( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate notEqual(@Nonnull Expression<?> x, Object y) {
 		return criteriaBuilder.notEqual( x, y );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate distinctFrom(Expression<?> x, Expression<?> y) {
 		return criteriaBuilder.distinctFrom( x, y );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate distinctFrom(Expression<?> x, Object y) {
 		return criteriaBuilder.distinctFrom( x, y );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate notDistinctFrom(Expression<?> x, Expression<?> y) {
 		return criteriaBuilder.notDistinctFrom( x, y );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate notDistinctFrom(Expression<?> x, Object y) {
 		return criteriaBuilder.notDistinctFrom( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <Y extends Comparable<? super Y>> JpaPredicate greaterThan(
 			@Nonnull Expression<? extends Y> x,
 			@Nonnull Expression<? extends Y> y) {
@@ -1271,12 +1479,14 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <Y extends Comparable<? super Y>> JpaPredicate greaterThan(@Nonnull Expression<? extends Y> x, Y y) {
 		return criteriaBuilder.greaterThan( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <Y extends Comparable<? super Y>> JpaPredicate greaterThanOrEqualTo(
 			@Nonnull Expression<? extends Y> x,
 			@Nonnull Expression<? extends Y> y) {
@@ -1285,12 +1495,14 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <Y extends Comparable<? super Y>> JpaPredicate greaterThanOrEqualTo(@Nonnull Expression<? extends Y> x, Y y) {
 		return criteriaBuilder.greaterThanOrEqualTo( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <Y extends Comparable<? super Y>> JpaPredicate lessThan(
 			@Nonnull Expression<? extends Y> x,
 			@Nonnull Expression<? extends Y> y) {
@@ -1299,12 +1511,14 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <Y extends Comparable<? super Y>> JpaPredicate lessThan(@Nonnull Expression<? extends Y> x, Y y) {
 		return criteriaBuilder.lessThan( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <Y extends Comparable<? super Y>> JpaPredicate lessThanOrEqualTo(
 			@Nonnull Expression<? extends Y> x,
 			@Nonnull Expression<? extends Y> y) {
@@ -1313,12 +1527,14 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <Y extends Comparable<? super Y>> JpaPredicate lessThanOrEqualTo(@Nonnull Expression<? extends Y> x, Y y) {
 		return criteriaBuilder.lessThanOrEqualTo( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <Y extends Comparable<? super Y>> JpaPredicate between(
 			@Nonnull Expression<? extends Y> value,
 			@Nonnull Expression<? extends Y> lower,
@@ -1328,12 +1544,14 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <Y extends Comparable<? super Y>> JpaPredicate between(@Nonnull Expression<? extends Y> value, Y lower, Y upper) {
 		return criteriaBuilder.between( value, lower, upper );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <Y extends Comparable<? super Y>> JpaPredicate between(
 			Y value,
 			@Nonnull Expression<? extends Y> lower,
@@ -1343,304 +1561,359 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate gt(@Nonnull Expression<? extends Number> x, @Nonnull Expression<? extends Number> y) {
 		return criteriaBuilder.gt( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate gt(@Nonnull Expression<? extends Number> x, Number y) {
 		return criteriaBuilder.gt( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate ge(@Nonnull Expression<? extends Number> x, @Nonnull Expression<? extends Number> y) {
 		return criteriaBuilder.ge( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate ge(@Nonnull Expression<? extends Number> x, Number y) {
 		return criteriaBuilder.ge( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate lt(@Nonnull Expression<? extends Number> x, @Nonnull Expression<? extends Number> y) {
 		return criteriaBuilder.lt( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate lt(@Nonnull Expression<? extends Number> x, Number y) {
 		return criteriaBuilder.lt( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate le(@Nonnull Expression<? extends Number> x, @Nonnull Expression<? extends Number> y) {
 		return criteriaBuilder.le( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate le(@Nonnull Expression<? extends Number> x, Number y) {
 		return criteriaBuilder.le( x, y );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <C extends Collection<?>> JpaPredicate isEmpty(@Nonnull Expression<C> collection) {
 		return criteriaBuilder.isEmpty( collection );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <C extends Collection<?>> JpaPredicate isNotEmpty(@Nonnull Expression<C> collection) {
 		return criteriaBuilder.isNotEmpty( collection );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E, C extends Collection<E>> JpaPredicate isMember(@Nonnull Expression<E> elem, @Nonnull Expression<C> collection) {
 		return criteriaBuilder.isMember( elem, collection );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E, C extends Collection<E>> JpaPredicate isMember(E elem, @Nonnull Expression<C> collection) {
 		return criteriaBuilder.isMember( elem, collection );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E, C extends Collection<E>> JpaPredicate isNotMember(@Nonnull Expression<E> elem, @Nonnull Expression<C> collection) {
 		return criteriaBuilder.isNotMember( elem, collection );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E, C extends Collection<E>> JpaPredicate isNotMember(E elem, @Nonnull Expression<C> collection) {
 		return criteriaBuilder.isNotMember( elem, collection );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate like(@Nonnull Expression<String> x, @Nonnull Expression<String> pattern) {
 		return criteriaBuilder.like( x, pattern );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate like(@Nonnull Expression<String> x, @Nonnull String pattern) {
 		return criteriaBuilder.like( x, pattern );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate like(@Nonnull Expression<String> x, @Nonnull Expression<String> pattern, @Nonnull Expression<Character> escapeChar) {
 		return criteriaBuilder.like( x, pattern, escapeChar );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate like(@Nonnull Expression<String> x, @Nonnull Expression<String> pattern, char escapeChar) {
 		return criteriaBuilder.like( x, pattern, escapeChar );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate like(@Nonnull Expression<String> x, @Nonnull String pattern, @Nonnull Expression<Character> escapeChar) {
 		return criteriaBuilder.like( x, pattern, escapeChar );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate like(@Nonnull Expression<String> x, @Nonnull String pattern, char escapeChar) {
 		return criteriaBuilder.like( x, pattern, escapeChar );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate ilike(Expression<String> x, Expression<String> pattern) {
 		return criteriaBuilder.ilike( x, pattern );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate ilike(Expression<String> x, String pattern) {
 		return criteriaBuilder.ilike( x, pattern );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate ilike(Expression<String> x, Expression<String> pattern, Expression<Character> escapeChar) {
 		return criteriaBuilder.ilike( x, pattern, escapeChar );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate ilike(Expression<String> x, Expression<String> pattern, char escapeChar) {
 		return criteriaBuilder.ilike( x, pattern, escapeChar );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate ilike(Expression<String> x, String pattern, Expression<Character> escapeChar) {
 		return criteriaBuilder.ilike( x, pattern, escapeChar );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate ilike(Expression<String> x, String pattern, char escapeChar) {
 		return criteriaBuilder.ilike( x, pattern, escapeChar );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate notLike(@Nonnull Expression<String> x, @Nonnull Expression<String> pattern) {
 		return criteriaBuilder.notLike( x, pattern );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate notLike(@Nonnull Expression<String> x, @Nonnull String pattern) {
 		return criteriaBuilder.notLike( x, pattern );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate notLike(@Nonnull Expression<String> x, @Nonnull Expression<String> pattern, @Nonnull Expression<Character> escapeChar) {
 		return criteriaBuilder.notLike( x, pattern, escapeChar );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate notLike(@Nonnull Expression<String> x, @Nonnull Expression<String> pattern, char escapeChar) {
 		return criteriaBuilder.notLike( x, pattern, escapeChar );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate notLike(@Nonnull Expression<String> x, @Nonnull String pattern, @Nonnull Expression<Character> escapeChar) {
 		return criteriaBuilder.notLike( x, pattern, escapeChar );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate notLike(@Nonnull Expression<String> x, @Nonnull String pattern, char escapeChar) {
 		return criteriaBuilder.notLike( x, pattern, escapeChar );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> concat(@Nonnull List<Expression<String>> expressions) {
 		return criteriaBuilder.concat( expressions );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate notIlike(Expression<String> x, Expression<String> pattern) {
 		return criteriaBuilder.notIlike( x, pattern );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate notIlike(Expression<String> x, String pattern) {
 		return criteriaBuilder.notIlike( x, pattern );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate notIlike(Expression<String> x, Expression<String> pattern, Expression<Character> escapeChar) {
 		return criteriaBuilder.notIlike( x, pattern, escapeChar );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate notIlike(Expression<String> x, Expression<String> pattern, char escapeChar) {
 		return criteriaBuilder.notIlike( x, pattern, escapeChar );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate notIlike(Expression<String> x, String pattern, Expression<Character> escapeChar) {
 		return criteriaBuilder.notIlike( x, pattern, escapeChar );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate notIlike(Expression<String> x, String pattern, char escapeChar) {
 		return criteriaBuilder.notIlike( x, pattern, escapeChar );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate likeRegexp(Expression<String> x, String pattern) {
 		return criteriaBuilder.likeRegexp( x, pattern );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate ilikeRegexp(Expression<String> x, String pattern) {
 		return criteriaBuilder.ilikeRegexp( x, pattern );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate notLikeRegexp(Expression<String> x, String pattern) {
 		return criteriaBuilder.notLikeRegexp( x, pattern );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate notIlikeRegexp(Expression<String> x, String pattern) {
 		return criteriaBuilder.notIlikeRegexp( x, pattern );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaInPredicate<T> in(@Nonnull Expression<? extends T> expression) {
 		return criteriaBuilder.in( expression );
 	}
 
 	@Override @SafeVarargs
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final <T> JpaInPredicate<T> in(Expression<? extends T> expression, Expression<? extends T>... values) {
 		return criteriaBuilder.in( expression, values );
 	}
 
 	@Override @SafeVarargs
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final <T> JpaInPredicate<T> in(Expression<? extends T> expression, T... values) {
 		return criteriaBuilder.in( expression, values );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaInPredicate<T> in(Expression<? extends T> expression, Collection<T> values) {
 		return criteriaBuilder.in( expression, values );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaPredicate exists(@Nonnull Subquery<?> subquery) {
 		return criteriaBuilder.exists( subquery );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <M extends Map<?, ?>> JpaPredicate isMapEmpty(JpaExpression<M> mapExpression) {
 		return criteriaBuilder.isMapEmpty( mapExpression );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <M extends Map<?, ?>> JpaPredicate isMapNotEmpty(JpaExpression<M> mapExpression) {
 		return criteriaBuilder.isMapNotEmpty( mapExpression );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <M extends Map<?, ?>> JpaExpression<Integer> mapSize(JpaExpression<M> mapExpression) {
 		return criteriaBuilder.mapSize( mapExpression );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <M extends Map<?, ?>> JpaExpression<Integer> mapSize(M map) {
 		return criteriaBuilder.mapSize( map );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaOrder sort(JpaExpression<?> sortExpression, SortDirection sortOrder) {
 		return criteriaBuilder.sort( sortExpression, sortOrder );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaOrder sort(JpaExpression<?> sortExpression, SortDirection sortOrder, Nulls nullPrecedence) {
 		return criteriaBuilder.sort( sortExpression, sortOrder, nullPrecedence );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaOrder sort(
 			JpaExpression<?> sortExpression,
 			SortDirection sortOrder,
@@ -1650,46 +1923,54 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaOrder sort(JpaExpression<?> sortExpression) {
 		return criteriaBuilder.sort( sortExpression );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaOrder asc(@Nonnull Expression<?> x) {
 		return criteriaBuilder.asc( x );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaOrder desc(@Nonnull Expression<?> x) {
 		return criteriaBuilder.desc( x );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Order asc(@Nonnull Expression<?> expression, @Nonnull Nulls nullPrecedence) {
 		return criteriaBuilder.asc( expression, nullPrecedence );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Order desc(@Nonnull Expression<?> expression, @Nonnull Nulls nullPrecedence) {
 		return criteriaBuilder.desc( expression, nullPrecedence );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaOrder asc(Expression<?> x, boolean nullsFirst) {
 		return criteriaBuilder.asc( x, nullsFirst );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaOrder desc(Expression<?> x, boolean nullsFirst) {
 		return criteriaBuilder.desc( x, nullsFirst );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaSearchOrder search(
 			JpaCteCriteriaAttribute cteAttribute,
 			SortDirection sortOrder,
@@ -1699,101 +1980,120 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaSearchOrder search(JpaCteCriteriaAttribute cteAttribute, SortDirection sortOrder) {
 		return criteriaBuilder.search( cteAttribute, sortOrder );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaSearchOrder search(JpaCteCriteriaAttribute cteAttribute) {
 		return criteriaBuilder.search( cteAttribute );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaSearchOrder asc(JpaCteCriteriaAttribute x) {
 		return criteriaBuilder.asc( x );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaSearchOrder desc(JpaCteCriteriaAttribute x) {
 		return criteriaBuilder.desc( x );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaSearchOrder asc(JpaCteCriteriaAttribute x, boolean nullsFirst) {
 		return criteriaBuilder.asc( x, nullsFirst );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaSearchOrder desc(JpaCteCriteriaAttribute x, boolean nullsFirst) {
 		return criteriaBuilder.desc( x, nullsFirst );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T> sql(String pattern, Class<T> type, Expression<?>... arguments) {
 		return criteriaBuilder.sql( pattern, type, arguments );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> format(Expression<? extends TemporalAccessor> datetime, String pattern) {
 		return criteriaBuilder.format( datetime, pattern );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<Integer> year(Expression<? extends TemporalAccessor> datetime) {
 		return criteriaBuilder.year( datetime );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<Integer> month(Expression<? extends TemporalAccessor> datetime) {
 		return criteriaBuilder.month( datetime );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<Integer> day(Expression<? extends TemporalAccessor> datetime) {
 		return criteriaBuilder.day( datetime );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<Integer> hour(Expression<? extends TemporalAccessor> datetime) {
 		return criteriaBuilder.hour( datetime );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<Integer> minute(Expression<? extends TemporalAccessor> datetime) {
 		return criteriaBuilder.minute( datetime );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<Float> second(Expression<? extends TemporalAccessor> datetime) {
 		return criteriaBuilder.second( datetime );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T extends TemporalAccessor> JpaFunction<T> truncate(Expression<T> datetime, TemporalUnit temporalUnit) {
 		return criteriaBuilder.truncate( datetime, temporalUnit );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> overlay(Expression<String> string, String replacement, int start) {
 		return criteriaBuilder.overlay( string, replacement, start );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> overlay(Expression<String> string, Expression<String> replacement, int start) {
 		return criteriaBuilder.overlay( string, replacement, start );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> overlay(Expression<String> string, String replacement, Expression<Integer> start) {
 		return criteriaBuilder.overlay( string, replacement, start );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> overlay(
 			Expression<String> string,
 			Expression<String> replacement,
@@ -1802,11 +2102,13 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> overlay(Expression<String> string, String replacement, int start, int length) {
 		return criteriaBuilder.overlay( string, replacement, start, length );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> overlay(
 			Expression<String> string,
 			Expression<String> replacement,
@@ -1816,6 +2118,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> overlay(
 			Expression<String> string,
 			String replacement,
@@ -1825,6 +2128,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> overlay(
 			Expression<String> string,
 			Expression<String> replacement,
@@ -1834,6 +2138,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> overlay(
 			Expression<String> string,
 			String replacement,
@@ -1843,6 +2148,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> overlay(
 			Expression<String> string,
 			Expression<String> replacement,
@@ -1852,6 +2158,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> overlay(
 			Expression<String> string,
 			String replacement,
@@ -1861,6 +2168,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> overlay(
 			Expression<String> string,
 			Expression<String> replacement,
@@ -1870,61 +2178,73 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> pad(Expression<String> x, int length) {
 		return criteriaBuilder.pad( x, length );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> pad(Trimspec ts, Expression<String> x, int length) {
 		return criteriaBuilder.pad( ts, x, length );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> pad(Expression<String> x, Expression<Integer> length) {
 		return criteriaBuilder.pad( x, length );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> pad(Trimspec ts, Expression<String> x, Expression<Integer> length) {
 		return criteriaBuilder.pad( ts, x, length );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> pad(Expression<String> x, int length, char padChar) {
 		return criteriaBuilder.pad( x, length, padChar );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> pad(Trimspec ts, Expression<String> x, int length, char padChar) {
 		return criteriaBuilder.pad( ts, x, length, padChar );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> pad(Expression<String> x, Expression<Integer> length, char padChar) {
 		return criteriaBuilder.pad( x, length, padChar );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> pad(Trimspec ts, Expression<String> x, Expression<Integer> length, char padChar) {
 		return criteriaBuilder.pad( ts, x, length, padChar );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> pad(Expression<String> x, int length, Expression<Character> padChar) {
 		return criteriaBuilder.pad( x, length, padChar );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> pad(Trimspec ts, Expression<String> x, int length, Expression<Character> padChar) {
 		return criteriaBuilder.pad( ts, x, length, padChar );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> pad(Expression<String> x, Expression<Integer> length, Expression<Character> padChar) {
 		return criteriaBuilder.pad( x, length, padChar );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> pad(
 			Trimspec ts,
 			Expression<String> x,
@@ -1934,64 +2254,75 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> repeat(Expression<String> x, Expression<Integer> times) {
 		return criteriaBuilder.repeat( x, times );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> repeat(Expression<String> x, int times) {
 		return criteriaBuilder.repeat( x, times );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> repeat(String x, Expression<Integer> times) {
 		return criteriaBuilder.repeat( x, times );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> left(@Nonnull Expression<String> x, int length) {
 		return criteriaBuilder.left( x, length );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> left(@Nonnull Expression<String> x, @Nonnull Expression<Integer> length) {
 		return criteriaBuilder.left( x, length );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> right(@Nonnull Expression<String> x, int length) {
 		return criteriaBuilder.right( x, length );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> right(@Nonnull Expression<String> x, @Nonnull Expression<Integer> length) {
 		return criteriaBuilder.right( x, length );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> replace(@Nonnull Expression<String> x, @Nonnull String pattern, @Nonnull String replacement) {
 		return criteriaBuilder.replace( x, pattern, replacement );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> replace(@Nonnull Expression<String> x, @Nonnull String pattern, @Nonnull Expression<String> replacement) {
 		return criteriaBuilder.replace( x, pattern, replacement );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> replace(@Nonnull Expression<String> x, @Nonnull Expression<String> pattern, @Nonnull String replacement) {
 		return criteriaBuilder.replace( x, pattern, replacement );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> replace(
 			@Nonnull Expression<String> x,
 			@Nonnull Expression<String> pattern,
@@ -2000,191 +2331,229 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaFunction<String> collate(Expression<String> x, String collation) {
 		return criteriaBuilder.collate( x, collation );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Double> log10(Expression<? extends Number> x) {
 		return criteriaBuilder.log10( x );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Double> log(Number b, Expression<? extends Number> x) {
 		return criteriaBuilder.log( b, x );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Double> log(Expression<? extends Number> b, Expression<? extends Number> x) {
 		return criteriaBuilder.log( b, x );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Double> pi() {
 		return criteriaBuilder.pi();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Double> sin(Expression<? extends Number> x) {
 		return criteriaBuilder.sin( x );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Double> cos(Expression<? extends Number> x) {
 		return criteriaBuilder.cos( x );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Double> tan(Expression<? extends Number> x) {
 		return criteriaBuilder.tan( x );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Double> asin(Expression<? extends Number> x) {
 		return criteriaBuilder.asin( x );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Double> acos(Expression<? extends Number> x) {
 		return criteriaBuilder.acos( x );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Double> atan(Expression<? extends Number> x) {
 		return criteriaBuilder.atan( x );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Double> atan2(Number y, Expression<? extends Number> x) {
 		return criteriaBuilder.atan2( y, x );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Double> atan2(Expression<? extends Number> y, Number x) {
 		return criteriaBuilder.atan2( y, x );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Double> atan2(Expression<? extends Number> y, Expression<? extends Number> x) {
 		return criteriaBuilder.atan2( y, x );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Double> sinh(Expression<? extends Number> x) {
 		return criteriaBuilder.sinh( x );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Double> cosh(Expression<? extends Number> x) {
 		return criteriaBuilder.cosh( x );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Double> tanh(Expression<? extends Number> x) {
 		return criteriaBuilder.tanh( x );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Double> degrees(Expression<? extends Number> x) {
 		return criteriaBuilder.degrees( x );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Double> radians(Expression<? extends Number> x) {
 		return criteriaBuilder.radians( x );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaWindow createWindow() {
 		return criteriaBuilder.createWindow();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaWindowFrame frameUnboundedPreceding() {
 		return criteriaBuilder.frameUnboundedPreceding();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaWindowFrame frameBetweenPreceding(int offset) {
 		return criteriaBuilder.frameBetweenPreceding( offset );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaWindowFrame frameBetweenPreceding(Expression<?> offset) {
 		return criteriaBuilder.frameBetweenPreceding( offset );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaWindowFrame frameCurrentRow() {
 		return criteriaBuilder.frameCurrentRow();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaWindowFrame frameBetweenFollowing(int offset) {
 		return criteriaBuilder.frameBetweenFollowing( offset );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaWindowFrame frameBetweenFollowing(Expression<?> offset) {
 		return criteriaBuilder.frameBetweenFollowing( offset );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaWindowFrame frameUnboundedFollowing() {
 		return criteriaBuilder.frameUnboundedFollowing();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T> windowFunction(String name, Class<T> type, JpaWindow window, Expression<?>... args) {
 		return criteriaBuilder.windowFunction( name, type, window, args );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Long> rowNumber(JpaWindow window) {
 		return criteriaBuilder.rowNumber( window );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T> firstValue(Expression<T> argument, JpaWindow window) {
 		return criteriaBuilder.firstValue( argument, window );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T> lastValue(Expression<T> argument, JpaWindow window) {
 		return criteriaBuilder.lastValue( argument, window );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T> nthValue(Expression<T> argument, int n, JpaWindow window) {
 		return criteriaBuilder.nthValue( argument, n, window );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T> nthValue(Expression<T> argument, Expression<Integer> n, JpaWindow window) {
 		return criteriaBuilder.nthValue( argument, n, window );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Long> rank(JpaWindow window) {
 		return criteriaBuilder.rank( window );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Long> denseRank(JpaWindow window) {
 		return criteriaBuilder.denseRank( window );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Double> percentRank(JpaWindow window) {
 		return criteriaBuilder.percentRank( window );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Double> cumeDist(JpaWindow window) {
 		return criteriaBuilder.cumeDist( window );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T> functionAggregate(
 			String name,
 			Class<T> type,
@@ -2194,11 +2563,13 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T> functionAggregate(String name, Class<T> type, JpaWindow window, Expression<?>... args) {
 		return criteriaBuilder.functionAggregate( name, type, window, args );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T> functionAggregate(
 			String name,
 			Class<T> type,
@@ -2209,56 +2580,67 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <N extends Number> JpaExpression<Number> sum(Expression<N> argument, JpaPredicate filter) {
 		return criteriaBuilder.sum( argument, filter );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <N extends Number> JpaExpression<Number> sum(Expression<N> argument, JpaWindow window) {
 		return criteriaBuilder.sum( argument, window );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <N extends Number> JpaExpression<Number> sum(Expression<N> argument, JpaPredicate filter, JpaWindow window) {
 		return criteriaBuilder.sum( argument, filter, window );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <N extends Number> JpaExpression<Double> avg(Expression<N> argument, JpaPredicate filter) {
 		return criteriaBuilder.avg( argument, filter );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <N extends Number> JpaExpression<Double> avg(Expression<N> argument, JpaWindow window) {
 		return criteriaBuilder.avg( argument, window );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <N extends Number> JpaExpression<Double> avg(Expression<N> argument, JpaPredicate filter, JpaWindow window) {
 		return criteriaBuilder.avg( argument, filter, window );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Long> count(Expression<?> argument, JpaPredicate filter) {
 		return criteriaBuilder.count( argument, filter );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Long> count(Expression<?> argument, JpaWindow window) {
 		return criteriaBuilder.count( argument, window );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Long> count(Expression<?> argument, JpaPredicate filter, JpaWindow window) {
 		return criteriaBuilder.count( argument, filter, window );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T> functionWithinGroup(String name, Class<T> type, JpaOrder order, Expression<?>... args) {
 		return criteriaBuilder.functionWithinGroup( name, type, order, args );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T> functionWithinGroup(
 			String name,
 			Class<T> type,
@@ -2269,6 +2651,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T> functionWithinGroup(
 			String name,
 			Class<T> type,
@@ -2279,6 +2662,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T> functionWithinGroup(
 			String name,
 			Class<T> type,
@@ -2290,16 +2674,19 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> listagg(JpaOrder order, Expression<String> argument, String separator) {
 		return criteriaBuilder.listagg( order, argument, separator );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> listagg(JpaOrder order, Expression<String> argument, Expression<String> separator) {
 		return criteriaBuilder.listagg( order, argument, separator );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> listagg(
 			JpaOrder order,
 			JpaPredicate filter,
@@ -2309,6 +2696,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> listagg(
 			JpaOrder order,
 			JpaPredicate filter,
@@ -2318,6 +2706,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> listagg(
 			JpaOrder order,
 			JpaWindow window,
@@ -2327,6 +2716,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> listagg(
 			JpaOrder order,
 			JpaWindow window,
@@ -2336,6 +2726,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> listagg(
 			JpaOrder order,
 			JpaPredicate filter,
@@ -2346,6 +2737,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> listagg(
 			JpaOrder order,
 			JpaPredicate filter,
@@ -2356,11 +2748,13 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T> mode(Expression<T> sortExpression, SortDirection sortOrder, Nulls nullPrecedence) {
 		return criteriaBuilder.mode( sortExpression, sortOrder, nullPrecedence );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T> mode(
 			JpaPredicate filter,
 			Expression<T> sortExpression,
@@ -2370,6 +2764,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T> mode(
 			JpaWindow window,
 			Expression<T> sortExpression,
@@ -2379,6 +2774,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T> mode(
 			JpaPredicate filter,
 			JpaWindow window,
@@ -2389,6 +2785,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T> percentileCont(
 			Expression<? extends Number> argument,
 			Expression<T> sortExpression,
@@ -2398,6 +2795,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T> percentileCont(
 			Expression<? extends Number> argument,
 			JpaPredicate filter,
@@ -2408,6 +2806,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T> percentileCont(
 			Expression<? extends Number> argument,
 			JpaWindow window,
@@ -2418,6 +2817,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T> percentileCont(
 			Expression<? extends Number> argument,
 			JpaPredicate filter,
@@ -2429,6 +2829,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T> percentileDisc(
 			Expression<? extends Number> argument,
 			Expression<T> sortExpression,
@@ -2438,6 +2839,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T> percentileDisc(
 			Expression<? extends Number> argument,
 			JpaPredicate filter,
@@ -2448,6 +2850,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T> percentileDisc(
 			Expression<? extends Number> argument,
 			JpaWindow window,
@@ -2458,6 +2861,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T> percentileDisc(
 			Expression<? extends Number> argument,
 			JpaPredicate filter,
@@ -2469,41 +2873,49 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Long> rank(JpaOrder order, Expression<?>... arguments) {
 		return criteriaBuilder.rank( order, arguments );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Long> rank(JpaOrder order, JpaPredicate filter, Expression<?>... arguments) {
 		return criteriaBuilder.rank( order, filter, arguments );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Long> rank(JpaOrder order, JpaWindow window, Expression<?>... arguments) {
 		return criteriaBuilder.rank( order, window, arguments );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Long> rank(JpaOrder order, JpaPredicate filter, JpaWindow window, Expression<?>... arguments) {
 		return criteriaBuilder.rank( order, filter, window, arguments );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Double> percentRank(JpaOrder order, Expression<?>... arguments) {
 		return criteriaBuilder.percentRank( order, arguments );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Double> percentRank(JpaOrder order, JpaPredicate filter, Expression<?>... arguments) {
 		return criteriaBuilder.percentRank( order, filter, arguments );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Double> percentRank(JpaOrder order, JpaWindow window, Expression<?>... arguments) {
 		return criteriaBuilder.percentRank( order, window, arguments );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Double> percentRank(
 			JpaOrder order,
 			JpaPredicate filter,
@@ -2513,110 +2925,131 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Duration> durationSum(Expression<Duration> x, Expression<Duration> y) {
 		return criteriaBuilder.durationSum( x, y );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Duration> durationSum(Expression<Duration> x, Duration y) {
 		return criteriaBuilder.durationSum( x, y );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Duration> durationDiff(Expression<Duration> x, Expression<Duration> y) {
 		return criteriaBuilder.durationDiff( x, y );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Duration> durationDiff(Expression<Duration> x, Duration y) {
 		return criteriaBuilder.durationDiff( x, y );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Duration> durationScaled(Expression<? extends Number> number, Expression<Duration> duration) {
 		return criteriaBuilder.durationScaled( number, duration );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Duration> durationScaled(Number number, Expression<Duration> duration) {
 		return criteriaBuilder.durationScaled( number, duration );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Duration> durationScaled(Expression<? extends Number> number, Duration duration) {
 		return criteriaBuilder.durationScaled( number, duration );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T extends Temporal> JpaExpression<Duration> durationBetween(Expression<T> x, Expression<T> y) {
 		return criteriaBuilder.durationBetween( x, y );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T extends Temporal> JpaExpression<Duration> durationBetween(Expression<T> x, T y) {
 		return criteriaBuilder.durationBetween( x, y );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T extends Temporal> JpaExpression<T> addDuration(Expression<T> datetime, Expression<Duration> duration) {
 		return criteriaBuilder.addDuration( datetime, duration );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T extends Temporal> JpaExpression<T> addDuration(Expression<T> datetime, Duration duration) {
 		return criteriaBuilder.addDuration( datetime, duration );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T extends Temporal> JpaExpression<T> addDuration(T datetime, Expression<Duration> duration) {
 		return criteriaBuilder.addDuration(datetime, duration);
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T extends Temporal> JpaExpression<T> subtractDuration(Expression<T> datetime, Expression<Duration> duration) {
 		return criteriaBuilder.subtractDuration( datetime, duration );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T extends Temporal> JpaExpression<T> subtractDuration(Expression<T> datetime, Duration duration) {
 		return criteriaBuilder.subtractDuration( datetime, duration );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T extends Temporal> JpaExpression<T> subtractDuration(T datetime, Expression<Duration> duration) {
 		return criteriaBuilder.subtractDuration(datetime, duration);
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Long> durationByUnit(TemporalUnit unit, Expression<Duration> duration) {
 		return criteriaBuilder.durationByUnit(unit, duration);
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Duration> duration(long magnitude, TemporalUnit unit) {
 		return criteriaBuilder.duration( magnitude, unit );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arrayAgg(JpaOrder order, Expression<? extends T> argument) {
 		return criteriaBuilder.arrayAgg( order, argument );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arrayAgg(JpaOrder order, JpaPredicate filter, Expression<? extends T> argument) {
 		return criteriaBuilder.arrayAgg( order, filter, argument );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arrayAgg(JpaOrder order, JpaWindow window, Expression<? extends T> argument) {
 		return criteriaBuilder.arrayAgg( order, window, argument );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arrayAgg(
 			JpaOrder order,
 			JpaPredicate filter,
@@ -2627,42 +3060,49 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arrayLiteral(T... elements) {
 		return criteriaBuilder.arrayLiteral( elements );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<Integer> arrayLength(Expression<T[]> arrayExpression) {
 		return criteriaBuilder.arrayLength( arrayExpression );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<Integer> arrayPosition(Expression<T[]> arrayExpression, T element) {
 		return criteriaBuilder.arrayPosition( arrayExpression, element );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<Integer> arrayPosition(Expression<T[]> arrayExpression, Expression<T> elementExpression) {
 		return criteriaBuilder.arrayPosition( arrayExpression, elementExpression );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<int[]> arrayPositions(Expression<T[]> arrayExpression, Expression<T> elementExpression) {
 		return criteriaBuilder.arrayPositions( arrayExpression, elementExpression );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<int[]> arrayPositions(Expression<T[]> arrayExpression, T element) {
 		return criteriaBuilder.arrayPositions( arrayExpression, element );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<List<Integer>> arrayPositionsList(
 			Expression<T[]> arrayExpression,
 			Expression<T> elementExpression) {
@@ -2671,66 +3111,77 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<List<Integer>> arrayPositionsList(Expression<T[]> arrayExpression, T element) {
 		return criteriaBuilder.arrayPositionsList( arrayExpression, element );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arrayConcat(Expression<T[]> arrayExpression1, Expression<T[]> arrayExpression2) {
 		return criteriaBuilder.arrayConcat( arrayExpression1, arrayExpression2 );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arrayConcat(Expression<T[]> arrayExpression1, T[] array2) {
 		return criteriaBuilder.arrayConcat( arrayExpression1, array2 );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arrayConcat(T[] array1, Expression<T[]> arrayExpression2) {
 		return criteriaBuilder.arrayConcat( array1, arrayExpression2 );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arrayAppend(Expression<T[]> arrayExpression, Expression<T> elementExpression) {
 		return criteriaBuilder.arrayAppend( arrayExpression, elementExpression );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arrayAppend(Expression<T[]> arrayExpression, T element) {
 		return criteriaBuilder.arrayAppend( arrayExpression, element );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arrayPrepend(Expression<T> elementExpression, Expression<T[]> arrayExpression) {
 		return criteriaBuilder.arrayPrepend( elementExpression, arrayExpression );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arrayPrepend(T element, Expression<T[]> arrayExpression) {
 		return criteriaBuilder.arrayPrepend( element, arrayExpression );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T> arrayGet(Expression<T[]> arrayExpression, Expression<Integer> indexExpression) {
 		return criteriaBuilder.arrayGet( arrayExpression, indexExpression );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T> arrayGet(Expression<T[]> arrayExpression, Integer index) {
 		return criteriaBuilder.arrayGet( arrayExpression, index );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arraySet(
 			Expression<T[]> arrayExpression,
 			Expression<Integer> indexExpression,
@@ -2740,6 +3191,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arraySet(
 			Expression<T[]> arrayExpression,
 			Expression<Integer> indexExpression,
@@ -2749,6 +3201,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arraySet(
 			Expression<T[]> arrayExpression,
 			Integer index,
@@ -2758,24 +3211,28 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arraySet(Expression<T[]> arrayExpression, Integer index, T element) {
 		return criteriaBuilder.arraySet( arrayExpression, index, element );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arrayRemove(Expression<T[]> arrayExpression, Expression<T> elementExpression) {
 		return criteriaBuilder.arrayRemove( arrayExpression, elementExpression );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arrayRemove(Expression<T[]> arrayExpression, T element) {
 		return criteriaBuilder.arrayRemove( arrayExpression, element );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arrayRemoveIndex(
 			Expression<T[]> arrayExpression,
 			Expression<Integer> indexExpression) {
@@ -2784,12 +3241,14 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arrayRemoveIndex(Expression<T[]> arrayExpression, Integer index) {
 		return criteriaBuilder.arrayRemoveIndex( arrayExpression, index );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arraySlice(
 			Expression<T[]> arrayExpression,
 			Expression<Integer> lowerIndexExpression,
@@ -2799,6 +3258,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arraySlice(
 			Expression<T[]> arrayExpression,
 			Expression<Integer> lowerIndexExpression,
@@ -2808,6 +3268,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arraySlice(
 			Expression<T[]> arrayExpression,
 			Integer lowerIndex,
@@ -2817,12 +3278,14 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arraySlice(Expression<T[]> arrayExpression, Integer lowerIndex, Integer upperIndex) {
 		return criteriaBuilder.arraySlice( arrayExpression, lowerIndex, upperIndex );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arrayReplace(
 			Expression<T[]> arrayExpression,
 			Expression<T> oldElementExpression,
@@ -2832,6 +3295,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arrayReplace(
 			Expression<T[]> arrayExpression,
 			Expression<T> oldElementExpression,
@@ -2841,6 +3305,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arrayReplace(
 			Expression<T[]> arrayExpression,
 			T oldElement,
@@ -2850,12 +3315,14 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arrayReplace(Expression<T[]> arrayExpression, T oldElement, T newElement) {
 		return criteriaBuilder.arrayReplace( arrayExpression, oldElement, newElement );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arrayTrim(
 			Expression<T[]> arrayExpression,
 			Expression<Integer> elementCountExpression) {
@@ -2864,42 +3331,49 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arrayTrim(Expression<T[]> arrayExpression, Integer elementCount) {
 		return criteriaBuilder.arrayTrim( arrayExpression, elementCount );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arrayReverse(Expression<T[]> arrayExpression) {
 		return criteriaBuilder.arrayReverse( arrayExpression );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arraySort(Expression<T[]> arrayExpression) {
 		return criteriaBuilder.arraySort( arrayExpression );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arraySort(Expression<T[]> arrayExpression, boolean descending) {
 		return criteriaBuilder.arraySort( arrayExpression, descending );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arraySort(Expression<T[]> arrayExpression, Expression<Boolean> descendingExpression) {
 		return criteriaBuilder.arraySort( arrayExpression, descendingExpression );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arraySort(Expression<T[]> arrayExpression, boolean descending, boolean nullsFirst) {
 		return criteriaBuilder.arraySort( arrayExpression, descending, nullsFirst );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arraySort(
 			Expression<T[]> arrayExpression,
 			Expression<Boolean> descendingExpression,
@@ -2909,6 +3383,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arrayFill(
 			Expression<T> elementExpression,
 			Expression<Integer> elementCountExpression) {
@@ -2917,24 +3392,28 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arrayFill(Expression<T> elementExpression, Integer elementCount) {
 		return criteriaBuilder.arrayFill( elementExpression, elementCount );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arrayFill(T element, Expression<Integer> elementCountExpression) {
 		return criteriaBuilder.arrayFill( element, elementCountExpression );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T[]> arrayFill(T element, Integer elementCount) {
 		return criteriaBuilder.arrayFill( element, elementCount );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> arrayToString(
 			Expression<? extends Object[]> arrayExpression,
 			Expression<String> separatorExpression) {
@@ -2943,90 +3422,105 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> arrayToString(Expression<? extends Object[]> arrayExpression, String separator) {
 		return criteriaBuilder.arrayToString( arrayExpression, separator );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> arrayToString(Expression<? extends Object[]> arrayExpression, Expression<String> separatorExpression, Expression<String> defaultExpression) {
 		return criteriaBuilder.arrayToString( arrayExpression, separatorExpression, defaultExpression );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> arrayToString(Expression<? extends Object[]> arrayExpression, Expression<String> separatorExpression, String defaultValue) {
 		return criteriaBuilder.arrayToString( arrayExpression, separatorExpression, defaultValue );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> arrayToString(Expression<? extends Object[]> arrayExpression, String separator, Expression<String> defaultExpression) {
 		return criteriaBuilder.arrayToString( arrayExpression, separator, defaultExpression );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> arrayToString(Expression<? extends Object[]> arrayExpression, String separator, String defaultValue) {
 		return criteriaBuilder.arrayToString( arrayExpression, separator, defaultValue );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaPredicate arrayContains(Expression<T[]> arrayExpression, Expression<T> elementExpression) {
 		return criteriaBuilder.arrayContains( arrayExpression, elementExpression );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaPredicate arrayContains(Expression<T[]> arrayExpression, T element) {
 		return criteriaBuilder.arrayContains( arrayExpression, element );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaPredicate arrayContains(T[] array, Expression<T> elementExpression) {
 		return criteriaBuilder.arrayContains( array, elementExpression );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaPredicate arrayContainsNullable(Expression<T[]> arrayExpression, Expression<T> elementExpression) {
 		return criteriaBuilder.arrayContainsNullable( arrayExpression, elementExpression );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaPredicate arrayContainsNullable(Expression<T[]> arrayExpression, T element) {
 		return criteriaBuilder.arrayContainsNullable( arrayExpression, element );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaPredicate arrayContainsNullable(T[] array, Expression<T> elementExpression) {
 		return criteriaBuilder.arrayContainsNullable( array, elementExpression );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaPredicate arrayIncludes(Expression<T[]> arrayExpression, Expression<T[]> subArrayExpression) {
 		return criteriaBuilder.arrayIncludes( arrayExpression, subArrayExpression );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaPredicate arrayIncludes(Expression<T[]> arrayExpression, T[] subArray) {
 		return criteriaBuilder.arrayIncludes( arrayExpression, subArray );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaPredicate arrayIncludes(T[] array, Expression<T[]> subArrayExpression) {
 		return criteriaBuilder.arrayIncludes( array, subArrayExpression );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaPredicate arrayIncludesNullable(
 			Expression<T[]> arrayExpression,
 			Expression<T[]> subArrayExpression) {
@@ -3035,66 +3529,77 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaPredicate arrayIncludesNullable(Expression<T[]> arrayExpression, T[] subArray) {
 		return criteriaBuilder.arrayIncludesNullable( arrayExpression, subArray );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaPredicate arrayIncludesNullable(T[] array, Expression<T[]> subArrayExpression) {
 		return criteriaBuilder.arrayIncludesNullable( array, subArrayExpression );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaPredicate arrayIntersects(Expression<T[]> arrayExpression1, Expression<T[]> arrayExpression2) {
 		return criteriaBuilder.arrayIntersects( arrayExpression1, arrayExpression2 );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaPredicate arrayIntersects(Expression<T[]> arrayExpression1, T[] array2) {
 		return criteriaBuilder.arrayIntersects( arrayExpression1, array2 );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaPredicate arrayIntersects(T[] array1, Expression<T[]> arrayExpression2) {
 		return criteriaBuilder.arrayIntersects( array1, arrayExpression2 );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaPredicate arrayIntersectsNullable(Expression<T[]> arrayExpression1, Expression<T[]> arrayExpression2) {
 		return criteriaBuilder.arrayIntersectsNullable( arrayExpression1, arrayExpression2 );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaPredicate arrayIntersectsNullable(Expression<T[]> arrayExpression1, T[] array2) {
 		return criteriaBuilder.arrayIntersectsNullable( arrayExpression1, array2 );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaPredicate arrayIntersectsNullable(T[] array1, Expression<T[]> arrayExpression2) {
 		return criteriaBuilder.arrayIntersectsNullable( array1, arrayExpression2 );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E, C extends Collection<E>> JpaExpression<C> collectionLiteral(E... elements) {
 		return criteriaBuilder.collectionLiteral( elements );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Integer> collectionLength(Expression<? extends Collection<?>> collectionExpression) {
 		return criteriaBuilder.collectionLength( collectionExpression );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E> JpaExpression<Integer> collectionPosition(
 			Expression<? extends Collection<? extends E>> collectionExpression,
 			E element) {
@@ -3103,6 +3608,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E> JpaExpression<Integer> collectionPosition(
 			Expression<? extends Collection<? extends E>> collectionExpression,
 			Expression<E> elementExpression) {
@@ -3111,6 +3617,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<int[]> collectionPositions(
 			Expression<? extends Collection<? super T>> collectionExpression,
 			Expression<T> elementExpression) {
@@ -3119,6 +3626,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<int[]> collectionPositions(
 			Expression<? extends Collection<? super T>> collectionExpression,
 			T element) {
@@ -3127,6 +3635,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<List<Integer>> collectionPositionsList(
 			Expression<? extends Collection<? super T>> collectionExpression,
 			Expression<T> elementExpression) {
@@ -3135,6 +3644,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<List<Integer>> collectionPositionsList(
 			Expression<? extends Collection<? super T>> collectionExpression,
 			T element) {
@@ -3143,6 +3653,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E, C extends Collection<? super E>> JpaExpression<C> collectionConcat(
 			Expression<C> collectionExpression1,
 			Expression<? extends Collection<? extends E>> collectionExpression2) {
@@ -3151,6 +3662,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E, C extends Collection<? super E>> JpaExpression<C> collectionConcat(
 			Expression<C> collectionExpression1,
 			Collection<? extends E> collection2) {
@@ -3159,6 +3671,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E, C extends Collection<? super E>> JpaExpression<C> collectionConcat(
 			C collection1,
 			Expression<? extends Collection<? extends E>> collectionExpression2) {
@@ -3167,6 +3680,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E, C extends Collection<? super E>> JpaExpression<C> collectionAppend(
 			Expression<C> collectionExpression,
 			Expression<? extends E> elementExpression) {
@@ -3175,6 +3689,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E, C extends Collection<? super E>> JpaExpression<C> collectionAppend(
 			Expression<C> collectionExpression,
 			E element) {
@@ -3183,6 +3698,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E, C extends Collection<? super E>> JpaExpression<C> collectionPrepend(
 			Expression<? extends E> elementExpression,
 			Expression<C> collectionExpression) {
@@ -3191,6 +3707,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E, C extends Collection<? super E>> JpaExpression<C> collectionPrepend(
 			E element,
 			Expression<C> collectionExpression) {
@@ -3199,6 +3716,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E> JpaExpression<E> collectionGet(
 			Expression<? extends Collection<E>> collectionExpression,
 			Expression<Integer> indexExpression) {
@@ -3207,12 +3725,14 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E> JpaExpression<E> collectionGet(Expression<? extends Collection<E>> collectionExpression, Integer index) {
 		return criteriaBuilder.collectionGet( collectionExpression, index );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E, C extends Collection<? super E>> JpaExpression<C> collectionSet(
 			Expression<C> collectionExpression,
 			Expression<Integer> indexExpression,
@@ -3222,6 +3742,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E, C extends Collection<? super E>> JpaExpression<C> collectionSet(
 			Expression<C> collectionExpression,
 			Expression<Integer> indexExpression,
@@ -3231,6 +3752,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E, C extends Collection<? super E>> JpaExpression<C> collectionSet(
 			Expression<C> collectionExpression,
 			Integer index,
@@ -3240,6 +3762,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E, C extends Collection<? super E>> JpaExpression<C> collectionSet(
 			Expression<C> collectionExpression,
 			Integer index,
@@ -3249,6 +3772,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E, C extends Collection<? super E>> JpaExpression<C> collectionRemove(
 			Expression<C> collectionExpression,
 			Expression<? extends E> elementExpression) {
@@ -3257,6 +3781,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E, C extends Collection<? super E>> JpaExpression<C> collectionRemove(
 			Expression<C> collectionExpression,
 			E element) {
@@ -3265,6 +3790,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <C extends Collection<?>> JpaExpression<C> collectionRemoveIndex(
 			Expression<C> collectionExpression,
 			Expression<Integer> indexExpression) {
@@ -3273,6 +3799,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <C extends Collection<?>> JpaExpression<C> collectionRemoveIndex(
 			Expression<C> collectionExpression,
 			Integer index) {
@@ -3281,6 +3808,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <C extends Collection<?>> JpaExpression<C> collectionSlice(
 			Expression<C> collectionExpression,
 			Expression<Integer> lowerIndexExpression,
@@ -3290,6 +3818,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <C extends Collection<?>> JpaExpression<C> collectionSlice(
 			Expression<C> collectionExpression,
 			Expression<Integer> lowerIndexExpression,
@@ -3299,6 +3828,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <C extends Collection<?>> JpaExpression<C> collectionSlice(
 			Expression<C> collectionExpression,
 			Integer lowerIndex,
@@ -3308,6 +3838,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <C extends Collection<?>> JpaExpression<C> collectionSlice(
 			Expression<C> collectionExpression,
 			Integer lowerIndex,
@@ -3317,6 +3848,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E, C extends Collection<? super E>> JpaExpression<C> collectionReplace(
 			Expression<C> collectionExpression,
 			Expression<? extends E> oldElementExpression,
@@ -3326,6 +3858,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E, C extends Collection<? super E>> JpaExpression<C> collectionReplace(
 			Expression<C> collectionExpression,
 			Expression<? extends E> oldElementExpression,
@@ -3335,6 +3868,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E, C extends Collection<? super E>> JpaExpression<C> collectionReplace(
 			Expression<C> collectionExpression,
 			E oldElement,
@@ -3344,6 +3878,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E, C extends Collection<? super E>> JpaExpression<C> collectionReplace(
 			Expression<C> collectionExpression,
 			E oldElement,
@@ -3353,6 +3888,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <C extends Collection<?>> JpaExpression<C> collectionTrim(
 			Expression<C> arrayExpression,
 			Expression<Integer> elementCountExpression) {
@@ -3361,6 +3897,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <C extends Collection<?>> JpaExpression<C> collectionTrim(
 			Expression<C> arrayExpression,
 			Integer elementCount) {
@@ -3369,18 +3906,21 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <C extends Collection<?>> JpaExpression<C> collectionReverse(Expression<C> collectionExpression) {
 		return criteriaBuilder.collectionReverse( collectionExpression );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <C extends Collection<?>> JpaExpression<C> collectionSort(Expression<C> collectionExpression) {
 		return criteriaBuilder.collectionSort( collectionExpression );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <C extends Collection<?>> JpaExpression<C> collectionSort(
 			Expression<C> collectionExpression,
 			boolean descending) {
@@ -3389,6 +3929,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <C extends Collection<?>> JpaExpression<C> collectionSort(
 			Expression<C> collectionExpression,
 			Expression<Boolean> descendingExpression) {
@@ -3397,6 +3938,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <C extends Collection<?>> JpaExpression<C> collectionSort(
 			Expression<C> collectionExpression,
 			boolean descending,
@@ -3406,6 +3948,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <C extends Collection<?>> JpaExpression<C> collectionSort(
 			Expression<C> collectionExpression,
 			Expression<Boolean> descendingExpression,
@@ -3415,6 +3958,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<Collection<T>> collectionFill(
 			Expression<T> elementExpression,
 			Expression<Integer> elementCountExpression) {
@@ -3423,24 +3967,28 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<Collection<T>> collectionFill(Expression<T> elementExpression, Integer elementCount) {
 		return criteriaBuilder.collectionFill( elementExpression, elementCount );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<Collection<T>> collectionFill(T element, Expression<Integer> elementCountExpression) {
 		return criteriaBuilder.collectionFill( element, elementCountExpression );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<Collection<T>> collectionFill(T element, Integer elementCount) {
 		return criteriaBuilder.collectionFill( element, elementCount );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> collectionToString(
 			Expression<? extends Collection<?>> collectionExpression,
 			Expression<String> separatorExpression) {
@@ -3449,6 +3997,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> collectionToString(
 			Expression<? extends Collection<?>> collectionExpression,
 			String separator) {
@@ -3457,30 +4006,35 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> collectionToString(Expression<? extends Collection<?>> collectionExpression, Expression<String> separatorExpression, Expression<String> defaultExpression) {
 		return criteriaBuilder.collectionToString( collectionExpression, separatorExpression, defaultExpression );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> collectionToString(Expression<? extends Collection<?>> collectionExpression, Expression<String> separatorExpression, String defaultValue) {
 		return criteriaBuilder.collectionToString( collectionExpression, separatorExpression, defaultValue );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> collectionToString(Expression<? extends Collection<?>> collectionExpression, String separator, Expression<String> defaultExpression) {
 		return criteriaBuilder.collectionToString( collectionExpression, separator, defaultExpression );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> collectionToString(Expression<? extends Collection<?>> collectionExpression, String separator, String defaultValue) {
 		return criteriaBuilder.collectionToString( collectionExpression, separator, defaultValue );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E> JpaPredicate collectionContains(
 			Expression<? extends Collection<E>> collectionExpression,
 			Expression<? extends E> elementExpression) {
@@ -3489,18 +4043,21 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E> JpaPredicate collectionContains(Expression<? extends Collection<E>> collectionExpression, E element) {
 		return criteriaBuilder.collectionContains( collectionExpression, element );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E> JpaPredicate collectionContains(Collection<E> collection, Expression<E> elementExpression) {
 		return criteriaBuilder.collectionContains( collection, elementExpression );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E> JpaPredicate collectionContainsNullable(
 			Expression<? extends Collection<E>> collectionExpression,
 			Expression<? extends E> elementExpression) {
@@ -3509,6 +4066,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E> JpaPredicate collectionContainsNullable(
 			Expression<? extends Collection<E>> collectionExpression,
 			E element) {
@@ -3517,12 +4075,14 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E> JpaPredicate collectionContainsNullable(Collection<E> collection, Expression<E> elementExpression) {
 		return criteriaBuilder.collectionContainsNullable( collection, elementExpression );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E> JpaPredicate collectionIncludes(
 			Expression<? extends Collection<E>> collectionExpression,
 			Expression<? extends Collection<? extends E>> subCollectionExpression) {
@@ -3531,6 +4091,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E> JpaPredicate collectionIncludes(
 			Expression<? extends Collection<E>> collectionExpression,
 			Collection<? extends E> subCollection) {
@@ -3539,6 +4100,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E> JpaPredicate collectionIncludes(
 			Collection<E> collection,
 			Expression<? extends Collection<? extends E>> subArrayExpression) {
@@ -3547,6 +4109,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E> JpaPredicate collectionIncludesNullable(
 			Expression<? extends Collection<E>> collectionExpression,
 			Expression<? extends Collection<? extends E>> subCollectionExpression) {
@@ -3555,6 +4118,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E> JpaPredicate collectionIncludesNullable(
 			Expression<? extends Collection<E>> collectionExpression,
 			Collection<? extends E> subCollection) {
@@ -3563,6 +4127,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E> JpaPredicate collectionIncludesNullable(
 			Collection<E> collection,
 			Expression<? extends Collection<? extends E>> subCollectionExpression) {
@@ -3571,6 +4136,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E> JpaPredicate collectionIntersects(
 			Expression<? extends Collection<E>> collectionExpression1,
 			Expression<? extends Collection<? extends E>> collectionExpression2) {
@@ -3579,6 +4145,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E> JpaPredicate collectionIntersects(
 			Expression<? extends Collection<E>> collectionExpression1,
 			Collection<? extends E> collection2) {
@@ -3587,6 +4154,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E> JpaPredicate collectionIntersects(
 			Collection<E> collection1,
 			Expression<? extends Collection<? extends E>> collectionExpression2) {
@@ -3595,6 +4163,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E> JpaPredicate collectionIntersectsNullable(
 			Expression<? extends Collection<E>> collectionExpression1,
 			Expression<? extends Collection<? extends E>> collectionExpression2) {
@@ -3603,6 +4172,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E> JpaPredicate collectionIntersectsNullable(
 			Expression<? extends Collection<E>> collectionExpression1,
 			Collection<? extends E> collection2) {
@@ -3611,6 +4181,7 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E> JpaPredicate collectionIntersectsNullable(
 			Collection<E> collection1,
 			Expression<? extends Collection<? extends E>> collectionExpression2) {
@@ -3619,12 +4190,14 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaJsonValueExpression<String> jsonValue(Expression<?> jsonDocument, String jsonPath) {
 		return criteriaBuilder.jsonValue( jsonDocument, jsonPath );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaJsonValueExpression<T> jsonValue(
 			Expression<?> jsonDocument,
 			String jsonPath,
@@ -3634,12 +4207,14 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaJsonValueExpression<String> jsonValue(Expression<?> jsonDocument, Expression<String> jsonPath) {
 		return criteriaBuilder.jsonValue( jsonDocument, jsonPath );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaJsonValueExpression<T> jsonValue(
 			Expression<?> jsonDocument,
 			Expression<String> jsonPath,
@@ -3649,144 +4224,168 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaJsonQueryExpression jsonQuery(Expression<?> jsonDocument, String jsonPath) {
 		return criteriaBuilder.jsonQuery( jsonDocument, jsonPath );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaJsonQueryExpression jsonQuery(Expression<?> jsonDocument, Expression<String> jsonPath) {
 		return criteriaBuilder.jsonQuery( jsonDocument, jsonPath );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaJsonExistsExpression jsonExists(Expression<?> jsonDocument, String jsonPath) {
 		return criteriaBuilder.jsonExists( jsonDocument, jsonPath );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaJsonExistsExpression jsonExists(Expression<?> jsonDocument, Expression<String> jsonPath) {
 		return criteriaBuilder.jsonExists( jsonDocument, jsonPath );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonObject(Map<?, ? extends Expression<?>> keyValues) {
 		return criteriaBuilder.jsonObject( keyValues );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonObjectWithNulls(Map<?, ? extends Expression<?>> keyValues) {
 		return criteriaBuilder.jsonObjectWithNulls( keyValues );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonArray(Expression<?>... values) {
 		return criteriaBuilder.jsonArray( values );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonArrayWithNulls(Expression<?>... values) {
 		return criteriaBuilder.jsonArrayWithNulls( values );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonArrayAgg(Expression<?> value) {
 		return criteriaBuilder.jsonArrayAgg( value );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonArrayAggWithNulls(Expression<?> value) {
 		return criteriaBuilder.jsonArrayAggWithNulls( value );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonArrayAgg(Expression<?> value, JpaOrder... orderBy) {
 		return criteriaBuilder.jsonArrayAgg( value, orderBy );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonArrayAgg(Expression<?> value, Predicate filter) {
 		return criteriaBuilder.jsonArrayAgg( value, filter );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonArrayAgg(Expression<?> value, Predicate filter, JpaOrder... orderBy) {
 		return criteriaBuilder.jsonArrayAgg( value, filter, orderBy );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonArrayAggWithNulls(Expression<?> value, JpaOrder... orderBy) {
 		return criteriaBuilder.jsonArrayAggWithNulls( value, orderBy );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonArrayAggWithNulls(Expression<?> value, Predicate filter) {
 		return criteriaBuilder.jsonArrayAggWithNulls( value, filter );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonArrayAggWithNulls(Expression<?> value, Predicate filter, JpaOrder... orderBy) {
 		return criteriaBuilder.jsonArrayAggWithNulls( value, filter, orderBy );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonObjectAgg(Expression<?> key, Expression<?> value) {
 		return criteriaBuilder.jsonObjectAgg( key, value );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonObjectAggWithNulls(Expression<?> key, Expression<?> value) {
 		return criteriaBuilder.jsonObjectAggWithNulls( key, value );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonObjectAggWithUniqueKeys(Expression<?> key, Expression<?> value) {
 		return criteriaBuilder.jsonObjectAggWithUniqueKeys( key, value );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonObjectAggWithUniqueKeysAndNulls(Expression<?> key, Expression<?> value) {
 		return criteriaBuilder.jsonObjectAggWithUniqueKeysAndNulls( key, value );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonObjectAgg(Expression<?> key, Expression<?> value, Predicate filter) {
 		return criteriaBuilder.jsonObjectAgg( key, value, filter );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonObjectAggWithNulls(Expression<?> key, Expression<?> value, Predicate filter) {
 		return criteriaBuilder.jsonObjectAggWithNulls( key, value, filter );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonObjectAggWithUniqueKeys(Expression<?> key, Expression<?> value, Predicate filter) {
 		return criteriaBuilder.jsonObjectAggWithUniqueKeys( key, value, filter );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonObjectAggWithUniqueKeysAndNulls(
 			Expression<?> key,
 			Expression<?> value,
@@ -3796,48 +4395,56 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonSet(Expression<?> jsonDocument, String jsonPath, Expression<?> value) {
 		return criteriaBuilder.jsonSet( jsonDocument, jsonPath, value );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonSet(Expression<?> jsonDocument, Expression<String> jsonPath, Expression<?> value) {
 		return criteriaBuilder.jsonSet( jsonDocument, jsonPath, value );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonSet(Expression<?> jsonDocument, String jsonPath, Object value) {
 		return criteriaBuilder.jsonSet( jsonDocument, jsonPath, value );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonSet(Expression<?> jsonDocument, Expression<String> jsonPath, Object value) {
 		return criteriaBuilder.jsonSet( jsonDocument, jsonPath, value );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonRemove(Expression<?> jsonDocument, String jsonPath) {
 		return criteriaBuilder.jsonRemove( jsonDocument, jsonPath );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonRemove(Expression<?> jsonDocument, Expression<String> jsonPath) {
 		return criteriaBuilder.jsonRemove( jsonDocument, jsonPath );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonInsert(Expression<?> jsonDocument, String jsonPath, Expression<?> value) {
 		return criteriaBuilder.jsonInsert( jsonDocument, jsonPath, value );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonInsert(
 			Expression<?> jsonDocument,
 			Expression<String> jsonPath,
@@ -3847,24 +4454,28 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonInsert(Expression<?> jsonDocument, String jsonPath, Object value) {
 		return criteriaBuilder.jsonInsert( jsonDocument, jsonPath, value );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonInsert(Expression<?> jsonDocument, Expression<String> jsonPath, Object value) {
 		return criteriaBuilder.jsonInsert( jsonDocument, jsonPath, value );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonReplace(Expression<?> jsonDocument, String jsonPath, Expression<?> value) {
 		return criteriaBuilder.jsonReplace( jsonDocument, jsonPath, value );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonReplace(
 			Expression<?> jsonDocument,
 			Expression<String> jsonPath,
@@ -3874,320 +4485,374 @@ public class HibernateCriteriaBuilderDelegate implements HibernateCriteriaBuilde
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonReplace(Expression<?> jsonDocument, String jsonPath, Object value) {
 		return criteriaBuilder.jsonReplace( jsonDocument, jsonPath, value );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonReplace(Expression<?> jsonDocument, Expression<String> jsonPath, Object value) {
 		return criteriaBuilder.jsonReplace( jsonDocument, jsonPath, value );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonMergepatch(Expression<?> document, Expression<?> patch) {
 		return criteriaBuilder.jsonMergepatch( document, patch );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonMergepatch(Expression<?> document, String patch) {
 		return criteriaBuilder.jsonMergepatch( document, patch );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> jsonMergepatch(String document, Expression<?> patch) {
 		return criteriaBuilder.jsonMergepatch( document, patch );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaXmlElementExpression xmlelement(String elementName) {
 		return criteriaBuilder.xmlelement( elementName );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> xmlcomment(String comment) {
 		return criteriaBuilder.xmlcomment( comment );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> xmlforest(Expression<?>... elements) {
 		return criteriaBuilder.xmlforest( elements );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> xmlforest(List<? extends Expression<?>> elements) {
 		return criteriaBuilder.xmlforest( elements );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> xmlconcat(Expression<?>... elements) {
 		return criteriaBuilder.xmlconcat( elements );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> xmlconcat(List<? extends Expression<?>> elements) {
 		return criteriaBuilder.xmlconcat( elements );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> xmlpi(String elementName) {
 		return criteriaBuilder.xmlpi( elementName );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> xmlpi(String elementName, Expression<String> content) {
 		return criteriaBuilder.xmlpi( elementName, content );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> xmlquery(String query, Expression<?> xmlDocument) {
 		return criteriaBuilder.xmlquery( query, xmlDocument );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> xmlquery(Expression<String> query, Expression<?> xmlDocument) {
 		return criteriaBuilder.xmlquery( query, xmlDocument );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Boolean> xmlexists(String query, Expression<?> xmlDocument) {
 		return criteriaBuilder.xmlexists( query, xmlDocument );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<Boolean> xmlexists(Expression<String> query, Expression<?> xmlDocument) {
 		return criteriaBuilder.xmlexists( query, xmlDocument );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> xmlagg(JpaOrder order, Expression<?> argument) {
 		return criteriaBuilder.xmlagg( order, argument );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> xmlagg(JpaOrder order, JpaPredicate filter, Expression<?> argument) {
 		return criteriaBuilder.xmlagg( order, filter, argument );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> xmlagg(JpaOrder order, JpaWindow window, Expression<?> argument) {
 		return criteriaBuilder.xmlagg( order, window, argument );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaExpression<String> xmlagg(JpaOrder order, JpaPredicate filter, JpaWindow window, Expression<?> argument) {
 		return criteriaBuilder.xmlagg( order, filter, window, argument );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> JpaExpression<T> named(Expression<T> expression, String name) {
 		return criteriaBuilder.named( expression, name );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E> JpaSetReturningFunction<E> setReturningFunction(String name, Expression<?>... args) {
 		return criteriaBuilder.setReturningFunction( name, args );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E> JpaSetReturningFunction<E> unnestArray(Expression<E[]> array) {
 		return criteriaBuilder.unnestArray( array );
 	}
 
 	@Override
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E> JpaSetReturningFunction<E> unnestCollection(Expression<? extends Collection<E>> collection) {
 		return criteriaBuilder.unnestCollection( collection );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E extends Number> JpaSetReturningFunction<E> generateSeries(E start, E stop) {
 		return criteriaBuilder.generateSeries( start, stop );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E extends Number> JpaSetReturningFunction<E> generateSeries(E start, Expression<E> stop) {
 		return criteriaBuilder.generateSeries( start, stop );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E extends Number> JpaSetReturningFunction<E> generateSeries(Expression<E> start, E stop) {
 		return criteriaBuilder.generateSeries( start, stop );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E extends Number> JpaSetReturningFunction<E> generateSeries(Expression<E> start, Expression<E> stop) {
 		return criteriaBuilder.generateSeries( start, stop );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E extends Number> JpaSetReturningFunction<E> generateSeries(E start, Expression<E> stop, Expression<E> step) {
 		return criteriaBuilder.generateSeries( start, stop, step );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E extends Number> JpaSetReturningFunction<E> generateSeries(Expression<E> start, E stop, Expression<E> step) {
 		return criteriaBuilder.generateSeries( start, stop, step );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E extends Number> JpaSetReturningFunction<E> generateSeries(Expression<E> start, Expression<E> stop, E step) {
 		return criteriaBuilder.generateSeries( start, stop, step );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E extends Number> JpaSetReturningFunction<E> generateSeries(E start, Expression<E> stop, E step) {
 		return criteriaBuilder.generateSeries( start, stop, step );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E extends Number> JpaSetReturningFunction<E> generateSeries(Expression<E> start, E stop, E step) {
 		return criteriaBuilder.generateSeries( start, stop, step );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E extends Number> JpaSetReturningFunction<E> generateSeries(E start, E stop, Expression<E> step) {
 		return criteriaBuilder.generateSeries( start, stop, step );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E extends Number> JpaSetReturningFunction<E> generateSeries(E start, E stop, E step) {
 		return criteriaBuilder.generateSeries( start, stop, step );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E extends Number> JpaSetReturningFunction<E> generateSeries(Expression<E> start, Expression<E> stop, Expression<E> step) {
 		return criteriaBuilder.generateSeries( start, stop, step );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E extends Temporal> JpaSetReturningFunction<E> generateTimeSeries(E start, Expression<E> stop, Expression<? extends TemporalAmount> step) {
 		return criteriaBuilder.generateTimeSeries( start, stop, step );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E extends Temporal> JpaSetReturningFunction<E> generateTimeSeries(Expression<E> start, E stop, Expression<? extends TemporalAmount> step) {
 		return criteriaBuilder.generateTimeSeries( start, stop, step );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E extends Temporal> JpaSetReturningFunction<E> generateTimeSeries(E start, E stop, Expression<? extends TemporalAmount> step) {
 		return criteriaBuilder.generateTimeSeries( start, stop, step );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E extends Temporal> JpaSetReturningFunction<E> generateTimeSeries(Expression<E> start, Expression<E> stop, TemporalAmount step) {
 		return criteriaBuilder.generateTimeSeries( start, stop, step );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E extends Temporal> JpaSetReturningFunction<E> generateTimeSeries(Expression<E> start, E stop, TemporalAmount step) {
 		return criteriaBuilder.generateTimeSeries( start, stop, step );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E extends Temporal> JpaSetReturningFunction<E> generateTimeSeries(E start, Expression<E> stop, TemporalAmount step) {
 		return criteriaBuilder.generateTimeSeries( start, stop, step );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E extends Temporal> JpaSetReturningFunction<E> generateTimeSeries(E start, E stop, TemporalAmount step) {
 		return criteriaBuilder.generateTimeSeries( start, stop, step );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <E extends Temporal> JpaSetReturningFunction<E> generateTimeSeries(Expression<E> start, Expression<E> stop, Expression<? extends TemporalAmount> step) {
 		return criteriaBuilder.generateTimeSeries( start, stop, step );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaJsonTableFunction jsonTable(Expression<?> jsonDocument) {
 		return criteriaBuilder.jsonTable( jsonDocument );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaJsonTableFunction jsonTable(Expression<?> jsonDocument, String jsonPath) {
 		return criteriaBuilder.jsonTable( jsonDocument, jsonPath );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaJsonTableFunction jsonTable(Expression<?> jsonDocument, Expression<String> jsonPath) {
 		return criteriaBuilder.jsonTable( jsonDocument, jsonPath );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaXmlTableFunction xmlTable(String xpath, Expression<?> xmlDocument) {
 		return criteriaBuilder.xmlTable( xpath, xmlDocument );
 	}
 
 	@Incubating
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JpaXmlTableFunction xmlTable(Expression<String> xpath, Expression<?> xmlDocument) {
 		return criteriaBuilder.xmlTable( xpath, xmlDocument );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <C extends Comparable<? super C>> Expression<C> least(C x, Expression<C> y) {
 		return criteriaBuilder.least( x, y );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <C extends Comparable<? super C>> Expression<C> least(Expression<C> x, Expression<C> y) {
 		return criteriaBuilder.least( x, y );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <C extends Comparable<? super C>> Expression<C> greatest(C x, Expression<C> y) {
 		return criteriaBuilder.greatest( x, y );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <C extends Comparable<? super C>> Expression<C> greatest(Expression<C> x, Expression<C> y) {
 		return criteriaBuilder.greatest( x, y );
 	}

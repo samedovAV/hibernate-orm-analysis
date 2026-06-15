@@ -27,6 +27,8 @@ import org.hibernate.spi.NavigablePath;
 
 import static org.hibernate.internal.util.NullnessUtil.castNonNull;
 import static org.hibernate.query.sqm.spi.SqmCreationHelper.buildRootNavigablePath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Stuff and things
@@ -68,22 +70,26 @@ public class SqmCrossJoin<L, T> extends AbstractSqmFrom<L, T> implements JpaCros
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isImplicitlySelectable() {
 		return true;
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JoinType getJoinType() {
 		return getSqmJoinType().getCorrespondingJpaJoinType();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmJoinType getSqmJoinType() {
 		return SqmJoinType.CROSS;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmCrossJoin<L, T> copy(SqmCopyContext context) {
 		final var existing = context.getCopy( this );
 		if ( existing != null ) {
@@ -102,43 +108,51 @@ public class SqmCrossJoin<L, T> extends AbstractSqmFrom<L, T> implements JpaCros
 		return path;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmRoot<L> getRoot() {
 		return sqmRoot;
 	}
 
 	@Nullable
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmFrom<?, T> getLhs() {
 		// a cross-join has no LHS
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SqmEntityDomainType<T> getReferencedPathSource() {
 		return (SqmEntityDomainType<T>) super.getReferencedPathSource();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getEntityName() {
 		return getReferencedPathSource().getHibernateEntityName();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> X accept(SemanticQueryWalker<X> walker) {
 		return walker.visitCrossJoin( this );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmRoot<?> findRoot() {
 		return getRoot();
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmCorrelatedCrossJoin<L, T> createCorrelation() {
 		return new SqmCorrelatedCrossJoin<>( this );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmCrossJoin<L, T> makeCopy(SqmCreationProcessingState creationProcessingState) {
 		return new SqmCrossJoin<>(
 				getReferencedPathSource(),
@@ -154,22 +168,26 @@ public class SqmCrossJoin<L, T> extends AbstractSqmFrom<L, T> implements JpaCros
 
 	@Nullable
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistentAttribute<? super L, ?> getAttribute() {
 		return null;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public @Nullable SqmPredicate getJoinPredicate() {
 		return sqmJoinPredicates.getPredicate();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setJoinPredicate(@Nullable SqmPredicate predicate) {
 		sqmJoinPredicates.setPredicate( predicate );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmCrossJoin<L, T> on(@Nonnull BooleanExpression... restrictions) {
 		sqmJoinPredicates.setPredicate( nodeBuilder().wrap( restrictions ) );
 		return this;
@@ -177,6 +195,7 @@ public class SqmCrossJoin<L, T> extends AbstractSqmFrom<L, T> implements JpaCros
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public From<?, L> getParent() {
 		@SuppressWarnings("unchecked")
 		final var parent = (From<?, L>) getLhs();
@@ -185,24 +204,28 @@ public class SqmCrossJoin<L, T> extends AbstractSqmFrom<L, T> implements JpaCros
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S extends T> SqmTreatedCrossJoin<L, T, S> treatAs(@Nonnull Class<S> treatJavaType, @Nullable String alias) {
 		return treatAs( treatJavaType, alias, false );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S extends T> SqmTreatedCrossJoin<L, T, S> treatAs(@Nonnull EntityDomainType<S> treatTarget, @Nullable String alias) {
 		return treatAs( treatTarget, alias, false );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S extends T> SqmTreatedCrossJoin<L, T, S> treatAs(@Nonnull Class<S> treatJavaType, @Nullable String alias, boolean fetch) {
 		return treatAs( nodeBuilder().getDomainModel().entity( treatJavaType ), alias, false );
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <S extends T> SqmTreatedCrossJoin<L, T, S> treatAs(@Nonnull EntityDomainType<S> treatTarget, @Nullable String alias, boolean fetch) {
 		if ( alias != null ) {
 			throw new IllegalArgumentException( "Cross join treats can not be aliased" );
@@ -221,12 +244,14 @@ public class SqmCrossJoin<L, T> extends AbstractSqmFrom<L, T> implements JpaCros
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S extends T> SqmTreatedCrossJoin<L, T, S> treatAs(@Nonnull Class<S> treatAsType) {
 		return treatAs( treatAsType, null, false );
 	}
 
 	@Nonnull
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <S extends T> SqmTreatedCrossJoin<L, T, S> treatAs(@Nonnull EntityDomainType<S> treatAsType) {
 		return treatAs( treatAsType, null, false );
 	}

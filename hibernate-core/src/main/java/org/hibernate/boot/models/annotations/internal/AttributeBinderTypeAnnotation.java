@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.hibernate.annotations.AttributeBinderType;
 import org.hibernate.models.spi.ModelsContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 @SuppressWarnings({ "ClassExplicitlyAnnotation", "unused" })
 @jakarta.annotation.Generated("org.hibernate.orm.build.annotations.ClassGeneratorProcessor")
@@ -36,15 +38,18 @@ public class AttributeBinderTypeAnnotation implements AttributeBinderType {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<? extends Annotation> annotationType() {
 		return AttributeBinderType.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public java.lang.Class<? extends org.hibernate.binder.AttributeBinder<?>> binder() {
 		return binder;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void binder(java.lang.Class<? extends org.hibernate.binder.AttributeBinder<?>> value) {
 		this.binder = value;
 	}

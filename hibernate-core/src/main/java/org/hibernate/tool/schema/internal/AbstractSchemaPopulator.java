@@ -28,6 +28,8 @@ import static org.hibernate.internal.util.config.ConfigurationHelper.getBoolean;
 import static org.hibernate.internal.util.config.ConfigurationHelper.getString;
 import static org.hibernate.tool.schema.internal.Helper.applyScript;
 import static org.hibernate.tool.schema.internal.Helper.interpretScriptSourceSetting;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Handles population from {@value #DEFAULT_IMPORT_FILE} and other scripts.
@@ -36,8 +38,10 @@ public abstract class AbstractSchemaPopulator {
 
 	public static final String DEFAULT_IMPORT_FILE = "/import.sql";
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	abstract ClassLoaderService getClassLoaderService();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void applyImportSources(
 			ExecutionOptions options,
 			SqlScriptCommandExtractor commandExtractor,
@@ -62,10 +66,12 @@ public abstract class AbstractSchemaPopulator {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String getDefaultImportFile(ExecutionOptions options) {
 		return skipDefaultFileImport( options ) ? "" : DEFAULT_IMPORT_FILE;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static boolean skipDefaultFileImport(ExecutionOptions options) {
 		return getBoolean( HBM2DDL_SKIP_DEFAULT_IMPORT_FILE, options.getConfigurationValues() );
 	}
@@ -80,6 +86,7 @@ public abstract class AbstractSchemaPopulator {
 	 * lists of many {@code insert} statements on the same table, which is what
 	 * we typically expect, it's probably better to not format.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Formatter getImportScriptFormatter(boolean format) {
 //		return format ? FormatStyle.BASIC.getFormatter() : FormatStyle.NONE.getFormatter();
 		return FormatStyle.NONE.getFormatter();
@@ -92,6 +99,7 @@ public abstract class AbstractSchemaPopulator {
 	 * @return {@code true} if the legacy {@linkplain #DEFAULT_IMPORT_FILE default import file}
 	 *         was one of the listed imported files that were executed
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean applyImportScript(
 			ExecutionOptions options,
 			SqlScriptCommandExtractor commandExtractor,
@@ -118,6 +126,7 @@ public abstract class AbstractSchemaPopulator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean containsDefaultImportFile(ScriptSourceInput importScriptInput,ExecutionOptions options ) {
 		if ( skipDefaultFileImport( options ) ) {
 			return false;
@@ -135,6 +144,7 @@ public abstract class AbstractSchemaPopulator {
 	 * Handles import scripts specified using
 	 * {@link org.hibernate.cfg.SchemaToolingSettings#JAKARTA_HBM2DDL_LOAD_SCRIPT_SOURCE}.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void applyImportFiles(
 			ExecutionOptions options,
 			SqlScriptCommandExtractor commandExtractor,
@@ -150,6 +160,7 @@ public abstract class AbstractSchemaPopulator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void applyImportFiles(
 			ExecutionOptions options,
 			SqlScriptCommandExtractor commandExtractor,
@@ -173,6 +184,7 @@ public abstract class AbstractSchemaPopulator {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private ScriptSourceInput interpretLegacyImportScriptSetting(
 			String resourceName,
 			ClassLoaderService classLoaderService,
@@ -191,6 +203,7 @@ public abstract class AbstractSchemaPopulator {
 	/**
 	 * @see org.hibernate.cfg.SchemaToolingSettings#HBM2DDL_CHARSET_NAME
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static String getCharsetName(ExecutionOptions options) {
 		return (String) options.getConfigurationValues().get( HBM2DDL_CHARSET_NAME );
 	}
@@ -200,6 +213,7 @@ public abstract class AbstractSchemaPopulator {
 	 *
 	 * @return a {@link java.io.Reader} or a string URL
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static Object getImportScriptSetting(ExecutionOptions options) {
 		final var configuration = options.getConfigurationValues();
 		final Object importScriptSetting = configuration.get( HBM2DDL_LOAD_SCRIPT_SOURCE );

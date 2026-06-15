@@ -12,6 +12,8 @@ import org.hibernate.sql.model.MutationOperation;
 import org.hibernate.sql.model.ast.ColumnValueBinding;
 import org.hibernate.sql.model.ast.ColumnValueBindingList;
 import org.hibernate.sql.model.ast.RestrictedTableMutation;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specialized builder for building mutations which have a restrictions (aka, {@code where} clause).
@@ -27,6 +29,7 @@ public interface RestrictedTableMutationBuilder<O extends MutationOperation, M e
 	 * prefer any of the other methods here for adding non-key restrictions.
 	 */
 	@Internal @Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addNonKeyRestriction(ColumnValueBinding valueBinding);
 
 	/**
@@ -38,6 +41,7 @@ public interface RestrictedTableMutationBuilder<O extends MutationOperation, M e
 	 */
 	@Internal
 	@Incubating
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void addNonKeyRestriction(SelectableMapping restrictableMapping) {
 		addNonKeyRestriction( restrictableMapping, restrictableMapping.getWriteExpression() );
 	}
@@ -51,11 +55,13 @@ public interface RestrictedTableMutationBuilder<O extends MutationOperation, M e
 	 */
 	@Internal
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addNonKeyRestriction(SelectableMapping restrictableMapping, String restrictionExpression);
 
 	/**
 	 * Add a restriction as long as the selectable is not a formula and is not nullable
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void addKeyRestrictions(SelectableMappings selectableMappings) {
 		final int jdbcTypeCount = selectableMappings.getJdbcTypeCount();
 		for ( int i = 0; i < jdbcTypeCount; i++ ) {
@@ -66,6 +72,7 @@ public interface RestrictedTableMutationBuilder<O extends MutationOperation, M e
 	/**
 	 * Add a restriction as long as the selectable is not a formula and is not nullable
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void addKeyRestrictionsLeniently(SelectableMappings selectableMappings) {
 		final int jdbcTypeCount = selectableMappings.getJdbcTypeCount();
 		for ( int i = 0; i < jdbcTypeCount; i++ ) {
@@ -76,6 +83,7 @@ public interface RestrictedTableMutationBuilder<O extends MutationOperation, M e
 	/**
 	 * Add restriction based on non-version optimistically-locked column
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void addOptimisticLockRestrictions(SelectableMappings selectableMappings) {
 		final int jdbcTypeCount = selectableMappings.getJdbcTypeCount();
 		for ( int i = 0; i < jdbcTypeCount; i++ ) {
@@ -86,6 +94,7 @@ public interface RestrictedTableMutationBuilder<O extends MutationOperation, M e
 	/**
 	 * Add a restriction as long as the selectable is not a formula and is not nullable
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void addKeyRestriction(SelectableMapping selectableMapping){
 		if ( selectableMapping.isNullable() ) {
 			return;
@@ -96,6 +105,7 @@ public interface RestrictedTableMutationBuilder<O extends MutationOperation, M e
 	/**
 	 * Add a restriction as long as the selectable is not a formula
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void addKeyRestrictionLeniently(SelectableMapping selectableMapping) {
 		if ( selectableMapping.isFormula() ) {
 			return;
@@ -106,10 +116,13 @@ public interface RestrictedTableMutationBuilder<O extends MutationOperation, M e
 	/**
 	 * Add a restriction as long as the selectable is not a formula and is not nullable
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addKeyRestrictionBinding(SelectableMapping selectableMapping);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addNullOptimisticLockRestriction(SelectableMapping column);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default void addNullRestriction(SelectableMapping column) {
 		addNullOptimisticLockRestriction( column );
 	}
@@ -117,17 +130,23 @@ public interface RestrictedTableMutationBuilder<O extends MutationOperation, M e
 	/**
 	 * Add restriction based on non-version optimistically-locked column
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addOptimisticLockRestriction(SelectableMapping selectableMapping);
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default void addOptimisticLockRestriction(int position, SelectableMapping selectableMapping) {
 		addOptimisticLockRestriction(  selectableMapping );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ColumnValueBindingList getKeyRestrictionBindings();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	ColumnValueBindingList getOptimisticLockBindings();
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void setWhere(String fragment);
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addWhereFragment(String fragment);
 }

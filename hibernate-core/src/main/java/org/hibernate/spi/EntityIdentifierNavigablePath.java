@@ -6,6 +6,8 @@ package org.hibernate.spi;
 
 import org.hibernate.Incubating;
 import org.hibernate.metamodel.mapping.EntityIdentifierMapping;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specialized implementation of {@link NavigablePath} for handling special cases
@@ -27,16 +29,19 @@ public class EntityIdentifierNavigablePath extends NavigablePath {
 		this.identifierAttributeName = identifierAttributeName;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getIdentifierAttributeName() {
 		return identifierAttributeName;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getLocalName() {
 		return EntityIdentifierMapping.ID_ROLE_NAME;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected boolean localNamesMatch(DotIdentifierSequence otherPath) {
 		final String otherLocalName = otherPath.getLocalName();
 
@@ -45,6 +50,7 @@ public class EntityIdentifierNavigablePath extends NavigablePath {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected boolean localNamesMatch(EntityIdentifierNavigablePath otherPath) {
 		return super.localNamesMatch( otherPath );
 	}

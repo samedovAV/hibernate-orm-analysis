@@ -6,6 +6,8 @@ package org.hibernate.boot.spi;
 
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.service.JavaServiceLoadable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A bootstrap process hook for contributing sources to {@link MetadataSources}.
@@ -21,5 +23,6 @@ public interface MetadataSourcesContributor {
 	 *
 	 * @param metadataSources The {@code MetadataSource}s, to which to contribute.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void contribute(MetadataSources metadataSources);
 }

@@ -11,6 +11,8 @@ import org.hibernate.dialect.Dialect;
 import org.hibernate.engine.spi.LoadQueryInfluencers;
 import org.hibernate.mapping.Table;
 import org.hibernate.type.SqlTypes;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Abstracts the support for temporal tables.
@@ -28,6 +30,7 @@ public interface TemporalTableSupport {
 	 *
 	 * @see TemporalTableStrategy#NATIVE
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean supportsNativeTemporalTables();
 
 	/**
@@ -35,6 +38,7 @@ public interface TemporalTableSupport {
 	 * temporal tables. The default implementation returns
 	 * {@link SqlTypes#TIMESTAMP TIMESTAMP}.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getTemporalColumnType();
 
 	/**
@@ -46,6 +50,7 @@ public interface TemporalTableSupport {
 	 *
 	 * @see org.hibernate.annotations.Temporal#secondPrecision
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	int getTemporalColumnPrecision();
 
 	/**
@@ -61,6 +66,7 @@ public interface TemporalTableSupport {
 	 * @param historyPartitionName The history partition name, if specified
 	 * @return The options, or {@code null} if there are no options
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getTemporalTableOptions(
 			TemporalTableStrategy strategy,
 			String rowEndColumnName,
@@ -74,6 +80,7 @@ public interface TemporalTableSupport {
 	 *
 	 * @param partitioned Is partitioning requested
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean suppressesTemporalTablePrimaryKeys(boolean partitioned);
 
 	/**
@@ -82,6 +89,7 @@ public interface TemporalTableSupport {
 	 *
 	 * @see org.hibernate.annotations.Temporal.HistoryPartitioning
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean supportsTemporalTablePartitioning();
 
 	/**
@@ -96,6 +104,7 @@ public interface TemporalTableSupport {
 	 * @param currentPartitionName The current partition name, if specified
 	 * @param historyPartitionName The history partition name, if specified
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void addTemporalTableAuxiliaryObjects(
 			TemporalTableStrategy strategy,
 			Table table, Database database,
@@ -115,6 +124,7 @@ public interface TemporalTableSupport {
 	 * @param strategy The temporal table strategy
 	 * @param partitioned Is partitioning requested
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getExtraTemporalTableDeclarations(
 			TemporalTableStrategy strategy,
 			String rowStartColumn, String rowEndColumn,
@@ -125,6 +135,7 @@ public interface TemporalTableSupport {
 	 * constraints? (That starting timestamps precede ending timestamps.)
 	 * This is typically not needed for native temporal tables.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean createTemporalTableCheckConstraint(TemporalTableStrategy strategy);
 
 	/**
@@ -133,6 +144,7 @@ public interface TemporalTableSupport {
 	 * is usually used together with native temporal tables, but in
 	 * Oracle we use it all the time.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getAsOfOperator(TemporalTableStrategy strategy);
 
 	/**
@@ -143,6 +155,7 @@ public interface TemporalTableSupport {
 	 *
 	 * @param strategy The strategy
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean useAsOfOperator(TemporalTableStrategy strategy);
 
 	/**
@@ -151,6 +164,7 @@ public interface TemporalTableSupport {
 	 *
 	 * @param strategy The strategy
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default boolean useAsOfOperatorForCurrent(TemporalTableStrategy strategy) {
 		return false;
 	}
@@ -162,12 +176,14 @@ public interface TemporalTableSupport {
 	 * we never use them.
 	 * @param influencers The {@link LoadQueryInfluencers}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean useTemporalRestriction(LoadQueryInfluencers influencers);
 
 	/**
 	 * Column options for a native implementation of exclusion from
 	 * temporal versioning.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	String getTemporalExclusionColumnOption();
 
 	/**
@@ -175,5 +191,6 @@ public interface TemporalTableSupport {
 	 *
 	 * @see TemporalTableStrategy#AUTO
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TemporalTableStrategy getDefaultTemporalTableStrategy();
 }

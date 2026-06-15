@@ -9,6 +9,8 @@ import java.util.List;
 import org.hibernate.Internal;
 
 import static org.hibernate.internal.util.StringHelper.qualify;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A mapping model object representing a primary key constraint.
@@ -26,6 +28,7 @@ public class PrimaryKey extends Constraint {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void addColumn(Column column) {
 		// force primary key columns to not-null
 		for ( var next : getTable().getColumns() ) {
@@ -37,19 +40,23 @@ public class PrimaryKey extends Constraint {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getExportIdentifier() {
 		return qualify( getTable().getExportIdentifier(), "PK-" + getName() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setOrderingUniqueKey(UniqueKey uniqueKey) {
 		orderingUniqueKey = uniqueKey;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public UniqueKey getOrderingUniqueKey() {
 		return orderingUniqueKey;
 	}
 
 	@Internal
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void reorderColumns(List<Column> reorderedColumns) {
 		final var columns = getColumns();
 		if ( originalOrder != null ) {
@@ -74,6 +81,7 @@ public class PrimaryKey extends Constraint {
 	}
 
 	@Internal
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int[] getOriginalOrder() {
 		return originalOrder;
 	}

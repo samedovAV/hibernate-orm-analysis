@@ -8,17 +8,21 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.procedure.FunctionReturn;
 import org.hibernate.sql.exec.spi.JdbcCallFunctionReturn;
 import org.hibernate.sql.exec.spi.JdbcCallParameterRegistration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
  */
 public interface FunctionReturnImplementor<T> extends FunctionReturn<T>, ProcedureParameterImplementor<T> {
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default JdbcCallParameterRegistration toJdbcParameterRegistration(
 			int startIndex,
 			ProcedureCallImplementor<?> procedureCall) {
 		return toJdbcFunctionReturn( procedureCall.getSession() );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	JdbcCallFunctionReturn toJdbcFunctionReturn(SharedSessionContractImplementor session);
 }

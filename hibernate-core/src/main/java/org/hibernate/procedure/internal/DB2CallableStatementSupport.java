@@ -15,6 +15,8 @@ import org.hibernate.sql.exec.internal.JdbcCallImpl;
 import org.hibernate.sql.exec.spi.JdbcCallParameterRegistration;
 import org.hibernate.sql.exec.spi.JdbcOperationQueryCall;
 import org.hibernate.type.SqlTypes;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * DB2 implementation of CallableStatementSupport.
@@ -34,6 +36,7 @@ public class DB2CallableStatementSupport extends AbstractStandardCallableStateme
 	private static final String CALL_SYNTAX_END = ")}";
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcOperationQueryCall interpretCall(ProcedureCallImplementor procedureCall) {
 		final String procedureName = procedureCall.getProcedureName();
 		final FunctionReturnImplementor<?> functionReturn = procedureCall.getFunctionReturn();

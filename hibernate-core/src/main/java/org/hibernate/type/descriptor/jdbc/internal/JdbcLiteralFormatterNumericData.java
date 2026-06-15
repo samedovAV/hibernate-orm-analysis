@@ -9,6 +9,8 @@ import org.hibernate.sql.ast.spi.SqlAppender;
 import org.hibernate.type.descriptor.WrapperOptions;
 import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.descriptor.jdbc.spi.BasicJdbcLiteralFormatter;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * {@link org.hibernate.type.descriptor.jdbc.JdbcLiteralFormatter}
@@ -25,6 +27,7 @@ public class JdbcLiteralFormatterNumericData<T> extends BasicJdbcLiteralFormatte
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void appendJdbcLiteral(SqlAppender appender, T value, Dialect dialect, WrapperOptions wrapperOptions) {
 		appender.appendSql( unwrap( value, unwrapJavaType, wrapperOptions ).toString() );
 	}

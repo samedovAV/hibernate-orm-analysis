@@ -17,6 +17,8 @@ import tools.jackson.databind.json.JsonMapper;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -49,6 +51,7 @@ public final class Jackson3JsonFormatMapper extends AbstractJsonFormatMapper {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> void writeToTarget(T value, JavaType<T> javaType, Object target, WrapperOptions options)
 			throws JacksonException {
 		jsonMapper.writerFor( jsonMapper.constructType( javaType.getJavaType() ) )
@@ -56,21 +59,25 @@ public final class Jackson3JsonFormatMapper extends AbstractJsonFormatMapper {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> T readFromSource(JavaType<T> javaType, Object source, WrapperOptions options) throws JacksonException {
 		return jsonMapper.readValue( (JsonParser) source, jsonMapper.constructType( javaType.getJavaType() ) );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsSourceType(Class<?> sourceType) {
 		return JsonParser.class.isAssignableFrom( sourceType );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean supportsTargetType(Class<?> targetType) {
 		return JsonGenerator.class.isAssignableFrom( targetType );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> T fromString(CharSequence charSequence, Type type) {
 		try {
 			return jsonMapper.readValue( charSequence.toString(), jsonMapper.constructType( type ) );
@@ -81,6 +88,7 @@ public final class Jackson3JsonFormatMapper extends AbstractJsonFormatMapper {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> String toString(T value, Type type) {
 		try {
 			return jsonMapper.writerFor( jsonMapper.constructType( type ) ).writeValueAsString( value );

@@ -7,6 +7,8 @@ package org.hibernate.audit.spi;
 import org.hibernate.audit.ModificationType;
 import org.hibernate.engine.spi.EntityKey;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Contract for writing a single entity audit row to the
@@ -27,6 +29,7 @@ public interface AuditWriter {
 	 * @param modificationType the modification type (ADD/MOD/DEL)
 	 * @param session the current session
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	void writeAuditRow(
 			EntityKey entityKey,
 			Object entity,

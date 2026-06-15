@@ -34,6 +34,8 @@ import java.util.function.BiFunction;
 
 import static java.util.Collections.emptyMap;
 import static org.hibernate.internal.util.type.PrimitiveWrappers.cast;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Gavin King
@@ -48,6 +50,7 @@ public class ProjectionSpecificationImpl<T> implements ProjectionSpecification<T
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> Element<X> select(SingularAttribute<T, X> attribute) {
 		final int position = specifications.size();
 		specifications.add( (select, root) -> root.get( attribute ) );
@@ -55,6 +58,7 @@ public class ProjectionSpecificationImpl<T> implements ProjectionSpecification<T
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> Element<X> select(Path<T, X> path) {
 		final int position = specifications.size();
 		specifications.add( (select, root) -> (SqmPath<X>) path.path( root ) );
@@ -62,17 +66,20 @@ public class ProjectionSpecificationImpl<T> implements ProjectionSpecification<T
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QuerySpecification<Object[]> restrict(Restriction<? super Object[]> restriction) {
 		throw new UnsupportedOperationException( "This is not supported yet!" );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public SelectionQuery<Object[]> createQuery(EntityHandler entityHandler) {
 		return entityHandler.unwrap( SharedSessionContract.class )
 				.createQuery( buildCriteria( entityHandler.getCriteriaBuilder() ) );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public CriteriaQuery<Object[]> buildCriteria(CriteriaBuilder builder) {
 		var impl = (SelectionSpecificationImpl<T>) selectionSpecification;
 		// TODO: handle HQL, existing criteria
@@ -93,6 +100,7 @@ public class ProjectionSpecificationImpl<T> implements ProjectionSpecification<T
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public ProjectionSpecification<T> validate(CriteriaBuilder builder) {
 		selectionSpecification.validate( builder );
 		// TODO: validate projection
@@ -100,35 +108,41 @@ public class ProjectionSpecificationImpl<T> implements ProjectionSpecification<T
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TypedQueryReference<Object[]> reference() {
 		return this;
 	}
 
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getName() {
 		return null;
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<Object[]> getResultType() {
 		return Object[].class;
 	}
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, Object> getHints() {
 		return emptyMap();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Timeout getTimeout() {
 		return null;
 	}
 
 	@Override
 	@Nullable
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getEntityGraphName() {
 		return null;
 	}

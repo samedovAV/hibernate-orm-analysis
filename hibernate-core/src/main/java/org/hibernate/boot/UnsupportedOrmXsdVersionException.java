@@ -5,6 +5,8 @@
 package org.hibernate.boot;
 
 import org.hibernate.boot.jaxb.Origin;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specialized exception indicating that an unsupported {@code orm.xml} XSD version was specified
@@ -19,6 +21,7 @@ public class UnsupportedOrmXsdVersionException extends MappingException {
 		this.requestedVersion = requestedVersion;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getRequestedVersion() {
 		return requestedVersion;
 	}

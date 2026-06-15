@@ -16,6 +16,8 @@ import org.hibernate.persister.collection.CollectionPersister;
 import org.hibernate.sql.exec.spi.ExecutionContext;
 import org.hibernate.sql.results.graph.collection.CollectionInitializer;
 import org.hibernate.sql.results.graph.collection.LoadingCollectionEntry;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Represents a collection currently being loaded.
@@ -43,36 +45,43 @@ public class LoadingCollectionEntryImpl implements LoadingCollectionEntry {
 		collectionInstance.beginRead();
 	}
 
-	@Override public CollectionPersister getCollectionDescriptor() {
+	@Override @Prove(complexity = Complexity.O_1, n = "", count = {})
+	public CollectionPersister getCollectionDescriptor() {
 		return collectionDescriptor;
 	}
 
 	/**
 	 * Access to the initializer that is responsible for initializing this collection
 	 */
-	@Override public CollectionInitializer<?> getInitializer() {
+	@Override @Prove(complexity = Complexity.O_1, n = "", count = {})
+	public CollectionInitializer<?> getInitializer() {
 		return initializer;
 	}
 
-	@Override public Object getKey() {
+	@Override @Prove(complexity = Complexity.O_1, n = "", count = {})
+	public Object getKey() {
 		return key;
 	}
 
-	@Override public PersistentCollection<?> getCollectionInstance() {
+	@Override @Prove(complexity = Complexity.O_1, n = "", count = {})
+	public PersistentCollection<?> getCollectionInstance() {
 		return collectionInstance;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void load(Consumer<List<Object>> loadingEntryConsumer) {
 		loadingEntryConsumer.accept( loadingState );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <T> void load(T arg1, BiConsumer<T, List<Object>> loadingEntryConsumer) {
 		loadingEntryConsumer.accept( arg1, loadingState );
 	}
 
-	@Override public void finishLoading(ExecutionContext executionContext) {
+	@Override @Prove(complexity = Complexity.O_1, n = "", count = {})
+	public void finishLoading(ExecutionContext executionContext) {
 		collectionInstance.injectLoadedState(
 				getCollectionDescriptor().getAttributeMapping(),
 				loadingState
@@ -94,6 +103,7 @@ public class LoadingCollectionEntryImpl implements LoadingCollectionEntry {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return getClass().getSimpleName() + "(" + getCollectionDescriptor().getNavigableRole().getFullPath() + "#" + getKey() + ")";
 	}

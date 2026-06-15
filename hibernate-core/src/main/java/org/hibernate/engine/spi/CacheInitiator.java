@@ -12,6 +12,8 @@ import org.hibernate.cache.spi.CacheImplementor;
 import org.hibernate.cache.spi.RegionFactory;
 import org.hibernate.service.spi.SessionFactoryServiceInitiator;
 import org.hibernate.service.spi.SessionFactoryServiceInitiatorContext;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Initiator for second level cache support
@@ -24,6 +26,7 @@ public class CacheInitiator implements SessionFactoryServiceInitiator<CacheImple
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CacheImplementor initiateService(@Nonnull SessionFactoryServiceInitiatorContext context) {
 		final var regionFactory = context.getServiceRegistry().requireService( RegionFactory.class );
 		return regionFactory instanceof NoCachingRegionFactory
@@ -33,6 +36,7 @@ public class CacheInitiator implements SessionFactoryServiceInitiator<CacheImple
 
 	@Override
 	@Nonnull
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<CacheImplementor> getServiceInitiated() {
 		return CacheImplementor.class;
 	}

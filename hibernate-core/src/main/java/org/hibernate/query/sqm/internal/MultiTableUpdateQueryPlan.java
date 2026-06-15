@@ -8,6 +8,8 @@ import org.hibernate.query.spi.DomainQueryExecutionContext;
 import org.hibernate.query.sqm.mutation.spi.MultiTableHandlerBuildResult;
 import org.hibernate.query.sqm.mutation.spi.SqmMultiTableMutationStrategy;
 import org.hibernate.query.sqm.tree.update.SqmUpdateStatement;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -22,6 +24,7 @@ public class MultiTableUpdateQueryPlan extends AbstractMultiTableMutationQueryPl
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected MultiTableHandlerBuildResult buildHandler(
 			SqmUpdateStatement<?> statement,
 			DomainParameterXref domainParameterXref,

@@ -15,6 +15,8 @@ import org.hibernate.engine.spi.EntityEntry;
 import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.engine.spi.Status;
 import org.hibernate.generator.values.GeneratedValues;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Post-execution callback for entity update actions.
 ///
@@ -67,6 +69,7 @@ public class PostUpdateHandling implements PostExecutionCallback {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void handle(SessionImplementor session) {
 		final EntityEntry entry = resolveEntityEntry( session );
 		if ( !action.getPersister().isMutable() ) {
@@ -77,6 +80,7 @@ public class PostUpdateHandling implements PostExecutionCallback {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private EntityEntry resolveEntityEntry(SessionImplementor session) {
 		if ( entityEntry != null ) {
 			return entityEntry;
@@ -90,6 +94,7 @@ public class PostUpdateHandling implements PostExecutionCallback {
 		return entry;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void handleImmutableEntity(EntityEntry entry, SessionImplementor session) {
 		UpdateCacheHandling.updateItem( action, cacheUpdate, action.getNextVersion(), entry, session );
 
@@ -104,6 +109,7 @@ public class PostUpdateHandling implements PostExecutionCallback {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void handleMutableEntity(EntityEntry entry, SessionImplementor session) {
 		final var persister = action.getPersister();
 		final Object entity = action.getInstance();

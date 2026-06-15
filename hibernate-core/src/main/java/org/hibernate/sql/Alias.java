@@ -4,6 +4,8 @@
  */
 package org.hibernate.sql;
 import org.hibernate.dialect.Dialect;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * An alias generator for SQL identifiers.
@@ -33,6 +35,7 @@ public final class Alias {
 		this.suffix = suffix;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toAliasString(String sqlIdentifier) {
 		char begin = sqlIdentifier.charAt(0);
 		int quoteType = Dialect.QUOTE.indexOf(begin);
@@ -46,16 +49,19 @@ public final class Alias {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toUnquotedAliasString(String sqlIdentifier) {
 		return getUnquotedAliasString(sqlIdentifier);
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private String getUnquotedAliasString(String sqlIdentifier) {
 		char begin = sqlIdentifier.charAt(0);
 		int quoteType = Dialect.QUOTE.indexOf(begin);
 		return getUnquotedAliasString(sqlIdentifier, quoteType);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private String getUnquotedAliasString(String sqlIdentifier, int quoteType) {
 		String unquoted = sqlIdentifier;
 		if ( quoteType >= 0 ) {
@@ -69,6 +75,7 @@ public final class Alias {
 		return ( suffix == null ) ? unquoted : unquoted + suffix;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String[] toUnquotedAliasStrings(String[] sqlIdentifiers) {
 		String[] aliases = new String[ sqlIdentifiers.length ];
 		for ( int i=0; i<sqlIdentifiers.length; i++ ) {
@@ -77,6 +84,7 @@ public final class Alias {
 		return aliases;
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String[] toAliasStrings(String[] sqlIdentifiers) {
 		String[] aliases = new String[ sqlIdentifiers.length ];
 		for ( int i=0; i<sqlIdentifiers.length; i++ ) {

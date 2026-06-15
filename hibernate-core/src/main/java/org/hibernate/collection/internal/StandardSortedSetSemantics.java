@@ -16,6 +16,8 @@ import org.hibernate.collection.spi.PersistentSortedSet;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.metamodel.CollectionClassification;
 import org.hibernate.persister.collection.CollectionPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -30,16 +32,19 @@ public class StandardSortedSetSemantics<E> extends AbstractSetSemantics<SortedSe
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CollectionClassification getCollectionClassification() {
 		return CollectionClassification.SORTED_SET;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Class<SortedSet> getCollectionJavaType() {
 		return SortedSet.class;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SortedSet<E> instantiateRaw(
 			int anticipatedSize,
 			CollectionPersister collectionDescriptor) {
@@ -49,6 +54,7 @@ public class StandardSortedSetSemantics<E> extends AbstractSetSemantics<SortedSe
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public <X> SortedSet<X> instantiateWithElements(
 			int anticipatedSize,
 			CollectionPersister collectionDescriptor,
@@ -61,6 +67,7 @@ public class StandardSortedSetSemantics<E> extends AbstractSetSemantics<SortedSe
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistentCollection<E> instantiateWrapper(
 			Object key,
 			CollectionPersister collectionDescriptor,
@@ -70,6 +77,7 @@ public class StandardSortedSetSemantics<E> extends AbstractSetSemantics<SortedSe
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public PersistentCollection<E> wrap(
 			SortedSet<E> rawCollection,
 			CollectionPersister collectionDescriptor,
@@ -78,6 +86,7 @@ public class StandardSortedSetSemantics<E> extends AbstractSetSemantics<SortedSe
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Iterator<E> getElementIterator(SortedSet<E> rawCollection) {
 		return rawCollection.iterator();
 	}

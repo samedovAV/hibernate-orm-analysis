@@ -6,6 +6,8 @@ package org.hibernate.loader.ast.spi;
 
 import org.hibernate.LockOptions;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Loader for loading an entity by a single identifier value.
@@ -17,9 +19,11 @@ public interface SingleIdEntityLoader<T> extends SingleEntityLoader<T> {
 	 * Load by primary key value
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	T load(Object pkValue, LockOptions lockOptions, Boolean readOnly, SharedSessionContractImplementor session);
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	T load(Object pkValue, Object entityInstance, LockOptions lockOptions, Boolean readOnly, SharedSessionContractImplementor session);
 
 	/**
@@ -27,6 +31,7 @@ public interface SingleIdEntityLoader<T> extends SingleEntityLoader<T> {
 	 * bytecode-proxy or {@link org.hibernate.event.spi.LoadEvent} handling.
 	 * The passed instance is the enhanced proxy or the entity to be loaded.
 	 */
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	default T load(Object pkValue, Object entityInstance, LockOptions lockOptions, SharedSessionContractImplementor session) {
 		return load( pkValue, entityInstance, lockOptions, null, session );
 	}
@@ -34,5 +39,6 @@ public interface SingleIdEntityLoader<T> extends SingleEntityLoader<T> {
 	/**
 	 * Load database snapshot by primary key value
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object[] loadDatabaseSnapshot(Object id, SharedSessionContractImplementor session);
 }

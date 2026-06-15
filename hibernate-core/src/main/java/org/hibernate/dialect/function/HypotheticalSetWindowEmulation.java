@@ -28,6 +28,8 @@ import org.hibernate.type.BasicTypeReference;
 import org.hibernate.type.spi.TypeConfiguration;
 
 import static java.util.Collections.emptyList;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -43,6 +45,7 @@ public class HypotheticalSetWindowEmulation extends HypotheticalSetFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public <T> SelfRenderingSqmOrderedSetAggregateFunction<T> generateSqmOrderedSetAggregateFunctionExpression(
 			List<? extends SqmTypedNode<?>> arguments,
 			SqmPredicate filter,
@@ -63,6 +66,7 @@ public class HypotheticalSetWindowEmulation extends HypotheticalSetFunction {
 		) {
 
 			@Override
+			@Prove(complexity = Complexity.O_N2, n = "", count = {})
 			public Expression convertToSqlAst(SqmToSqlAstConverter walker) {
 				final Clause currentClause = walker.getCurrentClauseStack().getCurrent();
 				if ( currentClause == Clause.OVER ) {

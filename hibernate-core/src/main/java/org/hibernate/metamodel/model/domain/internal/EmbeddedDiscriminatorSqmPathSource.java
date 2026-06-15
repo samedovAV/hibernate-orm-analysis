@@ -9,6 +9,8 @@ import org.hibernate.metamodel.model.domain.DomainType;
 import org.hibernate.metamodel.model.domain.EmbeddableDomainType;
 import org.hibernate.query.sqm.SqmPathSource;
 import org.hibernate.query.sqm.tree.domain.SqmPath;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * SqmPathSource implementation for embeddable discriminator
@@ -24,6 +26,7 @@ public class EmbeddedDiscriminatorSqmPathSource<D> extends AbstractDiscriminator
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmPath<D> createSqmPath(SqmPath<?> lhs, @Nullable SqmPathSource<?> intermediatePathSource) {
 		//noinspection unchecked
 		return new EmbeddedDiscriminatorSqmPath<>(

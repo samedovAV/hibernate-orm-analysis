@@ -43,6 +43,8 @@ import static org.hibernate.internal.util.StringHelper.isNotEmpty;
 import static org.hibernate.jpa.internal.JpaLogger.JPA_LOGGER;
 import static org.hibernate.internal.util.StringHelper.isEmpty;
 import static org.hibernate.jpa.internal.util.ConfigurationHelper.overrideProperties;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Used by Hibernate to parse {@code persistence.xml} files in SE environments.
@@ -54,6 +56,7 @@ public final class PersistenceXmlParser {
 	/**
 	 * @return A {@link PersistenceXmlParser} using no settings at all.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static PersistenceXmlParser create() {
 		return new PersistenceXmlParser( Map.of(), null, null );
 	}
@@ -62,6 +65,7 @@ public final class PersistenceXmlParser {
 	 * @param integration The Map of integration settings
 	 * @return A {@link PersistenceXmlParser} using the provided settings.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static PersistenceXmlParser create(Map<?,?> integration) {
 		return new PersistenceXmlParser( integration, null, null );
 	}
@@ -76,6 +80,7 @@ public final class PersistenceXmlParser {
 	 * and over {@code providedClassLoader}.
 	 * @return A {@link PersistenceXmlParser} using the provided settings and classloading configuration.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static PersistenceXmlParser create(Map<?,?> integration, ClassLoader providedClassLoader,
 			ClassLoaderService providedClassLoaderService) {
 		return new PersistenceXmlParser( integration, providedClassLoader, providedClassLoaderService );
@@ -115,6 +120,7 @@ public final class PersistenceXmlParser {
 	 * @return The {@link ClassLoaderService} used by this parser.
 	 * Useful to retrieve URLs of persistence.xml files.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ClassLoaderService getClassLoaderService() {
 		return classLoaderService;
 	}
@@ -127,6 +133,7 @@ public final class PersistenceXmlParser {
 	 *
 	 * @return Map of persistence-unit descriptors keyed by the PU name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, PersistenceUnitDescriptor> parse(List<URL> persistenceXmlUrls) {
 		final Map<String, PersistenceUnitDescriptor> persistenceUnits = new HashMap<>();
 		parsePersistenceXml( persistenceUnits, persistenceXmlUrls, RESOURCE_LOCAL );
@@ -142,6 +149,7 @@ public final class PersistenceXmlParser {
 	 *
 	 * @return Map of persistence-unit descriptors keyed by the PU name
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Map<String, PersistenceUnitDescriptor> parse(
 			List<URL> persistenceXmlUrls,
 			PersistenceUnitTransactionType transactionType) {
@@ -150,6 +158,7 @@ public final class PersistenceXmlParser {
 		return persistenceUnits;
 	}
 
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	private void parsePersistenceXml(Map<String, PersistenceUnitDescriptor> persistenceUnits,
 			List<URL> xmlUrls,
 			PersistenceUnitTransactionType defaultTransactionType) {
@@ -158,6 +167,7 @@ public final class PersistenceXmlParser {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void parsePersistenceXml(Map<String, PersistenceUnitDescriptor> persistenceUnits,
 			URL xmlUrl, PersistenceUnitTransactionType defaultTransactionType) {
 		if ( JPA_LOGGER.isTraceEnabled() ) {
@@ -181,6 +191,7 @@ public final class PersistenceXmlParser {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private void bindPersistenceUnit(
 			JaxbPersistenceUnitImpl jaxbPersistenceUnit,
 			ParsedPersistenceXmlDescriptor persistenceUnitDescriptor) {
@@ -212,6 +223,7 @@ public final class PersistenceXmlParser {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static void setTransactionType(
 			JaxbPersistenceUnitImpl jaxbPersistenceUnit,
 			ParsedPersistenceXmlDescriptor persistenceUnitDescriptor) {
@@ -221,6 +233,7 @@ public final class PersistenceXmlParser {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private boolean handleBoolean(Boolean incoming) {
 		if ( incoming != null ) {
 			return incoming;
@@ -229,6 +242,7 @@ public final class PersistenceXmlParser {
 	}
 
 	@SuppressWarnings("deprecation")
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void applyIntegrationOverrides(Map<?,?> integration, PersistenceUnitTransactionType defaultTransactionType,
 			ParsedPersistenceXmlDescriptor persistenceUnitDescriptor) {
 		if ( integration.containsKey( JAKARTA_PERSISTENCE_PROVIDER ) ) {
@@ -272,6 +286,7 @@ public final class PersistenceXmlParser {
 		overrideProperties( persistenceUnitDescriptor.getProperties(), integration );
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private void applyTransactionTypeOverride(
 			ParsedPersistenceXmlDescriptor persistenceUnitDescriptor,
 			PersistenceUnitTransactionType defaultTransactionType) {
@@ -282,6 +297,7 @@ public final class PersistenceXmlParser {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static PersistenceUnitTransactionType determineTransactionType(
 			ParsedPersistenceXmlDescriptor persistenceUnitDescriptor,
 			PersistenceUnitTransactionType defaultTransactionType) {
@@ -296,6 +312,7 @@ public final class PersistenceXmlParser {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static PersistenceUnitTransactionType parseTransactionType(String value) {
 		if ( isEmpty( value ) ) {
 			return null;
@@ -310,6 +327,7 @@ public final class PersistenceXmlParser {
 		}
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private JaxbPersistenceImpl loadUrlWithJaxb(URL xmlUrl) {
 		final String resourceName = xmlUrl.toExternalForm();
 		try {

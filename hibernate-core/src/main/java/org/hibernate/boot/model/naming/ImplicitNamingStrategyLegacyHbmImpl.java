@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.naming;
 
 import static org.hibernate.internal.util.StringHelper.unqualify;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Implements the original legacy naming behavior.
@@ -18,11 +20,13 @@ public class ImplicitNamingStrategyLegacyHbmImpl extends ImplicitNamingStrategyJ
 	public static final ImplicitNamingStrategyLegacyHbmImpl INSTANCE = new ImplicitNamingStrategyLegacyHbmImpl();
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String transformEntityName(EntityNaming entityNaming) {
 		return unqualify( entityNaming.getEntityName() );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Identifier determineBasicColumnName(ImplicitBasicColumnNameSource source) {
 		return source.isCollectionElement()
 				? toIdentifier( "elt", source.getBuildingContext() )
@@ -30,6 +34,7 @@ public class ImplicitNamingStrategyLegacyHbmImpl extends ImplicitNamingStrategyJ
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Identifier determineJoinColumnName(ImplicitJoinColumnNameSource source) {
 		final var attributePath = source.getAttributePath();
 		return attributePath != null
@@ -38,6 +43,7 @@ public class ImplicitNamingStrategyLegacyHbmImpl extends ImplicitNamingStrategyJ
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public Identifier determineJoinTableName(ImplicitJoinTableNameSource source) {
 		final var associationOwningAttributePath = source.getAssociationOwningAttributePath();
 		if ( associationOwningAttributePath != null ) {

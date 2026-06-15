@@ -13,6 +13,8 @@ import org.hibernate.action.queue.spi.plan.FlushOperation;
 import org.hibernate.collection.spi.PersistentCollection;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.persister.collection.CollectionPersister;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /// Bind plan for a single collection row insert.
 ///
@@ -42,6 +44,7 @@ public class SingleRowInsertBindPlan implements BindPlan {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object getEntityInstance() {
 		// Collection operations don't represent entity operations - they represent
 		// the collection relationship (FK updates for one-to-many, join table rows for many-to-many).
@@ -50,6 +53,7 @@ public class SingleRowInsertBindPlan implements BindPlan {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Object[] getUniqueConstraintValues(
 			UniqueConstraint constraint,
 			SharedSessionContractImplementor session) {
@@ -65,6 +69,7 @@ public class SingleRowInsertBindPlan implements BindPlan {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void bindValues(
 			JdbcValueBindings jdbcValueBindings,
 			FlushOperation flushOperation,

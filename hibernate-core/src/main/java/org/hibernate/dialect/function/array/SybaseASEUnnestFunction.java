@@ -18,6 +18,8 @@ import org.hibernate.type.descriptor.java.BasicPluralJavaType;
 import jakarta.annotation.Nullable;
 
 import static org.hibernate.dialect.function.array.DdlTypeHelper.getNarrowCastTypeName;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Sybase ASE unnest function.
@@ -29,6 +31,7 @@ public class SybaseASEUnnestFunction extends UnnestFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected String getDdlType(SqlTypedMapping sqlTypedMapping, int containerSqlTypeCode, SqlAstTranslator<?> translator) {
 		// Sybase ASE refuses TEXT/UNITEXT/IMAGE in the columns clause of
 		// xmltable(), and also in ORDER BY / UNION select lists (which the
@@ -39,6 +42,7 @@ public class SybaseASEUnnestFunction extends UnnestFunction {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void renderXmlTable(
 			SqlAppender sqlAppender,
 			Expression array,

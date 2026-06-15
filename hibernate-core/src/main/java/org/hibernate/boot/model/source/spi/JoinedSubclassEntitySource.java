@@ -5,6 +5,8 @@
 package org.hibernate.boot.model.source.spi;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Strong Liu
@@ -16,5 +18,6 @@ public interface JoinedSubclassEntitySource extends SubclassEntitySource, Foreig
 	 *
 	 * @return The {@code PrimaryKeyJoinColumnSource} lists defined on the joined subclass or {@code null} otherwise.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	List<ColumnSource> getPrimaryKeyColumnSources();
 }

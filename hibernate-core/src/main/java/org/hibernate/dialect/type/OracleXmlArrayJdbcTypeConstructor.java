@@ -11,6 +11,8 @@ import org.hibernate.type.SqlTypes;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
 import org.hibernate.type.descriptor.jdbc.JdbcTypeConstructor;
 import org.hibernate.type.spi.TypeConfiguration;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Factory for {@link OracleXmlArrayJdbcType}.
@@ -20,6 +22,7 @@ public class OracleXmlArrayJdbcTypeConstructor implements JdbcTypeConstructor {
 	public static final OracleXmlArrayJdbcTypeConstructor INSTANCE = new OracleXmlArrayJdbcTypeConstructor();
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcType resolveType(
 			TypeConfiguration typeConfiguration,
 			Dialect dialect,
@@ -29,6 +32,7 @@ public class OracleXmlArrayJdbcTypeConstructor implements JdbcTypeConstructor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public JdbcType resolveType(
 			TypeConfiguration typeConfiguration,
 			Dialect dialect,
@@ -38,6 +42,7 @@ public class OracleXmlArrayJdbcTypeConstructor implements JdbcTypeConstructor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public int getDefaultSqlTypeCode() {
 		return SqlTypes.XML_ARRAY;
 	}

@@ -21,6 +21,8 @@ import org.hibernate.query.restriction.Restriction;
 import org.hibernate.query.specification.internal.SelectionSpecificationImpl;
 
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Specialization of {@link QuerySpecification} for programmatic customization of
@@ -81,6 +83,7 @@ public interface SelectionSpecification<T> extends QuerySpecification<T> {
 	 *
 	 * @return {@code this} for method chaining.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionSpecification<T> sort(Order<? super T> order);
 
 	/**
@@ -92,6 +95,7 @@ public interface SelectionSpecification<T> extends QuerySpecification<T> {
 	 *
 	 * @return {@code this} for method chaining.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionSpecification<T> resort(Order<? super T> order);
 
 	/**
@@ -103,9 +107,11 @@ public interface SelectionSpecification<T> extends QuerySpecification<T> {
 	 *
 	 * @return {@code this} for method chaining.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionSpecification<T> resort(List<? extends Order<? super T>> orders);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionSpecification<T> restrict(Restriction<? super T> restriction);
 
 	/**
@@ -115,6 +121,7 @@ public interface SelectionSpecification<T> extends QuerySpecification<T> {
 	 *
 	 * @return {@code this} for method chaining.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionSpecification<T> fetch(Path<T,?> fetchPath);
 
 	/**
@@ -124,6 +131,7 @@ public interface SelectionSpecification<T> extends QuerySpecification<T> {
 	 */
 	@FunctionalInterface
 	interface Augmentation<T> {
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		void augment(CriteriaBuilder builder, CriteriaQuery<T> query, Root<? extends T> root);
 	}
 
@@ -162,9 +170,11 @@ public interface SelectionSpecification<T> extends QuerySpecification<T> {
 	 *
 	 * @return {@code this} for method chaining.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionSpecification<T> augment(Augmentation<T> augmentation);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionQuery<T> createQuery(EntityHandler entityHandler);
 
 	/**
@@ -178,12 +188,15 @@ public interface SelectionSpecification<T> extends QuerySpecification<T> {
 	 * @return a new criteria query
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	CriteriaQuery<T> buildCriteria(CriteriaBuilder builder);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	SelectionSpecification<T> validate(CriteriaBuilder builder);
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	TypedQueryReference<T> reference();
 
 	/**
@@ -199,6 +212,7 @@ public interface SelectionSpecification<T> extends QuerySpecification<T> {
 	 * @param <T> The entity type which is the root of the query.
 	 * {@code resultType} and {@code <T>} are both expected to refer to a singular query root.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <T> SelectionSpecification<T> create(Class<T> rootEntityType) {
 		return new SelectionSpecificationImpl<>( rootEntityType );
 	}
@@ -218,6 +232,7 @@ public interface SelectionSpecification<T> extends QuerySpecification<T> {
 	 * @throws IllegalSelectQueryException The given HQL is expected to be a {@code select} query.  This method will
 	 * throw an exception if not.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <T> SelectionSpecification<T> create(Class<T> resultType, String hql) {
 		return new SelectionSpecificationImpl<>( hql, resultType );
 	}
@@ -234,6 +249,7 @@ public interface SelectionSpecification<T> extends QuerySpecification<T> {
 	 *
 	 * @since 8.0
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <T> SelectionSpecification<T> create(TypedQueryReference<T> typedQueryReference) {
 		@SuppressWarnings("unchecked")
 		final Class<T> resultType = (Class<T>) typedQueryReference.getResultType();
@@ -250,6 +266,7 @@ public interface SelectionSpecification<T> extends QuerySpecification<T> {
 	 *
 	 * @param <T> The entity type which is the root of the query.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	static <T> SelectionSpecification<T> create(CriteriaQuery<T> criteria) {
 		return new SelectionSpecificationImpl<>( criteria );
 	}
@@ -266,6 +283,7 @@ public interface SelectionSpecification<T> extends QuerySpecification<T> {
 	 * @since 7.2
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default ProjectionSpecification<T> createProjection() {
 		return ProjectionSpecification.create( this );
 	}
@@ -281,6 +299,7 @@ public interface SelectionSpecification<T> extends QuerySpecification<T> {
 	 * @since 7.2
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <X> SimpleProjectionSpecification<T,X> createProjection(SingularAttribute<? super T, X> attribute) {
 		return SimpleProjectionSpecification.create( this, attribute );
 	}
@@ -296,6 +315,7 @@ public interface SelectionSpecification<T> extends QuerySpecification<T> {
 	 * @since 7.3
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SimpleProjectionSpecification<T,Long> createCountProjection() {
 		return SimpleProjectionSpecification.count( this );
 	}
@@ -312,6 +332,7 @@ public interface SelectionSpecification<T> extends QuerySpecification<T> {
 	 * @since 7.3
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default SimpleProjectionSpecification<T,Boolean> createExistsProjection() {
 		return SimpleProjectionSpecification.exists( this );
 	}
@@ -327,6 +348,7 @@ public interface SelectionSpecification<T> extends QuerySpecification<T> {
 	 * @since 7.2
 	 */
 	@Incubating
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default <X> SimpleProjectionSpecification<T,X> createProjection(Path<T, X> path) {
 		return SimpleProjectionSpecification.create( this, path );
 	}

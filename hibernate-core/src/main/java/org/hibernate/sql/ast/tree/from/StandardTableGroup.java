@@ -14,6 +14,8 @@ import java.util.function.Predicate;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.spi.NavigablePath;
 import org.hibernate.sql.ast.spi.SqlAliasBase;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -93,6 +95,7 @@ public class StandardTableGroup extends AbstractTableGroup {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public void applyAffectedTableNames(Consumer<String> nameCollector) {
 		// todo (6.0) : if we implement dynamic TableReference creation, this still needs to return the expressions for all mapped tables not just the ones with a TableReference at this time
 		getPrimaryTableReference().applyAffectedTableNames( nameCollector );
@@ -102,25 +105,30 @@ public class StandardTableGroup extends AbstractTableGroup {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public TableReference getPrimaryTableReference() {
 		return primaryTableReference;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<TableReferenceJoin> getTableReferenceJoins() {
 		return tableJoins == null ? Collections.emptyList() : tableJoins;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public boolean isRealTableGroup() {
 		return realTableGroup || super.isRealTableGroup();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isFetched() {
 		return fetched;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void addTableReferenceJoin(TableReferenceJoin join) {
 		if ( tableJoins == null ) {
 			tableJoins = new ArrayList<>();
@@ -129,6 +137,7 @@ public class StandardTableGroup extends AbstractTableGroup {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N2, n = "", count = {})
 	public TableReference getTableReference(
 			NavigablePath navigablePath,
 			String tableExpression,
@@ -174,6 +183,7 @@ public class StandardTableGroup extends AbstractTableGroup {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected TableReference potentiallyCreateTableReference(String tableExpression) {
 		final TableReferenceJoin join = tableReferenceJoinCreator.apply( tableExpression, this );
 		if ( join != null ) {

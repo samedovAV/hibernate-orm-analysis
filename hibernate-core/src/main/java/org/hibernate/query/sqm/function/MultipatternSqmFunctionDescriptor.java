@@ -18,6 +18,8 @@ import java.util.List;
 import static org.hibernate.query.sqm.produce.function.StandardFunctionArgumentTypeResolvers.invariant;
 import static org.hibernate.query.sqm.produce.function.StandardFunctionReturnTypeResolvers.invariant;
 import static org.hibernate.query.sqm.produce.function.StandardFunctionReturnTypeResolvers.useArgType;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Support for overloaded functions defined in terms of a
@@ -32,6 +34,7 @@ public class MultipatternSqmFunctionDescriptor extends AbstractSqmFunctionDescri
 	private final SqmFunctionDescriptor[] functions;
 	private String argumentListSignature;
 
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	private static int first(SqmFunctionDescriptor[] functions) {
 		for (int i=0; i<functions.length; i++) {
 			if ( functions[i]!=null ) {
@@ -41,6 +44,7 @@ public class MultipatternSqmFunctionDescriptor extends AbstractSqmFunctionDescri
 		throw new IllegalArgumentException("no functions");
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	private static int last(SqmFunctionDescriptor[] functions) {
 		return functions.length-1;
 	}
@@ -110,6 +114,7 @@ public class MultipatternSqmFunctionDescriptor extends AbstractSqmFunctionDescri
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected <T> SelfRenderingSqmFunction<T> generateSqmFunctionExpression(
 			List<? extends SqmTypedNode<?>> arguments,
 			ReturnableType<T> impliedResultType,
@@ -123,16 +128,19 @@ public class MultipatternSqmFunctionDescriptor extends AbstractSqmFunctionDescri
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public String getArgumentListSignature() {
 		return argumentListSignature == null
 				? super.getArgumentListSignature()
 				: argumentListSignature;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void setArgumentListSignature(String argumentListSignature) {
 		this.argumentListSignature = argumentListSignature;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SqmFunctionDescriptor getFunction(int argumentCount) {
 		return functions[argumentCount];
 	}

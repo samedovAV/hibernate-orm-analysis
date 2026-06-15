@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.metamodel.mapping;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Details for a particular discriminator value.
@@ -19,11 +22,13 @@ public interface DiscriminatorValueDetails {
 	/**
 	 * The discriminator value
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Object getValue();
 
 	/**
 	 * The name of the concrete entity-type mapped to this {@linkplain #getValue() discriminator value}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	default String getIndicatedEntityName() {
 		return getIndicatedEntity().getEntityName();
 	}
@@ -31,5 +36,6 @@ public interface DiscriminatorValueDetails {
 	/**
 	 * Form of {@link #getIndicatedEntityName()} returning the matched {@link EntityMappingType}
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	EntityMappingType getIndicatedEntity();
 }

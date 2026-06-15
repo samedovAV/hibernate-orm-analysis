@@ -21,6 +21,8 @@ import org.hibernate.type.spi.TypeConfiguration;
 
 import java.util.Collections;
 import java.util.List;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -49,28 +51,34 @@ public class SelectStatement extends AbstractStatement implements SqlAstNode, Ex
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean isSelection() {
 		return true;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QuerySpec getQuerySpec() {
 		return queryPart.getFirstQuerySpec();
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public QueryPart getQueryPart() {
 		return queryPart;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public List<DomainResult<?>> getDomainResultDescriptors() {
 		return domainResults;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public void accept(SqlAstWalker walker) {
 		walker.visitSelectStatement( this );
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public DomainResult<?> createDomainResult(String resultVariable, DomainResultCreationState creationState) {
 		final List<SqlSelection> sqlSelections =
 				queryPart.getFirstQuerySpec().getSelectClause().getSqlSelections();
@@ -98,6 +106,7 @@ public class SelectStatement extends AbstractStatement implements SqlAstNode, Ex
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void applySqlSelections(DomainResultCreationState creationState) {
 		final TypeConfiguration typeConfiguration =
 				creationState.getSqlAstCreationState().getCreationContext()
@@ -121,6 +130,7 @@ public class SelectStatement extends AbstractStatement implements SqlAstNode, Ex
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public JdbcMappingContainer getExpressionType() {
 		final SelectClause selectClause = queryPart.getFirstQuerySpec().getSelectClause();
 		final List<SqlSelection> sqlSelections = selectClause.getSqlSelections();

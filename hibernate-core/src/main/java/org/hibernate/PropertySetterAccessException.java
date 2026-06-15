@@ -9,6 +9,8 @@ import java.util.Collection;
 import org.hibernate.proxy.HibernateProxy;
 
 import jakarta.annotation.Nullable;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Thrown when an {@link IllegalArgumentException} occurs calling a property setter method.
@@ -50,6 +52,7 @@ public class PropertySetterAccessException extends PropertyAccessException {
 		);
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public static String loggablePropertyValueString(Object value) {
 		return value instanceof Collection || value instanceof HibernateProxy
 				? value.getClass().getSimpleName()
@@ -57,6 +60,7 @@ public class PropertySetterAccessException extends PropertyAccessException {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String toString() {
 		return super.originalMessage();
 	}

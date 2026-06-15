@@ -3,6 +3,9 @@
  * Copyright Red Hat Inc. and Hibernate Authors
  */
 package org.hibernate.event.service.spi;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
+
 
 /**
  * Defines listener duplication checking strategy, both in terms of when a duplication is detected (see
@@ -28,6 +31,7 @@ public interface DuplicationStrategy {
 	 *
 	 * @return {@literal true} if the two instances are considered a duplication; {@literal false} otherwise
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	boolean areMatch(Object listener, Object original);
 
 	/**
@@ -35,5 +39,6 @@ public interface DuplicationStrategy {
 	 *
 	 * @return The strategy for handling duplication
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	Action getAction();
 }

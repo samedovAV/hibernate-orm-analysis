@@ -7,6 +7,8 @@ package org.hibernate.sql.ast.tree.cte;
 import org.hibernate.query.SortDirection;
 
 import jakarta.persistence.criteria.Nulls;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Christian Beikov
@@ -22,14 +24,17 @@ public class SearchClauseSpecification {
 		this.nullPrecedence = nullPrecedence;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public CteColumn getCteColumn() {
 		return cteColumn;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public SortDirection getSortOrder() {
 		return sortOrder;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public Nulls getNullPrecedence() {
 		return nullPrecedence;
 	}

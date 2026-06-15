@@ -11,6 +11,8 @@ import org.hibernate.engine.jdbc.dialect.spi.DialectResolutionInfo;
 import org.hibernate.internal.util.config.ConfigurationHelper;
 
 import static org.hibernate.cfg.DialectSpecificSettings.COCKROACH_VERSION_STRING;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * A list of relational database systems for which Hibernate can resolve a {@link Dialect}.
@@ -25,6 +27,7 @@ public enum Database {
 
 	DB2 {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Dialect createDialect(DialectResolutionInfo info) {
 			final String databaseVersion = info.getDatabaseVersion();
 			if ( databaseVersion != null ) {
@@ -52,10 +55,12 @@ public enum Database {
 					: new DB2Dialect( info );
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean productNameMatches(String databaseName) {
 			return databaseName.startsWith( "DB2" );
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getDriverClassName(String jdbcUrl) {
 			return "com.ibm.db2.jcc.DB2Driver";
 		}
@@ -63,18 +68,22 @@ public enum Database {
 
 	ENTERPRISEDB {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Dialect createDialect(DialectResolutionInfo info) {
 			return new PostgresPlusDialect( info );
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean productNameMatches(String databaseName) {
 			return "EnterpriseDB".equals( databaseName );
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getDriverClassName(String jdbcUrl) {
 			return "com.edb.Driver";
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getUrlPrefix() {
 			return "jdbc:edb:";
 		}
@@ -82,14 +91,17 @@ public enum Database {
 
 	H2 {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Dialect createDialect(DialectResolutionInfo info) {
 			return new H2Dialect( info );
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean productNameMatches(String databaseName) {
 			return "H2".equals( databaseName );
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getDriverClassName(String jdbcUrl) {
 			return "org.h2.Driver";
 		}
@@ -97,18 +109,22 @@ public enum Database {
 
 	HSQL {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Dialect createDialect(DialectResolutionInfo info) {
 			return new HSQLDialect( info );
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean productNameMatches(String databaseName) {
 			return "HSQL Database Engine".equals( databaseName );
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getDriverClassName(String jdbcUrl) {
 			return "org.hsqldb.jdbc.JDBCDriver";
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getUrlPrefix() {
 			return "jdbc:hsqldb:";
 		}
@@ -116,18 +132,22 @@ public enum Database {
 
 	HANA {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Dialect createDialect(DialectResolutionInfo info) {
 			return new HANADialect( info );
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean productNameMatches(String databaseName) {
 			return "HDB".equals( databaseName );
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getDriverClassName(String jdbcUrl) {
 			return "com.sap.db.jdbc.Driver";
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getUrlPrefix() {
 			return "jdbc:sap:";
 		}
@@ -135,6 +155,7 @@ public enum Database {
 
 	MARIADB {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean matchesResolutionInfo(DialectResolutionInfo info) {
 			if ( productNameMatches( info.getDatabaseName() ) ) {
 				return true;
@@ -146,14 +167,17 @@ public enum Database {
 			}
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Dialect createDialect(DialectResolutionInfo info) {
 			return new MariaDBDialect( info );
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean productNameMatches(String productName) {
 			return "MariaDB".equals( productName );
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getDriverClassName(String jdbcUrl) {
 			return "org.mariadb.jdbc.Driver";
 		}
@@ -161,14 +185,17 @@ public enum Database {
 
 	MYSQL {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Dialect createDialect(DialectResolutionInfo info) {
 			return new MySQLDialect( info );
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean productNameMatches(String databaseName) {
 			return "MySQL".equals( databaseName );
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getDriverClassName(String jdbcUrl) {
 			return "com.mysql.cj.jdbc.Driver";
 		}
@@ -176,10 +203,12 @@ public enum Database {
 
 	ORACLE {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Dialect createDialect(DialectResolutionInfo info) {
 			return new OracleDialect( info );
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean productNameMatches(String databaseName) {
 			return "Oracle".equals( databaseName );
 		}
@@ -191,6 +220,7 @@ public enum Database {
 
 	POSTGRESQL {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Dialect createDialect(DialectResolutionInfo info) {
 			final String version = getVersion( info );
 			return version.startsWith( "Cockroach" )
@@ -198,13 +228,16 @@ public enum Database {
 					: new PostgreSQLDialect( info );
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean productNameMatches(String databaseName) {
 			return "PostgreSQL".equals( databaseName );
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getDriverClassName(String jdbcUrl) {
 			return "org.postgresql.Driver";
 		}
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private String getVersion(DialectResolutionInfo info) {
 			final var databaseMetaData = info.getDatabaseMetadata();
 			if ( databaseMetaData != null ) {
@@ -226,14 +259,17 @@ public enum Database {
 
 	SPANNER {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Dialect createDialect(DialectResolutionInfo info) {
 			return new SpannerDialect( info );
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean productNameMatches(String databaseName) {
 			return databaseName.equals( "Google Cloud Spanner" );
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getDriverClassName(String jdbcUrl) {
 			return "com.google.cloud.spanner.jdbc.JdbcDriver";
 		}
@@ -241,14 +277,17 @@ public enum Database {
 
 	SPANNER_PG {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Dialect createDialect(DialectResolutionInfo info) {
 			return new SpannerPostgreSQLDialect( info );
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean productNameMatches(String databaseName) {
 			return databaseName.equals( "Google Cloud Spanner PostgreSQL" );
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getDriverClassName(String jdbcUrl) {
 			return "com.google.cloud.spanner.jdbc.JdbcDriver";
 		}
@@ -256,14 +295,17 @@ public enum Database {
 
 	SQLSERVER {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Dialect createDialect(DialectResolutionInfo info) {
 			return new SQLServerDialect( info );
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean productNameMatches(String databaseName) {
 			return databaseName.startsWith( "Microsoft SQL Server" );
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public String getDriverClassName(String jdbcUrl) {
 			return "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 		}
@@ -271,20 +313,24 @@ public enum Database {
 
 	SYBASE {
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public Dialect createDialect(DialectResolutionInfo info) {
 			final String databaseName = info.getDatabaseName();
 			return isASE( databaseName ) ? new SybaseASEDialect( info ) : null;
 		}
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		private boolean isASE(String databaseName) {
 			return "Sybase SQL Server".equals( databaseName )
 				|| "Adaptive Server Enterprise".equals( databaseName )
 				|| "ASE".equals( databaseName );
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean productNameMatches(String productName) {
 			return isASE( productName );
 		}
 		@Override
+		@Prove(complexity = Complexity.O_1, n = "", count = {})
 		public boolean matchesUrl(String jdbcUrl) {
 			return jdbcUrl.startsWith( "jdbc:sybase:" )
 				|| jdbcUrl.startsWith( "jdbc:sqlanywhere:" );
@@ -294,6 +340,7 @@ public enum Database {
 	/**
 	 * Does this database match the given metadata?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean matchesResolutionInfo(DialectResolutionInfo info) {
 		return productNameMatches( info.getDatabaseName() );
 	}
@@ -301,17 +348,20 @@ public enum Database {
 	/**
 	 * Does this database have the given product name?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public abstract boolean productNameMatches(String productName);
 
 	/**
 	 * Create a {@link Dialect} for the given metadata.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public abstract Dialect createDialect(DialectResolutionInfo info);
 
 	/**
 	 * Get the name of the JDBC driver class for this database,
 	 * or null if we're not too sure what it should be.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getDriverClassName(String jdbcUrl) {
 		return null;
 	}
@@ -319,6 +369,7 @@ public enum Database {
 	/**
 	 * Get the JDBC URL prefix used by this database.
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public String getUrlPrefix() {
 		return "jdbc:" + toString().toLowerCase() + ":";
 	}
@@ -326,6 +377,7 @@ public enum Database {
 	/**
 	 * Does the given JDBC URL connect to this database?
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public boolean matchesUrl(String jdbcUrl) {
 		return jdbcUrl.toLowerCase().startsWith( getUrlPrefix() );
 	}

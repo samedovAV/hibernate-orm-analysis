@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * @author Steve Ebersole
@@ -32,16 +34,19 @@ public class DirectResultSetAccess extends AbstractResultSetAccess {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public ResultSet getResultSet() {
 		return resultSet;
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	protected SessionFactoryImplementor getFactory() {
 		return getPersistenceContext().getFactory();
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public void release() {
 		getPersistenceContext().getJdbcCoordinator()
 				.getLogicalConnection()

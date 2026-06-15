@@ -21,6 +21,8 @@ import org.hibernate.sql.model.ValuesAnalysis;
 
 import static org.hibernate.engine.jdbc.mutation.internal.ModelMutationHelper.checkResults;
 import static org.hibernate.sql.model.ModelMutationLogging.MODEL_MUTATION_LOGGER;
+import com.samedov.annotation.Prove;
+import com.samedov.annotation.Complexity;
 
 /**
  * Base support for {@link MutationExecutor} implementations
@@ -32,6 +34,7 @@ public abstract class AbstractMutationExecutor implements MutationExecutor {
 	 * Executors with non-batched operations should call this to clean up any "previous" batch
 	 * before starting their work
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void prepareForNonBatchedWork(BatchKey batchKey, SharedSessionContractImplementor session) {
 		// if there is a current batch, make sure to execute it first
 		session.getJdbcCoordinator().conditionallyExecuteBatch( batchKey );
@@ -45,6 +48,7 @@ public abstract class AbstractMutationExecutor implements MutationExecutor {
 	 * </ol>
 	 */
 	@Override
+	@Prove(complexity = Complexity.O_N, n = "", count = {})
 	public final GeneratedValues execute(
 			Object modelReference,
 			ValuesAnalysis valuesAnalysis,
@@ -55,6 +59,7 @@ public abstract class AbstractMutationExecutor implements MutationExecutor {
 	}
 
 	@Override
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	public final GeneratedValues execute(
 			Object modelReference,
 			ValuesAnalysis valuesAnalysis,
@@ -76,6 +81,7 @@ public abstract class AbstractMutationExecutor implements MutationExecutor {
 
 
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected GeneratedValues performNonBatchedOperations(
 			Object modelReference,
 			ValuesAnalysis valuesAnalysis,
@@ -85,12 +91,14 @@ public abstract class AbstractMutationExecutor implements MutationExecutor {
 		return null;
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void performSelfExecutingOperations(
 			ValuesAnalysis valuesAnalysis,
 			TableInclusionChecker inclusionChecker,
 			SharedSessionContractImplementor session) {
 	}
 
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void performBatchedOperations(
 			ValuesAnalysis valuesAnalysis,
 			TableInclusionChecker inclusionChecker,
@@ -100,6 +108,7 @@ public abstract class AbstractMutationExecutor implements MutationExecutor {
 	/**
 	 * Perform a non-batched mutation
 	 */
+	@Prove(complexity = Complexity.O_1, n = "", count = {})
 	protected void performNonBatchedMutation(
 			PreparedStatementDetails statementDetails,
 			Object id,
